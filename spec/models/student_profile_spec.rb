@@ -1,0 +1,20 @@
+require 'spec_helper'
+
+describe StudentProfile do
+  COLUMNS = {
+    person_id:          :integer,
+    questionarie:       :boolean,
+    passport_copy:      :boolean,
+    petition:           :boolean,
+    photos:             :boolean,
+    folder_in_archive:  :string
+  }
+
+  COLUMNS.each do |name, type|
+    context ":" do 
+      let(:name) { name }
+      let(:type) { type }
+      it_should_behave_like "have DB column of type"
+    end
+  end
+end
