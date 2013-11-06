@@ -15,4 +15,7 @@ describe GroupParticipation do
       it_should_behave_like "have DB column of type"
     end
   end
+
+  it { should belong_to(:student_profile) }
+  it { should belong_to(:akadem_group) }
 end

@@ -21,4 +21,6 @@ describe Person do
       it_should_behave_like "have DB column of type"
     end
   end
+
+  it { should have_one(:student_profile).dependent(:destroy) }
 end

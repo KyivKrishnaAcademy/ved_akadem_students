@@ -14,4 +14,7 @@ describe AkademGroup do
       it_should_behave_like "have DB column of type"
     end
   end
+
+  it { should have_many(:group_participations) }
+  it { should have_many(:student_profiles).through(:group_participations) }
 end
