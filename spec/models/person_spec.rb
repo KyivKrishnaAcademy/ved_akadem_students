@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Person do
-  COLUMNS = {
+  P_COLUMNS = {
     name:               :string   ,
     middle_name:        :string   ,
     surname:            :string   ,
@@ -14,7 +14,7 @@ describe Person do
     edu_and_work:       :text
   }
 
-  COLUMNS.each do |name, type|
+  P_COLUMNS.each do |name, type|
     context ":" do 
       let(:name) { name }
       let(:type) { type }
