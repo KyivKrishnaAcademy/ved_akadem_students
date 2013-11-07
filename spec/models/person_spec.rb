@@ -11,6 +11,8 @@ describe Person do
     gender:             :boolean  ,
     birthday:           :date     ,
     emergency_contact:  :string   ,
+    photo:              :text     ,
+    profile_fullness:   :boolean  ,
     edu_and_work:       :text
   }
 
