@@ -15,6 +15,6 @@ describe AkademGroup do
     end
   end
 
-  it { should have_many(:group_participations) }
+  it { should have_many(:group_participations).dependent(:destroy) }
   it { should have_many(:student_profiles).through(:group_participations) }
 end
