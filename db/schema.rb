@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108160759) do
+ActiveRecord::Schema.define(version: 20131108183921) do
 
   create_table "akadem_groups", force: true do |t|
     t.string   "group_name"
@@ -24,21 +24,31 @@ ActiveRecord::Schema.define(version: 20131108160759) do
   create_table "attendances", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "class_schedule_id"
+    t.integer  "student_profile_id"
   end
 
   create_table "class_schedules", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "date"
+    t.integer  "course_id"
+    t.integer  "teacher_profile_id"
+    t.integer  "akadem_group_id"
   end
 
   create_table "classrooms", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "location"
+    t.string   "description"
   end
 
   create_table "courses", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.string   "description"
   end
 
   create_table "group_participations", force: true do |t|
@@ -82,11 +92,14 @@ ActiveRecord::Schema.define(version: 20131108160759) do
   create_table "teacher_profiles", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
   end
 
   create_table "teacher_specialities", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "teacher_profile_id"
+    t.integer  "course_id"
   end
 
 end
