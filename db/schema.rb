@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107083056) do
+ActiveRecord::Schema.define(version: 20131108160759) do
 
   create_table "akadem_groups", force: true do |t|
     t.string   "group_name"
@@ -19,6 +19,26 @@ ActiveRecord::Schema.define(version: 20131107083056) do
     t.datetime "updated_at"
     t.string   "group_description"
     t.date     "establ_date"
+  end
+
+  create_table "attendances", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "class_schedules", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "classrooms", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "courses", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "group_participations", force: true do |t|
@@ -57,6 +77,16 @@ ActiveRecord::Schema.define(version: 20131107083056) do
     t.boolean  "photos"
     t.string   "folder_in_archive"
     t.boolean  "active_student"
+  end
+
+  create_table "teacher_profiles", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teacher_specialities", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
