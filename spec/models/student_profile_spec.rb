@@ -12,4 +12,6 @@ describe StudentProfile do
   it { should belong_to(:person) }
   it { should have_many(:group_participations ).dependent(:destroy              ) }
   it { should have_many(:akadem_groups        ).through(  :group_participations ) }
+  it { should have_many(:attendances          ).dependent(:destroy              ) }
+  it { should have_many(:class_schedules      ).through(  :attendances          ) }
 end
