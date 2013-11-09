@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131108183921) do
+ActiveRecord::Schema.define(version: 20131109143231) do
 
   create_table "akadem_groups", force: true do |t|
     t.string   "group_name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20131108183921) do
     t.datetime "updated_at"
     t.integer  "class_schedule_id"
     t.integer  "student_profile_id"
+    t.boolean  "presence"
   end
 
   create_table "class_schedules", force: true do |t|
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 20131108183921) do
     t.integer  "course_id"
     t.integer  "teacher_profile_id"
     t.integer  "akadem_group_id"
+    t.integer  "classroom_id"
   end
 
   create_table "classrooms", force: true do |t|
@@ -100,6 +102,7 @@ ActiveRecord::Schema.define(version: 20131108183921) do
     t.datetime "updated_at"
     t.integer  "teacher_profile_id"
     t.integer  "course_id"
+    t.date     "since"
   end
 
 end

@@ -6,5 +6,5 @@ describe TeacherSpeciality do
   it { should have_db_column(:since               ).of_type(:date   ) }
 
   it { should belong_to(:teacher_profile  ) }
-  it { should belong_to(:course_id        ) }
+  it { should belong_to(:course           ) }
 end
