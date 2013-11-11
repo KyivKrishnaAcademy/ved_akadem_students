@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 #ruby-gemset=ved_akadem_base_2nd_ed
 
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.1'
 
 group :development do
   gem 'erd'
