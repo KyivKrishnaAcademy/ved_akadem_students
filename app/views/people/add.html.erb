@@ -1,3 +1,9 @@
 <% provide(:title, "Add New Person") %>
-<h1>People#add</h1>
-<p>Find me in app/views/people/add.html.erb</p>
+<h1>Add Person</h1>
+<br>
+<%= form_for @person, url: people_path do |f| %>
+  <%= f.label      :name %>
+  <%= f.text_field :name %>
+  <br><br>
+  <%= f.submit "Add person", class: "btn" %>
+<% end %>
