@@ -1,6 +1,14 @@
 class Person < ActiveRecord::Base
   has_one :student_profile, dependent: :destroy
 
+  before_save do |p|
+    p.email          =          email.to_s.downcase
+    p.name           =           name.to_s.downcase.titleize
+    p.middle_name    =    middle_name.to_s.downcase.titleize
+    p.surname        =        surname.to_s.downcase.titleize
+    p.spiritual_name = spiritual_name.to_s.downcase.titleize
+  end
+
   validates :name,    length: { maximum: 50 }, presence: true 
   validates :surname, length: { maximum: 50 }, presence: true 
   validates :gender,          presence: true

@@ -2,16 +2,6 @@ require 'spec_helper'
 
 describe Person do
 
-  before(:all) do 
-    Person.create!(
-      email:      'address@example.com' ,
-      name:       'Vasyl'               ,
-      surname:    'Vasilevich'          ,
-      telephone:  '380672222222'        ,
-      gender:     true  
-    ) 
-  end # should use Fabric
-
   after(:all) { Person.destroy_all }
 
   it { should have_db_column(:name              ).of_type(:string   ) }
@@ -69,6 +59,29 @@ describe Person do
     end
   end
 
-  pending "strings downcase titelize"
+  describe "email" do
+    it "should be downcased" do
+      VALID_ADDRESSES.each do |valid_address|
+        p = FactoryGirl.create(:person, email: valid_address)
+        p.email.should == valid_address.downcase
+      end
+    end
+  end
+
+  describe "columns" do
+    it "should be downcased and titelized" do
+      name, surname, mname, spname = 'SomeNaMe', 'SomeToo', 'AnotheROne', 'AdiDaSaDAsaDasa'
+      p = FactoryGirl.create(:person,
+          name:           name    ,
+          surname:        surname ,
+          middle_name:    mname   ,
+          spiritual_name: spname
+        )
+      p.name.should           ==     name.downcase.titleize
+      p.surname.should        ==  surname.downcase.titleize
+      p.middle_name.should    ==    mname.downcase.titleize
+      p.spiritual_name.should ==   spname.downcase.titleize
+    end
+  end
 
 end
