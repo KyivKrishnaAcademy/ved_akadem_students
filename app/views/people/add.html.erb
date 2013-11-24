@@ -2,6 +2,7 @@
 <h1>Add Person</h1>
 <br>
 <%= form_for @person, url: people_path do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
   <%= f.label      :spiritual_name %>
   <%= f.text_field :spiritual_name %>
   <br>

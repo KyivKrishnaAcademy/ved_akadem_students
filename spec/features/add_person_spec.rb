@@ -14,7 +14,7 @@ feature "Add person:" do
     fill_person_data telephone: '3322'
 
     expect { click_button "Add person" }.not_to change{Person.count}.by(1)
-    expect(page).to have_selector('section.alert-danger')
+    expect(page).to have_selector('section#error_explanation')
   end
 
   scenario "student" do

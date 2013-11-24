@@ -22,8 +22,6 @@ class PeopleController < ApplicationController
       flash[:success] = "yohoo!"
       redirect_to(action: :add)
     elsif
-      #TODO write flash message
-      flash[:danger] = "error!"
       render(action: :add)
     end
 
