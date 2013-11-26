@@ -1,1 +1,2 @@
 include PeopleHelper
+include ApplicationHelper
