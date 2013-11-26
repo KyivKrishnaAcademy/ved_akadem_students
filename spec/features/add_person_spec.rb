@@ -1,8 +1,11 @@
 require 'spec_helper'
 
 feature "Add person:" do
+
+  before(:each) { visit people_add_path }
+  after(:all)   { Person.destroy_all    }
+
   scenario "simple (no student, no teacher) added successfully with right field" do
-    visit people_add_path
     fill_person_data
 
     expect { click_button "Add person" }.to change{Person.count}.by(1)
@@ -10,7 +13,6 @@ feature "Add person:" do
   end
 
   scenario "simple (no student, no teacher) failed to add with wrong fields" do
-    visit people_add_path
     fill_person_data telephone: '3322'
 
     expect { click_button "Add person" }.not_to change{Person.count}.by(1)
@@ -23,6 +25,13 @@ feature "Add person:" do
 
   scenario "teacher" do
     pending "to be written"
+  end
+
+  scenario "flash message contains person name on success" do #TODO and it is a link
+    person = fill_person_data
+
+    expect { click_button "Add person" }.to change{Person.count}.by(1)
+    expect(page).to have_selector('section.alert-success', text: "#{complex_name(person).downcase.titleize}")
   end
 
   def fill_person_data p={}
@@ -38,5 +47,6 @@ feature "Add person:" do
     select  (p[:birthday_1i]||'1984').to_s, from: 'person_birthday_1i'
     select  (p[:birthday_2i]||'May' ).to_s, from: 'person_birthday_2i'
     select  (p[:birthday_3i]||'30'  ).to_s, from: 'person_birthday_3i'
+    pf
   end
 end

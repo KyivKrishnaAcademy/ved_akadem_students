@@ -18,8 +18,7 @@ class PeopleController < ApplicationController
         :emergency_contact
       ))
     if @person.save
-      #TODO write flash message
-      flash[:success] = "yohoo!"
+      flash[:success] = "#{view_context.complex_name(@person)} added."
       redirect_to(action: :add)
     elsif
       render(action: :add)
