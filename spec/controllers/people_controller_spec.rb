@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe PeopleController do
+  after(:all) { Person.destroy_all }
 
   describe "GET 'new'" do
     before(:each) { get 'new' }
@@ -32,4 +33,11 @@ describe PeopleController do
     end
   end
 
+  describe "GET 'show'" do
+    it "should get right person" do
+      p = FactoryGirl.create :person
+      get 'show', id: p
+      assigns(:person).should eq(p)
+    end
+  end
 end
