@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "Add person:" do
 
-  before(:each) { visit people_add_path }
+  before(:each) { visit new_person_path }
   after(:all)   { Person.destroy_all    }
 
   scenario "simple (no student, no teacher) added successfully with right field" do

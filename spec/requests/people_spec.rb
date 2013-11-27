@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe "People" do
-  describe "Add page" do
+  describe "New page" do
     it "can be gotten" do
-      get people_add_path
+      get new_person_path
       response.status.should be(200)
     end
   end

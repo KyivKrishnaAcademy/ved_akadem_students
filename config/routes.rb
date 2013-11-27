@@ -1,6 +1,5 @@
 VedAkademBase2ndEd::Application.routes.draw do
-  get   'people/add' => 'people#add'
-  post  'people'     => 'people#create'
+  resources :people
 
   get "static_pages/home"
   get "static_pages/about"

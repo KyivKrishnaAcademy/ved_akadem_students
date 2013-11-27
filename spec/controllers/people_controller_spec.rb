@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe PeopleController do
 
-  describe "GET 'add'" do
-    before(:each) { get 'add' }
+  describe "GET 'new'" do
+    before(:each) { get 'new' }
 
     it { response.should be_success }
     it { assigns(:person).should be_a_new(Person) }
@@ -14,7 +14,7 @@ describe PeopleController do
 
     it do 
       post 'create' , person: get_person.attributes
-      response.should redirect_to(action: :add)
+      response.should redirect_to(action: :new)
     end
 
     it "should create Person" do

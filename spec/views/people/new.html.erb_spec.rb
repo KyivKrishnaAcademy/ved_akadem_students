@@ -1,12 +1,13 @@
 require 'spec_helper'
 
-describe "people/add.html.erb" do
+describe "people/new.html.erb" do
 
-  before { visit people_add_path }
+  before { visit new_person_path }
 
   subject { page }
 
   it { should have_title(full_title("Add New Person")) }
+  it { should have_selector('h1', text: "Add Person") }
   it { should have_selector('form.new_person') }
   it { should have_selector('label', text: "Name") }
   it { should have_selector('input#person_name') }

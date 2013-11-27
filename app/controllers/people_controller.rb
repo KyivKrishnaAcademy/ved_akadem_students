@@ -1,6 +1,6 @@
 class PeopleController < ApplicationController
 
-  def add
+  def new
     @person = Person.new
   end
 
@@ -19,9 +19,9 @@ class PeopleController < ApplicationController
       ))
     if @person.save
       flash[:success] = "#{view_context.complex_name(@person)} added."
-      redirect_to(action: :add)
+      redirect_to(action: :new)
     elsif
-      render(action: :add)
+      render(action: :new)
     end
 
   end
