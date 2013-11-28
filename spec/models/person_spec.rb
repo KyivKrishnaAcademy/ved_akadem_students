@@ -22,7 +22,9 @@ describe Person do
   it { should validate_presence_of(:name      ) }
   it { should validate_presence_of(:surname   ) }
   it { should validate_presence_of(:telephone ) }
-  it { should validate_presence_of(:gender    ) }
+
+  it { should     allow_value(  [true, false] ).for(:gender) }
+  it { should_not allow_value(  nil           ).for(:gender) }
 
   it { should ensure_length_of(:name            ).is_at_most(50) }
   it { should ensure_length_of(:surname         ).is_at_most(50) }

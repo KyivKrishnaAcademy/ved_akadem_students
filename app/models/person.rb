@@ -11,9 +11,9 @@ class Person < ActiveRecord::Base
 
   validates :name,    length: { maximum: 50 }, presence: true 
   validates :surname, length: { maximum: 50 }, presence: true 
-  validates :gender,          presence: true
   validates :middle_name,     length: { maximum: 50 }
   validates :spiritual_name,  length: { maximum: 50 }
+  validates :gender,          inclusion: { in: [true, false] }
   validates :telephone, 
     presence: true, uniqueness: true,
     numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }

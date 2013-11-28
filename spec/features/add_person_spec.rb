@@ -6,7 +6,7 @@ feature "Add person:" do
   after(:all)   { Person.destroy_all    }
 
   scenario "simple (no student, no teacher) added successfully with right field" do
-    fill_person_data
+    fill_person_data gender: 'Female'
 
     expect { click_button "Add person" }.to change{Person.count}.by(1)
     expect(page).to have_selector('section.alert-success')
