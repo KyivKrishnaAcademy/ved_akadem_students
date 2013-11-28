@@ -18,7 +18,7 @@ class PeopleController < ApplicationController
         :emergency_contact
       ))
     if @person.save
-      flash[:success] = "#{view_context.complex_name(@person)} added."
+      flash[:success] = "#{view_context.link_to( view_context.complex_name(@person), person_path(@person) )} added.".html_safe
       redirect_to(action: :new)
     elsif
       render(action: :new)

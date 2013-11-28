@@ -27,11 +27,14 @@ feature "Add person:" do
     pending "to be written"
   end
 
-  scenario "flash message contains person name on success" do #TODO and it is a link
-    person = fill_person_data
+  scenario "flash message contains link to person#show on success" do
+    person              = fill_person_data
+    person_complex_name = "#{complex_name(person).downcase.titleize}"
 
     expect { click_button "Add person" }.to change{Person.count}.by(1)
-    expect(page).to have_selector('section.alert-success', text: "#{complex_name(person).downcase.titleize}")
+    expect(page).to have_selector('section.alert-success a', text: person_complex_name)
+    click_link person_complex_name
+    expect(page).to have_selector('h1', text: person_complex_name)
   end
 
   def fill_person_data p={}
