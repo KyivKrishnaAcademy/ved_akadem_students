@@ -40,4 +40,13 @@ describe PeopleController do
       assigns(:person).should eq(p)
     end
   end
+
+  describe "GET 'index'" do
+    before { 20.times { FactoryGirl.create :person } }
+    it "should get all people" do
+      p = Person.all
+      get 'index'
+      assigns(:people).should eq(p)
+    end
+  end
 end

@@ -1,0 +1,22 @@
+<% provide(:title, "All People") %>
+
+<h1>People</h1>
+
+<table class="table">
+<thead>
+  <tr>
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Spiritual Name</th>
+  </tr>
+</thead>
+<tbody>
+  <% @people.each do |p| %>
+    <tr class="person" id="<%= p.id %>">
+      <td><%= link_to p.name, person_path(p) %></td>
+      <td><%= link_to p.surname, person_path(p) %></td>
+      <td><%= link_to p.spiritual_name, person_path(p) %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
