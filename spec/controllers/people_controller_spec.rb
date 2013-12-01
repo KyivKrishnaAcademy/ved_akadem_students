@@ -11,8 +11,6 @@ describe PeopleController do
   end
 
   describe "POST 'create'" do
-    after(:all) { Person.destroy_all }
-
     it do 
       post 'create' , person: get_person.attributes
       response.should redirect_to(action: :new)
