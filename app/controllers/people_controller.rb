@@ -5,18 +5,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(params.require(:person).permit(
-        :name           ,
-        :spiritual_name ,
-        :middle_name    ,
-        :surname        ,
-        :email          ,
-        :telephone      ,
-        :gender         ,
-        :birthday       ,
-        :edu_and_work   ,
-        :emergency_contact
-      ))
+    @person = Person.new(person_params)
     if @person.save
       flash[:success] = "#{view_context.link_to( view_context.complex_name(@person), person_path(@person) )} added.".html_safe
       redirect_to(action: :new)
@@ -42,4 +31,21 @@ class PeopleController < ApplicationController
       redirect_to :back
     end
   end
+
+  private
+
+    def person_params
+      params.require(:person).permit(
+        :name           ,
+        :spiritual_name ,
+        :middle_name    ,
+        :surname        ,
+        :email          ,
+        :telephone      ,
+        :gender         ,
+        :birthday       ,
+        :edu_and_work   ,
+        :emergency_contact
+      )
+    end
 end

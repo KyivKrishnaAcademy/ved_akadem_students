@@ -8,14 +8,14 @@ feature "Add person:" do
   scenario "simple (no student, no teacher) added successfully with right field" do
     fill_person_data gender: 'Female'
 
-    expect { click_button "Add person" }.to change{Person.count}.by(1)
+    expect { click_button "Create Person" }.to change{Person.count}.by(1)
     expect(page).to have_selector('section.alert-success')
   end
 
   scenario "simple (no student, no teacher) failed to add with wrong fields" do
     fill_person_data telephone: '3322'
 
-    expect { click_button "Add person" }.not_to change{Person.count}.by(1)
+    expect { click_button "Create Person" }.not_to change{Person.count}.by(1)
     expect(page).to have_selector('section#error_explanation')
   end
 
@@ -31,7 +31,7 @@ feature "Add person:" do
     person              = fill_person_data
     person_complex_name = "#{complex_name(person).downcase.titleize}"
 
-    expect { click_button "Add person" }.to change{Person.count}.by(1)
+    expect { click_button "Create Person" }.to change{Person.count}.by(1)
     expect(page).to have_selector('section.alert-success a', text: person_complex_name)
     click_link person_complex_name
     expect(page).to have_selector('h1', text: person_complex_name)

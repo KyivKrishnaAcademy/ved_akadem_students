@@ -7,6 +7,7 @@ describe "People" do
     it "can be gotten" do
       get new_person_path
       response.status.should be(200)
+      response.should render_template(partial: '_person_form')
     end
   end
 
