@@ -33,4 +33,13 @@ class PeopleController < ApplicationController
     @people = Person.all
   end
 
+  def destroy
+    if Person.find(params[:id]).destroy.destroyed?
+      flash[:success] = "Person record deleted!"
+      redirect_to people_path
+    else
+      flash[:error] = "Person deletion failed!"
+      redirect_to :back
+    end
+  end
 end

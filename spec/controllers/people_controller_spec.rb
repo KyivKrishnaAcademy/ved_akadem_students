@@ -47,4 +47,13 @@ describe PeopleController do
       assigns(:people).should eq(p)
     end
   end
+
+  describe "DELETE 'destroy'" do
+    before { FactoryGirl.create :person }
+    it "should delete person" do
+      expect {
+        delete 'destroy', id: Person.last.id
+      }.to change{Person.count}.by(-1)
+    end
+  end
 end
