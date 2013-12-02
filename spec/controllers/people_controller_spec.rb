@@ -56,4 +56,13 @@ describe PeopleController do
       }.to change{Person.count}.by(-1)
     end
   end
+
+  describe "GET 'edit'" do
+    before { @p = FactoryGirl.create :person }
+    it "should get right person" do
+      p = FactoryGirl.create :person
+      get 'edit', id: p
+      assigns(:person).should eq(p)
+    end 
+  end
 end

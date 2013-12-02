@@ -25,4 +25,13 @@ describe "People" do
       response.status.should be(200)
     end
   end
+
+  describe "Edit page" do
+    it "can be gotten" do
+      p = FactoryGirl.create :person
+      get edit_person_path(p)
+      response.status.should be(200)
+      response.should render_template(partial: '_person_form')
+    end
+  end
 end
