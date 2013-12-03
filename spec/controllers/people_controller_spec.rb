@@ -65,4 +65,14 @@ describe PeopleController do
       assigns(:person).should eq(p)
     end 
   end
+
+  describe "PATCH 'update'" do
+    it "updates person right" do
+      p = FactoryGirl.create :person
+      p.name = "Vasiliy"
+      expect { patch 'update', id: p.id, person: p.attributes }.to change{
+        Person.find(p.id).name
+      }.to("Vasiliy")
+    end
+  end
 end
