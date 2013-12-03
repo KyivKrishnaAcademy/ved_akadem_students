@@ -3,6 +3,16 @@ require 'spec_helper'
 describe PeopleController do
   after(:all) { Person.destroy_all }
 
+  shared_examples "gets right person" do
+    before(:each) do
+      @p = Person.last
+      get "#{action}", id: @p
+    end
+
+    it { response.should be_success }
+    it { assigns(:person).should eq(@p) }
+  end
+
   describe "GET 'new'" do
     before(:each) { get 'new' }
 
@@ -11,19 +21,21 @@ describe PeopleController do
   end
 
   describe "POST 'create'" do
+    before(:each) { @p = get_person.attributes }
+
     it do 
-      post 'create' , person: get_person.attributes
+      post 'create' , person: @p
       response.should redirect_to(action: :new)
     end
 
-    it "should create Person" do
+    it "creates Person" do
       expect {
-        post 'create' , person: get_person.attributes
+        post 'create' , person: @p
       }.to change{Person.count}.by(1)
     end
 
-    it "should not create Person" do
-      attrib = get_person.attributes
+    it "don't creates Person" do
+      attrib             = @p
       attrib[:telephone] = '123213'
       expect {
         post 'create' , person: attrib
@@ -31,48 +43,44 @@ describe PeopleController do
     end
   end
 
-  describe "GET 'show'" do
-    it "should get right person" do
-      p = FactoryGirl.create :person
-      get 'show', id: p
-      assigns(:person).should eq(p)
+  context do
+    before(:all) { 20.times { create_person } }
+
+    describe "GET 'index'" do
+      before(:each) { get 'index' }
+
+      it { response.should be_success }
+      it { assigns(:people).should eq(Person.all) }
     end
-  end
 
-  describe "GET 'index'" do
-    before { 20.times { FactoryGirl.create :person } }
-    it "should get all people" do
-      p = Person.all
-      get 'index'
-      assigns(:people).should eq(p)
+    describe "DELETE 'destroy'" do
+      it "deletes person" do
+        expect {
+          delete 'destroy', id: Person.last.id
+        }.to change{Person.count}.by(-1)
+      end
     end
-  end
 
-  describe "DELETE 'destroy'" do
-    before { FactoryGirl.create :person }
-    it "should delete person" do
-      expect {
-        delete 'destroy', id: Person.last.id
-      }.to change{Person.count}.by(-1)
+    describe "GET 'show'" do
+      let(:action) {'show'}
+
+      it_behaves_like "gets right person"
     end
-  end
 
-  describe "GET 'edit'" do
-    before { @p = FactoryGirl.create :person }
-    it "should get right person" do
-      p = FactoryGirl.create :person
-      get 'edit', id: p
-      assigns(:person).should eq(p)
-    end 
-  end
+    describe "GET 'edit'" do
+      let(:action) {'edit'}
 
-  describe "PATCH 'update'" do
-    it "updates person right" do
-      p = FactoryGirl.create :person
-      p.name = "Vasiliy"
-      expect { patch 'update', id: p.id, person: p.attributes }.to change{
-        Person.find(p.id).name
-      }.to("Vasiliy")
+      it_behaves_like "gets right person"
+    end
+
+    describe "PATCH 'update'" do
+      it "updates person right" do
+        p       = Person.last
+        p.name  = "Vasiliy"
+        expect { patch 'update', id: p.id, person: p.attributes }
+          .to change{ Person.find(p.id).name }
+            .to("Vasiliy")
+      end
     end
   end
 end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "people/new.html.erb" do
   before do
-    @p = FactoryGirl.create :person
+    @p = create_person
     visit person_path(@p)
   end
 

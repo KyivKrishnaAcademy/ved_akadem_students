@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "people/index.html.erb" do
 
   before do
-    20.times { FactoryGirl.create :person }
+    20.times { create_person }
     visit people_path
   end
 

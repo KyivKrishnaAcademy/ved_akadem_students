@@ -1,5 +1,4 @@
 class PeopleController < ApplicationController
-
   def new
     @person = Person.new
   end
@@ -8,18 +7,18 @@ class PeopleController < ApplicationController
     @person = Person.new(person_params)
     if @person.save
       flash[:success] = "#{view_context.link_to( view_context.complex_name(@person), person_path(@person) )} added.".html_safe
-      redirect_to(action: :new)
+      redirect_to action: :new
     elsif
-      render(action: :new)
+      render      action: :new
     end
   end
 
   def show
-    @person = Person.find(params[:id])
+    @person = find_person
   end
 
   def edit
-    @person = Person.find(params[:id])
+    @person = find_person
   end
 
   def index
@@ -27,17 +26,15 @@ class PeopleController < ApplicationController
   end
 
   def destroy
-    if Person.find(params[:id]).destroy.destroyed?
-      flash[:success] = "Person record deleted!"
-      redirect_to people_path
+    if find_person.destroy.destroyed?
+      redirect_to people_path , flash: { success: 'Person record deleted!'  }
     else
-      flash[:error] = "Person deletion failed!"
-      redirect_to :back
+      redirect_to :back       , flash: { error:   'Person deletion failed!' }
     end
   end
 
   def update
-    p = Person.find(params[:id])
+    p = find_person
     if p.update_attributes(person_params)
       redirect_to p, flash: { success: 'Person was successfully updated.' }
     else
@@ -46,6 +43,10 @@ class PeopleController < ApplicationController
   end
 
   private
+
+    def find_person
+      Person.find(params[:id])
+    end
 
     def person_params
       params.require(:person).permit(

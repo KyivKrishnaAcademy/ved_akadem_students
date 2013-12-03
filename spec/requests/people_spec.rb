@@ -13,8 +13,7 @@ describe "People" do
 
   describe "Show page" do
     it "can be gotten" do
-      p = FactoryGirl.create :person
-      get person_path(p)
+      get person_path(create_person)
       response.status.should be(200)
     end
   end
@@ -28,8 +27,7 @@ describe "People" do
 
   describe "Edit page" do
     it "can be gotten" do
-      p = FactoryGirl.create :person
-      get edit_person_path(p)
+      get edit_person_path(create_person)
       response.status.should be(200)
       response.should render_template(partial: '_person_form')
     end

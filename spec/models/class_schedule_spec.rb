@@ -11,5 +11,5 @@ describe ClassSchedule do
   it { should belong_to(:teacher_profile  ) }
   it { should belong_to(:akadem_group     ) }
   it { should belong_to(:classroom        ) }
-  it { should have_many(:attendances      ).dependent(:destroy              ) }
+  it { should have_many(:attendances      ).dependent(:destroy) }
 end

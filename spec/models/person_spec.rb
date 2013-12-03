@@ -64,8 +64,7 @@ describe Person do
   describe "email" do
     it "should be downcased" do
       VALID_ADDRESSES.each do |valid_address|
-        p = FactoryGirl.create(:person, email: valid_address)
-        p.email.should == valid_address.downcase
+        create_person(email: valid_address).email.should == valid_address.downcase
       end
     end
   end

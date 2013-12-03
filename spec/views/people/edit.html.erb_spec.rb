@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "people/edit.html.erb" do
 begin
   before do
-    @p = FactoryGirl.create :person
+    @p = create_person
     visit edit_person_path(@p)
   end
 
