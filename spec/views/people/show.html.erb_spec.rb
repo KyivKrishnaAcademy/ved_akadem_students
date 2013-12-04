@@ -25,4 +25,7 @@ describe "people/new.html.erb" do
   it { should have_text("Education, hobby, job: #{@p.edu_and_work}") }
   it { should have_text(/Gender: (Male|Female)/) }
   it { should have_text("Birthday: #{@p.birthday.to_s}") }
+
+  it { should have_link('Delete') }
+  it { should have_link('Edit'  ) }
 end
