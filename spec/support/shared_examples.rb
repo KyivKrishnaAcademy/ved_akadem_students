@@ -26,7 +26,7 @@ shared_examples "person form" do
   xit { should have_selector('input#person_photo') }
 end
 
-shared_examples "CRUD" do
+shared_examples "CRUD" do |controller|
   it { expect(get:    "/#{controller}"         ).to route_to("#{controller}#index"            ) }
   it { expect(post:   "/#{controller}"         ).to route_to("#{controller}#create"           ) }
   it { expect(get:    "/#{controller}/new"     ).to route_to("#{controller}#new"              ) }

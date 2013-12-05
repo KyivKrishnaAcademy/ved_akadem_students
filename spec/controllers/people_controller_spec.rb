@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PeopleController do
   after(:all) { Person.destroy_all }
 
-  shared_examples "gets right person" do
+  shared_examples "gets right person" do |action|
     before(:each) do
       @p = Person.last
       get "#{action}", id: @p
@@ -62,15 +62,11 @@ describe PeopleController do
     end
 
     describe "GET 'show'" do
-      let(:action) {'show'}
-
-      it_behaves_like "gets right person"
+      it_behaves_like 'gets right person', 'show'
     end
 
     describe "GET 'edit'" do
-      let(:action) {'edit'}
-
-      it_behaves_like "gets right person"
+      it_behaves_like 'gets right person', 'edit'
     end
 
     describe "PATCH 'update'" do
