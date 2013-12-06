@@ -7,5 +7,6 @@ feature "Delete person:", js: true do
   scenario do
     visit person_path(Person.last)
     expect{ click_link "Delete" }.to change{Person.count}.by(-1)
+    page.should have_selector('section.alert-success', text: 'Person record deleted!')
   end
 end
