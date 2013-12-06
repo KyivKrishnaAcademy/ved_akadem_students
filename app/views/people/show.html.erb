@@ -1,7 +1,7 @@
 <% provide(:title, complex_name(@person, :t)) %>
 <h1><%= complex_name(@person) %></h1>
 <br>
-<%= link_to "Edit", edit_person_path(@person) %> | <%= link_to "Delete", person_path(@person), method: :delete %>
+<%= link_to "Edit", edit_person_path(@person) %> | <%= link_to "Delete", person_path(@person), method: :delete, data: { confirm: 'Are you sure?' } %>
 <br>
 Spiritual name: <%= @person.spiritual_name %>
 <br>

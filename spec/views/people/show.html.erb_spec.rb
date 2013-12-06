@@ -26,6 +26,6 @@ describe "people/new.html.erb" do
   it { should have_text(/Gender: (Male|Female)/) }
   it { should have_text("Birthday: #{@p.birthday.to_s}") }
 
-  it { should have_link('Delete') }
-  it { should have_link('Edit'  ) }
+  it { should have_link('Delete', href: person_path(@p)     ) }
+  it { should have_link('Edit'  , href: edit_person_path(@p)) }
 end
