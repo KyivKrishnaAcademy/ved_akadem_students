@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109143231) do
+ActiveRecord::Schema.define(version: 20131206142539) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "akadem_groups", force: true do |t|
     t.string   "group_name"
@@ -69,7 +72,7 @@ ActiveRecord::Schema.define(version: 20131109143231) do
     t.string   "middle_name"
     t.string   "surname"
     t.string   "spiritual_name"
-    t.integer  "telephone"
+    t.integer  "telephone",         limit: 8
     t.string   "email"
     t.boolean  "gender"
     t.date     "birthday"

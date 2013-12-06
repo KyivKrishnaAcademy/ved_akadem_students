@@ -27,6 +27,7 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.0.4'
 gem 'turbolinks', '1.1.1'
 gem 'jbuilder', '1.0.2'
+gem 'pg', '0.15.1'
 
 gem 'anjlab-bootstrap-rails', '3.0.2.0', :require => 'bootstrap-rails'
 
@@ -35,6 +36,5 @@ group :doc do
 end
 
 group :production do
-  gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
 end
