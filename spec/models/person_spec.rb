@@ -71,17 +71,17 @@ describe Person do
 
   describe "columns" do
     it "should be downcased and titelized" do
-      name, surname, mname, spname = 'SomeNaMe', 'SomeToo', 'AnotheROne', 'AdiDaSaDAsaDasa'
+      name, surname, mname, spname = 'имЯ', 'фАмИлиЯ', 'ОтчествО', 'АдиДасаДаса ДаС'
       p = FactoryGirl.create(:person,
           name:           name    ,
           surname:        surname ,
           middle_name:    mname   ,
           spiritual_name: spname
         )
-      p.name.should           ==     name.downcase.titleize
-      p.surname.should        ==  surname.downcase.titleize
-      p.middle_name.should    ==    mname.downcase.titleize
-      p.spiritual_name.should ==   spname.downcase.titleize
+      p.name.should           ==  'Имя'
+      p.surname.should        ==  'Фамилия'
+      p.middle_name.should    ==  'Отчество'
+      p.spiritual_name.should ==  'Адидасадаса Дас'
     end
   end
 
