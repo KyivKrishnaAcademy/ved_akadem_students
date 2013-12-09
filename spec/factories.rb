@@ -16,4 +16,13 @@ FactoryGirl.define do
     sequence(:birthday ,        12000 ) { |n| n.days.ago.to_date         }
     edu_and_work                        { generate(:str)*20              }
   end
+
+  factory :akadem_group do
+    sequence(:group_name, 1 ) { |n|
+                                nn = n % 1000 
+                                "ШБ#{("%03d" % (nn == 0 ? nn + 1 : nn)).insert(2, '-')}"
+                              } # if n = 131 then "ШБ13-1"
+    group_description         { generate(:str)*10 }
+    establ_date               Date.today
+  end
 end
