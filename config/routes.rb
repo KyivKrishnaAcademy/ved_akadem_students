@@ -1,5 +1,5 @@
 VedAkademBase2ndEd::Application.routes.draw do
-  resources :people
+  resources :people, :akadem_groups
 
   get "static_pages/home"
   get "static_pages/about"
