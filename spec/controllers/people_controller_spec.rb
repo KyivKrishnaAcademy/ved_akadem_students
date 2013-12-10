@@ -9,37 +9,35 @@ describe PeopleController do
       get "#{action}", id: @p
     end
 
-    it { response.should be_success }
+    it { response.should be_success     }
     it { assigns(:person).should eq(@p) }
   end
 
   describe "GET 'new'" do
     before(:each) { get 'new' }
 
-    it { response.should be_success }
+    it { response.should be_success               }
     it { assigns(:person).should be_a_new(Person) }
   end
 
   describe "POST 'create'" do
-    before(:each) { @p = get_person.attributes }
+    describe "with valid params" do
+      before(:each) { post :create, person: get_person.attributes }
 
-    it do 
-      post 'create' , person: @p
-      response.should redirect_to(action: :new)
+      it { response.should redirect_to(action: :new) }
+      it { assigns(:person).should be_a(Person)      }
+      it { assigns(:person).should be_persisted      }
+      it { flash[:success].should_not be_nil         }
     end
 
-    it "creates Person" do
-      expect {
-        post 'create' , person: @p
-      }.to change{Person.count}.by(1)
-    end
+    describe "with invalid params" do
+      before(:each) do
+        Person.any_instance.stub(:save).and_return(false)
+        post :create, person: get_person.attributes
+      end
 
-    it "don't creates Person" do
-      attrib             = @p
-      attrib[:telephone] = '123213'
-      expect {
-        post 'create' , person: attrib
-      }.not_to change{Person.count}.by(1)
+      it { response.should render_template(:new)    }
+      it { assigns(:person).should_not be_persisted }
     end
   end
 
@@ -54,10 +52,22 @@ describe PeopleController do
     end
 
     describe "DELETE 'destroy'" do
-      it "deletes person" do
-        expect {
-          delete 'destroy', id: Person.last.id
-        }.to change{Person.count}.by(-1)
+      def del_person; delete 'destroy', id: Person.last.id; end
+
+      describe "deletion success" do
+        it { expect{ del_person }.to change(Person, :count).by(-1) }
+        it { expect( del_person ).to redirect_to(action: :index)   }
+        it { del_person; flash[:success].should_not be_nil          }
+      end
+
+      describe "deletion failure" do
+        before(:each) do
+          Person.any_instance.stub(:destroyed?).and_return(false)
+          request.env["HTTP_REFERER"] = "where_i_came_from"
+        end
+        
+        it { expect(del_person).to redirect_to("where_i_came_from") }
+        it { del_person; flash[:error].should_not be_nil            }
       end
     end
 
@@ -70,12 +80,39 @@ describe PeopleController do
     end
 
     describe "PATCH 'update'" do
-      it "updates person right" do
-        p       = Person.last
-        p.name  = "Vasiliy"
-        expect { patch 'update', id: p.id, person: p.attributes }
-          .to change{ Person.find(p.id).name }
-            .to("Vasiliy")
+      def update_person(attribs=nil)
+        p         = Person.last
+        p.name    = "Василий"
+        attribs ||= p.attributes
+        patch :update, {id: p.to_param, person: attribs}
+        p
+      end
+
+      describe "with valid params" do
+        it { expect{ update_person }.to change{ Person.last.name }.to("Василий") }
+
+        it "updates with params" do
+          Person.any_instance.should_receive(:update_attributes).with({ "name" => "params" })
+          update_person({ "name" => "params" })
+        end
+
+        context do
+          before(:each) { @p = update_person }
+
+          it { response.should redirect_to @p    }
+          it { assigns(:person).should eq(@p)    }
+          it { flash[:success].should_not be_nil }
+        end
+      end
+
+      describe "with invalid params" do
+        before(:each) do
+          Person.any_instance.stub(:save).and_return(false)
+          @p = update_person
+        end
+
+        it { assigns(:person).should eq(@p)        }
+        it { response.should render_template(:edit)}
       end
     end
   end

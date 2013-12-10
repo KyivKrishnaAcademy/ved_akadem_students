@@ -34,9 +34,9 @@ class PeopleController < ApplicationController
   end
 
   def update
-    p = find_person
-    if p.update_attributes(person_params)
-      redirect_to p, flash: { success: 'Person was successfully updated.' }
+    @person = find_person
+    if @person.update_attributes(person_params)
+      redirect_to @person, flash: { success: 'Person was successfully updated.' }
     else
       render      action: :edit
     end
