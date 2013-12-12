@@ -4,7 +4,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(person_params)
+    @person = Person.new(PersonParams.filter(params))
     if @person.save
       flash[:success] = "#{view_context.link_to( view_context.complex_name(@person), person_path(@person) )} added.".html_safe
       redirect_to action: :new
@@ -35,20 +35,15 @@ class PeopleController < ApplicationController
 
   def update
     @person = find_person
-    if @person.update_attributes(person_params)
+    if @person.update_attributes(PersonParams.filter(params))
       redirect_to @person, flash: { success: 'Person was successfully updated.' }
     else
       render      action: :edit
     end
   end
 
-  private
-
-    def find_person
-      Person.find(params[:id])
-    end
-
-    def person_params
+  class PersonParams
+    def self.filter params
       params.require(:person).permit(
         :name           ,
         :spiritual_name ,
@@ -61,5 +56,12 @@ class PeopleController < ApplicationController
         :edu_and_work   ,
         :emergency_contact
       )
+    end
+  end
+
+  private
+
+    def find_person
+      Person.find(params[:id])
     end
 end
