@@ -4,13 +4,6 @@ describe PeopleController do
   before(:all) { 5.times { create_person } }
   after(:all)  { Person.destroy_all        }
 
-  let(:person_val) { @p }
-  shared_examples "variable assigned" do |name|
-    context "@#{name.to_s}" do
-      it { assigns(name).should eq(person_val) }
-    end
-  end
-
   shared_examples "gets right person" do |action|
     before(:each) do
       @p = Person.last
@@ -18,7 +11,9 @@ describe PeopleController do
     end
 
     it { response.should be_success     }
-    it_behaves_like "variable assigned", :person
+    context "@person" do
+      it { assigns(:person).should eq(@p) }
+    end
   end
 
   describe "GET 'new'" do
@@ -112,18 +107,16 @@ describe PeopleController do
 
         it { response.should redirect_to @p    }
         it { should set_the_flash[:success]    }
-        it_behaves_like "variable assigned", :person
       end
     end
 
     context "on failure" do
-      before(:each) do
+      before do
         Person.any_instance.stub(:save).and_return(false)
         @p = update_person
       end
 
       it { response.should render_template(:edit)}
-      it_behaves_like "variable assigned", :person
     end
   end
 
