@@ -67,6 +67,10 @@ describe Person do
         create_person(email: valid_address).email.should == valid_address.downcase
       end
     end
+
+    it "allows empty value" do
+      should allow_value('').for(:email)
+    end
   end
 
   describe "columns" do
