@@ -11,6 +11,23 @@ describe PeopleController do
   it_behaves_like "GET"          , :people, Person, :index
   it_behaves_like "DELETE 'destroy'", Person
 
+  let(:mod_params) do
+    {
+      name:               "Василий"               ,
+      spiritual_name:     "Сарва Сатья дас"       ,
+      middle_name:        "Тигранович"            ,
+      surname:            "Киселев"               ,
+      email:              "ssd@pamho.yes"         ,
+      telephone:          "380112223344"          ,
+      gender:             true                    ,
+      birthday:           7200.days.ago.to_date   ,
+      edu_and_work:       "ББТ"                   ,
+      emergency_contact:  "Харе Кришна Харе Кришна Кришна Кришна Харе Харе"
+    }
+  end
+
+  it_behaves_like "controller subclass", PeopleController::PersonParams, :person
+
   describe "PATCH 'update'" do
     def update_person(attribs=nil)
       p         = Person.last
@@ -43,30 +60,6 @@ describe PeopleController do
       end
 
       it { response.should render_template(:edit)}
-    end
-  end
-
-  describe PeopleController::PersonParams do
-    subject {}
-    describe ".filter" do
-      it "returns the cleaned params" do
-        user_params = {
-          name:               "Василий"               ,
-          spiritual_name:     "Сарва Сатья дас"       ,
-          middle_name:        "Тигранович"            ,
-          surname:            "Киселев"               ,
-          email:              "ssd@pamho.yes"         ,
-          telephone:          "380112223344"          ,
-          gender:             true                    ,
-          birthday:           7200.days.ago.to_date   ,
-          edu_and_work:       "ББТ"                   ,
-          emergency_contact:  "Харе Кришна Харе Кришна Кришна Кришна Харе Харе"
-        }
-        params = ActionController::Parameters.new(person: { foo: "foo" }.merge(user_params))
-
-        permitted_params = PeopleController::PersonParams.filter(params)
-        expect(permitted_params).to eq(user_params.with_indifferent_access)
-      end
     end
   end
 end

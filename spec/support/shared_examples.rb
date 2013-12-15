@@ -121,3 +121,18 @@ shared_examples "DELETE 'destroy'" do |model|
     it { del_person; should set_the_flash[:error]                 }
   end
 end
+
+shared_examples "controller subclass" do |subclass, model|
+  describe "#{subclass}" do
+    describe ".filter" do
+      it "returns the cleaned params" do
+        expect(
+          subclass.filter(
+            ActionController::Parameters
+              .new(model => { foo: "foo" }.merge(mod_params))
+          )
+        ).to eq(mod_params.with_indifferent_access)
+      end
+    end
+  end
+end
