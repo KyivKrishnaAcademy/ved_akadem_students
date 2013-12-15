@@ -4,57 +4,11 @@ describe PeopleController do
   before(:all) { 5.times { create_person } }
   after(:all)  { Person.destroy_all        }
 
-  shared_examples "gets right person" do |action|
-    before(:each) do
-      @p = Person.last
-      get "#{action}", id: @p
-    end
-
-    it { response.should be_success     }
-    context "@person" do
-      it { assigns(:person).should eq(@p) }
-    end
-  end
-
-  describe "GET 'new'" do
-    before(:each) { get :new }
-
-    it { response.should be_success               }
-    it { assigns(:person).should be_a_new(Person) }
-  end
-
-  describe "POST 'create'" do
-    context "on success" do
-      before(:each) { post :create, person: get_person.attributes }
-
-      it { response.should redirect_to(action: :new) }
-      it { should set_the_flash[:success]            }
-      context "@person" do
-        subject { assigns(:person) }
-        it { should be_a(Person) }
-        it { should be_persisted }
-      end
-    end
-
-    context "on failure" do
-      before(:each) do
-        Person.any_instance.stub(:save).and_return(false)
-        post :create, person: get_person.attributes
-      end
-
-      it { response.should render_template(:new)      }
-      context "@person" do
-        it { assigns(:person).should_not be_persisted }
-      end
-    end
-  end
-
-  describe "GET 'index'" do
-    before(:each) { get 'index' }
-
-    it { response.should be_success }
-    it { assigns(:people).should eq(Person.all) }
-  end
+  it_behaves_like "POST 'create'", :person, Person
+  it_behaves_like "GET"          , :person, Person, :new
+  it_behaves_like "GET"          , :person, Person, :show
+  it_behaves_like "GET"          , :person, Person, :edit
+  it_behaves_like "GET"          , :people, Person, :index
 
   describe "DELETE 'destroy'" do
     def del_person; delete 'destroy', id: Person.last.id; end
@@ -75,14 +29,6 @@ describe PeopleController do
       it { expect(del_person).to redirect_to("where_i_came_from") }
       it { del_person; should set_the_flash[:error]               }
     end
-  end
-
-  describe "GET 'show'" do
-    it_behaves_like 'gets right person', 'show'
-  end
-
-  describe "GET 'edit'" do
-    it_behaves_like 'gets right person', 'edit'
   end
 
   describe "PATCH 'update'" do

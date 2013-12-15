@@ -36,3 +36,67 @@ shared_examples "CRUD" do |controller|
   it { expect(put:    "/#{controller}/1"       ).to route_to("#{controller}#update", id: "1"  ) }
   it { expect(delete: "/#{controller}/1"       ).to route_to("#{controller}#destroy", id: "1" ) }
 end
+
+shared_examples "GET" do |variable, model, action|
+  case action
+  when :new , :index
+    let(:m) { model.all }
+    let(:get_act) { get action }
+  when :show, :edit
+    let(:m) { model.last }
+    let(:get_act) { get action, id: m }
+  end
+
+  before(:each) { get_act }
+
+  context ":#{action}" do
+    it { response.should be_success }
+    case action
+    when :new
+      it "assigns @#{variable} a new #{model} model" do
+        assigns(variable).should be_a_new(model)
+      end
+    else
+      case action
+      when :index
+        describes = "assigns @#{variable} to be a #{model.name}.all"
+      when :show, :edit
+        describes = "assigns @#{variable} to be right #{model}"
+      end
+      it describes do
+        assigns(variable).should eq(m)
+      end
+    end
+  end
+end
+
+shared_examples "POST 'create'" do |variable, model|
+  def post_create var
+    post :create, var =>
+      method(("get_" << var.to_s).to_sym).call.attributes
+  end
+
+  context "on success" do
+    before(:each) { method(:post_create).call(variable) }
+
+    it { response.should redirect_to(action: :new) }
+    it { should set_the_flash[:success]            }
+    context "@#{variable.to_s}" do
+      subject { assigns(variable) }
+      it { should be_a(model)  }
+      it { should be_persisted }
+    end
+  end
+
+  context "on failure" do
+    before(:each) do
+      model.any_instance.stub(:save).and_return(false)
+      method(:post_create).call(variable)
+    end
+
+    it { response.should render_template(:new) }
+    context "@#{variable.to_s}" do
+      it { assigns(variable).should_not be_persisted }
+    end
+  end
+end
