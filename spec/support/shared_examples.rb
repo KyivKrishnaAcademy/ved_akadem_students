@@ -100,3 +100,24 @@ shared_examples "POST 'create'" do |variable, model|
     end
   end
 end
+
+shared_examples "DELETE 'destroy'" do |model|
+  let(:del_person) { delete 'destroy', id: model.last.id }
+
+  context "on success" do
+    it { expect{ del_person }.to change(model, :count).by(-1) }
+    it { expect( del_person ).to redirect_to(action: :index)  }
+    it { del_person; should set_the_flash[:success]           }
+  end
+
+  context "on failure" do
+    before(:each) do
+      model.any_instance.stub_chain(:destroy, :destroyed?).and_return(false)
+      request.env["HTTP_REFERER"] = "where_i_came_from"
+    end
+
+    it { expect{ del_person }.not_to change(model, :count)        }
+    it { expect( del_person ).to redirect_to("where_i_came_from") }
+    it { del_person; should set_the_flash[:error]                 }
+  end
+end

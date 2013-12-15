@@ -9,27 +9,7 @@ describe PeopleController do
   it_behaves_like "GET"          , :person, Person, :show
   it_behaves_like "GET"          , :person, Person, :edit
   it_behaves_like "GET"          , :people, Person, :index
-
-  describe "DELETE 'destroy'" do
-    def del_person; delete 'destroy', id: Person.last.id; end
-
-    context "on success" do
-      it { expect{ del_person }.to change(Person, :count).by(-1) }
-      it { expect( del_person ).to redirect_to(action: :index)   }
-      it { del_person; should set_the_flash[:success]            }
-    end
-
-    context "on failure" do
-      before(:each) do
-        Person.any_instance.stub_chain(:destroy, :destroyed?).and_return(false)
-        request.env["HTTP_REFERER"] = "where_i_came_from"
-      end
-
-      it { expect{ del_person }.not_to change(Person, :count)     }
-      it { expect(del_person).to redirect_to("where_i_came_from") }
-      it { del_person; should set_the_flash[:error]               }
-    end
-  end
+  it_behaves_like "DELETE 'destroy'", Person
 
   describe "PATCH 'update'" do
     def update_person(attribs=nil)
