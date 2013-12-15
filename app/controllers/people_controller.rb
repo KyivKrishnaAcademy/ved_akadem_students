@@ -1,4 +1,6 @@
 class PeopleController < ApplicationController
+  before_action :set_person, only: [:show, :edit, :update, :destroy]
+
   def new
     @person = Person.new
   end
@@ -14,11 +16,9 @@ class PeopleController < ApplicationController
   end
 
   def show
-    @person = find_person
   end
 
   def edit
-    @person = find_person
   end
 
   def index
@@ -26,7 +26,7 @@ class PeopleController < ApplicationController
   end
 
   def destroy
-    if find_person.destroy.destroyed?
+    if @person.destroy.destroyed?
       redirect_to people_path , flash: { success: 'Person record deleted!'  }
     else
       redirect_to :back       , flash: { error:   'Person deletion failed!' }
@@ -34,9 +34,8 @@ class PeopleController < ApplicationController
   end
 
   def update
-    p = find_person
-    if p.update_attributes(PersonParams.filter(params))
-      redirect_to p, flash: { success: 'Person was successfully updated.' }
+    if @person.update_attributes(PersonParams.filter(params))
+      redirect_to @person, flash: { success: 'Person was successfully updated.' }
     else
       render      action: :edit
     end
@@ -60,8 +59,7 @@ class PeopleController < ApplicationController
   end
 
   private
-
-    def find_person
-      Person.find(params[:id])
+    def set_person
+      @person = Person.find(params[:id])
     end
 end
