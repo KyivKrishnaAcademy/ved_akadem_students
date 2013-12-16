@@ -1,9 +1,10 @@
 require 'spec_helper'
 
 describe "people/index.html.erb" do
+  let(:models_count) { 20 }
 
   before do
-    20.times { create_person }
+    models_count.times { create_person }
     visit people_path
   end
 
@@ -17,6 +18,6 @@ describe "people/index.html.erb" do
   it { should have_selector('th', text: "Name"          ) }
   it { should have_selector('th', text: "Surname"       ) }
   it { should have_selector('th', text: "Spiritual Name") }
-  
-  it { should have_selector('tr.person', count: 20) }
+
+  it { should have_selector('tr.person', count: models_count) }
 end

@@ -165,7 +165,7 @@ shared_examples "PATCH 'update'" do |model, field|
       update_model(h)
     end
 
-    # don't use context before because spec doc formating
+    # don't use context before(:each) { update_model } because spec doc formating
     it { update_model; should set_the_flash[:success] }
     it { update_model; response.should redirect_to model_last }
   end

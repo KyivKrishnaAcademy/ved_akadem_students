@@ -19,7 +19,7 @@ FactoryGirl.define do
 
   factory :akadem_group do
     sequence(:group_name, 1 ) { |n|
-                                nn = n % 1000 
+                                nn = n % 1000
                                 "ШБ#{("%03d" % (nn == 0 ? nn + 1 : nn)).insert(2, '-')}"
                               } # if n = 131 then "ШБ13-1"
     group_description         { generate(:str)*10 }

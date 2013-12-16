@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe "people/edit.html.erb" do
-begin
   before do
     @p = create_person
     visit edit_person_path(@p)
@@ -14,5 +13,4 @@ begin
   it { should have_selector('form.edit_person') }
 
   it_behaves_like "person form"
-end
 end
