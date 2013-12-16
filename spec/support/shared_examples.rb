@@ -136,3 +136,43 @@ shared_examples "controller subclass" do |subclass, model|
     end
   end
 end
+
+shared_examples "PATCH 'update'" do |model, field|
+  before(:each) { method(("create_" << model_name_underscore).to_sym).call }
+
+  let(:model_name_underscore) { model.name.underscore }
+  let(:some_text) { "Какой-то текст" }
+  let(:model_last) { model.last }
+  let(:field) { field }
+  let(:model) { model }
+
+  def update_model(attribs=nil)
+    m         = model_last
+    m[field]  = some_text
+    attribs ||= m.attributes
+    patch :update, {id: m.to_param, model_name_underscore.to_sym => attribs}
+  end
+
+  context "on success" do
+    it { expect{ update_model }.to change{ model_last[field] }.to(some_text) }
+
+    it "receives .update_attributes" do
+      h = {field.to_s => "params"}
+      model.any_instance.should_receive(:update_attributes).with(h)
+      update_model(h)
+    end
+
+    # don't use context before because spec doc formating
+    it { update_model; should set_the_flash[:success] }
+    it { update_model; response.should redirect_to model_last }
+  end
+
+  context "on failure" do
+    before do
+      model.any_instance.stub(:save).and_return(false)
+      update_model
+    end
+
+    it { response.should render_template(:edit)}
+  end
+end

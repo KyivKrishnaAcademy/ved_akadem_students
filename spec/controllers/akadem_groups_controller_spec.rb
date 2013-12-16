@@ -10,6 +10,7 @@ describe AkademGroupsController do
   it_behaves_like "GET"          , :akadem_group , AkademGroup, :edit
   it_behaves_like "GET"          , :akadem_groups, AkademGroup, :index
   it_behaves_like "DELETE 'destroy'", AkademGroup
+  it_behaves_like "PATCH 'update'", AkademGroup, :group_description
 
   let(:mod_params) do
     {
