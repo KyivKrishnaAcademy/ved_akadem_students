@@ -22,6 +22,7 @@ group :test do
   gem 'shoulda-matchers', '2.4.0'
 end
 
+gem 'haml'
 gem 'sass-rails', '4.0.1'
 gem 'uglifier', '2.1.1'
 gem 'coffee-rails', '4.0.1'
