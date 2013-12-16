@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe PeopleHelper do
-  
   describe "complex_name" do
     before(:all) { FactoryGirl.create(:person) }
     after(:all) { Person.destroy_all }
@@ -30,5 +29,4 @@ describe PeopleHelper do
       it { complex_name(@person).should =~ /\ANo such person\z/ }
     end
   end
-
 end
