@@ -1,0 +1,34 @@
+= form_for @person do |f|
+  = render 'shared/error_messages', object: f.object
+  %p
+    = f.label      :spiritual_name
+    = f.text_field :spiritual_name
+  %p
+    = f.label      :name
+    = f.text_field :name
+  %p
+    = f.label      :middle_name
+    = f.text_field :middle_name
+  %p
+    = f.label      :surname
+    = f.text_field :surname
+  %p
+    = f.label      :email
+    = f.email_field :email
+  %p
+    = f.label       :telephone
+    = f.phone_field :telephone
+  %p
+    = f.label  :gender
+    = f.select :gender, options_for_select([["Male", true], ["Female", false]]), { prompt: "select..." }
+  %p
+    = f.label       :birthday
+    = f.date_select :birthday, { prompt: "select...", start_year: 1940 }
+  %p
+    = f.label      :edu_and_work, "Education and job"
+    = f.text_field :edu_and_work
+  %p
+    = f.label      :emergency_contact
+    = f.text_field :emergency_contact
+  %p
+    = f.submit class: "btn"
