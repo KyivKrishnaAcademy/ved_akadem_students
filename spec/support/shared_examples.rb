@@ -1,3 +1,4 @@
+# views
 shared_examples "person form" do
   it { should have_selector('label', text: "Name") }
   it { should have_selector('input#person_name') }
@@ -26,6 +27,7 @@ shared_examples "person form" do
   xit { should have_selector('input#person_photo') }
 end
 
+# routes
 shared_examples "CRUD" do |controller|
   it { expect(get:    "/#{controller}"         ).to route_to("#{controller}#index"            ) }
   it { expect(post:   "/#{controller}"         ).to route_to("#{controller}#create"           ) }
@@ -37,6 +39,7 @@ shared_examples "CRUD" do |controller|
   it { expect(delete: "/#{controller}/1"       ).to route_to("#{controller}#destroy", id: "1" ) }
 end
 
+# controllers
 shared_examples "GET" do |variable, model, action|
   case action
   when :new , :index
@@ -174,5 +177,22 @@ shared_examples "PATCH 'update'" do |model, field|
     end
 
     it { response.should render_template(:edit)}
+  end
+end
+
+# requests
+shared_examples "renders _form" do
+  it { response.should render_template(partial: '_form') }
+end
+
+shared_examples "renders _form on New and Edit pages" do
+  describe "New page" do
+    before { get new_path }
+    it_behaves_like "renders _form"
+  end
+
+  describe "Edit page" do
+    before { get edit_path }
+    it_behaves_like "renders _form"
   end
 end
