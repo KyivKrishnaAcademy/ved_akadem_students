@@ -10,7 +10,8 @@ end
 
 group :development, :test do
   gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.14'
+  gem 'rspec-rails', '2.14.0'
+  gem 'fuubar', '1.2.1'
 end
 
 group :test do
