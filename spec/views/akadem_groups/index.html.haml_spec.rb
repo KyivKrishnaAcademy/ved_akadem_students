@@ -9,7 +9,7 @@ describe "akadem_groups/index" do
 
   let(:title) { "All Akadem Groups" }
   let(:h1) { "Akadem Groups" }
-  let(:row_class) { "ag" }
+  let(:row_class) { "akadem_group" }
 
   it_behaves_like "index.html", ["Name", "Estbalished", "Description"]
 end
