@@ -11,7 +11,7 @@ Middle name: <%= @person.middle_name %>
 <br>
 Surname: <%= @person.surname %>
 <br>
-Gender: <%= if @person.gender then "Male" else "Female" end %>
+Gender: <%= @person.gender ? "Male" : "Female" %>
 <br>
 Birthday: <%= @person.birthday %>
 <br>
