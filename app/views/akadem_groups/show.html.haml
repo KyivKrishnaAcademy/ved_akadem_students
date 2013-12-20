@@ -1,0 +1,11 @@
+= provide(:title, @akadem_group.group_name)
+
+%h1= @akadem_group.group_name
+
+= link_to "Edit", edit_akadem_group_path(@akadem_group)
+|
+= link_to "Delete", akadem_group_path(@akadem_group), method: :delete, data: { confirm: 'Are you sure?' }
+
+%p="Group name: " << @akadem_group.group_name
+%p="Establishment date: " << @akadem_group.establ_date.to_s
+%p="Description: " << @akadem_group.group_description
