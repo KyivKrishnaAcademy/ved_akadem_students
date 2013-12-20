@@ -5,9 +5,9 @@ describe "people/new.html.erb" do
 
   subject { page }
 
-  it { should have_title(full_title("Add New Person")) }
-  it { should have_selector('h1', text: "Add Person") }
-  it { should have_selector('form.new_person') }
+  let(:title)  { "Add New Person" }
+  let(:h1)     { "Add Person" }
+  let(:action) { 'new' }
 
-  it_behaves_like "person form"
+  it_behaves_like "person new and edit"
 end
