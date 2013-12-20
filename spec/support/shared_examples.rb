@@ -47,6 +47,20 @@ shared_examples "akadem group new and edit" do
   end
 end
 
+shared_examples "index.html" do |headers|
+  subject { page }
+
+  it { should have_title(full_title(title)) }
+  it { should have_selector('h1', text: h1)  }
+
+  describe "table" do
+    headers.each do |header|
+      it { should have_selector('th', text: header) }
+    end
+    it { should have_selector('tr.' << row_class, count: models_count) }
+  end
+end
+
 # routes
 shared_examples "CRUD" do |controller|
   it { expect(get:    "/#{controller}"         ).to route_to("#{controller}#index"            ) }
@@ -214,19 +228,5 @@ shared_examples "renders _form on New and Edit pages" do
   describe "Edit page" do
     before { get edit_path }
     it_behaves_like "renders _form"
-  end
-end
-
-shared_examples "index.html" do |headers|
-  subject { page }
-
-  it { should have_title(full_title(title)) }
-  it { should have_selector('h1', text: h1)  }
-
-  describe "table" do
-    headers.each do |header|
-      it { should have_selector('th', text: header) }
-    end
-    it { should have_selector('tr.' << row_class, count: models_count) }
   end
 end
