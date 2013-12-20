@@ -11,7 +11,7 @@ feature "Edit person:" do
     click_link "Edit"
     fill_in 'Spiritual name', with: 'AdiDasa dasa dasa anudasa'
     click_button "Update Person"
-    
+
     should have_content('Spiritual name: Adidasa Dasa Dasa Anudasa')
     should have_selector('section.alert-success', text: 'Person was successfully updated.')
   end
