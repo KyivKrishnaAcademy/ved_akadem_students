@@ -1,0 +1,13 @@
+= form_for @akadem_group do |f|
+  = render 'shared/error_messages', object: f.object
+  %p
+    = f.label      :group_name
+    = f.text_field :group_name
+  %p
+    = f.label       :establ_date, "Establishment date"
+    = f.date_select :establ_date, { prompt: "select...", start_year: 2008 }
+  %p
+    = f.label      :group_description
+    = f.text_field :group_description
+  %p
+    = f.submit class: "btn"

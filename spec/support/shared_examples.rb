@@ -27,6 +27,26 @@ shared_examples "person form" do
   xit { should have_selector('input#person_photo') }
 end
 
+shared_examples "akadem group new and edit" do
+  it { should have_title(full_title(title)) }
+  it { should have_selector('h1', text: h1) }
+
+  describe "form" do
+    let(:form) { 'form.' << action << '_akadem_group' }
+
+    it { should have_selector(form) }
+    it { should have_selector("#{form} label", text: "Group name") }
+    it { should have_selector("#{form} input#akadem_group_group_name") }
+    it { should have_selector("#{form} label", text: "Establishment date") }
+    it { should have_selector("#{form} select#akadem_group_establ_date_1i") }
+    it { should have_selector("#{form} select#akadem_group_establ_date_2i") }
+    it { should have_selector("#{form} select#akadem_group_establ_date_3i") }
+    it { should have_selector("#{form} label", text: "Group description") }
+    it { should have_selector("#{form} input#akadem_group_group_description") }
+    it { should have_selector("#{form} input.btn") }
+  end
+end
+
 # routes
 shared_examples "CRUD" do |controller|
   it { expect(get:    "/#{controller}"         ).to route_to("#{controller}#index"            ) }
