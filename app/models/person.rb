@@ -9,15 +9,15 @@ class Person < ActiveRecord::Base
     p.spiritual_name = downcase_titleize spiritual_name
   end
 
-  validates :name,    length: { maximum: 50 }, presence: true 
-  validates :surname, length: { maximum: 50 }, presence: true 
+  validates :name,    length: { maximum: 50 }, presence: true
+  validates :surname, length: { maximum: 50 }, presence: true
   validates :middle_name,     length: { maximum: 50 }
   validates :spiritual_name,  length: { maximum: 50 }
   validates :gender,          inclusion: { in: [true, false] }
-  validates :telephone, 
+  validates :telephone,
     presence: true, uniqueness: true,
     numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }
-  
+
   VALID_EMAIL_REGEX = /(\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z)|(\A\s*\z)/i # allows field to be empty
   validates :email, format: { with: VALID_EMAIL_REGEX }
 
