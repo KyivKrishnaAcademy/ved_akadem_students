@@ -247,3 +247,22 @@ shared_examples "renders _form on New and Edit pages" do
     it_behaves_like "renders _form"
   end
 end
+
+# integration
+
+shared_examples :integration_delete_model do |model|
+  let(:m_name_underscore) { model.name.underscore }
+
+  before do
+    visit method(('' << m_name_underscore << '_path').to_sym).call(
+      method(('create_' << m_name_underscore).to_sym).call
+    )
+  end
+
+  scenario do
+    click_link "Delete"
+    page.should have_selector('section.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
+  end
+
+  scenario { expect{ click_link "Delete" }.to change{model.count}.by(-1) }
+end
