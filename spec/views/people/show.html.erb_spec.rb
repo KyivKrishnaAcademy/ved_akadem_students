@@ -6,8 +6,6 @@ describe "people/new.html.erb" do
     visit person_path(@p)
   end
 
-  after(:all) { Person.destroy_all }
-
   subject { page }
 
   it { should     have_title(full_title(complex_name(@p, :t))) }

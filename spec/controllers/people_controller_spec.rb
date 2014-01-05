@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe PeopleController do
-  before(:all) { 5.times { create_person } }
-  after(:all)  { Person.destroy_all        }
 
   it_behaves_like "POST 'create'", :person, Person
   it_behaves_like "GET"          , :person, Person, :new

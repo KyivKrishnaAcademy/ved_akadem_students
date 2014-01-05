@@ -1,4 +1,5 @@
 require 'capybara/poltergeist'
+require 'capybara/rspec'
 
 Capybara.default_wait_time = 2 # Seconds to wait before timeout error. Default is 2
 

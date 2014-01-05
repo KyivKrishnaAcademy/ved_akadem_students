@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe Person do
-  after(:all) { Person.destroy_all }
-
   describe "DB table" do
     it { should have_db_column(:name              ).of_type(:string   ) }
     it { should have_db_column(:middle_name       ).of_type(:string   ) }

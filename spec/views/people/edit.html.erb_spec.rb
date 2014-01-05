@@ -6,8 +6,6 @@ describe "people/edit.html.erb" do
     visit edit_person_path(@p)
   end
 
-  after(:all) { Person.destroy_all }
-
   subject { page }
 
   let(:title)  { complex_name(@p, :t) }

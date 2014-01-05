@@ -1,14 +1,10 @@
 require 'spec_helper'
 
 feature "Edit person:" do
-  after(:all)  { Person.destroy_all }
-
-  let(:p) { create_person }
-
   subject { page }
 
-  before(:each) do
-    visit person_path(p)
+  before do
+    visit person_path(create_person)
     click_link "Edit"
     fill_in 'Spiritual name', with: 'AdiDasa dasa dasa anudasa'
     click_button "Update Person"

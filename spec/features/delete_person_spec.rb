@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 feature "Delete person:", js: true do
-  after (:all)  { Person.destroy_all }
-  before(:all)  { 2.times { create_person } }
-  before(:each) { visit person_path(Person.last) }
+  before { visit person_path(create_person) }
 
   scenario do
     click_link "Delete"

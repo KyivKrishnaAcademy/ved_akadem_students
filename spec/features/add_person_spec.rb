@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 feature "Add person:" do
-
-  before(:each) { visit new_person_path }
-  after(:all)   { Person.destroy_all    }
+  before { visit new_person_path }
 
   scenario "simple (no student, no teacher) added successfully with right field" do
     fill_person_data gender: 'Female'

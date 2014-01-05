@@ -5,7 +5,6 @@ describe "people/index" do
 
   before(:all)  { models_count.times { create_person } }
   before(:each) { visit people_path }
-  after (:all)  { Person.destroy_all }
 
   let(:title) { "All People" }
   let(:h1) { "People" }

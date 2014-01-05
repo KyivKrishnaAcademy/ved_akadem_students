@@ -8,8 +8,6 @@ describe "akadem_groups/show" do
     visit akadem_group_path(@ag)
   end
 
-  after(:all) { AkademGroup.destroy_all }
-
   subject { page }
 
   it { should have_title(full_title(ag_name)) }

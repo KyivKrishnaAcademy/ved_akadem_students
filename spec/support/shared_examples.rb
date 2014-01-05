@@ -82,13 +82,20 @@ shared_examples "CRUD" do |controller|
 end
 
 # controllers
+def create_model model
+  method(("create_" << model.name.underscore).to_sym).call
+end
+
 shared_examples "GET" do |variable, model, action|
   case action
   when :new , :index
-    let(:m) { model.all }
+    let(:m) do
+      3.times { create_model model }
+      model.all
+    end
     let(:get_act) { get action }
   when :show, :edit
-    let(:m) { model.last }
+    let(:m) { create_model model }
     let(:get_act) { get action, id: m }
   end
 
@@ -147,6 +154,8 @@ shared_examples "POST 'create'" do |variable, model|
 end
 
 shared_examples "DELETE 'destroy'" do |model|
+  before { create_model model }
+
   let(:del_person) { delete 'destroy', id: model.last.id }
 
   context "on success" do
@@ -183,7 +192,7 @@ shared_examples "controller subclass" do |subclass, model|
 end
 
 shared_examples "PATCH 'update'" do |model, field|
-  before(:each) { method(("create_" << model_name_underscore).to_sym).call }
+  before(:each) { create_model model }
 
   let(:model_name_underscore) { model.name.underscore }
   let(:some_text) { "Какой-то текст" }

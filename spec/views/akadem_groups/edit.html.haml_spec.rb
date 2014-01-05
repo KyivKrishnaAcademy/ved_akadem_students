@@ -2,11 +2,9 @@ require 'spec_helper'
 
 describe "akadem_groups/edit" do
   before do
-    ag = create_akadem_group(group_name: ag_name)
-    visit edit_akadem_group_path(ag)
+    visit edit_akadem_group_path(
+      create_akadem_group(group_name: ag_name))
   end
-
-  after(:all) { AkademGroup.destroy_all}
 
   subject { page }
 
