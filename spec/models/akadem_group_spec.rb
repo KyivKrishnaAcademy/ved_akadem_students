@@ -20,7 +20,7 @@ describe AkademGroup do
     VALID_NAMES   = %w[ ШБ13-1 БШ12-4 ЗШБ11-1 ]
     INVALID_NAMES = %w[ 12-2 ШБ-1 БШ112 ШБ11- ]
 
-    it "allows valid addresses" do
+    it "allows valid names" do
       VALID_NAMES.each do |name|
         should      allow_value(name).for(:group_name)
       end
