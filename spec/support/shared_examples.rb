@@ -266,3 +266,54 @@ shared_examples :integration_delete_model do |model|
 
   scenario { expect{ click_link "Delete" }.to change{model.count}.by(-1) }
 end
+
+shared_examples :alert_success_updated do |thing|
+  scenario { should have_selector('.alert-success', text: "#{thing} was successfully updated.") }
+end
+
+shared_examples :valid_fill_in do |h, model_human|
+  describe h[:field] do
+    before do
+      fill_in h[:field], with: h[:value]
+      click_button "Update #{model_human}"
+    end
+
+    scenario { should have_content(h[:test_field]) }
+    it_behaves_like :alert_success_updated, model_human
+  end
+end
+
+shared_examples :invalid_fill_in do |h, model_human|
+  describe h[:field] do
+    before do
+      fill_in h[:field], with: h[:value]
+      click_button "Update #{model_human}"
+    end
+
+    scenario { should have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
+    scenario { should have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
+  end
+end
+
+shared_examples :valid_select_date do |model_name, field_name, content|
+  before do
+    select_from = "#{model_name.underscore}[#{field_name}("
+    select '2010', from: "#{select_from}1i)]"
+    select 'May' , from: "#{select_from}2i)]"
+    select '27'  , from: "#{select_from}3i)]"
+    click_button "Update #{model_name.underscore.humanize}"
+  end
+
+  scenario { should have_content("#{content}2010-05-27") }
+  it_behaves_like :alert_success_updated, model_name.underscore.humanize
+end
+
+shared_examples :valid_select do |model_name, field_name, value, content|
+  before do
+    select value, from: field_name
+    click_button "Update #{model_name.underscore.humanize}"
+  end
+
+  scenario { should have_content(content) }
+  it_behaves_like :alert_success_updated, model_name.underscore.humanize
+end

@@ -6,10 +6,40 @@ feature "Edit person:" do
   before do
     visit person_path(create_person)
     click_link "Edit"
-    fill_in 'Spiritual name', with: 'AdiDasa dasa dasa anudasa'
-    click_button "Update Person"
   end
 
-  scenario { should have_content('Spiritual name: Adidasa Dasa Dasa Anudasa') }
-  scenario { should have_selector('section.alert-success', text: 'Person was successfully updated.') }
+  context "When values are valid:" do
+    [
+      {field: 'Spiritual name'   , value: 'AdiDasa dasa'  , test_field: 'Spiritual name: Adidasa Dasa' },
+      {field: 'Name'             , value: 'алексей'       , test_field: 'Name: Алексей'                },
+      {field: 'Middle name'      , value: 'иванович'      , test_field: 'Middle name: Иванович'        },
+      {field: 'Surname'          , value: 'евгеньев'      , test_field: 'Surname: Евгеньев'            },
+      {field: 'Email'            , value: 'alex@PAMHO.net', test_field: 'Email: alex@pamho.net'        },
+      {field: 'Telephone'        , value: '380692223344'  , test_field: 'Telephone: 380692223344'      },
+      {field: 'Education and job', value: 'some'          , test_field: 'Education, hobby, job: some'  },
+      {field: 'Emergency contact', value: 'дядя Петя'     , test_field: 'Emergency contact: дядя Петя' }
+    ].each do |h|
+      it_behaves_like :valid_fill_in, h, 'Person'
+    end
+
+    describe "Birthday" do
+      it_behaves_like :valid_select_date, 'Person', 'birthday', 'Birthday: '
+    end
+
+    describe "Gender" do
+      it_behaves_like :valid_select, 'Person', 'Gender', 'Male'  , 'Gender: Male'
+      it_behaves_like :valid_select, 'Person', 'Gender', 'Female', 'Gender: Female'
+    end
+  end
+
+  context "When values are invalid:" do
+    [
+      {field: 'Telephone', value: '0501112233'},
+      {field: 'Email'    , value: '@@.com@'   },
+      {field: 'Name'     , value: ''          },
+      {field: 'Surname'  , value: ''          }
+    ].each do |h|
+      it_behaves_like :invalid_fill_in, h, 'Person'
+    end
+  end
 end

@@ -23,7 +23,7 @@
     = f.select :gender, options_for_select([["Male", true], ["Female", false]]), { prompt: "select..." }
   %p
     = f.label       :birthday
-    = f.date_select :birthday, { prompt: "select...", start_year: 1940 }
+    = f.date_select :birthday, { prompt: "select...", start_year: 1940, end_year: Time.now.year }
   %p
     = f.label      :edu_and_work, "Education and job"
     = f.text_field :edu_and_work

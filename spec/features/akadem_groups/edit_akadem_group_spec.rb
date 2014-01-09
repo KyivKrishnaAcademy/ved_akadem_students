@@ -8,53 +8,20 @@ feature "Edit akadem group:" do
     click_link "Edit"
   end
 
-  shared_examples :alert_success do
-    scenario { should have_selector('.alert-success', text: 'Akadem group was successfully updated.') }
-  end
-
   context "When values are valid:" do
-    # Text fields
     [
-      {field: 'Group name'        ,value: 'БШ99-9'       , test_field: 'Group name: ' },
-      {field: 'Group description' ,value: 'Зис из э test', test_field: 'Description: '}
+      {field: 'Group name'        , value: 'БШ99-9'       , test_field: 'Group name: '              },
+      {field: 'Group description' , value: 'Зис из э test', test_field: 'Description: Зис из э test'}
     ].each do |h|
-      describe h[:field] do
-        let(:field) { h[:field] }
-        let(:value) { h[:value] }
-
-        before do
-          fill_in field, with: value
-          click_button "Update Akadem group"
-        end
-
-        scenario { should have_content("#{h[:test_field]}#{h[:value]}") }
-        it_behaves_like :alert_success
-      end
+      it_behaves_like :valid_fill_in, h, 'Akadem group'
     end
 
-    # Drop-down lists
     describe "Establishment date" do
-      before do
-        select '2016', from: 'akadem_group[establ_date(1i)]'
-        select 'May' , from: 'akadem_group[establ_date(2i)]'
-        select '27'  , from: 'akadem_group[establ_date(3i)]'
-        click_button "Update Akadem group"
-      end
-
-      scenario { should have_content("Establishment date: 2016-05-27") }
-      it_behaves_like :alert_success
+      it_behaves_like :valid_select_date, 'AkademGroup', 'establ_date', 'Establishment date: '
     end
   end
 
-  context "When values are valid:" do
-    describe "Group name" do
-      before do
-        fill_in 'Group name', with: '12-2'
-        click_button "Update Akadem group"
-      end
-
-      scenario { should have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
-      scenario { should have_selector('#error_explanation ul li', text: 'Group name is invalid') }
-    end
+  context "When values are invalid:" do
+    it_behaves_like :invalid_fill_in, {field: 'Group name', value: '12-2'}, 'Akadem group'
   end
 end
