@@ -4,20 +4,8 @@ feature "Edit akadem group:" do
   subject { page }
 
   before do
-    visit akadem_group_path(create_akadem_group(
-      group_name: 'БШ19-2'            ,
-      group_description: 'some текст' ,
-      establ_date: '2013-09-28'.to_date
-    ))
+    visit akadem_group_path(create_akadem_group)
     click_link "Edit"
-  end
-
-  describe "default values" do
-    it { should have_selector('#akadem_group_group_name[value="БШ19-2"]'                        ) }
-    it { should have_selector('#akadem_group_group_description[value="some текст"]'             ) }
-    it { should have_selector('#akadem_group_establ_date_1i option[selected]', text: '2013'     ) }
-    it { should have_selector('#akadem_group_establ_date_2i option[selected]', text: 'September') }
-    it { should have_selector('#akadem_group_establ_date_3i option[selected]', text: '28'       ) }
   end
 
   context "When values are valid:" do

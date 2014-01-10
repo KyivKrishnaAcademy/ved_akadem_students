@@ -4,34 +4,8 @@ feature "Edit person:" do
   subject { page }
 
   before do
-    visit person_path(create_person(
-      telephone:      '380112223344'    ,
-      spiritual_name: 'Dasa Das'        ,
-      name:           'Ivan'            ,
-      middle_name:    'Petrovich'       ,
-      surname:        'Жук'             ,
-      email:          'juke@ulr.net'    ,
-      edu_and_work:   'где-то когда-то' ,
-      gender:         true              ,
-      emergency_contact: 'дед Василий'  ,
-      birthday: '1975-01-30'.to_date
-    ))
+    visit person_path(create_person)
     click_link "Edit"
-  end
-
-  describe "default values" do
-    it { should have_selector('#person_telephone[value="380112223344"]'        ) }
-    it { should have_selector('#person_spiritual_name[value="Dasa Das"]'       ) }
-    it { should have_selector('#person_name[value="Ivan"]'                     ) }
-    it { should have_selector('#person_middle_name[value="Petrovich"]'         ) }
-    it { should have_selector('#person_surname[value="Жук"]'                   ) }
-    it { should have_selector('#person_email[value="juke@ulr.net"]'            ) }
-    it { should have_selector('#person_edu_and_work[value="где-то когда-то"]'  ) }
-    it { should have_selector('#person_emergency_contact[value="дед Василий"]' ) }
-
-    it { should have_selector('#person_birthday_1i option[selected]', text: '1975'    ) }
-    it { should have_selector('#person_birthday_2i option[selected]', text: 'January' ) }
-    it { should have_selector('#person_birthday_3i option[selected]', text: '30'      ) }
   end
 
   context "When values are valid:" do

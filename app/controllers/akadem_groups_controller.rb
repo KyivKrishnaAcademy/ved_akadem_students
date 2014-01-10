@@ -12,7 +12,7 @@ class AkademGroupsController < ApplicationController
 
   # GET /akadem_groups/new
   def new
-    @akadem_group = AkademGroup.new
+    @akadem_group = AkademGroup.new(establ_date: Time.now)
   end
 
   # GET /akadem_groups/1/edit
