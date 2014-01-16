@@ -3,36 +3,26 @@ require 'spec_helper'
 feature "Add person:" do
   before { visit new_person_path }
 
-  scenario "simple (no student, no teacher) added successfully with right field" do
-    fill_person_data gender: 'Female'
+  let(:attr_name)  { :telephone }
+  let(:locator)    { "#{complex_name(the_m).downcase.titleize}" }
+  let(:fill_right) { fill_person_data gender: 'Female'  }
+  let(:model)      { Person }
 
-    expect { click_button "Create Person" }.to change{Person.count}.by(1)
-    expect(page).to have_selector('section.alert-success')
+  it_behaves_like :link_in_flash
+
+  describe "simple (no student, no teacher)" do
+    let(:fill_wrong) { fill_person_data telephone: '3322' }
+
+    it_behaves_like :adds_model
+    it_behaves_like :not_adds_model
   end
 
-  scenario "simple (no student, no teacher) failed to add with wrong fields" do
-    fill_person_data telephone: '3322'
-
-    expect { click_button "Create Person" }.not_to change{Person.count}.by(1)
-    expect(page).to have_selector('section#error_explanation')
+  describe "student" do
+    scenario { pending "to be written" }
   end
 
-  scenario "student" do
-    pending "to be written"
-  end
-
-  scenario "teacher" do
-    pending "to be written"
-  end
-
-  scenario "flash message contains link to person#show on success" do
-    person              = fill_person_data
-    person_complex_name = "#{complex_name(person).downcase.titleize}"
-
-    expect { click_button "Create Person" }.to change{Person.count}.by(1)
-    expect(page).to have_selector('section.alert-success a', text: person_complex_name)
-    click_link person_complex_name
-    expect(page).to have_selector('h1', text: person_complex_name)
+  describe "teacher" do
+    scenario { pending "to be written" }
   end
 
   def fill_person_data p={}

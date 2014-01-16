@@ -295,25 +295,68 @@ shared_examples :invalid_fill_in do |h, model_human|
   end
 end
 
+def underscore_humanize str
+  str.underscore.humanize
+end
+
 shared_examples :valid_select_date do |model_name, field_name, content|
   before do
     select_from = "#{model_name.underscore}[#{field_name}("
     select '2010', from: "#{select_from}1i)]"
     select 'May' , from: "#{select_from}2i)]"
     select '27'  , from: "#{select_from}3i)]"
-    click_button "Update #{model_name.underscore.humanize}"
+    click_button "Update #{underscore_humanize(model_name)}"
   end
 
   scenario { should have_content("#{content}2010-05-27") }
-  it_behaves_like :alert_success_updated, model_name.underscore.humanize
+  it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 
 shared_examples :valid_select do |model_name, field_name, value, content|
   before do
     select value, from: field_name
-    click_button "Update #{model_name.underscore.humanize}"
+    click_button "Update #{underscore_humanize(model_name)}"
   end
 
   scenario { should have_content(content) }
-  it_behaves_like :alert_success_updated, model_name.underscore.humanize
+  it_behaves_like :alert_success_updated, underscore_humanize(model_name)
+end
+
+shared_examples :adds_model do
+  before do
+    fill_right
+    @m = model
+  end
+
+  scenario do
+    expect { click_button "Create " << underscore_humanize(@m.name) }.to change{@m.count}.by(1)
+    expect(page).to have_selector('section.alert-success')
+  end
+end
+
+shared_examples :not_adds_model do
+  before do
+    fill_wrong
+    @m = model
+  end
+
+  scenario do
+    expect { click_button "Create " << underscore_humanize(@m.name) }.not_to change{@m.count}.by(1)
+    expect(page).to have_selector('section#error_explanation')
+  end
+end
+
+shared_examples :link_in_flash do
+  before do
+    @the_m = fill_right
+    @m     = model
+  end
+
+  let(:the_m) { @the_m }
+  scenario do
+    click_button "Create " << underscore_humanize(@m.name)
+    href = method(('' << model.name.underscore << '_path').to_sym).call @m.find_by(attr_name => @the_m[attr_name])
+
+    page.should have_link(locator, href: href)
+  end
 end

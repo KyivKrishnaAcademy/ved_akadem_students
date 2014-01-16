@@ -23,7 +23,7 @@ class AkademGroupsController < ApplicationController
   def create
     @akadem_group = AkademGroup.new(AkademGroupParams.filter(params))
     if @akadem_group.save
-      flash[:success] = 'Akadem group was successfully created.'
+      flash[:success] = "#{view_context.link_to( @akadem_group.group_name, akadem_group_path(@akadem_group) )} added.".html_safe
       redirect_to action: :new
     else
       render      action: :new
