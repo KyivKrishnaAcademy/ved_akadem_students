@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131224122713) do
+ActiveRecord::Schema.define(version: 20140206161732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20131224122713) do
     t.string   "middle_name"
     t.string   "surname"
     t.string   "spiritual_name"
-    t.integer  "telephone",         limit: 8
+    t.integer  "telephone",          limit: 8
     t.string   "email"
     t.boolean  "gender"
     t.date     "birthday"
@@ -81,7 +81,11 @@ ActiveRecord::Schema.define(version: 20131224122713) do
     t.text     "photo"
     t.boolean  "profile_fullness"
     t.text     "edu_and_work"
+    t.string   "username"
+    t.string   "encrypted_password"
   end
+
+  add_index "people", ["username"], name: "index_people_on_username", unique: true, using: :btree
 
   create_table "student_profiles", force: true do |t|
     t.integer  "person_id"

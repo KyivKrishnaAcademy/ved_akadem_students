@@ -1,5 +1,8 @@
 VedAkademBase2ndEd::Application.routes.draw do
+  devise_for :people
   resources :people, :akadem_groups
+
+  root 'static_pages#home'
 
   get "static_pages/home"
   get "static_pages/about"

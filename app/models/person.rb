@@ -1,4 +1,7 @@
 class Person < ActiveRecord::Base
+
+  devise :database_authenticatable
+
   has_one :student_profile, dependent: :destroy
 
   before_save do |p|
