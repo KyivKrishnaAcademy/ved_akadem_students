@@ -27,7 +27,7 @@ describe Person do
     end
 
     context :telephone do
-      it { should validate_presence_of(:telephone )     }
+      it { should validate_presence_of(    :telephone ) }
       it { should validate_numericality_of(:telephone ) }
       it { should validate_uniqueness_of(  :telephone ) }
       it { should ensure_inclusion_of(     :telephone )
