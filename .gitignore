@@ -17,6 +17,6 @@ doc/
 .project
 .DS_Store
 .idea
-.secret
+.secret*
 bundler_stubs/
 erd.dot
