@@ -14,6 +14,8 @@ describe Person do
     it { should have_db_column(:photo             ).of_type(:text     ) }
     it { should have_db_column(:profile_fullness  ).of_type(:boolean  ) }
     it { should have_db_column(:edu_and_work      ).of_type(:text     ) }
+    it { should have_db_column(:encrypted_password).of_type(:string   ) }
+    it { should have_db_column(:username          ).of_type(:string   ) }
   end
 
   describe "association" do
@@ -21,6 +23,10 @@ describe Person do
   end
 
   describe "validation" do
+    context :password do
+      it { should validate_confirmation_of( :password ) }
+    end
+
     context :gender do
       it { should     allow_value(  true, false   ).for(:gender) }
       it { should_not allow_value(  nil           ).for(:gender) }
@@ -74,6 +80,11 @@ describe Person do
       it { should ensure_length_of(:middle_name     ).is_at_most(50) }
       it { should ensure_length_of(:spiritual_name  ).is_at_most(50) }
     end
+
+    context :username do
+      it { should validate_presence_of(   :username ) }
+      it { should validate_uniqueness_of( :username ) }
+    end
   end
 
   describe "before save processing" do
@@ -94,6 +105,25 @@ describe Person do
       p.surname.should        ==  'Фамилия'
       p.middle_name.should    ==  'Отчество'
       p.spiritual_name.should ==  'Адидасадаса Дас'
+    end
+
+    context "username is blank" do
+      it "sets username to email" do
+        create_person(email: "a@i.ua")
+          .username.should == "a@i.ua"
+      end
+
+      it "sets username to telephone if email is blank" do
+        create_person(email: "", telephone: 380112233444)
+          .username.should == "380112233444"
+      end
+    end
+
+    context "password is blank" do
+      it "generates random password" do
+        create_person(password: "", password_confirmation: "")
+          .encrypted_password.should_not be_blank
+      end
     end
   end
 end

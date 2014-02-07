@@ -10,13 +10,22 @@ class Person < ActiveRecord::Base
     p.middle_name    = downcase_titleize middle_name
     p.surname        = downcase_titleize surname
     p.spiritual_name = downcase_titleize spiritual_name
+    p.encrypted_password = SecureRandom.urlsafe_base64 if p.password.blank?
   end
 
+  before_validation do |p|
+    if p.username.blank?
+      p.username = (p.email.blank? ? p.telephone : p.email).to_s.downcase
+    end
+  end
+
+  validates :password, confirmation: true
   validates :name,    length: { maximum: 50 }, presence: true
   validates :surname, length: { maximum: 50 }, presence: true
   validates :middle_name,     length: { maximum: 50 }
   validates :spiritual_name,  length: { maximum: 50 }
   validates :gender,          inclusion: { in: [true, false] }
+  validates :username,  presence: true, uniqueness: true
   validates :telephone, presence: true, uniqueness: true,
     numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }
 
