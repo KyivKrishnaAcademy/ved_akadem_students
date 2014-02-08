@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="active"><%= link_to "Home",    '#' %></li>
         <li><%= link_to "Help",    '#' %></li>
-        <li><%= link_to "Sign in", '#' %></li>
+        <li><%= person_signed_in? ? link_to("Sign out", destroy_person_session_path, method: :delete) : link_to("Sign in", new_person_session_path) %></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
