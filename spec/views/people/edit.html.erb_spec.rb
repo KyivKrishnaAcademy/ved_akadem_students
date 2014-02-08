@@ -1,4 +1,6 @@
 require 'spec_helper'
+include Warden::Test::Helpers
+Warden.test_mode!
 
 describe "people/edit.html.erb" do
   before do
@@ -14,6 +16,7 @@ describe "people/edit.html.erb" do
       emergency_contact: 'дед Василий'  ,
       birthday: '1975-01-30'.to_date
     )
+    login_as(@p, scope: :person)
     visit edit_person_path(@p)
   end
 

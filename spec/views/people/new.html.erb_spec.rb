@@ -1,7 +1,12 @@
 require 'spec_helper'
+include Warden::Test::Helpers
+Warden.test_mode!
 
 describe "people/new.html.erb" do
-  before { visit new_person_path }
+  before do
+    login_as(create_person, scope: :person)
+    visit new_person_path
+  end
 
   subject { page }
 

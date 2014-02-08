@@ -1,7 +1,14 @@
 require 'spec_helper'
 
 feature "Add person:" do
-  before { visit new_person_path }
+  before do
+    create_person username: 'test', password: 'password', password_confirmation: 'password'
+    visit new_person_session_path
+    fill_in 'person_username', with: 'test'
+    fill_in 'person_password', with: 'password'
+    click_button 'Sign in'
+    visit new_person_path
+  end
 
   let(:attr_name)  { :telephone }
   let(:locator)    { "#{complex_name(the_m).downcase.titleize}" }
