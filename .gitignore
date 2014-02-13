@@ -19,4 +19,4 @@ doc/
 .idea
 .secret*
 bundler_stubs/
-erd.dot
+erd?.dot
