@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe PeopleController do
-  before { sign_in :person, create_person }
+  before { sign_in :person, create(:person) }
 
   it_behaves_like "POST 'create'", :person, Person
   it_behaves_like "GET"          , :person, Person, :new

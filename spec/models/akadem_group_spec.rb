@@ -35,7 +35,7 @@ describe AkademGroup do
 
   describe "before save processing" do
     it "upcases :group_name" do
-      create_akadem_group(group_name: "шб13-1")
+      create(:akadem_group, {group_name: "шб13-1"})
         .group_name.should == "ШБ13-1"
     end
   end

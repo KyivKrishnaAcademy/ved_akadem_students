@@ -4,12 +4,12 @@ feature "Edit person:" do
   subject { page }
 
   before do
-    p = create_person username: 'test', password: 'password', password_confirmation: 'password'
+    p = create :person, {username: 'test', password: 'password', password_confirmation: 'password'}
     visit new_person_session_path
     fill_in 'person_username', with: 'test'
     fill_in 'person_password', with: 'password'
     click_button 'Sign in'
-    visit person_path(create_person)
+    visit person_path(create(:person))
     click_link "Edit"
   end
 

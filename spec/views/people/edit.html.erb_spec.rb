@@ -4,7 +4,7 @@ Warden.test_mode!
 
 describe "people/edit.html.erb" do
   before do
-    @p = create_person(
+    @p = create(:person, {
       telephone:      '380112223344'    ,
       spiritual_name: 'Dasa Das'        ,
       name:           'Ivan'            ,
@@ -15,7 +15,7 @@ describe "people/edit.html.erb" do
       gender:         true              ,
       emergency_contact: 'дед Василий'  ,
       birthday: '1975-01-30'.to_date
-    )
+    })
     login_as(@p, scope: :person)
     visit edit_person_path(@p)
   end

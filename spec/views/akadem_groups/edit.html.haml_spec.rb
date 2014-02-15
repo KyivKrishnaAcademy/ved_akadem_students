@@ -3,11 +3,11 @@ require 'spec_helper'
 describe "akadem_groups/edit" do
   before do
     visit edit_akadem_group_path(
-      create_akadem_group(
+      create(:akadem_group, {
         group_name: ag_name             ,
         group_description: 'some текст' ,
         establ_date: '2013-09-28'.to_date
-      )
+      })
     )
   end
 

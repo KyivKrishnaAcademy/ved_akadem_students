@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "Add person:" do
   before do
-    create_person username: 'test', password: 'password', password_confirmation: 'password'
+    create :person, { username: 'test', password: 'password', password_confirmation: 'password' }
     visit new_person_session_path
     fill_in 'person_username', with: 'test'
     fill_in 'person_password', with: 'password'
@@ -33,7 +33,7 @@ feature "Add person:" do
   end
 
   def fill_person_data p={}
-    pf = get_person(p)
+    pf = build(:person, p)
     fill_in 'person_telephone'      , with: (pf.telephone      )
     fill_in 'person_spiritual_name' , with: (pf.spiritual_name )
     fill_in 'person_name'           , with: (pf.name           )

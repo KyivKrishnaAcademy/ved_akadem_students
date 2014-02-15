@@ -83,7 +83,7 @@ end
 
 # controllers
 def create_model model
-  method(("create_" << model.name.underscore).to_sym).call
+  create model.name.underscore.to_sym
 end
 
 shared_examples "GET" do |variable, model, action|
@@ -124,12 +124,11 @@ end
 
 shared_examples "POST 'create'" do |variable, model|
   def post_create var
-    post :create, var =>
-      method(("get_" << var.to_s).to_sym).call.attributes
+    post :create, var => build(var.to_sym).attributes
   end
 
   context "on success" do
-    before(:each) { method(:post_create).call(variable) }
+    before(:each) { post_create variable }
 
     it { response.should redirect_to(action: :new) }
     it { should set_the_flash[:success]            }
@@ -143,7 +142,7 @@ shared_examples "POST 'create'" do |variable, model|
   context "on failure" do
     before(:each) do
       model.any_instance.stub(:save).and_return(false)
-      method(:post_create).call(variable)
+      post_create variable
     end
 
     it { response.should render_template(:new) }
@@ -255,7 +254,7 @@ shared_examples :integration_delete_model do |model|
 
   before do
     visit method(('' << m_name_underscore << '_path').to_sym).call(
-      method(('create_' << m_name_underscore).to_sym).call
+      create m_name_underscore.to_sym
     )
   end
 

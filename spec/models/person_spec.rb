@@ -90,7 +90,7 @@ describe Person do
 
   describe "before save processing" do
     it "downcases :email" do
-      create_person(email: "A_US-ER@f.B.org")
+      create(:person, {email: "A_US-ER@f.B.org"})
         .email.should == "a_us-er@f.b.org"
     end
 
@@ -110,19 +110,19 @@ describe Person do
 
     context "username is blank" do
       it "sets username to email" do
-        create_person(email: "a@i.ua")
+        create(:person, {email: "a@i.ua"})
           .username.should == "a@i.ua"
       end
 
       it "sets username to telephone if email is blank" do
-        create_person(email: "", telephone: 380112233444)
+        create(:person, {email: "", telephone: 380112233444})
           .username.should == "380112233444"
       end
     end
 
     context "password is blank" do
       it "generates random password" do
-        create_person(password: "", password_confirmation: "")
+        create(:person, {password: "", password_confirmation: ""})
           .encrypted_password.should_not be_blank
       end
     end

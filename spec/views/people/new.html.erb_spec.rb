@@ -4,7 +4,7 @@ Warden.test_mode!
 
 describe "people/new.html.erb" do
   before do
-    login_as(create_person, scope: :person)
+    login_as(create(:person), scope: :person)
     visit new_person_path
   end
 

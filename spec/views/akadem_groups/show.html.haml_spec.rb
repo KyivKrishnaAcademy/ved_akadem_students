@@ -4,7 +4,7 @@ describe "akadem_groups/show" do
   let(:ag_name) { "ТВ99-1" }
 
   before do
-    @ag = create_akadem_group(group_name: ag_name)
+    @ag = create :akadem_group, {group_name: ag_name}
     visit akadem_group_path(@ag)
   end
 

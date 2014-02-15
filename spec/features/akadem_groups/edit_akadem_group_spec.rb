@@ -4,7 +4,7 @@ feature "Edit akadem group:" do
   subject { page }
 
   before do
-    visit akadem_group_path(create_akadem_group)
+    visit akadem_group_path(create(:akadem_group))
     click_link "Edit"
   end
 
