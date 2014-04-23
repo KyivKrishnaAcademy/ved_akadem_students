@@ -1,44 +1,28 @@
 source 'https://rubygems.org'
-ruby '2.0.0'
-#ruby-gemset=ved_akadem_base_2nd_ed
+ruby '2.1.1'
+#ruby-gemset=ved_akadem_students
 
-gem 'rails', '4.0.1'
-
-group :development do
-  gem 'erd'
-end
-
-group :development, :test do
-  gem 'sqlite3', '1.3.8'
-  gem 'rspec-rails', '2.14.0'
-  gem 'fuubar', '1.2.1'
-end
+gem 'rails', '4.0.4'
 
 group :test do
-  gem 'poltergeist', '1.4.1'
-  gem 'capybara', '2.1.0'
+  gem 'rspec-rails', '2.14.2'
+  gem 'fuubar', '1.3.2'
+  gem 'poltergeist', '1.5.0'
+  gem 'capybara', '2.2.1'
   gem 'spork-rails', '4.0.0'
-  gem 'factory_girl_rails', '4.3.0'
-  gem 'shoulda-matchers', '2.4.0'
+  gem 'factory_girl_rails', '4.4.1'
+  gem 'shoulda-matchers', '2.6.0'
   gem 'database_cleaner', '1.2.0'
 end
 
-gem 'haml'
-gem 'sass-rails', '4.0.1'
-gem 'uglifier', '2.1.1'
+gem 'haml', '4.0.5'
+gem 'sass-rails', '4.0.3'
+gem 'uglifier', '2.5.0'
 gem 'coffee-rails', '4.0.1'
-gem 'jquery-rails', '3.0.4'
-gem 'turbolinks', '1.1.1'
-gem 'jbuilder', '1.0.2'
-gem 'pg', '0.15.1'
-gem 'devise', '3.2.2'
+gem 'jquery-rails', '3.1.0'
+gem 'turbolinks', '2.2.2'
+gem 'jbuilder', '2.0.6'
+gem 'pg', '0.17.1'
+gem 'devise', '3.2.4'
 
-gem 'anjlab-bootstrap-rails', '3.0.2.0', :require => 'bootstrap-rails'
-
-group :doc do
-  gem 'sdoc', '0.3.20', require: false
-end
-
-group :production do
-  gem 'rails_12factor', '0.0.2'
-end
+gem 'bootstrap-sass', '3.1.1.1'
