@@ -20,3 +20,7 @@ doc/
 .secret*
 bundler_stubs/
 erd?.dot
+
+/Procfile
+/config/deploy/
+/shared/

@@ -1,4 +1,4 @@
-VedAkademBase2ndEd::Application.routes.draw do
+VedAkademStudents::Application.routes.draw do
   devise_for :people, path: ''
 
   resources :people, :akadem_groups
