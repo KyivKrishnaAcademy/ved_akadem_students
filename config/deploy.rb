@@ -106,7 +106,7 @@ namespace :deploy do
       sudo 'service nginx start'
 
       within release_path do
-        with rails_env: 'production' do
+        with rails_env: fetch(:rails_env) do
           execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
           execute :rake, "db:reset"
         end
