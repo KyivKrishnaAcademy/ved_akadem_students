@@ -9,7 +9,7 @@ set :rvm_ruby_version, '2.1.1'
 set :deploy_to, '/var/www/apps/ved_akadem_students'
 set :ssh_options, { forward_agent: true }
 set :pty, true
-set :rails_env, fetch(:production)
+set :rails_env, 'production'
 
 namespace :foreman do
   desc 'Start server'
@@ -107,8 +107,10 @@ namespace :deploy do
       sudo 'service nginx start'
 
       within release_path do
-        execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-        execute :rake, "db:reset"
+        with rails_env: 'production' do
+          execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+          execute :rake, "db:reset"
+        end
       end
     end
   end

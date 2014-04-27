@@ -18,8 +18,9 @@ gem 'bootstrap-sass', '3.1.1.1'
 
 gem 'factory_girl_rails', '4.4.1'
 
+gem 'foreman'
+
 group :production, :development do
-  gem 'foreman'
   gem 'puma'
 end
 
