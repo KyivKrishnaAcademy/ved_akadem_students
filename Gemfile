@@ -4,17 +4,6 @@ ruby '2.1.1'
 
 gem 'rails', '4.0.4'
 
-group :test do
-  gem 'rspec-rails', '2.14.2'
-  gem 'fuubar', '1.3.2'
-  gem 'poltergeist', '1.5.0'
-  gem 'capybara', '2.2.1'
-  gem 'spork-rails', '4.0.0'
-  gem 'factory_girl_rails', '4.4.1'
-  gem 'shoulda-matchers', '2.6.0'
-  gem 'database_cleaner', '1.2.0'
-end
-
 gem 'haml', '4.0.5'
 gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.5.0'
@@ -26,3 +15,27 @@ gem 'pg', '0.17.1'
 gem 'devise', '3.2.4'
 
 gem 'bootstrap-sass', '3.1.1.1'
+
+gem 'factory_girl_rails', '4.4.1'
+
+group :production, :development do
+  gem 'foreman'
+  gem 'puma'
+end
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+end
+
+group :test do
+  gem 'rspec-rails', '2.14.2'
+  gem 'fuubar', '1.3.2'
+  gem 'poltergeist', '1.5.0'
+  gem 'capybara', '2.2.1'
+  gem 'spork-rails', '4.0.0'
+  gem 'shoulda-matchers', '2.6.0'
+  gem 'database_cleaner', '1.2.0'
+end

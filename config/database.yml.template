@@ -1,0 +1,17 @@
+common: &common
+    adapter: postgresql
+    username: vedakadembase
+    password: somepassword
+    host: localhost
+
+development:
+    <<: *common
+    database: va_db_dev
+
+test:
+    <<: *common
+    database: va_db_tst
+
+production:
+    <<: *common
+    database: va_db_pro
