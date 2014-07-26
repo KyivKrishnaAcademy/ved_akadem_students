@@ -1,6 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
-#ruby-gemset=ved_akadem_students
 
 gem 'rails', '4.0.4'
 
@@ -18,8 +16,6 @@ gem 'bootstrap-sass', '3.1.1.1'
 
 gem 'factory_girl_rails', '4.4.1'
 
-gem 'foreman'
-
 group :production, :development do
   gem 'puma'
 end
@@ -29,6 +25,7 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
+  gem 'capistrano-puma', require: false
 end
 
 group :test do
