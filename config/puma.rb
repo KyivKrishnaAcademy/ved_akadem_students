@@ -1,4 +1,7 @@
 rails_env = ENV['RAILS_ENV'] || 'development'
+port      = ENV['RAILS_ENV'] == 'production' ? 80 : 3000
+
+preload_app!
 
 threads 4,4
 

@@ -63,7 +63,7 @@ namespace :deploy do
       sudo "rm -f /usr/local/nginx/conf/sites-enabled/puma.conf"
       sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
       sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
-      #sudo 'echo "/var/www/apps/ved_akadem_students/current,deployer,/var/www/apps/ved_akadem_students/current/config/puma.rb,/var/www/apps/ved_akadem_students/current/log/puma.log" > /etc/puma.conf'
+      sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
       sudo 'service nginx restart'
 
       within release_path do
@@ -89,38 +89,16 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       sudo "service nginx restart"
+      sudo "service puma restart"
     end
   end
 
   after :finishing, 'deploy:cleanup'
   after :finishing, 'deploy:restart'
-  
+
   after :updating, 'deploy:symlink'
 
   before :setup, 'deploy:starting'
   before :setup, 'deploy:updating'
   before :setup, 'bundler:install'
-end
-
-namespace :puma do
-  desc "Start Puma"
-  task :start do
-    run "sudo /etc/init.d/puma start #{application}"
-  end
-
-  desc "Stop Puma"
-  task :stop do
-    run "sudo /etc/init.d/puma stop #{application}"
-  end
-
-  desc "Restart Puma"
-  task :restart do
-    run "sudo /etc/init.d/puma restart #{application}"
-  end
-
-  desc "create a shared tmp dir for puma state files"
-  task :after_symlink do
-    run "sudo rm -rf #{release_path}/tmp"
-    run "ln -s #{shared_path}/tmp #{release_path}/tmp"
-  end
 end
