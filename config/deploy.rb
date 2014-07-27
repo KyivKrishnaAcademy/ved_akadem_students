@@ -97,11 +97,11 @@ namespace :deploy do
   before :setup, 'bundler:install'
 end
 
-namespace :app do
+namespace :puma do
   desc 'Restart application'
   task :restart do
     on roles(:app) do
-      sudo "service puma restart #{application}"
+      sudo "service puma restart #{application} && sleep 2"
     end
   end
   after 'deploy:restart', 'puma:restart'
@@ -112,7 +112,6 @@ namespace :app do
       sudo "service puma start #{application} && sleep 2"
     end
   end
-  after 'deploy:start', 'puma:start'
 
   desc 'Stop application'
   task :stop do
@@ -120,7 +119,6 @@ namespace :app do
       sudo "service puma stop #{application}"
     end
   end
-  before 'deploy:stop', 'puma:stop'
 
   desc 'Stop application'
   task :status do
