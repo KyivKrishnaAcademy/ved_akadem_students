@@ -63,6 +63,8 @@ namespace :deploy do
       sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
       sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
 
+      sudo 'touch /etc/puma.conf'
+      sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
       sudo 'service nginx restart'
 
       within release_path do
@@ -93,27 +95,38 @@ namespace :deploy do
   before :setup, 'deploy:starting'
   before :setup, 'deploy:updating'
   before :setup, 'bundler:install'
+
+  after :started, 'app:stop'
+
+  before :finished, 'app:start'
 end
 
 namespace :app do
   desc 'Restart application'
   task :restart do
     on roles(:app) do
-      sudo "service puma restart"
+      sudo "service puma restart #{application}"
     end
   end
 
   desc 'Start application'
   task :start do
     on roles(:app) do
-      sudo "service puma start"
+      sudo "service puma start #{application} && sleep 2"
     end
   end
 
   desc 'Stop application'
   task :stop do
     on roles(:app) do
-      sudo "service puma stop"
+      sudo "service puma stop #{application}"
+    end
+  end
+
+  desc 'Stop application'
+  task :status do
+    on roles(:app) do
+      sudo "service puma status #{application}"
     end
   end
 end
