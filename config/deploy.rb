@@ -55,16 +55,16 @@ namespace :deploy do
       sudo    "mkdir -p /usr/local/nginx/conf/sites-enabled"
 
       upload!('shared/database.yml', "#{shared_path}/config/database.yml")
-      upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
-      upload!('shared/puma.conf', "#{shared_path}/puma.conf")
-
-      #sudo 'service nginx stop'
-      sudo "rm -f /usr/local/nginx/conf/nginx.conf"
-      sudo "rm -f /usr/local/nginx/conf/sites-enabled/puma.conf"
-      sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
-      sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
-      #sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
-      sudo 'service nginx restart'
+      #upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
+      #upload!('shared/puma.conf', "#{shared_path}/puma.conf")
+      #
+      ##sudo 'service nginx stop'
+      #sudo "rm -f /usr/local/nginx/conf/nginx.conf"
+      #sudo "rm -f /usr/local/nginx/conf/sites-enabled/puma.conf"
+      #sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
+      #sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
+      ##sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
+      #sudo 'service nginx restart'
 
       within release_path do
         with rails_env: fetch(:rails_env) do
@@ -79,12 +79,21 @@ namespace :deploy do
   task :symlink do
     on roles(:all) do
       upload!('shared/Procfile', "#{shared_path}/Procfile")
+      upload!('shared/database.yml', "#{shared_path}/config/database.yml")
+      upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
+      upload!('shared/puma.conf', "#{shared_path}/puma.conf")
 
-      execute "ln -sf #{release_path} #{current_path}"
+      sudo "rm -f /usr/local/nginx/conf/nginx.conf"
+      sudo "rm -f /usr/local/nginx/conf/sites-enabled/puma.conf"
+      sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
+      sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
+
       execute "mkdir -p #{release_path}/tmp/puma"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-      execute "ln -s #{shared_path}/Procfile #{release_path}/Procfile"
+      execute "ln -sf #{shared_path}/Procfile #{release_path}/Procfile"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
+
+      execute "ln -sf #{release_path} #{current_path}"
     end
   end
 
@@ -92,7 +101,6 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       sudo "service nginx restart"
-      sudo "service puma restart"
     end
   end
 
