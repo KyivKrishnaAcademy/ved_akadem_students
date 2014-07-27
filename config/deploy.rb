@@ -63,7 +63,7 @@ namespace :deploy do
       sudo "rm -f /usr/local/nginx/conf/sites-enabled/puma.conf"
       sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
       sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
-      sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
+      #sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
       sudo 'service nginx restart'
 
       within release_path do
@@ -78,9 +78,12 @@ namespace :deploy do
   desc 'Create symlink'
   task :symlink do
     on roles(:all) do
+      upload!('shared/Procfile', "#{shared_path}/Procfile")
+
       execute "ln -sf #{release_path} #{current_path}"
       execute "mkdir -p #{release_path}/tmp/puma"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+      execute "ln -s #{shared_path}/Procfile #{release_path}/Procfile"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
     end
   end
