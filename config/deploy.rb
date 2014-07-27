@@ -4,8 +4,8 @@ lock '3.2.1'
 set :application, 'ved_akadem_students'
 set :repo_url, 'git@github.com:mpugach/ved_akadem_students.git'
 application = 'ved_akadem_students'
-set :rvm_type, :system
-set :rvm_ruby_version, '2.1.1'
+set :rvm_type, :user
+set :rvm_ruby_version, 'ruby-2.1.1'
 set :deploy_to, '/var/www/apps/ved_akadem_students'
 set :ssh_options, { forward_agent: true }
 set :pty, true
@@ -52,18 +52,19 @@ namespace :deploy do
       execute "mkdir -p /var/www/apps/#{application}/socket/"
       execute "mkdir -p #{shared_path}/system"
       execute "mkdir -p /var/www/log"
+      sudo    "mkdir -p /usr/local/nginx/conf/sites-enabled"
 
       upload!('shared/database.yml', "#{shared_path}/config/database.yml")
       upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
       upload!('shared/puma.conf', "#{shared_path}/puma.conf")
 
-      sudo 'service nginx stop'
+      #sudo 'service nginx stop'
       sudo "rm -f /usr/local/nginx/conf/nginx.conf"
       sudo "rm -f /usr/local/nginx/conf/sites-enabled/puma.conf"
       sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
       sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
-      sudo 'service add /var/www/apps/ved_akadem_students/current deployer'
-      sudo 'service nginx start'
+      #sudo 'echo "/var/www/apps/ved_akadem_students/current,deployer,/var/www/apps/ved_akadem_students/current/config/puma.rb,/var/www/apps/ved_akadem_students/current/log/puma.log" > /etc/puma.conf'
+      sudo 'service nginx restart'
 
       within release_path do
         with rails_env: fetch(:rails_env) do
@@ -77,26 +78,49 @@ namespace :deploy do
   desc 'Create symlink'
   task :symlink do
     on roles(:all) do
+      execute "ln -sf #{release_path} #{current_path}"
       execute "mkdir -p #{release_path}/tmp/puma"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-      execute "ln -sf #{shared_path}/Procfile #{release_path}/Procfile"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
     end
   end
 
-  #desc 'Restart application'
-  #task :restart do
-  #  on roles(:app), in: :sequence, wait: 5 do
-  #    # sudo "restart #{application}"
-  #  end
-  #end
-  #
-  ## after :finishing, 'deploy:cleanup'
-  #after :finishing, 'deploy:restart'
-  #
-  #after :updating, 'deploy:symlink'
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      sudo "service nginx restart"
+    end
+  end
 
-  #before :setup, 'deploy:starting'
-  #before :setup, 'deploy:updating'
-  #before :setup, 'bundler:install'
+  after :finishing, 'deploy:cleanup'
+  after :finishing, 'deploy:restart'
+  
+  after :updating, 'deploy:symlink'
+
+  before :setup, 'deploy:starting'
+  before :setup, 'deploy:updating'
+  before :setup, 'bundler:install'
+end
+
+namespace :puma do
+  desc "Start Puma"
+  task :start do
+    run "sudo /etc/init.d/puma start #{application}"
+  end
+
+  desc "Stop Puma"
+  task :stop do
+    run "sudo /etc/init.d/puma stop #{application}"
+  end
+
+  desc "Restart Puma"
+  task :restart do
+    run "sudo /etc/init.d/puma restart #{application}"
+  end
+
+  desc "create a shared tmp dir for puma state files"
+  task :after_symlink do
+    run "sudo rm -rf #{release_path}/tmp"
+    run "ln -s #{shared_path}/tmp #{release_path}/tmp"
+  end
 end
