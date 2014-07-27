@@ -96,9 +96,7 @@ namespace :deploy do
   before :setup, 'deploy:updating'
   before :setup, 'bundler:install'
 
-  after :started, 'app:stop'
-
-  before :finished, 'app:start'
+  after :restart, 'app:restart'
 end
 
 namespace :app do
