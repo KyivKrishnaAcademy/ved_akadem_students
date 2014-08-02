@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.0.8 '
 
 gem 'haml', '4.0.5'
 gem 'sass-rails', '4.0.3'
