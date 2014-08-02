@@ -56,12 +56,12 @@ namespace :deploy do
 
       upload!('shared/database.yml', "#{shared_path}/config/database.yml")
       upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
-      upload!('shared/puma.conf', "#{shared_path}/puma.conf")
+      upload!('shared/ved_akadem_students.conf', "#{shared_path}/ved_akadem_students.conf")
 
       sudo "rm -f /usr/local/nginx/conf/nginx.conf"
-      sudo "rm -f /usr/local/nginx/conf/sites-enabled/puma.conf"
+      sudo "rm -f /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf"
       sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
-      sudo "ln -sf #{shared_path}/puma.conf /usr/local/nginx/conf/sites-enabled/puma.conf"
+      sudo "ln -sf #{shared_path}/ved_akadem_students.conf /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf"
 
       sudo 'touch /etc/puma.conf'
       sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
