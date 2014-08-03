@@ -17,4 +17,4 @@
         %li
           = person_signed_in? ? link_to('Sign out', destroy_person_session_path, method: :delete) : link_to('Sign in', new_person_session_path)
         %li
-          = link_to session[:locale] == 'ru' ? 'Русский (RU)' : 'Українська (UK)', '#'
+          = link_to locale_label, '#', class: 'change_locale'
