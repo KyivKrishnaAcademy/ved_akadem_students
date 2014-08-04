@@ -80,7 +80,7 @@ namespace :deploy do
   task :symlink do
     on roles(:all) do
       execute "mkdir -p #{shared_path}/tmp/puma"
-      sudo "sudo rm -rf #{release_path}/tmp"
+      sudo    "rm -rf #{release_path}/tmp"
       execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
