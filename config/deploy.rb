@@ -2,7 +2,7 @@
 lock '3.2.1'
 
 set :application, 'ved_akadem_students'
-set :repo_url, 'https://maksym_pugach@bitbucket.org/maksym_pugach/ved_akadem_students.git'
+set :repo_url, 'git@bitbucket.org:maksym_pugach/ved_akadem_students.git'
 application = 'ved_akadem_students'
 set :rvm_type, :user
 set :rvm_ruby_version, '2.1.1'
