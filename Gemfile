@@ -28,13 +28,15 @@ group :development do
   gem 'capistrano-puma', require: false
   gem 'quiet_assets'
   gem 'better_errors'
+  gem 'rspec-given'
 end
 
 group :test do
   gem 'rspec-rails', '2.14.2'
   gem 'fuubar', '1.3.2'
   gem 'poltergeist', '1.5.0'
-  gem 'capybara', '2.2.1'
+  gem 'capybara', '2.4.1'
+  gem 'capybara-screenshot'
   gem 'spork-rails', '4.0.0'
   gem 'shoulda-matchers', '2.6.0'
   gem 'database_cleaner', '1.2.0'

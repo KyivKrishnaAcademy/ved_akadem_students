@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe PeopleHelper do
-  describe "complex_name" do
+  describe 'complex_name' do
     before { @person = create :person }
 
     it "full with spiritual name should be 'sp_name (name m_name surname)' " do
