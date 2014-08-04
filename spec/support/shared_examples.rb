@@ -250,20 +250,20 @@ end
 # integration
 
 shared_examples :integration_delete_model do |model|
-  let(:m_name_underscore) { model.name.underscore }
+  Given (:m_name_underscore) { model.name.underscore }
 
-  before do
+  When do
     visit method(('' << m_name_underscore << '_path').to_sym).call(
       create m_name_underscore.to_sym
     )
   end
 
-  scenario do
-    click_link "Delete"
+  Then do
+    click_link 'Delete'
     page.should have_selector('section.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
   end
 
-  scenario { expect{ click_link "Delete" }.to change{model.count}.by(-1) }
+  Then { expect{ click_link 'Delete' }.to change{model.count}.by(-1) }
 end
 
 shared_examples :alert_success_updated do |thing|
