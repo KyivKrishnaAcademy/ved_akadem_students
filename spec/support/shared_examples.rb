@@ -250,47 +250,48 @@ end
 # integration
 
 shared_examples :integration_delete_model do |model|
-  let(:m_name_underscore) { model.name.underscore }
+  Given (:m_name_underscore) { model.name.underscore }
 
-  before do
+  When do
     visit method(('' << m_name_underscore << '_path').to_sym).call(
       create m_name_underscore.to_sym
     )
   end
 
-  scenario do
-    click_link "Delete"
+  Then do
+    click_link 'Delete'
     page.should have_selector('section.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
   end
 
-  scenario { expect{ click_link "Delete" }.to change{model.count}.by(-1) }
+  Then { expect{ click_link 'Delete' }.to change{model.count}.by(-1) }
 end
 
 shared_examples :alert_success_updated do |thing|
-  scenario { should have_selector('.alert-success', text: "#{thing} was successfully updated.") }
+  Then { find('body').should have_selector('.alert-success', text: "#{thing} was successfully updated.") }
 end
 
 shared_examples :valid_fill_in do |h, model_human|
   describe h[:field] do
-    before do
+    When do
       fill_in h[:field], with: h[:value]
       click_button "Update #{model_human}"
     end
 
-    scenario { should have_content(h[:test_field]) }
+    Then { find('body').should have_content(h[:test_field]) }
+
     it_behaves_like :alert_success_updated, model_human
   end
 end
 
 shared_examples :invalid_fill_in do |h, model_human|
   describe h[:field] do
-    before do
+    When do
       fill_in h[:field], with: h[:value]
       click_button "Update #{model_human}"
     end
 
-    scenario { should have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
-    scenario { should have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
+    Then { find('body').should have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
+    Then { find('body').should have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
   end
 end
 
@@ -299,7 +300,7 @@ def underscore_humanize str
 end
 
 shared_examples :valid_select_date do |model_name, field_name, content|
-  before do
+  When do
     select_from = "#{model_name.underscore}[#{field_name}("
     select '2010', from: "#{select_from}1i)]"
     select 'May' , from: "#{select_from}2i)]"
@@ -307,17 +308,17 @@ shared_examples :valid_select_date do |model_name, field_name, content|
     click_button "Update #{underscore_humanize(model_name)}"
   end
 
-  scenario { should have_content("#{content}2010-05-27") }
+  Then { find('body').should have_content("#{content}2010-05-27") }
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 
 shared_examples :valid_select do |model_name, field_name, value, content|
-  before do
+  When do
     select value, from: field_name
     click_button "Update #{underscore_humanize(model_name)}"
   end
 
-  scenario { should have_content(content) }
+  Then { find('body').should have_content(content) }
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 

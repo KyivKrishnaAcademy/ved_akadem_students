@@ -119,6 +119,7 @@ namespace :puma do
       sudo "service puma stop #{application}"
     end
   end
+  before 'deploy:starting', 'puma:stop'
 
   desc 'Stop application'
   task :status do

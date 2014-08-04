@@ -10,7 +10,7 @@
       %th Description
   %tbody
     - @akadem_groups.each do |akadem_group|
-      %tr{:class => "akadem_group", :id => "#{akadem_group.id}"}
+      %tr{class: 'akadem_group', id: akadem_group.id}
         %td= link_to akadem_group.group_name, akadem_group
         %td= akadem_group.establ_date.to_s
         %td= akadem_group.group_description

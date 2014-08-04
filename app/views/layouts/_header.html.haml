@@ -1,0 +1,20 @@
+%header.navbar.navbar-inverse.navbar-fixed-top{ role: 'navigation' }
+  .container
+    .navbar-header
+      %button.navbar-toggle{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '.navbar-collapse' }
+        %span.sr-only
+          Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to 'VedAkademStudents', '#', class: 'navbar-brand'
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        %li.active
+          = link_to 'Home', '#'
+        %li
+          = link_to 'Help', '#'
+        %li
+          = person_signed_in? ? link_to('Sign out', destroy_person_session_path, method: :delete) : link_to('Sign in', new_person_session_path)
+        %li
+          = link_to locale_label, '#', class: 'change_locale'

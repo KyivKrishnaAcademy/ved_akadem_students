@@ -1,8 +1,6 @@
 module ApplicationHelper
-
-  # Returns the full title on a per-page basis.
   def full_title(page_title)
-    base_title = "Kyiv Vedic Akademy Students"
+    base_title = 'Kyiv Vedic Akademy Students'
     if page_title.empty?
       base_title
     else
@@ -10,4 +8,7 @@ module ApplicationHelper
     end
   end
 
+  def locale_label
+    t("locale_label.#{session[:locale].present? ? session[:locale] : :uk}")
+  end
 end
