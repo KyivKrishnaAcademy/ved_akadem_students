@@ -64,7 +64,7 @@ namespace :deploy do
       sudo "ln -sf #{shared_path}/ved_akadem_students.conf /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf"
 
       sudo 'touch /etc/puma.conf'
-      sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer /var/www/apps/ved_akadem_students/current/config/puma.rb /var/www/apps/ved_akadem_students/current/log/puma.log'
+      sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer'
       sudo 'service nginx restart'
 
       within release_path do
@@ -79,7 +79,9 @@ namespace :deploy do
   desc 'Create symlink'
   task :symlink do
     on roles(:all) do
-      execute "mkdir -p #{release_path}/tmp/puma"
+      execute "mkdir -p #{shared_path}/tmp/puma"
+      sudo "sudo rm -rf #{release_path}/tmp"
+      execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
 
