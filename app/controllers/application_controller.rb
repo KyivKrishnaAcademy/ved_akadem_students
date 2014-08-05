@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+  include Pundit
+
   protect_from_forgery with: :exception
+
   before_filter :enable_http_auth, if: :use_http_auth?
   before_filter :set_locale
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def set_locale
     I18n.locale = session[:locale] if session[:locale].present?
@@ -17,5 +20,17 @@ class ApplicationController < ActionController::Base
     authenticate_or_request_with_http_basic('Application') do |name, password|
       name == 'ved_akadem' && password == 'secret123!'
     end
+  end
+
+  private
+
+  def user_not_authorized
+    flash[:error] = "You are not authorized to perform this action."
+
+    redirect_to(request.referrer || root_path)
+  end
+
+  def pundit_user
+    current_person
   end
 end

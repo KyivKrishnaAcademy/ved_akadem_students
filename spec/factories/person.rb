@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :person do
     gender                              true
-    password                            "password"
-    password_confirmation               "password"
+    password                            'password'
+    password_confirmation               'password'
     sequence(:telephone, 100000000000 ) { |n| "#{n}"                     }
     sequence(:spiritual_name          ) { |n| "Ad#{generate(:char_sequence)} das"  }
     sequence(:name                    ) { |n| "V#{generate(:char_sequence)}"       }

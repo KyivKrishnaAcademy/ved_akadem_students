@@ -11,6 +11,7 @@ gem 'turbolinks', '2.2.2'
 gem 'jbuilder', '2.0.6'
 gem 'pg', '0.17.1'
 gem 'devise', '3.2.4'
+gem 'pundit'
 
 gem 'bootstrap-sass', '3.1.1.1'
 
@@ -29,6 +30,7 @@ group :development do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'rspec-given'
+  gem 'erd'
 end
 
 group :test do

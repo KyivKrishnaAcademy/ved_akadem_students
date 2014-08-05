@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+if Person.where(email: 'admin@example.com').none?
+  FactoryGirl.create :person, email: 'admin@example.com', password: 'password', password_confirmation: 'password'
+end

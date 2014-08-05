@@ -1,15 +1,15 @@
-- provide(:title, "Sign in")
+- provide(:title, 'Sign in')
 %h1 Sign in
 
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   = render 'shared/error_messages', object: f.object
   %p
-    = f.label      :username
-    = f.text_field :username, :autofocus => true
+    = f.label      :email
+    = f.text_field :email, autofocus: true
   %p
     = f.label :password
     = f.password_field :password
   %p
-    = f.submit "Sign in", class: "btn"
+    = f.submit 'Sign in', class: 'btn'
 
-= render "devise/shared/links"
+= render 'devise/shared/links'

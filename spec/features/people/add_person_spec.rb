@@ -2,9 +2,9 @@ require 'spec_helper'
 
 feature "Add person:" do
   before do
-    create :person, { username: 'test', password: 'password', password_confirmation: 'password' }
+    create :person, { email: 'test@example.com', password: 'password', password_confirmation: 'password' }
     visit new_person_session_path
-    fill_in 'person_username', with: 'test'
+    fill_in 'person_email', with: 'test@example.com'
     fill_in 'person_password', with: 'password'
     click_button 'Sign in'
     visit new_person_path
