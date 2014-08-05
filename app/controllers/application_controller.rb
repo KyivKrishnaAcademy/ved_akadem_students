@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  private
+
   def set_locale
     I18n.locale = session[:locale] if session[:locale].present?
   end
@@ -21,8 +23,6 @@ class ApplicationController < ActionController::Base
       name == 'ved_akadem' && password == 'secret123!'
     end
   end
-
-  private
 
   def user_not_authorized
     flash[:error] = "You are not authorized to perform this action."
