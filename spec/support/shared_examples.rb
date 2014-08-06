@@ -64,7 +64,7 @@ shared_examples 'index.html' do |headers|
       Then { find('.table').should have_selector('th', text: header) }
     end
 
-    Then { find('.table').should have_selector('tr.' << row_class, count: models_count + 1) }
+    Then { find('.table').should have_selector('tr.' << row_class, count: models_count ) }
   end
 end
 
@@ -232,19 +232,18 @@ shared_examples "PATCH 'update'" do |model, field|
 end
 
 # requests
-shared_examples "renders _form" do
-  it { response.should render_template(partial: '_form') }
-end
 
-shared_examples "renders _form on New and Edit pages" do
-  describe "New page" do
-    before { get new_path }
-    it_behaves_like "renders _form"
+shared_examples 'renders _form on New and Edit pages' do
+  describe 'New page' do
+    When { get new_path }
+
+    Then { response.should render_template(partial: '_form') }
   end
 
-  describe "Edit page" do
-    before { get edit_path }
-    it_behaves_like "renders _form"
+  describe 'Edit page' do
+    When { get edit_path }
+
+    Then { response.should render_template(partial: '_form') }
   end
 end
 

@@ -6,7 +6,7 @@ describe 'people/index' do
   Given(:h1)            { 'People' }
   Given(:row_class)     { 'person' }
 
-  Given { models_count.times { create :person } }
+  Given { (models_count - 1).times { create :person } }
   Given { login_as_admin }
 
   When  { visit people_path }
