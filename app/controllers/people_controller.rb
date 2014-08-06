@@ -70,7 +70,8 @@ class PeopleController < ApplicationController
         :gender         ,
         :birthday       ,
         :edu_and_work   ,
-        :emergency_contact
+        :emergency_contact,
+        :skip_password_validation
       )
     end
   end

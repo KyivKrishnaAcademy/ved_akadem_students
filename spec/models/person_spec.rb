@@ -26,6 +26,10 @@ describe Person do
     context :password do
       it { should validate_confirmation_of(:password) }
       it { should validate_presence_of(    :password) }
+
+      it 'should skip validation' do
+        build(:person, password: '', skip_password_validation: true).should be_valid
+      end
     end
 
     context :gender do

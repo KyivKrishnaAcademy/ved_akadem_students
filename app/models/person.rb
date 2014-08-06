@@ -1,4 +1,5 @@
 class Person < ActiveRecord::Base
+  attr_accessor :skip_password_validation
 
   devise :database_authenticatable
 
@@ -7,7 +8,7 @@ class Person < ActiveRecord::Base
 
   before_save :normalize_strings
 
-  validates :password, confirmation: true, presence: true
+  validates :password, confirmation: true, presence: true, unless: 'skip_password_validation'
   validates :name,    length: { maximum: 50 }, presence: true
   validates :surname, length: { maximum: 50 }, presence: true
   validates :middle_name,     length: { maximum: 50 }
