@@ -81,7 +81,7 @@ shared_examples "CRUD" do |controller|
 end
 
 # controllers
-def create_model model
+def create_model(model)
   create model.name.underscore.to_sym
 end
 
@@ -122,23 +122,25 @@ shared_examples "GET" do |variable, model, action|
 end
 
 shared_examples "POST 'create'" do |variable, model|
-  def post_create var
+  def post_create(var)
     post :create, var => build(var.to_sym).attributes
   end
 
-  context "on success" do
+  context 'on success' do
     before(:each) { post_create variable }
 
     it { response.should redirect_to(action: :new) }
-    it { should set_the_flash[:success]            }
+    it { should set_the_flash[:success] }
+
     context "@#{variable.to_s}" do
       subject { assigns(variable) }
+
       it { should be_a(model)  }
       it { should be_persisted }
     end
   end
 
-  context "on failure" do
+  context 'on failure' do
     before(:each) do
       model.any_instance.stub(:save).and_return(false)
       post_create variable
@@ -193,7 +195,7 @@ shared_examples "PATCH 'update'" do |model, field|
   before(:each) { create_model model }
 
   let(:model_name_underscore) { model.name.underscore }
-  let(:some_text) { "Какой-то текст" }
+  let(:some_text) { 'Какой-то текст' }
   let(:model_last) { model.last }
   let(:field) { field }
   let(:model) { model }
@@ -205,11 +207,11 @@ shared_examples "PATCH 'update'" do |model, field|
     patch :update, {id: m.to_param, model_name_underscore.to_sym => attribs}
   end
 
-  context "on success" do
+  context 'on success' do
     it { expect{ update_model }.to change{ model_last[field] }.to(some_text) }
 
-    it "receives .update_attributes" do
-      h = {field.to_s => "params"}
+    it 'receives .update_attributes' do
+      h = {field.to_s => 'params'}
       model.any_instance.should_receive(:update_attributes).with(h)
       update_model(h)
     end
@@ -219,7 +221,7 @@ shared_examples "PATCH 'update'" do |model, field|
     it { update_model; response.should redirect_to model_last }
   end
 
-  context "on failure" do
+  context 'on failure' do
     before do
       model.any_instance.stub(:save).and_return(false)
       update_model

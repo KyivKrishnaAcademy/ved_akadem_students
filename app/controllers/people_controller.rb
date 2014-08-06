@@ -18,6 +18,7 @@ class PeopleController < ApplicationController
 
     if @person.save
       flash[:success] = "#{view_context.link_to( view_context.complex_name(@person), person_path(@person) )} added.".html_safe
+
       redirect_to action: :new
     elsif
       render      action: :new
@@ -77,7 +78,8 @@ class PeopleController < ApplicationController
   end
 
   private
-    def set_person
-      @person = policy_scope(Person).find(params[:id])
-    end
+
+  def set_person
+    @person = policy_scope(Person).find(params[:id])
+  end
 end
