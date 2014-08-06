@@ -55,17 +55,16 @@ shared_examples "akadem group new and edit" do
   end
 end
 
-shared_examples "index.html" do |headers|
-  subject { page }
+shared_examples 'index.html' do |headers|
+  Then { page.should have_title(full_title(title)) }
+  Then { find('body').should have_selector('h1', text: h1)  }
 
-  it { should have_title(full_title(title)) }
-  it { should have_selector('h1', text: h1)  }
-
-  describe "table" do
+  describe 'table' do
     headers.each do |header|
-      it { should have_selector('th', text: header) }
+      Then { find('.table').should have_selector('th', text: header) }
     end
-    it { should have_selector('tr.' << row_class, count: models_count) }
+
+    Then { find('.table').should have_selector('tr.' << row_class, count: models_count + 1) }
   end
 end
 

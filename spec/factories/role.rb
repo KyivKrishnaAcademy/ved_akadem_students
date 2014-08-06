@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :role do
-    activities ['some:show']
+    activities { ['some:show'] }
     name       { generate(:char_sequence)*10 }
 
     trait :super_admin do
-      name       'all'
-      activities PeopleController.action_methods.map { |action| 'person:' << action }
+      name       { 'all' }
+      activities { PeopleController.action_methods.map { |action| 'person:' << action } }
     end
   end
 end

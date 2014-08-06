@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe "akadem_groups/index" do
-  let(:models_count) { 20 }
+describe 'akadem_groups/index' do
+  Given(:models_count) { 20 }
+  Given(:title)        { 'All Akadem Groups' }
+  Given(:h1)           { 'Akadem Groups' }
+  Given(:row_class)    { 'akadem_group' }
 
-  before(:all)  { models_count.times { create :akadem_group } }
-  before(:each) { visit akadem_groups_path }
+  Given { models_count.times { create :akadem_group } }
 
-  let(:title) { "All Akadem Groups" }
-  let(:h1) { "Akadem Groups" }
-  let(:row_class) { "akadem_group" }
+  When  { visit akadem_groups_path }
 
-  it_behaves_like "index.html", ["Name", "Estbalished", "Description"]
+  it_behaves_like 'index.html', ['Name', 'Estbalished', 'Description']
 end

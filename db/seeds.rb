@@ -6,8 +6,4 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-if Person.where(email: 'admin@example.com').none?
-  role = FactoryGirl.create :role, :super_admin
-
-  FactoryGirl.create :person, email: 'admin@example.com', roles: [role], password: 'password', password_confirmation: 'password'
-end
+FactoryGirl.create(:person, :admin) if Person.where(email: 'admin@example.com').none?

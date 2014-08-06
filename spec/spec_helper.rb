@@ -52,6 +52,9 @@ Spork.prefork do
   # If you are not using ActiveRecord, you can remove this line.
   ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
+  include Warden::Test::Helpers
+  Warden.test_mode!
+
   RSpec.configure do |config|
     config.include FactoryGirl::Syntax::Methods
     config.include WaitForAjax, type: :feature
@@ -77,7 +80,12 @@ Spork.prefork do
     config.infer_base_class_for_anonymous_controllers = false
 
     config.treat_symbols_as_metadata_keys_with_true_values = true
+
     config.order = 'random'
+
+    config.after(:suite) do
+      Warden.test_reset!
+    end
   end
 end
 

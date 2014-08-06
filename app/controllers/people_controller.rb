@@ -49,6 +49,8 @@ class PeopleController < ApplicationController
   end
 
   def update
+    authorize @person
+
     if @person.update_attributes(PersonParams.filter(params))
       redirect_to @person, flash: { success: 'Person was successfully updated.' }
     else

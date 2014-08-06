@@ -7,7 +7,7 @@ class Person < ActiveRecord::Base
 
   before_save :normalize_strings
 
-  validates :password, confirmation: true
+  validates :password, confirmation: true, presence: true
   validates :name,    length: { maximum: 50 }, presence: true
   validates :surname, length: { maximum: 50 }, presence: true
   validates :middle_name,     length: { maximum: 50 }

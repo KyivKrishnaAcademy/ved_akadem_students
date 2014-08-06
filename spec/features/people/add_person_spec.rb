@@ -1,12 +1,8 @@
 require 'spec_helper'
 
-feature "Add person:" do
+feature 'Add person:' do
   before do
-    create :person, { email: 'test@example.com', password: 'password', password_confirmation: 'password' }
-    visit new_person_session_path
-    fill_in 'person_email', with: 'test@example.com'
-    fill_in 'person_password', with: 'password'
-    click_button 'Sign in'
+    login_as_admin
     visit new_person_path
   end
 
@@ -17,19 +13,19 @@ feature "Add person:" do
 
   it_behaves_like :link_in_flash
 
-  describe "simple (no student, no teacher)" do
+  describe 'simple (no student, no teacher)' do
     let(:fill_wrong) { fill_person_data telephone: '3322' }
 
     it_behaves_like :adds_model
     it_behaves_like :not_adds_model
   end
 
-  describe "student" do
-    scenario { pending "to be written" }
+  describe 'student' do
+    scenario { pending 'to be written' }
   end
 
-  describe "teacher" do
-    scenario { pending "to be written" }
+  describe 'teacher' do
+    scenario { pending 'to be written' }
   end
 
   def fill_person_data p={}

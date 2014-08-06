@@ -1,10 +1,8 @@
 require 'spec_helper'
-include Warden::Test::Helpers
-Warden.test_mode!
 
-describe "people/edit.html.erb" do
+describe 'people/edit.html.erb' do
   before do
-    @p = create(:person, {
+    @admin = create(:person, :admin,
       telephone:      '380112223344'    ,
       spiritual_name: 'Dasa Das'        ,
       name:           'Ivan'            ,
@@ -14,21 +12,20 @@ describe "people/edit.html.erb" do
       edu_and_work:   'где-то когда-то' ,
       gender:         true              ,
       emergency_contact: 'дед Василий'  ,
-      birthday: '1975-01-30'.to_date
-    })
-    login_as(@p, scope: :person)
-    visit edit_person_path(@p)
+      birthday: '1975-01-30'.to_date)
+    login_as_admin(@admin)
+    visit edit_person_path(@admin)
   end
 
   subject { page }
 
-  let(:title)  { complex_name(@p, :t) }
-  let(:h1)     { complex_name(@p) }
+  let(:title)  { complex_name(@admin, :t) }
+  let(:h1)     { complex_name(@admin) }
   let(:action) { 'edit' }
 
-  it_behaves_like "person new and edit"
+  it_behaves_like 'person new and edit'
 
-  describe "default values" do
+  describe 'default values' do
     it { should have_selector('#person_telephone[value="380112223344"]'        ) }
     it { should have_selector('#person_spiritual_name[value="Dasa Das"]'       ) }
     it { should have_selector('#person_name[value="Ivan"]'                     ) }
