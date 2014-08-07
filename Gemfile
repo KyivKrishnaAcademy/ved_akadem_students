@@ -34,6 +34,7 @@ group :development do
   gem 'better_errors'
   gem 'rspec-given'
   gem 'erd'
+  gem 'letter_opener'
 end
 
 group :test do
