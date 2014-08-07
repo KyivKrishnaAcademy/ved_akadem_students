@@ -13,6 +13,9 @@ gem 'pg', '0.17.1'
 gem 'devise', '3.2.4'
 gem 'pundit'
 
+gem 'simple_form'
+gem 'nested_form'
+
 gem 'bootstrap-sass', '3.1.1.1'
 
 gem 'factory_girl_rails', '4.4.1'

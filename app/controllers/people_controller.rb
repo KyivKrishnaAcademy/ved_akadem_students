@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.new(PersonParams.filter(params))
+    @person = Person.new(PersonParams.filter(params).merge(skip_password_validation: true))
 
     authorize @person
 
@@ -52,7 +52,7 @@ class PeopleController < ApplicationController
   def update
     authorize @person
 
-    if @person.update_attributes(PersonParams.filter(params))
+    if @person.update_attributes(PersonParams.filter(params).merge(skip_password_validation: true))
       redirect_to @person, flash: { success: 'Person was successfully updated.' }
     else
       render      action: :edit
@@ -71,8 +71,7 @@ class PeopleController < ApplicationController
         :gender         ,
         :birthday       ,
         :edu_and_work   ,
-        :emergency_contact,
-        :skip_password_validation
+        :emergency_contact
       )
     end
   end

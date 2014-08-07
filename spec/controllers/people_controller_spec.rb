@@ -55,7 +55,8 @@ describe PeopleController do
 
       context 'receives .update_attributes' do
         Then do
-          Person.any_instance.should_receive(:update_attributes).with('emergency_contact' => 'params')
+          Person.any_instance.should_receive(:update_attributes).with('emergency_contact' => 'params',
+                                                                      'skip_password_validation' => true)
           update_model('emergency_contact' => 'params')
         end
       end

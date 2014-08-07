@@ -106,6 +106,7 @@ GEM
     mini_portile (0.6.0)
     minitest (4.7.5)
     multi_json (1.10.1)
+    nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -176,6 +177,9 @@ GEM
       sprockets-rails (~> 2.0)
     shoulda-matchers (2.6.0)
       activesupport (>= 3.0.0)
+    simple_form (3.0.2)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     sorcerer (1.0.2)
     spork (1.0.0rc4)
     spork-rails (4.0.0)
@@ -233,6 +237,7 @@ DEPENDENCIES
   haml (= 4.0.5)
   jbuilder (= 2.0.6)
   jquery-rails (= 3.1.0)
+  nested_form
   pg (= 0.17.1)
   poltergeist (= 1.5.0)
   puma
@@ -243,6 +248,7 @@ DEPENDENCIES
   rspec-rails (= 2.14.2)
   sass-rails (= 4.0.3)
   shoulda-matchers (= 2.6.0)
+  simple_form
   spork-rails (= 4.0.0)
   turbolinks (= 2.2.2)
   uglifier (= 2.5.0)

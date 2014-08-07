@@ -25,10 +25,11 @@ describe Person do
   describe 'validation' do
     context :password do
       it { should validate_confirmation_of(:password) }
-      it { should validate_presence_of(    :password) }
+      it { should ensure_length_of(:password).is_at_most(128) }
+      it { should ensure_length_of(:password).is_at_least(6) }
 
       it 'should skip validation' do
-        build(:person, password: '', skip_password_validation: true).should be_valid
+        build(:person, password: '', password_confirmation: '', skip_password_validation: true).should be_valid
       end
     end
 

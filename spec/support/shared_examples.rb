@@ -295,7 +295,7 @@ shared_examples :invalid_fill_in do |h, model_human|
   end
 end
 
-def underscore_humanize str
+def underscore_humanize(str)
   str.underscore.humanize
 end
 
