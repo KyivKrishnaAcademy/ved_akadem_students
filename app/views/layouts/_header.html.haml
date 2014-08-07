@@ -11,7 +11,7 @@
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          = link_to locale_label, locales_toggle_path, class: 'change_locale'
+          = link_to locale_label, locales_toggle_path
         %li
           - if person_signed_in?
             = link_to(t('devise.links.sign_out'), destroy_person_session_path, method: :delete)
