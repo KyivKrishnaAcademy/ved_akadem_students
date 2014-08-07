@@ -1,7 +1,7 @@
 class LocalesController < ApplicationController
-  respond_to :js, only: :togge
-
   def toggle
-    session[:locale] = session[:locale] == :ru || session[:locale].blank? ? :uk : :ru
+    session[:locale] = session[:locale] == :ru ? :uk : :ru
+
+    redirect_to :back
   end
 end
