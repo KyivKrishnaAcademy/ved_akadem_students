@@ -8,7 +8,6 @@ uk:
       not_saved:
         one: "Виникла помилка, через яку неможливо зберегти зміни:"
         other: "Виникли помилки (загалом - %{count}), через які неможливо зберегти зміни:"
-
   devise:
     failure:
       already_authenticated: 'Ви вже увійшли.'
@@ -55,3 +54,8 @@ uk:
         subject: 'Інструкції зі скидання паролю'
       unlock_instructions:
         subject: 'Інструкції з розблокування'
+    links:
+      sign_in: 'Увійти'
+      sign_up: 'Зареєструватися'
+      sign_out: 'Вийти'
+      forgot_password: 'Забули пароль?'

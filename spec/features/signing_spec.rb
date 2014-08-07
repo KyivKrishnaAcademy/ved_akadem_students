@@ -6,10 +6,9 @@ describe 'Signing' do
 
     When do
       visit root_path
-      click_link 'Sign in'
       fill_in 'person_email', with: 'test@example.com'
       fill_in 'person_password', with: 'password'
-      click_button 'Sign in'
+      click_button 'Увійти'
     end
 
     Then { find('.alert-notice').should have_content('Вхід успішний.') }
