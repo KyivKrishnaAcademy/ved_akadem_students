@@ -31,10 +31,10 @@ describe PeopleController do
     end
   end
 
-  it_behaves_like "GET"          , :person, Person, :new
-  it_behaves_like "GET"          , :person, Person, :show
-  it_behaves_like "GET"          , :person, Person, :edit
-  it_behaves_like "GET"          , :people, Person, :index
+  it_behaves_like "GET", :person, Person, :new
+  it_behaves_like "GET", :person, Person, :show
+  it_behaves_like "GET", :person, Person, :edit
+  it_behaves_like "GET", :people, Person, :index
   it_behaves_like "DELETE 'destroy'", Person
 
   describe "PATCH 'update'" do |model, field|
