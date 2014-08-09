@@ -1,0 +1,13 @@
+en:
+  simple_form:
+    "yes": 'Так'
+    "no": 'Ні'
+    required:
+      text: "обов'язково"
+      mark: '*'
+    error_notification:
+      default_message: 'Передивіться ці проблеми будьласка:'
+    labels:
+       defaults:
+         password: 'Пароль'
+         email:    'Електронна пошта'
