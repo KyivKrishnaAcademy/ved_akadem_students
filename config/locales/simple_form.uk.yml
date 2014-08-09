@@ -1,4 +1,4 @@
-en:
+uk:
   simple_form:
     "yes": 'Так'
     "no": 'Ні'
@@ -6,8 +6,9 @@ en:
       text: "обов'язково"
       mark: '*'
     error_notification:
-      default_message: 'Передивіться ці проблеми будьласка:'
+      default_message: 'Виправте ці помилки будьласка:'
     labels:
-       defaults:
-         password: 'Пароль'
-         email:    'Електронна пошта'
+      defaults:
+        password:              'Пароль'
+        password_confirmation: 'Повторіть пароль'
+        email:                 'Електронна пошта'

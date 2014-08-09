@@ -1,4 +1,4 @@
-en:
+ru:
   simple_form:
     "yes": 'Да'
     "no": 'Нет'
@@ -6,9 +6,10 @@ en:
       text: 'обязательно'
       mark: '*'
     error_notification:
-      default_message: 'Просмотрите эти проблемы пожалуйста:'
+      default_message: 'Исправьте эти ошибки, побалуйста:'
     labels:
       defaults:
-        password: 'Пароль'
-        email:    'Электронная почта'
-        sign_in:  'Войти'
+        password:              'Пароль'
+        password_confirmation: 'Повторите пароль'
+        email:                 'Электронная почта'
+

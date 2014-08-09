@@ -1,0 +1,24 @@
+- provide(:title, t('devise.links.sign_up'))
+
+%h1
+  = t('devise.links.sign_up')
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :email, required: true, autofocus: true
+    = f.input :password, required: true
+    = f.input :password_confirmation, required: true
+    = f.input :spiritual_name
+    = f.input :name, required: true
+    = f.input :middle_name
+    = f.input :surname, required: true
+    = f.input :telephone, as: :tel, required: true
+    = f.input :gender, collection: [['Male', true], ['Female', false]], required: true
+    = f.input :birthday, required: true
+    = f.input :edu_and_work, required: true
+    = f.input :emergency_contact, required: true
+
+  .form-actions
+    = f.button :submit, t('devise.links.sign_up')

@@ -41,7 +41,6 @@ describe Person do
     context :telephone do
       it { should validate_presence_of(    :telephone ) }
       it { should validate_numericality_of(:telephone ) }
-      it { should validate_uniqueness_of(  :telephone ) }
       it { should ensure_inclusion_of(     :telephone )
             .in_range(100_000_000_000..999_999_999_999)
             .with_low_message(  /must be greater than/)
@@ -49,6 +48,8 @@ describe Person do
     end
 
     context :email do
+      it { should validate_uniqueness_of(:email) }
+
       INVALID_ADDRESSES = %w[
         user@foo,com     user_at_foo.org
         example.user@foo.foo@bar_baz.com

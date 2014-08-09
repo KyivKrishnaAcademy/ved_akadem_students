@@ -15,9 +15,8 @@ class Person < ActiveRecord::Base
   validates :middle_name,     length: { maximum: 50 }
   validates :spiritual_name,  length: { maximum: 50 }
   validates :gender,          inclusion: { in: [true, false] }
-  validates :telephone, presence: true, uniqueness: true,
-    numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }
-  validates :email, format: { with: VALID_EMAIL_REGEX }
+  validates :telephone, presence: true, numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }
+  validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
   private
 
