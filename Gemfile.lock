@@ -31,6 +31,8 @@ GEM
     better_errors (1.1.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.1.4)
@@ -55,6 +57,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     choice (0.1.6)
     cliver (0.3.2)
     coderay (1.1.0)
@@ -67,6 +74,7 @@ GEM
     coffee-script-source (1.7.1)
     colorize (0.7.3)
     database_cleaner (1.2.0)
+    debug_inspector (0.0.2)
     devise (3.2.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -108,6 +116,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_magick (3.8.0)
+      subexec (~> 0.2.1)
     mini_portile (0.6.0)
     minitest (4.7.5)
     multi_json (1.10.1)
@@ -203,6 +213,7 @@ GEM
       colorize
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    subexec (0.2.3)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -226,6 +237,7 @@ PLATFORMS
 
 DEPENDENCIES
   better_errors
+  binding_of_caller
   bootstrap-sass (= 3.1.1.1)
   capistrano
   capistrano-bundler
@@ -233,6 +245,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
+  carrierwave
   coffee-rails (= 4.0.1)
   database_cleaner (= 1.2.0)
   devise (= 3.2.4)
@@ -243,6 +256,7 @@ DEPENDENCIES
   jbuilder (= 2.0.6)
   jquery-rails (= 3.1.0)
   letter_opener
+  mini_magick
   nested_form
   pg (= 0.17.1)
   poltergeist (= 1.5.0)

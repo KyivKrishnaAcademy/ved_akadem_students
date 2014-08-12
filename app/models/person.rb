@@ -18,6 +18,8 @@ class Person < ActiveRecord::Base
   validates :telephone, presence: true, numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
+  mount_uploader :photo, PhotoUploader
+
   private
 
   def downcase_titleize(str)

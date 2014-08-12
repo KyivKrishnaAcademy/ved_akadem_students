@@ -16,6 +16,9 @@ gem 'pundit'
 gem 'simple_form'
 gem 'nested_form'
 
+gem 'carrierwave'
+gem 'mini_magick'
+
 gem 'bootstrap-sass', '3.1.1.1'
 
 gem 'factory_girl_rails', '4.4.1'
@@ -32,6 +35,7 @@ group :development do
   gem 'capistrano-puma', require: false
   gem 'quiet_assets'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'rspec-given'
   gem 'erd'
   gem 'letter_opener'

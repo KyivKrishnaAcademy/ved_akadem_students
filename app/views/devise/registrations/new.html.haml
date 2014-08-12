@@ -7,6 +7,7 @@
   = f.error_notification
 
   .form-inputs
+    = f.input :photo, as: :file, required: true
     = f.input :email, required: true, autofocus: true
     = f.input :password, required: true
     = f.input :password_confirmation, required: true
