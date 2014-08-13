@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo]
   before_action :authenticate_person!
 
   after_filter :verify_authorized, except: :index
@@ -74,6 +74,15 @@ class PeopleController < ApplicationController
         :emergency_contact
       )
     end
+  end
+
+  def show_photo
+    authorize @person
+
+    send_file( @person.photo_url,
+               disposition: 'inline',
+               type: 'image/jpeg',
+               x_sendfile: true )
   end
 
   private

@@ -9,4 +9,6 @@ VedAkademStudents::Application.routes.draw do
   get 'static_pages/about'
 
   get 'locales/toggle'
+
+  get 'people/show_photo/:id', controller: :people, action: :show_photo
 end

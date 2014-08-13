@@ -9,6 +9,10 @@ class PersonPolicy < ApplicationPolicy
     super || owned?
   end
 
+  def show_photo?
+    show?
+  end
+
   private
 
   def owned?
