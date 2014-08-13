@@ -7,12 +7,14 @@ describe PersonPolicy do
   let(:user)   { create(:person) }
 
   context 'given user\'s role activities' do
-    permissions :show? do
-      it_behaves_like :allow_with_activities, %w(person:show)
+    [:show?, :show_photo?].each do |action|
+      permissions action do
+        it_behaves_like :allow_with_activities, %w(person:show)
 
-      context 'show self' do
-        it 'allow' do
-          should permit(user, user)
+        context 'show self' do
+          it 'allow' do
+            should permit(user, user)
+          end
         end
       end
     end
