@@ -7,7 +7,7 @@
 = link_to 'Delete', person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }
 - if @person.photo.present?
   %br
-  = image_tag("/people/show_photo/#{@person.id}")
+  = image_tag("/people/show_photo/standart/#{@person.id}")
 %br
 Spiritual name: #{@person.spiritual_name}
 %br

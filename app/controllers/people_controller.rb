@@ -62,7 +62,13 @@ class PeopleController < ApplicationController
   def show_photo
     authorize @person
 
-    send_file( @person.photo_url,
+    path = if params[:version] == 'default'
+             @person.photo_url
+           else
+             @person.photo.versions[params[:version].to_sym].url
+           end
+
+    send_file( path,
                disposition: 'inline',
                type: 'image/jpeg',
                x_sendfile: true )

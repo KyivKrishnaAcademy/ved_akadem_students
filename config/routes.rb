@@ -1,5 +1,5 @@
 VedAkademStudents::Application.routes.draw do
-  devise_for :people, path: ''
+  devise_for :people, path: '', controllers: { registrations: 'users/registrations' }
 
   resources :people, :akadem_groups
 
@@ -10,5 +10,5 @@ VedAkademStudents::Application.routes.draw do
 
   get 'locales/toggle'
 
-  get 'people/show_photo/:id', controller: :people, action: :show_photo
+  get 'people/show_photo/:version/:id', controller: :people, action: :show_photo
 end
