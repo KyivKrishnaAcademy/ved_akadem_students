@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  attr_accessor :skip_password_validation
+  attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
 
   devise :database_authenticatable, :registerable, :recoverable
 
@@ -17,6 +17,8 @@ class Person < ActiveRecord::Base
   validates :gender,          inclusion: { in: [true, false] }
   validates :telephone, presence: true, numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+
+  validate :check_photo_dimensions
 
   mount_uploader :photo, PhotoUploader
 
@@ -39,5 +41,11 @@ class Person < ActiveRecord::Base
       self.password = pswd
       self.password_confirmation = pswd
     end
+  end
+
+  def check_photo_dimensions
+    ::Rails.logger.info "Photo upload dimensions: #{self.photo_upload_width}x#{self.photo_upload_height}"
+
+    errors.add :photo, 'Dimensions of uploaded photo should be not less than 150x200 pixels.' if self.photo_upload_width < 150 || photo_upload_height < 200
   end
 end
