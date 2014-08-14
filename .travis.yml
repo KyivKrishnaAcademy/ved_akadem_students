@@ -1,7 +1,7 @@
 language: ruby
-#before_install: gem install bundler
-#bundler_args: --without yard guard benchmarks
-script: 'CODECLIMATE_REPO_TOKEN=0d4c6a0f16f910a02bbb2cf8ce47e52d7c5f95b8bd6366d9b3a1a113a4e52486 bundle exec rspec'
+script:
+  - 'bundle exec rake test:prepare'
+  - 'CODECLIMATE_REPO_TOKEN=0d4c6a0f16f910a02bbb2cf8ce47e52d7c5f95b8bd6366d9b3a1a113a4e52486 bundle exec rspec'
 rvm:
   - 2.1.1
 addons:
@@ -9,11 +9,3 @@ addons:
 before_script:
   - psql -c 'create database va_db_tst;' -U postgres
   - cp config/database.yml.travis config/database.yml
-#matrix:
-#  allow_failures:
-#    - rvm: ruby-head
-#    - rvm: rbx
-#notifications:
-#  email:
-#    - some@gmail.com
-#    - other@gmail.com
