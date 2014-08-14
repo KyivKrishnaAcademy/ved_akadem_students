@@ -44,8 +44,10 @@ class Person < ActiveRecord::Base
   end
 
   def check_photo_dimensions
-    ::Rails.logger.info "Photo upload dimensions: #{self.photo_upload_width}x#{self.photo_upload_height}"
+    if photo_upload_height.present? && photo_upload_width.present?
+      ::Rails.logger.info "Photo upload dimensions: #{self.photo_upload_width}x#{self.photo_upload_height}"
 
-    errors.add :photo, 'Dimensions of uploaded photo should be not less than 150x200 pixels.' if self.photo_upload_width < 150 || photo_upload_height < 200
+      errors.add :photo, 'Dimensions of uploaded photo should be not less than 150x200 pixels.' if photo_upload_width < 150 || photo_upload_height < 200
+    end
   end
 end
