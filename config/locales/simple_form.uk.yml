@@ -6,7 +6,7 @@ uk:
       text: "обов'язково"
       mark: '*'
     error_notification:
-      default_message: 'Виправте ці помилки будьласка:'
+      default_message: 'Виправте ці помилки будь ласка:'
     labels:
       defaults:
         password:              'Пароль'
