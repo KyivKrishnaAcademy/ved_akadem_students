@@ -24,3 +24,4 @@ erd?.dot
 /Procfile
 /config/deploy/
 /shared/
+/coverage

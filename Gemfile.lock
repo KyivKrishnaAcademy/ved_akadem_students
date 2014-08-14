@@ -57,6 +57,8 @@ GEM
       xpath (~> 2.0)
     choice (0.1.6)
     cliver (0.3.2)
+    codeclimate-test-reporter (0.4.0)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -74,6 +76,7 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erd (0.3.2)
       nokogiri
       rails-erd (>= 0.4.5)
@@ -185,6 +188,11 @@ GEM
     simple_form (3.0.2)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simplecov (0.9.0)
+      docile (~> 1.1.0)
+      multi_json
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     sorcerer (1.0.2)
     spork (1.0.0rc4)
     spork-rails (4.0.0)
@@ -233,6 +241,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
+  codeclimate-test-reporter
   coffee-rails (= 4.0.1)
   database_cleaner (= 1.2.0)
   devise (= 3.2.4)

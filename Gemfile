@@ -38,6 +38,7 @@ group :development do
 end
 
 group :test do
+  gem 'codeclimate-test-reporter', require: nil
   gem 'rspec-rails', '2.14.2'
   gem 'fuubar', '1.3.2'
   gem 'poltergeist', '1.5.0'
