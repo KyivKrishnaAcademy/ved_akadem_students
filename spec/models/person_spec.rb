@@ -110,4 +110,14 @@ describe Person do
       person.spiritual_name.should ==  'Адидасадаса Дас'
     end
   end
+
+  describe :photo do
+    it 'less then 150x200 not valid' do
+      build(:person, photo: File.open("#{Rails.root}/spec/fixtures/10x10.png")).should_not be_valid
+    end
+
+    it 'equals 150x200 valid' do
+      build(:person, photo: File.open("#{Rails.root}/spec/fixtures/150x200.png")).should be_valid
+    end
+  end
 end
