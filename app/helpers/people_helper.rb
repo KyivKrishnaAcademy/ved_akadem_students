@@ -1,6 +1,4 @@
 module PeopleHelper
-
-  # Returns persons complex name for Person#show and show name for title
   def complex_name(person, *title)
     if person.nil?
       "No such person"
@@ -20,5 +18,4 @@ module PeopleHelper
       end
     end
   end
-
 end

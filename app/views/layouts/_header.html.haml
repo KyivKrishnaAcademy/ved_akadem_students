@@ -7,11 +7,11 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to 'VedAkademStudents', root_path, class: 'navbar-brand'
+      = link_to 'AkademStudents', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          = link_to locale_label, locales_toggle_path
+          = link_to t(:locale_label), locales_toggle_path
         %li
           - if person_signed_in?
             = link_to(t('devise.links.sign_out'), destroy_person_session_path, method: :delete)
