@@ -92,6 +92,8 @@ Spork.prefork do
 
     config.after(:suite) do
       Warden.test_reset!
+
+      FileUtils.rm_rf(Dir["#{Rails.root}/uploads/test"])
     end
   end
 end
