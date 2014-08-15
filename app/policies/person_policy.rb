@@ -7,6 +7,10 @@ class PersonPolicy < ApplicationPolicy
     show?
   end
 
+  def crop_image?
+    owned? || super
+  end
+
   private
 
   def owned?

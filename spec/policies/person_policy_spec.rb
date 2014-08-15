@@ -11,7 +11,7 @@ describe PersonPolicy do
       permissions action do
         it_behaves_like :allow_with_activities, %w(person:show)
 
-        context 'show self' do
+        context 'owned' do
           it 'allow' do
             should permit(user, user)
           end
@@ -19,7 +19,15 @@ describe PersonPolicy do
       end
     end
 
-    [:new?, :create?, :edit?, :index?, :destroy?, :update?].each do |action|
+    permissions :crop_image? do
+      context 'owned' do
+        it 'allow' do
+          should permit(user, user)
+        end
+      end
+    end
+
+    [:new?, :create?, :edit?, :index?, :destroy?, :update?, :crop_image?].each do |action|
       permissions action do
         it_behaves_like :allow_with_activities, ['person:' << action.to_s.sub('?', '')]
       end

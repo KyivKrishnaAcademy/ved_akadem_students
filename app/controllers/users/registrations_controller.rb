@@ -4,6 +4,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def after_inactive_sign_up_path_for(resource)
+    direct_to_crop(super(resource), resource)
+  end
+
+  def after_update_path_for(resource)
+    direct_to_crop(super(resource), resource)
+  end
+
+  def direct_to_crop(default, resource)
+    if params[:person][:photo].present? || params[:person][:photo_cache].present?
+      crop_image_path(resource.id)
+    else
+      default
+    end
+  end
+
   def configure_permitted_parameters
     permitted_params = [:name, :surname, :spiritual_name, :middle_name, :telephone, :gender,
                         :photo, :birthday, :edu_and_work, :emergency_contact]

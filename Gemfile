@@ -18,6 +18,7 @@ gem 'nested_form'
 
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'jcrop-rails-v2'
 
 gem 'bootstrap-sass', '3.1.1.1'
 
