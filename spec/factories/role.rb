@@ -5,7 +5,7 @@ FactoryGirl.define do
 
     trait :super_admin do
       name       { 'all' }
-      activities { PeopleController.action_methods.map { |action| 'person:' << action } }
+      activities { PeopleController.action_methods.map { |action| 'person:' << action } - %w{person:show_photo} }
     end
   end
 end

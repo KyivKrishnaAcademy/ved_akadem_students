@@ -21,9 +21,7 @@ describe PersonPolicy do
 
     [:new?, :create?, :edit?, :index?, :destroy?, :update?].each do |action|
       permissions action do
-        context 'show self' do
-          it_behaves_like :allow_with_activities, ['person:' << action.to_s.sub('?', '')]
-        end
+        it_behaves_like :allow_with_activities, ['person:' << action.to_s.sub('?', '')]
       end
     end
   end
