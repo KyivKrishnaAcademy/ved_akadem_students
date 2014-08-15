@@ -50,6 +50,7 @@ namespace :deploy do
       execute "mkdir -p /var/www/apps/#{application}/run/"
       execute "mkdir -p /var/www/apps/#{application}/log/"
       execute "mkdir -p /var/www/apps/#{application}/socket/"
+      execute "mkdir -p #{shared_path}/uploads/"
       execute "mkdir -p #{shared_path}/system"
       execute "mkdir -p /var/www/log"
       sudo    "mkdir -p /usr/local/nginx/conf/sites-enabled"
@@ -82,6 +83,7 @@ namespace :deploy do
       execute "mkdir -p #{shared_path}/tmp/puma"
       sudo    "rm -rf #{release_path}/tmp"
       execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
+      execute "ln -s #{shared_path}/uploads #{release_path}/uploads"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
 
