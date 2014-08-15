@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'Edit akadem group:' do
   When do
+    login_as_admin
     visit akadem_group_path(create(:akadem_group))
     click_link 'Edit'
   end

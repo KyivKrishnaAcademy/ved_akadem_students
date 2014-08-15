@@ -1,7 +1,10 @@
 require 'spec_helper'
 
-feature "Add akadem group:" do
-  before { visit new_akadem_group_path }
+feature 'Add akadem group:' do
+  before do
+    login_as_admin
+    visit new_akadem_group_path
+  end
 
   let(:fill_right) { fill_akadem_group_data }
   let(:fill_wrong) { fill_akadem_group_data group_name: '12-1' }
