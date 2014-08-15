@@ -3,7 +3,7 @@ class AkademGroupsController < ApplicationController
   before_action :authenticate_person!
 
   after_filter :verify_authorized
-  after_filter :verify_policy_scoped
+  after_filter :verify_policy_scoped, except: [:new, :create]
 
   def index
     @akadem_groups = policy_scope(AkademGroup)

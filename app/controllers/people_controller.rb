@@ -2,8 +2,8 @@ class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_person!
 
-  after_filter :verify_authorized, except: :index
-  after_filter :verify_policy_scoped, only: :index
+  after_filter :verify_authorized
+  after_filter :verify_policy_scoped, except: [:new, :create]
 
   def new
     @person = Person.new

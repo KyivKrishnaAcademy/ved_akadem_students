@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe AkademGroupsController do
+  When { sign_in :person, create(:person, :admin) }
 
   it_behaves_like "POST 'create'", :akadem_group , AkademGroup
   it_behaves_like "GET"          , :akadem_group , AkademGroup, :new
