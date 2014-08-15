@@ -22,4 +22,8 @@ FactoryGirl.define do
     spiritual_name  { 'Admin Prabhu' }
     telephone       { '199999999999' }
   end
+
+  trait :with_photo do
+    photo { File.open("#{Rails.root}/spec/fixtures/150x200.png") }
+  end
 end

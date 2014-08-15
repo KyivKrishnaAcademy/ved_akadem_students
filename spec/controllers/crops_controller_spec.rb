@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CropsController do
   describe :scope do
-    Given { @person_1 = create :person, photo: File.open("#{Rails.root}/spec/fixtures/150x200.png") }
+    Given { @person_1 = create :person, :with_photo }
 
     context :own do
       When { sign_in :person, @person_1 }

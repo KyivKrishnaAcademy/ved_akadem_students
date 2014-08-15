@@ -117,7 +117,7 @@ describe Person do
     end
 
     it 'equals 150x200 valid' do
-      build(:person, photo: File.open("#{Rails.root}/spec/fixtures/150x200.png")).should be_valid
+      build(:person, :with_photo).should be_valid
     end
   end
 end

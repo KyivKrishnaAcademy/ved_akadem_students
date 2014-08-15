@@ -51,7 +51,7 @@ describe 'Signing' do
 
   describe 'Edit' do
     context 'with photo' do
-      Given { @person = create :person, photo: File.open("#{Rails.root}/spec/fixtures/150x200.png") }
+      Given { @person = create :person, :with_photo }
       When  { login_as_user(@person) }
       When  { visit edit_person_registration_path(@person) }
 
