@@ -11,7 +11,7 @@ describe Person do
     it { should have_db_column(:gender            ).of_type(:boolean  ) }
     it { should have_db_column(:birthday          ).of_type(:date     ) }
     it { should have_db_column(:emergency_contact ).of_type(:string   ) }
-    it { should have_db_column(:photo             ).of_type(:text     ) }
+    it { should have_db_column(:photo             ).of_type(:string   ) }
     it { should have_db_column(:profile_fullness  ).of_type(:boolean  ) }
     it { should have_db_column(:edu_and_work      ).of_type(:text     ) }
     it { should have_db_column(:encrypted_password).of_type(:string   ) }
@@ -108,6 +108,16 @@ describe Person do
       person.surname.should        ==  'Фамилия'
       person.middle_name.should    ==  'Отчество'
       person.spiritual_name.should ==  'Адидасадаса Дас'
+    end
+  end
+
+  describe :photo do
+    it 'less then 150x200 not valid' do
+      build(:person, photo: File.open("#{Rails.root}/spec/fixtures/10x10.png")).should_not be_valid
+    end
+
+    it 'equals 150x200 valid' do
+      build(:person, photo: File.open("#{Rails.root}/spec/fixtures/150x200.png")).should be_valid
     end
   end
 end

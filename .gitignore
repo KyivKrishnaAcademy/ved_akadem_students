@@ -25,3 +25,4 @@ erd?.dot
 /config/deploy/
 /shared/
 /coverage
+/uploads

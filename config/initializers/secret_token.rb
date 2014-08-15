@@ -10,5 +10,5 @@
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
 
-require "#{Rails.root}/lib/modules/secure_secret"
+require "#{Rails.root}/lib/secure_secret"
 VedAkademStudents::Application.config.secret_key_base = SecureSecret::secure_token('.secret')

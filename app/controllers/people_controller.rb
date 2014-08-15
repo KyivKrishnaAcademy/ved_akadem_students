@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo]
   before_action :authenticate_person!
 
   after_filter :verify_authorized
@@ -57,6 +57,21 @@ class PeopleController < ApplicationController
     else
       render      action: :edit
     end
+  end
+
+  def show_photo
+    authorize @person
+
+    path = if params[:version] == 'default'
+             @person.photo_url
+           else
+             @person.photo.versions[params[:version].to_sym].url
+           end
+
+    send_file( path,
+               disposition: 'inline',
+               type: 'image/jpeg',
+               x_sendfile: true )
   end
 
   class PersonParams
