@@ -1,22 +1,35 @@
 class AkademGroupsController < ApplicationController
   before_action :set_akadem_group, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_person!
+
+  after_filter :verify_authorized
+  after_filter :verify_policy_scoped
 
   def index
-    @akadem_groups = AkademGroup.all
+    @akadem_groups = policy_scope(AkademGroup)
+
+    authorize AkademGroup
   end
 
   def show
+    authorize @akadem_group
   end
 
   def new
     @akadem_group = AkademGroup.new(establ_date: Time.now)
+
+    authorize @akadem_group
   end
 
   def edit
+    authorize @akadem_group
   end
 
   def create
     @akadem_group = AkademGroup.new(AkademGroupParams.filter(params))
+
+    authorize @akadem_group
+
     if @akadem_group.save
       flash[:success] = "#{view_context.link_to( @akadem_group.group_name, akadem_group_path(@akadem_group) )} added.".html_safe
       redirect_to action: :new
@@ -26,6 +39,8 @@ class AkademGroupsController < ApplicationController
   end
 
   def update
+    authorize @akadem_group
+
     if @akadem_group.update_attributes(AkademGroupParams.filter(params))
       redirect_to @akadem_group, flash: {success: 'Akadem group was successfully updated.'}
     else
@@ -34,6 +49,8 @@ class AkademGroupsController < ApplicationController
   end
 
   def destroy
+    authorize @akadem_group
+
     if @akadem_group.destroy.destroyed?
       redirect_to akadem_groups_path, flash: { success: 'Akadem Group record deleted!'  }
     else
@@ -53,6 +70,6 @@ class AkademGroupsController < ApplicationController
 
   private
     def set_akadem_group
-      @akadem_group = AkademGroup.find(params[:id])
+      @akadem_group = policy_scope(AkademGroup).find(params[:id])
     end
 end

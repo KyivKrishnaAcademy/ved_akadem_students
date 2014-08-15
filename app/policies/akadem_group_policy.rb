@@ -1,0 +1,3 @@
+class AkademGroupPolicy < ApplicationPolicy
+
+end

@@ -16,9 +16,9 @@ class ApplicationPolicy
 
   def inferred_activity(method)
     if @record.is_a?(Class)
-      "#{@record.name.downcase}:#{method.to_s}"
+      "#{@record.name.underscore}:#{method.to_s}"
     else
-      "#{@record.class.name.downcase}:#{method.to_s}"
+      "#{@record.class.name.underscore}:#{method.to_s}"
     end
   end
 

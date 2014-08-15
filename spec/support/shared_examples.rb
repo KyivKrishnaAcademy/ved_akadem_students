@@ -362,7 +362,7 @@ shared_examples :link_in_flash do
 end
 
 shared_examples :allow_with_activities do |activites|
-  context "#{activites.join(' ')}" do
+  context "with #{activites.join(' ')}" do
     before { user.roles << create(:role, activities: activites) }
 
     it 'allow' do
@@ -370,7 +370,7 @@ shared_examples :allow_with_activities do |activites|
     end
   end
 
-  context 'without activities' do
+  context "without #{activites.join(' ')}" do
     it 'disallow' do
       should_not permit(user, record)
     end

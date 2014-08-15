@@ -1,8 +1,11 @@
-require 'codeclimate-test-reporter'
 require 'rubygems'
 require 'spork'
 
-CodeClimate::TestReporter.start
+unless ENV['CODECLIMATE_REPO_TOKEN'].nil?
+  require 'codeclimate-test-reporter'
+
+  CodeClimate::TestReporter.start
+end
 
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
