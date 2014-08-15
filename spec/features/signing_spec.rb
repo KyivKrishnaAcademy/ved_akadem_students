@@ -37,6 +37,7 @@ describe 'Signing' do
       When { click_button I18n.t('devise.links.sign_up') }
 
       Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
+      And  { find('h1').should_not have_content('crop image') }
     end
 
     describe 'should signup with photo' do
@@ -45,7 +46,13 @@ describe 'Signing' do
         click_button I18n.t('devise.links.sign_up')
       end
 
-      Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
+      describe 'should show flash' do
+        Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
+      end
+
+      describe 'should direct to crop path' do
+        Then { find('h1').should have_content('crop image') }
+      end
     end
   end
 
@@ -90,7 +97,11 @@ describe 'Signing' do
           Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.updated')) }
         end
 
-        describe 'should be update' do
+        describe 'should direct to crop path' do
+          Then { find('h1').should have_content('crop image') }
+        end
+
+        describe 'should be updated' do
           When { visit edit_person_registration_path(@person) }
 
           Then do
