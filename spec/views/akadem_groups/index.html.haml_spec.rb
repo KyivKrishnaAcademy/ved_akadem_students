@@ -7,6 +7,7 @@ describe 'akadem_groups/index' do
   Given(:row_class)    { 'akadem_group' }
 
   Given { models_count.times { create :akadem_group } }
+  Given { login_as_admin }
 
   When  { visit akadem_groups_path }
 

@@ -4,6 +4,7 @@ describe 'akadem_groups/show' do
   Given(:ag_name) { 'ТВ99-1' }
 
   Given do
+    login_as_admin
     @ag = create :akadem_group, {group_name: ag_name}
     visit akadem_group_path(@ag)
   end

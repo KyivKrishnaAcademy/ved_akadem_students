@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "akadem_groups/edit" do
   before do
+    login_as_admin
+
     visit edit_akadem_group_path(
       create(:akadem_group, {
         group_name: ag_name             ,

@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe "akadem_groups/new" do
-  before { visit new_akadem_group_path }
+  before do
+    login_as_admin
+    visit new_akadem_group_path
+  end
 
   subject { page }
 
