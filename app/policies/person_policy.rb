@@ -11,6 +11,10 @@ class PersonPolicy < ApplicationPolicy
     owned? || super
   end
 
+  def update_image?
+    crop_image?
+  end
+
   private
 
   def owned?

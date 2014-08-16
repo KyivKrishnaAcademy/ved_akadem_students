@@ -14,7 +14,7 @@
 .crop_preview
   = image_tag "/people/show_photo/default/#{@person.id}", id: 'preview'
 
-= form_for @person do |f|
+= form_for @person, url: update_image_path(@person), method: :patch do |f|
   .actions
     - %w{x y w h}.each do |attribute|
       = f.hidden_field "crop_#{attribute}"

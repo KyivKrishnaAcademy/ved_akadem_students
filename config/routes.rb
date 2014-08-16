@@ -11,6 +11,7 @@ VedAkademStudents::Application.routes.draw do
   get 'locales/toggle'
 
   get 'image/crop/:id', controller: :crops, action: :crop_image, as: :crop_image
+  patch 'image/update/:id', controller: :crops, action: :update_image, as: :update_image
 
   get 'people/show_photo/:version/:id', controller: :people, action: :show_photo
 end
