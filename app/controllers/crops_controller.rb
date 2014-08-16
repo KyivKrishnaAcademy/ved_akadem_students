@@ -14,7 +14,7 @@ class CropsController < ApplicationController
 
     authorize @person
 
-    if @person.update_attributes(PersonParams.filter(params).merge(skip_password_validation: true))
+    if @person.crop_photo(PersonParams.filter(params))
       path = session[:after_crop_path].present? ? session[:after_crop_path] : root_path
 
       redirect_to path, flash: { success: 'Image was successfully cropped.' }

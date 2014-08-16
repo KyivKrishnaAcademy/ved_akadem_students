@@ -1,6 +1,6 @@
 class Person < ActiveRecord::Base
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h, :crop_done
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
   devise :database_authenticatable, :registerable, :recoverable
 
@@ -8,8 +8,6 @@ class Person < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   before_save :normalize_strings, :set_password
-
-  after_update :crop_photo
 
   validates :password, length: { in: 6..128, unless: :skip_password_validation  }
   validates :password, confirmation: true
@@ -25,17 +23,16 @@ class Person < ActiveRecord::Base
 
   mount_uploader :photo, PhotoUploader
 
-  private
+  def crop_photo(params)
+    assign_attributes(params)
 
-  def crop_photo
-    if crop_x.present? && !crop_done
-      photo.recreate_versions!
+    photo.recreate_versions!
 
-      self.crop_done = true
-      self.skip_password_validation = true
-      self.save!
-    end
+    self.skip_password_validation = true
+    self.save
   end
+
+  private
 
   def downcase_titleize(str)
     str.to_s.mb_chars.downcase.titleize.to_s
