@@ -120,4 +120,17 @@ describe Person do
       build(:person, :with_photo).should be_valid
     end
   end
+
+  describe '#crop_photo' do
+    Given { @person = create :person }
+    Given { @person.photo.should_receive(:recreate_versions!) }
+
+    Then do
+      @person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3).should be(true)
+      @person.crop_x.should eq(0)
+      @person.crop_y.should eq(1)
+      @person.crop_h.should eq(2)
+      @person.crop_w.should eq(3)
+    end
+  end
 end
