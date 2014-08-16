@@ -1,6 +1,22 @@
 - content_for(:js_and_css) do
   = stylesheet_link_tag 'jquery.Jcrop', media: 'all', 'data-turbolinks-track' => true
   = javascript_include_tag 'jquery.Jcrop', 'data-turbolinks-track' => true
+  = javascript_include_tag 'crops', 'data-turbolinks-track' => true
 
 %h1
   We will crop image here.
+
+= image_tag "/people/show_photo/for_crop/#{@person.id}", id: 'cropbox'
+
+%h4
+  Preview
+
+.crop_preview
+  = image_tag "/people/show_photo/for_crop/#{@person.id}", id: 'preview'
+
+= form_for @person do |f|
+  .actions
+    - %w{x y w h}.each do |attribute|
+      = f.hidden_field "crop_#{attribute}"
+
+    = f.submit 'Crop'

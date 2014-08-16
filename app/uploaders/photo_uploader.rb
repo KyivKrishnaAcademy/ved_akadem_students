@@ -1,8 +1,13 @@
 class PhotoUploader < BaseUploader
   before :cache, :capture_size_before_cache
 
-  version :standart do
+  version :standart, from_version: :for_crop do
+    process :crop
     process resize_to_limit: [150, 200]
+  end
+
+  version :for_crop do
+    process resize_to_limit: [800, 600]
   end
 
   private

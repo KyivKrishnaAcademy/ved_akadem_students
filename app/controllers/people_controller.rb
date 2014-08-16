@@ -86,7 +86,8 @@ class PeopleController < ApplicationController
         :gender         ,
         :birthday       ,
         :edu_and_work   ,
-        :emergency_contact
+        :emergency_contact,
+        :crop_x, :crop_y, :crop_w, :crop_h
       )
     end
   end
