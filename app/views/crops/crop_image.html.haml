@@ -6,13 +6,13 @@
 %h1
   We will crop image here.
 
-= image_tag "/people/show_photo/for_crop/#{@person.id}", id: 'cropbox'
+= image_tag "/people/show_photo/default/#{@person.id}", id: 'cropbox'
 
 %h4
   Preview
 
 .crop_preview
-  = image_tag "/people/show_photo/for_crop/#{@person.id}", id: 'preview'
+  = image_tag "/people/show_photo/default/#{@person.id}", id: 'preview'
 
 = form_for @person do |f|
   .actions
