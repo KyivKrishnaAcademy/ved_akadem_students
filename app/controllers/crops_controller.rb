@@ -10,7 +10,7 @@ class CropsController < ApplicationController
   end
 
   def update_image
-    @person = policy_scope(Person).find(params[:id])
+    @person = Person.find(params[:id])
 
     authorize @person
 
@@ -19,7 +19,9 @@ class CropsController < ApplicationController
 
       redirect_to path, flash: { success: 'Image was successfully cropped.' }
     else
-      render action: :crop_image, flash: { success: 'Image was not cropped.' }
+      flash[:error] = 'Image was not cropped.'
+
+      render action: :crop_image
     end
   end
 
