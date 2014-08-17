@@ -5,6 +5,7 @@ class Person < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable
 
   has_one :student_profile, dependent: :destroy
+  has_one :teacher_profile, dependent: :destroy
   has_and_belongs_to_many :roles
 
   before_save :normalize_strings, :set_password

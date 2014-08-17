@@ -19,6 +19,7 @@ describe Person do
 
   describe 'association' do
     it { should have_one(:student_profile).dependent(:destroy) }
+    it { should have_one(:teacher_profile).dependent(:destroy) }
     it { should have_and_belong_to_many(:roles) }
   end
 
