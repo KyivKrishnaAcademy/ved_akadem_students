@@ -26,4 +26,12 @@ FactoryGirl.define do
   trait :with_photo do
     photo { File.open("#{Rails.root}/spec/fixtures/150x200.png") }
   end
+
+  trait :student do
+    student_profile { FactoryGirl.create(:student_profile) }
+  end
+
+  trait :teacher do
+    teacher_profile { FactoryGirl.create(:teacher_profile) }
+  end
 end

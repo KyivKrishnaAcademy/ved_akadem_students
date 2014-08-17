@@ -2,6 +2,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
   before_action :remove_empty_password, only: :update
 
+  def destroy
+    if resource.student_profile.present? || resource.teacher_profile.present?
+      new_email = "#{SecureRandom.hex(3)}.deleted.#{resource.email}"
+
+      resource.update_attributes(email: new_email, skip_password_validation: true, deleted: true)
+    else
+      resource.destroy
+    end
+
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+
+    set_flash_message :notice, :destroyed if is_flashing_format?
+
+    yield resource if block_given?
+
+    respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
+  end
+
   private
 
   def after_sign_up_path_for(resource)

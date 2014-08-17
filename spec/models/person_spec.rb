@@ -15,6 +15,7 @@ describe Person do
     it { should have_db_column(:profile_fullness  ).of_type(:boolean  ) }
     it { should have_db_column(:edu_and_work      ).of_type(:text     ) }
     it { should have_db_column(:encrypted_password).of_type(:string   ) }
+    it { should have_db_column(:deleted           ).of_type(:boolean  ) }
   end
 
   describe 'association' do
