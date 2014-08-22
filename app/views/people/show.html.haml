@@ -23,7 +23,8 @@ Birthday: #{@person.birthday}
 %br
 Email: #{@person.email}
 %br
-Telephone: #{@person.telephone}
+- @person.telephones.each_with_index do |telephone, index|
+  Telephone #{index + 1}: #{telephone.phone}
 %br
 Emergency contact: #{@person.emergency_contact}
 %br

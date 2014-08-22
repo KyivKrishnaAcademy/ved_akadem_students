@@ -1,5 +1,5 @@
 # views
-shared_examples "person new and edit" do
+shared_examples 'person new and edit' do
   it { should have_title(full_title(title)) }
   it { should have_selector('h1', text: h1) }
 
@@ -7,30 +7,19 @@ shared_examples "person new and edit" do
     let(:form) { 'form.' << action << '_person' }
 
     it { should have_selector(form) }
-    it { should have_selector("#{form} label", text: "Name") }
     it { should have_selector("#{form} input#person_name") }
-    it { should have_selector("#{form} label", text: "Middle name") }
     it { should have_selector("#{form} input#person_middle_name") }
-    it { should have_selector("#{form} label", text: "Surname") }
     it { should have_selector("#{form} input#person_surname") }
-    it { should have_selector("#{form} label", text: "Spiritual name") }
     it { should have_selector("#{form} input#person_spiritual_name") }
-    it { should have_selector("#{form} label", text: "Telephone") }
-    it { should have_selector("#{form} input#person_telephone") }
-    it { should have_selector("#{form} label", text: "Email") }
+    it { should have_selector("#{form} input#person_telephones_attributes_0_phone") }
     it { should have_selector("#{form} input#person_email") }
-    it { should have_selector("#{form} label", text: "Gender") }
     it { should have_selector("#{form} select#person_gender") }
-    it { should have_selector("#{form} label", text: "Birthday") }
     it { should have_selector("#{form} select#person_birthday_1i") }
     it { should have_selector("#{form} select#person_birthday_2i") }
     it { should have_selector("#{form} select#person_birthday_3i") }
-    it { should have_selector("#{form} label", text: "Education and job") }
-    it { should have_selector("#{form} input#person_edu_and_work") }
-    it { should have_selector("#{form} label", text: "Emergency contact") }
+    it { should have_selector("#{form} textarea#person_edu_and_work") }
     it { should have_selector("#{form} input#person_emergency_contact") }
-    xit { should have_selector("#{form} label", text: "Photo") }
-    xit { should have_selector("#{form} input#person_photo") }
+    it { should have_selector("#{form} input#person_photo") }
     it { should have_selector("#{form} input.btn") }
   end
 end

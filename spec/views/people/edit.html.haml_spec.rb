@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'people/edit.html.erb' do
   before do
     @admin = create(:person, :admin,
-      telephone:      '380112223344'    ,
+      telephones:     [build(:telephone, phone: '380112223344')],
       spiritual_name: 'Dasa Das'        ,
       name:           'Ivan'            ,
       middle_name:    'Petrovich'       ,
@@ -26,16 +26,16 @@ describe 'people/edit.html.erb' do
   it_behaves_like 'person new and edit'
 
   describe 'default values' do
-    it { should have_selector('#person_telephone[value="380112223344"]'        ) }
+    it { should have_selector('#person_telephones_attributes_0_phone[value="380112223344"]') }
     it { should have_selector('#person_spiritual_name[value="Dasa Das"]'       ) }
     it { should have_selector('#person_name[value="Ivan"]'                     ) }
     it { should have_selector('#person_middle_name[value="Petrovich"]'         ) }
     it { should have_selector('#person_surname[value="Жук"]'                   ) }
     it { should have_selector('#person_email[value="juke@ulr.net"]'            ) }
-    it { should have_selector('#person_edu_and_work[value="где-то когда-то"]'  ) }
+    it { should have_css('#person_edu_and_work', text: 'где-то когда-то' ) }
     it { should have_selector('#person_emergency_contact[value="дед Василий"]' ) }
 
-    xit { should have_select('#person_gender', selected: 'Male'     ) }
+    it { should have_css('#person_gender option[selected="selected"]', text: 'Male'     ) }
     it { pending 'Test default value if gender = Female too' }
 
     it { should have_selector('#person_birthday_1i option[selected]', text: '1975'    ) }

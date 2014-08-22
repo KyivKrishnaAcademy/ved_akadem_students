@@ -1,34 +1,29 @@
-= form_for @person do |f|
-  = render 'shared/error_messages', object: f.object
-  %p
-    = f.label      :spiritual_name
-    = f.text_field :spiritual_name
-  %p
-    = f.label      :name
-    = f.text_field :name
-  %p
-    = f.label      :middle_name
-    = f.text_field :middle_name
-  %p
-    = f.label      :surname
-    = f.text_field :surname
-  %p
-    = f.label       :email
-    = f.email_field :email
-  %p
-    = f.label       :telephone
-    = f.phone_field :telephone
-  %p
-    = f.label  :gender
-    = f.select :gender, options_for_select([['Male', true], ['Female', false]]), { prompt: 'select...' }
-  %p
-    = f.label       :birthday
-    = f.date_select :birthday, { prompt: "select...", start_year: 1940, end_year: Time.now.year }
-  %p
-    = f.label      :edu_and_work, 'Education and job'
-    = f.text_field :edu_and_work
-  %p
-    = f.label      :emergency_contact
-    = f.text_field :emergency_contact
-  %p
-    = f.submit class: 'btn'
+- content_for(:js_and_css) do
+  = javascript_include_tag 'nested_form_custom', 'data-turbolinks-track' => true
+
+= simple_nested_form_for @person do |f|
+  = f.error_notification
+
+  .form-inputs
+    - if f.object.photo.present?
+      = image_tag("/people/show_photo/standart/#{f.object.id}")
+    - else
+      = image_tag(f.object.photo_url)
+    = f.input :photo, as: :file
+    = f.input :photo_cache, as: :hidden
+    = f.input :email, required: true, autofocus: true
+    = f.input :spiritual_name
+    = f.input :name, required: true
+    = f.input :middle_name
+    = f.input :surname, required: true
+    = f.fields_for :telephones do |t|
+      = t.input :phone, as: :tel, required: true
+      = t.link_to_remove '-'
+    = f.link_to_add '+', :telephones
+    = f.input :gender, collection: [['Male', true], ['Female', false]], required: true
+    = f.input :birthday, required: true
+    = f.input :edu_and_work, required: true
+    = f.input :emergency_contact, required: true
+
+    .form-actions
+      = f.button :submit

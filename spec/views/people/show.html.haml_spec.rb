@@ -16,7 +16,7 @@ describe 'people/new.html.erb' do
   Then { find('body').should have_text("Surname: #{@p.surname}") }
   Then { find('body').should have_text("Middle name: #{@p.middle_name}") }
   Then { find('body').should have_text("Spiritual name: #{@p.spiritual_name}") }
-  Then { find('body').should have_text("Telephone: #{@p.telephone}") }
+  Then { find('body').should have_text("Telephone 1: #{@p.telephones.first.phone}") }
   Then { find('body').should have_text("Email: #{@p.email}") }
   Then { find('body').should have_text("Emergency contact: #{@p.emergency_contact}") }
   Then { find('body').should have_text("Education, hobby, job: #{@p.edu_and_work}") }
