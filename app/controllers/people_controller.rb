@@ -9,6 +9,8 @@ class PeopleController < ApplicationController
     @person = Person.new
 
     authorize @person
+
+    @person.telephones.build
   end
 
   def create
@@ -78,15 +80,16 @@ class PeopleController < ApplicationController
     def self.filter params
       params.require(:person).permit(
         :name           ,
+        :photo          ,
         :spiritual_name ,
         :middle_name    ,
         :surname        ,
         :email          ,
-        :telephone      ,
         :gender         ,
         :birthday       ,
         :edu_and_work   ,
-        :emergency_contact
+        :emergency_contact,
+        telephones_attributes: [:id, :phone, :_destroy]
       )
     end
   end

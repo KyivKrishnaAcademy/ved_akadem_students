@@ -176,10 +176,10 @@ shared_examples "DELETE 'destroy'" do |model|
   end
 end
 
-shared_examples "controller subclass" do |subclass, model|
+shared_examples 'controller subclass' do |subclass, model|
   describe "#{subclass}" do
-    describe ".filter" do
-      it "returns the cleaned params" do
+    describe '.filter' do
+      it 'returns the cleaned params' do
         expect(
           subclass.filter(
             ActionController::Parameters

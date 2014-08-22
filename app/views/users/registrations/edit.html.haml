@@ -1,6 +1,9 @@
+- content_for(:js_and_css) do
+  = javascript_include_tag 'nested_form_custom', 'data-turbolinks-track' => true
+
 %h2 Edit #{resource_name.to_s.humanize}
 
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+= simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = f.error_notification
 
   .form-inputs
@@ -15,7 +18,10 @@
     = f.input :name, required: true
     = f.input :middle_name
     = f.input :surname, required: true
-    = f.input :telephone, as: :tel, required: true
+    = f.fields_for :telephones do |t|
+      = t.input :phone, as: :tel, required: true
+      = t.link_to_remove '-'
+    = f.link_to_add '+', :telephones
     = f.input :gender, collection: [['Male', true], ['Female', false]], required: true
     = f.input :birthday, required: true
     = f.input :edu_and_work, required: true

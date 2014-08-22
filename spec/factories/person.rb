@@ -3,7 +3,6 @@ FactoryGirl.define do
     gender                              { true }
     password                            { 'password' }
     password_confirmation               { 'password' }
-    sequence(:telephone, 100000000000 ) { |n| "#{n}" }
     spiritual_name                      { "Ad#{generate(:char_sequence)} das" }
     name                                { "V#{generate(:char_sequence)}"      }
     middle_name                         { "Y#{generate(:char_sequence)}"      }
@@ -11,6 +10,7 @@ FactoryGirl.define do
     sequence(:email                   ) { |n| "mail#{n}@ukr.net"      }
     sequence(:birthday ,        12000 ) { |n| n.days.ago.to_date      }
     edu_and_work                        { generate(:char_sequence)*20 }
+    telephones                          { [build(:telephone)] }
   end
 
   trait :admin do
@@ -20,7 +20,7 @@ FactoryGirl.define do
     middle_name     { 'Adminovich' }
     surname         { 'Adminov' }
     spiritual_name  { 'Admin Prabhu' }
-    telephone       { '199999999999' }
+    telephones      { [build(:telephone, phone: '199999999999')] }
   end
 
   trait :with_photo do

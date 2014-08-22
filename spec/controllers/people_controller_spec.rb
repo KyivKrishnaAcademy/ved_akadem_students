@@ -4,7 +4,7 @@ describe PeopleController do
   When { sign_in :person, create(:person, :admin) }
 
   describe "POST 'create'" do
-    When { post :create, person: build(:person).attributes.merge(skip_password_validation: true) }
+    When { post :create, person: build(:person).attributes.merge(telephones_attributes: [build(:telephone).attributes]) }
 
     context 'on success' do
       context 'redirect and flash' do
@@ -82,11 +82,12 @@ describe PeopleController do
       middle_name:        'Тигранович',
       surname:            'Киселев',
       email:              'ssd@pamho.yes',
-      telephone:          '380112223344',
       gender:             true,
       birthday:           7200.days.ago.to_date,
       edu_and_work:       'ББТ',
-      emergency_contact:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе'
+      emergency_contact:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе',
+      telephones_attributes:  [ id: nil,
+                                phone: '0000001111']
     }
   end
 

@@ -2,6 +2,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
   before_action :remove_empty_password, only: :update
 
+  def new
+    build_resource({})
+
+    resource.telephones.build
+
+    @validatable = devise_mapping.validatable?
+
+    if @validatable
+      @minimum_password_length = resource_class.password_length.min
+    end
+
+    respond_with self.resource
+  end
+
   def destroy
     if resource.student_profile.present? || resource.teacher_profile.present?
       new_email = "#{SecureRandom.hex(3)}.deleted.#{resource.email}"
@@ -45,8 +59,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_permitted_parameters
-    permitted_params = [:name, :surname, :spiritual_name, :middle_name, :telephone, :gender,
-                        :photo, :birthday, :edu_and_work, :emergency_contact]
+    permitted_params = [:name, :surname, :spiritual_name, :middle_name, :gender,
+                        :photo, :birthday, :edu_and_work, :emergency_contact,
+                        telephones_attributes: [:id, :phone, :_destroy]]
 
     devise_parameter_sanitizer.for(:sign_up) << permitted_params
     devise_parameter_sanitizer.for(:account_update) << permitted_params << [:photo_cache]

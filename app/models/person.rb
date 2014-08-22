@@ -7,8 +7,11 @@ class Person < ActiveRecord::Base
   has_one :student_profile, dependent: :destroy
   has_one :teacher_profile, dependent: :destroy
   has_and_belongs_to_many :roles
+  has_many :telephones, dependent: :destroy
 
   before_save :normalize_strings, :set_password
+
+  accepts_nested_attributes_for :telephones, allow_destroy: true
 
   validates :password, length: { in: 6..128, unless: :skip_password_validation  }
   validates :password, confirmation: true
@@ -17,7 +20,7 @@ class Person < ActiveRecord::Base
   validates :middle_name,     length: { maximum: 50 }
   validates :spiritual_name,  length: { maximum: 50 }
   validates :gender,          inclusion: { in: [true, false] }
-  validates :telephone, presence: true, numericality: { less_than: 1_000_000_000_000, greater_than: 99_999_999_999 }
+  validates :telephones, presence: true
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
   validate :check_photo_dimensions

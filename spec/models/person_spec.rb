@@ -6,7 +6,6 @@ describe Person do
     it { should have_db_column(:middle_name       ).of_type(:string   ) }
     it { should have_db_column(:surname           ).of_type(:string   ) }
     it { should have_db_column(:spiritual_name    ).of_type(:string   ) }
-    it { should have_db_column(:telephone         ).of_type(:integer  ) }
     it { should have_db_column(:email             ).of_type(:string   ) }
     it { should have_db_column(:gender            ).of_type(:boolean  ) }
     it { should have_db_column(:birthday          ).of_type(:date     ) }
@@ -22,6 +21,7 @@ describe Person do
     it { should have_one(:student_profile).dependent(:destroy) }
     it { should have_one(:teacher_profile).dependent(:destroy) }
     it { should have_and_belong_to_many(:roles) }
+    it { should have_many(:telephones).dependent(:destroy) }
   end
 
   describe 'validation' do
@@ -38,15 +38,6 @@ describe Person do
     context :gender do
       it { should     allow_value(true, false).for(:gender) }
       it { should_not allow_value(nil        ).for(:gender) }
-    end
-
-    context :telephone do
-      it { should validate_presence_of(    :telephone ) }
-      it { should validate_numericality_of(:telephone ) }
-      it { should ensure_inclusion_of(     :telephone )
-            .in_range(100_000_000_000..999_999_999_999)
-            .with_low_message(  /must be greater than/)
-            .with_high_message( /must be less than/   ) }
     end
 
     context :email do

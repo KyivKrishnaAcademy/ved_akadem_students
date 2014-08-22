@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140817070939) do
+ActiveRecord::Schema.define(version: 20140821192744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20140817070939) do
     t.string   "middle_name"
     t.string   "surname"
     t.string   "spiritual_name"
-    t.integer  "telephone",              limit: 8
     t.string   "email"
     t.boolean  "gender"
     t.date     "birthday"
@@ -84,7 +83,7 @@ ActiveRecord::Schema.define(version: 20140817070939) do
     t.string   "encrypted_password"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.boolean  "deleted",                          default: false
+    t.boolean  "deleted",                default: false
   end
 
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
@@ -126,6 +125,13 @@ ActiveRecord::Schema.define(version: 20140817070939) do
     t.integer  "teacher_profile_id"
     t.integer  "course_id"
     t.date     "since"
+  end
+
+  create_table "telephones", force: true do |t|
+    t.integer  "person_id"
+    t.string   "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
