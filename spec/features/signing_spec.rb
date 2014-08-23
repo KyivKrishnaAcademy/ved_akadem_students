@@ -24,7 +24,7 @@ describe 'Signing' do
       fill_in 'person_name', with: 'Vasyl'
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'
-      fill_in 'person_telephone', with: '380112223344'
+      fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
       select  'Male', from: 'person_gender'
       select  '2012', from: 'person_birthday_1i'
       select  'May', from: 'person_birthday_2i'
@@ -82,7 +82,7 @@ describe 'Signing' do
           fill_in 'person_name', with: 'Vasyl'
           fill_in 'person_middle_name', with: 'Alexovich'
           fill_in 'person_surname', with: 'Mitrofanov'
-          fill_in 'person_telephone', with: '380112223344'
+          fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
           select  'Male', from: 'person_gender'
           select  '1982', from: 'person_birthday_1i'
           select  'May', from: 'person_birthday_2i'
@@ -111,7 +111,7 @@ describe 'Signing' do
             find('#person_name')['value'].should have_content('Vasyl')
             find('#person_middle_name')['value'].should have_content('Alexovich')
             find('#person_surname')['value'].should have_content('Mitrofanov')
-            find('#person_telephone')['value'].should have_content('380112223344')
+            find('#person_telephones_attributes_0_phone')['value'].should have_content('380112223344')
             find('#person_edu_and_work')['value'].should have_content('NTUU KPI')
             find('#person_emergency_contact')['value'].should have_content('Krishna')
             find('#person_gender').should have_css('option[selected="selected"]', text: 'Male')

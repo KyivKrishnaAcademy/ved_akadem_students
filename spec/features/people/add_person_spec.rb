@@ -6,18 +6,30 @@ feature 'Add person:' do
     visit new_person_path
   end
 
-  let(:attr_name)  { :telephone }
-  let(:locator)    { "#{complex_name(the_m).downcase.titleize}" }
   let(:fill_right) { fill_person_data gender: 'Female'  }
   let(:model)      { Person }
 
-  it_behaves_like :link_in_flash
+  describe :link_in_flash do
+    Given { @person = fill_person_data gender: 'Female' }
+
+    When  { click_button 'Create Person' }
+
+    Then  { page.should have_link(complex_name(@person).downcase.titleize,
+                                  href: person_path(Person.find_by(email: @person.email))) }
+  end
 
   describe 'simple (no student, no teacher)' do
-    let(:fill_wrong) { fill_person_data telephone: '3322' }
 
     it_behaves_like :adds_model
-    it_behaves_like :not_adds_model
+
+    describe 'do not adds person' do
+      Given { fill_person_data email: '3322' }
+
+      Then do
+        expect { click_button 'Create Person' }.not_to change{Person.count}
+        expect(page).to have_selector('.alert-error')
+      end
+    end
   end
 
   describe 'student' do
@@ -30,7 +42,7 @@ feature 'Add person:' do
 
   def fill_person_data p={}
     pf = build(:person, p)
-    fill_in 'person_telephone'      , with: (pf.telephone      )
+    fill_in 'person_telephones_attributes_0_phone', with: (pf.telephones.first.phone)
     fill_in 'person_spiritual_name' , with: (pf.spiritual_name )
     fill_in 'person_name'           , with: (pf.name           )
     fill_in 'person_middle_name'    , with: (pf.middle_name    )
@@ -38,7 +50,7 @@ feature 'Add person:' do
     fill_in 'person_email'          , with: (pf.email          )
     fill_in 'person_edu_and_work'   , with: (pf.edu_and_work   )
     select  (p[:gender]     ||'Male').to_s, from: 'person_gender'
-    select  (p[:birthday_1i]||'1984').to_s, from: 'person_birthday_1i'
+    select  (p[:birthday_1i]||'2010').to_s, from: 'person_birthday_1i'
     select  (p[:birthday_2i]||'May' ).to_s, from: 'person_birthday_2i'
     select  (p[:birthday_3i]||'30'  ).to_s, from: 'person_birthday_3i'
     pf
