@@ -26,6 +26,7 @@ class Person < ActiveRecord::Base
   validate :check_photo_dimensions
 
   mount_uploader :photo, PhotoUploader
+  mount_uploader :passport, PassportUploader
 
   def crop_photo(params)
     assign_attributes(params)
