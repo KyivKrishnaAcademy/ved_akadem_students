@@ -33,7 +33,7 @@ describe 'Signing' do
       fill_in 'person_emergency_contact', with: 'Krishna'
     end
 
-    describe 'should signup without photo' do
+    describe 'should signup without photo and passport' do
       When { click_button I18n.t('devise.links.sign_up') }
 
       Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
@@ -52,6 +52,23 @@ describe 'Signing' do
 
       describe 'should direct to crop path' do
         Then { find('h1').should have_content('crop image') }
+      end
+    end
+
+    describe 'should signup with passport' do
+      When do
+        attach_file 'person[passport]', "#{Rails.root}/spec/fixtures/150x200.png"
+        click_button I18n.t('devise.links.sign_up')
+      end
+
+      describe 'should show flash' do
+        Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
+      end
+
+      describe 'should show passport image' do
+        When { visit '/edit' }
+
+        Then  { find('.form-inputs').should have_link('Show passport') }
       end
     end
   end
