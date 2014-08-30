@@ -53,6 +53,7 @@ ru:
       sign_up: 'Зарегистрироваться'
       sign_out: 'Выйти'
       forgot_password: 'Забыли пароль?'
+      forgot_email: 'Забыли адрес электронной почты?'
   errors:
     messages:
       already_confirmed: "уже подтверждена. Пожалуйста, попробуйте войти в систему"
