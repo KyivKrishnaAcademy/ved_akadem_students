@@ -3,6 +3,11 @@ VedAkademStudents::Application.routes.draw do
 
   resources :people, :akadem_groups
 
+  scope module: :users do
+    get   '/remind_email' => 'emails#new'
+    patch '/show_emails'  => 'emails#update'
+  end
+
   root 'static_pages#home'
 
   get 'static_pages/home'
