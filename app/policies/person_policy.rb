@@ -7,6 +7,10 @@ class PersonPolicy < ApplicationPolicy
     show?
   end
 
+  def show_passport?
+    owned? || super
+  end
+
   def crop_image?
     owned? || super
   end

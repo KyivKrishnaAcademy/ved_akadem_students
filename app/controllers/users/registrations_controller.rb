@@ -60,11 +60,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def configure_permitted_parameters
     permitted_params = [:name, :surname, :spiritual_name, :middle_name, :gender,
-                        :photo, :birthday, :edu_and_work, :emergency_contact,
+                        :photo, :birthday, :edu_and_work, :emergency_contact, :passport,
                         telephones_attributes: [:id, :phone, :_destroy]]
 
-    devise_parameter_sanitizer.for(:sign_up) << permitted_params
-    devise_parameter_sanitizer.for(:account_update) << permitted_params << [:photo_cache]
+    devise_parameter_sanitizer.for(:sign_up) << permitted_params << [:photo_cache, :passport_cache]
+    devise_parameter_sanitizer.for(:account_update) << permitted_params << [:photo_cache, :passport_cache]
   end
 
   def remove_empty_password

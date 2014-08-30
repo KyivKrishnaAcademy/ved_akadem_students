@@ -16,14 +16,14 @@ describe PersonPolicy do
     end
 
     context 'owned' do
-      permissions :crop_image?, :update_image?, :show?, :show_photo? do
+      permissions :crop_image?, :update_image?, :show?, :show_photo?, :show_passport? do
         it 'allow' do
           should permit(user, user)
         end
       end
     end
 
-    [:new?, :show?, :create?, :edit?, :index?, :destroy?, :update?, :crop_image?].each do |action|
+    [:new?, :show?, :create?, :edit?, :index?, :destroy?, :update?, :crop_image?, :show_passport?].each do |action|
       permissions action do
         it_behaves_like :allow_with_activities, ['person:' << action.to_s.sub('?', '')]
       end

@@ -4,7 +4,7 @@
 %h2 Edit #{resource_name.to_s.humanize}
 
 = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = f.error_notification
+  = render 'shared/error_messages', object: f.object
 
   .form-inputs
     - if f.object.photo.present?
@@ -13,6 +13,12 @@
       = image_tag(f.object.photo_url)
     = f.input :photo, as: :file
     = f.input :photo_cache, as: :hidden
+    - if f.object.passport.present?
+      = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank'
+    - else
+      There is no passport attached.
+    = f.input :passport, as: :file
+    = f.input :passport_cache, as: :hidden
     = f.input :email, required: true, autofocus: true
     = f.input :spiritual_name
     = f.input :name, required: true
@@ -24,8 +30,8 @@
     = f.link_to_add '+', :telephones
     = f.input :gender, collection: [['Male', true], ['Female', false]], required: true
     = f.input :birthday, required: true
-    = f.input :edu_and_work, required: true
-    = f.input :emergency_contact, required: true
+    = f.input :edu_and_work, required: false
+    = f.input :emergency_contact, required: false
 
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       %p

@@ -14,4 +14,5 @@ VedAkademStudents::Application.routes.draw do
   patch 'image/update/:id', controller: :crops, action: :update_image, as: :update_image
 
   get 'people/show_photo/:version/:id', controller: :people, action: :show_photo
+  get 'people/show_passport/:id', controller: :people, action: :show_passport
 end

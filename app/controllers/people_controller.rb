@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport]
   before_action :authenticate_person!
 
   after_filter :verify_authorized
@@ -76,11 +76,21 @@ class PeopleController < ApplicationController
                x_sendfile: true )
   end
 
+  def show_passport
+    authorize @person
+
+    send_file( @person.passport_url,
+               disposition: 'inline',
+               type: 'image/jpeg',
+               x_sendfile: true )
+  end
+
   class PersonParams
     def self.filter params
       params.require(:person).permit(
         :name           ,
         :photo          ,
+        :passport       ,
         :spiritual_name ,
         :middle_name    ,
         :surname        ,
