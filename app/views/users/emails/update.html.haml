@@ -1,12 +1,13 @@
-%h2 Emails
+.found-emails
+  %h2 Emails
 
-- case @emails.count
-- when 0
-  The telephone is not registered.
-- when 1
-  = @emails.first
-- else
-  %ul
-    - @emails.each do |email|
-      %li
-        = email
+  - case @emails.count
+  - when 0
+    The telephone is not registered.
+  - when 1
+    = @emails.first
+  - else
+    %ul
+      - @emails.each do |email|
+        %li
+          = email

@@ -165,4 +165,38 @@ describe 'Signing' do
       end
     end
   end
+
+  describe 'forgot email' do
+    Given { create :person, email: 'admin@example.com', telephones: [create(:telephone, phone: '1111111111')] }
+    Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '1111111111'), create(:telephone, phone: '2222222222')] }
+    Given { visit remind_email_path }
+
+    describe 'found one email' do
+      When do
+        fill_in 'phone', with: '2222222222'
+        click_button 'Get email'
+      end
+
+      Then { find('.found-emails').text.should match(/(\w|\*)+@test\.org/) }
+      And  { find('.found-emails').text.should_not match(/(\w|\*)+@example\.com/) }
+    end
+
+    describe 'found two emails' do
+      When do
+        fill_in 'phone', with: '1111111111'
+        click_button 'Get email'
+      end
+
+      Then { find('.found-emails').text.should match(/(\w|\*)+@example\.com.*(\w|\*)+@test\.org/) }
+    end
+
+    describe 'no email found' do
+      When do
+        fill_in 'phone', with: '3333333333'
+        click_button 'Get email'
+      end
+
+      Then { find('.found-emails').should have_content('The telephone is not registered.') }
+    end
+  end
 end

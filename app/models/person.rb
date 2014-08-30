@@ -28,6 +28,8 @@ class Person < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
   mount_uploader :passport, PassportUploader
 
+  default_scope { where(deleted: false) }
+
   def crop_photo(params)
     assign_attributes(params)
 
