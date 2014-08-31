@@ -5,7 +5,7 @@ VedAkademStudents::Application.routes.draw do
 
   scope module: :users do
     get   '/remind_email' => 'emails#new'
-    patch '/show_emails'  => 'emails#update'
+    post  '/show_emails'  => 'emails#update'
   end
 
   root 'static_pages#home'
