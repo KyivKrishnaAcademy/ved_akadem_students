@@ -11,6 +11,12 @@
       = image_tag(f.object.photo_url)
     = f.input :photo, as: :file
     = f.input :photo_cache, as: :hidden
+    - if f.object.passport.present?
+      = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank'
+    - else
+      There is no passport attached.
+    = f.input :passport, as: :file
+    = f.input :passport_cache, as: :hidden
     = f.input :email, required: true, autofocus: true
     = f.input :spiritual_name
     = f.input :name, required: true
@@ -25,5 +31,5 @@
     = f.input :edu_and_work, required: true
     = f.input :emergency_contact, required: true
 
-    .form-actions
-      = f.button :submit
+  .form-actions
+    = f.button :submit

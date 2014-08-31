@@ -5,9 +5,16 @@
 = link_to 'Edit', edit_person_path(@person)
 |
 = link_to 'Delete', person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }
+%br
 - if @person.photo.present?
-  %br
   = image_tag("/people/show_photo/standart/#{@person.id}")
+- else
+  = image_tag(@person.photo_url)
+%br
+- if @person.passport.present?
+  = link_to 'Show passport', "/people/show_passport/#{@person.id}", target: '_blank'
+- else
+  There is no passport attached.
 %br
 Spiritual name: #{@person.spiritual_name}
 %br

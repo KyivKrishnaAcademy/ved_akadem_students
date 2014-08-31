@@ -90,7 +90,9 @@ class PeopleController < ApplicationController
       params.require(:person).permit(
         :name           ,
         :photo          ,
+        :photo_cache    ,
         :passport       ,
+        :passport_cache ,
         :spiritual_name ,
         :middle_name    ,
         :surname        ,
