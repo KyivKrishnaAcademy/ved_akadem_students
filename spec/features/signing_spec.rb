@@ -26,7 +26,7 @@ describe 'Signing' do
       fill_in 'person_surname', with: 'Mitrofanov'
       fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
       select  'Male', from: 'person_gender'
-      select  '2012', from: 'person_birthday_1i'
+      select  '1985', from: 'person_birthday_1i'
       select  'May', from: 'person_birthday_2i'
       select  '20', from: 'person_birthday_3i'
       fill_in 'person_edu_and_work', with: 'NTUU KPI'

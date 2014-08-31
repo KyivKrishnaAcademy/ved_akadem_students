@@ -289,15 +289,16 @@ def underscore_humanize(str)
 end
 
 shared_examples :valid_select_date do |model_name, field_name, content|
+  Given (:year) { model_name == 'Person' ? '1985' : '2010' }
   When do
     select_from = "#{model_name.underscore}[#{field_name}("
-    select '2010', from: "#{select_from}1i)]"
+    select year  , from: "#{select_from}1i)]"
     select 'May' , from: "#{select_from}2i)]"
     select '27'  , from: "#{select_from}3i)]"
     click_button "Update #{underscore_humanize(model_name)}"
   end
 
-  Then { find('body').should have_content("#{content}2010-05-27") }
+  Then { find('body').should have_content("#{content}#{year}-05-27") }
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 
