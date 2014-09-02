@@ -72,14 +72,5 @@ describe CropsController do
         response.should render_template('crop_image')
       end
     end
-
-    #Given(:category) { mock_model Category }
-    #Given { Category.stub(:find_by_friendly_id).with('film').and_return(category) }
-    #Given { category.stub_chain(:status, :published?).and_return(false) }
-    #Given { Category.should_receive(:exists?).and_return(false) }
-    #When  { get :show, id: 'film' }
-    #
-    #Then  { response.status.should == 200 }
-    #And   { assigns(:category).should == category }
   end
 end

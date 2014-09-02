@@ -13,6 +13,20 @@ describe Users::RegistrationsController do
     end
   end
 
+  shared_examples_for :photo_redirects do |action|
+    context 'has photo' do
+      When { post action, person: person_attributes.merge(photo: 'test.png') }
+
+      Then { response.should redirect_to(crop_image_path(assigns(:person).id)) }
+    end
+
+    context 'has no photo' do
+      When { post action, person: person_attributes }
+
+      Then { response.should redirect_to(root_path) }
+    end
+  end
+
   describe 'destroy' do
     When { sign_in :person, @person }
 
@@ -36,21 +50,20 @@ describe Users::RegistrationsController do
   end
 
   describe 'direct to crop path' do
-    context 'has photo' do
-      When { post :create, person: build(:person).attributes.merge(password: 'password',
+    describe :create do
+      Given (:person_attributes) { build(:person).attributes.merge(password: 'password',
                                                                    password_confirmation: 'password',
-                                                                   photo: 'test.png',
                                                                    telephones_attributes: { '0' => { phone: '1234567890'}}) }
 
-      Then { response.should redirect_to(crop_image_path(assigns(:person).id)) }
+      it_behaves_like :photo_redirects, :create
     end
 
-    context 'has no photo' do
-      When { post :create, person: build(:person).attributes.merge(password: 'password',
+    describe :update do
+      Given (:person_attributes) { create(:person).attributes.merge(password: 'password',
                                                                    password_confirmation: 'password',
                                                                    telephones_attributes: { '0' => { phone: '1234567890'}}) }
 
-      Then { response.should redirect_to(root_path) }
+      it_behaves_like :photo_redirects, :update
     end
   end
 end
