@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140824053737) do
+ActiveRecord::Schema.define(version: 20140903122216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,12 @@ ActiveRecord::Schema.define(version: 20140824053737) do
     t.integer "role_id"
   end
 
+  create_table "programs", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "activities",            default: [], array: true
     t.string   "name",       limit: 30
@@ -111,6 +117,13 @@ ActiveRecord::Schema.define(version: 20140824053737) do
     t.boolean  "photos"
     t.string   "folder_in_archive"
     t.boolean  "active_student"
+  end
+
+  create_table "study_applications", force: true do |t|
+    t.integer  "person_id"
+    t.integer  "program_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teacher_profiles", force: true do |t|
