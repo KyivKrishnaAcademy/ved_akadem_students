@@ -81,6 +81,16 @@ describe Person do
       it { should ensure_length_of(:middle_name     ).is_at_most(50) }
       it { should ensure_length_of(:spiritual_name  ).is_at_most(50) }
     end
+
+    describe :photo do
+      it 'less then 150x200 not valid' do
+        build(:person, photo: File.open("#{Rails.root}/spec/fixtures/10x10.png")).should_not be_valid
+      end
+
+      it 'equals 150x200 valid' do
+        build(:person, :with_photo).should be_valid
+      end
+    end
   end
 
   describe 'before save processing' do
@@ -102,16 +112,6 @@ describe Person do
       person.surname.should        ==  'Фамилия'
       person.middle_name.should    ==  'Отчество'
       person.spiritual_name.should ==  'Адидасадаса Дас'
-    end
-  end
-
-  describe :photo do
-    it 'less then 150x200 not valid' do
-      build(:person, photo: File.open("#{Rails.root}/spec/fixtures/10x10.png")).should_not be_valid
-    end
-
-    it 'equals 150x200 valid' do
-      build(:person, :with_photo).should be_valid
     end
   end
 
