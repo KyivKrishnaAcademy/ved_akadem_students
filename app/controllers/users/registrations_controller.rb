@@ -1,4 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  include CropDirectable
+
   before_action :configure_permitted_parameters
   before_action :remove_empty_password, only: :update
 
@@ -46,16 +48,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     direct_to_crop(super(resource), resource)
-  end
-
-  def direct_to_crop(default, resource)
-    if params[:person][:photo].present? || params[:person][:photo_cache].present?
-      session[:after_crop_path] = default
-
-      crop_image_path(resource.id)
-    else
-      default
-    end
   end
 
   def configure_permitted_parameters

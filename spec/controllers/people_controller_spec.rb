@@ -92,4 +92,43 @@ describe PeopleController do
   end
 
   it_behaves_like 'controller subclass', PeopleController::PersonParams, :person
+
+  describe 'direct to crop path' do
+    describe :create do
+      Given (:person_attributes) { build(:person).attributes.merge(password: 'password',
+                                                                   password_confirmation: 'password',
+                                                                   telephones_attributes: { '0' => { phone: '1234567890'}}) }
+
+      context 'has photo' do
+        When { post :create, person: person_attributes.merge(photo: 'test.png') }
+
+        Then { response.should redirect_to(crop_image_path(assigns(:person).id)) }
+      end
+
+      context 'has no photo' do
+        When { post :create, person: person_attributes }
+
+        Then { response.should redirect_to(action: :new) }
+      end
+    end
+
+    describe :update do
+      Given { @person = create(:person) }
+      Given (:person_attributes) { @person.attributes.merge(password: 'password',
+                                                                    password_confirmation: 'password',
+                                                                    telephones_attributes: { '0' => { phone: '1234567890'}}) }
+
+      context 'has photo' do
+        When { patch :update, id: @person.id, person: person_attributes.merge(photo: 'test.png') }
+
+        Then { response.should redirect_to(crop_image_path(@person.id)) }
+      end
+
+      context 'has no photo' do
+        When { patch :update, id: @person.id, person: person_attributes }
+
+        Then { response.should redirect_to(person_path(@person.id)) }
+      end
+    end
+  end
 end

@@ -1,4 +1,6 @@
 class PeopleController < ApplicationController
+  include CropDirectable
+
   before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport]
   before_action :authenticate_person!
 
@@ -21,7 +23,7 @@ class PeopleController < ApplicationController
     if @person.save
       flash[:success] = "#{view_context.link_to( view_context.complex_name(@person), person_path(@person) )} added.".html_safe
 
-      redirect_to action: :new
+      redirect_to direct_to_crop(new_person_path, @person)
     elsif
       render      action: :new
     end
@@ -55,7 +57,9 @@ class PeopleController < ApplicationController
     authorize @person
 
     if @person.update_attributes(PersonParams.filter(params).merge(skip_password_validation: true))
-      redirect_to @person, flash: { success: 'Person was successfully updated.' }
+      flash[:success] = 'Person was successfully updated.'
+
+      redirect_to direct_to_crop(person_path(@person), @person)
     else
       render      action: :edit
     end
