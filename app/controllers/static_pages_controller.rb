@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
+  before_action :authenticate_person!, only: :home
+
   def home
-    redirect_to(controller: 'devise/sessions', action: :new) unless person_signed_in?
   end
 
   def about
