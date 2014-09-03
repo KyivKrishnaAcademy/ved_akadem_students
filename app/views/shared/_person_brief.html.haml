@@ -1,0 +1,7 @@
+.person_brief
+  - if person.photo.present?
+    = image_tag("/people/show_photo/standart/#{person.id}")
+  - else
+    = image_tag(person.photo_url)
+  %h2
+    = complex_name(person)

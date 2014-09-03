@@ -10,6 +10,7 @@ gem 'jquery-rails', '3.1.0'
 gem 'turbolinks', '2.2.2'
 gem 'jbuilder', '2.0.6'
 gem 'pg', '0.17.1'
+
 gem 'devise', '3.2.4'
 gem 'pundit'
 
@@ -23,6 +24,7 @@ gem 'jcrop-rails-v2'
 gem 'bootstrap-sass', '3.1.1.1'
 
 gem 'factory_girl_rails', '4.4.1'
+gem 'ffaker'
 
 group :production, :development do
   gem 'puma'

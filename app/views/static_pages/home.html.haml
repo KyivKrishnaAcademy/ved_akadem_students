@@ -1,3 +1,6 @@
 - provide(:title, 'Home')
 %h1 StaticPages#home
 %p Find me in app/views/static_pages/home
+
+= render 'shared/study_application', person: current_person, programs: @programs
+= render 'shared/person_brief', person: current_person

@@ -1,0 +1,13 @@
+.study_application
+  - if person.study_application.blank?
+    - programs.each do |program|
+      .program
+        %h4
+          = program.title
+        .description
+          = program.description
+        = link_to 'Apply', '#', class: 'btn btn-success'
+  - else
+    .program
+      You have applied to #{person.study_application.program.title}
+      = link_to 'Withdraw', '#', class: 'btn btn-danger'
