@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 FactoryGirl.create(:person, :admin) if Person.where(email: 'admin@example.com').none?
+
+Rake::Task['akadem:create_programs'].invoke
