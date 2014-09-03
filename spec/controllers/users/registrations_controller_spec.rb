@@ -13,20 +13,6 @@ describe Users::RegistrationsController do
     end
   end
 
-  shared_examples_for :photo_redirects do |action|
-    context 'has photo' do
-      When { post action, person: person_attributes.merge(photo: 'test.png') }
-
-      Then { response.should redirect_to(crop_image_path(assigns(:person).id)) }
-    end
-
-    context 'has no photo' do
-      When { post action, person: person_attributes }
-
-      Then { response.should redirect_to(root_path) }
-    end
-  end
-
   describe 'destroy' do
     When { sign_in :person, @person }
 
@@ -55,15 +41,37 @@ describe Users::RegistrationsController do
                                                                    password_confirmation: 'password',
                                                                    telephones_attributes: { '0' => { phone: '1234567890'}}) }
 
-      it_behaves_like :photo_redirects, :create
+      context 'has photo' do
+        When { post :create, person: person_attributes.merge(photo: 'test.png') }
+
+        Then { response.should redirect_to(crop_image_path(assigns(:person).id)) }
+      end
+
+      context 'has no photo' do
+        When { post :create, person: person_attributes }
+
+        Then { response.should redirect_to(root_path) }
+      end
     end
 
     describe :update do
-      Given (:person_attributes) { create(:person).attributes.merge(password: 'password',
-                                                                   password_confirmation: 'password',
-                                                                   telephones_attributes: { '0' => { phone: '1234567890'}}) }
+      Given { @person = create(:person) }
+      Given (:person_attributes) { @person.attributes.merge(current_password: 'password',
+                                                            telephones_attributes: { '0' => { phone: '1234567890'}}) }
 
-      it_behaves_like :photo_redirects, :update
+      When { sign_in :person, @person }
+
+      context 'has photo' do
+        When { post :update, id: @person.id, person: person_attributes.merge(photo: 'test.png') }
+
+        Then { response.should redirect_to(crop_image_path(@person.id)) }
+      end
+
+      context 'has no photo' do
+        When { post :update, id: @person.id, person: person_attributes }
+
+        Then { response.should redirect_to(root_path) }
+      end
     end
   end
 end
