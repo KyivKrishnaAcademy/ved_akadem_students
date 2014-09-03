@@ -6,6 +6,7 @@ class Person < ActiveRecord::Base
 
   has_one :student_profile, dependent: :destroy
   has_one :teacher_profile, dependent: :destroy
+  has_one :study_application, dependent: :destroy
   has_and_belongs_to_many :roles
   has_many :telephones, dependent: :destroy
 
