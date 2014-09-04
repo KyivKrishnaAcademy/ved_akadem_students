@@ -1,13 +1,15 @@
-.study_application
-  - if person.study_application.blank?
-    - programs.each do |program|
-      .program
-        %h4
-          = program.title
-        .description
-          = program.description
-        = link_to 'Apply', '#', class: 'btn btn-success'
-  - else
+- if person.study_application.blank?
+  - programs.each do |program|
     .program
-      You have applied to #{person.study_application.program.title}
-      = link_to 'Withdraw', '#', class: 'btn btn-danger'
+      %h4
+        = program.title
+      .description
+        = program.description
+      = simple_form_for study_application, remote: true, format: :js do |f|
+        = f.input :person_id, as: :hidden, input_html: { value: person.id }
+        = f.input :program_id, as: :hidden, input_html: { value: program.id }
+        = f.submit 'Apply', class: 'btn btn-success'
+- else
+  .program
+    You have applied to #{person.study_application.program.title}
+    = link_to 'Destroy', person.study_application, remote: true, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }

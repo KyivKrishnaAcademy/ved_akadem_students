@@ -2,6 +2,7 @@ VedAkademStudents::Application.routes.draw do
   devise_for :people, path: '', controllers: { registrations: 'users/registrations' }, path_names: { sign_up: 'register' }
 
   resources :people, :akadem_groups
+  resources :study_applications, only: [:create, :destroy]
 
   scope module: :users do
     get   '/remind_email' => 'emails#new'
