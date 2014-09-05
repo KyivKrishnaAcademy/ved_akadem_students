@@ -9,6 +9,7 @@ class Person < ActiveRecord::Base
   has_one :study_application, dependent: :destroy
   has_and_belongs_to_many :roles
   has_many :telephones, dependent: :destroy
+  has_many :answers, dependent: :destroy
 
   before_save :normalize_strings, :set_password
 
