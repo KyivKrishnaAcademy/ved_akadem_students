@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140905191326) do
   create_table "answers", force: true do |t|
     t.integer  "question_id"
     t.integer  "person_id"
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -121,6 +122,8 @@ ActiveRecord::Schema.define(version: 20140905191326) do
 
   create_table "questions", force: true do |t|
     t.integer  "questionnaire_id"
+    t.string   "type"
+    t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
