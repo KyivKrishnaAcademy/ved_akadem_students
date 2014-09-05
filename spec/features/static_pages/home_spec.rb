@@ -15,24 +15,46 @@ describe :home do
   end
 
   context 'study applications' do
-    context 'without application' do
-      Given { StudyApplication.create(person_id: @person.id, program_id: create(:program, title: 'Школа Бхакти').id) }
+    Given { @program = create(:program, title: 'Школа Бхакти' , description: 'Описание 1') }
+    Given { create(:program, title: 'Бхакти Шастры', description: 'Описание 2') }
 
-      Then  { find('#study_application').should have_content('Школа Бхакти') }
-      And   { find('#study_application').should have_link('Withdraw') }
+    context 'without application' do
+      Given { StudyApplication.create(person_id: @person.id, program_id: @program.id) }
+
+      describe 'have elements' do
+        Then  { find('#study_application').should have_content('Школа Бхакти') }
+        And   { find('#study_application').should_not have_content('Бхакти Шастры') }
+        And   { find('#study_application').should have_link('Withdraw') }
+      end
+
+      describe 'withdraw', :js do
+        When { find('.btn-danger').click }
+
+        Then { expect(find('#study_application')).to have_selector(:link_or_button, 'Apply') }
+        And  { find('#study_application').should have_content('Школа Бхакти') }
+        And  { find('#study_application').should have_content('Бхакти Шастры') }
+      end
     end
 
     context 'without application' do
-      Given { create(:program, title: 'Школа Бхакти' , description: 'Описание 1') }
-      Given { create(:program, title: 'Бхакти Шастры', description: 'Описание 2') }
       Given (:programs) { all('#study_application .program') }
 
-      Then  { programs.first.should have_content('Школа Бхакти') }
-      And   { programs.first.should have_content('Описание 1') }
-      And   { programs.first.should have_selector(:link_or_button, 'Apply') }
-      And   { programs.last.should have_content('Бхакти Шастры') }
-      And   { programs.last.should have_content('Описание 2') }
-      And   { programs.last.should have_selector(:link_or_button, 'Apply') }
+      describe 'have elements' do
+        Then  { programs.first.should have_content('Школа Бхакти') }
+        And   { programs.first.should have_content('Описание 1') }
+        And   { programs.first.should have_selector(:link_or_button, 'Apply') }
+        And   { programs.last.should have_content('Бхакти Шастры') }
+        And   { programs.last.should have_content('Описание 2') }
+        And   { programs.last.should have_selector(:link_or_button, 'Apply') }
+      end
+
+      describe 'apply', :js do
+        When { programs.first.find('.btn-success').click }
+
+        Then { expect(find('#study_application')).to have_link('Withdraw') }
+        And  { find('#study_application').should have_content('Школа Бхакти') }
+        And  { find('#study_application').should_not have_content('Бхакти Шастры') }
+      end
     end
   end
 end
