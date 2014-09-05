@@ -12,4 +12,4 @@
 - else
   .program
     You have applied to #{person.study_application.program.title}
-    = link_to 'Destroy', person.study_application, remote: true, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
+    = link_to 'Withdraw', person.study_application, remote: true, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }

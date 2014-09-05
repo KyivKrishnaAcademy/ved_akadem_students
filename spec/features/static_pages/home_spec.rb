@@ -18,21 +18,21 @@ describe :home do
     context 'without application' do
       Given { StudyApplication.create(person_id: @person.id, program_id: create(:program, title: 'Школа Бхакти').id) }
 
-      Then  { find('.study_application').should have_content('Школа Бхакти') }
-      And   { find('.study_application').should have_link('Withdraw') }
+      Then  { find('#study_application').should have_content('Школа Бхакти') }
+      And   { find('#study_application').should have_link('Withdraw') }
     end
 
     context 'without application' do
       Given { create(:program, title: 'Школа Бхакти' , description: 'Описание 1') }
       Given { create(:program, title: 'Бхакти Шастры', description: 'Описание 2') }
-      Given (:programs) { all('.study_application .program') }
+      Given (:programs) { all('#study_application .program') }
 
       Then  { programs.first.should have_content('Школа Бхакти') }
       And   { programs.first.should have_content('Описание 1') }
-      And   { programs.first.should have_link('Apply') }
+      And   { programs.first.should have_selector(:link_or_button, 'Apply') }
       And   { programs.last.should have_content('Бхакти Шастры') }
       And   { programs.last.should have_content('Описание 2') }
-      And   { programs.last.should have_link('Apply') }
+      And   { programs.last.should have_selector(:link_or_button, 'Apply') }
     end
   end
 end
