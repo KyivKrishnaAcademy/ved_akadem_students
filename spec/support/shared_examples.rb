@@ -280,7 +280,7 @@ shared_examples :invalid_fill_in do |h, model_human|
     end
 
     Then { find('body').should have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
-    Then { find('body').should have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
+    And  { find('body').should have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
   end
 end
 
@@ -290,6 +290,7 @@ end
 
 shared_examples :valid_select_date do |model_name, field_name, content|
   Given (:year) { model_name == 'Person' ? '1985' : '2010' }
+
   When do
     select_from = "#{model_name.underscore}[#{field_name}("
     select year  , from: "#{select_from}1i)]"

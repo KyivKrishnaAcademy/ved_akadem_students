@@ -11,7 +11,7 @@
 %h4
   Preview
 
-.crop_preview
+.crop-preview
   = image_tag "/people/show_photo/default/#{@person.id}", id: 'preview'
 
 = form_for @person, url: update_image_path(@person), method: :patch do |f|

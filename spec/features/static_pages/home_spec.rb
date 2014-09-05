@@ -11,7 +11,7 @@ describe :home do
   end
 
   context 'person brief' do
-    Then { find('.person_brief').should have_content(@person.name)}
+    Then { find('.person-brief').should have_content(@person.name)}
   end
 
   context 'study applications' do
