@@ -51,6 +51,10 @@ class Person < ActiveRecord::Base
     questionnaire_completenesses.where(completed: false, questionnaire_id: application.program.questionnaire_ids).destroy_all
   end
 
+  def not_finished_questionnaires
+    questionnaires.joins(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
+  end
+
   private
 
   def downcase_titleize(str)
