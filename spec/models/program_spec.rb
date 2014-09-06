@@ -8,5 +8,6 @@ describe Program do
 
   describe 'association' do
     it { should have_many(:study_applications).dependent(:destroy) }
+    it { should have_and_belong_to_many(:questionnaires) }
   end
 end

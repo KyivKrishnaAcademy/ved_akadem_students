@@ -18,8 +18,8 @@ namespace :akadem do
                             questions:    initial_questions[:questions].map { |q| Question.new(format: 'freeform', data: { text: q[:question]}) })
 
     puts 'Adding questionnaires to Study applications...'
-    StudyApplication.all.each do |application|
-      application.questionnaires << [psyho_questionnaire, initial_questionnaire]
+    Program.all.each do |program|
+      program.questionnaires << [psyho_questionnaire, initial_questionnaire]
     end
     puts 'Done.'
   end

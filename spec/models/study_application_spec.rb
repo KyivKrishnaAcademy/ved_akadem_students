@@ -9,6 +9,5 @@ describe StudyApplication do
   describe 'association' do
     it { should belong_to(:person) }
     it { should belong_to(:program) }
-    it { should have_and_belong_to_many(:questionnaires) }
   end
 end

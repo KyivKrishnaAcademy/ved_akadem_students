@@ -109,16 +109,16 @@ ActiveRecord::Schema.define(version: 20140905191326) do
     t.datetime "updated_at"
   end
 
+  create_table "programs_questionnaires", id: false, force: true do |t|
+    t.integer "questionnaire_id"
+    t.integer "program_id"
+  end
+
   create_table "questionnaires", force: true do |t|
     t.text     "description"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "questionnaires_study_applications", id: false, force: true do |t|
-    t.integer "questionnaire_id"
-    t.integer "study_application_id"
   end
 
   create_table "questions", force: true do |t|

@@ -7,9 +7,9 @@ class CreateQuestionnaires < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :questionnaires_study_applications, id: false do |t|
+    create_table :programs_questionnaires, id: false do |t|
       t.belongs_to :questionnaire
-      t.belongs_to :study_application
+      t.belongs_to :program
     end
   end
 end
