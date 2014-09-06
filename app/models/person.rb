@@ -10,6 +10,8 @@ class Person < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :telephones, dependent: :destroy
   has_many :answers, dependent: :destroy
+  has_many :questionnaire_completenesses, dependent: :destroy
+  has_many :questionnaires, through: :questionnaire_completenesses
 
   before_save :normalize_strings, :set_password
 

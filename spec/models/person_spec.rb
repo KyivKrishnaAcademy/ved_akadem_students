@@ -25,6 +25,8 @@ describe Person do
     it { should have_and_belong_to_many(:roles) }
     it { should have_many(:telephones).dependent(:destroy) }
     it { should have_many(:answers).dependent(:destroy) }
+    it { should have_many(:questionnaire_completenesses).dependent(:destroy) }
+    it { should have_many(:questionnaires).through(:questionnaire_completenesses) }
   end
 
   describe 'validation' do
