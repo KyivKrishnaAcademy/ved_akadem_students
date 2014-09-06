@@ -119,16 +119,45 @@ describe Person do
     end
   end
 
-  describe '#crop_photo' do
+  describe 'methods' do
     Given { @person = create :person }
-    Given { @person.photo.should_receive(:recreate_versions!) }
 
-    Then do
-      @person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3).should be(true)
-      @person.crop_x.should eq(0)
-      @person.crop_y.should eq(1)
-      @person.crop_h.should eq(2)
-      @person.crop_w.should eq(3)
+    describe '#crop_photo' do
+      Given { @person.photo.should_receive(:recreate_versions!) }
+
+      Then do
+        @person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3).should be(true)
+        @person.crop_x.should eq(0)
+        @person.crop_y.should eq(1)
+        @person.crop_h.should eq(2)
+        @person.crop_w.should eq(3)
+      end
+    end
+
+    describe 'questionnaires methods' do
+      Given { @questionnaire_1    = create :questionnaire }
+      Given { @questionnaire_2    = create :questionnaire }
+      Given { @program            = create :program, questionnaires: [@questionnaire_1] }
+      Given { @study_application  = StudyApplication.create(person_id: @person.id, program_id: @program.id) }
+
+      describe '#add_application_questionnaires' do
+        Then  { expect{@person.add_application_questionnaires}.to change{@person.questionnaires.count}.by(1) }
+        And   { @person.questionnaire_ids.should == [@questionnaire_1.id] }
+      end
+
+      describe '#remove_application_questionnaires' do
+        context 'not completed' do
+          Given { @person.questionnaires << [@questionnaire_1, @questionnaire_2] }
+
+          Then  { expect{@person.remove_application_questionnaires(@study_application)}.to change{@person.questionnaires.count}.by(-1) }
+        end
+
+        context 'completed' do
+          Given { QuestionnaireCompleteness.create(person_id: @person.id, questionnaire_id: @questionnaire_1.id, completed: true) }
+
+          Then  { expect{@person.remove_application_questionnaires(@study_application)}.not_to change{@person.questionnaires.count} }
+        end
+      end
     end
   end
 end

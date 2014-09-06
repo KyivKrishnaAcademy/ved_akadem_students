@@ -7,13 +7,21 @@ class StudyApplicationsController < ApplicationController
 
   def create
     create! do |success|
-      success.js { common_variables_and_render }
+      success.js do
+        resource.person.add_application_questionnaires
+
+        common_variables_and_render
+      end
     end
   end
 
   def destroy
     destroy! do |success|
-      success.js { common_variables_and_render }
+      success.js do
+        resource.person.remove_application_questionnaires(resource)
+
+        common_variables_and_render
+      end
     end
   end
 

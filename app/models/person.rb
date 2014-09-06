@@ -43,6 +43,14 @@ class Person < ActiveRecord::Base
     self.save
   end
 
+  def add_application_questionnaires
+    questionnaires << study_application.program.questionnaires if study_application.present?
+  end
+
+  def remove_application_questionnaires(application)
+    questionnaire_completenesses.where(completed: false, questionnaire_id: application.program.questionnaire_ids).destroy_all
+  end
+
   private
 
   def downcase_titleize(str)
