@@ -1,1 +1,1 @@
-$('#study_application').html('<%= j render 'shared/study_application', person: current_person, programs: @programs, study_application: @study_application %>');
+$('#study_application').html('<%= j render 'shared/study_application', person: @person_decorator, programs: @programs, study_application: @study_application %>');
