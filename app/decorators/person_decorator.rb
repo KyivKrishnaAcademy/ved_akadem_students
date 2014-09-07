@@ -12,7 +12,7 @@ class PersonDecorator < BaseDecorator
 
     result.delete(:questionnaires) if result[:questionnaires].zero?
 
-    [:photo, :passport, :not_finished_questionnaires].each do |person_field|
+    [:photo, :passport].each do |person_field|
       if resource.send(person_field).blank?
         result[person_field] = person_field
       end

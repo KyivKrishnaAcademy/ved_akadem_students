@@ -37,7 +37,7 @@ describe 'Signing' do
       When { click_button I18n.t('devise.links.sign_up') }
 
       Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
-      And  { find('h1').should_not have_content('crop image') }
+      And  { page.should have_css('.person-brief') }
     end
 
     describe 'should signup with photo' do

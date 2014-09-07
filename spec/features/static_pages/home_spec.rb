@@ -18,13 +18,17 @@ describe :home do
     Given { @program = create(:program, title: 'Школа Бхакти' , description: 'Описание 1') }
     Given { create(:program, title: 'Бхакти Шастры', description: 'Описание 2') }
 
-    context 'without application' do
+    context 'with application' do
       Given { StudyApplication.create(person_id: @person.id, program_id: @program.id) }
+      Given { @person.questionnaires << create(:questionnaire, title: 'Психо тест') }
 
       describe 'have elements' do
         Then  { find('#study_application').should have_content('Школа Бхакти') }
         And   { find('#study_application').should_not have_content('Бхакти Шастры') }
         And   { find('#study_application').should have_link('Withdraw') }
+        And   { find('#study_application').should have_css('li', text: 'Fill questionnaire Психо тест') }
+        And   { find('#study_application').should have_css('li', text: 'Attach photo here') }
+        And   { find('#study_application').should have_css('li', text: 'Attach passport here') }
       end
 
       describe 'withdraw', :js do

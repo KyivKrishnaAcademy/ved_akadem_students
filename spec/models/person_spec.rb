@@ -158,6 +158,13 @@ describe Person do
           Then  { expect{@person.remove_application_questionnaires(@study_application)}.not_to change{@person.questionnaires.count} }
         end
       end
+
+      describe '#not_finished_questionnaires' do
+        Given { @person.questionnaire_completenesses.create(completed: true , questionnaire_id: @questionnaire_1.id) }
+        Given { @person.questionnaire_completenesses.create(completed: false, questionnaire_id: @questionnaire_2.id) }
+
+        Then  { @person.not_finished_questionnaires.pluck(:id).should == [@questionnaire_2.id] }
+      end
     end
   end
 end
