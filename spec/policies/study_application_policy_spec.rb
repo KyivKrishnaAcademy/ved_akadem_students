@@ -4,7 +4,7 @@ describe StudyApplicationPolicy do
   subject { StudyApplicationPolicy }
 
   before { @owner = create :person }
-  let!(:owned_record)  { StudyApplication.create(person: @owner, program: create(:program)) }
+  let(:owned_record)  { StudyApplication.create(person: @owner, program: create(:program)) }
   let(:record)        { StudyApplication.create(person: create(:person), program: create(:program)) }
   let(:user)          { create(:person) }
 
