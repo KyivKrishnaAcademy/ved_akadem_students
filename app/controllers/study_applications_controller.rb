@@ -5,6 +5,8 @@ class StudyApplicationsController < ApplicationController
   actions :create, :destroy
   respond_to :js
 
+  after_filter :verify_authorized
+
   def create
     create! do |success|
       success.js do
@@ -26,6 +28,12 @@ class StudyApplicationsController < ApplicationController
   end
 
   private
+
+  def resource
+    authorize super
+
+    super
+  end
 
   def common_variables_and_render
     set_programs_and_new_application
