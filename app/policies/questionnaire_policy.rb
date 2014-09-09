@@ -10,7 +10,6 @@ class QuestionnairePolicy < ApplicationPolicy
   private
 
   def owned?
-    Questionnaire.joins(:questionnaire_completenesses).
-                  where(questionnaire_completenesses: {person_id: user.id}, id: record.id).present?
+    QuestionnaireCompleteness.where(person_id: user.id, questionnaire_id: record.id).present?
   end
 end

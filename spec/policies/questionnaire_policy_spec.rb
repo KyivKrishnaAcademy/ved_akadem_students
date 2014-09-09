@@ -8,7 +8,7 @@ describe QuestionnairePolicy do
     q = create(:questionnaire)
 
     QuestionnaireCompleteness.create(person: @owner, questionnaire: q)
-    
+
     q
   end
   let(:record)        { create(:questionnaire) }
