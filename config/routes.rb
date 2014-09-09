@@ -2,7 +2,9 @@ VedAkademStudents::Application.routes.draw do
   devise_for :people, path: '', controllers: { registrations: 'users/registrations' }, path_names: { sign_up: 'register' }
 
   resources :people, :akadem_groups
-  resources :study_applications, only: [:create, :destroy]
+
+  resources :study_applications , only: [:create, :destroy]
+  resources :answers            , only: [:update, :edit]
 
   scope module: :users do
     get   '/remind_email' => 'emails#new'
@@ -16,9 +18,9 @@ VedAkademStudents::Application.routes.draw do
 
   get 'locales/toggle'
 
-  get 'image/crop/:id', controller: :crops, action: :crop_image, as: :crop_image
+  get   'image/crop/:id'  , controller: :crops, action: :crop_image  , as: :crop_image
   patch 'image/update/:id', controller: :crops, action: :update_image, as: :update_image
 
   get 'people/show_photo/:version/:id', controller: :people, action: :show_photo
-  get 'people/show_passport/:id', controller: :people, action: :show_passport
+  get 'people/show_passport/:id'      , controller: :people, action: :show_passport
 end

@@ -20,7 +20,7 @@
         - if person.pending_docs[:questionnaires].present?
           - person.not_finished_questionnaires.each do |questionnaire|
             %li
-              Fill questionnaire #{ questionnaire.title }
+              Fill questionnaire #{ link_to questionnaire.title, edit_answer_path(questionnaire) }
         - if person.pending_docs[:photo].present?
           %li
             Attach photo #{ link_to 'here', edit_person_registration_path(person.resource) }

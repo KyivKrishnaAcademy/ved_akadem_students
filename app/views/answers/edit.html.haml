@@ -1,0 +1,11 @@
+- provide(:title, resource.title)
+
+%h2
+  = resource.title
+.description
+  = resource.description
+
+.answers
+  = simple_nested_form_for resource, url: answer_path do |f|
+
+    = f.button :submit
