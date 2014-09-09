@@ -8,6 +8,8 @@ class AnswersController < ApplicationController
   def edit
     authorize resource, :show_form?
 
+    resource.questions.each { |q| q.answers.build }
+    
     edit!
   end
 
@@ -21,5 +23,14 @@ class AnswersController < ApplicationController
 
   def begin_of_association_chain
     Pundit.policy(current_person, Questionnaire).update_all? ? super : current_person
+  end
+
+  def permitted_params
+    params.permit(:id, questionnaire: [
+      questions_attributes: [
+        :id,
+        answers_attributes: [:id, :person_id, :data]
+      ]
+    ])
   end
 end
