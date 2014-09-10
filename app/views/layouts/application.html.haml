@@ -15,7 +15,13 @@
   = render 'layouts/header'
   .container
     - flash.each do |name, msg|
-      = content_tag :section, msg, class: "alert alert-#{name}"
+      .alert.alert-dismissible{ class: "alert-#{name}", role: 'alert' }
+        = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
+          = content_tag :span, 'aria-hidden' => true do
+            &times;
+          = content_tag :span, class: 'sr-only' do
+            Close
+        = msg
     = yield
     = render 'layouts/footer'
     - if Rails.env.development?
