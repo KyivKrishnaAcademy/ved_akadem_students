@@ -19,7 +19,7 @@ class CropsController < ApplicationController
 
       redirect_to path, flash: { success: 'Image was successfully cropped.' }
     else
-      flash[:error] = 'Image was not cropped.'
+      flash[:danger] = 'Image was not cropped.'
 
       render action: :crop_image
     end

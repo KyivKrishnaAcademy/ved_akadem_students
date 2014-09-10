@@ -47,9 +47,9 @@ class PeopleController < ApplicationController
     authorize @person
 
     if @person.destroy.destroyed?
-      redirect_to people_path , flash: { success: 'Person record deleted!'  }
+      redirect_to people_path, flash: { success: 'Person record deleted!' }
     else
-      redirect_to :back       , flash: { error:   'Person deletion failed!' }
+      redirect_to :back, flash: { danger: 'Person deletion failed!' }
     end
   end
 
