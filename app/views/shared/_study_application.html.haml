@@ -1,6 +1,6 @@
 - if person.study_application.blank?
   - programs.each do |program|
-    .program.bg-info
+    .program.alert.alert-info
       %h4
         = program.title
       .description
@@ -10,11 +10,11 @@
         = f.input :program_id, as: :hidden, input_html: { value: program.id }
         = f.submit 'Apply', class: 'btn btn-success'
 - else
-  .program.bg-success
+  .program.alert.alert-success
     You have applied to #{person.study_application.program.title}
     = link_to 'Withdraw', person.study_application, remote: true, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
   - if person.pending_docs.present?
-    .pending-docs.bg-danger
+    .pending-docs.alert.alert-danger
       In order your application for study to be reviewed, you should:
       %ul
         - if person.pending_docs[:questionnaires].present?
