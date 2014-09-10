@@ -8,8 +8,8 @@ class AnswersController < ApplicationController
   def edit
     authorize resource, :show_form?
 
-    resource.questions.each { |q| q.answers.build }
-    
+    resource.questions.each { |q| q.answers.find_or_initialize_by(person: current_person) }
+
     edit!
   end
 
