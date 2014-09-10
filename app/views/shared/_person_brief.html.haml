@@ -1,7 +1,7 @@
 .person-brief
   - if person.photo.present?
-    = image_tag("/people/show_photo/standart/#{person.id}")
+    = image_tag "/people/show_photo/standart/#{person.id}", class: 'img-thumbnail'
   - else
-    = image_tag(person.photo_url)
+    = image_tag person.photo_url, class: 'img-thumbnail'
   %h2
     = complex_name(person)
