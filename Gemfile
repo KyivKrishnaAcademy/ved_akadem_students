@@ -14,7 +14,7 @@ gem 'pg', '0.17.1'
 gem 'devise', '3.2.4'
 gem 'pundit'
 
-gem 'simple_form'
+gem 'simple_form', '3.1.0.rc2', github: 'plataformatec/simple_form'
 gem 'nested_form'
 
 gem 'carrierwave'
