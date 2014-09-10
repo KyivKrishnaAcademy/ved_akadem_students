@@ -1,11 +1,17 @@
 - provide(:title, resource.title)
 
-%h2
-  = resource.title
-.description
-  = resource.description
+.questionnaire
+  = simple_form_for resource, url: answer_path do |f|
+    %h2
+      = resource.title
+    .description
+      = resource.description
+    %br
 
-.answers
-  = simple_nested_form_for resource, url: answer_path do |f|
+    = render 'shared/error_messages', object: f.object
+
+    .questions
+      = f.simple_fields_for :questions do |q|
+        = render "question_#{q.object.format}", q: q, person: current_person
 
     = f.button :submit

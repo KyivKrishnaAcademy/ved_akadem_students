@@ -1,0 +1,9 @@
+.question
+  = q.simple_fields_for :answers do |a|
+    = a.input :person_id, as: :hidden, input_html: { value: person.id }
+
+    %p
+      = q.object.data[:text]
+
+    = a.input :data, collection: [['Yes', true] ,['No', false]], as: :radio_buttons, label: false
+%br
