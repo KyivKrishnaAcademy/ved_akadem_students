@@ -17,14 +17,24 @@ describe 'Questionnaires' do
   end
 
   describe 'answer the questions' do
-    subject { find('.questions') }
-
     When { visit edit_answer_path(@questionnaire) }
 
-    Then { should have_css('.question', count: 2) }
-    And  { should have_css('.question input[type="radio"]', count: 2) }
-    And  { should have_content('Чи ти в своєму розумі?') }
-    And  { should have_css('.question textarea', count: 1) }
-    And  { should have_content('Яке Ваше відношення до ...') }
+    describe 'should have fields' do
+      subject { find('.questions') }
+
+      Then { should have_css('.question', count: 2) }
+      And  { should have_css('.question input[type="radio"]', count: 2) }
+      And  { should have_content('Чи ти в своєму розумі?') }
+      And  { should have_css('.question textarea', count: 1) }
+      And  { should have_content('Яке Ваше відношення до ...') }
+    end
+
+    describe 'should not be in pending' do
+      When { first('input[type="radio"]').set(true) }
+      When { find('textarea').set('не знаю') }
+      When { click_button 'Update Questionnaire' }
+
+      Then { find('.pending-docs').should_not have_link('Псих тест') }
+    end
   end
 end

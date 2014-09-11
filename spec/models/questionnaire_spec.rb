@@ -11,4 +11,13 @@ describe Questionnaire do
   describe 'validations' do
     it { should validate_presence_of(:title) }
   end
+
+  describe '#complete!' do
+    Given { @questionnaire = create :questionnaire }
+    Given { @person        = create :person }
+    Given { @completeness  = QuestionnaireCompleteness.create(person: @person, questionnaire: @questionnaire) }
+
+    When  { @questionnaire.complete!(@person.id) }
+    Then  { @completeness.reload.completed?.should be_true }
+  end
 end
