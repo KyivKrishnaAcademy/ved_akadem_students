@@ -7,4 +7,8 @@ FactoryGirl.define do
   trait :boolean do
     format { 'boolean' }
   end
+
+  trait :freeform do
+    format { 'freeform' }
+  end
 end
