@@ -34,12 +34,17 @@ describe 'people/edit.html.erb' do
     it { should have_selector('#person_email[value="juke@ulr.net"]'            ) }
     it { should have_css('#person_edu_and_work', text: 'где-то когда-то' ) }
     it { should have_selector('#person_emergency_contact[value="дед Василий"]' ) }
-
     it { should have_css('#person_gender option[selected="selected"]', text: 'Male'     ) }
-    it { pending 'Test default value if gender = Female too' }
-
     it { should have_selector('#person_birthday_1i option[selected]', text: '1975'    ) }
     it { should have_selector('#person_birthday_2i option[selected]', text: 'January' ) }
     it { should have_selector('#person_birthday_3i option[selected]', text: '30'      ) }
+
+    context 'gender is Female' do
+      Given { @admin.update_attribute(:gender, false) }
+
+      When  { visit edit_person_path(@admin) }
+
+      Then  { should have_css('#person_gender option[selected="selected"]', text: 'Female') }
+    end
   end
 end
