@@ -16,7 +16,13 @@ class AnswersController < ApplicationController
   def update
     authorize resource, :save_answers?
 
-    update!
+    update!do |success|
+      success.html do
+        resource.complete!(current_person.id)
+
+        redirect_to root_path
+      end
+    end
   end
 
   private
