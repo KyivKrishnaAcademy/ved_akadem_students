@@ -46,8 +46,9 @@ feature 'Edit person:' do
           click_button('Update Person')
         end
 
-        Then { find('body').should have_selector('.alert-error') }
-        And  { find('.error').should have_selector('span.help-inline') }
+        Then { find('body').should have_selector('.alert-danger') }
+        #And  { save_and_open_page }
+        And  { find('.has-error').should have_selector('span.help-block') }
       end
     end
   end

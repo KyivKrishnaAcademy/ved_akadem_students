@@ -27,7 +27,7 @@ feature 'Add person:' do
 
       Then do
         expect { click_button 'Create Person' }.not_to change{Person.count}
-        expect(page).to have_selector('.alert-error')
+        expect(page).to have_selector('.alert-danger')
       end
     end
   end

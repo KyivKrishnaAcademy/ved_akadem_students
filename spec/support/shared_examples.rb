@@ -159,9 +159,9 @@ shared_examples "DELETE 'destroy'" do |model|
       request.env["HTTP_REFERER"] = "where_i_came_from"
     end
 
-    it { expect{ del_person }.not_to change(model, :count)        }
+    it { expect{ del_person }.not_to change(model, :count) }
     it { expect( del_person ).to redirect_to("where_i_came_from") }
-    it { del_person; should set_the_flash[:error]                 }
+    it { del_person; should set_the_flash[:danger] }
   end
 end
 
@@ -249,7 +249,7 @@ shared_examples :integration_delete_model do |model|
 
   Then do
     click_link 'Delete'
-    page.should have_selector('section.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
+    page.should have_selector('.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
   end
 
   Then { expect{ click_link 'Delete' }.to change{model.count}.by(-1) }
@@ -320,8 +320,8 @@ shared_examples :adds_model do
   end
 
   scenario do
-    expect { click_button "Create " << underscore_humanize(@m.name) }.to change{@m.count}.by(1)
-    expect(page).to have_selector('section.alert-success')
+    expect { click_button 'Create ' << underscore_humanize(@m.name) }.to change{@m.count}.by(1)
+    expect(page).to have_selector('.alert-success')
   end
 end
 

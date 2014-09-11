@@ -54,7 +54,7 @@ class AkademGroupsController < ApplicationController
     if @akadem_group.destroy.destroyed?
       redirect_to akadem_groups_path, flash: { success: 'Akadem Group record deleted!'  }
     else
-      redirect_to :back, flash: { error: 'Akadem Group deletion failed!' }
+      redirect_to :back, flash: { danger: 'Akadem Group deletion failed!' }
     end
   end
 

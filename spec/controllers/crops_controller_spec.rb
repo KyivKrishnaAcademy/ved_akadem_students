@@ -68,7 +68,7 @@ describe CropsController do
 
       Then  do
         assigns(:person).should == person
-        should set_the_flash[:error]
+        should set_the_flash[:danger]
         response.should render_template('crop_image')
       end
     end
