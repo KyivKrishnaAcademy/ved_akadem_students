@@ -1,7 +1,5 @@
 $ ->
-
-  if $('#cropbox').length
-    new ImageCropper(150, 200, .75)
+  new ImageCropper(150, 200, .75)
 
 class ImageCropper
   constructor: (@width, @height, @aspectRatio) ->

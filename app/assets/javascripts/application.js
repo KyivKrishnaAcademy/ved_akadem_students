@@ -15,4 +15,4 @@
 //= require turbolinks
 //= require bootstrap
 //= require jquery_nested_form
-//= require_tree .
+//= require nested_form_custom_telephones

@@ -1,25 +1,23 @@
 $ ->
+  telephonesFieldsCount = $('#nested-telephones .fields').length
 
-  if $('#nested-telephones').length
-    $addLink = $('a.add_nested_fields')
-    fieldsCount = $('form .fields').length
-
+  if telephonesFieldsCount
     toggleAddLink = ->
-      $addLink.toggle fieldsCount <= 4
+      $('a.add_nested_fields').toggle telephonesFieldsCount < 4
       return
 
     toggleRemoveLink = ->
-      $('a.remove_nested_fields').toggle fieldsCount != 1
+      $('a.remove_nested_fields').toggle telephonesFieldsCount != 1
       return
 
     $(document).on 'nested:fieldAdded', ->
-      fieldsCount += 1
+      telephonesFieldsCount += 1
       toggleAddLink()
       toggleRemoveLink()
       return
 
     $(document).on 'nested:fieldRemoved', ->
-      fieldsCount -= 1
+      telephonesFieldsCount -= 1
       toggleAddLink()
       toggleRemoveLink()
       return

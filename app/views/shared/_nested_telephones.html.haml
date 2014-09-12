@@ -1,0 +1,5 @@
+#nested-telephones
+  = f.fields_for :telephones do |t|
+    = t.input :phone, as: :tel, required: true
+    = t.link_to_remove '', class: 'glyphicon glyphicon-minus-sign'
+  = f.link_to_add '', :telephones, class: 'glyphicon glyphicon-plus-sign'
