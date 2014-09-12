@@ -1,30 +1,33 @@
 require 'spec_helper'
 
 describe PeopleHelper do
-  describe 'complex_name' do
-    before { @person = create :person }
+  describe '#complex_name' do
+    Given { @person = create :person }
 
-    it "full with spiritual name should be 'sp_name (name m_name surname)' " do
-      complex_name(@person).should =~ /\A#{@person.spiritual_name} \(#{@person.name} #{@person.middle_name} #{@person.surname}\)\z/
+    describe 'full with spiritual name should be "sp_name (name m_name surname)"' do
+      Then { expect(complex_name(@person)).to match(/\A#{@person.spiritual_name} \(#{@person.name} #{@person.middle_name} #{@person.surname}\)\z/) }
     end
 
-    it "title with spiritual name should be 'sp_name' " do
-      complex_name(@person, true).should =~ /\A#{@person.spiritual_name}\z/
+    describe "title with spiritual name should be 'sp_name'" do
+      Then { expect(complex_name(@person, true)).to match(/\A#{@person.spiritual_name}\z/) }
     end
 
     describe "full  without spiritual name should be 'name m_name surname'" do
-      before { @person.spiritual_name = "" }
-      it { complex_name(@person).should =~ /\A#{@person.name} #{@person.middle_name} #{@person.surname}\z/ }
+      Given { @person.spiritual_name = "" }
+
+      Then { expect(complex_name(@person)).to match(/\A#{@person.name} #{@person.middle_name} #{@person.surname}\z/) }
     end
 
-    describe "title without spiritual name should be 'name surname' " do
-      before { @person.spiritual_name = "" }
-      it { complex_name(@person, true).should =~ /\A#{@person.name} #{@person.surname}\z/ }
+    describe "title without spiritual name should be 'name surname'" do
+      Given { @person.spiritual_name = "" }
+
+      Then { expect(complex_name(@person, true)).to match(/\A#{@person.name} #{@person.surname}\z/) }
     end
 
     describe "with person=nil should be 'No such person'" do
-      before { @person = nil }
-      it { complex_name(@person).should =~ /\ANo such person\z/ }
+      Given { @person = nil }
+
+      Then { expect(complex_name(@person)).to match(/\ANo such person\z/) }
     end
   end
 end
