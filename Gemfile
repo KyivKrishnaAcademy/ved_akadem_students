@@ -1,17 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.8 '
+gem 'rails', '4.0.10'
 
-gem 'haml', '4.0.5'
-gem 'sass-rails', '4.0.3'
-gem 'uglifier', '2.5.0'
-gem 'coffee-rails', '4.0.1'
-gem 'jquery-rails', '3.1.0'
-gem 'turbolinks', '2.2.2'
-gem 'jbuilder', '2.0.6'
-gem 'pg', '0.17.1'
+gem 'haml'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'jbuilder'
+gem 'pg'
 
-gem 'devise', '3.2.4'
+gem 'devise'
 gem 'pundit'
 
 gem 'simple_form', '3.1.0.rc2', github: 'plataformatec/simple_form'
@@ -21,9 +21,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'jcrop-rails-v2'
 
-gem 'bootstrap-sass', '3.1.1.1'
+gem 'bootstrap-sass'
 
-gem 'factory_girl_rails', '4.4.1'
+gem 'factory_girl_rails'
 gem 'ffaker'
 
 gem 'inherited_resources'
@@ -41,18 +41,18 @@ group :development do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'rspec-given'
   gem 'erd'
   gem 'letter_opener'
 end
 
 group :test do
   gem 'codeclimate-test-reporter', require: nil
-  gem 'rspec-rails', '2.14.2'
-  gem 'fuubar', '1.3.2'
-  gem 'poltergeist', '1.5.0'
+  gem 'rspec-rails'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-given'
+  gem 'fuubar'
+  gem 'poltergeist'
   gem 'capybara'
-  gem 'spork-rails', '4.0.0'
-  gem 'shoulda-matchers', '2.6.0'
-  gem 'database_cleaner', '1.2.0'
+  gem 'shoulda-matchers'
+  gem 'database_cleaner'
 end

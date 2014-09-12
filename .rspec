@@ -1,3 +1,3 @@
---colour
 --format Fuubar
---drb
+--color
+--require spec_helper
