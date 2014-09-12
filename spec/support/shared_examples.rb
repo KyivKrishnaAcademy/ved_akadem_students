@@ -76,25 +76,27 @@ end
 
 shared_examples "GET" do |variable, model, action|
   case action
-  when :new , :index
-    let(:m) do
+  when :new, :index
+    Given (:m) do
       3.times { create_model model }
       model.all
     end
-    let(:get_act) { get action }
+    Given (:get_act) { get action }
   when :show, :edit
-    let(:m) { create_model model }
-    let(:get_act) { get action, id: m }
+    Given (:m)        { create_model model }
+    Given (:get_act)  { get action, id: m }
   end
 
-  before(:each) { get_act }
+  When { get_act }
 
   context ":#{action}" do
-    it { response.should be_success }
-    case action
-    when :new
-      it "assigns @#{variable} a new #{model} model" do
-        assigns(variable).should be_a_new(model)
+    describe 'responce' do
+      Then { expect(response).to be_success }
+    end
+
+    if action == :new
+      describe "assigns @#{variable} a new #{model} model" do
+        Then { expect(assigns(variable)).to be_a_new(model) }
       end
     else
       case action
@@ -103,8 +105,9 @@ shared_examples "GET" do |variable, model, action|
       when :show, :edit
         describes = "assigns @#{variable} to be right #{model}"
       end
-      it describes do
-        assigns(variable).should eq(m)
+
+      describe describes do
+        Then { expect(assigns(variable)).to eq(m) }
       end
     end
   end
@@ -116,52 +119,68 @@ shared_examples "POST 'create'" do |variable, model|
   end
 
   context 'on success' do
-    before(:each) { post_create variable }
+    When { post_create variable }
 
-    it { response.should redirect_to(action: :new) }
-    it { should set_the_flash[:success] }
+    describe 'redirect and flash' do
+      Then { expect(response).to redirect_to(action: :new) }
+      And  { expect(subject).to set_the_flash[:success] }
+    end
 
     context "@#{variable.to_s}" do
       subject { assigns(variable) }
 
-      it { should be_a(model)  }
-      it { should be_persisted }
+      Then { expect(subject).to be_a(model)  }
+      Then { expect(subject).to be_persisted }
     end
   end
 
   context 'on failure' do
-    before(:each) do
-      model.any_instance.stub(:save).and_return(false)
-      post_create variable
+    Given { allow_any_instance_of(model).to receive(:save).and_return(false) }
+
+    When  { post_create variable }
+
+    describe 'render' do
+      Then { expect(response).to render_template(:new) }
     end
 
-    it { response.should render_template(:new) }
     context "@#{variable.to_s}" do
-      it { assigns(variable).should_not be_persisted }
+      Then { expect(assigns(variable)).not_to be_persisted }
     end
   end
 end
 
 shared_examples "DELETE 'destroy'" do |model|
-  before { create_model model }
+  Given { create_model model }
 
-  let(:del_person) { delete 'destroy', id: model.last.id }
+  Given (:del_person) { delete 'destroy', id: model.last.id }
 
-  context "on success" do
-    it { expect{ del_person }.to change(model, :count).by(-1) }
-    it { expect( del_person ).to redirect_to(action: :index)  }
-    it { del_person; should set_the_flash[:success]           }
-  end
-
-  context "on failure" do
-    before(:each) do
-      model.any_instance.stub_chain(:destroy, :destroyed?).and_return(false)
-      request.env["HTTP_REFERER"] = "where_i_came_from"
+  context 'on success' do
+    describe 'model count and redirect' do
+      Then { expect{del_person}.to change(model, :count).by(-1) }
+      And  { expect(del_person).to redirect_to(action: :index)  }
     end
 
-    it { expect{ del_person }.not_to change(model, :count) }
-    it { expect( del_person ).to redirect_to("where_i_came_from") }
-    it { del_person; should set_the_flash[:danger] }
+    describe 'flash' do
+      When { del_person }
+
+      Then { expect(subject).to set_the_flash[:success] }
+    end
+  end
+
+  context 'on failure' do
+    Given { allow_any_instance_of(model).to receive_message_chain(:destroy, :destroyed?).and_return(false) }
+    Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
+
+    describe 'model count and redirect' do
+      Then { expect{ del_person }.not_to change(model, :count) }
+      And  { expect( del_person ).to redirect_to('where_i_came_from') }
+    end
+
+    describe 'flash' do
+      When { del_person }
+
+      Then { expect(subject).to set_the_flash[:danger] }
+    end
   end
 end
 
@@ -181,42 +200,50 @@ shared_examples 'controller subclass' do |subclass, model|
 end
 
 shared_examples "PATCH 'update'" do |model, field|
-  before(:each) { create_model model }
+  Given { create_model model }
 
-  let(:model_name_underscore) { model.name.underscore }
-  let(:some_text) { 'Какой-то текст' }
-  let(:model_last) { model.last }
-  let(:field) { field }
-  let(:model) { model }
+  Given (:model_name_underscore)  { model.name.underscore }
+  Given (:some_text)              { 'Какой-то текст' }
+  Given (:model_last)             { model.last }
+  Given (:field)                  { field }
+  Given (:model)                  { model }
 
   def update_model(attribs=nil)
     m         = model_last
     m[field]  = some_text
     attribs ||= m.attributes
+
     patch :update, {id: m.to_param, model_name_underscore.to_sym => attribs}
   end
 
   context 'on success' do
-    it { expect{ update_model }.to change{ model_last[field] }.to(some_text) }
-
-    it 'receives .update_attributes' do
-      h = {field.to_s => 'params'}
-      model.any_instance.should_receive(:update_attributes).with(h)
-      update_model(h)
+    describe "change ##{field}" do
+      Then { expect{ update_model }.to change{ model_last[field] }.to(some_text) }
     end
 
-    # don't use context before(:each) { update_model } because spec doc formating
-    it { update_model; should set_the_flash[:success] }
-    it { update_model; response.should redirect_to model_last }
+    describe 'receives .update_attributes' do
+      Given (:params) { { field.to_s => 'params!' } }
+
+      Then do
+        expect_any_instance_of(model).to receive(:update_attributes).with(params)
+        update_model(params)
+      end
+    end
+
+    describe 'flash and redirect' do
+      When { update_model }
+
+      Then { expect(subject).to set_the_flash[:success] }
+      And  { expect(response).to redirect_to model_last }
+    end
   end
 
   context 'on failure' do
-    before do
-      model.any_instance.stub(:save).and_return(false)
-      update_model
-    end
+    Given { allow_any_instance_of(model).to receive(:save).and_return(false) }
 
-    it { response.should render_template(:edit)}
+    When  { update_model }
+
+    Then  { expect(response).to render_template(:edit) }
   end
 end
 

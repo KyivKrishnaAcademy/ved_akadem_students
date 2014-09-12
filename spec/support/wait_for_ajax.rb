@@ -9,3 +9,7 @@ module WaitForAjax
     page.evaluate_script('jQuery.active').to_i.zero?
   end
 end
+
+RSpec.configure do |config|
+  config.include WaitForAjax, type: :feature
+end

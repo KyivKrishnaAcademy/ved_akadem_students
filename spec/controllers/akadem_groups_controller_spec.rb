@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe AkademGroupsController do
   When { sign_in :person, create(:person, :admin) }
@@ -19,5 +19,5 @@ describe AkademGroupsController do
     }
   end
 
-  it_behaves_like "controller subclass", AkademGroupsController::AkademGroupParams, :akadem_group
+  it_behaves_like 'controller subclass', AkademGroupsController::AkademGroupParams, :akadem_group
 end
