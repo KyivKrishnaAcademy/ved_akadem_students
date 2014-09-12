@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Users::RegistrationsController do
   Given { request.env['devise.mapping'] = Devise.mappings[:person] }
@@ -6,11 +6,8 @@ describe Users::RegistrationsController do
   shared_examples_for :hide_person do
     When { delete :destroy }
 
-    Then do
-      @person.reload
-      @person.email.should =~ /^\w{6}.deleted.some@example.com$/
-      @person.deleted.should be_true
-    end
+    Then { expect(@person.reload.email).to match(/^\w{6}.deleted.some@example.com$/) }
+    And  { expect(@person.reload.deleted?).to eq(true) }
   end
 
   describe 'destroy' do
@@ -36,7 +33,7 @@ describe Users::RegistrationsController do
   end
 
   describe 'direct to crop path' do
-    describe :create do
+    describe 'create' do
       Given (:person_attributes) { build(:person).attributes.merge(password: 'password',
                                                                    password_confirmation: 'password',
                                                                    telephones_attributes: { '0' => { phone: '1234567890'}}) }
@@ -44,17 +41,17 @@ describe Users::RegistrationsController do
       context 'has photo' do
         When { post :create, person: person_attributes.merge(photo: 'test.png') }
 
-        Then { response.should redirect_to(crop_image_path(assigns(:person).id)) }
+        Then { expect(response).to redirect_to(crop_image_path(assigns(:person).id)) }
       end
 
       context 'has no photo' do
         When { post :create, person: person_attributes }
 
-        Then { response.should redirect_to(root_path) }
+        Then { expect(response).to redirect_to(root_path) }
       end
     end
 
-    describe :update do
+    describe 'update' do
       Given { @person = create(:person) }
       Given (:person_attributes) { @person.attributes.merge(current_password: 'password',
                                                             telephones_attributes: { '0' => { phone: '1234567890'}}) }
@@ -64,13 +61,13 @@ describe Users::RegistrationsController do
       context 'has photo' do
         When { post :update, id: @person.id, person: person_attributes.merge(photo: 'test.png') }
 
-        Then { response.should redirect_to(crop_image_path(@person.id)) }
+        Then { expect(response).to redirect_to(crop_image_path(@person.id)) }
       end
 
       context 'has no photo' do
         When { post :update, id: @person.id, person: person_attributes }
 
-        Then { response.should redirect_to(root_path) }
+        Then { expect(response).to redirect_to(root_path) }
       end
     end
   end

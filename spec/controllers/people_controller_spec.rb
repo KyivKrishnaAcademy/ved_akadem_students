@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe PeopleController do
   When { sign_in :person, create(:person, :admin) }
@@ -8,25 +8,25 @@ describe PeopleController do
 
     context 'on success' do
       context 'redirect and flash' do
-        Then { response.should redirect_to(action: :new) }
-        And  { should set_the_flash[:success] }
+        Then { expect(response.status).to redirect_to(action: :new) }
+        And  { expect(subject).to set_the_flash[:success] }
       end
 
       context '@person' do
-        Then { assigns(:person).should be_a(Person)  }
-        And  { assigns(:person).should be_persisted }
+        Then { expect(assigns(:person)).to be_a(Person)  }
+        And  { expect(assigns(:person)).to be_persisted }
       end
     end
 
     context 'on failure' do
-      Given { Person.any_instance.stub(:save).and_return(false) }
+      Given { allow_any_instance_of(Person).to receive(:save).and_return(false) }
 
       context 'render' do
-        Then  { response.should render_template(:new) }
+        Then  { expect(response.status).to render_template(:new) }
       end
 
       context '@person' do
-        Then { assigns(:person).should_not be_persisted }
+        Then { expect(assigns(:person)).not_to be_persisted }
       end
     end
   end
@@ -55,23 +55,27 @@ describe PeopleController do
 
       context 'receives .update_attributes' do
         Then do
-          Person.any_instance.should_receive(:update_attributes).with('emergency_contact' => 'params',
-                                                                      'skip_password_validation' => true)
+          expect_any_instance_of(Person).to receive(:update_attributes).with( 'emergency_contact' => 'params',
+                                                                              'skip_password_validation' => true)
+
           update_model('emergency_contact' => 'params')
         end
       end
 
       context 'flash and redirect' do
-        Then { update_model; should set_the_flash[:success] }
-        And  { update_model; response.should redirect_to person }
+        When { update_model }
+
+        Then { expect(subject).to set_the_flash[:success] }
+        And  { expect(response.status).to redirect_to person }
       end
     end
 
     context 'on failure' do
-      Given { Person.any_instance.stub(:save).and_return(false) }
+      Given { allow_any_instance_of(Person).to receive(:save).and_return(false) }
+
       When  { update_model }
 
-      Then  { response.should render_template(:edit) }
+      Then  { expect(response.status).to render_template(:edit) }
     end
   end
 
@@ -94,7 +98,7 @@ describe PeopleController do
   it_behaves_like 'controller subclass', PeopleController::PersonParams, :person
 
   describe 'direct to crop path' do
-    describe :create do
+    describe 'create' do
       Given (:person_attributes) { build(:person).attributes.merge(password: 'password',
                                                                    password_confirmation: 'password',
                                                                    telephones_attributes: { '0' => { phone: '1234567890'}}) }
@@ -102,17 +106,17 @@ describe PeopleController do
       context 'has photo' do
         When { post :create, person: person_attributes.merge(photo: 'test.png') }
 
-        Then { response.should redirect_to(crop_image_path(assigns(:person).id)) }
+        Then { expect(response.status).to redirect_to(crop_image_path(assigns(:person).id)) }
       end
 
       context 'has no photo' do
         When { post :create, person: person_attributes }
 
-        Then { response.should redirect_to(action: :new) }
+        Then { expect(response.status).to redirect_to(action: :new) }
       end
     end
 
-    describe :update do
+    describe 'update' do
       Given { @person = create(:person) }
       Given (:person_attributes) { @person.attributes.merge(password: 'password',
                                                                     password_confirmation: 'password',
@@ -121,13 +125,13 @@ describe PeopleController do
       context 'has photo' do
         When { patch :update, id: @person.id, person: person_attributes.merge(photo: 'test.png') }
 
-        Then { response.should redirect_to(crop_image_path(@person.id)) }
+        Then { expect(response.status).to redirect_to(crop_image_path(@person.id)) }
       end
 
       context 'has no photo' do
         When { patch :update, id: @person.id, person: person_attributes }
 
-        Then { response.should redirect_to(person_path(@person.id)) }
+        Then { expect(response.status).to redirect_to(person_path(@person.id)) }
       end
     end
   end

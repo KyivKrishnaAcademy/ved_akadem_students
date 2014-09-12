@@ -11,7 +11,7 @@ describe AkademGroupsController do
   it_behaves_like "DELETE 'destroy'", AkademGroup
   it_behaves_like "PATCH 'update'", AkademGroup, :group_description
 
-  let(:mod_params) do
+  Given (:mod_params) do
     {
       group_name:        "ШБ13-5",
       establ_date:       3600.days.ago.to_date,

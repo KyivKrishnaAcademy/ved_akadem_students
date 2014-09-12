@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe LocalesController do
   Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
@@ -6,16 +6,16 @@ describe LocalesController do
   When { get :toggle }
 
   describe 'redirects back' do
-    Then { response.should redirect_to('where_i_came_from') }
+    Then { expect(response).to redirect_to('where_i_came_from') }
   end
 
   describe 'toggles locae' do
-    Then { session[:locale].should == :ru }
+    Then { expect(session[:locale]).to eq(:ru) }
 
     describe 'toggles locale again' do
       When { get :toggle }
 
-      Then { session[:locale].should == :uk }
+      Then { expect(session[:locale]).to eq(:uk) }
     end
   end
 end
