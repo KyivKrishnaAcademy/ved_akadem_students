@@ -1,4 +1,5 @@
-require 'spec_helper'
+require 'rails_helper'
+require 'pundit/rspec'
 
 describe PersonPolicy do
   subject { PersonPolicy }

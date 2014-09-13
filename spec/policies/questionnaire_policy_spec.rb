@@ -1,4 +1,5 @@
-require 'spec_helper'
+require 'rails_helper'
+require 'pundit/rspec'
 
 describe QuestionnairePolicy do
   subject { QuestionnairePolicy }

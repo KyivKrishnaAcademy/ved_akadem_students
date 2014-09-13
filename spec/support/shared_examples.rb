@@ -381,16 +381,16 @@ end
 
 shared_examples :allow_with_activities do |activites|
   context "with #{activites.join(' ')}" do
-    before { user.roles << create(:role, activities: activites) }
+    Given { user.roles << create(:role, activities: activites) }
 
-    it 'allow' do
-      should permit(user, record)
+    context 'allow' do
+      Then { expect(subject).to permit(user, record) }
     end
   end
 
   context "without #{activites.join(' ')}" do
-    it 'disallow' do
-      should_not permit(user, record)
+    context 'disallow' do
+      Then { expect(subject).not_to permit(user, record) }
     end
   end
 end
