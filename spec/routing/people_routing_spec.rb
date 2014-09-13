@@ -1,5 +1,5 @@
-require "spec_helper"
+require 'rails_helper'
 
 describe PeopleController do
-  it_behaves_like "CRUD", "people"
+  it_behaves_like 'CRUD', 'people'
 end
