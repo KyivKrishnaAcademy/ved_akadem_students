@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Signing' do
   describe 'Sign in' do
@@ -11,7 +11,7 @@ describe 'Signing' do
       click_button I18n.t('devise.links.sign_in')
     end
 
-    Then { find('.alert-notice').should have_content(I18n.t('devise.sessions.signed_in')) }
+    Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.sessions.signed_in')) }
   end
 
   describe 'Sign Up' do
@@ -36,8 +36,8 @@ describe 'Signing' do
     describe 'should signup without photo and passport' do
       When { click_button I18n.t('devise.links.sign_up') }
 
-      Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
-      And  { page.should have_css('.person-brief') }
+      Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
+      And  { expect(page).to have_css('.person-brief') }
     end
 
     describe 'should signup with photo' do
@@ -47,11 +47,11 @@ describe 'Signing' do
       end
 
       describe 'should show flash' do
-        Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
+        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
       end
 
       describe 'should direct to crop path' do
-        Then { find('h1').should have_content('crop image') }
+        Then { expect(find('h1')).to have_content('crop image') }
       end
     end
 
@@ -62,13 +62,13 @@ describe 'Signing' do
       end
 
       describe 'should show flash' do
-        Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.signed_up'))}
+        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
       end
 
       describe 'should show passport image' do
         When { visit '/edit' }
 
-        Then  { find('.form-inputs').should have_link('Show passport') }
+        Then  { expect(find('.form-inputs')).to have_link('Show passport') }
       end
     end
   end
@@ -79,7 +79,7 @@ describe 'Signing' do
       When  { login_as_user(@person) }
       When  { visit edit_person_registration_path(@person) }
 
-      Then  { find('.form-inputs img')['src'].should have_content("/people/show_photo/standart/#{@person.id}") }
+      Then  { expect(find('.form-inputs img')['src']).to have_content("/people/show_photo/standart/#{@person.id}") }
     end
 
     context 'without photo' do
@@ -88,7 +88,7 @@ describe 'Signing' do
       When  { visit edit_person_registration_path(@person) }
 
       describe 'photo should be placeholded' do
-        Then  { find('.form-inputs img')['src'].should have_content('/assets/fallback/person/default.png') }
+        Then  { expect(find('.form-inputs img')['src']).to have_content('/assets/fallback/person/default.png') }
       end
 
       describe 'should update fields without updating password' do
@@ -111,31 +111,29 @@ describe 'Signing' do
         end
 
         describe 'should show flash' do
-          Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.updated')) }
+          Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.updated')) }
         end
 
         describe 'should direct to crop path' do
-          Then { find('h1').should have_content('crop image') }
+          Then { expect(find('h1')).to have_content('crop image') }
         end
 
         describe 'should be updated' do
           When { visit edit_person_registration_path(@person) }
 
-          Then do
-            find('.form-inputs img')['src'].should have_content("/people/show_photo/standart/#{@person.id}")
-            find('#person_email')['value'].should have_content('test@example.com')
-            find('#person_spiritual_name')['value'].should have_content('Adi Dasa Das')
-            find('#person_name')['value'].should have_content('Vasyl')
-            find('#person_middle_name')['value'].should have_content('Alexovich')
-            find('#person_surname')['value'].should have_content('Mitrofanov')
-            find('#person_telephones_attributes_0_phone')['value'].should have_content('380112223344')
-            find('#person_edu_and_work')['value'].should have_content('NTUU KPI')
-            find('#person_emergency_contact')['value'].should have_content('Krishna')
-            find('#person_gender').should have_css('option[selected="selected"]', text: 'Male')
-            find('#person_birthday_1i').should have_css('option[selected="selected"]', text: '1982')
-            find('#person_birthday_2i').should have_css('option[selected="selected"]', text: 'May')
-            find('#person_birthday_3i').should have_css('option[selected="selected"]', text: '20')
-          end
+          Then { expect(find('.form-inputs img')['src']).to have_content("/people/show_photo/standart/#{@person.id}") }
+          And  { expect(find('#person_email')['value']).to have_content('test@example.com') }
+          And  { expect(find('#person_spiritual_name')['value']).to have_content('Adi Dasa Das') }
+          And  { expect(find('#person_name')['value']).to have_content('Vasyl') }
+          And  { expect(find('#person_middle_name')['value']).to have_content('Alexovich') }
+          And  { expect(find('#person_surname')['value']).to have_content('Mitrofanov') }
+          And  { expect(find('#person_telephones_attributes_0_phone')['value']).to have_content('380112223344') }
+          And  { expect(find('#person_edu_and_work')['value']).to have_content('NTUU KPI') }
+          And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
+          And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Male') }
+          And  { expect(find('#person_birthday_1i')).to have_css('option[selected="selected"]', text: '1982') }
+          And  { expect(find('#person_birthday_2i')).to have_css('option[selected="selected"]', text: 'May') }
+          And  { expect(find('#person_birthday_3i')).to have_css('option[selected="selected"]', text: '20') }
         end
       end
 
@@ -148,7 +146,7 @@ describe 'Signing' do
         end
 
         describe 'should show flash' do
-          Then { find('.alert-notice').should have_content(I18n.t('devise.registrations.updated')) }
+          Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.updated')) }
         end
 
         describe 'should allow new password' do
@@ -160,7 +158,7 @@ describe 'Signing' do
             click_button I18n.t('devise.links.sign_in')
           end
 
-          Then { find('.alert-notice').should have_content(I18n.t('devise.sessions.signed_in')) }
+          Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.sessions.signed_in')) }
         end
       end
     end
@@ -177,8 +175,8 @@ describe 'Signing' do
         click_button 'Get email'
       end
 
-      Then { find('.found-emails').text.should match(/(\w|\*)+@test\.org/) }
-      And  { find('.found-emails').text.should_not match(/(\w|\*)+@example\.com/) }
+      Then { expect(find('.found-emails')).to match(/(\w|\*)+@test\.org/) }
+      And  { expect(find('.found-emails')).not_to match(/(\w|\*)+@example\.com/) }
     end
 
     describe 'found two emails' do
@@ -187,7 +185,7 @@ describe 'Signing' do
         click_button 'Get email'
       end
 
-      Then { find('.found-emails').text.should match(/(\w|\*)+@example\.com.*(\w|\*)+@test\.org/) }
+      Then { expect(find('.found-emails')).to match(/(\w|\*)+@example\.com.*(\w|\*)+@test\.org/) }
     end
 
     describe 'no email found' do
@@ -196,7 +194,7 @@ describe 'Signing' do
         click_button 'Get email'
       end
 
-      Then { find('.found-emails').should have_content('The telephone is not registered.') }
+      Then { expect(find('.found-emails')).to have_content('The telephone is not registered.') }
     end
   end
 end

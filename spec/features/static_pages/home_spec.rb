@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe :home do
   Given { @person = create(:person) }
@@ -11,7 +11,7 @@ describe :home do
   end
 
   context 'person brief' do
-    Then { find('.person-brief').should have_content(@person.name)}
+    Then { expect(find('.person-brief')).to have_content(@person.name)}
   end
 
   context 'study applications' do
@@ -23,20 +23,20 @@ describe :home do
       Given { @person.questionnaires << create(:questionnaire, title: 'Психо тест') }
 
       describe 'have elements' do
-        Then  { find('#study_application').should have_content('Школа Бхакти') }
-        And   { find('#study_application').should_not have_content('Бхакти Шастры') }
-        And   { find('#study_application').should have_link('Withdraw') }
-        And   { find('#study_application').should have_css('li', text: 'Fill questionnaire Психо тест') }
-        And   { find('#study_application').should have_css('li', text: 'Attach photo here') }
-        And   { find('#study_application').should have_css('li', text: 'Attach passport here') }
+        Then  { expect(find('#study_application')).to have_content('Школа Бхакти') }
+        And   { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
+        And   { expect(find('#study_application')).to have_link('Withdraw') }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Fill questionnaire Психо тест') }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Attach photo here') }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Attach passport here') }
       end
 
       describe 'withdraw', :js do
         When { find('.btn-danger').click }
 
         Then { expect(find('#study_application')).to have_selector(:link_or_button, 'Apply') }
-        And  { find('#study_application').should have_content('Школа Бхакти') }
-        And  { find('#study_application').should have_content('Бхакти Шастры') }
+        And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
+        And  { expect(find('#study_application')).to have_content('Бхакти Шастры') }
       end
     end
 
@@ -44,20 +44,20 @@ describe :home do
       Given (:programs) { all('#study_application .program') }
 
       describe 'have elements' do
-        Then  { programs.first.should have_content('Школа Бхакти') }
-        And   { programs.first.should have_content('Описание 1') }
-        And   { programs.first.should have_selector(:link_or_button, 'Apply') }
-        And   { programs.last.should have_content('Бхакти Шастры') }
-        And   { programs.last.should have_content('Описание 2') }
-        And   { programs.last.should have_selector(:link_or_button, 'Apply') }
+        Then  { expect(programs.first).to have_content('Школа Бхакти') }
+        And   { expect(programs.first).to have_content('Описание 1') }
+        And   { expect(programs.first).to have_selector(:link_or_button, 'Apply') }
+        And   { expect(programs.last).to have_content('Бхакти Шастры') }
+        And   { expect(programs.last).to have_content('Описание 2') }
+        And   { expect(programs.last).to have_selector(:link_or_button, 'Apply') }
       end
 
       describe 'apply', :js do
         When { programs.first.find('.btn-success').click }
 
         Then { expect(find('#study_application')).to have_link('Withdraw') }
-        And  { find('#study_application').should have_content('Школа Бхакти') }
-        And  { find('#study_application').should_not have_content('Бхакти Шастры') }
+        And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
+        And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
       end
     end
   end

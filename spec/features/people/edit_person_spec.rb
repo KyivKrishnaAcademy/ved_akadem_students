@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-feature 'Edit person:' do
+describe 'Edit person:' do
   subject { page }
 
   before do
@@ -46,9 +46,8 @@ feature 'Edit person:' do
           click_button('Update Person')
         end
 
-        Then { find('body').should have_selector('.alert-danger') }
-        #And  { save_and_open_page }
-        And  { find('.has-error').should have_selector('span.help-block') }
+        Then { expect(find('body')).to have_selector('.alert-danger') }
+        And  { expect(find('.has-error')).to have_selector('span.help-block') }
       end
     end
   end

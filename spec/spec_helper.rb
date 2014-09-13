@@ -47,6 +47,8 @@ RSpec.configure do |config|
 
   #config.profile_examples = 10
 
+  config.raise_errors_for_deprecations!
+
   config.order = :random
 
   Kernel.srand config.seed

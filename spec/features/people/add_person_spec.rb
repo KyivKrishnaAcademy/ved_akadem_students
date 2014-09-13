@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-feature 'Add person:' do
+describe 'Add person:' do
   before do
     login_as_admin
     visit new_person_path
@@ -14,7 +14,7 @@ feature 'Add person:' do
 
     When  { click_button 'Create Person' }
 
-    Then  { page.should have_link(complex_name(@person).downcase.titleize,
+    Then  { expect(page).to have_link(complex_name(@person).downcase.titleize,
                                   href: person_path(Person.find_by(email: @person.email))) }
   end
 
@@ -25,19 +25,9 @@ feature 'Add person:' do
     describe 'do not adds person' do
       Given { fill_person_data email: '3322' }
 
-      Then do
-        expect { click_button 'Create Person' }.not_to change{Person.count}
-        expect(page).to have_selector('.alert-danger')
-      end
+      Then  { expect { click_button 'Create Person' }.not_to change{Person.count} }
+      And   { expect(page).to have_selector('.alert-danger') }
     end
-  end
-
-  describe 'student' do
-    scenario { pending 'to be written' }
-  end
-
-  describe 'teacher' do
-    scenario { pending 'to be written' }
   end
 
   def fill_person_data p={}

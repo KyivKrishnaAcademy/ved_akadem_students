@@ -363,8 +363,8 @@ shared_examples :not_adds_model do
     @m = model
   end
 
-  scenario do
-    expect { click_button "Create " << underscore_humanize(@m.name) }.not_to change{@m.count}.by(1)
+  it do
+    expect { click_button 'Create ' << underscore_humanize(@m.name) }.not_to change{@m.count}
     expect(page).to have_selector('section#error_explanation')
   end
 end

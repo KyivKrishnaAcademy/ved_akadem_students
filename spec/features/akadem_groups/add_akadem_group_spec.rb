@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-feature 'Add akadem group:' do
+describe 'Add akadem group:' do
   before do
     login_as_admin
     visit new_akadem_group_path
