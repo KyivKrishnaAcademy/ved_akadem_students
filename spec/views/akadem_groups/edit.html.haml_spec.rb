@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "akadem_groups/edit" do
+describe 'akadem_groups/edit' do
   before do
     login_as_admin
 
@@ -15,18 +15,18 @@ describe "akadem_groups/edit" do
 
   subject { page }
 
-  let(:ag_name) { "ТВ99-1" }
+  let(:ag_name) { 'ТВ99-1' }
   let(:title)   { ag_name }
   let(:h1)      { ag_name }
   let(:action)  { 'edit' }
 
-  it_behaves_like "akadem group new and edit"
+  it_behaves_like 'akadem group new and edit'
 
-  describe "default values" do
-    it { should have_selector('#akadem_group_group_name[value="' << ag_name << '"]'             ) }
-    it { should have_selector('#akadem_group_group_description[value="some текст"]'             ) }
-    it { should have_selector('#akadem_group_establ_date_1i option[selected]', text: '2013'     ) }
-    it { should have_selector('#akadem_group_establ_date_2i option[selected]', text: 'September') }
-    it { should have_selector('#akadem_group_establ_date_3i option[selected]', text: '28'       ) }
+  describe 'default values' do
+    it { expect(subject).to have_selector('#akadem_group_group_name[value="' << ag_name << '"]'             ) }
+    it { expect(subject).to have_selector('#akadem_group_group_description[value="some текст"]'             ) }
+    it { expect(subject).to have_selector('#akadem_group_establ_date_1i option[selected]', text: '2013'     ) }
+    it { expect(subject).to have_selector('#akadem_group_establ_date_2i option[selected]', text: 'September') }
+    it { expect(subject).to have_selector('#akadem_group_establ_date_3i option[selected]', text: '28'       ) }
   end
 end

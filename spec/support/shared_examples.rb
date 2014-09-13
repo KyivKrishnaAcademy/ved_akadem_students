@@ -1,59 +1,61 @@
 # views
 shared_examples 'person new and edit' do
-  it { should have_title(full_title(title)) }
-  it { should have_selector('h1', text: h1) }
+  it { expect(subject).to have_title(full_title(title)) }
+  it { expect(subject).to have_selector('h1', text: h1) }
 
   describe "from" do
     let(:form) { 'form.' << action << '_person' }
 
-    it { should have_selector(form) }
-    it { should have_selector("#{form} input#person_name") }
-    it { should have_selector("#{form} input#person_middle_name") }
-    it { should have_selector("#{form} input#person_surname") }
-    it { should have_selector("#{form} input#person_spiritual_name") }
-    it { should have_selector("#{form} input#person_telephones_attributes_0_phone") }
-    it { should have_selector("#{form} input#person_email") }
-    it { should have_selector("#{form} select#person_gender") }
-    it { should have_selector("#{form} select#person_birthday_1i") }
-    it { should have_selector("#{form} select#person_birthday_2i") }
-    it { should have_selector("#{form} select#person_birthday_3i") }
-    it { should have_selector("#{form} textarea#person_edu_and_work") }
-    it { should have_selector("#{form} input#person_emergency_contact") }
-    it { should have_selector("#{form} input#person_photo") }
-    it { should have_selector("#{form} input.btn") }
+    it { expect(subject).to have_selector(form) }
+    it { expect(subject).to have_selector("#{form} input#person_name") }
+    it { expect(subject).to have_selector("#{form} input#person_middle_name") }
+    it { expect(subject).to have_selector("#{form} input#person_surname") }
+    it { expect(subject).to have_selector("#{form} input#person_spiritual_name") }
+    it { expect(subject).to have_selector("#{form} input#person_telephones_attributes_0_phone") }
+    it { expect(subject).to have_selector("#{form} input#person_email") }
+    it { expect(subject).to have_selector("#{form} select#person_gender") }
+    it { expect(subject).to have_selector("#{form} select#person_birthday_1i") }
+    it { expect(subject).to have_selector("#{form} select#person_birthday_2i") }
+    it { expect(subject).to have_selector("#{form} select#person_birthday_3i") }
+    it { expect(subject).to have_selector("#{form} textarea#person_edu_and_work") }
+    it { expect(subject).to have_selector("#{form} input#person_emergency_contact") }
+    it { expect(subject).to have_selector("#{form} input#person_photo") }
+    it { expect(subject).to have_selector("#{form} input.btn") }
   end
 end
 
-shared_examples "akadem group new and edit" do
-  it { should have_title(full_title(title)) }
-  it { should have_selector('h1', text: h1) }
+shared_examples 'akadem group new and edit' do
+  it { expect(subject).to have_title(full_title(title)) }
+  it { expect(subject).to have_selector('h1', text: h1) }
 
   describe "form" do
     let(:form) { 'form.' << action << '_akadem_group' }
 
-    it { should have_selector(form) }
-    it { should have_selector("#{form} label", text: "Group name") }
-    it { should have_selector("#{form} input#akadem_group_group_name") }
-    it { should have_selector("#{form} label", text: "Establishment date") }
-    it { should have_selector("#{form} select#akadem_group_establ_date_1i") }
-    it { should have_selector("#{form} select#akadem_group_establ_date_2i") }
-    it { should have_selector("#{form} select#akadem_group_establ_date_3i") }
-    it { should have_selector("#{form} label", text: "Group description") }
-    it { should have_selector("#{form} input#akadem_group_group_description") }
-    it { should have_selector("#{form} input.btn") }
+    it { expect(subject).to have_selector(form) }
+    it { expect(subject).to have_selector("#{form} label", text: "Group name") }
+    it { expect(subject).to have_selector("#{form} input#akadem_group_group_name") }
+    it { expect(subject).to have_selector("#{form} label", text: "Establishment date") }
+    it { expect(subject).to have_selector("#{form} select#akadem_group_establ_date_1i") }
+    it { expect(subject).to have_selector("#{form} select#akadem_group_establ_date_2i") }
+    it { expect(subject).to have_selector("#{form} select#akadem_group_establ_date_3i") }
+    it { expect(subject).to have_selector("#{form} label", text: "Group description") }
+    it { expect(subject).to have_selector("#{form} input#akadem_group_group_description") }
+    it { expect(subject).to have_selector("#{form} input.btn") }
   end
 end
 
 shared_examples 'index.html' do |headers|
-  Then { page.should have_title(full_title(title)) }
-  Then { find('body').should have_selector('h1', text: h1)  }
+  describe 'title and h1' do
+    Then { expect(page).to have_title(full_title(title)) }
+    And  { expect(find('body')).to have_selector('h1', text: h1)  }
+  end
 
   describe 'table' do
-    headers.each do |header|
-      Then { find('.table').should have_selector('th', text: header) }
-    end
+    Then { expect(find('.table')).to have_selector('tr.' << row_class, count: models_count ) }
 
-    Then { find('.table').should have_selector('tr.' << row_class, count: models_count ) }
+    headers.each do |header|
+      And { expect(find('.table')).to have_selector('th', text: header) }
+    end
   end
 end
 
@@ -253,13 +255,13 @@ shared_examples 'renders _form on New and Edit pages' do
   describe 'New page' do
     When { get new_path }
 
-    Then { response.should render_template(partial: '_form') }
+    Then { expect(response).to render_template(partial: '_form') }
   end
 
   describe 'Edit page' do
     When { get edit_path }
 
-    Then { response.should render_template(partial: '_form') }
+    Then { expect(response).to render_template(partial: '_form') }
   end
 end
 
@@ -274,16 +276,19 @@ shared_examples :integration_delete_model do |model|
     )
   end
 
-  Then do
-    click_link 'Delete'
-    page.should have_selector('.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
+  describe 'flash' do
+    When { click_link 'Delete' }
+
+    Then { expect(page).to have_selector('.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!") }
   end
 
-  Then { expect{ click_link 'Delete' }.to change{model.count}.by(-1) }
+  describe 'model count' do
+    Then { expect{ click_link 'Delete' }.to change{model.count}.by(-1) }
+  end
 end
 
 shared_examples :alert_success_updated do |thing|
-  Then { find('body').should have_selector('.alert-success', text: "#{thing} was successfully updated.") }
+  Then { expect(find('body')).to have_selector('.alert-success', text: "#{thing} was successfully updated.") }
 end
 
 shared_examples :valid_fill_in do |h, model_human|
@@ -293,7 +298,7 @@ shared_examples :valid_fill_in do |h, model_human|
       click_button "Update #{model_human}"
     end
 
-    Then { find('body').should have_content(h[:test_field]) }
+    Then { expect(find('body')).to have_content(h[:test_field]) }
 
     it_behaves_like :alert_success_updated, model_human
   end
@@ -306,8 +311,8 @@ shared_examples :invalid_fill_in do |h, model_human|
       click_button "Update #{model_human}"
     end
 
-    Then { find('body').should have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
-    And  { find('body').should have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
+    Then { expect(find('body')).to have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
+    And  { expect(find('body')).to have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
   end
 end
 
@@ -326,7 +331,7 @@ shared_examples :valid_select_date do |model_name, field_name, content|
     click_button "Update #{underscore_humanize(model_name)}"
   end
 
-  Then { find('body').should have_content("#{content}#{year}-05-27") }
+  Then { expect(find('body')).to have_content("#{content}#{year}-05-27") }
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 
@@ -336,7 +341,7 @@ shared_examples :valid_select do |model_name, field_name, value, content|
     click_button "Update #{underscore_humanize(model_name)}"
   end
 
-  Then { find('body').should have_content(content) }
+  Then { expect(find('body')).to have_content(content) }
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 
@@ -375,7 +380,7 @@ shared_examples :link_in_flash do
     click_button "Create " << underscore_humanize(@m.name)
     href = method(('' << model.name.underscore << '_path').to_sym).call @m.find_by(attr_name => @the_m[attr_name])
 
-    page.should have_link(locator, href: href)
+    expect(page).to have_link(locator, href: href)
   end
 end
 

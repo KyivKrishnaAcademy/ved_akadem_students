@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'akadem_groups/index' do
   Given(:models_count) { 20 }
