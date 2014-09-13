@@ -1,8 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe QuestionnaireCompleteness do
   describe 'association' do
-    it { should belong_to(:questionnaire) }
-    it { should belong_to(:person) }
+    Then { expect(subject).to belong_to(:questionnaire) }
+    Then { expect(subject).to belong_to(:person) }
   end
 end

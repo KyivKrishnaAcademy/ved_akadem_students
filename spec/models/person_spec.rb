@@ -1,121 +1,86 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Person do
-  describe 'DB table' do
-    it { should have_db_column(:name              ).of_type(:string   ) }
-    it { should have_db_column(:middle_name       ).of_type(:string   ) }
-    it { should have_db_column(:surname           ).of_type(:string   ) }
-    it { should have_db_column(:spiritual_name    ).of_type(:string   ) }
-    it { should have_db_column(:email             ).of_type(:string   ) }
-    it { should have_db_column(:gender            ).of_type(:boolean  ) }
-    it { should have_db_column(:birthday          ).of_type(:date     ) }
-    it { should have_db_column(:emergency_contact ).of_type(:string   ) }
-    it { should have_db_column(:passport          ).of_type(:string   ) }
-    it { should have_db_column(:photo             ).of_type(:string   ) }
-    it { should have_db_column(:profile_fullness  ).of_type(:boolean  ) }
-    it { should have_db_column(:edu_and_work      ).of_type(:text     ) }
-    it { should have_db_column(:encrypted_password).of_type(:string   ) }
-    it { should have_db_column(:deleted           ).of_type(:boolean  ) }
-  end
-
   describe 'association' do
-    it { should have_one(:student_profile).dependent(:destroy) }
-    it { should have_one(:teacher_profile).dependent(:destroy) }
-    it { should have_one(:study_application).dependent(:destroy) }
-    it { should have_and_belong_to_many(:roles) }
-    it { should have_many(:telephones).dependent(:destroy) }
-    it { should have_many(:answers).dependent(:destroy) }
-    it { should have_many(:questionnaire_completenesses).dependent(:destroy) }
-    it { should have_many(:questionnaires).through(:questionnaire_completenesses) }
+    Then { expect(subject).to have_one(:student_profile).dependent(:destroy) }
+    Then { expect(subject).to have_one(:teacher_profile).dependent(:destroy) }
+    Then { expect(subject).to have_one(:study_application).dependent(:destroy) }
+    Then { expect(subject).to have_and_belong_to_many(:roles) }
+    Then { expect(subject).to have_many(:telephones).dependent(:destroy) }
+    Then { expect(subject).to have_many(:answers).dependent(:destroy) }
+    Then { expect(subject).to have_many(:questionnaire_completenesses).dependent(:destroy) }
+    Then { expect(subject).to have_many(:questionnaires).through(:questionnaire_completenesses) }
   end
 
   describe 'validation' do
-    context :password do
-      it { should validate_confirmation_of(:password) }
-      it { should ensure_length_of(:password).is_at_most(128) }
-      it { should ensure_length_of(:password).is_at_least(6) }
-
-      it 'should skip validation' do
-        build(:person, password: '', password_confirmation: '', skip_password_validation: true).should be_valid
-      end
+    context 'password' do
+      Then { expect(subject).to validate_confirmation_of(:password) }
+      And  { expect(subject).to ensure_length_of(:password).is_at_most(128) }
+      And  { expect(subject).to ensure_length_of(:password).is_at_least(6) }
     end
 
-    context :gender do
-      it { should     allow_value(true, false).for(:gender) }
-      it { should_not allow_value(nil        ).for(:gender) }
+    describe 'should skip password validation' do
+      Then { expect(build(:person, password: '', password_confirmation: '', skip_password_validation: true)).to be_valid }
     end
 
-    context :email do
-      it { should validate_uniqueness_of(:email) }
+    context 'gender' do
+      Then { expect(subject).to allow_value(true, false).for(:gender) }
+      And  { expect(subject).not_to allow_value(nil).for(:gender) }
+    end
 
-      INVALID_ADDRESSES = %w[
-        user@foo,com     user_at_foo.org
-        example.user@foo.foo@bar_baz.com
-        foo@bar+baz.com
-      ]
+    context 'email' do
+      Given (:valid_addresses)   { %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn] }
+      Given (:invalid_addresses) { %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com ] }
 
-      VALID_ADDRESSES   = %w[
-        user@foo.COM A_US-ER@f.b.org
-        frst.lst@foo.jp   a+b@baz.cn
-      ]
-
-      it 'allows valid addresses' do
-        INVALID_ADDRESSES.each  do |invalid_address|
-          should_not  allow_value(invalid_address).for(:email)
+      Then { expect(subject).to validate_uniqueness_of(:email) }
+      And { expect(subject).not_to allow_value('').for(:email) }
+      And do
+        invalid_addresses.each do |invalid_address|
+          expect(subject).not_to allow_value(invalid_address).for(:email)
         end
       end
-
-      it 'disallows invalid addresses' do
-        VALID_ADDRESSES.each    do |valid_address|
-          should      allow_value(  valid_address).for(:email)
+      And do
+        valid_addresses.each do |valid_address|
+          expect(subject).to allow_value(valid_address).for(:email)
         end
-      end
-
-      it 'disallows empty value' do
-        should_not allow_value('').for(:email)
       end
     end
 
     context 'name, surname, middle_name, spiritual_name' do
-      it { should validate_presence_of(:name      ) }
-      it { should validate_presence_of(:surname   ) }
+      Then { expect(subject).to validate_presence_of(:name) }
+      And  { expect(subject).to ensure_length_of(:name).is_at_most(50) }
 
-      it { should ensure_length_of(:name            ).is_at_most(50) }
-      it { should ensure_length_of(:surname         ).is_at_most(50) }
-      it { should ensure_length_of(:middle_name     ).is_at_most(50) }
-      it { should ensure_length_of(:spiritual_name  ).is_at_most(50) }
+      Then { expect(subject).to validate_presence_of(:surname) }
+      And  { expect(subject).to ensure_length_of(:surname).is_at_most(50) }
+
+      Then { expect(subject).to ensure_length_of(:middle_name   ).is_at_most(50) }
+      Then { expect(subject).to ensure_length_of(:spiritual_name).is_at_most(50) }
     end
 
-    describe :photo do
-      it 'less then 150x200 not valid' do
-        build(:person, photo: File.open("#{Rails.root}/spec/fixtures/10x10.png")).should_not be_valid
+    describe 'photo' do
+      context 'less then 150x200 not valid' do
+        Then { expect(build(:person, photo: File.open("#{Rails.root}/spec/fixtures/10x10.png"))).not_to be_valid }
       end
 
-      it 'equals 150x200 valid' do
-        build(:person, :with_photo).should be_valid
+      context 'equals 150x200 valid' do
+        Then { expect(build(:person, :with_photo)).to be_valid }
       end
     end
   end
 
   describe 'before save processing' do
-    it 'downcases :email' do
-      create(:person, {email: "A_US-ER@f.B.org"})
-        .email.should == "a_us-er@f.b.org"
+    context 'downcases :email' do
+      Then { expect(create(:person, {email: 'A_US-ER@f.B.org'}).email).to eq('a_us-er@f.b.org') }
     end
 
-    it 'downcases and titelizes :name, :surname, :middle_name, :spiritual_name' do
-      name, surname, mname, spname = 'имЯ', 'фАмИлиЯ', 'ОтчествО', 'АдиДасаДаса ДаС'
+    describe 'downcases and titelizes :name, :surname, :middle_name, :spiritual_name' do
+      Given { @person = FactoryGirl.create(:person, name: 'имЯ',surname: 'фАмИлиЯ',middle_name: 'ОтчествО',
+                                           spiritual_name: 'АдиДасаДаса ДаС') }
 
-      person = FactoryGirl.create(:person,
-          name:           name    ,
-          surname:        surname ,
-          middle_name:    mname   ,
-          spiritual_name: spname)
-
-      person.name.should           ==  'Имя'
-      person.surname.should        ==  'Фамилия'
-      person.middle_name.should    ==  'Отчество'
-      person.spiritual_name.should ==  'Адидасадаса Дас'
+      Then { expect(@person.name).to eq('Имя') }
+      And  { expect(@person.surname).to eq('Фамилия') }
+      And  { expect(@person.middle_name).to eq('Отчество') }
+      And  { expect(@person.spiritual_name).to eq('Адидасадаса Дас') }
     end
   end
 
@@ -123,15 +88,12 @@ describe Person do
     Given { @person = create :person }
 
     describe '#crop_photo' do
-      Given { @person.photo.should_receive(:recreate_versions!) }
-
-      Then do
-        @person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3).should be(true)
-        @person.crop_x.should eq(0)
-        @person.crop_y.should eq(1)
-        @person.crop_h.should eq(2)
-        @person.crop_w.should eq(3)
-      end
+      Then { expect(@person.photo).to receive(:recreate_versions!) }
+      And  { expect(@person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3)).to be(true) }
+      And  { expect(@person.crop_x).to eq(0) }
+      And  { expect(@person.crop_y).to eq(1) }
+      And  { expect(@person.crop_h).to eq(2) }
+      And  { expect(@person.crop_w).to eq(3) }
     end
 
     describe 'questionnaires methods' do
@@ -142,7 +104,7 @@ describe Person do
 
       describe '#add_application_questionnaires' do
         Then  { expect{@person.add_application_questionnaires}.to change{@person.questionnaires.count}.by(1) }
-        And   { @person.questionnaire_ids.should == [@questionnaire_1.id] }
+        And   { expect(@person.questionnaire_ids).to eq([@questionnaire_1.id]) }
       end
 
       describe '#remove_application_questionnaires' do
@@ -163,7 +125,7 @@ describe Person do
         Given { @person.questionnaire_completenesses.create(completed: true , questionnaire_id: @questionnaire_1.id) }
         Given { @person.questionnaire_completenesses.create(completed: false, questionnaire_id: @questionnaire_2.id) }
 
-        Then  { @person.not_finished_questionnaires.pluck(:id).should == [@questionnaire_2.id] }
+        Then  { expect(@person.not_finished_questionnaires.pluck(:id)).to eq([@questionnaire_2.id]) }
       end
     end
   end

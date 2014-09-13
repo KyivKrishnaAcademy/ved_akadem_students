@@ -1,10 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe TeacherSpeciality do
-  it { should have_db_column(:teacher_profile_id  ).of_type(:integer) }
-  it { should have_db_column(:course_id           ).of_type(:integer) }
-  it { should have_db_column(:since               ).of_type(:date   ) }
-
-  it { should belong_to(:teacher_profile  ) }
-  it { should belong_to(:course           ) }
+  describe 'associations' do
+    Then { expect(subject).to belong_to(:teacher_profile) }
+    Then { expect(subject).to belong_to(:course) }
+  end
 end

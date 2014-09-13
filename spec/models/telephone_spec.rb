@@ -1,11 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Telephone do
-  describe 'DB table' do
-    it { should have_db_column(:phone).of_type(:string) }
-  end
-
   describe 'association' do
-    it { should belong_to(:person) }
+    Then { expect(subject).to belong_to(:person) }
   end
 end

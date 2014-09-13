@@ -1,13 +1,13 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Program do
   describe 'validation' do
-    it { should validate_presence_of(:title) }
-    it { should validate_presence_of(:description) }
+    Then { expect(subject).to validate_presence_of(:title) }
+    Then { expect(subject).to validate_presence_of(:description) }
   end
 
   describe 'association' do
-    it { should have_many(:study_applications).dependent(:destroy) }
-    it { should have_and_belong_to_many(:questionnaires) }
+    Then { expect(subject).to have_many(:study_applications).dependent(:destroy) }
+    Then { expect(subject).to have_and_belong_to_many(:questionnaires) }
   end
 end

@@ -1,8 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Question do
   describe 'association' do
-    it { should belong_to(:questionnaire) }
-    it { should have_many(:answers).dependent(:destroy) }
+    Then { expect(subject).to belong_to(:questionnaire) }
+    Then { expect(subject).to have_many(:answers).dependent(:destroy) }
   end
 end
