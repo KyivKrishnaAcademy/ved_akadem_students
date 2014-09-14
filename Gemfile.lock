@@ -73,6 +73,7 @@ GEM
       mime-types (>= 1.16)
     choice (0.1.6)
     cliver (0.3.2)
+    closure-compiler (1.1.11)
     codeclimate-test-reporter (0.4.0)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -246,9 +247,6 @@ GEM
     turbolinks (2.3.0)
       coffee-rails
     tzinfo (0.3.41)
-    uglifier (2.5.3)
-      execjs (>= 0.3.0)
-      json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
     websocket-driver (0.3.4)
@@ -269,6 +267,7 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   carrierwave
+  closure-compiler
   codeclimate-test-reporter
   coffee-rails
   database_cleaner
@@ -298,4 +297,3 @@ DEPENDENCIES
   shoulda-matchers
   simple_form (= 3.1.0.rc2)!
   turbolinks
-  uglifier

@@ -4,7 +4,7 @@ gem 'rails', '4.0.10'
 
 gem 'haml'
 gem 'sass-rails'
-gem 'uglifier'
+gem 'closure-compiler'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
