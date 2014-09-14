@@ -175,8 +175,8 @@ describe 'Signing' do
         click_button 'Get email'
       end
 
-      Then { expect(find('.found-emails')).to match(/(\w|\*)+@test\.org/) }
-      And  { expect(find('.found-emails')).not_to match(/(\w|\*)+@example\.com/) }
+      Then { expect(find('.found-emails').text).to match(/(\w|\*)+@test\.org/) }
+      And  { expect(find('.found-emails').text).not_to match(/(\w|\*)+@example\.com/) }
     end
 
     describe 'found two emails' do
@@ -185,7 +185,7 @@ describe 'Signing' do
         click_button 'Get email'
       end
 
-      Then { expect(find('.found-emails')).to match(/(\w|\*)+@example\.com.*(\w|\*)+@test\.org/) }
+      Then { expect(find('.found-emails').text).to match(/(\w|\*)+@example\.com.*(\w|\*)+@test\.org/) }
     end
 
     describe 'no email found' do
