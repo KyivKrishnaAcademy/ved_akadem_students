@@ -24,6 +24,7 @@
         = msg
     = yield
     = render 'layouts/footer'
-    - if Rails.env.development?
-      = debug(params)
-      = debug(session[:locale])
+    .row
+      - if Rails.env.development?
+        = debug(params)
+        = debug(session[:locale])
