@@ -56,6 +56,7 @@ namespace :deploy do
       sudo    "mkdir -p /usr/local/nginx/conf/sites-enabled"
 
       upload!('shared/database.yml', "#{shared_path}/config/database.yml")
+      upload!('shared/recaptcha.rb', "#{shared_path}/config/recaptcha.rb")
       upload!('shared/mailer.yml', "#{shared_path}/config/mailer.yml")
       upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
       upload!('shared/ved_akadem_students.conf', "#{shared_path}/ved_akadem_students.conf")
@@ -86,6 +87,7 @@ namespace :deploy do
       execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
       execute "ln -s #{shared_path}/uploads #{release_path}/uploads"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+      execute "ln -sf #{shared_path}/config/recaptcha.rb #{release_path}/config/initializers/recaptcha.rb"
       execute "ln -sf #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
 

@@ -12,6 +12,7 @@ gem 'pg'
 
 gem 'devise'
 gem 'pundit'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 gem 'simple_form', '3.1.0.rc2', github: 'plataformatec/simple_form'
 gem 'nested_form'
