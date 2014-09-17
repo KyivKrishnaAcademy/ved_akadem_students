@@ -21,6 +21,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'jcrop-rails-v2'
 
+gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 
 gem 'factory_girl_rails'

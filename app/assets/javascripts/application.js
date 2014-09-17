@@ -16,3 +16,7 @@
 //= require nested_form_custom_telephones
 //= require turbolinks
 //= require bootstrap
+//= require jquery-ui/datepicker
+//= require jquery-ui/datepicker-ru
+//= require jquery-ui/datepicker-uk
+//= require custom
