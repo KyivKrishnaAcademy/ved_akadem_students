@@ -1,5 +1,10 @@
-#nested-telephones
+.row.col-xs-12.col-sm-12#nested-telephones
   = f.fields_for :telephones do |t|
-    = t.input :phone, as: :tel, required: true
-    = t.link_to_remove '', class: 'glyphicon glyphicon-minus-sign'
-  = f.link_to_add '', :telephones, class: 'glyphicon glyphicon-plus-sign'
+    .row.col-xs-12.col-sm-12
+      = t.label :phone
+    .row.col-xs-11.col-sm-11
+      = t.input :phone, as: :tel, required: true, label: false
+    .col-xs-1.col-sm-1
+      = t.link_to_remove '', class: 'btn btn-danger btn-xs glyphicon glyphicon-minus-sign'
+.row.col-xs-12.col-sm-12
+  = f.link_to_add '', :telephones, class: 'btn btn-success btn-xs glyphicon glyphicon-plus-sign', data: { target: '#nested-telephones' }
