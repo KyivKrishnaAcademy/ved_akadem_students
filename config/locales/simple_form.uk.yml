@@ -9,6 +9,32 @@ uk:
       default_message: 'Виправте ці помилки будь ласка:'
     labels:
       defaults:
-        password:              'Пароль'
-        password_confirmation: 'Повторіть пароль'
-        email:                 'Електронна пошта'
+        password:               'Пароль'
+        password_confirmation:  'Повторіть пароль'
+        email:                  'Електронна пошта'
+        photo:                  'Фотографія на студентський квиток'
+        passport:               'Фотографія першої сторінки паспорту'
+        spiritual_name:         "Духовне ім'я (якщо є)"
+        name:                   "Ім'я"
+        middle_name:            'По батькові'
+        surname:                'Фамілія'
+        phone:                  'Телефон'
+        gender:                 'Стать'
+        birthday:               'День народження'
+        education:              'Освіта (спеціальність)'
+        work:                   'Робота (професія)'
+        emergency_contact:      'Контакт для надзвичайних випадків'
+    placeholders:
+      defaults:
+        password:               '******'
+        password_confirmation:  '******'
+        email:                  'test@example.com'
+        spiritual_name:         "Аді Даса дас"
+        name:                   'Антон'
+        middle_name:            'Іванович'
+        surname:                'Петренко'
+        phone:                  '+380 (50) 111-22-33'
+        birthday:               '31.02.1980'
+        education:              "Інженер з комп'ютерних систем, економіст"
+        work:                   'Тестувальник, веб програміст, менеджер'
+        emergency_contact:      'Тато: +380 (50) 111-22-44'

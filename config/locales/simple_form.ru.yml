@@ -9,7 +9,32 @@ ru:
       default_message: 'Исправьте эти ошибки, побалуйста:'
     labels:
       defaults:
-        password:              'Пароль'
-        password_confirmation: 'Повторите пароль'
-        email:                 'Электронная почта'
-
+        password:               'Пароль'
+        password_confirmation:  'Повторите пароль'
+        email:                  'Электронная почта'
+        photo:                  'Фотография на студенческий билет'
+        passport:               'Фотографія первой страницы паспорта'
+        spiritual_name:         'Духовное имя (если есть)'
+        name:                   'Имя'
+        middle_name:            'Отчество'
+        surname:                'Фамилия'
+        phone:                  'Телефон'
+        gender:                 'Пол'
+        birthday:               'День рождения'
+        education:              'Образование (специальность)'
+        work:                   'Работа (профессия)'
+        emergency_contact:      'Контакт для экстренных случаев'
+    placeholders:
+      defaults:
+        password:               '******'
+        password_confirmation:  '******'
+        email:                  'test@example.com'
+        spiritual_name:         "Ади Даса дас"
+        name:                   'Антон'
+        middle_name:            'Иванович'
+        surname:                'Петренко'
+        phone:                  '+380 (50) 111-22-33'
+        birthday:               '31.02.1980'
+        education:              "Инженер компьютерних систем, економист"
+        work:                   'Тестировщик, вэб програмист, менеджер'
+        emergency_contact:      'Отец: +380 (50) 111-22-44'
