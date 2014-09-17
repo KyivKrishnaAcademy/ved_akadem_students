@@ -20,6 +20,7 @@ doc/
 .secret*
 bundler_stubs/
 erd?.dot
+recaptcha.rb
 
 /Procfile
 /config/deploy/
