@@ -24,7 +24,14 @@ describe 'Edit person:' do
     end
 
     describe 'Birthday' do
-      it_behaves_like :valid_select_date, 'Person', 'birthday', 'Birthday: '
+      When { fill_in 'person[birthday]', with: '27.05.1985' }
+      When { click_button 'Update Person' }
+
+      describe 'brithdate is shown' do
+        Then { expect(find('body')).to have_content('Birthday: 1985-05-27') }
+      end
+
+      it_behaves_like :alert_success_updated, 'Person'
     end
 
     describe 'Gender' do

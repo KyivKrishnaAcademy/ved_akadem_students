@@ -6,11 +6,11 @@ describe 'Add person:' do
     visit new_person_path
   end
 
-  let(:fill_right) { fill_person_data gender: 'Female'  }
+  let(:fill_right) { fill_person_data(gender: 'Female') }
   let(:model)      { Person }
 
   describe :link_in_flash do
-    Given { @person = fill_person_data gender: 'Female' }
+    Given { @person = fill_person_data(gender: 'Female') }
 
     When  { click_button 'Create Person' }
 
@@ -40,9 +40,7 @@ describe 'Add person:' do
     fill_in 'person_email'          , with: (pf.email          )
     fill_in 'person_edu_and_work'   , with: (pf.edu_and_work   )
     select  (p[:gender]     ||'Male').to_s, from: 'person_gender'
-    select  (p[:birthday_1i]||'1984').to_s, from: 'person_birthday_1i'
-    select  (p[:birthday_2i]||'May' ).to_s, from: 'person_birthday_2i'
-    select  (p[:birthday_3i]||'30'  ).to_s, from: 'person_birthday_3i'
+    fill_in 'person[birthday]', with: (p[:birthday] || '30.05.1984')
     pf
   end
 end

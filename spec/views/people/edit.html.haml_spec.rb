@@ -26,18 +26,18 @@ describe 'people/edit.html.erb' do
   it_behaves_like 'person new and edit'
 
   describe 'default values' do
-    it { expect(subject).to have_selector('#person_telephones_attributes_0_phone[value="380112223344"]') }
-    it { expect(subject).to have_selector('#person_spiritual_name[value="Dasa Das"]'       ) }
-    it { expect(subject).to have_selector('#person_name[value="Ivan"]'                     ) }
-    it { expect(subject).to have_selector('#person_middle_name[value="Petrovich"]'         ) }
-    it { expect(subject).to have_selector('#person_surname[value="Жук"]'                   ) }
-    it { expect(subject).to have_selector('#person_email[value="juke@ulr.net"]'            ) }
-    it { expect(subject).to have_css('#person_edu_and_work', text: 'где-то когда-то'       ) }
-    it { expect(subject).to have_selector('#person_emergency_contact[value="дед Василий"]' ) }
-    it { expect(subject).to have_css('#person_gender option[selected="selected"]', text: 'Male') }
-    it { expect(subject).to have_selector('#person_birthday_1i option[selected]' , text: '1975') }
-    it { expect(subject).to have_selector('#person_birthday_2i option[selected]' , text: 'January') }
-    it { expect(subject).to have_selector('#person_birthday_3i option[selected]' , text: '30') }
+    context 'gender is Male' do
+      Then { expect(subject).to have_selector('#person_telephones_attributes_0_phone[value="380112223344"]') }
+      And  { expect(subject).to have_selector('#person_spiritual_name[value="Dasa Das"]'       ) }
+      And  { expect(subject).to have_selector('#person_name[value="Ivan"]'                     ) }
+      And  { expect(subject).to have_selector('#person_middle_name[value="Petrovich"]'         ) }
+      And  { expect(subject).to have_selector('#person_surname[value="Жук"]'                   ) }
+      And  { expect(subject).to have_selector('#person_email[value="juke@ulr.net"]'            ) }
+      And  { expect(subject).to have_css('#person_edu_and_work', text: 'где-то когда-то'       ) }
+      And  { expect(subject).to have_selector('#person_emergency_contact[value="дед Василий"]' ) }
+      And  { expect(subject).to have_css('#person_gender option[selected="selected"]', text: 'Male') }
+      And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1975-01-30') }
+    end
 
     context 'gender is Female' do
       Given { @admin.update_attribute(:gender, false) }

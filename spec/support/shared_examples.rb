@@ -3,24 +3,22 @@ shared_examples 'person new and edit' do
   it { expect(subject).to have_title(full_title(title)) }
   it { expect(subject).to have_selector('h1', text: h1) }
 
-  describe "from" do
-    let(:form) { 'form.' << action << '_person' }
+  describe 'form' do
+    Given(:form) { 'form.' << action << '_person' }
 
-    it { expect(subject).to have_selector(form) }
-    it { expect(subject).to have_selector("#{form} input#person_name") }
-    it { expect(subject).to have_selector("#{form} input#person_middle_name") }
-    it { expect(subject).to have_selector("#{form} input#person_surname") }
-    it { expect(subject).to have_selector("#{form} input#person_spiritual_name") }
-    it { expect(subject).to have_selector("#{form} input#person_telephones_attributes_0_phone") }
-    it { expect(subject).to have_selector("#{form} input#person_email") }
-    it { expect(subject).to have_selector("#{form} select#person_gender") }
-    it { expect(subject).to have_selector("#{form} select#person_birthday_1i") }
-    it { expect(subject).to have_selector("#{form} select#person_birthday_2i") }
-    it { expect(subject).to have_selector("#{form} select#person_birthday_3i") }
-    it { expect(subject).to have_selector("#{form} textarea#person_edu_and_work") }
-    it { expect(subject).to have_selector("#{form} input#person_emergency_contact") }
-    it { expect(subject).to have_selector("#{form} input#person_photo") }
-    it { expect(subject).to have_selector("#{form} input.btn") }
+    Then { expect(subject).to have_selector(form) }
+    And  { expect(subject).to have_selector("#{form} input#person_name") }
+    And  { expect(subject).to have_selector("#{form} input#person_middle_name") }
+    And  { expect(subject).to have_selector("#{form} input#person_surname") }
+    And  { expect(subject).to have_selector("#{form} input#person_spiritual_name") }
+    And  { expect(subject).to have_selector("#{form} input#person_telephones_attributes_0_phone") }
+    And  { expect(subject).to have_selector("#{form} input#person_email") }
+    And  { expect(subject).to have_selector("#{form} select#person_gender") }
+    And  { expect(subject).to have_selector("#{form} #datepicker[name='person[birthday]']") }
+    And  { expect(subject).to have_selector("#{form} textarea#person_edu_and_work") }
+    And  { expect(subject).to have_selector("#{form} input#person_emergency_contact") }
+    And  { expect(subject).to have_selector("#{form} input#person_photo") }
+    And  { expect(subject).to have_selector("#{form} input.btn") }
   end
 end
 
@@ -332,6 +330,7 @@ shared_examples :valid_select_date do |model_name, field_name, content|
   end
 
   Then { expect(find('body')).to have_content("#{content}#{year}-05-27") }
+
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 
