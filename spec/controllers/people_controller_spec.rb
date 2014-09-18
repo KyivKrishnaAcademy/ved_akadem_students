@@ -9,7 +9,7 @@ describe PeopleController do
     context 'on success' do
       context 'redirect and flash' do
         Then { expect(response.status).to redirect_to(action: :new) }
-        And  { expect(subject).to set_the_flash[:success] }
+        And  { is_expected.to set_the_flash[:success] }
       end
 
       context '@person' do
@@ -65,7 +65,7 @@ describe PeopleController do
       context 'flash and redirect' do
         When { update_model }
 
-        Then { expect(subject).to set_the_flash[:success] }
+        Then { is_expected.to set_the_flash[:success] }
         And  { expect(response.status).to redirect_to person }
       end
     end

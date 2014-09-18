@@ -22,11 +22,11 @@ describe 'Questionnaires' do
     describe 'should have fields' do
       subject { find('.questions') }
 
-      Then { expect(subject).to have_css('.question', count: 2) }
-      And  { expect(subject).to have_css('.question input[type="radio"]', count: 2) }
-      And  { expect(subject).to have_content('Чи ти в своєму розумі?') }
-      And  { expect(subject).to have_css('.question textarea', count: 1) }
-      And  { expect(subject).to have_content('Яке Ваше відношення до ...') }
+      Then { is_expected.to have_css('.question', count: 2) }
+      And  { is_expected.to have_css('.question input[type="radio"]', count: 2) }
+      And  { is_expected.to have_content('Чи ти в своєму розумі?') }
+      And  { is_expected.to have_css('.question textarea', count: 1) }
+      And  { is_expected.to have_content('Яке Ваше відношення до ...') }
     end
 
     describe 'should not be in pending' do

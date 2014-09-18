@@ -45,7 +45,7 @@ describe CropsController do
 
       describe 'flash and variable' do
         Then { expect(assigns(:person)).to eq(person) }
-        And  { expect(subject).to set_the_flash[:success] }
+        And  { is_expected.to set_the_flash[:success] }
       end
 
       describe 'redirect' do
@@ -65,7 +65,7 @@ describe CropsController do
       Given { allow(person).to receive(:crop_photo).and_return(false) }
 
       Then  { expect(assigns(:person)).to eq(person) }
-      And   { expect(subject).to set_the_flash[:danger] }
+      And   { is_expected.to set_the_flash[:danger] }
       And   { expect(response.status).to render_template('crop_image') }
     end
   end

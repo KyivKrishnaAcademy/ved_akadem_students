@@ -23,10 +23,10 @@ describe 'akadem_groups/edit' do
   it_behaves_like 'akadem group new and edit'
 
   describe 'default values' do
-    it { expect(subject).to have_selector('#akadem_group_group_name[value="' << ag_name << '"]'             ) }
-    it { expect(subject).to have_selector('#akadem_group_group_description[value="some текст"]'             ) }
-    it { expect(subject).to have_selector('#akadem_group_establ_date_1i option[selected]', text: '2013'     ) }
-    it { expect(subject).to have_selector('#akadem_group_establ_date_2i option[selected]', text: 'September') }
-    it { expect(subject).to have_selector('#akadem_group_establ_date_3i option[selected]', text: '28'       ) }
+    it { is_expected.to have_selector('#akadem_group_group_name[value="' << ag_name << '"]'             ) }
+    it { is_expected.to have_selector('#akadem_group_group_description[value="some текст"]'             ) }
+    it { is_expected.to have_selector('#akadem_group_establ_date_1i option[selected]', text: '2013'     ) }
+    it { is_expected.to have_selector('#akadem_group_establ_date_2i option[selected]', text: 'September') }
+    it { is_expected.to have_selector('#akadem_group_establ_date_3i option[selected]', text: '28'       ) }
   end
 end

@@ -28,16 +28,16 @@ describe 'people/edit.html.erb' do
 
   describe 'default values' do
     context 'gender is Male' do
-      Then { expect(subject).to have_selector('#person_telephones_attributes_0_phone[value="380112223344"]') }
-      And  { expect(subject).to have_selector('#person_spiritual_name[value="Dasa Das"]') }
-      And  { expect(subject).to have_selector('#person_name[value="Ivan"]') }
-      And  { expect(subject).to have_selector('#person_middle_name[value="Petrovich"]') }
-      And  { expect(subject).to have_selector('#person_surname[value="Жук"]') }
-      And  { expect(subject).to have_selector('#person_email[value="juke@ulr.net"]') }
-      And  { expect(subject).to have_css('#person_education', text: 'где-то когда-то') }
-      And  { expect(subject).to have_css('#person_work', text: 'никогда') }
-      And  { expect(subject).to have_selector('#person_emergency_contact[value="дед Василий"]') }
-      And  { expect(subject).to have_css('#person_gender option[selected="selected"]', text: 'Male') }
+      Then { is_expected.to have_selector('#person_telephones_attributes_0_phone[value="380112223344"]') }
+      And  { is_expected.to have_selector('#person_spiritual_name[value="Dasa Das"]') }
+      And  { is_expected.to have_selector('#person_name[value="Ivan"]') }
+      And  { is_expected.to have_selector('#person_middle_name[value="Petrovich"]') }
+      And  { is_expected.to have_selector('#person_surname[value="Жук"]') }
+      And  { is_expected.to have_selector('#person_email[value="juke@ulr.net"]') }
+      And  { is_expected.to have_css('#person_education', text: 'где-то когда-то') }
+      And  { is_expected.to have_css('#person_work', text: 'никогда') }
+      And  { is_expected.to have_selector('#person_emergency_contact[value="дед Василий"]') }
+      And  { is_expected.to have_css('#person_gender option[selected="selected"]', text: 'Male') }
       And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1975-01-30') }
     end
 
@@ -46,7 +46,7 @@ describe 'people/edit.html.erb' do
 
       When  { visit edit_person_path(@admin) }
 
-      Then  { expect(subject).to have_css('#person_gender option[selected="selected"]', text: 'Female') }
+      Then  { is_expected.to have_css('#person_gender option[selected="selected"]', text: 'Female') }
     end
   end
 end

@@ -1,45 +1,45 @@
 # views
 shared_examples 'person new and edit' do
-  it { expect(subject).to have_title(full_title(title)) }
-  it { expect(subject).to have_selector('h1', text: h1) }
+  it { is_expected.to have_title(full_title(title)) }
+  it { is_expected.to have_selector('h1', text: h1) }
 
   describe 'form' do
     Given(:form) { 'form.' << action << '_person' }
 
-    Then { expect(subject).to have_selector(form) }
-    And  { expect(subject).to have_selector("#{form} input#person_name") }
-    And  { expect(subject).to have_selector("#{form} input#person_middle_name") }
-    And  { expect(subject).to have_selector("#{form} input#person_surname") }
-    And  { expect(subject).to have_selector("#{form} input#person_spiritual_name") }
-    And  { expect(subject).to have_selector("#{form} input#person_telephones_attributes_0_phone") }
-    And  { expect(subject).to have_selector("#{form} input#person_email") }
-    And  { expect(subject).to have_selector("#{form} select#person_gender") }
-    And  { expect(subject).to have_selector("#{form} #datepicker[name='person[birthday]']") }
-    And  { expect(subject).to have_selector("#{form} textarea#person_education") }
-    And  { expect(subject).to have_selector("#{form} textarea#person_work") }
-    And  { expect(subject).to have_selector("#{form} input#person_emergency_contact") }
-    And  { expect(subject).to have_selector("#{form} input#person_photo") }
-    And  { expect(subject).to have_selector("#{form} input.btn") }
+    Then { is_expected.to have_selector(form) }
+    And  { is_expected.to have_selector("#{form} input#person_name") }
+    And  { is_expected.to have_selector("#{form} input#person_middle_name") }
+    And  { is_expected.to have_selector("#{form} input#person_surname") }
+    And  { is_expected.to have_selector("#{form} input#person_spiritual_name") }
+    And  { is_expected.to have_selector("#{form} input#person_telephones_attributes_0_phone") }
+    And  { is_expected.to have_selector("#{form} input#person_email") }
+    And  { is_expected.to have_selector("#{form} select#person_gender") }
+    And  { is_expected.to have_selector("#{form} #datepicker[name='person[birthday]']") }
+    And  { is_expected.to have_selector("#{form} textarea#person_education") }
+    And  { is_expected.to have_selector("#{form} textarea#person_work") }
+    And  { is_expected.to have_selector("#{form} input#person_emergency_contact") }
+    And  { is_expected.to have_selector("#{form} input#person_photo") }
+    And  { is_expected.to have_selector("#{form} input.btn") }
   end
 end
 
 shared_examples 'akadem group new and edit' do
-  it { expect(subject).to have_title(full_title(title)) }
-  it { expect(subject).to have_selector('h1', text: h1) }
+  it { is_expected.to have_title(full_title(title)) }
+  it { is_expected.to have_selector('h1', text: h1) }
 
   describe "form" do
     let(:form) { 'form.' << action << '_akadem_group' }
 
-    it { expect(subject).to have_selector(form) }
-    it { expect(subject).to have_selector("#{form} label", text: "Group name") }
-    it { expect(subject).to have_selector("#{form} input#akadem_group_group_name") }
-    it { expect(subject).to have_selector("#{form} label", text: "Establishment date") }
-    it { expect(subject).to have_selector("#{form} select#akadem_group_establ_date_1i") }
-    it { expect(subject).to have_selector("#{form} select#akadem_group_establ_date_2i") }
-    it { expect(subject).to have_selector("#{form} select#akadem_group_establ_date_3i") }
-    it { expect(subject).to have_selector("#{form} label", text: "Group description") }
-    it { expect(subject).to have_selector("#{form} input#akadem_group_group_description") }
-    it { expect(subject).to have_selector("#{form} input.btn") }
+    it { is_expected.to have_selector(form) }
+    it { is_expected.to have_selector("#{form} label", text: "Group name") }
+    it { is_expected.to have_selector("#{form} input#akadem_group_group_name") }
+    it { is_expected.to have_selector("#{form} label", text: "Establishment date") }
+    it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_1i") }
+    it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_2i") }
+    it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_3i") }
+    it { is_expected.to have_selector("#{form} label", text: "Group description") }
+    it { is_expected.to have_selector("#{form} input#akadem_group_group_description") }
+    it { is_expected.to have_selector("#{form} input.btn") }
   end
 end
 
@@ -124,14 +124,14 @@ shared_examples "POST 'create'" do |variable, model|
 
     describe 'redirect and flash' do
       Then { expect(response).to redirect_to(action: :new) }
-      And  { expect(subject).to set_the_flash[:success] }
+      And  { is_expected.to set_the_flash[:success] }
     end
 
     context "@#{variable.to_s}" do
       subject { assigns(variable) }
 
-      Then { expect(subject).to be_a(model)  }
-      Then { expect(subject).to be_persisted }
+      Then { is_expected.to be_a(model)  }
+      Then { is_expected.to be_persisted }
     end
   end
 
@@ -164,7 +164,7 @@ shared_examples "DELETE 'destroy'" do |model|
     describe 'flash' do
       When { del_person }
 
-      Then { expect(subject).to set_the_flash[:success] }
+      Then { is_expected.to set_the_flash[:success] }
     end
   end
 
@@ -180,7 +180,7 @@ shared_examples "DELETE 'destroy'" do |model|
     describe 'flash' do
       When { del_person }
 
-      Then { expect(subject).to set_the_flash[:danger] }
+      Then { is_expected.to set_the_flash[:danger] }
     end
   end
 end
@@ -234,7 +234,7 @@ shared_examples "PATCH 'update'" do |model, field|
     describe 'flash and redirect' do
       When { update_model }
 
-      Then { expect(subject).to set_the_flash[:success] }
+      Then { is_expected.to set_the_flash[:success] }
       And  { expect(response).to redirect_to model_last }
     end
   end
@@ -389,13 +389,13 @@ shared_examples :allow_with_activities do |activites|
     Given { user.roles << create(:role, activities: activites) }
 
     context 'allow' do
-      Then { expect(subject).to permit(user, record) }
+      Then { is_expected.to permit(user, record) }
     end
   end
 
   context "without #{activites.join(' ')}" do
     context 'disallow' do
-      Then { expect(subject).not_to permit(user, record) }
+      Then { is_expected.not_to permit(user, record) }
     end
   end
 end

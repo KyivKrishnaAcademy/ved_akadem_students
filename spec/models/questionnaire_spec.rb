@@ -2,14 +2,14 @@ require 'rails_helper'
 
 describe Questionnaire do
   describe 'association' do
-    Then { expect(subject).to have_many(:questions).dependent(:destroy) }
-    Then { expect(subject).to have_many(:questionnaire_completenesses).dependent(:destroy) }
-    Then { expect(subject).to have_many(:people).through(:questionnaire_completenesses) }
-    Then { expect(subject).to have_and_belong_to_many(:programs) }
+    Then { is_expected.to have_many(:questions).dependent(:destroy) }
+    Then { is_expected.to have_many(:questionnaire_completenesses).dependent(:destroy) }
+    Then { is_expected.to have_many(:people).through(:questionnaire_completenesses) }
+    Then { is_expected.to have_and_belong_to_many(:programs) }
   end
 
   describe 'validations' do
-    Then { expect(subject).to validate_presence_of(:title) }
+    Then { is_expected.to validate_presence_of(:title) }
   end
 
   describe '#complete!' do

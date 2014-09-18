@@ -17,8 +17,8 @@ describe 'akadem_groups/new' do
   describe 'Establishment date = Time#now by default' do
     let(:today) { Date.today }
 
-    it { expect(subject).to have_selector('#akadem_group_establ_date_1i option[selected]', text: today.year) }
-    it { expect(subject).to have_selector('#akadem_group_establ_date_2i option[selected]', text: Date::MONTHNAMES[today.mon]) }
-    it { expect(subject).to have_selector('#akadem_group_establ_date_3i option[selected]', text: today.day) }
+    it { is_expected.to have_selector('#akadem_group_establ_date_1i option[selected]', text: today.year) }
+    it { is_expected.to have_selector('#akadem_group_establ_date_2i option[selected]', text: Date::MONTHNAMES[today.mon]) }
+    it { is_expected.to have_selector('#akadem_group_establ_date_3i option[selected]', text: today.day) }
   end
 end
