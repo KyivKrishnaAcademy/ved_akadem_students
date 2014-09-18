@@ -22,7 +22,8 @@
     = render 'shared/nested_telephones', f: f
     = f.input :gender, collection: [['Male', true], ['Female', false]], required: true
     = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
-    = f.input :edu_and_work, required: true
+    = f.input :education, required: true
+    = f.input :work, required: true
     = f.input :emergency_contact, required: true
 
   .form-actions

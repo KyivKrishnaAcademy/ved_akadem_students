@@ -15,7 +15,8 @@ shared_examples 'person new and edit' do
     And  { expect(subject).to have_selector("#{form} input#person_email") }
     And  { expect(subject).to have_selector("#{form} select#person_gender") }
     And  { expect(subject).to have_selector("#{form} #datepicker[name='person[birthday]']") }
-    And  { expect(subject).to have_selector("#{form} textarea#person_edu_and_work") }
+    And  { expect(subject).to have_selector("#{form} textarea#person_education") }
+    And  { expect(subject).to have_selector("#{form} textarea#person_work") }
     And  { expect(subject).to have_selector("#{form} input#person_emergency_contact") }
     And  { expect(subject).to have_selector("#{form} input#person_photo") }
     And  { expect(subject).to have_selector("#{form} input.btn") }

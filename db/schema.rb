@@ -92,8 +92,8 @@ ActiveRecord::Schema.define(version: 20140918091449) do
     t.datetime "reset_password_sent_at"
     t.boolean  "deleted",                default: false
     t.string   "passport"
-    t.string   "education"
-    t.string   "work"
+    t.text     "education"
+    t.text     "work"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree

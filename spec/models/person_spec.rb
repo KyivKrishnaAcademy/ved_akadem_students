@@ -2,27 +2,27 @@ require 'rails_helper'
 
 describe Person do
   describe 'fields' do
-    Then { expect(subject).to have_db_column(:education) }
-    Then { expect(subject).to have_db_column(:work) }
-    Then { expect(subject).not_to have_db_column(:edu_and_work) }
+    Then { is_expected.to have_db_column(:education).of_type(:text) }
+    Then { is_expected.to have_db_column(:work).of_type(:text) }
+    Then { is_expected.not_to have_db_column(:edu_and_work) }
   end
 
   describe 'association' do
-    Then { expect(subject).to have_one(:student_profile).dependent(:destroy) }
-    Then { expect(subject).to have_one(:teacher_profile).dependent(:destroy) }
-    Then { expect(subject).to have_one(:study_application).dependent(:destroy) }
-    Then { expect(subject).to have_and_belong_to_many(:roles) }
-    Then { expect(subject).to have_many(:telephones).dependent(:destroy) }
-    Then { expect(subject).to have_many(:answers).dependent(:destroy) }
-    Then { expect(subject).to have_many(:questionnaire_completenesses).dependent(:destroy) }
-    Then { expect(subject).to have_many(:questionnaires).through(:questionnaire_completenesses) }
+    Then { is_expected.to have_one(:student_profile).dependent(:destroy) }
+    Then { is_expected.to have_one(:teacher_profile).dependent(:destroy) }
+    Then { is_expected.to have_one(:study_application).dependent(:destroy) }
+    Then { is_expected.to have_and_belong_to_many(:roles) }
+    Then { is_expected.to have_many(:telephones).dependent(:destroy) }
+    Then { is_expected.to have_many(:answers).dependent(:destroy) }
+    Then { is_expected.to have_many(:questionnaire_completenesses).dependent(:destroy) }
+    Then { is_expected.to have_many(:questionnaires).through(:questionnaire_completenesses) }
   end
 
   describe 'validation' do
     context 'password' do
-      Then { expect(subject).to validate_confirmation_of(:password) }
-      And  { expect(subject).to ensure_length_of(:password).is_at_most(128) }
-      And  { expect(subject).to ensure_length_of(:password).is_at_least(6) }
+      Then { is_expected.to validate_confirmation_of(:password) }
+      And  { is_expected.to ensure_length_of(:password).is_at_most(128) }
+      And  { is_expected.to ensure_length_of(:password).is_at_least(6) }
     end
 
     describe 'should skip password validation' do
@@ -30,37 +30,37 @@ describe Person do
     end
 
     context 'gender' do
-      Then { expect(subject).to allow_value(true, false).for(:gender) }
-      And  { expect(subject).not_to allow_value(nil).for(:gender) }
+      Then { is_expected.to allow_value(true, false).for(:gender) }
+      And  { is_expected.not_to allow_value(nil).for(:gender) }
     end
 
     context 'email' do
       Given (:valid_addresses)   { %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn] }
       Given (:invalid_addresses) { %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com ] }
 
-      Then { expect(subject).to validate_uniqueness_of(:email) }
-      And { expect(subject).not_to allow_value('').for(:email) }
+      Then { is_expected.to validate_uniqueness_of(:email) }
+      And { is_expected.not_to allow_value('').for(:email) }
       And do
         invalid_addresses.each do |invalid_address|
-          expect(subject).not_to allow_value(invalid_address).for(:email)
+          is_expected.not_to allow_value(invalid_address).for(:email)
         end
       end
       And do
         valid_addresses.each do |valid_address|
-          expect(subject).to allow_value(valid_address).for(:email)
+          is_expected.to allow_value(valid_address).for(:email)
         end
       end
     end
 
     context 'name, surname, middle_name, spiritual_name' do
-      Then { expect(subject).to validate_presence_of(:name) }
-      And  { expect(subject).to ensure_length_of(:name).is_at_most(50) }
+      Then { is_expected.to validate_presence_of(:name) }
+      And  { is_expected.to ensure_length_of(:name).is_at_most(50) }
 
-      Then { expect(subject).to validate_presence_of(:surname) }
-      And  { expect(subject).to ensure_length_of(:surname).is_at_most(50) }
+      Then { is_expected.to validate_presence_of(:surname) }
+      And  { is_expected.to ensure_length_of(:surname).is_at_most(50) }
 
-      Then { expect(subject).to ensure_length_of(:middle_name   ).is_at_most(50) }
-      Then { expect(subject).to ensure_length_of(:spiritual_name).is_at_most(50) }
+      Then { is_expected.to ensure_length_of(:middle_name   ).is_at_most(50) }
+      Then { is_expected.to ensure_length_of(:spiritual_name).is_at_most(50) }
     end
 
     describe 'photo' do

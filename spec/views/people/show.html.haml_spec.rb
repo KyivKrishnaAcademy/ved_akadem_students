@@ -19,7 +19,8 @@ describe 'people/show.html.haml' do
   Then { expect(find('body')).to have_text("Telephone 1: #{@p.telephones.first.phone}") }
   Then { expect(find('body')).to have_text("Email: #{@p.email}") }
   Then { expect(find('body')).to have_text("Emergency contact: #{@p.emergency_contact}") }
-  Then { expect(find('body')).to have_text("Education, hobby, job: #{@p.edu_and_work}") }
+  Then { expect(find('body')).to have_text("Education: #{@p.education}") }
+  Then { expect(find('body')).to have_text("Work: #{@p.work}") }
   Then { expect(find('body')).to have_text(/Gender: (Male|Female)/) }
   Then { expect(find('body')).to have_text("Birthday: #{@p.birthday.to_s}") }
 
