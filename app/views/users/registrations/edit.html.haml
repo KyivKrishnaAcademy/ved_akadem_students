@@ -16,9 +16,10 @@
         = f.input :photo, wrapper: :vertical_file_input, as: :file
         = f.input :photo_cache, as: :hidden
         - if f.object.passport.present?
-          = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank'
+          = link_to t('links.show_passport'), "/people/show_passport/#{f.object.id}", target: :blank, class: 'btn btn-default'
         - else
-          There is no passport attached.
+          %p.text-warning
+            = t('hints.no_passport')
         = f.input :passport, wrapper: :vertical_file_input, as: :file
         = f.input :passport_cache, as: :hidden
       .col-xs-12.col-sm-6

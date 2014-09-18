@@ -37,8 +37,17 @@ describe 'Signing' do
     describe 'should signup without photo and passport' do
       When { click_button I18n.t('devise.links.sign_up') }
 
-      Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
-      And  { expect(page).to have_css('.person-brief') }
+      describe 'flash and home page' do
+        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
+        And  { expect(page).to have_css('.person-brief') }
+      end
+
+      describe 'should show "no passport" warning' do
+        When { visit '/edit' }
+
+        Then { expect(find('p.text-warning')).to have_content(I18n.t('hints.no_passport')) }
+        And  { expect(find('.form-inputs')).not_to have_link(I18n.t('links.show_passport')) }
+      end
     end
 
     describe 'should signup with photo' do
@@ -69,7 +78,8 @@ describe 'Signing' do
       describe 'should show passport image' do
         When { visit '/edit' }
 
-        Then  { expect(find('.form-inputs')).to have_link('Show passport') }
+        Then { expect(find('.form-inputs')).to have_link(I18n.t('links.show_passport')) }
+        And  { expect(find('.form-inputs')).not_to have_css('p.text-warning', text: I18n.t('hints.no_passport')) }
       end
     end
   end
