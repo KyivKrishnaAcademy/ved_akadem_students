@@ -51,8 +51,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_permitted_parameters
-    permitted_params = [:name, :surname, :spiritual_name, :middle_name, :gender,
-                        :photo, :birthday, :edu_and_work, :emergency_contact, :passport,
+    permitted_params = [:name, :surname, :spiritual_name, :middle_name, :gender, :photo,
+                        :birthday, :education, :work, :emergency_contact, :passport,
                         telephones_attributes: [:id, :phone, :_destroy]]
 
     devise_parameter_sanitizer.for(:sign_up) << permitted_params << [:photo_cache, :passport_cache]

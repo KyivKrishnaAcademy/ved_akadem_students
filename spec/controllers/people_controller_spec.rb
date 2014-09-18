@@ -88,7 +88,8 @@ describe PeopleController do
       email:              'ssd@pamho.yes',
       gender:             true,
       birthday:           7200.days.ago.to_date,
-      edu_and_work:       'ББТ',
+      education:          'Брахмачарьи ашрам',
+      work:               'ББТ',
       emergency_contact:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе',
       telephones_attributes:  [ id: nil,
                                 phone: '0000001111']

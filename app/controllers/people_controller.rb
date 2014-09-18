@@ -103,7 +103,8 @@ class PeopleController < ApplicationController
         :email          ,
         :gender         ,
         :birthday       ,
-        :edu_and_work   ,
+        :education      ,
+        :work           ,
         :emergency_contact,
         telephones_attributes: [:id, :phone, :_destroy]
       )

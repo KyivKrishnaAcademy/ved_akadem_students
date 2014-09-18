@@ -18,7 +18,7 @@ describe 'Edit person:' do
       { field: I18n.t('simple_form.labels.defaults.email')            , value: 'alex@PAMHO.net' , test_field: 'Email: alex@pamho.net'        },
       { field: I18n.t('simple_form.labels.defaults.phone')            , value: '380692223344'   , test_field: 'Telephone 1: 380692223344'    },
       { field: I18n.t('simple_form.labels.defaults.education')        , value: 'some'           , test_field: 'Education: some'              },
-      { field: I18n.t('simple_form.labels.defaults.work')             , value: 'other'          , test_field: 'Job: other'                   },
+      { field: I18n.t('simple_form.labels.defaults.work')             , value: 'other'          , test_field: 'Work: other'                  },
       { field: I18n.t('simple_form.labels.defaults.emergency_contact'), value: 'дядя Петя'      , test_field: 'Emergency contact: дядя Петя' }
     ].each do |h|
       it_behaves_like :valid_fill_in, h, 'Person'

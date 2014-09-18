@@ -27,7 +27,8 @@ describe 'Signing' do
       fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
       select  'Male', from: 'person_gender'
       fill_in 'person[birthday]', with: '20.05.1985'
-      fill_in 'person_edu_and_work', with: 'NTUU KPI'
+      fill_in 'person_education', with: 'NTUU KPI'
+      fill_in 'person_work', with: 'Kyivstar'
       fill_in 'person_emergency_contact', with: 'Krishna'
     end
 
@@ -100,7 +101,8 @@ describe 'Signing' do
           fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
           select  'Male', from: 'person_gender'
           fill_in 'person[birthday]', with: '20.05.1982'
-          fill_in 'person_edu_and_work', with: 'NTUU KPI'
+          fill_in 'person_education', with: 'NTUU KPI'
+          fill_in 'person_work', with: 'Kyivstar'
           fill_in 'person_emergency_contact', with: 'Krishna'
           fill_in 'person_current_password', with: 'password'
           click_button 'Update'
@@ -124,7 +126,8 @@ describe 'Signing' do
           And  { expect(find('#person_middle_name')['value']).to have_content('Alexovich') }
           And  { expect(find('#person_surname')['value']).to have_content('Mitrofanov') }
           And  { expect(find('#person_telephones_attributes_0_phone')['value']).to have_content('380112223344') }
-          And  { expect(find('#person_edu_and_work')['value']).to have_content('NTUU KPI') }
+          And  { expect(find('#person_education')['value']).to have_content('NTUU KPI') }
+          And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
           And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
           And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Male') }
           And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1982-05-20') }
