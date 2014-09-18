@@ -1,6 +1,8 @@
 @import "bootstrap-sprockets"
 @import "bootstrap"
 
+$placeholder: #ccc
+
 body
   padding-top: 60px
 
@@ -42,6 +44,18 @@ footer
   -webkit-box-sizing: border-box
   box-sizing: border-box
 
+::-moz-placeholder
+  color: $placeholder !important
+
+\:-moz-placeholder
+  color: $placeholder !important
+
+\:-ms-input-placeholder
+  color: $placeholder !important
+
+::-webkit-input-placeholder
+  color: $placeholder !important
+
 /* errors */
 
 .field_with_errors
@@ -62,7 +76,7 @@ footer
   height: 200px
   overflow: hidden
 
-/* device flash */
+/* devise flash */
 
 .alert-error
   @extend .alert-danger
