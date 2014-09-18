@@ -29,12 +29,12 @@ ru:
         password:               '******'
         password_confirmation:  '******'
         email:                  'test@example.com'
-        spiritual_name:         "Ади Даса дас"
+        spiritual_name:         'Ади Даса дас'
         name:                   'Антон'
         middle_name:            'Иванович'
         surname:                'Петренко'
         phone:                  '+380 (50) 111-22-33'
         birthday:               '31.02.1980'
-        education:              "Инженер компьютерних систем, економист"
+        education:              'Инженер компьютерних систем, экономист'
         work:                   'Тестировщик, вэб програмист, менеджер'
         emergency_contact:      'Отец: +380 (50) 111-22-44'
