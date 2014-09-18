@@ -9,7 +9,8 @@ FactoryGirl.define do
     surname                             {  "N#{generate(:char_sequence)}"     }
     sequence(:email                   ) { |n| "mail#{n}@ukr.net"      }
     sequence(:birthday ,        12000 ) { |n| n.days.ago.to_date      }
-    edu_and_work                        { generate(:char_sequence)*20 }
+    education                           { generate(:char_sequence)*20 }
+    work                                { generate(:char_sequence)*20 }
     telephones                          { [build(:telephone)] }
   end
 
