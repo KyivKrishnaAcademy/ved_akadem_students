@@ -45,9 +45,9 @@
 
     .row.form-actions
       .col-xs-12.text-center
-        = f.button :submit, t('devise.links.update'), class: 'btn-lg'
+        = f.button :submit, t('links.update'), class: 'btn-lg'
 
 .row.vert-offset-top-1
   .pull-right
-    = link_to t('devise.links.delete'), registration_path(resource_name), class: 'btn btn-danger',
+    = link_to t('links.delete'), registration_path(resource_name), class: 'btn btn-danger',
                                       data: { confirm: t('devise.links.confirmations.delete') }, method: :delete

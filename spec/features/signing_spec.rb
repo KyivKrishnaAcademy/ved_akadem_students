@@ -107,7 +107,7 @@ describe 'Signing' do
           fill_in 'person_work', with: 'Kyivstar'
           fill_in 'person_emergency_contact', with: 'Krishna'
           fill_in 'person_current_password', with: 'password'
-          click_button I18n.t('devise.links.update')
+          click_button I18n.t('links.update')
         end
 
         describe 'should show flash' do
@@ -141,7 +141,7 @@ describe 'Signing' do
           fill_in 'person_password', with: 'another_password'
           fill_in 'person_password_confirmation', with: 'another_password'
           fill_in 'person_current_password', with: 'password'
-          click_button I18n.t('devise.links.update')
+          click_button I18n.t('links.update')
         end
 
         describe 'should show flash' do
