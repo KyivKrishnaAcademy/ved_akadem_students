@@ -177,12 +177,15 @@ describe 'Signing' do
     end
 
     describe 'found two emails' do
+      subject { find('.found-emails').text }
+
       When do
         fill_in 'phone', with: '1111111111'
         click_button 'Get email'
       end
 
-      Then { expect(find('.found-emails').text).to match(/(\w|\*)+@example\.com.*(\w|\*)+@test\.org/) }
+      Then { is_expected.to match(/(\w|\*)+@example\.com/) }
+      And  { is_expected.to match(/(\w|\*)+@test\.org/) }
     end
 
     describe 'no email found' do
