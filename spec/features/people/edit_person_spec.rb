@@ -11,14 +11,15 @@ describe 'Edit person:' do
 
   context 'When values are valid:' do
     [
-      { field: I18n.t('simple_form.labels.defaults.spiritual_name')   , value: 'AdiDasa dasa'  , test_field: 'Spiritual name: Adidasa Dasa' },
-      { field: I18n.t('simple_form.labels.defaults.name')             , value: 'алексей'       , test_field: 'Name: Алексей'                },
-      { field: I18n.t('simple_form.labels.defaults.middle_name')      , value: 'иванович'      , test_field: 'Middle name: Иванович'        },
-      { field: I18n.t('simple_form.labels.defaults.surname')          , value: 'евгеньев'      , test_field: 'Surname: Евгеньев'            },
-      { field: I18n.t('simple_form.labels.defaults.email')            , value: 'alex@PAMHO.net', test_field: 'Email: alex@pamho.net'        },
-      { field: I18n.t('simple_form.labels.defaults.phone')            , value: '380692223344'  , test_field: 'Telephone 1: 380692223344'    },
-      { field: 'person[edu_and_work]', value: 'some'      , test_field: 'Education, hobby, job: some'  },
-      { field: I18n.t('simple_form.labels.defaults.emergency_contact'), value: 'дядя Петя'     , test_field: 'Emergency contact: дядя Петя' }
+      { field: I18n.t('simple_form.labels.defaults.spiritual_name')   , value: 'AdiDasa dasa'   , test_field: 'Spiritual name: Adidasa Dasa' },
+      { field: I18n.t('simple_form.labels.defaults.name')             , value: 'алексей'        , test_field: 'Name: Алексей'                },
+      { field: I18n.t('simple_form.labels.defaults.middle_name')      , value: 'иванович'       , test_field: 'Middle name: Иванович'        },
+      { field: I18n.t('simple_form.labels.defaults.surname')          , value: 'евгеньев'       , test_field: 'Surname: Евгеньев'            },
+      { field: I18n.t('simple_form.labels.defaults.email')            , value: 'alex@PAMHO.net' , test_field: 'Email: alex@pamho.net'        },
+      { field: I18n.t('simple_form.labels.defaults.phone')            , value: '380692223344'   , test_field: 'Telephone 1: 380692223344'    },
+      { field: I18n.t('simple_form.labels.defaults.education')        , value: 'some'           , test_field: 'Education: some'              },
+      { field: I18n.t('simple_form.labels.defaults.work')             , value: 'other'          , test_field: 'Job: other'                   },
+      { field: I18n.t('simple_form.labels.defaults.emergency_contact'), value: 'дядя Петя'      , test_field: 'Emergency contact: дядя Петя' }
     ].each do |h|
       it_behaves_like :valid_fill_in, h, 'Person'
     end

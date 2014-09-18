@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe Person do
+  describe 'fields' do
+    Then { expect(subject).to have_db_column(:education) }
+    Then { expect(subject).to have_db_column(:work) }
+    Then { expect(subject).not_to have_db_column(:edu_and_work) }
+  end
+
   describe 'association' do
     Then { expect(subject).to have_one(:student_profile).dependent(:destroy) }
     Then { expect(subject).to have_one(:teacher_profile).dependent(:destroy) }
