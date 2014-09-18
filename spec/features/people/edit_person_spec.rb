@@ -3,6 +3,8 @@ require 'rails_helper'
 describe 'Edit person:' do
   subject { page }
 
+  Given { page.set_rack_session(locale: :uk) }
+
   When { login_as_admin }
   When { visit person_path(create(:person, birthday: '2008-10-08')) }
   When { click_link 'Edit' }
@@ -34,8 +36,8 @@ describe 'Edit person:' do
     end
 
     describe 'Gender' do
-      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Male'  , 'Gender: Male'
-      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Female', 'Gender: Female'
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Чоловіча' , 'Gender: Male'
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Жіноча'   , 'Gender: Female'
     end
   end
 

@@ -1,27 +1,4 @@
 # views
-shared_examples 'person new and edit' do
-  it { is_expected.to have_title(full_title(title)) }
-  it { is_expected.to have_selector('h1', text: h1) }
-
-  describe 'form' do
-    Given(:form) { 'form.' << action << '_person' }
-
-    Then { is_expected.to have_selector(form) }
-    And  { is_expected.to have_selector("#{form} input#person_name") }
-    And  { is_expected.to have_selector("#{form} input#person_middle_name") }
-    And  { is_expected.to have_selector("#{form} input#person_surname") }
-    And  { is_expected.to have_selector("#{form} input#person_spiritual_name") }
-    And  { is_expected.to have_selector("#{form} input#person_telephones_attributes_0_phone") }
-    And  { is_expected.to have_selector("#{form} input#person_email") }
-    And  { is_expected.to have_selector("#{form} select#person_gender") }
-    And  { is_expected.to have_selector("#{form} #datepicker[name='person[birthday]']") }
-    And  { is_expected.to have_selector("#{form} textarea#person_education") }
-    And  { is_expected.to have_selector("#{form} textarea#person_work") }
-    And  { is_expected.to have_selector("#{form} input#person_emergency_contact") }
-    And  { is_expected.to have_selector("#{form} input#person_photo") }
-    And  { is_expected.to have_selector("#{form} input.btn") }
-  end
-end
 
 shared_examples 'akadem group new and edit' do
   it { is_expected.to have_title(full_title(title)) }
@@ -346,15 +323,12 @@ shared_examples :valid_select do |model_name, field_name, value, content|
 end
 
 shared_examples :adds_model do
-  before do
-    fill_right
-    @m = model
-  end
+  Given { @m = model }
 
-  scenario do
-    expect { click_button 'Create ' << underscore_humanize(@m.name) }.to change{@m.count}.by(1)
-    expect(page).to have_selector('.alert-success')
-  end
+  When  { fill_right }
+
+  Then  { expect { click_button 'Create ' << underscore_humanize(@m.name) }.to change{@m.count}.by(1) }
+  And   { expect(page).to have_selector('.alert-success') }
 end
 
 shared_examples :not_adds_model do

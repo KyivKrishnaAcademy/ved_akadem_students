@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe 'Signing' do
+  Given { page.set_rack_session(locale: :uk) }
+
   describe 'Sign in' do
     Given { create :person, email: 'test@example.com', password: 'password', password_confirmation: 'password' }
 
@@ -25,7 +27,7 @@ describe 'Signing' do
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'
       fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
-      select  'Male', from: 'person_gender'
+      select  'Чоловіча', from: 'person_gender'
       fill_in 'person[birthday]', with: '20.05.1985'
       fill_in 'person_education', with: 'NTUU KPI'
       fill_in 'person_work', with: 'Kyivstar'
@@ -99,7 +101,7 @@ describe 'Signing' do
           fill_in 'person_middle_name', with: 'Alexovich'
           fill_in 'person_surname', with: 'Mitrofanov'
           fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
-          select  'Male', from: 'person_gender'
+          select  'Чоловіча', from: 'person_gender'
           fill_in 'person[birthday]', with: '20.05.1982'
           fill_in 'person_education', with: 'NTUU KPI'
           fill_in 'person_work', with: 'Kyivstar'
@@ -129,7 +131,7 @@ describe 'Signing' do
           And  { expect(find('#person_education')['value']).to have_content('NTUU KPI') }
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
           And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
-          And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Male') }
+          And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Чоловіча') }
           And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1982-05-20') }
         end
       end

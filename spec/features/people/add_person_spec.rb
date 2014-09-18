@@ -1,17 +1,13 @@
 require 'rails_helper'
 
 describe 'Add person:' do
-  before do
-    login_as_admin
-    visit new_person_path
-  end
+  Given { page.set_rack_session(locale: :uk) }
 
-  let(:fill_right) { fill_person_data(gender: 'Female') }
-  let(:model)      { Person }
+  When  { login_as_admin }
+  When  { visit new_person_path }
 
   describe :link_in_flash do
-    Given { @person = fill_person_data(gender: 'Female') }
-
+    When  { @person = fill_person_data(gender: 'Жіноча') }
     When  { click_button 'Create Person' }
 
     Then  { expect(page).to have_link(complex_name(@person).downcase.titleize,
@@ -19,11 +15,15 @@ describe 'Add person:' do
   end
 
   describe 'simple (no student, no teacher)' do
+    describe 'adds Person' do
+      When  { fill_person_data(gender: 'Жіноча') }
 
-    it_behaves_like :adds_model
+      Then  { expect { click_button 'Create Person' }.to change{Person.count}.by(1) }
+      And   { expect(page).to have_selector('.alert-success') }
+    end
 
     describe 'do not adds person' do
-      Given { fill_person_data email: '3322' }
+      When  { fill_person_data email: '3322' }
 
       Then  { expect { click_button 'Create Person' }.not_to change{Person.count} }
       And   { expect(page).to have_selector('.alert-danger') }
@@ -41,7 +41,7 @@ describe 'Add person:' do
     fill_in 'person_education'                    , with: pf.education
     fill_in 'person_work'                         , with: pf.work
     fill_in 'person[birthday]'                    , with: (p[:birthday] || '30.05.1984')
-    select  (p[:gender] || 'Male').to_s, from: 'person_gender'
+    select  (p[:gender] || 'Чоловіча').to_s, from: 'person_gender'
     pf
   end
 end

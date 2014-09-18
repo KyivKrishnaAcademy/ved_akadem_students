@@ -56,4 +56,5 @@ group :test do
   gem 'capybara'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  gem 'rack_session_access'
 end
