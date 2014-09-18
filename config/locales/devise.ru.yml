@@ -2,6 +2,18 @@
 # Другие переводы на http://github.com/plataformatec/devise/wiki/I18n
 
 ru:
+  errors:
+    messages:
+      already_confirmed: "уже подтверждена. Пожалуйста, попробуйте войти в систему"
+      confirmation_period_expired: "должен быть подтвержден в течении %{period}, пожалуйста, запросите подтверждение аккаунта завтра"
+      expired: "устарела. Пожалуйста, запросите новую"
+      not_found: "не найдена"
+      not_locked: "не заблокирована"
+      not_saved:
+        one: "%{resource}: сохранение не удалось из-за %{count} ошибки"
+        few: "%{resource}: сохранение не удалось из-за %{count} ошибок"
+        many: "%{resource}: сохранение не удалось из-за %{count} ошибок"
+        other: "%{resource}: сохранение не удалось из-за %{count} ошибки"
   devise:
     confirmations:
       confirmed: "Ваша учётная запись подтверждена."
@@ -54,15 +66,7 @@ ru:
       sign_out: 'Выйти'
       forgot_password: 'Забыли пароль?'
       forgot_email: 'Забыли адрес электронной почты?'
-  errors:
-    messages:
-      already_confirmed: "уже подтверждена. Пожалуйста, попробуйте войти в систему"
-      confirmation_period_expired: "должен быть подтвержден в течении %{period}, пожалуйста, запросите подтверждение аккаунта завтра"
-      expired: "устарела. Пожалуйста, запросите новую"
-      not_found: "не найдена"
-      not_locked: "не заблокирована"
-      not_saved:
-        one: "%{resource}: сохранение не удалось из-за %{count} ошибки"
-        few: "%{resource}: сохранение не удалось из-за %{count} ошибок"
-        many: "%{resource}: сохранение не удалось из-за %{count} ошибок"
-        other: "%{resource}: сохранение не удалось из-за %{count} ошибки"
+      edit: 'Сохранить'
+      delete: 'Удалить'
+      confirmations:
+        delete: 'Вы уверены что хотите удалить свой профайл? Эта операция невозвратима!!!'

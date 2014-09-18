@@ -15,7 +15,8 @@ uk:
     labels:
       defaults:
         password:               'Пароль'
-        password_confirmation:  'Повторіть пароль'
+        password_confirmation:  'Підтвердження паролю'
+        current_password:       'Поточний пароль'
         email:                  'Електронна пошта'
         photo:                  'Фотографія на студентський квиток'
         passport:               'Фотографія першої сторінки паспорту'
@@ -31,8 +32,6 @@ uk:
         emergency_contact:      'Контакт для надзвичайних випадків'
     placeholders:
       defaults:
-        password:               '******'
-        password_confirmation:  '******'
         email:                  'test@example.com'
         spiritual_name:         "Аді Даса дас"
         name:                   'Антон'
@@ -43,3 +42,12 @@ uk:
         education:              "Інженер з комп'ютерних систем, економіст"
         work:                   'Тестувальник, веб програміст, менеджер'
         emergency_contact:      'Тато: +380 (50) 111-22-44'
+      person:
+        new:
+          password:               '******'
+          password_confirmation:  '******'
+    hints:
+      person:
+        edit:
+          password:         'Залиште пустим, якщо не хочете змінювати'
+          current_password: 'Введіть Ваш поточний пароль, щоб підтвердити зміни'

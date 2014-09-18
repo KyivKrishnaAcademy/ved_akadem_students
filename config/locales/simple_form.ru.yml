@@ -15,7 +15,8 @@ ru:
     labels:
       defaults:
         password:               'Пароль'
-        password_confirmation:  'Повторите пароль'
+        password_confirmation:  'Подтверждение пароля'
+        current_password:       'Текущий пароль'
         email:                  'Электронная почта'
         photo:                  'Фотография на студенческий билет'
         passport:               'Фотографія первой страницы паспорта'
@@ -31,8 +32,6 @@ ru:
         emergency_contact:      'Контакт для экстренных случаев'
     placeholders:
       defaults:
-        password:               '******'
-        password_confirmation:  '******'
         email:                  'test@example.com'
         spiritual_name:         'Ади Даса дас'
         name:                   'Антон'
@@ -43,3 +42,12 @@ ru:
         education:              'Инженер компьютерних систем, экономист'
         work:                   'Тестировщик, вэб програмист, менеджер'
         emergency_contact:      'Отец: +380 (50) 111-22-44'
+      person:
+        new:
+          password:               '******'
+          password_confirmation:  '******'
+    hints:
+      person:
+        edit:
+          password:         'Оставьте пустым, если не хотите менять'
+          current_password: 'Введите Ваш текущий пароль, чтобы подтвердить изменения'

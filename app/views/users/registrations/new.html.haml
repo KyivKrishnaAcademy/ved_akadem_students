@@ -1,7 +1,7 @@
-- provide(:title, t('devise.links.sign_up'))
+- provide(:title, t('registrations.title.new'))
 
 %h1
-  = t('devise.links.sign_up')
+  = t('registrations.title.new')
 
 .row.vert-offset-top-2
   = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
@@ -30,4 +30,4 @@
 
     .row.form-actions
       .col-xs-12.col-sm-6
-        = f.button :submit, t('devise.links.sign_up')
+        = f.button :submit, t('devise.links.sign_up'), class: 'btn-lg'

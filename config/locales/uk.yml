@@ -1,3 +1,7 @@
 uk:
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
+  registrations:
+    title:
+      edit: 'Редагування профайлу'
+      new:  'Реєстрація'

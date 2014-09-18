@@ -1,3 +1,7 @@
 ru:
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
+  registrations:
+    title:
+      edit: 'Редактирование профайла'
+      new:  'Регистрация'
