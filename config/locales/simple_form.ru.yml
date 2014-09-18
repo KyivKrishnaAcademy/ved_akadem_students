@@ -7,6 +7,11 @@ ru:
       mark: '*'
     error_notification:
       default_message: 'Исправьте эти ошибки, побалуйста:'
+    options:
+      person:
+        gender:
+          male:   'Мужской'
+          female: 'Женский'
     labels:
       defaults:
         password:               'Пароль'

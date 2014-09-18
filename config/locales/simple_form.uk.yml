@@ -7,6 +7,11 @@ uk:
       mark: '*'
     error_notification:
       default_message: 'Виправте ці помилки будь ласка:'
+    options:
+      person:
+        gender:
+          male:   'Чоловіча'
+          female: 'Жіноча'
     labels:
       defaults:
         password:               'Пароль'

@@ -20,7 +20,8 @@
     = f.input :middle_name
     = f.input :surname, required: true
     = render 'shared/nested_telephones', f: f
-    = f.input :gender, collection: [['Male', true], ['Female', false]], required: true
+    = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
+                       label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
     = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
     = f.input :education, required: true
     = f.input :work, required: true
