@@ -111,6 +111,7 @@ describe Person do
       describe '#add_application_questionnaires' do
         Then  { expect{@person.add_application_questionnaires}.to change{@person.questionnaires.count}.by(1) }
         And   { expect(@person.questionnaire_ids).to eq([@questionnaire_1.id]) }
+        And   { expect{@person.add_application_questionnaires}.not_to change{@person.questionnaires.count} }
       end
 
       describe '#remove_application_questionnaires' do

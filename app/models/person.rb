@@ -44,7 +44,7 @@ class Person < ActiveRecord::Base
   end
 
   def add_application_questionnaires
-    questionnaires << study_application.program.questionnaires if study_application.present?
+    questionnaires << study_application.program.questionnaires.where.not(id: questionnaire_ids) if study_application.present?
   end
 
   def remove_application_questionnaires(application)
