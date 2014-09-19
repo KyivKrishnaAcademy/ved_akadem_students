@@ -1,14 +1,21 @@
 - if person.study_application.blank?
-  - programs.each do |program|
-    .program.alert.alert-info
-      %h4
-        = program.title
-      .description
-        = program.description
-      = simple_form_for study_application, remote: true, format: :js do |f|
-        = f.input :person_id, as: :hidden, input_html: { value: person.id }
-        = f.input :program_id, as: :hidden, input_html: { value: program.id }
-        = f.submit 'Apply', class: 'btn btn-success'
+  .row
+    - programs.each do |program|
+      .col-xs-12.col-sm-6
+        .panel.panel-info
+          .panel-heading
+            %h4.panel-title
+              = program.title
+          .panel-body
+            %p
+              = program.description
+            .row
+              .col-xs-12
+                .pull-right
+                  = simple_form_for study_application, remote: true, format: :js do |f|
+                    = f.input :person_id, as: :hidden, input_html: { value: person.id }
+                    = f.input :program_id, as: :hidden, input_html: { value: program.id }
+                    = f.submit 'Apply', class: 'btn btn-success'
 - else
   .program.alert.alert-success
     You have applied to #{person.study_application.program.title}

@@ -42,7 +42,7 @@ describe :home do
     end
 
     context 'without application' do
-      Given (:programs) { all('#study_application .program') }
+      Given (:programs) { all('#study_application .panel-info') }
 
       describe 'have elements' do
         Then  { expect(programs.first).to have_content('Школа Бхакти') }
