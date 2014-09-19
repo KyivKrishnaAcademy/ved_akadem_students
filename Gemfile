@@ -7,7 +7,6 @@ gem 'sass-rails'
 gem 'closure-compiler'
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'jbuilder'
 gem 'pg'
 
