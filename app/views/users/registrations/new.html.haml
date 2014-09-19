@@ -4,31 +4,37 @@
   = t('registrations.title.new')
 
 .row.vert-offset-top-2
-  = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    = render 'shared/error_messages', object: f.object
+  .col-xs-12
+    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+      = render 'shared/error_messages', object: f.object
 
-    .row.form-inputs
-      .col-xs-12.col-sm-6
-        = f.input :photo, as: :file, wrapper: :vertical_file_input, required: false
-        = f.input :photo_cache, as: :hidden
-        = f.input :passport, as: :file, wrapper: :vertical_file_input, required: false
-        = f.input :passport_cache, as: :hidden
-        = f.input :email, required: true, autofocus: true
-        = f.input :spiritual_name
-        = f.input :name
-        = f.input :middle_name
-        = f.input :surname
-        = render 'shared/nested_telephones', f: f
-      .col-xs-12.col-sm-6
-        = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
-        = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
-                           label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-        = f.input :education
-        = f.input :work
-        = f.input :emergency_contact
-        = f.input :password, required: true
-        = f.input :password_confirmation, required: true
+      .row.form-inputs
+        .col-xs-12
+          .row
+            .col-xs-12.col-sm-6
+              = f.input :photo, as: :file, wrapper: :vertical_file_input, required: false
+              = f.input :photo_cache, as: :hidden
+              = f.input :passport, as: :file, wrapper: :vertical_file_input, required: false
+              = f.input :passport_cache, as: :hidden
+            .col-xs-12.col-sm-6
+              = f.input :email, required: true, autofocus: true
+              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
+          .row
+            .col-xs-12.col-sm-6
+              = f.input :spiritual_name
+              = f.input :name
+              = f.input :middle_name
+              = f.input :surname
+              = f.input :education
+              = render 'shared/nested_telephones', f: f
+            .col-xs-12.col-sm-6
+              = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
+                                 label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
+              = f.input :emergency_contact
+              = f.input :password, required: true
+              = f.input :password_confirmation, required: true
+              = f.input :work
 
-    .row.form-actions.vert-offset-top-2
-      .col-xs-12.text-center
-        = f.button :submit, t('devise.links.sign_up'), class: 'btn-lg'
+      .row.form-actions.vert-offset-top-2
+        .col-xs-12.text-center
+          = f.button :submit, t('devise.links.sign_up'), class: 'btn-lg'

@@ -4,49 +4,61 @@
   = t('registrations.title.edit')
 
 .row.vert-offset-top-2
-  = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-    = render 'shared/error_messages', object: f.object
+  .col-xs-12
+    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+      = render 'shared/error_messages', object: f.object
 
-    .row.form-inputs
-      .col-xs-12.col-sm-6
-        - if f.object.photo.present?
-          = image_tag "/people/show_photo/standart/#{f.object.id}", class: 'img-thumbnail'
-        - else
-          = image_tag f.object.photo_url, class: 'img-thumbnail'
-        = f.input :photo, wrapper: :vertical_file_input, as: :file
-        = f.input :photo_cache, as: :hidden
-        - if f.object.passport.present?
-          = link_to t('links.show_passport'), "/people/show_passport/#{f.object.id}", target: :blank, class: 'btn btn-default'
-        - else
-          %p.text-warning
-            = t('hints.no_passport')
-        = f.input :passport, wrapper: :vertical_file_input, as: :file
-        = f.input :passport_cache, as: :hidden
-      .col-xs-12.col-sm-6
-        = f.input :email, required: true, autofocus: true
-        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-          %p
-            Currently waiting confirmation for: #{resource.unconfirmed_email}
-        = f.input :spiritual_name
-        = f.input :name, required: true
-        = f.input :middle_name
-        = f.input :surname, required: true
-      .col-xs-12.col-sm-6
-        = render 'shared/nested_telephones', f: f
-        = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
-        = f.input :education
-        = f.input :work
-      .col-xs-12.col-sm-6
-        = f.input :emergency_contact
-        = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
-                           label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-        = f.input :password, autocomplete: 'off', required: false
-        = f.input :password_confirmation, required: false
-        = f.input :current_password, required: true
+      .row.form-inputs
+        .col-xs-12
+          .row
+            .col-xs-12.col-sm-6
+              .row
+                - if f.object.photo.present?
+                  .col-sm-12
+                    = image_tag "/people/show_photo/standart/#{f.object.id}", class: 'img-thumbnail'
+                  .col-sm-12
+                    = link_to t('links.crop_photo'), crop_image_path(f.object.id), class: 'btn btn-default'
+                - else
+                  .col-sm-12
+                    = image_tag f.object.photo_url, class: 'img-thumbnail'
+              .row
+                .col-sm-12
+                  = f.input :photo, wrapper: :vertical_file_input, as: :file
+                  = f.input :photo_cache, as: :hidden
+                  - if f.object.passport.present?
+                    = link_to t('links.show_passport'), "/people/show_passport/#{f.object.id}", target: :blank, class: 'btn btn-default'
+                  - else
+                    %p.text-warning
+                      = t('hints.no_passport')
+                  = f.input :passport, wrapper: :vertical_file_input, as: :file
+                  = f.input :passport_cache, as: :hidden
+            .col-xs-12.col-sm-6
+              = f.input :email, required: true, autofocus: true
+              - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+                %p
+                  Currently waiting confirmation for: #{resource.unconfirmed_email}
+              = f.input :spiritual_name
+              = f.input :name, required: true
+              = f.input :middle_name
+              = f.input :surname, required: true
+        .col-xs-12
+          .row
+            .col-xs-12.col-sm-6
+              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
+              = f.input :education
+              = f.input :emergency_contact
+              = render 'shared/nested_telephones', f: f
+            .col-xs-12.col-sm-6
+              = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
+                                 label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
+              = f.input :work
+              = f.input :password, autocomplete: 'off', required: false
+              = f.input :password_confirmation, required: false
+              = f.input :current_password, required: true
 
-    .row.form-actions
-      .col-xs-12.text-center
-        = f.button :submit, t('links.update'), class: 'btn-lg'
+      .row.form-actions
+        .col-xs-12.text-center
+          = f.button :submit, t('links.update'), class: 'btn-lg'
 
 .row.vert-offset-top-1
   .pull-right

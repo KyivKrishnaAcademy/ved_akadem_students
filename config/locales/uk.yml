@@ -9,5 +9,6 @@ uk:
     update:         'Зберегти'
     delete:         'Видалити'
     show_passport:  'Показати паспорт'
+    crop_photo:     'Обрізати фотографію'
   hints:
     no_passport: 'Немає закріпленого паспорту'

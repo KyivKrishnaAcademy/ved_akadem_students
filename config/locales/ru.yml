@@ -9,5 +9,6 @@ ru:
     update:         'Сохранить'
     delete:         'Удалить'
     show_passport:  'Показать паспорт'
+    crop_photo:     'Обрезать фотографию'
   hints:
     no_passport: 'Нет прикрепленного паспорта'
