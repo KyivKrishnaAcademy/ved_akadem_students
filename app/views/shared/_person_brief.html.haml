@@ -1,7 +1,14 @@
-.person-brief
-  - if person.photo.present?
-    = image_tag "/people/show_photo/standart/#{person.id}", class: 'img-thumbnail'
-  - else
-    = image_tag person.photo_url, class: 'img-thumbnail'
-  %h2
-    = complex_name(person)
+.row.person-brief
+  .col-xs-12
+    .row
+      .col-xs-12
+        %h2
+          = complex_name(person)
+    .row
+      .col-xs-12.col-sm-3
+        - if person.photo.present?
+          = image_tag "/people/show_photo/standart/#{person.id}", class: 'img-thumbnail'
+        - else
+          = image_tag person.photo_url, class: 'img-thumbnail'
+      .col-xs-12.col-sm-9
+        = link_to t('links.edit_profile'), edit_person_registration_path(person)

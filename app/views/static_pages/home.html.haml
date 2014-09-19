@@ -1,5 +1,7 @@
-- provide(:title, 'Home')
+- provide(:title, t('static_pages.title.home'))
 
-#study_application
-  = render 'shared/study_application', person: @person_decorator, programs: @programs, study_application: @study_application
-= render 'shared/person_brief', person: current_person
+.row
+  .col-xs-12#study_application
+    = render 'shared/study_application', person: @person_decorator, programs: @programs, study_application: @study_application
+  .col-xs-12
+    = render 'shared/person_brief', person: current_person

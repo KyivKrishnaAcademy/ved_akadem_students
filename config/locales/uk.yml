@@ -5,10 +5,14 @@ uk:
     title:
       edit: 'Редагування профайлу'
       new:  'Реєстрація'
+  static_pages:
+    title:
+      home:         'Домашня'
   links:
     update:         'Зберегти'
     delete:         'Видалити'
     show_passport:  'Показати паспорт'
     crop_photo:     'Обрізати фотографію'
+    edit_profile:   'Редагувати профайл'
   hints:
     no_passport: 'Немає закріпленого паспорту'

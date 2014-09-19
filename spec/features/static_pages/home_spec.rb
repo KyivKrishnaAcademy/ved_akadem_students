@@ -7,11 +7,12 @@ describe :home do
   When { visit '/static_pages/home' }
 
   context 'should have the right title' do
-    Then { expect(page).to have_title("#{I18n.t :application_title} | Home") }
+    Then { expect(page).to have_title("#{I18n.t :application_title} | #{I18n.t('static_pages.title.home')}") }
   end
 
   context 'person brief' do
     Then { expect(find('.person-brief')).to have_content(@person.name)}
+    And  { expect(find('.person-brief')).to have_link(I18n.t('links.edit_profile'), href: edit_person_registration_path(@person)) }
   end
 
   context 'study applications' do
