@@ -106,11 +106,11 @@ ActiveRecord::Schema.define(version: 20140920201921) do
   create_table "programs", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title_ua"
+    t.string   "title_uk"
     t.string   "title_ru"
-    t.text     "description_ua"
+    t.text     "description_uk"
     t.text     "description_ru"
-    t.text     "courses_ua"
+    t.text     "courses_uk"
     t.text     "courses_ru"
   end
 

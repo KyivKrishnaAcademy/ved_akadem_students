@@ -7,11 +7,11 @@ namespace :akadem do
 
     puts 'Populating...'
 
-    programs.each { |p| Program.create!(title_ua: p[:title_ua],
+    programs.each { |p| Program.create!(title_uk: p[:title_uk],
                                         title_ru: p[:title_ru],
-                                        description_ua: p[:description_ua],
+                                        description_uk: p[:description_uk],
                                         description_ru: p[:description_ru],
-                                        courses_ua: p[:courses_ua],
+                                        courses_uk: p[:courses_uk],
                                         courses_ru: p[:courses_ru]) } if Program.all.none?
 
     puts 'Done.'
