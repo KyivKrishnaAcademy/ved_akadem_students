@@ -9,10 +9,14 @@ ru:
     title:
       home:         'Домашняя'
   links:
-    update:         'Сохранить'
-    delete:         'Удалить'
-    show_passport:  'Показать паспорт'
-    crop_photo:     'Обрезать фотографию'
-    edit_profile:   'Редактировать профайл'
+    update:           'Сохранить'
+    delete:           'Удалить'
+    show_passport:    'Показать паспорт'
+    crop_photo:       'Обрезать фотографию'
+    edit_profile:     'Редактировать профайл'
+    apply_to_program: 'Подать заявку'
   hints:
     no_passport: 'Нет прикрепленного паспорта'
+  content:
+    courses:            'Дисциплины излагаемые на курсе:'
+    apply_to_programs:  'У Вас есть возможность поступить на такие курсы:'

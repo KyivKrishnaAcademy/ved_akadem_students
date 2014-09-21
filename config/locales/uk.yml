@@ -9,10 +9,14 @@ uk:
     title:
       home:         'Домашня'
   links:
-    update:         'Зберегти'
-    delete:         'Видалити'
-    show_passport:  'Показати паспорт'
-    crop_photo:     'Обрізати фотографію'
-    edit_profile:   'Редагувати профайл'
+    update:           'Зберегти'
+    delete:           'Видалити'
+    show_passport:    'Показати паспорт'
+    crop_photo:       'Обрізати фотографію'
+    edit_profile:     'Редагувати профайл'
+    apply_to_program: 'Подати заявку'
   hints:
     no_passport: 'Немає закріпленого паспорту'
+  content:
+    courses:            'Дисципліни що викладаються на курсі:'
+    apply_to_programs:  'У Вас є можливість поступити на такі курси:'
