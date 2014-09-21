@@ -26,9 +26,10 @@
                     %li
                       = course_title
 - else
-  .program.alert.alert-success
-    You have applied to #{person.study_application.program.title}
-    = link_to 'Withdraw', person.study_application, remote: true, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' }
+  .program.alert.alert-success.clearfix
+    You have applied to #{person.study_application.program["title_#{locale}"]}
+    .pull-right
+      = link_to 'Withdraw', person.study_application, remote: true, method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Are you sure?' }
   - if person.pending_docs.present?
     .pending-docs.alert.alert-danger
       In order your application for study to be reviewed, you should:
