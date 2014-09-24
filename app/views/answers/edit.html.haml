@@ -1,11 +1,11 @@
-- provide(:title, resource.title)
+- provide(:title, resource["title_#{locale}"])
 
 .questionnaire
   = simple_form_for resource, url: answer_path do |f|
     %h2
-      = resource.title
+      = resource["title_#{locale}"]
     .description
-      = resource.description
+      = resource["description_#{locale}"]
     %br
 
     = render 'shared/error_messages', object: f.object

@@ -2,5 +2,5 @@
   = q.simple_fields_for :answers do |a|
     .row
       = a.input :person_id, as: :hidden
-      = q.object.data[:text]
+      = q.object.data[:text][locale]
       = a.input :data, label: false, input_html: { rows: 4 }
