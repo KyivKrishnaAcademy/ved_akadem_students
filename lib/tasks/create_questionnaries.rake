@@ -9,9 +9,14 @@ namespace :akadem do
     puts 'Populating...'
 
     psyho_questionnaire = Questionnaire.create(
-                            title:        psyho_test[:title],
-                            description:  psyho_test[:description],
-                            questions:    psyho_test[:questions].map { |q| Question.new(format: 'boolean', data: { text: q[:question]}) })
+                            title_uk:       psyho_test[:title_uk],
+                            title_ru:       psyho_test[:title_ru],
+                            description_uk: psyho_test[:description_uk],
+                            description_ru: psyho_test[:description_ru],
+                            questions:      psyho_test[:questions].map do |q|
+                                              Question.new(format: 'boolean',
+                                                           data: { text: { uk: q[:question_uk], ru: q[:question_ru] } })
+                                            end)
 
     initial_questionnaire = Questionnaire.create(
                             title_uk:     initial_questions[:title_uk],
