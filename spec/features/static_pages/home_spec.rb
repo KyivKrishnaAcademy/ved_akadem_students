@@ -21,7 +21,7 @@ describe :home do
 
     context 'with application' do
       Given { StudyApplication.create(person_id: @person.id, program_id: @program.id) }
-      Given { @person.questionnaires << create(:questionnaire, title: 'Психо тест') }
+      Given { @person.questionnaires << create(:questionnaire, title_uk: 'Психо тест') }
 
       describe 'have elements' do
         Then  { expect(find('#study_application')).to have_content('Школа Бхакти') }

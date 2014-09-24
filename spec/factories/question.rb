@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :question do
     format  { %w[freeform boolean].sample }
-    data    { { text: Faker::Lorem.sentence } }
+    data    { { text: { uk: Faker::Lorem.sentence, ru: Faker::Lorem.sentence } } }
   end
 
   trait :boolean do

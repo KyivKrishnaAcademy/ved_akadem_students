@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 describe 'Questionnaires' do
-  Given { @question_1     = create :question, :boolean , data: { text: 'Чи ти в своєму розумі?' } }
-  Given { @question_2     = create :question, :freeform, data: { text: 'Яке Ваше відношення до ...' } }
-  Given { @questionnaire  = create :questionnaire, title: 'Псих тест', questions: [@question_1, @question_2] }
+  Given { @question_1     = create :question, :boolean , data: { text: { uk: 'Чи ти в своєму розумі?',
+                                                                         ru: 'Ты в своем уме?' } } }
+  Given { @question_2     = create :question, :freeform, data: { text: { uk: 'Яке Ваше відношення до ...',
+                                                                         ru: 'Как Вы относитесь к?' } } }
+  Given { @questionnaire  = create :questionnaire, title_uk: 'Псих тест', questions: [@question_1, @question_2] }
   Given { @program        = create :program, questionnaires: [@questionnaire] }
   Given { @person         = create :person }
   Given { StudyApplication.create(person: @person, program: @program) }
