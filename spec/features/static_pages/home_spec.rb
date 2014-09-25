@@ -26,10 +26,10 @@ describe :home do
       describe 'have elements' do
         Then  { expect(find('#study_application')).to have_content('Школа Бхакти') }
         And   { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
-        And   { expect(find('#study_application')).to have_link('Withdraw') }
-        And   { expect(find('#study_application')).to have_css('li', text: 'Fill questionnaire Психо тест') }
-        And   { expect(find('#study_application')).to have_css('li', text: 'Attach photo here') }
-        And   { expect(find('#study_application')).to have_css('li', text: 'Attach passport here') }
+        And   { expect(find('#study_application')).to have_link(I18n.t('links.withdraw')) }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Заповнити Психо тест') }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Додати фотографію до профайлу') }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Додати паспорт до профайлу') }
       end
 
       describe 'withdraw', :js do
@@ -56,7 +56,7 @@ describe :home do
       describe 'apply', :js do
         When { programs.first.find('.btn-success').click }
 
-        Then { expect(find('#study_application')).to have_link('Withdraw') }
+        Then { expect(find('#study_application')).to have_link(I18n.t('links.withdraw')) }
         And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
         And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
       end
