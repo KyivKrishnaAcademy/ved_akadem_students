@@ -28,19 +28,20 @@
 - else
   - if person.pending_docs.present?
     .pending-docs.alert.alert-danger
-      In order your application for study to be reviewed, you should:
+      = t('content.application_requirements')
       %ul
         - if person.pending_docs[:questionnaires].present?
           - person.not_finished_questionnaires.each do |questionnaire|
             %li
-              Fill questionnaire #{ link_to questionnaire["title_#{locale}"], edit_answer_path(questionnaire) }
+              #{t('content.fill_questionnaire')} #{ link_to questionnaire["title_#{locale}"], edit_answer_path(questionnaire) }
         - if person.pending_docs[:photo].present?
           %li
-            Attach photo #{ link_to 'here', edit_person_registration_path(person.resource) }
+            #{t('content.attach_photo')} #{ link_to t('content.in_profile'), edit_person_registration_path(person.resource) }
         - if person.pending_docs[:passport].present?
           %li
-            Attach passport #{ link_to 'here', edit_person_registration_path(person.resource) }
+            #{t('content.attach_passport')} #{ link_to t('content.in_profile'), edit_person_registration_path(person.resource) }
   .program.alert.alert-success.clearfix
-    You have applied to #{person.study_application.program["title_#{locale}"]}
+    #{t('content.you_applied')} "#{person.study_application.program["title_#{locale}"]}"
     .pull-right
-      = link_to 'Withdraw', person.study_application, remote: true, method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Are you sure?' }
+      = link_to t('links.withdraw'), person.study_application, remote: true, method: :delete,
+                class: 'btn btn-xs btn-danger', data: { confirm: t('content.confirm_withdraw') }
