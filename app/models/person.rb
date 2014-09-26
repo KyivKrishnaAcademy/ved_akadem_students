@@ -52,7 +52,7 @@ class Person < ActiveRecord::Base
   end
 
   def not_finished_questionnaires
-    questionnaires.joins(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
+    questionnaires.includes(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
   end
 
   private

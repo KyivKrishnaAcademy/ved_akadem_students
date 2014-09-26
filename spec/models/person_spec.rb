@@ -129,10 +129,13 @@ describe Person do
       end
 
       describe '#not_finished_questionnaires' do
+        Given { @person_2 = create :person }
         Given { @person.questionnaire_completenesses.create(completed: true , questionnaire_id: @questionnaire_1.id) }
         Given { @person.questionnaire_completenesses.create(completed: false, questionnaire_id: @questionnaire_2.id) }
+        Given { @person_2.questionnaire_completenesses.create(questionnaire_id: @questionnaire_1.id) }
+        Given { @person_2.questionnaire_completenesses.create(questionnaire_id: @questionnaire_2.id) }
 
-        Then  { expect(@person.not_finished_questionnaires.pluck(:id)).to eq([@questionnaire_2.id]) }
+        Then  { expect(@person.not_finished_questionnaires.map(&:id)).to eq([@questionnaire_2.id]) }
       end
     end
   end
