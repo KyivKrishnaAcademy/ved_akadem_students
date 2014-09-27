@@ -1,17 +1,22 @@
 - provide(:title, resource["title_#{locale}"])
 
-.questionnaire
-  = simple_form_for resource, url: answer_path do |f|
-    %h2
-      = resource["title_#{locale}"]
-    .description
-      = resource["description_#{locale}"]
-    %br
-
-    = render 'shared/error_messages', object: f.object
-
-    .questions
-      = f.simple_fields_for :questions do |q|
-        = render "question_#{q.object.format}", q: q, person: current_person
-
-    = f.button :submit
+.row
+  .col-xs-12
+    = simple_form_for resource, url: answer_path do |f|
+      .row
+        .col-xs-12
+          %h2
+            = resource["title_#{locale}"]
+      .row
+        .col-xs-12
+          %h4
+            = resource["description_#{locale}"]
+      .row
+        .col-xs-12
+          = render 'shared/error_messages', object: f.object
+      .row.vert-offset-top-2
+        = f.simple_fields_for :questions do |q|
+          = render "question_#{q.object.format}", q: q, person: current_person
+      .row.vert-offset-top-1
+        .col-xs-12
+          = f.button :submit
