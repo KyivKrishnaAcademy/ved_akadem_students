@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'Questionnaires' do
+  Given { page.set_rack_session(locale: :uk) }
   Given { @question_1     = create :question, :boolean , data: { text: { uk: 'Чи ти в своєму розумі?',
                                                                          ru: 'Ты в своем уме?' } } }
   Given { @question_2     = create :question, :freeform, data: { text: { uk: 'Яке Ваше відношення до ...',
@@ -22,12 +23,11 @@ describe 'Questionnaires' do
     When { visit edit_answer_path(@questionnaire) }
 
     describe 'should have fields' do
-      subject { find('.questions') }
+      subject { find('body > .container') }
 
-      Then { is_expected.to have_css('.question', count: 2) }
-      And  { is_expected.to have_css('.question input[type="radio"]', count: 2) }
+      Then { is_expected.to have_css('input[type="radio"]', count: 2) }
       And  { is_expected.to have_content('Чи ти в своєму розумі?') }
-      And  { is_expected.to have_css('.question textarea', count: 1) }
+      And  { is_expected.to have_css('textarea', count: 1) }
       And  { is_expected.to have_content('Яке Ваше відношення до ...') }
     end
 
