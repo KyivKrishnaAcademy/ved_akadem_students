@@ -14,7 +14,7 @@ namespace :akadem do
                             description_uk: psyho_test[:description_uk],
                             description_ru: psyho_test[:description_ru],
                             questions:      psyho_test[:questions].map do |q|
-                                              Question.new(format: 'boolean',
+                                              Question.new(format: 'single_select',
                                                            data: { text: { uk: q[:question_uk], ru: q[:question_ru] } })
                                             end)
 
