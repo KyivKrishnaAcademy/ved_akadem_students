@@ -28,3 +28,6 @@ ru:
     attach_photo:             'Добавить фотографию'
     attach_passport:          'Добавить паспорт'
     in_profile:               'в профайл'
+  answers:
+    edit:
+      update: 'Отправить ответ'

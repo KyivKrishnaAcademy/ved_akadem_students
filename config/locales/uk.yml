@@ -28,3 +28,6 @@ uk:
     attach_photo:             'Додати фотографію'
     attach_passport:          'Додати паспорт'
     in_profile:               'до профайлу'
+  answers:
+    edit:
+      update: 'Надіслати відповідь'
