@@ -36,7 +36,7 @@ describe 'Questionnaires' do
     describe 'should not be in pending' do
       When { first('input[type="radio"]').set(true) }
       When { find('textarea').set('не знаю') }
-      When { click_button 'Update Questionnaire' }
+      When { click_button I18n.t('answers.edit.update') }
 
       Then { expect(find('.pending-docs')).not_to have_link('Псих тест') }
     end

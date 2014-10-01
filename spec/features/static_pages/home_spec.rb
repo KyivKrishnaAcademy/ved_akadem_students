@@ -3,6 +3,7 @@ require 'rails_helper'
 describe :home do
   Given { @person = create(:person) }
   Given { login_as_user(@person) }
+  Given { page.set_rack_session(locale: :uk) }
 
   When { visit '/static_pages/home' }
 
@@ -56,7 +57,7 @@ describe :home do
       describe 'apply', :js do
         When { programs.first.find('.btn-success').click }
 
-        Then { expect(find('#study_application')).to have_link(I18n.t('links.withdraw')) }
+        Then { expect(find('#study_application')).to have_css('.alert-success .btn-danger[data-method="delete"]') }
         And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
         And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
       end
