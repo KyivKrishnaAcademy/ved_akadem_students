@@ -4,7 +4,7 @@ FactoryGirl.define do
     data    { { text: { uk: Faker::Lorem.sentence, ru: Faker::Lorem.sentence } } }
   end
 
-  trait :boolean do
+  trait :single_select do
     format { 'single_select' }
   end
 

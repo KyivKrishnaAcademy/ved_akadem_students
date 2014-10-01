@@ -2,8 +2,10 @@ require 'rails_helper'
 
 describe 'Questionnaires' do
   Given { page.set_rack_session(locale: :uk) }
-  Given { @question_1     = create :question, :boolean , data: { text: { uk: 'Чи ти в своєму розумі?',
-                                                                         ru: 'Ты в своем уме?' } } }
+  Given { @question_1     = create :question, :single_select , data: {  text: { uk: 'Чи ти в своєму розумі?',
+                                                                                ru: 'Ты в своем уме?' },
+                                                                        options: { uk: [['Так', true] ,['Ні', false]],
+                                                                                   ru: [['Да', true] ,['Нет', false]] }} }
   Given { @question_2     = create :question, :freeform, data: { text: { uk: 'Яке Ваше відношення до ...',
                                                                          ru: 'Как Вы относитесь к?' } } }
   Given { @questionnaire  = create :questionnaire, title_uk: 'Псих тест', questions: [@question_1, @question_2] }
