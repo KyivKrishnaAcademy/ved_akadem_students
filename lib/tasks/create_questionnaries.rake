@@ -15,7 +15,9 @@ namespace :akadem do
                             description_ru: psyho_test[:description_ru],
                             questions:      psyho_test[:questions].map do |q|
                                               Question.new(format: 'single_select',
-                                                           data: { text: { uk: q[:question_uk], ru: q[:question_ru] } })
+                                                           data: {  text: { uk: q[:question_uk], ru: q[:question_ru] },
+                                                                    options: { uk: [['Так', true] ,['Ні', false]],
+                                                                               ru: [['Да', true] ,['Нет', false]] }})
                                             end)
 
     initial_questionnaire = Questionnaire.create(
