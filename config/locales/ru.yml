@@ -28,6 +28,11 @@ ru:
     attach_photo:             'Добавить фотографию'
     attach_passport:          'Добавить паспорт'
     in_profile:               'в профайл'
+    form_has_errors:
+      one:    'Исправьте пожалуйста %{count} ошибку:'
+      few:    'Исправьте пожалуйста %{count} ошибки:'
+      many:   'Исправьте пожалуйста %{count} ошибок:'
+      other:  'Исправьте пожалуйста %{count} ошибок:'
   answers:
     edit:
       update: 'Отправить ответ'

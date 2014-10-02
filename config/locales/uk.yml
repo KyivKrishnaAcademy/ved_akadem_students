@@ -28,6 +28,11 @@ uk:
     attach_photo:             'Додати фотографію'
     attach_passport:          'Додати паспорт'
     in_profile:               'до профайлу'
+    form_has_errors:
+      one:    'Виправте будьласка %{count} помилку:'
+      few:    'Виправте будьласка %{count} помилки:'
+      many:   'Виправте будьласка %{count} помилок:'
+      other:  'Виправте будьласка %{count} помилки:'
   answers:
     edit:
       update: 'Надіслати відповідь'
