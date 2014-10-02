@@ -5,19 +5,19 @@
 
 .row.vert-offset-top-2
   .col-xs-12
-    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false } ) do |f|
       = render 'shared/error_messages', object: f.object
 
       .row.form-inputs
         .col-xs-12
           .row
             .col-xs-12.col-sm-6
-              = f.input :photo, as: :file, wrapper: :vertical_file_input, required: false
+              = f.input :photo, as: :file, wrapper: :vertical_file_input
               = f.input :photo_cache, as: :hidden
-              = f.input :passport, as: :file, wrapper: :vertical_file_input, required: false
+              = f.input :passport, as: :file, wrapper: :vertical_file_input
               = f.input :passport_cache, as: :hidden
             .col-xs-12.col-sm-6
-              = f.input :email, required: true, autofocus: true
+              = f.input :email, autofocus: true
               = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
           .row
             .col-xs-12.col-sm-6
@@ -28,11 +28,11 @@
               = f.input :education
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
-              = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
+              = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
               = f.input :emergency_contact
-              = f.input :password, required: true
-              = f.input :password_confirmation, required: true
+              = f.input :password
+              = f.input :password_confirmation
               = f.input :work
 
       .row.form-actions.vert-offset-top-2
