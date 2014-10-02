@@ -20,9 +20,21 @@ describe Person do
 
   describe 'validation' do
     context 'password' do
-      Then { is_expected.to validate_confirmation_of(:password) }
-      And  { is_expected.to ensure_length_of(:password).is_at_most(128) }
+      Then { is_expected.to ensure_length_of(:password).is_at_most(128) }
       And  { is_expected.to ensure_length_of(:password).is_at_least(6) }
+      And  do
+        # due to https://github.com/thoughtbot/shoulda-matchers/issues/593
+        # This do not work "is_expected.to validate_confirmation_of(:password)"
+
+        error_message = I18n.t('activerecord.errors.models.person.attributes.password_confirmation.confirmation')
+        person        = subject.dup
+        
+        person.password               = 'value'
+        person.password_confirmation  = 'different value'
+        person.save
+
+        expect(person.errors.messages[:password_confirmation].first).to eq(error_message)
+      end
     end
 
     describe 'should skip password validation' do
