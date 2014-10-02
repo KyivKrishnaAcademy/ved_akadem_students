@@ -7,7 +7,7 @@ describe 'people/edit.html.erb' do
 
   Given do
     @admin = create(:person, :admin,
-      telephones:     [build(:telephone, phone: '380112223344')],
+      telephones:     [build(:telephone, phone: '380 (11) 222-33-44')],
       spiritual_name: 'Dasa Das'        ,
       name:           'Ivan'            ,
       middle_name:    'Petrovich'       ,
@@ -38,7 +38,7 @@ describe 'people/edit.html.erb' do
     context 'admin' do
       Then { is_expected.to have_title(full_title(complex_name(@admin, :t))) }
       And  { is_expected.to have_selector('h1', text: complex_name(@admin)) }
-      And  { is_expected.to have_selector('#person_telephones_attributes_0_phone[value="380112223344"]') }
+      And  { is_expected.to have_selector('#person_telephones_attributes_0_phone[value="380 (11) 222-33-44"]') }
       And  { is_expected.to have_selector('#person_spiritual_name[value="Dasa Das"]') }
       And  { is_expected.to have_selector('#person_name[value="Ivan"]') }
       And  { is_expected.to have_selector('#person_middle_name[value="Petrovich"]') }

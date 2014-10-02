@@ -11,7 +11,7 @@ describe 'Edit person:' do
 
   context 'When values are valid:' do
     [
-      { field: 'person_telephones_attributes_0_phone', value: '380692223344', test_field: 'Telephone 1: 380692223344'},
+      { field: 'person_telephones_attributes_0_phone', value: '380 (69) 222-33-44', test_field: 'Telephone 1: 380 (69) 222-33-44'},
       { field: 'person[spiritual_name]'   , value: 'AdiDasa dasa'   , test_field: 'Spiritual name: Adidasa Dasa' },
       { field: 'person[name]'             , value: 'алексей'        , test_field: 'Name: Алексей'                },
       { field: 'person[middle_name]'      , value: 'иванович'       , test_field: 'Middle name: Иванович'        },
@@ -36,14 +36,14 @@ describe 'Edit person:' do
     end
 
     describe 'Gender' do
-      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Чоловіча' , 'Gender: Male'
-      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Жіноча'   , 'Gender: Female'
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Чоловіча' ,'Gender: Male'
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Жіноча'   ,'Gender: Female'
     end
   end
 
   context 'When values are invalid:' do
     [
-      { field: 'person_telephones_attributes_0_phone', value: '501112233' },
+      { field: 'person_telephones_attributes_0_phone', value: '(50) 11122-33' },
       { field: 'person[email]'  , value: '@@.com@' },
       { field: 'person[name]'   , value: '' },
       { field: 'person[surname]', value: '' }

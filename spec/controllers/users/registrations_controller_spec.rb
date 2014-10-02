@@ -36,7 +36,7 @@ describe Users::RegistrationsController do
     describe 'create' do
       Given (:person_attributes) { build(:person).attributes.merge(password: 'password',
                                                                    password_confirmation: 'password',
-                                                                   telephones_attributes: { '0' => { phone: '1234567890'}}) }
+                                                                   telephones_attributes: { '0' => { phone: '(123) 456-78-90'}}) }
 
       context 'has photo' do
         When { post :create, person: person_attributes.merge(photo: 'test.png') }
@@ -54,7 +54,7 @@ describe Users::RegistrationsController do
     describe 'update' do
       Given { @person = create(:person) }
       Given (:person_attributes) { @person.attributes.merge(current_password: 'password',
-                                                            telephones_attributes: { '0' => { phone: '1234567890'}}) }
+                                                            telephones_attributes: { '0' => { phone: '(123) 456-78-90'}}) }
 
       When { sign_in :person, @person }
 

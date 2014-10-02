@@ -21,7 +21,7 @@ FactoryGirl.define do
     middle_name     { 'Adminovich' }
     surname         { 'Adminov' }
     spiritual_name  { 'Admin Prabhu' }
-    telephones      { [build(:telephone, phone: '199999999999')] }
+    telephones      { [build(:telephone, phone: '199 (99) 999-99-99')] }
   end
 
   trait :with_photo do
