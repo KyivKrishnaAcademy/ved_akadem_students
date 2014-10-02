@@ -4,9 +4,11 @@ uk:
       person:
         email:                  'Електронна пошта'
         gender:                 'Стать'
+        middle_name:            'По батькові'
         name:                   "Ім'я"
         password:               'Пароль'
         password_confirmation:  'Підтвердження'
+        spiritual_name:         "Духовне і'мя"
         surname:                'Призвище'
       telephones:
         phone:    'Телефонний номер'
@@ -14,14 +16,15 @@ uk:
       models:
         person:
           blank:      'повинно бути заповнено'
-          inclusion:  'повинна бути обрана'
           too_long:   'занадто довге (максимум %{count} символів)'
-          too_short:  'занадто короткий (мінімум %{count} символів)'
           attributes:
             email:
               invalid:              'повинна відповідати формату "pryklad@example.com"'
+            gender:
+              inclusion:            'повинна бути обрана'
             password:
               too_long:             'занадто довигий (максимум %{count} символів)'
+              too_short:            'занадто короткий (мінімум %{count} символів)'
             password_confirmation:
               confirmation:         'повинно бути таким самим як і пароль'
         telephone:

@@ -1,0 +1,34 @@
+ru:
+  activerecord:
+    attributes:
+      person:
+        email:                  'Электронная почта'
+        gender:                 'Пол'
+        middle_name:            'Отчество'
+        name:                   'Имя'
+        password:               'Пароль'
+        password_confirmation:  'Подтверждение'
+        spiritual_name:         'Духовное имя'
+        surname:                'Фамилия'
+      telephones:
+        phone:    'Телефонний номер'
+    errors:
+      models:
+        person:
+          blank:      'должно быть заполнено'
+          too_long:   'слишком длинное (максимум %{count} символов)'
+          attributes:
+            email:
+              invalid:              'должна иметь формат "primer@example.com"'
+            gender:
+              inclusion:            'должен быть выбран'
+            password:
+              too_long:             'слишком длинный (максимум %{count} символов)'
+              too_short:            'слишком короткий (минимум %{count} символов)'
+            password_confirmation:
+              confirmation:         'должно быть таким же как и пароль'
+            surname:
+              blank:                'должна быть заполнена'
+              too_long:             'слишком длинная (максимум %{count} символов)'
+        telephone:
+          invalid:  'должен иметь формат "(044) 111-22-33"'
