@@ -2,6 +2,8 @@ ru:
   activerecord:
     attributes:
       person:
+        birthday:               'День рождения'
+        education:              'Образование'
         email:                  'Электронная почта'
         gender:                 'Пол'
         middle_name:            'Отчество'
@@ -10,6 +12,7 @@ ru:
         password_confirmation:  'Подтверждение'
         spiritual_name:         'Духовное имя'
         surname:                'Фамилия'
+        work:                   'Работа'
       telephones:
         phone:    'Телефонний номер'
     errors:
@@ -30,5 +33,7 @@ ru:
             surname:
               blank:                'должна быть заполнена'
               too_long:             'слишком длинная (максимум %{count} символов)'
+            work:
+              blank:                'должна быть заполнена'
         telephone:
           invalid:  'должен иметь формат "(044) 111-22-33"'

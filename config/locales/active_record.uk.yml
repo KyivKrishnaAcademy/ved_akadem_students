@@ -2,6 +2,8 @@ uk:
   activerecord:
     attributes:
       person:
+        birthday:               'День народження'
+        education:              'Освіта'
         email:                  'Електронна пошта'
         gender:                 'Стать'
         middle_name:            'По батькові'
@@ -10,6 +12,7 @@ uk:
         password_confirmation:  'Підтвердження'
         spiritual_name:         "Духовне і'мя"
         surname:                'Призвище'
+        work:                   'Робота'
       telephones:
         phone:    'Телефонний номер'
     errors:
@@ -18,6 +21,8 @@ uk:
           blank:      'повинно бути заповнено'
           too_long:   'занадто довге (максимум %{count} символів)'
           attributes:
+            education:
+              blank:                'повинна бути заповнена'
             email:
               invalid:              'повинна відповідати формату "pryklad@example.com"'
             gender:
@@ -27,5 +32,7 @@ uk:
               too_short:            'занадто короткий (мінімум %{count} символів)'
             password_confirmation:
               confirmation:         'повинно бути таким самим як і пароль'
+            work:
+              blank:                'повинна бути заповнена'
         telephone:
           invalid:  'повинен відповідати формату "(044) 111-22-33"'
