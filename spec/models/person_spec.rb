@@ -28,7 +28,7 @@ describe Person do
 
         error_message = I18n.t('activerecord.errors.models.person.attributes.password_confirmation.confirmation')
         person        = subject.dup
-        
+
         person.password               = 'value'
         person.password_confirmation  = 'different value'
         person.save
@@ -83,6 +83,12 @@ describe Person do
       context 'equals 150x200 valid' do
         Then { expect(build(:person, :with_photo)).to be_valid }
       end
+    end
+
+    describe 'birthday, education, work' do
+      Then { is_expected.to validate_presence_of(:education) }
+      And  { is_expected.to validate_presence_of(:birthday) }
+      And  { is_expected.to validate_presence_of(:work) }
     end
   end
 

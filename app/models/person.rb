@@ -19,12 +19,10 @@ class Person < ActiveRecord::Base
 
   validates :password, length: { in: 6..128, unless: :skip_password_validation  }
   validates :password, confirmation: true
-  validates :name,    length: { maximum: 50 }, presence: true
-  validates :surname, length: { maximum: 50 }, presence: true
-  validates :middle_name,     length: { maximum: 50 }
-  validates :spiritual_name,  length: { maximum: 50 }
-  validates :gender,          inclusion: { in: [true, false] }
-  validates :telephones, presence: true
+  validates :name, :surname, length: { maximum: 50 }, presence: true
+  validates :middle_name, :spiritual_name, length: { maximum: 50 }
+  validates :gender, inclusion: { in: [true, false] }
+  validates :telephones, :birthday, :education, :work, presence: true
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
 
   validate :check_photo_dimensions
