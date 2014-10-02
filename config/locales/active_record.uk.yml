@@ -1,0 +1,28 @@
+uk:
+  activerecord:
+    attributes:
+      person:
+        email:                  'Електронна пошта'
+        gender:                 'Стать'
+        name:                   "Ім'я"
+        password:               'Пароль'
+        password_confirmation:  'Підтвердження'
+        surname:                'Призвище'
+      telephones:
+        phone:    'Телефонний номер'
+    errors:
+      models:
+        person:
+          blank:      'повинно бути заповнено'
+          inclusion:  'повинна бути обрана'
+          too_long:   'занадто довге (максимум %{count} символів)'
+          too_short:  'занадто короткий (мінімум %{count} символів)'
+          attributes:
+            email:
+              invalid:              'повинна відповідати формату "pryklad@example.com"'
+            password:
+              too_long:             'занадто довигий (максимум %{count} символів)'
+            password_confirmation:
+              confirmation:         'повинно бути таким самим як і пароль'
+        telephone:
+          invalid:  'повинен відповідати формату "(044) 111-22-33"'
