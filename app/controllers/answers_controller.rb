@@ -20,10 +20,6 @@ class AnswersController < ApplicationController
 
         redirect_to root_path
       end
-
-      failure.html do
-        render :edit
-      end
     end
   end
 
