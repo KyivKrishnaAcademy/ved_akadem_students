@@ -6,7 +6,7 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :answers
 
-  def answer_by_person(person)
-    answers.find_or_initialize_by(person: person)
+  def answers_by_person(person)
+    answers.select { |a| a.person_id == person.id }
   end
 end
