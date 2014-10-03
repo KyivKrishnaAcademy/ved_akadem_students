@@ -16,8 +16,14 @@ uk:
         work:                   'Робота'
       telephones:
         phone:    'Телефонний номер'
+      questions/answers:
+        data:             'Відповідь'
     errors:
       models:
+        answer:
+          attributes:
+            data:
+              blank:  'не може бути пустою'
         person:
           blank:      'повинно бути заповнено'
           too_long:   'занадто довге (максимум %{count} символів)'

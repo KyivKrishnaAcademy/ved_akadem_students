@@ -16,8 +16,14 @@ ru:
         work:                   'Работа'
       telephones:
         phone:    'Телефонний номер'
+      questions/answers:
+        data:             'Ответ'
     errors:
       models:
+        answer:
+          attributes:
+            data:
+              blank:  'не может быть пустым'
         person:
           blank:      'должно быть заполнено'
           too_long:   'слишком длинное (максимум %{count} символов)'
