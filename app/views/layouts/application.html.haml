@@ -30,7 +30,7 @@
 
     = render 'layouts/footer'
 
-    - if Rails.env.development?
+    - if Rails.env.development? && DEBUG
       .row
         .col-xs-12
           = debug(params)

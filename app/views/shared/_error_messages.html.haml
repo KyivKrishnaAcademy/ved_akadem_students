@@ -1,6 +1,6 @@
 - if object.errors.any?
   .alert.alert-danger
-    - if Rails.env.development?
+    - if Rails.env.development? && DEBUG
       %p
         %strong
           Begin debug
