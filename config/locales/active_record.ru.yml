@@ -3,6 +3,7 @@ ru:
     attributes:
       person:
         birthday:               'День рождения'
+        current_password:       'Текущий пароль'
         education:              'Образование'
         email:                  'Электронная почта'
         gender:                 'Пол'
@@ -23,6 +24,9 @@ ru:
           attributes:
             email:
               invalid:              'должна иметь формат "primer@example.com"'
+            current_password:
+              blank:                'должен быть заполнен'
+              invalid:              'не правильный'
             gender:
               inclusion:            'должен быть выбран'
             password:

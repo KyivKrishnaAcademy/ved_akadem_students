@@ -23,7 +23,7 @@ uk:
         spiritual_name:         "Духовне ім'я (якщо є)"
         name:                   "Ім'я"
         middle_name:            'По батькові'
-        surname:                'Фамілія'
+        surname:                'Призвище'
         phone:                  'Телефон'
         gender:                 'Стать'
         birthday:               'День народження'

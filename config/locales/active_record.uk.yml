@@ -3,6 +3,7 @@ uk:
     attributes:
       person:
         birthday:               'День народження'
+        current_password:       'Поточний пароль'
         education:              'Освіта'
         email:                  'Електронна пошта'
         gender:                 'Стать'
@@ -23,6 +24,9 @@ uk:
           attributes:
             education:
               blank:                'повинна бути заповнена'
+            current_password:
+              blank:                'повинний бути заповнений'
+              invalid:              'не вірний'
             email:
               invalid:              'повинна відповідати формату "pryklad@example.com"'
             gender:
