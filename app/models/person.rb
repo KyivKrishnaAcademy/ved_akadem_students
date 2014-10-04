@@ -79,7 +79,7 @@ class Person < ActiveRecord::Base
     dimensions_valid   = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
     if dimensions_present && dimensions_valid
-      errors.add :photo, 'Dimensions of uploaded photo should be not less than 150x200 pixels.'
+      errors.add :photo, :size
     end
   end
 end

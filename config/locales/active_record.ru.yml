@@ -11,6 +11,7 @@ ru:
         name:                   'Имя'
         password:               'Пароль'
         password_confirmation:  'Подтверждение'
+        photo:                  'Фотография'
         spiritual_name:         'Духовное имя'
         surname:                'Фамилия'
         work:                   'Работа'
@@ -40,6 +41,8 @@ ru:
               too_short:            'слишком короткий (минимум %{count} символов)'
             password_confirmation:
               confirmation:         'должно быть таким же как и пароль'
+            photo:
+              size:                 'должна быть не меньше 150*200 пикселей'
             surname:
               blank:                'должна быть заполнена'
               too_long:             'слишком длинная (максимум %{count} символов)'

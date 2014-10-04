@@ -11,6 +11,7 @@ uk:
         name:                   "Ім'я"
         password:               'Пароль'
         password_confirmation:  'Підтвердження'
+        photo:                  'Фотографія'
         spiritual_name:         "Духовне і'мя"
         surname:                'Призвище'
         work:                   'Робота'
@@ -31,7 +32,7 @@ uk:
             education:
               blank:                'повинна бути заповнена'
             current_password:
-              blank:                'повинний бути заповнений'
+              blank:                'повинен бути заповненим'
               invalid:              'не вірний'
             email:
               invalid:              'повинна відповідати формату "pryklad@example.com"'
@@ -42,6 +43,8 @@ uk:
               too_short:            'занадто короткий (мінімум %{count} символів)'
             password_confirmation:
               confirmation:         'повинно бути таким самим як і пароль'
+            photo:
+              size:                 'повинна бути не меньше 150*200 пікселів'
             work:
               blank:                'повинна бути заповнена'
         telephone:
