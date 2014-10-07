@@ -16,7 +16,7 @@ gem 'pundit'
 gem 'simple_form', '3.1.0.rc2', github: 'plataformatec/simple_form'
 gem 'nested_form'
 
-gem 'carrierwave'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
 gem 'jcrop-rails-v2'
 
