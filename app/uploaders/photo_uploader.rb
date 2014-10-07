@@ -16,7 +16,7 @@ class PhotoUploader < BaseUploader
   private
 
   def capture_size(new_file)
-    if model.photo_upload_width.nil? || model.photo_upload_height.nil?
+    if new_file.present? && (model.photo_upload_width.nil? || model.photo_upload_height.nil?)
       path = new_file.is_a?(String) ? Rails.root.join('tmp/uploads/cache', new_file) : new_file.path
 
       model.photo_upload_width, model.photo_upload_height = `identify -format "%wx %h" #{path}`.split(/x/).map { |dim| dim.to_i }
