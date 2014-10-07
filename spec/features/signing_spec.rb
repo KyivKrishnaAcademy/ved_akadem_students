@@ -51,17 +51,36 @@ describe 'Signing' do
     end
 
     describe 'should signup with photo' do
-      When do
-        attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/150x200.png"
-        click_button I18n.t('devise.links.sign_up')
+      context 'invalid' do
+        When do
+          attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/10x10.png"
+          click_button I18n.t('devise.links.sign_up')
+        end
+
+        describe 'should show error' do
+          Then { expect(find('.alert-danger')).to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size')) }
+        end
+
+        context 'on second click' do
+          When { click_button I18n.t('devise.links.sign_up') }
+
+          Then { expect(find('.alert-danger')).to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size')) }
+        end
       end
 
-      describe 'should show flash' do
-        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
-      end
+      context 'valid' do
+        When do
+          attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/150x200.png"
+          click_button I18n.t('devise.links.sign_up')
+        end
 
-      describe 'should direct to crop path' do
-        Then { expect(find('h1')).to have_content('crop image') }
+        describe 'should show flash' do
+          Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
+        end
+
+        describe 'should direct to crop path' do
+          Then { expect(find('h1')).to have_content('crop image') }
+        end
       end
     end
 

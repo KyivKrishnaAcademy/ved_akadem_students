@@ -76,10 +76,8 @@ class Person < ActiveRecord::Base
 
   def check_photo_dimensions
     dimensions_present = photo_upload_height.present? && photo_upload_width.present?
-    dimensions_valid   = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
+    dimensions_invalid = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
-    if dimensions_present && dimensions_valid
-      errors.add :photo, :size
-    end
+    errors.add(:photo, :size) if dimensions_invalid
   end
 end
