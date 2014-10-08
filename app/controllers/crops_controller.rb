@@ -19,7 +19,7 @@ class CropsController < ApplicationController
 
       redirect_to path
     else
-      flash[:danger] = 'Image was not cropped.'
+      flash[:danger] = I18n.t('crops.error')
 
       render action: :crop_image
     end
