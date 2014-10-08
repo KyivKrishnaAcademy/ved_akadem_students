@@ -6,20 +6,20 @@
 .row
   .col-xs-12
     %h1
-      We will crop image here.
+      = t('.title')
 .row
   .col-xs-12.col-sm-9.col-lg-6
     %h4
-      Select visible area
+      = t('.select_area')
     = image_tag "/people/show_photo/default/#{@person.id}", id: 'cropbox'
   .col-xs-12.col-sm-3.col-lg-6
     %h4
-      Preview
+      = t('.preview')
     .crop-preview
       = image_tag "/people/show_photo/default/#{@person.id}", id: 'preview'
   .col-xs-12.col-lg-6
     %h4
-      Example
+      = t('.guide')
     = image_tag 'crop_to_big.png', class: 'border-1'
     = image_tag 'crop_just_fine.png', class: 'border-1'
     = image_tag 'crop_to_small.png', class: 'border-1'
@@ -30,4 +30,4 @@
         - %w{x y w h}.each do |attribute|
           = f.hidden_field "crop_#{attribute}"
 
-        = f.submit 'Crop', class: 'btn btn-primary'
+        = f.submit t('.crop'), class: 'btn btn-primary'

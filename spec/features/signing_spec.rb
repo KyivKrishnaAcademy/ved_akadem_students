@@ -79,7 +79,7 @@ describe 'Signing' do
         end
 
         describe 'should direct to crop path' do
-          Then { expect(find('h1')).to have_content('crop image') }
+          Then { expect(find('h1')).to have_content(I18n.t('crops.crop_image.title')) }
         end
       end
     end
@@ -146,7 +146,7 @@ describe 'Signing' do
         end
 
         describe 'should direct to crop path' do
-          Then { expect(find('h1')).to have_content('crop image') }
+          Then { expect(find('h1')).to have_content(I18n.t('crops.crop_image.title')) }
         end
 
         describe 'should be updated' do
