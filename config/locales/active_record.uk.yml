@@ -35,6 +35,7 @@ uk:
               blank:                'повинен бути заповненим'
               invalid:              'не вірний'
             email:
+              blank:                'повинен бути заповненим'
               invalid:              'повинна відповідати формату "pryklad@example.com"'
             gender:
               inclusion:            'повинна бути обрана'

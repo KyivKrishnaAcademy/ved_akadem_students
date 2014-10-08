@@ -30,6 +30,7 @@ ru:
           too_long:   'слишком длинное (максимум %{count} символов)'
           attributes:
             email:
+              blank:                'должен быть заполнен'
               invalid:              'должна иметь формат "primer@example.com"'
             current_password:
               blank:                'должен быть заполнен'
