@@ -19,6 +19,14 @@ describe Person do
   end
 
   describe 'validation' do
+    context 'privacy_agreement' do
+      Then { is_expected.to validate_acceptance_of(:privacy_agreement).on(:create) }
+    end
+
+    describe 'should skip privacy_agreement validation' do
+      Then { expect(build(:person, privacy_agreement: '', skip_password_validation: true)).to be_valid }
+    end
+
     context 'password' do
       Then { is_expected.to ensure_length_of(:password).is_at_most(128) }
       And  { is_expected.to ensure_length_of(:password).is_at_least(6) }

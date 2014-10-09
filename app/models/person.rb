@@ -1,6 +1,7 @@
 class Person < ActiveRecord::Base
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :privacy_agreement
 
   devise :database_authenticatable, :registerable, :recoverable
 
@@ -17,13 +18,14 @@ class Person < ActiveRecord::Base
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :password, length: { in: 6..128, unless: :skip_password_validation  }
-  validates :password, confirmation: true
-  validates :name, :surname, length: { maximum: 50 }, presence: true
-  validates :middle_name, :spiritual_name, length: { maximum: 50 }
-  validates :gender, inclusion: { in: [true, false] }
-  validates :telephones, :birthday, :education, :work, presence: true
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+  validates :gender, inclusion: { in: [true, false] }
+  validates :middle_name, :spiritual_name, length: { maximum: 50 }
+  validates :name, :surname, length: { maximum: 50 }, presence: true
+  validates :password, confirmation: true
+  validates :password, length: { in: 6..128, unless: :skip_password_validation  }
+  validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
+  validates :telephones, :birthday, :education, :work, presence: true
 
   validate :check_photo_dimensions
 
