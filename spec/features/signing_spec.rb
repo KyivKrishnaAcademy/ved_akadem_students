@@ -195,9 +195,11 @@ describe 'Signing' do
   end
 
   describe 'forgot email' do
-    Given { create :person, email: 'admin@example.com', telephones: [create(:telephone, phone: '(111) 111-11-11')] }
+    Given { create :person, email: 'admin@example.com',   telephones: [create(:telephone, phone: '(111) 111-11-11')] }
     Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '(111) 111-11-11'), create(:telephone, phone: '(222) 222-22-22')] }
     Given { visit remind_email_path }
+
+    subject { page.body }
 
     describe 'found one email' do
       When do
@@ -205,13 +207,11 @@ describe 'Signing' do
         click_button I18n.t('users.emails.new.get_email')
       end
 
-      Then { expect(find('.found-emails').text).to match(/(\w|\*)+@test\.org/) }
-      And  { expect(find('.found-emails').text).not_to match(/(\w|\*)+@example\.com/) }
+      Then { is_expected.to match(/(\w|\*)+@test\.org/) }
+      And  { is_expected.not_to match(/(\w|\*)+@example\.com/) }
     end
 
     describe 'found two emails' do
-      subject { find('.found-emails').text }
-
       When do
         fill_in 'phone', with: '(111) 111-11-11'
         click_button I18n.t('users.emails.new.get_email')
@@ -227,7 +227,7 @@ describe 'Signing' do
         click_button I18n.t('users.emails.new.get_email')
       end
 
-      Then { expect(find('.found-emails')).to have_content('The telephone is not registered.') }
+      Then { expect(find('p.text-warning')).to have_content(I18n.t('users.emails.create.no_telephone')) }
     end
   end
 end
