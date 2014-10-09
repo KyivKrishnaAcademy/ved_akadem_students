@@ -54,3 +54,9 @@ ru:
         new_password:           'Новий пароль'
         password_confirmation:  'Подтверждение нового пароля'
         change:                 'Изменить пароль'
+  users:
+    emails:
+      new:
+        forgot_email: 'Забыли электронную почту?'
+        enter_phone:  'Введите телефон'
+        get_email:    'Напомнить почту'

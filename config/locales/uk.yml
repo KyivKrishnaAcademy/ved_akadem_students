@@ -54,3 +54,9 @@ uk:
         new_password:           'Новий пароль'
         password_confirmation:  'Підтвердження нового паролю'
         change:                 'Змінити пароль'
+  users:
+    emails:
+      new:
+        forgot_email: 'Забули електронну пошту?'
+        enter_phone:  'Введіть телефон'
+        get_email:    'Нагадати пошту'

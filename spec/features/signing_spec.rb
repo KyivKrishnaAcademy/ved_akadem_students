@@ -202,7 +202,7 @@ describe 'Signing' do
     describe 'found one email' do
       When do
         fill_in 'phone', with: '(222) 222-22-22'
-        click_button 'Get email'
+        click_button I18n.t('users.emails.new.get_email')
       end
 
       Then { expect(find('.found-emails').text).to match(/(\w|\*)+@test\.org/) }
@@ -214,7 +214,7 @@ describe 'Signing' do
 
       When do
         fill_in 'phone', with: '(111) 111-11-11'
-        click_button 'Get email'
+        click_button I18n.t('users.emails.new.get_email')
       end
 
       Then { is_expected.to match(/(\w|\*)+@example\.com/) }
@@ -224,7 +224,7 @@ describe 'Signing' do
     describe 'no email found' do
       When do
         fill_in 'phone', with: '(333) 333-33-33'
-        click_button 'Get email'
+        click_button I18n.t('users.emails.new.get_email')
       end
 
       Then { expect(find('.found-emails')).to have_content('The telephone is not registered.') }
