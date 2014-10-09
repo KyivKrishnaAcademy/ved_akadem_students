@@ -55,7 +55,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
                         :birthday, :education, :work, :emergency_contact, :passport,
                         telephones_attributes: [:id, :phone, :_destroy]]
 
-    devise_parameter_sanitizer.for(:sign_up) << permitted_params << [:photo_cache, :passport_cache]
+    devise_parameter_sanitizer.for(:sign_up) << permitted_params << [:photo_cache, :passport_cache, :privacy_agreement]
     devise_parameter_sanitizer.for(:account_update) << permitted_params << [:photo_cache, :passport_cache]
   end
 
