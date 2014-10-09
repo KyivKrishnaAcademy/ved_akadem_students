@@ -5,9 +5,8 @@
 
 .row.vert-offset-top-1
   .col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
-    %form{ role: 'form' }
-      = form_tag show_emails_path do
-        .form-group
-          = label_tag :phone, t('.enter_phone')
-          = telephone_field_tag :phone, nil, class: 'form-control', placeholder: t('simple_form.placeholders.defaults.phone')
-        = submit_tag t('.get_email'), class: 'btn btn-primary col-xs-12'
+    = form_tag show_emails_path, role: :form do
+      .form-group
+        = label_tag :phone, t('.enter_phone')
+        = telephone_field_tag :phone, nil, class: 'form-control', placeholder: t('simple_form.placeholders.defaults.phone')
+      = submit_tag t('.get_email'), class: 'btn btn-primary col-xs-12'

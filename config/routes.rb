@@ -8,7 +8,7 @@ VedAkademStudents::Application.routes.draw do
 
   scope module: :users do
     get   '/remind_email' => 'emails#new'
-    post  '/show_emails'  => 'emails#update'
+    post  '/show_emails'  => 'emails#create'
   end
 
   root 'static_pages#home'
