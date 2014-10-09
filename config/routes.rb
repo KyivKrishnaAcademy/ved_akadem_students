@@ -14,7 +14,8 @@ VedAkademStudents::Application.routes.draw do
   root 'static_pages#home'
 
   get 'static_pages/home'
-  get 'static_pages/about'
+  #get 'static_pages/about'
+  get 'privacy_agreement' => 'static_pages#privacy_agreement'
 
   get 'locales/toggle'
 
