@@ -12,6 +12,7 @@ uk:
         password:               'Пароль'
         password_confirmation:  'Підтвердження'
         photo:                  'Фотографія'
+        privacy_agreement:      'Згода на обробку персональних даних'
         spiritual_name:         "Духовне і'мя"
         surname:                'Призвище'
         work:                   'Робота'
@@ -46,6 +47,8 @@ uk:
               confirmation:         'повинно бути таким самим як і пароль'
             photo:
               size:                 'повинна бути не меньше 150*200 пікселів'
+            privacy_agreement:
+              accepted:             'повинна бути прийнята'
             work:
               blank:                'повинна бути заповнена'
         telephone:
