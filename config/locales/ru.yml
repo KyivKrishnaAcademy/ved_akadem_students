@@ -49,3 +49,8 @@ ru:
       new:
         restore_password: 'Восстановление пароля'
         send_me:          'Отправить инструкции для восстановления'
+      edit:
+        change_password:        'Изменить пароль'
+        new_password:           'Новий пароль'
+        password_confirmation:  'Подтверждение нового пароля'
+        change:                 'Изменить пароль'

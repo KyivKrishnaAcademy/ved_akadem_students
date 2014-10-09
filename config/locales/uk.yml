@@ -49,3 +49,8 @@ uk:
       new:
         restore_password: 'Відновлення паролю'
         send_me:          'Відправити інструкції для відновлення'
+      edit:
+        change_password:        'Зміна паролю'
+        new_password:           'Новий пароль'
+        password_confirmation:  'Підтвердження нового паролю'
+        change:                 'Змінити пароль'
