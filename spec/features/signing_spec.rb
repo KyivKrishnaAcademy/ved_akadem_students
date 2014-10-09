@@ -32,6 +32,7 @@ describe 'Signing' do
       fill_in 'person_education', with: 'NTUU KPI'
       fill_in 'person_work', with: 'Kyivstar'
       fill_in 'person_emergency_contact', with: 'Krishna'
+      find('#person_privacy_agreement').set(true)
     end
 
     describe 'should signup without photo and passport' do
