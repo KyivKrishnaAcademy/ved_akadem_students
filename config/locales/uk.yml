@@ -4,13 +4,6 @@ uk:
       agreement: 'Згода'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
-  registrations:
-    title:
-      edit: 'Редагування профайлу'
-      new:  'Реєстрація'
-  static_pages:
-    title:
-      home:         'Домашня'
   links:
     update:           'Зберегти'
     delete:           'Видалити'
@@ -67,5 +60,11 @@ uk:
         title:        'Адреси електронної пошти закреплені за цим номером телефону:'
         no_telephone: 'Такий номер телефону не зареєстрований.'
     registrations:
+      edit:
+        title:  'Редагування профайлу'
       new:
         i_agree_html: 'Я прочитав(ла) і згоден(на) зі <a href="/privacy_agreement" target="_blank">згодою на обробку персональних даних</a>'
+        title:        'Реєстрація'
+  static_pages:
+    home:
+      title: 'Домашня'
