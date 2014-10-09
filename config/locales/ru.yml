@@ -1,4 +1,7 @@
 ru:
+  defaults:
+    links:
+      agreement: 'Соглашение'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   registrations:
