@@ -37,5 +37,6 @@
 
       .row.form-actions
         .col-xs-12.text-center
-          = f.input :privacy_agreement, as: :boolean, checked_value: 'yes', unchecked_value: 'no', wrapper: :inline_checkbox
+          = f.input :privacy_agreement, as: :boolean, checked_value: 'yes', unchecked_value: 'no',
+                    wrapper: :inline_checkbox, label: t('.i_agree_html')
           = f.button :submit, t('devise.links.sign_up'), class: 'btn-lg'
