@@ -1,17 +1,9 @@
+#= require initTelInput
+
 $ ->
   telephonesFieldsCount = $('#nested-telephones #phone').length
 
   if telephonesFieldsCount
-    initTelInput = ->
-      telInput = $('#phone:not(.tel-input)')
-
-      telInput.intlTelInput({
-        preferredCountries: ['ua', 'ru'],
-        utilsScript: '/assets/libphonenumber/utils.js'
-      })
-
-      telInput.addClass('tel-input')
-
     toggleAddLink = ->
       $('a.add_nested_fields').toggle telephonesFieldsCount < 4
       return
@@ -24,7 +16,7 @@ $ ->
       telephonesFieldsCount += 1
       toggleAddLink()
       toggleRemoveLink()
-      initTelInput()
+      window.initTelInput()
       return
 
     $(document).on 'nested:fieldRemoved', ->
@@ -35,4 +27,4 @@ $ ->
 
     toggleAddLink()
     toggleRemoveLink()
-    initTelInput()
+    window.initTelInput()
