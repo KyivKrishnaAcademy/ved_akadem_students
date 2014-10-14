@@ -9,6 +9,13 @@ GIT
       mime-types (>= 1.16)
 
 GIT
+  remote: git://github.com/ispyropoulos/intl-tel-input-rails.git
+  revision: 45964b09af235e409593fdbd439f04126f5b18da
+  specs:
+    intl-tel-input-rails (3.6.0)
+      railties (>= 3.1)
+
+GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 29f8f768f1702c6d032854b870d14eadb81cea88
   specs:
@@ -287,6 +294,7 @@ DEPENDENCIES
   fuubar
   haml
   inherited_resources
+  intl-tel-input-rails!
   jbuilder
   jcrop-rails-v2
   jquery-rails

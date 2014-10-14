@@ -22,6 +22,7 @@ gem 'jcrop-rails-v2'
 
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
+gem 'intl-tel-input-rails', github: 'ispyropoulos/intl-tel-input-rails'
 
 gem 'factory_girl_rails'
 gem 'ffaker'
