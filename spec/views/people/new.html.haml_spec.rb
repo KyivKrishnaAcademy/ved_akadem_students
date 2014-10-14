@@ -17,7 +17,7 @@ describe 'people/new.html.erb' do
     And  { is_expected.to have_selector("#{form} input#person_middle_name") }
     And  { is_expected.to have_selector("#{form} input#person_surname") }
     And  { is_expected.to have_selector("#{form} input#person_spiritual_name") }
-    And  { is_expected.to have_selector("#{form} input#person_telephones_attributes_0_phone") }
+    And  { is_expected.to have_selector("#{form} input#phone") }
     And  { is_expected.to have_selector("#{form} input#person_email") }
     And  { is_expected.to have_selector("#{form} select#person_gender") }
     And  { is_expected.to have_selector("#{form} #datepicker[name='person[birthday]']") }

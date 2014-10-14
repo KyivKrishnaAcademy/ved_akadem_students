@@ -92,7 +92,7 @@ describe PeopleController do
       work:               'ББТ',
       emergency_contact:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе',
       telephones_attributes:  [ id: nil,
-                                phone: '(000) 000-11-11']
+                                phone: '+380 50 111 2233']
     }
   end
 
@@ -102,7 +102,7 @@ describe PeopleController do
     describe 'create' do
       Given (:person_attributes) { build(:person).attributes.merge(password: 'password',
                                                                    password_confirmation: 'password',
-                                                                   telephones_attributes: { '0' => { phone: '(123) 456-78-90'}}) }
+                                                                   telephones_attributes: { '0' => { phone: '+380 50 111 2233'}}) }
 
       context 'has photo' do
         When { post :create, person: person_attributes.merge(photo: 'test.png') }
@@ -121,7 +121,7 @@ describe PeopleController do
       Given { @person = create(:person) }
       Given (:person_attributes) { @person.attributes.merge(password: 'password',
                                                                     password_confirmation: 'password',
-                                                                    telephones_attributes: { '0' => { phone: '(123) 456-78-90'}}) }
+                                                                    telephones_attributes: { '0' => { phone: '+380 50 111 2233'}}) }
 
       context 'has photo' do
         When { patch :update, id: @person.id, person: person_attributes.merge(photo: 'test.png') }

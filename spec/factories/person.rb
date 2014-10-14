@@ -22,7 +22,7 @@ FactoryGirl.define do
     roles           { [FactoryGirl.create(:role, :super_admin)] }
     spiritual_name  { 'Admin Prabhu' }
     surname         { 'Adminov' }
-    telephones      { [build(:telephone, phone: '199 (99) 999-99-99')] }
+    telephones      { [build(:telephone, phone: '+380 50 111 2233')] }
   end
 
   trait :with_photo do

@@ -26,7 +26,7 @@ describe 'Signing' do
       fill_in 'person_name', with: 'Vasyl'
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'
-      fill_in 'person_telephones_attributes_0_phone', with: '380 (11) 222-33-44'
+      fill_in 'phone', with: '+380 50 111 2233'
       select  'Чоловіча', from: 'person_gender'
       fill_in 'person[birthday]', with: '20.05.1985'
       fill_in 'person_education', with: 'NTUU KPI'
@@ -132,7 +132,7 @@ describe 'Signing' do
           fill_in 'person_name', with: 'Vasyl'
           fill_in 'person_middle_name', with: 'Alexovich'
           fill_in 'person_surname', with: 'Mitrofanov'
-          fill_in 'person_telephones_attributes_0_phone', with: '380 (11) 222-33-44'
+          fill_in 'phone', with: '+380 50 111 2233'
           select  'Чоловіча', from: 'person_gender'
           fill_in 'person[birthday]', with: '20.05.1982'
           fill_in 'person_education', with: 'NTUU KPI'
@@ -159,7 +159,7 @@ describe 'Signing' do
           And  { expect(find('#person_name')['value']).to have_content('Vasyl') }
           And  { expect(find('#person_middle_name')['value']).to have_content('Alexovich') }
           And  { expect(find('#person_surname')['value']).to have_content('Mitrofanov') }
-          And  { expect(find('#person_telephones_attributes_0_phone')['value']).to have_content('380 (11) 222-33-44') }
+          And  { expect(find('#phone')['value']).to have_content('+380 50 111 2233') }
           And  { expect(find('#person_education')['value']).to have_content('NTUU KPI') }
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
           And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
@@ -196,15 +196,15 @@ describe 'Signing' do
   end
 
   describe 'forgot email' do
-    Given { create :person, email: 'admin@example.com',   telephones: [create(:telephone, phone: '(111) 111-11-11')] }
-    Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '(111) 111-11-11'), create(:telephone, phone: '(222) 222-22-22')] }
+    Given { create :person, email: 'admin@example.com',   telephones: [create(:telephone, phone: '+380 50 111 2211')] }
+    Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '+380 50 111 2211'), create(:telephone, phone: '+380 50 111 2222')] }
     Given { visit remind_email_path }
 
     subject { page.body }
 
     describe 'found one email' do
       When do
-        fill_in 'phone', with: '(222) 222-22-22'
+        fill_in 'phone', with: '+380 50 111 2222'
         click_button I18n.t('users.emails.new.get_email')
       end
 
@@ -214,7 +214,7 @@ describe 'Signing' do
 
     describe 'found two emails' do
       When do
-        fill_in 'phone', with: '(111) 111-11-11'
+        fill_in 'phone', with: '+380 50 111 2211'
         click_button I18n.t('users.emails.new.get_email')
       end
 
@@ -224,7 +224,7 @@ describe 'Signing' do
 
     describe 'no email found' do
       When do
-        fill_in 'phone', with: '(333) 333-33-33'
+        fill_in 'phone', with: '+380 50 111 2233'
         click_button I18n.t('users.emails.new.get_email')
       end
 
