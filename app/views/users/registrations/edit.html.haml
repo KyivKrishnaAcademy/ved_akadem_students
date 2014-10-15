@@ -61,6 +61,7 @@
           = f.button :submit, t('links.update'), class: 'btn-lg'
 
 .row.vert-offset-top-1
-  .pull-right
-    = link_to t('links.delete'), registration_path(resource_name), class: 'btn btn-danger',
-                                      data: { confirm: t('devise.links.confirmations.delete') }, method: :delete
+  .col-xs-12
+    .pull-right
+      = link_to t('links.delete'), registration_path(resource_name), class: 'btn btn-danger',
+                                        data: { confirm: t('devise.links.confirmations.delete') }, method: :delete
