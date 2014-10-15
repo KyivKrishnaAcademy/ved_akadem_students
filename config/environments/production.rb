@@ -60,7 +60,7 @@ VedAkademStudents::Application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   config.assets.precompile += %w( crops.js jquery.Jcrop.css jquery.Jcrop.js nested_form_custom_telephones.js
-                                  intlTelInput.js intlTelInput.css, initTelInput.js)
+                                  flags.png intlTelInput.css initTelInput.js )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
