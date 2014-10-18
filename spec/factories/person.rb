@@ -13,6 +13,7 @@ FactoryGirl.define do
     surname                             { "N#{generate(:char_sequence)}" }
     telephones                          { [build(:telephone)] }
     work                                { generate(:char_sequence)*20 }
+    marital_status                      { 'single' }
   end
 
   trait :admin do

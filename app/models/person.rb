@@ -1,4 +1,6 @@
 class Person < ActiveRecord::Base
+  MARITAL_STATUSES = %w[single in_relationship married divorced widowed]
+
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :privacy_agreement
@@ -25,7 +27,7 @@ class Person < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password, length: { in: 6..128, unless: :skip_password_validation  }
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
-  validates :telephones, :birthday, :education, :work, presence: true
+  validates :telephones, :birthday, :education, :work, :marital_status, presence: true
 
   validate :check_photo_dimensions
 

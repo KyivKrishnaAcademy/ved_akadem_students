@@ -72,6 +72,10 @@ describe Person do
       end
     end
 
+    context 'marital_status' do
+      Then { is_expected.to validate_presence_of(:marital_status) }
+    end
+
     context 'name, surname, middle_name, spiritual_name' do
       Then { is_expected.to validate_presence_of(:name) }
       And  { is_expected.to ensure_length_of(:name).is_at_most(50) }
