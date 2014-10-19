@@ -7,6 +7,7 @@ ru:
         education:              'Образование'
         email:                  'Электронная почта'
         gender:                 'Пол'
+        marital_status:         'Семейное положение'
         middle_name:            'Отчество'
         name:                   'Имя'
         password:               'Пароль'
@@ -38,6 +39,8 @@ ru:
               invalid:              'не правильный'
             gender:
               inclusion:            'должен быть выбран'
+            marital_status:
+              blank:                'должно быть выбрано'
             password:
               too_long:             'слишком длинный (максимум %{count} символов)'
               too_short:            'слишком короткий (минимум %{count} символов)'

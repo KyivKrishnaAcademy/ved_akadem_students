@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  MARITAL_STATUSES = %w[single in_relationship married divorced widowed]
+  MARITAL_STATUSES = %i[single in_relationship married divorced widowed]
 
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h

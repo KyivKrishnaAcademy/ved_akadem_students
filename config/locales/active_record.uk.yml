@@ -7,6 +7,7 @@ uk:
         education:              'Освіта'
         email:                  'Електронна пошта'
         gender:                 'Стать'
+        marital_status:         'Сімейний стан'
         middle_name:            'По батькові'
         name:                   "Ім'я"
         password:               'Пароль'
@@ -40,6 +41,8 @@ uk:
               invalid:              'повинна відповідати формату "pryklad@example.com"'
             gender:
               inclusion:            'повинна бути обрана'
+            marital_status:
+              blank:                'повинен бути обраний'
             password:
               too_long:             'занадто довигий (максимум %{count} символів)'
               too_short:            'занадто короткий (мінімум %{count} символів)'

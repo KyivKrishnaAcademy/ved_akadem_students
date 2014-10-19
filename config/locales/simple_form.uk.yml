@@ -12,6 +12,12 @@ uk:
         gender:
           male:   'Чоловіча'
           female: 'Жіноча'
+        marital_status:
+          single:           'немає відносин'
+          in_relationship:  'у відносинах/цивільному шлюбі'
+          married:          'одружений/заміжня'
+          divorced:         'розлучений/розлучена'
+          widowed:          'вдівець/вдова'
     labels:
       defaults:
         password:               'Пароль'
@@ -20,7 +26,7 @@ uk:
         email:                  'Електронна пошта'
         photo:                  'Фотографія на студентський квиток'
         passport:               'Фотографія першої сторінки паспорту'
-        spiritual_name:         "Духовне ім'я (якщо є)"
+        spiritual_name:         "Духовне ім'я (залиште пустим, якщо нема)"
         name:                   "Ім'я"
         middle_name:            'По батькові'
         surname:                'Призвище'
@@ -30,10 +36,13 @@ uk:
         education:              'Освіта (спеціальність)'
         work:                   'Робота (професія)'
         emergency_contact:      'Контакт для надзвичайних випадків'
+      person:
+        marital_status:         'Сімейний стан'
+        friends_to_be_with:     'Друзі в Академії'
     placeholders:
       defaults:
         email:                  'test@example.com'
-        spiritual_name:         "Аді Даса дас"
+        spiritual_name:         'Аді Даса дас'
         name:                   'Антон'
         middle_name:            'Іванович'
         surname:                'Петренко'
@@ -48,5 +57,8 @@ uk:
     hints:
       person:
         edit:
-          password:         'Залиште пустим, якщо не хочете змінювати'
-          current_password: 'Введіть Ваш поточний пароль, щоб підтвердити зміни'
+          password:           'Залиште пустим, якщо не хочете змінювати'
+          current_password:   'Введіть Ваш поточний пароль, щоб підтвердити зміни'
+          friends_to_be_with: 'якщо Ви прийшли до Академії разом з друзями, вкажіть іх імена через кому, щоб бути з ними у одній группі'
+        new:
+          friends_to_be_with: 'якщо Ви прийшли до Академії разом з друзями, вкажіть іх імена через кому, щоб бути з ними у одній группі'
