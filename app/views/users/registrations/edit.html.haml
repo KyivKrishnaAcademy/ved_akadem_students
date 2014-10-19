@@ -5,7 +5,7 @@
 
 .row.vert-offset-top-2
   .col-xs-12
-    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false }, html: { method: :put }) do |f|
       = render 'shared/error_messages', object: f.object
 
       .row.form-inputs
@@ -33,28 +33,31 @@
                   = f.input :passport, wrapper: :vertical_file_input, as: :file
                   = f.input :passport_cache, as: :hidden
             .col-xs-12.col-sm-6
-              = f.input :email, required: true, autofocus: true
+              = f.input :email, autofocus: true
               - if devise_mapping.confirmable? && resource.pending_reconfirmation?
                 %p
                   Currently waiting confirmation for: #{resource.unconfirmed_email}
               = f.input :spiritual_name
-              = f.input :name, required: true
+              = f.input :name
               = f.input :middle_name
-              = f.input :surname, required: true
+              = f.input :surname
         .col-xs-12
           .row
             .col-xs-12.col-sm-6
               = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
               = f.input :education
+              = f.input :marital_status, collection: Person::MARITAL_STATUSES,
+                                 label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
+              = f.input :friends_to_be_with
               = f.input :emergency_contact
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
-              = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
+              = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
               = f.input :work
-              = f.input :password, autocomplete: 'off', required: false
-              = f.input :password_confirmation, required: false
-              = f.input :current_password, required: true
+              = f.input :password, autocomplete: 'off'
+              = f.input :password_confirmation
+              = f.input :current_password
 
       .row.form-actions
         .col-xs-12.text-center

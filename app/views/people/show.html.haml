@@ -30,6 +30,10 @@ Birthday: #{@person.birthday}
 %br
 Email: #{@person.email}
 %br
+Marital status: #{@person.marital_status}
+%br
+Friends to be with: #{@person.friends_to_be_with}
+%br
 - @person.telephones.each_with_index do |telephone, index|
   Telephone #{index + 1}: #{telephone.phone}
 %br
