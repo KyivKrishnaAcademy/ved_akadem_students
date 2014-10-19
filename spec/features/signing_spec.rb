@@ -28,6 +28,7 @@ describe 'Signing' do
       fill_in 'person_surname', with: 'Mitrofanov'
       fill_in 'phone', with: '+380 50 111 2233'
       select  'Чоловіча', from: 'person_gender'
+      select  'одружений/заміжня', from: 'person_marital_status'
       fill_in 'person[birthday]', with: '20.05.1985'
       fill_in 'person_education', with: 'NTUU KPI'
       fill_in 'person_work', with: 'Kyivstar'
@@ -134,6 +135,7 @@ describe 'Signing' do
           fill_in 'person_surname', with: 'Mitrofanov'
           fill_in 'phone', with: '+380 50 111 2233'
           select  'Чоловіча', from: 'person_gender'
+          select  'одружений/заміжня', from: 'person_marital_status'
           fill_in 'person[birthday]', with: '20.05.1982'
           fill_in 'person_education', with: 'NTUU KPI'
           fill_in 'person_work', with: 'Kyivstar'
@@ -164,6 +166,7 @@ describe 'Signing' do
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
           And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
           And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Чоловіча') }
+          And  { expect(find('#person_marital_status')).to have_css('option[selected="selected"]', text: 'одружений/заміжня') }
           And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1982-05-20') }
         end
       end

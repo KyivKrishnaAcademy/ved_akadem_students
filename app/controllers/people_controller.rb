@@ -92,20 +92,22 @@ class PeopleController < ApplicationController
   class PersonParams
     def self.filter params
       params.require(:person).permit(
-        :name           ,
-        :photo          ,
-        :photo_cache    ,
-        :passport       ,
-        :passport_cache ,
-        :spiritual_name ,
-        :middle_name    ,
-        :surname        ,
-        :email          ,
-        :gender         ,
         :birthday       ,
         :education      ,
-        :work           ,
+        :email          ,
         :emergency_contact,
+        :friends_to_be_with,
+        :gender         ,
+        :marital_status ,
+        :middle_name    ,
+        :name           ,
+        :passport       ,
+        :passport_cache ,
+        :photo          ,
+        :photo_cache    ,
+        :spiritual_name ,
+        :surname        ,
+        :work           ,
         telephones_attributes: [:id, :phone, :_destroy]
       )
     end
