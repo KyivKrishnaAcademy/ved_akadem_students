@@ -9,21 +9,21 @@ ru:
     delete:           'Удалить'
     show_passport:    'Показать паспорт'
     crop_photo:       'Обрезать фотографию'
-    edit_profile:     'Редактировать профайл'
-    apply_to_program: 'Подать заявку'
-    withdraw:         'Отозвать заявку'
+    edit_profile:     'Редактировать профиль'
+    apply_to_program: 'Подать заявление'
+    withdraw:         'Отозвать заявление'
   hints:
     no_passport: 'Нет прикрепленного паспорта'
   content:
     courses:                  'Дисциплины излагаемые на курсе:'
     apply_to_programs:        'У Вас есть возможность поступить на такие курсы:'
-    confirm_withdraw:         'Вы уверены, что хотите отозвать заявку на обучение?'
-    you_applied:              'Вы подали заявку на курс'
-    application_requirements: 'Чтобы Ваша заявка была рассмотрена НЕОБХОДИМО выполнить следующие условия:'
+    confirm_withdraw:         'Вы уверены, что хотите отозвать заявление на обучение?'
+    you_applied:              'Вы подали заявление на курс'
+    application_requirements: 'Чтобы Ваша заявление было рассмотрено, НЕОБХОДИМО выполнить следующие условия:'
     fill_questionnaire:       'Заполнить'
     attach_photo:             'Добавить фотографию'
     attach_passport:          'Добавить паспорт'
-    in_profile:               'в профайл'
+    in_profile:               'в профиль'
     form_has_errors:
       one:    'Исправьте пожалуйста %{count} ошибку:'
       few:    'Исправьте пожалуйста %{count} ошибки:'
@@ -61,7 +61,7 @@ ru:
         no_telephone: 'Такой номер телефона не зарегистрирован.'
     registrations:
       edit:
-        title:  'Редактирование профайла'
+        title:  'Редактирование профиля'
       new:
         i_agree_html: 'Я прочитал(а) и согласен(на) с <a href="/privacy_agreement" target="_blank">соглашением на обработку персональных данных</a>'
         title:        'Регистрация'

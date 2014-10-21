@@ -15,7 +15,7 @@ uk:
         photo:                  'Фотографія'
         privacy_agreement:      'Згода на обробку персональних даних'
         spiritual_name:         "Духовне і'мя"
-        surname:                'Призвище'
+        surname:                'Прізвище'
         work:                   'Робота'
       telephones:
         phone:    'Телефонний номер'
@@ -38,7 +38,7 @@ uk:
               invalid:              'не вірний'
             email:
               blank:                'повинен бути заповненим'
-              invalid:              'повинна відповідати формату "pryklad@example.com"'
+              invalid:              'повинна відповідати формату «pryklad@example.com»'
             gender:
               inclusion:            'повинна бути обрана'
             marital_status:
@@ -55,4 +55,4 @@ uk:
             work:
               blank:                'повинна бути заповнена'
         telephone:
-          invalid:  'повинен починатися із символу "+" та містити коди країни та міста (або оператора)'
+          invalid:  'повинен починатися із символу «+» та містити коди країни та міста (або оператора)'

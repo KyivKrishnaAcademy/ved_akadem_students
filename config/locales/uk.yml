@@ -9,21 +9,21 @@ uk:
     delete:           'Видалити'
     show_passport:    'Показати паспорт'
     crop_photo:       'Обрізати фотографію'
-    edit_profile:     'Редагувати профайл'
-    apply_to_program: 'Подати заявку'
-    withdraw:         'Відкликати заявку'
+    edit_profile:     'Редагувати профіль'
+    apply_to_program: 'Подати заяву'
+    withdraw:         'Відкликати заяву'
   hints:
     no_passport: 'Немає закріпленого паспорту'
   content:
     courses:                  'Дисципліни що викладаються на курсі:'
     apply_to_programs:        'У Вас є можливість поступити на такі курси:'
-    confirm_withdraw:         'Ви впевнені, що хочете відкликати заявку на навчання?'
-    you_applied:              'Ви подали заявку на курс'
-    application_requirements: 'Щоб Ваша заявка була розглянута НЕОБХІДНО виконати наступні умови:'
+    confirm_withdraw:         'Ви впевнені, що хочете відкликати заяву на навчання?'
+    you_applied:              'Ви подали заяву на курс'
+    application_requirements: 'Щоб Ваша заява була розглянута, НЕОБХІДНО виконати наступні умови:'
     fill_questionnaire:       'Заповнити'
     attach_photo:             'Додати фотографію'
     attach_passport:          'Додати паспорт'
-    in_profile:               'до профайлу'
+    in_profile:               'до профілю'
     form_has_errors:
       one:    'Виправте будьласка %{count} помилку:'
       few:    'Виправте будьласка %{count} помилки:'
@@ -61,7 +61,7 @@ uk:
         no_telephone: 'Такий номер телефону не зареєстрований.'
     registrations:
       edit:
-        title:  'Редагування профайлу'
+        title:  'Редагування профілю'
       new:
         i_agree_html: 'Я прочитав(ла) і згоден(на) зі <a href="/privacy_agreement" target="_blank">згодою на обробку персональних даних</a>'
         title:        'Реєстрація'
