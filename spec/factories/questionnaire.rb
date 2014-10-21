@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :questionnaire do
-    title     { Faker::Lorem.phrase }
+    title_uk  { Faker::Lorem.phrase }
+    title_ru  { Faker::Lorem.phrase }
     questions { [build(:question)] }
   end
 end

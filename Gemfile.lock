@@ -1,4 +1,21 @@
 GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: c82ad883f10a79d7bb1536cad8f9d5539724ee8e
+  specs:
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+
+GIT
+  remote: git://github.com/ispyropoulos/intl-tel-input-rails.git
+  revision: 45964b09af235e409593fdbd439f04126f5b18da
+  specs:
+    intl-tel-input-rails (3.6.0)
+      railties (>= 3.1)
+
+GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: 29f8f768f1702c6d032854b870d14eadb81cea88
   specs:
@@ -66,11 +83,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
     choice (0.1.6)
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.0)
@@ -272,7 +284,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
-  carrierwave
+  carrierwave!
   codeclimate-test-reporter
   coffee-rails
   database_cleaner
@@ -283,6 +295,7 @@ DEPENDENCIES
   fuubar
   haml
   inherited_resources
+  intl-tel-input-rails!
   jbuilder
   jcrop-rails-v2
   jquery-rails

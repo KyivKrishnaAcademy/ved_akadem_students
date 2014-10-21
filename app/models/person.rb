@@ -1,6 +1,9 @@
 class Person < ActiveRecord::Base
+  MARITAL_STATUSES = %i[single in_relationship married divorced widowed]
+
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessor :privacy_agreement
 
   devise :database_authenticatable, :registerable, :recoverable
 
@@ -17,15 +20,14 @@ class Person < ActiveRecord::Base
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :password, length: { in: 6..128, unless: :skip_password_validation  }
-  validates :password, confirmation: true
-  validates :name,    length: { maximum: 50 }, presence: true
-  validates :surname, length: { maximum: 50 }, presence: true
-  validates :middle_name,     length: { maximum: 50 }
-  validates :spiritual_name,  length: { maximum: 50 }
-  validates :gender,          inclusion: { in: [true, false] }
-  validates :telephones, presence: true
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
+  validates :gender, inclusion: { in: [true, false] }
+  validates :middle_name, :spiritual_name, length: { maximum: 50 }
+  validates :name, :surname, length: { maximum: 50 }, presence: true
+  validates :password, confirmation: true
+  validates :password, length: { in: 6..128, unless: :skip_password_validation  }
+  validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
+  validates :telephones, :birthday, :education, :work, :marital_status, presence: true
 
   validate :check_photo_dimensions
 
@@ -44,7 +46,7 @@ class Person < ActiveRecord::Base
   end
 
   def add_application_questionnaires
-    questionnaires << study_application.program.questionnaires if study_application.present?
+    questionnaires << study_application.program.questionnaires.where.not(id: questionnaire_ids) if study_application.present?
   end
 
   def remove_application_questionnaires(application)
@@ -52,7 +54,7 @@ class Person < ActiveRecord::Base
   end
 
   def not_finished_questionnaires
-    questionnaires.joins(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
+    questionnaires.includes(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
   end
 
   private
@@ -78,10 +80,8 @@ class Person < ActiveRecord::Base
 
   def check_photo_dimensions
     dimensions_present = photo_upload_height.present? && photo_upload_width.present?
-    dimensions_valid   = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
+    dimensions_invalid = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
-    if dimensions_present && dimensions_valid
-      errors.add :photo, 'Dimensions of uploaded photo should be not less than 150x200 pixels.'
-    end
+    errors.add(:photo, :size) if dimensions_invalid
   end
 end

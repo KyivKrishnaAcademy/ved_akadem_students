@@ -28,4 +28,21 @@ VedAkademStudents::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  debug_compiled_assets = false
+
+  if debug_compiled_assets
+    config.action_controller.perform_caching  = true
+    config.cache_classes                      = true
+    config.consider_all_requests_local        = false
+    config.eager_load                         = true
+    config.serve_static_assets                = true
+
+    config.assets.compile       = false
+    config.assets.debug         = false
+    config.assets.digest        = true
+    config.assets.js_compressor = :uglifier
+    config.assets.precompile    += %w( crops.js jquery.Jcrop.css jquery.Jcrop.js nested_form_custom_telephones.js flags.png intlTelInput.css initTelInput.js )
+    config.assets.version       = '1.1'
+  end
 end

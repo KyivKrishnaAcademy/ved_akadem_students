@@ -1,18 +1,70 @@
 uk:
+  defaults:
+    links:
+      agreement: 'Згода'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
-  registrations:
-    title:
-      edit: 'Редагування профайлу'
-      new:  'Реєстрація'
-  static_pages:
-    title:
-      home:         'Домашня'
   links:
-    update:         'Зберегти'
-    delete:         'Видалити'
-    show_passport:  'Показати паспорт'
-    crop_photo:     'Обрізати фотографію'
-    edit_profile:   'Редагувати профайл'
+    update:           'Зберегти'
+    delete:           'Видалити'
+    show_passport:    'Показати паспорт'
+    crop_photo:       'Обрізати фотографію'
+    edit_profile:     'Редагувати профіль'
+    apply_to_program: 'Подати заяву'
+    withdraw:         'Відкликати заяву'
   hints:
     no_passport: 'Немає закріпленого паспорту'
+  content:
+    courses:                  'Дисципліни що викладаються на курсі:'
+    apply_to_programs:        'У Вас є можливість поступити на такі курси:'
+    confirm_withdraw:         'Ви впевнені, що хочете відкликати заяву на навчання?'
+    you_applied:              'Ви подали заяву на курс'
+    application_requirements: 'Щоб Ваша заява була розглянута, НЕОБХІДНО виконати наступні умови:'
+    fill_questionnaire:       'Заповнити'
+    attach_photo:             'Додати фотографію'
+    attach_passport:          'Додати паспорт'
+    in_profile:               'до профілю'
+    form_has_errors:
+      one:    'Виправте будьласка %{count} помилку:'
+      few:    'Виправте будьласка %{count} помилки:'
+      many:   'Виправте будьласка %{count} помилок:'
+      other:  'Виправте будьласка %{count} помилки:'
+  answers:
+    edit:
+      update: 'Надіслати відповідь'
+  crops:
+    crop_image:
+      title:    'Кадрування зображення'
+      select_area:  'Визначте площу для відображення'
+      preview:      'Передперегляд'
+      guide:        'Приклад'
+      crop:         'Застосувати'
+    error:          'Помилка: не вдалося кадрировати зображення'
+  devise:
+    passwords:
+      new:
+        restore_password: 'Відновлення паролю'
+        send_me:          'Відправити інструкції для відновлення'
+      edit:
+        change_password:        'Зміна паролю'
+        new_password:           'Новий пароль'
+        password_confirmation:  'Підтвердження нового паролю'
+        change:                 'Змінити пароль'
+  users:
+    emails:
+      new:
+        forgot_email: 'Забули електронну пошту?'
+        enter_phone:  'Введіть телефон'
+        get_email:    'Нагадати пошту'
+      create:
+        title:        'Адреси електронної пошти закреплені за цим номером телефону:'
+        no_telephone: 'Такий номер телефону не зареєстрований.'
+    registrations:
+      edit:
+        title:  'Редагування профілю'
+      new:
+        i_agree_html: 'Я прочитав(ла) і згоден(на) зі <a href="/privacy_agreement" target="_blank">згодою на обробку персональних даних</a>'
+        title:        'Реєстрація'
+  static_pages:
+    home:
+      title: 'Домашня'

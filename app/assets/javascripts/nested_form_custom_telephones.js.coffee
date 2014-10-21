@@ -1,5 +1,7 @@
+#= require initTelInput
+
 $ ->
-  telephonesFieldsCount = $('#nested-telephones .fields').length
+  telephonesFieldsCount = $('#nested-telephones #phone').length
 
   if telephonesFieldsCount
     toggleAddLink = ->
@@ -14,6 +16,7 @@ $ ->
       telephonesFieldsCount += 1
       toggleAddLink()
       toggleRemoveLink()
+      window.initTelInput()
       return
 
     $(document).on 'nested:fieldRemoved', ->
@@ -24,3 +27,4 @@ $ ->
 
     toggleAddLink()
     toggleRemoveLink()
+    window.initTelInput()

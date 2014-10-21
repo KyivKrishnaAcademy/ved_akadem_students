@@ -9,18 +9,31 @@ namespace :akadem do
     puts 'Populating...'
 
     psyho_questionnaire = Questionnaire.create(
-                            title:        psyho_test[:title],
-                            description:  psyho_test[:description],
-                            questions:    psyho_test[:questions].map { |q| Question.new(format: 'boolean', data: { text: q[:question]}) })
+                            title_uk:       psyho_test[:title_uk],
+                            title_ru:       psyho_test[:title_ru],
+                            description_uk: psyho_test[:description_uk],
+                            description_ru: psyho_test[:description_ru],
+                            questions:      psyho_test[:questions].map do |q|
+                                              Question.new(format: 'single_select',
+                                                           data: {  text: { uk: q[:question_uk], ru: q[:question_ru] },
+                                                                    options: { uk: [['Так', true], ['Ні', false]],
+                                                                               ru: [['Да', true], ['Нет', false]] }})
+                                            end)
 
     initial_questionnaire = Questionnaire.create(
-                            title:        initial_questions[:title],
-                            questions:    initial_questions[:questions].map { |q| Question.new(format: 'freeform', data: { text: q[:question]}) })
+                            title_uk:     initial_questions[:title_uk],
+                            title_ru:     initial_questions[:title_ru],
+                            questions:    initial_questions[:questions].map do |q|
+                                            Question.new(format: 'freeform',
+                                                         data: { text: { uk: q[:question_uk], ru: q[:question_ru] } })
+                                          end)
 
     puts 'Adding questionnaires to Study applications...'
+
     Program.all.each do |program|
-      program.questionnaires << [psyho_questionnaire, initial_questionnaire]
+      program.questionnaires << [psyho_questionnaire, initial_questionnaire] if program.questionnaires.none?
     end
+
     puts 'Done.'
   end
 end

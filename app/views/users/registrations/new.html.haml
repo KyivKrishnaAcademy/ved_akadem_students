@@ -1,23 +1,23 @@
-- provide(:title, t('registrations.title.new'))
+- provide(:title, t('.title'))
 
-%h1
-  = t('registrations.title.new')
+%h2
+  = t('.title')
 
 .row.vert-offset-top-2
   .col-xs-12
-    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false } ) do |f|
       = render 'shared/error_messages', object: f.object
 
       .row.form-inputs
         .col-xs-12
           .row
             .col-xs-12.col-sm-6
-              = f.input :photo, as: :file, wrapper: :vertical_file_input, required: false
+              = f.input :photo, as: :file, wrapper: :vertical_file_input
               = f.input :photo_cache, as: :hidden
-              = f.input :passport, as: :file, wrapper: :vertical_file_input, required: false
+              = f.input :passport, as: :file, wrapper: :vertical_file_input
               = f.input :passport_cache, as: :hidden
             .col-xs-12.col-sm-6
-              = f.input :email, required: true, autofocus: true
+              = f.input :email, autofocus: true
               = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
           .row
             .col-xs-12.col-sm-6
@@ -26,15 +26,20 @@
               = f.input :middle_name
               = f.input :surname
               = f.input :education
+              = f.input :marital_status, collection: Person::MARITAL_STATUSES,
+                                 label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
-              = f.input :gender, collection: [[:male, true], [:female, false]], required: true,
+              = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
               = f.input :emergency_contact
-              = f.input :password, required: true
-              = f.input :password_confirmation, required: true
+              = f.input :password
+              = f.input :password_confirmation
               = f.input :work
+              = f.input :friends_to_be_with
 
-      .row.form-actions.vert-offset-top-2
+      .row.form-actions
         .col-xs-12.text-center
+          = f.input :privacy_agreement, as: :boolean, checked_value: 'yes', unchecked_value: 'no',
+                    wrapper: :inline_checkbox, label: t('.i_agree_html')
           = f.button :submit, t('devise.links.sign_up'), class: 'btn-lg'

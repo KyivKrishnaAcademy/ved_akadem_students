@@ -136,3 +136,25 @@ namespace :puma do
     end
   end
 end
+
+namespace :db do
+  desc 'Backup DB'
+  task :backup do
+    on roles(:app) do
+      tmp_db_yml = "tmp/database.yml"
+
+      download! "#{shared_path}/config/database.yml", tmp_db_yml
+
+      db_config = YAML::load_file(tmp_db_yml)['production']
+
+      system("rm #{tmp_db_yml}")
+
+      bak_dir   = "#{current_path}/db_backup"
+      bak_name  = bak_dir + '/' + DateTime.now.strftime('%Y-%m-%dT%H-%M-%S') + '.sql.gz'
+
+      execute "mkdir -p #{bak_dir}"
+      execute "if pg_dump -Fp -U #{db_config['username']} #{db_config['database']} | gzip > #{bak_name}.in_progress; then mv #{bak_name}.in_progress #{bak_name}; fi;"
+    end
+  end
+  after 'deploy:starting', 'db:backup'
+end

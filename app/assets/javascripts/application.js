@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_nested_form
-//= require nested_form_custom_telephones
 //= require bootstrap
 //= require jquery-ui/datepicker
 //= require jquery-ui/datepicker-ru

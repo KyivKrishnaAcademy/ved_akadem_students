@@ -1,5 +1,5 @@
 class Telephone < ActiveRecord::Base
-  VALID_PHONE_REGEX = /\d{10,}\z/
+  VALID_PHONE_REGEX = /\A\+([\s\-]*\d){8,}\z/
 
   belongs_to :person
 

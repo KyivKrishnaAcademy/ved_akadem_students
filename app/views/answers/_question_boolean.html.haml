@@ -1,6 +1,0 @@
-.question
-  = q.simple_fields_for :answers do |a|
-    .row
-      = a.input :person_id, as: :hidden
-      = q.object.data[:text]
-      = a.input :data, collection: [['Yes', true] ,['No', false]], as: :radio_buttons, label: false, wrapper: :horizontal_radio_and_checkboxes

@@ -1,27 +1,29 @@
 FactoryGirl.define do
   factory :person do
+    education                           { generate(:char_sequence)*20 }
     gender                              { true }
+    middle_name                         { "Y#{generate(:char_sequence)}" }
+    name                                { "V#{generate(:char_sequence)}" }
     password                            { 'password' }
     password_confirmation               { 'password' }
+    privacy_agreement                   { 'yes' }
+    sequence(:birthday ,        12000 ) { |n| n.days.ago.to_date }
+    sequence(:email                   ) { |n| "mail#{n}@ukr.net" }
     spiritual_name                      { "Ad#{generate(:char_sequence)} das" }
-    name                                { "V#{generate(:char_sequence)}"      }
-    middle_name                         { "Y#{generate(:char_sequence)}"      }
-    surname                             {  "N#{generate(:char_sequence)}"     }
-    sequence(:email                   ) { |n| "mail#{n}@ukr.net"      }
-    sequence(:birthday ,        12000 ) { |n| n.days.ago.to_date      }
-    education                           { generate(:char_sequence)*20 }
-    work                                { generate(:char_sequence)*20 }
+    surname                             { "N#{generate(:char_sequence)}" }
     telephones                          { [build(:telephone)] }
+    work                                { generate(:char_sequence)*20 }
+    marital_status                      { 'single' }
   end
 
   trait :admin do
-    roles           { [FactoryGirl.create(:role, :super_admin)] }
     email           { 'admin@example.com' }
-    name            { 'Admin' }
     middle_name     { 'Adminovich' }
-    surname         { 'Adminov' }
+    name            { 'Admin' }
+    roles           { [FactoryGirl.create(:role, :super_admin)] }
     spiritual_name  { 'Admin Prabhu' }
-    telephones      { [build(:telephone, phone: '199999999999')] }
+    surname         { 'Adminov' }
+    telephones      { [build(:telephone, phone: '+380 50 111 2233')] }
   end
 
   trait :with_photo do

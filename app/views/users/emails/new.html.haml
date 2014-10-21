@@ -1,6 +1,19 @@
-%h2 Forgot your email?
+- content_for(:js_and_css) do
+  = stylesheet_link_tag 'intlTelInput', media: 'all'
+  = javascript_include_tag 'initTelInput'
 
-= form_tag show_emails_path do
-  = label_tag :phone
-  = telephone_field_tag :phone
-  = submit_tag 'Get email'
+.row
+  .col-xs-12
+    %h2.text-center
+      = t('.forgot_email')
+
+.row.vert-offset-top-1
+  .col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+    = form_tag show_emails_path, role: :form do
+      .form-group
+        = label_tag :phone, t('.enter_phone')
+        = telephone_field_tag :phone, nil, class: 'form-control', id: 'phone'
+      = submit_tag t('.get_email'), class: 'btn btn-primary col-xs-12'
+
+:javascript
+  window.initTelInput();

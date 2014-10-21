@@ -287,8 +287,8 @@ shared_examples :invalid_fill_in do |h, model_human|
       click_button "Update #{model_human}"
     end
 
-    Then { expect(find('body')).to have_selector('#error_explanation .alert-danger', text: 'The form contains 1 error.') }
-    And  { expect(find('body')).to have_selector('#error_explanation ul li', text: /\A#{h[:field]}/) }
+    Then { expect(find('.alert-danger')).to have_content(I18n.t('content.form_has_errors', count: 1)) }
+    And  { expect(find('.alert-danger')).to have_selector('ul li', text: /\A#{h[:field]}/) }
   end
 end
 
@@ -339,7 +339,7 @@ shared_examples :not_adds_model do
 
   it do
     expect { click_button 'Create ' << underscore_humanize(@m.name) }.not_to change{@m.count}
-    expect(page).to have_selector('section#error_explanation')
+    expect(page).to have_selector('.alert-danger ul li')
   end
 end
 

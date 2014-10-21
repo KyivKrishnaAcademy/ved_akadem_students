@@ -1,0 +1,58 @@
+uk:
+  activerecord:
+    attributes:
+      person:
+        birthday:               'День народження'
+        current_password:       'Поточний пароль'
+        education:              'Освіта'
+        email:                  'Електронна пошта'
+        gender:                 'Стать'
+        marital_status:         'Сімейний стан'
+        middle_name:            'По батькові'
+        name:                   "Ім'я"
+        password:               'Пароль'
+        password_confirmation:  'Підтвердження'
+        photo:                  'Фотографія'
+        privacy_agreement:      'Згода на обробку персональних даних'
+        spiritual_name:         "Духовне і'мя"
+        surname:                'Прізвище'
+        work:                   'Робота'
+      telephones:
+        phone:    'Телефонний номер'
+      questions/answers:
+        data:             'Відповідь'
+    errors:
+      models:
+        answer:
+          attributes:
+            data:
+              blank:  'не може бути пустою'
+        person:
+          blank:      'повинно бути заповнено'
+          too_long:   'занадто довге (максимум %{count} символів)'
+          attributes:
+            education:
+              blank:                'повинна бути заповнена'
+            current_password:
+              blank:                'повинен бути заповненим'
+              invalid:              'не вірний'
+            email:
+              blank:                'повинен бути заповненим'
+              invalid:              'повинна відповідати формату «pryklad@example.com»'
+            gender:
+              inclusion:            'повинна бути обрана'
+            marital_status:
+              blank:                'повинен бути обраний'
+            password:
+              too_long:             'занадто довигий (максимум %{count} символів)'
+              too_short:            'занадто короткий (мінімум %{count} символів)'
+            password_confirmation:
+              confirmation:         'повинно бути таким самим як і пароль'
+            photo:
+              size:                 'повинна бути не меньше 150*200 пікселів'
+            privacy_agreement:
+              accepted:             'повинна бути прийнята'
+            work:
+              blank:                'повинна бути заповнена'
+        telephone:
+          invalid:  'повинен починатися із символу «+» та містити коди країни та міста (або оператора)'

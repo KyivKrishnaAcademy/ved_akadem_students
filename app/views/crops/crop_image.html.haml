@@ -3,20 +3,31 @@
   = javascript_include_tag 'jquery.Jcrop'
   = javascript_include_tag 'crops'
 
-%h1
-  We will crop image here.
+.row
+  .col-xs-12
+    %h1
+      = t('.title')
+.row
+  .col-xs-12.col-sm-9.col-lg-6
+    %h4
+      = t('.select_area')
+    = image_tag "/people/show_photo/default/#{@person.id}", id: 'cropbox'
+  .col-xs-12.col-sm-3.col-lg-6
+    %h4
+      = t('.preview')
+    .crop-preview
+      = image_tag "/people/show_photo/default/#{@person.id}", id: 'preview'
+  .col-xs-12.col-lg-6
+    %h4
+      = t('.guide')
+    = image_tag 'crop_to_big.png', class: 'border-1'
+    = image_tag 'crop_just_fine.png', class: 'border-1'
+    = image_tag 'crop_to_small.png', class: 'border-1'
+.row.vert-offset-top-1
+  .col-xs-12
+    = form_for @person, url: update_image_path(@person), method: :patch do |f|
+      .actions
+        - %w{x y w h}.each do |attribute|
+          = f.hidden_field "crop_#{attribute}"
 
-= image_tag "/people/show_photo/default/#{@person.id}", id: 'cropbox'
-
-%h4
-  Preview
-
-.crop-preview
-  = image_tag "/people/show_photo/default/#{@person.id}", id: 'preview'
-
-= form_for @person, url: update_image_path(@person), method: :patch do |f|
-  .actions
-    - %w{x y w h}.each do |attribute|
-      = f.hidden_field "crop_#{attribute}"
-
-    = f.submit 'Crop'
+        = f.submit t('.crop'), class: 'btn btn-primary'

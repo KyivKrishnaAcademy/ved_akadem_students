@@ -1,3 +1,7 @@
+- content_for(:js_and_css) do
+  = stylesheet_link_tag 'intlTelInput', media: 'all'
+  = javascript_include_tag 'nested_form_custom_telephones'
+
 .row
   .col-xs-12#nested-telephones
     = f.fields_for :telephones do |t|
@@ -5,8 +9,8 @@
         .col-xs-12
           = t.label :phone
       .row
-        .col-xs-10
-          = t.input :phone, as: :tel, required: true, label: false
+        .col-xs-9
+          = t.input :phone, as: :tel, required: true, label: false, input_html: { id: 'phone' }
         .col-xs-1
           = t.link_to_remove '', class: 'btn btn-danger btn-xs glyphicon glyphicon-minus-sign'
 .row.vert-offset-bottom-1

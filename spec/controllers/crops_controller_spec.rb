@@ -45,7 +45,6 @@ describe CropsController do
 
       describe 'flash and variable' do
         Then { expect(assigns(:person)).to eq(person) }
-        And  { is_expected.to set_the_flash[:success] }
       end
 
       describe 'redirect' do

@@ -17,9 +17,9 @@ class CropsController < ApplicationController
     if @person.crop_photo(PersonParams.filter(params))
       path = session[:after_crop_path].present? ? session[:after_crop_path] : root_path
 
-      redirect_to path, flash: { success: 'Image was successfully cropped.' }
+      redirect_to path
     else
-      flash[:danger] = 'Image was not cropped.'
+      flash[:danger] = I18n.t('crops.error')
 
       render action: :crop_image
     end

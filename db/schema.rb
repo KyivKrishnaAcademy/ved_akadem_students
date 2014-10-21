@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918091449) do
+ActiveRecord::Schema.define(version: 20141018192218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 20140918091449) do
     t.string   "passport"
     t.text     "education"
     t.text     "work"
+    t.string   "marital_status"
+    t.string   "friends_to_be_with"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
@@ -104,10 +106,14 @@ ActiveRecord::Schema.define(version: 20140918091449) do
   end
 
   create_table "programs", force: true do |t|
-    t.string   "title"
-    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title_uk"
+    t.string   "title_ru"
+    t.text     "description_uk"
+    t.text     "description_ru"
+    t.text     "courses_uk"
+    t.text     "courses_ru"
   end
 
   create_table "programs_questionnaires", id: false, force: true do |t|
@@ -124,10 +130,12 @@ ActiveRecord::Schema.define(version: 20140918091449) do
   end
 
   create_table "questionnaires", force: true do |t|
-    t.text     "description"
-    t.string   "title"
+    t.text     "description_uk"
+    t.string   "title_uk"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title_ru"
+    t.text     "description_ru"
   end
 
   create_table "questions", force: true do |t|

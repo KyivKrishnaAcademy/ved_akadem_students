@@ -1,18 +1,70 @@
 ru:
+  defaults:
+    links:
+      agreement: 'Соглашение'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
-  registrations:
-    title:
-      edit: 'Редактирование профайла'
-      new:  'Регистрация'
-  static_pages:
-    title:
-      home:         'Домашняя'
   links:
-    update:         'Сохранить'
-    delete:         'Удалить'
-    show_passport:  'Показать паспорт'
-    crop_photo:     'Обрезать фотографию'
-    edit_profile:   'Редактировать профайл'
+    update:           'Сохранить'
+    delete:           'Удалить'
+    show_passport:    'Показать паспорт'
+    crop_photo:       'Обрезать фотографию'
+    edit_profile:     'Редактировать профиль'
+    apply_to_program: 'Подать заявление'
+    withdraw:         'Отозвать заявление'
   hints:
     no_passport: 'Нет прикрепленного паспорта'
+  content:
+    courses:                  'Дисциплины излагаемые на курсе:'
+    apply_to_programs:        'У Вас есть возможность поступить на такие курсы:'
+    confirm_withdraw:         'Вы уверены, что хотите отозвать заявление на обучение?'
+    you_applied:              'Вы подали заявление на курс'
+    application_requirements: 'Чтобы Ваша заявление было рассмотрено, НЕОБХОДИМО выполнить следующие условия:'
+    fill_questionnaire:       'Заполнить'
+    attach_photo:             'Добавить фотографию'
+    attach_passport:          'Добавить паспорт'
+    in_profile:               'в профиль'
+    form_has_errors:
+      one:    'Исправьте пожалуйста %{count} ошибку:'
+      few:    'Исправьте пожалуйста %{count} ошибки:'
+      many:   'Исправьте пожалуйста %{count} ошибок:'
+      other:  'Исправьте пожалуйста %{count} ошибок:'
+  answers:
+    edit:
+      update: 'Отправить ответ'
+  crops:
+    crop_image:
+      title:        'Кадрирование изображения'
+      select_area:  'Обозначьте площадь для отображения'
+      preview:      'Предпросмотр'
+      guide:        'Пример'
+      crop:         'Применить'
+    error:          'Ошибка: не получилось кадрировать изображение'
+  devise:
+    passwords:
+      new:
+        restore_password: 'Восстановление пароля'
+        send_me:          'Отправить инструкции для восстановления'
+      edit:
+        change_password:        'Изменить пароль'
+        new_password:           'Новий пароль'
+        password_confirmation:  'Подтверждение нового пароля'
+        change:                 'Изменить пароль'
+  users:
+    emails:
+      new:
+        forgot_email: 'Забыли электронную почту?'
+        enter_phone:  'Введите телефон'
+        get_email:    'Напомнить почту'
+      create:
+        title:        'Адреса электронной почты закрепленные за этим номером телефона:'
+        no_telephone: 'Такой номер телефона не зарегистрирован.'
+    registrations:
+      edit:
+        title:  'Редактирование профиля'
+      new:
+        i_agree_html: 'Я прочитал(а) и согласен(на) с <a href="/privacy_agreement" target="_blank">соглашением на обработку персональных данных</a>'
+        title:        'Регистрация'
+  static_pages:
+    home:
+      title: 'Домашняя'

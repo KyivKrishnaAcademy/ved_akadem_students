@@ -1,0 +1,59 @@
+ru:
+  activerecord:
+    attributes:
+      person:
+        birthday:               'День рождения'
+        current_password:       'Текущий пароль'
+        education:              'Образование'
+        email:                  'Электронная почта'
+        gender:                 'Пол'
+        marital_status:         'Семейное положение'
+        middle_name:            'Отчество'
+        name:                   'Имя'
+        password:               'Пароль'
+        password_confirmation:  'Подтверждение'
+        photo:                  'Фотография'
+        privacy_agreement:      'Соглашение на обработку персональных данных'
+        spiritual_name:         'Духовное имя'
+        surname:                'Фамилия'
+        work:                   'Работа'
+      telephones:
+        phone:    'Телефонний номер'
+      questions/answers:
+        data:             'Ответ'
+    errors:
+      models:
+        answer:
+          attributes:
+            data:
+              blank:  'не может быть пустым'
+        person:
+          blank:      'должно быть заполнено'
+          too_long:   'слишком длинное (максимум %{count} символов)'
+          attributes:
+            email:
+              blank:                'должен быть заполнен'
+              invalid:              'должна иметь формат «primer@example.com»'
+            current_password:
+              blank:                'должен быть заполнен'
+              invalid:              'не правильный'
+            gender:
+              inclusion:            'должен быть выбран'
+            marital_status:
+              blank:                'должно быть выбрано'
+            password:
+              too_long:             'слишком длинный (максимум %{count} символов)'
+              too_short:            'слишком короткий (минимум %{count} символов)'
+            password_confirmation:
+              confirmation:         'должно быть таким же как и пароль'
+            photo:
+              size:                 'должна быть не меньше 150*200 пикселей'
+            privacy_agreement:
+              accepted:             'должно быть принято'
+            surname:
+              blank:                'должна быть заполнена'
+              too_long:             'слишком длинная (максимум %{count} символов)'
+            work:
+              blank:                'должна быть заполнена'
+        telephone:
+          invalid:  'должен начинаться со знака «+» и содержать коды страны и города (или оператора)'

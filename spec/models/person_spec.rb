@@ -19,10 +19,30 @@ describe Person do
   end
 
   describe 'validation' do
+    context 'privacy_agreement' do
+      Then { is_expected.to validate_acceptance_of(:privacy_agreement).on(:create) }
+    end
+
+    describe 'should skip privacy_agreement validation' do
+      Then { expect(build(:person, privacy_agreement: '', skip_password_validation: true)).to be_valid }
+    end
+
     context 'password' do
-      Then { is_expected.to validate_confirmation_of(:password) }
-      And  { is_expected.to ensure_length_of(:password).is_at_most(128) }
+      Then { is_expected.to ensure_length_of(:password).is_at_most(128) }
       And  { is_expected.to ensure_length_of(:password).is_at_least(6) }
+      And  do
+        # due to https://github.com/thoughtbot/shoulda-matchers/issues/593
+        # This do not work "is_expected.to validate_confirmation_of(:password)"
+
+        error_message = I18n.t('activerecord.errors.models.person.attributes.password_confirmation.confirmation')
+        person        = subject.dup
+
+        person.password               = 'value'
+        person.password_confirmation  = 'different value'
+        person.save
+
+        expect(person.errors.messages[:password_confirmation].first).to eq(error_message)
+      end
     end
 
     describe 'should skip password validation' do
@@ -52,6 +72,10 @@ describe Person do
       end
     end
 
+    context 'marital_status' do
+      Then { is_expected.to validate_presence_of(:marital_status) }
+    end
+
     context 'name, surname, middle_name, spiritual_name' do
       Then { is_expected.to validate_presence_of(:name) }
       And  { is_expected.to ensure_length_of(:name).is_at_most(50) }
@@ -71,6 +95,12 @@ describe Person do
       context 'equals 150x200 valid' do
         Then { expect(build(:person, :with_photo)).to be_valid }
       end
+    end
+
+    describe 'birthday, education, work' do
+      Then { is_expected.to validate_presence_of(:education) }
+      And  { is_expected.to validate_presence_of(:birthday) }
+      And  { is_expected.to validate_presence_of(:work) }
     end
   end
 
@@ -111,6 +141,7 @@ describe Person do
       describe '#add_application_questionnaires' do
         Then  { expect{@person.add_application_questionnaires}.to change{@person.questionnaires.count}.by(1) }
         And   { expect(@person.questionnaire_ids).to eq([@questionnaire_1.id]) }
+        And   { expect{@person.add_application_questionnaires}.not_to change{@person.questionnaires.count} }
       end
 
       describe '#remove_application_questionnaires' do
@@ -128,10 +159,13 @@ describe Person do
       end
 
       describe '#not_finished_questionnaires' do
+        Given { @person_2 = create :person }
         Given { @person.questionnaire_completenesses.create(completed: true , questionnaire_id: @questionnaire_1.id) }
         Given { @person.questionnaire_completenesses.create(completed: false, questionnaire_id: @questionnaire_2.id) }
+        Given { @person_2.questionnaire_completenesses.create(questionnaire_id: @questionnaire_1.id) }
+        Given { @person_2.questionnaire_completenesses.create(questionnaire_id: @questionnaire_2.id) }
 
-        Then  { expect(@person.not_finished_questionnaires.pluck(:id)).to eq([@questionnaire_2.id]) }
+        Then  { expect(@person.not_finished_questionnaires.map(&:id)).to eq([@questionnaire_2.id]) }
       end
     end
   end

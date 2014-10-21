@@ -17,12 +17,13 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'simple_form', '3.1.0.rc2', github: 'plataformatec/simple_form'
 gem 'nested_form'
 
-gem 'carrierwave'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
 gem 'jcrop-rails-v2'
 
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
+gem 'intl-tel-input-rails', github: 'ispyropoulos/intl-tel-input-rails'
 
 gem 'factory_girl_rails'
 gem 'ffaker'

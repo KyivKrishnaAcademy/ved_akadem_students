@@ -1,0 +1,16 @@
+.row
+  .col-xs-12
+    %h2
+      = t('.title')
+
+    - case @emails.count
+    - when 0
+      %p.text-warning
+        = t('.no_telephone')
+    - when 1
+      = @emails.first
+    - else
+      %ul
+        - @emails.each do |email|
+          %li
+            = email

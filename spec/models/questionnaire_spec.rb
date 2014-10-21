@@ -9,7 +9,8 @@ describe Questionnaire do
   end
 
   describe 'validations' do
-    Then { is_expected.to validate_presence_of(:title) }
+    Then { is_expected.to validate_presence_of(:title_uk) }
+    Then { is_expected.to validate_presence_of(:title_ru) }
   end
 
   describe '#complete!' do

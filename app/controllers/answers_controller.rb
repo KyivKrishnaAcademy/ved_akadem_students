@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
   def update
     authorize resource, :save_answers?
 
-    update!do |success|
+    update! do |success, failure|
       success.html do
         resource.complete!(current_person.id)
 

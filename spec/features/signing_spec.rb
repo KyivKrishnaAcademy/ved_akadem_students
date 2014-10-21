@@ -26,12 +26,14 @@ describe 'Signing' do
       fill_in 'person_name', with: 'Vasyl'
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'
-      fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
+      fill_in 'phone', with: '+380 50 111 2233'
       select  'Чоловіча', from: 'person_gender'
+      select  'одружений/заміжня', from: 'person_marital_status'
       fill_in 'person[birthday]', with: '20.05.1985'
       fill_in 'person_education', with: 'NTUU KPI'
       fill_in 'person_work', with: 'Kyivstar'
       fill_in 'person_emergency_contact', with: 'Krishna'
+      find('#person_privacy_agreement').set(true)
     end
 
     describe 'should signup without photo and passport' do
@@ -51,17 +53,36 @@ describe 'Signing' do
     end
 
     describe 'should signup with photo' do
-      When do
-        attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/150x200.png"
-        click_button I18n.t('devise.links.sign_up')
+      context 'invalid' do
+        When do
+          attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/10x10.png"
+          click_button I18n.t('devise.links.sign_up')
+        end
+
+        describe 'should show error' do
+          Then { expect(find('.alert-danger')).to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size')) }
+        end
+
+        context 'on second click' do
+          When { click_button I18n.t('devise.links.sign_up') }
+
+          Then { expect(find('.alert-danger')).to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size')) }
+        end
       end
 
-      describe 'should show flash' do
-        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
-      end
+      context 'valid' do
+        When do
+          attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/150x200.png"
+          click_button I18n.t('devise.links.sign_up')
+        end
 
-      describe 'should direct to crop path' do
-        Then { expect(find('h1')).to have_content('crop image') }
+        describe 'should show flash' do
+          Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
+        end
+
+        describe 'should direct to crop path' do
+          Then { expect(find('h1')).to have_content(I18n.t('crops.crop_image.title')) }
+        end
       end
     end
 
@@ -112,8 +133,9 @@ describe 'Signing' do
           fill_in 'person_name', with: 'Vasyl'
           fill_in 'person_middle_name', with: 'Alexovich'
           fill_in 'person_surname', with: 'Mitrofanov'
-          fill_in 'person_telephones_attributes_0_phone', with: '380112223344'
+          fill_in 'phone', with: '+380 50 111 2233'
           select  'Чоловіча', from: 'person_gender'
+          select  'одружений/заміжня', from: 'person_marital_status'
           fill_in 'person[birthday]', with: '20.05.1982'
           fill_in 'person_education', with: 'NTUU KPI'
           fill_in 'person_work', with: 'Kyivstar'
@@ -127,7 +149,7 @@ describe 'Signing' do
         end
 
         describe 'should direct to crop path' do
-          Then { expect(find('h1')).to have_content('crop image') }
+          Then { expect(find('h1')).to have_content(I18n.t('crops.crop_image.title')) }
         end
 
         describe 'should be updated' do
@@ -139,11 +161,12 @@ describe 'Signing' do
           And  { expect(find('#person_name')['value']).to have_content('Vasyl') }
           And  { expect(find('#person_middle_name')['value']).to have_content('Alexovich') }
           And  { expect(find('#person_surname')['value']).to have_content('Mitrofanov') }
-          And  { expect(find('#person_telephones_attributes_0_phone')['value']).to have_content('380112223344') }
+          And  { expect(find('#phone')['value']).to have_content('+380 50 111 2233') }
           And  { expect(find('#person_education')['value']).to have_content('NTUU KPI') }
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
           And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
           And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Чоловіча') }
+          And  { expect(find('#person_marital_status')).to have_css('option[selected="selected"]', text: 'одружений/заміжня') }
           And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1982-05-20') }
         end
       end
@@ -176,26 +199,26 @@ describe 'Signing' do
   end
 
   describe 'forgot email' do
-    Given { create :person, email: 'admin@example.com', telephones: [create(:telephone, phone: '1111111111')] }
-    Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '1111111111'), create(:telephone, phone: '2222222222')] }
+    Given { create :person, email: 'admin@example.com',   telephones: [create(:telephone, phone: '+380 50 111 2211')] }
+    Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '+380 50 111 2211'), create(:telephone, phone: '+380 50 111 2222')] }
     Given { visit remind_email_path }
+
+    subject { page.body }
 
     describe 'found one email' do
       When do
-        fill_in 'phone', with: '2222222222'
-        click_button 'Get email'
+        fill_in 'phone', with: '+380 50 111 2222'
+        click_button I18n.t('users.emails.new.get_email')
       end
 
-      Then { expect(find('.found-emails').text).to match(/(\w|\*)+@test\.org/) }
-      And  { expect(find('.found-emails').text).not_to match(/(\w|\*)+@example\.com/) }
+      Then { is_expected.to match(/(\w|\*)+@test\.org/) }
+      And  { is_expected.not_to match(/(\w|\*)+@example\.com/) }
     end
 
     describe 'found two emails' do
-      subject { find('.found-emails').text }
-
       When do
-        fill_in 'phone', with: '1111111111'
-        click_button 'Get email'
+        fill_in 'phone', with: '+380 50 111 2211'
+        click_button I18n.t('users.emails.new.get_email')
       end
 
       Then { is_expected.to match(/(\w|\*)+@example\.com/) }
@@ -204,11 +227,11 @@ describe 'Signing' do
 
     describe 'no email found' do
       When do
-        fill_in 'phone', with: '3333333333'
-        click_button 'Get email'
+        fill_in 'phone', with: '+380 50 111 2233'
+        click_button I18n.t('users.emails.new.get_email')
       end
 
-      Then { expect(find('.found-emails')).to have_content('The telephone is not registered.') }
+      Then { expect(find('p.text-warning')).to have_content(I18n.t('users.emails.create.no_telephone')) }
     end
   end
 end
