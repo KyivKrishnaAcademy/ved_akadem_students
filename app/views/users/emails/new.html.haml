@@ -8,13 +8,18 @@
       = t('.forgot_email')
 
 .row.vert-offset-top-1
-  .col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+  .col-xs-12
     = form_tag show_emails_path, role: :form do
-      .form-group
-        = label_tag :phone, t('.enter_phone')
-        = telephone_field_tag :phone, nil, class: 'form-control', id: 'phone'
-        = recaptcha_tags display: { theme: 'clean', lang: I18n.locale.to_s }
-      = submit_tag t('.get_email'), class: 'btn btn-primary col-xs-12'
+      .row
+        .col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+          = label_tag :phone, t('.enter_phone')
+          = telephone_field_tag :phone, nil, class: 'form-control', id: 'phone'
+      .row.vert-offset-top-1
+        .col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+          = recaptcha_tags display: { theme: 'white', lang: I18n.locale.to_s }
+      .row.vert-offset-top-1
+        .col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
+          = submit_tag t('.get_email'), class: 'btn btn-primary col-xs-12'
 
 :javascript
   window.initTelInput();
