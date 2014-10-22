@@ -29,8 +29,8 @@ describe :home do
         And   { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
         And   { expect(find('#study_application')).to have_link(I18n.t('links.withdraw')) }
         And   { expect(find('#study_application')).to have_css('li', text: 'Заповнити Психо тест') }
-        And   { expect(find('#study_application')).to have_css('li', text: 'Додати фотографію до профайлу') }
-        And   { expect(find('#study_application')).to have_css('li', text: 'Додати паспорт до профайлу') }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Додати фотографію до профілю') }
+        And   { expect(find('#study_application')).to have_css('li', text: 'Додати паспорт до профілю') }
       end
 
       describe 'withdraw', :js do
