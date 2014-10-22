@@ -1,4 +1,8 @@
 ru:
+  recaptcha:
+    errors:
+      incorrect-captcha-sol:  'Проверка не пройдена.'
+      recaptcha_unreachable:  'Невозможно связаться с сервисом проверки.'
   defaults:
     links:
       agreement: 'Соглашение'

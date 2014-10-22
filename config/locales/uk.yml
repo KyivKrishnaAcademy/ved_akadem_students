@@ -1,4 +1,8 @@
 uk:
+  recaptcha:
+    errors:
+      incorrect-captcha-sol:  'Перевірка невдала.'
+      recaptcha_unreachable:  "Неможливо звя'язатися з сервісом перевірки."
   defaults:
     links:
       agreement: 'Згода'
