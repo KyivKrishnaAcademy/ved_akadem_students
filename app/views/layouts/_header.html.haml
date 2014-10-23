@@ -10,6 +10,33 @@
       = link_to 'AkademStudents', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
+        - if show_admin_menu?
+          %li.dropdown
+            %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }
+              = t('defaults.links.main_menu')
+            %ul.dropdown-menu{ role: 'menu' }
+              - if show_admin_group_menu?
+                %li.dropdown
+                  %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }
+                    = t('defaults.links.groups')
+                  %ul.dropdown-menu{ role: 'menu' }
+                    - if current_person.can_act?('akadem_group:new')
+                      %li
+                        = link_to(t('defaults.links.group_add'), new_akadem_group_path)
+                    - if current_person.can_act?('akadem_group:index')
+                      %li
+                        = link_to(t('defaults.links.groups_list'), akadem_groups_path)
+              - if show_admin_people_menu?
+                %li.dropdown
+                  %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }
+                    = t('defaults.links.people')
+                  %ul.dropdown-menu{ role: 'menu' }
+                    - if current_person.can_act?('person:new')
+                      %li
+                        = link_to(t('defaults.links.person_add'), new_person_path)
+                    - if current_person.can_act?('person:index')
+                      %li
+                        = link_to(t('defaults.links.people_list'), people_path)
         %li
           = link_to t(:locale_label), locales_toggle_path
         %li

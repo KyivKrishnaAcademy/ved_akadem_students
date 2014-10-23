@@ -6,4 +6,16 @@ module ApplicationHelper
       "#{t(:application_title)} | #{page_title}"
     end
   end
+
+  def show_admin_menu?
+    current_person.present? && (show_admin_people_menu? || show_admin_group_menu?)
+  end
+
+  def show_admin_people_menu?
+    current_person.can_act?(%w[person:index person:add])
+  end
+
+  def show_admin_group_menu?
+    current_person.can_act?(%w[akadem_group:index akadem_group:add])
+  end
 end
