@@ -12,10 +12,10 @@ module ApplicationHelper
   end
 
   def show_admin_people_menu?
-    current_person.can_act?(%w[person:index person:add])
+    current_person.can_act?(%w[person:index person:new])
   end
 
   def show_admin_group_menu?
-    current_person.can_act?(%w[akadem_group:index akadem_group:add])
+    current_person.can_act?(%w[akadem_group:index akadem_group:new])
   end
 end
