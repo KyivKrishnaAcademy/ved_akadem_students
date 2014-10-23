@@ -57,6 +57,12 @@ class Person < ActiveRecord::Base
     questionnaires.includes(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
   end
 
+  def can_act?(*activities)
+    if activities.present? && roles.any?
+      (roles.pluck(:activities).flatten & activities.flatten).present?
+    end
+  end
+
   private
 
   def downcase_titleize(str)

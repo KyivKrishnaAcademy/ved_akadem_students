@@ -167,6 +167,15 @@ describe Person do
 
         Then  { expect(@person.not_finished_questionnaires.map(&:id)).to eq([@questionnaire_2.id]) }
       end
+
+      describe '#can_act?' do
+        Given { @role = create :role, activities: %w[some:activity], people: [@person] }
+
+        Then  { expect(@person.can_act?('some:activity')).to be(true) }
+        And   { expect(@person.can_act?(['some:activity'])).to be(true) }
+        And   { expect(@person.can_act?(['other:activity', 'some:activity'])).to be(true) }
+        And   { expect(@person.can_act?('other:activity')).to be(false) }
+      end
     end
   end
 end
