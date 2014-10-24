@@ -91,42 +91,6 @@ shared_examples "GET" do |variable, model, action|
   end
 end
 
-shared_examples "POST 'create'" do |variable, model|
-  def post_create(var)
-    post :create, var => build(var.to_sym).attributes
-  end
-
-  context 'on success' do
-    When { post_create variable }
-
-    describe 'redirect and flash' do
-      Then { expect(response).to redirect_to(action: :new) }
-      And  { is_expected.to set_the_flash[:success] }
-    end
-
-    context "@#{variable.to_s}" do
-      subject { assigns(variable) }
-
-      Then { is_expected.to be_a(model)  }
-      Then { is_expected.to be_persisted }
-    end
-  end
-
-  context 'on failure' do
-    Given { allow_any_instance_of(model).to receive(:save).and_return(false) }
-
-    When  { post_create variable }
-
-    describe 'render' do
-      Then { expect(response).to render_template(:new) }
-    end
-
-    context "@#{variable.to_s}" do
-      Then { expect(assigns(variable)).not_to be_persisted }
-    end
-  end
-end
-
 shared_examples "DELETE 'destroy'" do |model|
   Given { create_model model }
 
@@ -162,7 +126,7 @@ shared_examples "DELETE 'destroy'" do |model|
   end
 end
 
-shared_examples 'controller subclass' do |subclass, model|
+shared_examples :controller_params_subclass do |subclass, model|
   describe "#{subclass}" do
     describe '.filter' do
       it 'returns the cleaned params' do

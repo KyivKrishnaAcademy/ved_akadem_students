@@ -96,7 +96,7 @@ describe PeopleController do
     }
   end
 
-  it_behaves_like 'controller subclass', PeopleController::PersonParams, :person
+  it_behaves_like :controller_params_subclass, PeopleController::PersonParams, :person
 
   describe 'direct to crop path' do
     describe 'create' do
