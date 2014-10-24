@@ -1,4 +1,5 @@
 ru:
+  not_authorized: 'Не хватает прав, чтобы выполнить это действие.'
   recaptcha:
     errors:
       incorrect-captcha-sol:  'Проверка не пройдена.'

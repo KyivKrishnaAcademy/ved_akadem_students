@@ -1,4 +1,5 @@
 uk:
+  not_authorized: 'Не вистачає прав, щоб виконати цю дію.'
   recaptcha:
     errors:
       incorrect-captcha-sol:  'Перевірка невдала.'
