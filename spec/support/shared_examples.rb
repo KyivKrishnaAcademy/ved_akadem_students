@@ -141,54 +141,6 @@ shared_examples :controller_params_subclass do |subclass, model|
   end
 end
 
-shared_examples "PATCH 'update'" do |model, field|
-  Given { create_model model }
-
-  Given (:model_name_underscore)  { model.name.underscore }
-  Given (:some_text)              { 'Какой-то текст' }
-  Given (:model_last)             { model.last }
-  Given (:field)                  { field }
-  Given (:model)                  { model }
-
-  def update_model(attribs=nil)
-    m         = model_last
-    m[field]  = some_text
-    attribs ||= m.attributes
-
-    patch :update, {id: m.to_param, model_name_underscore.to_sym => attribs}
-  end
-
-  context 'on success' do
-    describe "change ##{field}" do
-      Then { expect{ update_model }.to change{ model_last[field] }.to(some_text) }
-    end
-
-    describe 'receives .update_attributes' do
-      Given (:params) { { field.to_s => 'params!' } }
-
-      Then do
-        expect_any_instance_of(model).to receive(:update_attributes).with(params)
-        update_model(params)
-      end
-    end
-
-    describe 'flash and redirect' do
-      When { update_model }
-
-      Then { is_expected.to set_the_flash[:success] }
-      And  { expect(response).to redirect_to model_last }
-    end
-  end
-
-  context 'on failure' do
-    Given { allow_any_instance_of(model).to receive(:save).and_return(false) }
-
-    When  { update_model }
-
-    Then  { expect(response).to render_template(:edit) }
-  end
-end
-
 # requests
 
 shared_examples 'renders _form on New and Edit pages' do

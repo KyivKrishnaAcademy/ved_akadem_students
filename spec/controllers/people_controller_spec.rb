@@ -37,7 +37,7 @@ describe PeopleController do
   it_behaves_like "GET", :people, Person, :index
   it_behaves_like "DELETE 'destroy'", Person
 
-  describe "PATCH 'update'" do |model, field|
+  describe "PATCH 'update'" do
     Given(:person) { create :person }
 
     def update_model(attributes = nil)
