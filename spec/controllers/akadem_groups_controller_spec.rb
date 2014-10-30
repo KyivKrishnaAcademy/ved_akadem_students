@@ -139,4 +139,37 @@ describe AkademGroupsController do
     end
   end
 
+  context 'delete: :destroy with ["akadem_group:destroy"]' do
+    Given { @record = create :akadem_group }
+
+    Given(:action) { delete :destroy, id: @record.id }
+
+    context 'signed in' do
+      Given { @user = create :person, roles: [create(:role, activities: %w[akadem_group:destroy])] }
+
+      When { sign_in(:person, @user) }
+
+      context 'on success' do
+        Then { expect{action}.to change(AkademGroup, :count).by(-1) }
+        And  { expect(action).to redirect_to(action: :index)  }
+        And  { is_expected.to set_the_flash[:success] }
+      end
+
+      context 'on failure' do
+        Given { allow_any_instance_of(AkademGroup).to receive_message_chain(:destroy, :destroyed?).and_return(false) }
+        Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
+
+        Then { expect{action}.not_to change(AkademGroup, :count) }
+        And  { expect(action).to redirect_to('where_i_came_from') }
+        And { is_expected.to set_the_flash[:danger] }
+      end
+    end
+
+    context 'not signed in' do
+      When { action }
+
+      Then { expect(response).to redirect_to(new_person_session_path) }
+      And  { is_expected.to set_the_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
+    end
+  end
 end
