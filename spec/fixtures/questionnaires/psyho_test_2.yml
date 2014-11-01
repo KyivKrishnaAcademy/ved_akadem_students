@@ -80,525 +80,525 @@
 :questions:
   - :position:    1
     :question_uk: 'Іноді я не можу подолати бажання комусь нашкодити.'
-    :question_ru:
+    :question_ru: 'Иногда я не могу преодолеть желание кому-то навредить.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    2
     :question_uk: 'Іноді я можу пліткувати про людей, яких недолюблюю.'
-    :question_ru:
+    :question_ru: 'Иногда я могу сплетничать о людях, которых недолюбливаю.'
     :key:         3
     :key_answers:
       - 1
       - 2
   - :position:    3
     :question_uk: 'Я легко роздратовуюсь, але й легко заспокоююсь.'
-    :question_ru:
+    :question_ru: 'Я легко раздражаюсь, но и легко успокаиваюсь.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    4
     :question_uk: 'Якщо мене не улестити, прохання не виконаю.'
-    :question_ru:
+    :question_ru: 'Если меня не задобрить, просьбу не выполню.'
     :key:         4
     :key_answers:
       - 1
       - 2
   - :position:    5
     :question_uk: 'Не завжди одержую те, на що маю право.'
-    :question_ru:
+    :question_ru: 'Не всегда получаю то, на что имею право.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    6
     :question_uk: 'Знаю, що люди говорять про мене за моєю спиною.'
-    :question_ru:
+    :question_ru: 'Знаю, что люди говорят обо мне за моей спиной.'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    7
     :question_uk: 'Якщо не схвалюю вчинки інших людей, даю їм це відчути.'
-    :question_ru:
+    :question_ru: 'Если не одобряю поступки других людей, даю им это почувствовать.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    8
     :question_uk: 'Якщо обманюю когось, відчуваю почуття провини.'
-    :question_ru:
+    :question_ru: 'Если обманываю кого-то, испытываю чувство вины.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    9
     :question_uk: 'Мені здається, що я здатен ударити людину.'
-    :question_ru:
+    :question_ru: 'Мне кажется, что я способен ударить человека.'
     :key:         1
     :key_answers:
       - 3
       - 4
   - :position:    10
     :question_uk: 'Ніколи не нервуюся настільки, щоб кидати речі.'
-    :question_ru:
+    :question_ru: 'Никогда не нервничаю настолько, чтобы бросать вещи.'
     :key:         3
     :key_answers:
       - 1
       - 2
   - :position:    11
     :question_uk: 'Завжди розумію чужі недоліки.'
-    :question_ru:
+    :question_ru: 'Всегда понимаю чужие недостатки.'
     :key:         5
     :key_answers:
       - 3
       - 4
   - :position:    12
     :question_uk: 'Коли встановлене правило не подобається мені, хочу його порушити.'
-    :question_ru:
+    :question_ru: 'Когда установленное правило не нравится мне, хочу его нарушить.'
     :key:         4
     :key_answers:
       - 1
       - 2
   - :position:    13
     :question_uk: 'Інші люди завжди вміють використовувати сприятливі обставини.'
-    :question_ru:
+    :question_ru: 'Другие люди всегда умеют использовать благоприятные обстоятельства.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    14
     :question_uk: 'Мене непокоять люди, які ставляться до мене надто дружньо.'
-    :question_ru:
+    :question_ru: 'Меня беспокоят люди, которые относятся ко мне слишком дружелюбно.'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    15
     :question_uk: 'Часто не погоджуюся з людьми.'
-    :question_ru:
+    :question_ru: 'Часто не согласен с людьми.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    16
     :question_uk: 'Іноді міркую над безсоромними речами.'
-    :question_ru:
+    :question_ru: 'Иногда размышляю над бесстыдными вещами.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    17
     :question_uk: 'Якщо хтось ударить мене, я йому не відповім.'
-    :question_ru:
+    :question_ru: 'Если кто-то ударит меня, я ему не отвечу.'
     :key:         1
     :key_answers:
       - 3
       - 4
   - :position:    18
     :question_uk: 'Коли я розгніваний, я грюкаю дверима.'
-    :question_ru:
+    :question_ru: 'Когда я разгневан, я хлопаю дверью.'
     :key:         3
     :key_answers:
       - 1
       - 2
   - :position:    19
     :question_uk: 'Я більше роздратований, ніж здається.'
-    :question_ru:
+    :question_ru: 'Я больше раздражен, чем кажется.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    20
     :question_uk: 'Якщо хтось намагається керувати мною, я роблю все навпаки.'
-    :question_ru:
+    :question_ru: 'При попытке управлять мной, я делаю все наоборот.'
     :key:         4
     :key_answers:
       - 1
       - 2
   - :position:    21
     :question_uk: 'Мене пригнічує моя доля.'
-    :question_ru:
+    :question_ru: 'Меня угнетает моя судьба.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    22
     :question_uk: 'Вважаю, що деякі люди мене не поважають.'
-    :question_ru:
+    :question_ru: 'Считаю, что некоторые люди меня не уважают.'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    23
     :question_uk: 'Не можу втриматися від суперечки, якщо люди не згодні зі мною.'
-    :question_ru:
+    :question_ru: 'Не могу удержаться от спора, если люди не согласны со мной.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    24
     :question_uk: 'Уникання роботи повинно викликати почуття провини.'
-    :question_ru:
+    :question_ru: 'Избегание работы должно вызывать чувство вины.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    25
     :question_uk: "Хто грубо ставиться до мене або моєї сім'ї, буде обов'язково покараний."
-    :question_ru:
+    :question_ru: 'Кто грубо относится ко мне или моей семье, будет обязательно наказан.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    26
     :question_uk: 'Я не здатен на грубі жарти.'
-    :question_ru:
+    :question_ru: 'Я не способен на грубые шутки.'
     :key:         3
     :key_answers:
       - 3
       - 4
   - :position:    27
     :question_uk: 'Мене охоплює гнів, коли наді мною насміхаються.'
-    :question_ru:
+    :question_ru: 'Меня охватывает гнев, когда надо мной насмехаются.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    28
     :question_uk: 'Коли люди виставляють себе керівниками, я намагаюся довести їм протилежне.'
-    :question_ru:
+    :question_ru: 'Когда люди выставляют себя руководителями, я пытаюсь доказать им обратное.'
     :key:         4
     :key_answers:
       - 1
       - 2
   - :position:    29
     :question_uk: 'Майже щотижня бачу когось із тих, хто мені не подобається.'
-    :question_ru:
+    :question_ru: 'Почти еженедельно вижу кого-то из тех, кто мне не нравится.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    30
     :question_uk: 'Дуже багато людей заздрять мені.'
-    :question_ru:
+    :question_ru: 'Очень многие люди завидуют мне.'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    31
     :question_uk: 'Вимагаю, щоб люди поважали мої права.'
-    :question_ru:
+    :question_ru: 'Требую, чтобы люди уважали мои права.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    32
     :question_uk: 'Мене пригнічує факт, що я мало чого роблю для своїх батьків.'
-    :question_ru:
+    :question_ru: 'Меня угнетает факт, что я мало что делаю для своих родителей.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    33
     :question_uk: 'Люди, які постійно дратують мене, заслуговують на ляпас.'
-    :question_ru:
+    :question_ru: 'Люди, которые постоянно раздражают меня, заслуживают пощечину.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    34
     :question_uk: 'Від злості іноді буваю похмурим.'
-    :question_ru:
+    :question_ru: 'От злости иногда бываю мрачен.'
     :key:         3
     :key_answers:
       - 1
       - 2
   - :position:    35
     :question_uk: 'Якщо до мене ставляться гірше, ніж я на те заслуговую, я не засмучуюсь.'
-    :question_ru:
+    :question_ru: 'Если ко мне относятся хуже, чем я на то заслуживаю, я не расстраиваюсь.'
     :key:         5
     :key_answers:
       - 3
       - 4
   - :position:    36
     :question_uk: 'Якщо хтось намагається порушити мій настрій, я не звертаю уваги.'
-    :question_ru:
+    :question_ru: 'При попытке нарушить мое настроение, я не обращаю внимания.'
     :key:         4
     :key_answers:
       - 3
       - 4
   - :position:    37
     :question_uk: 'Іноді я дуже заздрю, хоча й не показую цього.'
-    :question_ru:
+    :question_ru: 'Иногда я очень завидую, хотя и не показываю этого.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    38
     :question_uk: 'Іноді мені здається, що наді мною насміхаються.'
-    :question_ru:
+    :question_ru: 'Иногда мне кажется, что надо мной смеются.'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    39
     :question_uk: 'Навіть коли злюся, не вдаюся до «міцних» виразів.'
-    :question_ru:
+    :question_ru: 'Даже когда злюсь, не прибегаю к «крепким» выражениям.'
     :key:         2
     :key_answers:
       - 3
       - 4
   - :position:    40
     :question_uk: 'Хочу, щоб мої гріхи були пробачені.'
-    :question_ru:
+    :question_ru: 'Хочу, чтобы мои грехи были прощены.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    41
     :question_uk: 'Якщо хтось ударить мене, лише інколи даю здачі.'
-    :question_ru:
+    :question_ru: 'Если кто-то ударит меня, лишь иногда даю сдачи.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    42
     :question_uk: 'Ображаюся, коли не виходить по-моєму.'
-    :question_ru:
+    :question_ru: 'Обижаюсь, когда не получается по-моему.'
     :key:         3
     :key_answers:
       - 1
       - 2
   - :position:    43
     :question_uk: 'Іноді люди дратують мене своєю присутністю.'
-    :question_ru:
+    :question_ru: 'Иногда люди раздражают меня своим присутствием.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    44
     :question_uk: 'Немає такої людини, до якої б я відчував ненависть.'
-    :question_ru:
+    :question_ru: 'Нет такого человека, к которому бы я чувствовал ненависть.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    45
     :question_uk: 'Мій принцип: «Ніколи не довіряй чужинцям».'
-    :question_ru:
+    :question_ru: 'Мой принцип: «Никогда не доверяй чужакам».'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    46
     :question_uk: 'Якщо хтось дратує мене, я ладен сказати про нього все, що думаю.'
-    :question_ru:
+    :question_ru: 'Если кто-нибудь раздражает меня, я готов сказать о нем все, что думаю.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    47
     :question_uk: 'Роблю багато такого, про що потім жалкую.'
-    :question_ru:
+    :question_ru: 'Делаю много такого, о чем потом жалею.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    48
     :question_uk: 'Якщо злюся, можу вдарити кого-небудь.'
-    :question_ru:
+    :question_ru: 'Если злюсь, могу ударить кого-нибудь.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    49
     :question_uk: 'З десятирічного віку у мене не було сплесків гніву.'
-    :question_ru:
+    :question_ru: 'С десятилетнего возраста у меня не было всплесков гнева.'
     :key:         3
     :key_answers:
       - 3
       - 4
   - :position:    50
     :question_uk: 'Часто відчуваю себе так, ніби ось-ось вибухну.'
-    :question_ru:
+    :question_ru: 'Часто чувствую себя так, будто вот-вот взорвусь.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    51
     :question_uk: 'Якби люди знали, що я відчуваю, мене б вважали важкою людиною.'
-    :question_ru:
+    :question_ru: 'Если бы люди знали, что я чувствую, меня бы считали трудным человеком.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    52
     :question_uk: 'Завжди думаю про те, які приховані причини змушують людей робити щось приємне для мене.'
-    :question_ru:
+    :question_ru: 'Всегда думаю о том, какие скрытые причины заставляют людей делать что-то приятное для меня.'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    53
     :question_uk: 'Коли на мене кричать, я кричу у відповідь.'
-    :question_ru:
+    :question_ru: 'Когда на меня кричат​​, я кричу в ответ.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    54
     :question_uk: 'Невдачі пригнічують мене.'
-    :question_ru:
+    :question_ru: 'Неудачи угнетают меня.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    55
     :question_uk: 'Встряваю у бійки не більше й не менше за інших.'
-    :question_ru:
+    :question_ru: 'Встреваю в драки не больше и не меньше других.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    56
-    :question_uk: "Можу пригадати такі випадки, коли хапав якісь речі та ламав їх від гніву."
-    :question_ru:
+    :question_uk: 'Можу пригадати такі випадки, коли хапав якісь речі та ламав їх від гніву.'
+    :question_ru: 'Могу вспомнить такие случаи, когда хватал какие-то вещи и ломал их от гнева.'
     :key:         3
     :key_answers:
       - 1
       - 2
   - :position:    57
     :question_uk: 'Іноді відчуваю, що можу першим почати бійку.'
-    :question_ru:
+    :question_ru: 'Иногда чувствую, что могу первым начать драку.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    58
     :question_uk: 'Іноді відчуваю, що життя до мене несправедливе.'
-    :question_ru:
+    :question_ru: 'Иногда чувствую, что жизнь ко мне несправедлива.'
     :key:         7
     :key_answers:
       - 1
       - 2
   - :position:    59
     :question_uk: 'Раніше вважав, що більшість людей говорить правду, тепер так не вважаю.'
-    :question_ru:
+    :question_ru: 'Раньше считал, что большинство людей говорит правду, теперь так не считаю.'
     :key:         6
     :key_answers:
       - 1
       - 2
   - :position:    60
     :question_uk: 'Сварюся тільки зі злості.'
-    :question_ru:
+    :question_ru: 'Ругаюсь только со злости.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    61
     :question_uk: 'Коли щось вчиняю неправильно, то відчуваю провину.'
-    :question_ru:
+    :question_ru: 'Когда что-то делаю неправильно, то чувствую вину.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    62
     :question_uk: 'Якщо для захисту своїх прав треба застосувати силу, я її застосовую.'
-    :question_ru:
+    :question_ru: 'Если для защиты своих прав нужно применить силу, я ее применяю.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    63
     :question_uk: 'Іноді виражаю свій гнів тим, що стукаю по столу.'
-    :question_ru:
+    :question_ru: 'Иногда выражаю свой ​​гнев тем, что стучу по столу.'
     :key:         3
     :key_answers:
       - 1
       - 2
   - :position:    64
     :question_uk: 'Буваю грубим із людьми, які мені не подобаються.'
-    :question_ru:
+    :question_ru: 'Бываю грубым с людьми, которые мне не нравятся.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    65
     :question_uk: 'У мене немає ворогів, які б намагалися скривдити мене.'
-    :question_ru:
+    :question_ru: 'У меня нет врагов, которые бы пытались обидеть меня.'
     :key:         6
     :key_answers:
       - 3
       - 4
   - :position:    66
     :question_uk: 'Не вмію поставити людину на місце, навіть коли вона на це заслуговує.'
-    :question_ru:
+    :question_ru: 'Не умею поставить человека на место, даже если оно этого заслуживает.'
     :key:         2
     :key_answers:
       - 3
       - 4
   - :position:    67
     :question_uk: 'Часто думаю, що живу неправильно.'
-    :question_ru:
+    :question_ru: 'Часто думаю, что живу неправильно.'
     :key:         8
     :key_answers:
       - 1
       - 2
   - :position:    68
     :question_uk: 'Знаю людей, які здатні довести мене до бійки.'
-    :question_ru:
+    :question_ru: 'Знаю людей, которые способны довести меня до драки.'
     :key:         1
     :key_answers:
       - 1
       - 2
   - :position:    69
     :question_uk: 'Не переймаюся через дрібниці.'
-    :question_ru:
+    :question_ru: 'Не переживаю из-за пустяков.'
     :key:         5
     :key_answers:
       - 3
       - 4
   - :position:    70
     :question_uk: 'Мені рідко здається, що люди намагаються зробити мені щось погане.'
-    :question_ru:
+    :question_ru: 'Мне редко кажется, что люди пытаются сделать мне что-то плохое.'
     :key:         6
     :key_answers:
       - 3
       - 4
   - :position:    71
     :question_uk: 'Часто погрожую людям, не маючи наміру виконати погрози.'
-    :question_ru:
+    :question_ru: 'Часто угрожаю людям, не собираясь выполнить угрозы.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    72
     :question_uk: 'Останнім часом я став занудою.'
-    :question_ru:
+    :question_ru: 'В последнее время я стал занудой.'
     :key:         5
     :key_answers:
       - 1
       - 2
   - :position:    73
     :question_uk: 'У розмові часто підвищую голос.'
-    :question_ru:
+    :question_ru: 'В разговоре часто повышаю голос.'
     :key:         2
     :key_answers:
       - 1
       - 2
   - :position:    74
     :question_uk: 'Намагаюся приховувати погане ставлення до людей.'
-    :question_ru:
+    :question_ru: 'Стараюсь скрывать плохое отношение к людям.'
     :key:         2
     :key_answers:
       - 3
       - 4
   - :position:    75
     :question_uk: 'Краще погоджуся, ніж сваритимуся.'
-    :question_ru:
+    :question_ru: 'Лучше соглашусь, чем буду ссориться.'
     :key:         2
     :key_answers:
       - 3
