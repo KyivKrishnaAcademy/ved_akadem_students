@@ -3,28 +3,36 @@ namespace :akadem do
   task create_questionnaires: :environment do
     puts 'Reading data...'
 
-    psyho_test        = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/psyho_test.yml'))
+    psycho_test       = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/psyho_test_2.yml'))
     initial_questions = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/initial_questions.yml'))
 
     puts 'Populating...'
 
-    psyho_questionnaire = Questionnaire.create(
-                            title_uk:       psyho_test[:title_uk],
-                            title_ru:       psyho_test[:title_ru],
-                            description_uk: psyho_test[:description_uk],
-                            description_ru: psyho_test[:description_ru],
-                            questions:      psyho_test[:questions].map do |q|
-                                              Question.new(format: 'single_select',
-                                                           data: {  text: { uk: q[:question_uk], ru: q[:question_ru] },
-                                                                    options: { uk: [['Так', true], ['Ні', false]],
-                                                                               ru: [['Да', true], ['Нет', false]] }})
-                                            end)
+    psycho_options        = { ru: psycho_test[:answers][:ru].to_a.map(&:reverse),
+                              uk: psycho_test[:answers][:uk].to_a.map(&:reverse) }
+    psycho_questionnaire  = Questionnaire.create(
+                              kind:           'psycho_test',
+                              title_uk:       psycho_test[:title_uk],
+                              title_ru:       psycho_test[:title_ru],
+                              description_uk: psycho_test[:description_uk],
+                              description_ru: psycho_test[:description_ru],
+                              questions:      psycho_test[:questions].map do |q|
+                                                Question.new(format:    'single_select',
+                                                             position:  q[:position],
+                                                             data:      { text:       { uk: q[:question_uk],
+                                                                                        ru: q[:question_ru] },
+                                                                          options:    psycho_options,
+                                                                          key:        q[:key],
+                                                                          key_anwers: q[:key_answers] })
+                                              end)
 
     initial_questionnaire = Questionnaire.create(
+                            kind:         'initial_questions',
                             title_uk:     initial_questions[:title_uk],
                             title_ru:     initial_questions[:title_ru],
                             questions:    initial_questions[:questions].map do |q|
                                             Question.new(format: 'freeform',
+                                                         position: q[:position],
                                                          data: { text: { uk: q[:question_uk], ru: q[:question_ru] } })
                                           end)
 
