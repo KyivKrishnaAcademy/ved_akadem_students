@@ -10,8 +10,9 @@ namespace :akadem do
 
     psycho_options        = { ru: psycho_test[:answers][:ru].to_a.map(&:reverse),
                               uk: psycho_test[:answers][:uk].to_a.map(&:reverse) }
-    psycho_questionnaire  = Questionnaire.create(
+    psycho_questionnaire  = Questionnaire.create!(
                               kind:           'psycho_test',
+                              rule:           psycho_test[:keys],
                               title_uk:       psycho_test[:title_uk],
                               title_ru:       psycho_test[:title_ru],
                               description_uk: psycho_test[:description_uk],
@@ -26,7 +27,7 @@ namespace :akadem do
                                                                           key_anwers: q[:key_answers] })
                                               end)
 
-    initial_questionnaire = Questionnaire.create(
+    initial_questionnaire = Questionnaire.create!(
                             kind:         'initial_questions',
                             title_uk:     initial_questions[:title_uk],
                             title_ru:     initial_questions[:title_ru],
@@ -39,7 +40,7 @@ namespace :akadem do
     puts 'Adding questionnaires to Study applications...'
 
     Program.all.each do |program|
-      program.questionnaires << [psyho_questionnaire, initial_questionnaire] if program.questionnaires.none?
+      program.questionnaires << [psycho_questionnaire, initial_questionnaire] if program.questionnaires.none?
     end
 
     puts 'Done.'

@@ -1,4 +1,6 @@
 class Questionnaire < ActiveRecord::Base
+  serialize :rule, Hash
+
   has_and_belongs_to_many :programs
   has_many :questions, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
