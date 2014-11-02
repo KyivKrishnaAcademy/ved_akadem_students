@@ -18,7 +18,9 @@ class AnswersController < ApplicationController
 
     update! do |success, failure|
       success.html do
-        resource.complete!(current_person.id)
+        answers_processor = AnswersProcessor.new(resource, current_person)
+
+        answers_processor.process!
 
         redirect_to root_path
       end

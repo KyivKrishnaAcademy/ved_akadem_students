@@ -7,8 +7,4 @@ class Questionnaire < ActiveRecord::Base
   accepts_nested_attributes_for :questions
 
   validates :title_ru, :title_uk, presence: true
-
-  def complete!(person_id)
-    QuestionnaireCompleteness.find_by(person_id: person_id, questionnaire_id: id).update_column(:completed, true)
-  end
 end
