@@ -12,7 +12,7 @@ namespace :akadem do
                               uk: psycho_test[:answers][:uk].to_a.map(&:reverse) }
     psycho_questionnaire  = Questionnaire.create!(
                               kind:           'psycho_test',
-                              rule:           psycho_test[:keys],
+                              rule:           { keys: psycho_test[:keys], indexes: psycho_test[:indexes] },
                               title_uk:       psycho_test[:title_uk],
                               title_ru:       psycho_test[:title_ru],
                               description_uk: psycho_test[:description_uk],
@@ -24,7 +24,7 @@ namespace :akadem do
                                                                                         ru: q[:question_ru] },
                                                                           options:    psycho_options,
                                                                           key:        q[:key],
-                                                                          key_anwers: q[:key_answers] })
+                                                                          key_anwers: q[:key_answers].map(&:to_s) })
                                               end)
 
     initial_questionnaire = Questionnaire.create!(
