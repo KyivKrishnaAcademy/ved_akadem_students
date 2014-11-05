@@ -1,5 +1,5 @@
 = q.simple_fields_for :answers, q.object.answers_by_person(current_person) do |a|
   .col-xs-12.col-sm-6.vert-offset-bottom-1
     = a.input :person_id, as: :hidden
-    = q.object.data[:text][locale]
+    = "#{q.object.position}. #{q.object.data[:text][locale]}"
     = a.input :data, collection: q.object.data[:options][locale], as: :radio_buttons, label: false, wrapper: :horizontal_radio_and_checkboxes
