@@ -40,7 +40,7 @@ namespace :akadem do
     puts 'Adding questionnaires to Study applications...'
 
     Program.all.each do |program|
-      program.questionnaires << [psycho_questionnaire, initial_questionnaire] if program.questionnaires.none?
+      program.questionnaires << [psycho_questionnaire, initial_questionnaire]
     end
 
     puts 'Done.'

@@ -19,6 +19,7 @@ describe :home do
   context 'study applications' do
     Given { @program = create(:program, title_uk: 'Школа Бхакти' , description_uk: 'Описание 1') }
     Given { create(:program, title_uk: 'Бхакти Шастры', description_uk: 'Описание 2') }
+    Given { create(:program, title_uk: 'Invisible Program', visible: false) }
 
     context 'with application' do
       Given { StudyApplication.create(person_id: @person.id, program_id: @program.id) }
@@ -52,6 +53,7 @@ describe :home do
         And   { expect(programs.last).to have_content('Бхакти Шастры') }
         And   { expect(programs.last).to have_content('Описание 2') }
         And   { expect(programs.last).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
+        And   { expect(find('#study_application')).not_to have_content('Invisible Program') }
       end
 
       describe 'apply', :js do

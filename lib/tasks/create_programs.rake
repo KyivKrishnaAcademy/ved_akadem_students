@@ -9,6 +9,7 @@ namespace :akadem do
 
     programs.each { |p| Program.create!(title_uk: p[:title_uk],
                                         title_ru: p[:title_ru],
+                                        visible:  p[:visible],
                                         description_uk: p[:description_uk],
                                         description_ru: p[:description_ru],
                                         courses_uk: p[:courses_uk],
