@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-FactoryGirl.create(:person, :admin) if Person.where(email: 'admin@example.com').none?
+FactoryGirl.create(:person, :admin)
 
 Rake::Task['akadem:create_programs'].invoke
 Rake::Task['akadem:create_questionnaires'].invoke
