@@ -176,6 +176,19 @@ describe Person do
         And   { expect(@person.can_act?(['other:activity', 'some:activity'])).to be(true) }
         And   { expect(@person.can_act?('other:activity')).to be(false) }
       end
+
+      describe '#psycho_test_result' do
+        context 'no psycho test' do
+          Then { expect(@person.psycho_test_result).to be_nil }
+        end
+
+        context 'with result' do
+          Given { @psycho_test = create :questionnaire, kind: 'psycho_test' }
+          Given { @person.questionnaire_completenesses.create(questionnaire_id: @psycho_test.id, result: {a: :b}) }
+
+          Then  { expect(@person.psycho_test_result).to eq({a: :b}) }
+        end
+      end
     end
   end
 end

@@ -14,7 +14,8 @@ describe AnswersController do
       }
 
       Then do
-        expect_any_instance_of(Questionnaire).not_to receive(:complete!).with(@person.id)
+        expect(AnswersProcessor).not_to receive(:new)
+        expect_any_instance_of(AnswersProcessor).not_to receive(:process!)
 
         patch :update, { id: @questionnaire.id, questionnaire: attributes }
       end
@@ -26,7 +27,11 @@ describe AnswersController do
       }
 
       Then do
-        expect_any_instance_of(Questionnaire).to receive(:complete!).with(@person.id)
+        answers_processor = double(AnswersProcessor)
+
+        allow(AnswersProcessor).to receive(:new).with(@questionnaire, @person).and_return(answers_processor)
+
+        expect(answers_processor).to receive(:process!)
 
         patch :update, { id: @questionnaire.id, questionnaire: attributes }
       end

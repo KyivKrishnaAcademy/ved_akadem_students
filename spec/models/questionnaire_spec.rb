@@ -12,14 +12,4 @@ describe Questionnaire do
     Then { is_expected.to validate_presence_of(:title_uk) }
     Then { is_expected.to validate_presence_of(:title_ru) }
   end
-
-  describe '#complete!' do
-    Given { @questionnaire = create :questionnaire }
-    Given { @person        = create :person }
-    Given { @completeness  = QuestionnaireCompleteness.create(person: @person, questionnaire: @questionnaire) }
-
-    When  { @questionnaire.complete!(@person.id) }
-
-    Then  { expect(@completeness.reload.completed?).to be(true) }
-  end
 end

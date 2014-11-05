@@ -57,6 +57,12 @@ class Person < ActiveRecord::Base
     questionnaires.includes(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
   end
 
+  def psycho_test_result
+    psycho_tests = questionnaire_completenesses.joins(:questionnaire).where(questionnaires: { kind: 'psycho_test' })
+
+    psycho_tests.first.result if psycho_tests.any?
+  end
+
   def can_act?(*activities)
     if activities.present? && roles.any?
       (roles.pluck(:activities).flatten & activities.flatten).present?

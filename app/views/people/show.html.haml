@@ -1,44 +1,63 @@
+= render 'shared/under_construction'
 - provide(:title, complex_name(@person, :t))
-%h1
-  = complex_name(@person)
-%br
-= link_to 'Edit', edit_person_path(@person)
-|
-= link_to 'Delete', person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }
-%br
-- if @person.photo.present?
-  = image_tag("/people/show_photo/standart/#{@person.id}")
-- else
-  = image_tag(@person.photo_url)
-%br
-- if @person.passport.present?
-  = link_to 'Show passport', "/people/show_passport/#{@person.id}", target: '_blank'
-- else
-  There is no passport attached.
-%br
-Spiritual name: #{@person.spiritual_name}
-%br
-Name: #{@person.name}
-%br
-Middle name: #{@person.middle_name}
-%br
-Surname: #{@person.surname}
-%br
-Gender: #{@person.gender ? 'Male' : 'Female'}
-%br
-Birthday: #{@person.birthday}
-%br
-Email: #{@person.email}
-%br
-Marital status: #{@person.marital_status}
-%br
-Friends to be with: #{@person.friends_to_be_with}
-%br
-- @person.telephones.each_with_index do |telephone, index|
-  Telephone #{index + 1}: #{telephone.phone}
-%br
-Emergency contact: #{@person.emergency_contact}
-%br
-Education: #{@person.education}
-%br
-Work: #{@person.work}
+.row
+  .col-xs-12
+    %h1
+      = complex_name(@person)
+    %br
+    = link_to 'Edit', edit_person_path(@person)
+    |
+    = link_to 'Delete', person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }
+    %br
+    - if @person.photo.present?
+      = image_tag("/people/show_photo/standart/#{@person.id}")
+    - else
+      = image_tag(@person.photo_url)
+    %br
+    - if @person.passport.present?
+      = link_to 'Show passport', "/people/show_passport/#{@person.id}", target: '_blank'
+    - else
+      There is no passport attached.
+    %br
+    Spiritual name: #{@person.spiritual_name}
+    %br
+    Name: #{@person.name}
+    %br
+    Middle name: #{@person.middle_name}
+    %br
+    Surname: #{@person.surname}
+    %br
+    Gender: #{@person.gender ? 'Male' : 'Female'}
+    %br
+    Birthday: #{@person.birthday}
+    %br
+    Email: #{@person.email}
+    %br
+    Marital status: #{@person.marital_status}
+    %br
+    Friends to be with: #{@person.friends_to_be_with}
+    %br
+    - @person.telephones.each_with_index do |telephone, index|
+      Telephone #{index + 1}: #{telephone.phone}
+    %br
+    Emergency contact: #{@person.emergency_contact}
+    %br
+    Education: #{@person.education}
+    %br
+    Work: #{@person.work}
+
+- if @person.psycho_test_result.present?
+  .row.vert-offset-top-1
+    .col-xs-12
+      %h3
+        = t('.psycho_test_results')
+    - @person.psycho_test_result.each do |key, data|
+      .col-xs-12.col-sm-6
+        %div{ class: 'popover-description', data: { toggle: 'popover', content: data[locale][:description] } }
+          %p= data[locale][:title]
+          .progress
+            .progress-bar{  class: "progress-bar-#{data[:color]}", role: :progressbar, style: "width: #{data[:percentage]}%;",
+                            aria: { valuenow: data[:current], valuemin: 0, valuemax: data[:max] } }
+              %span
+                #{data[:current]}/#{data[:max]}
+
