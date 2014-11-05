@@ -80,3 +80,6 @@ uk:
   static_pages:
     home:
       title: 'Домашня'
+  people:
+    show:
+      psycho_test_results:  'Результати психологічного тесту'
