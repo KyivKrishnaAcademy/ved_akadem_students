@@ -32,6 +32,7 @@ gem 'inherited_resources'
 
 group :production, :development do
   gem 'puma'
+  gem 'whenever', require: false
 end
 
 group :development do

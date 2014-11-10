@@ -43,29 +43,41 @@ set :pty, true
 
 namespace :deploy do
 
-  desc 'Setup'
-  task :setup do
+  desc 'Copy shared'
+  task :copy_shared do
     on roles(:all) do
-      execute "mkdir -p #{shared_path}/config/"
+      execute "mkdir -p #{shared_path}/config/Backup/models"
       execute "mkdir -p /var/www/apps/#{application}/run/"
       execute "mkdir -p /var/www/apps/#{application}/log/"
       execute "mkdir -p /var/www/apps/#{application}/socket/"
       execute "mkdir -p #{shared_path}/uploads/"
       execute "mkdir -p #{shared_path}/system"
-      execute "mkdir -p /var/www/log"
-      sudo    "mkdir -p /usr/local/nginx/conf/sites-enabled"
+      execute 'mkdir -p /var/www/log'
+      sudo    'mkdir -p /usr/local/nginx/conf/sites-enabled'
 
+      upload!('shared/Backup/config.rb', "#{shared_path}/config/Backup/config.rb")
+      upload!('shared/Backup/models/daily.rb', "#{shared_path}/config/Backup/models/daily.rb")
+      upload!('shared/Backup/models/monthly.rb', "#{shared_path}/config/Backup/models/monthly.rb")
+      upload!('shared/Backup/models/weekly.rb', "#{shared_path}/config/Backup/models/weekly.rb")
+      upload!('shared/Backup/models/manual.rb', "#{shared_path}/config/Backup/models/manual.rb")
       upload!('shared/database.yml', "#{shared_path}/config/database.yml")
       upload!('shared/recaptcha.rb', "#{shared_path}/config/recaptcha.rb")
       upload!('shared/mailer.yml', "#{shared_path}/config/mailer.yml")
       upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
       upload!('shared/ved_akadem_students.conf', "#{shared_path}/ved_akadem_students.conf")
 
-      sudo "rm -f /usr/local/nginx/conf/nginx.conf"
-      sudo "rm -f /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf"
+      execute "chmod -R 700 #{shared_path}/config"
+
+      sudo 'rm -f /usr/local/nginx/conf/nginx.conf'
+      sudo 'rm -f /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf'
       sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
       sudo "ln -sf #{shared_path}/ved_akadem_students.conf /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf"
+    end
+  end
 
+  desc 'Setup'
+  task :setup do
+    on roles(:all) do
       sudo 'touch /etc/puma.conf'
       sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer'
       sudo 'service nginx restart'
@@ -86,6 +98,7 @@ namespace :deploy do
       sudo    "rm -rf #{release_path}/tmp"
       execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
       execute "ln -s #{shared_path}/uploads #{release_path}/uploads"
+      execute "ln -s #{shared_path}/config/Backup ~/Backup"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       execute "ln -sf #{shared_path}/config/recaptcha.rb #{release_path}/config/initializers/recaptcha.rb"
       execute "ln -sf #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml"
@@ -103,6 +116,7 @@ namespace :deploy do
   before :setup, 'deploy:starting'
   before :setup, 'deploy:updating'
   before :setup, 'bundler:install'
+  before :setup, 'deploy:copy_shared'
 end
 
 namespace :puma do
@@ -110,6 +124,7 @@ namespace :puma do
   task :restart do
     on roles(:app) do
       sudo "service puma restart #{application} && sleep 2"
+      sudo 'service nginx restart'
     end
   end
   after 'deploy:restart', 'puma:restart'
@@ -118,6 +133,7 @@ namespace :puma do
   task :start do
     on roles(:app) do
       sudo "service puma start #{application} && sleep 2"
+      sudo 'service nginx start'
     end
   end
 
@@ -125,13 +141,15 @@ namespace :puma do
   task :stop do
     on roles(:app) do
       sudo "service puma stop #{application}"
+      sudo 'service nginx stop'
     end
   end
   before 'deploy:starting', 'puma:stop'
 
-  desc 'Stop application'
+  desc 'Application status'
   task :status do
     on roles(:app) do
+      sudo 'service nginx status'
       sudo "service puma status #{application}"
     end
   end
@@ -141,19 +159,7 @@ namespace :db do
   desc 'Backup DB'
   task :backup do
     on roles(:app) do
-      tmp_db_yml = "tmp/database.yml"
-
-      download! "#{shared_path}/config/database.yml", tmp_db_yml
-
-      db_config = YAML::load_file(tmp_db_yml)['production']
-
-      system("rm #{tmp_db_yml}")
-
-      bak_dir   = "#{current_path}/db_backup"
-      bak_name  = bak_dir + '/' + DateTime.now.strftime('%Y-%m-%dT%H-%M-%S') + '.sql.gz'
-
-      execute "mkdir -p #{bak_dir}"
-      execute "if pg_dump -Fp -U #{db_config['username']} #{db_config['database']} | gzip > #{bak_name}.in_progress; then mv #{bak_name}.in_progress #{bak_name}; fi;"
+      execute "cd #{current_path}; backup perform -t manual"
     end
   end
   after 'deploy:starting', 'db:backup'
