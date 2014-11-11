@@ -186,7 +186,7 @@ namespace :db do
   desc 'Backup DB'
   task :backup do
     on roles(:app) do
-      execute "/bin/bash -l -c 'cd #{current_path}; backup perform -t manual'"
+      execute "/bin/bash -l -c 'cd #{current_path}; backup perform -t manual; true'"
     end
   end
   after 'deploy:starting', 'db:backup'
