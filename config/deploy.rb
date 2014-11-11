@@ -98,7 +98,7 @@ namespace :deploy do
       sudo    "rm -rf #{release_path}/tmp"
       execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
       execute "ln -s #{shared_path}/uploads #{release_path}/uploads"
-      execute "ln -s #{shared_path}/config/Backup ~/Backup"
+      execute "ln -sf #{shared_path}/config/Backup ~/Backup"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
       execute "ln -sf #{shared_path}/config/recaptcha.rb #{release_path}/config/initializers/recaptcha.rb"
       execute "ln -sf #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml"
@@ -124,7 +124,6 @@ namespace :puma do
   task :restart do
     on roles(:app) do
       sudo "service puma restart #{application} && sleep 2"
-      sudo 'service nginx restart'
     end
   end
   after 'deploy:restart', 'puma:restart'
@@ -133,7 +132,6 @@ namespace :puma do
   task :start do
     on roles(:app) do
       sudo "service puma start #{application} && sleep 2"
-      sudo 'service nginx start'
     end
   end
 
@@ -141,7 +139,6 @@ namespace :puma do
   task :stop do
     on roles(:app) do
       sudo "service puma stop #{application}"
-      sudo 'service nginx stop'
     end
   end
   before 'deploy:starting', 'puma:stop'
@@ -149,17 +146,47 @@ namespace :puma do
   desc 'Application status'
   task :status do
     on roles(:app) do
-      sudo 'service nginx status'
       sudo "service puma status #{application}"
     end
   end
 end
 
+namespace :nginx do
+  desc 'Restart application'
+  task :restart do
+    on roles(:app) do
+      sudo 'service nginx restart'
+    end
+  end
+
+  desc 'Start application'
+  task :start do
+    on roles(:app) do
+      sudo 'service nginx start'
+    end
+  end
+
+  desc 'Stop application'
+  task :stop do
+    on roles(:app) do
+      sudo 'service nginx stop'
+    end
+  end
+
+  desc 'Application status'
+  task :status do
+    on roles(:app) do
+      sudo 'service nginx status'
+    end
+  end
+end
+
+
 namespace :db do
   desc 'Backup DB'
   task :backup do
     on roles(:app) do
-      execute "cd #{current_path}; backup perform -t manual"
+      execute "/bin/bash -l -c 'cd #{current_path}; backup perform -t manual'"
     end
   end
   after 'deploy:starting', 'db:backup'
