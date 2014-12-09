@@ -12,7 +12,9 @@ class StudyApplicationsController < ApplicationController
       success.js do
         resource.person.add_application_questionnaires
 
-        common_variables_and_render
+        set_programs_and_new_application(permitted_params[:study_application][:person_id])
+
+        render partial: 'common'
       end
     end
   end
@@ -22,7 +24,9 @@ class StudyApplicationsController < ApplicationController
       success.js do
         resource.person.remove_application_questionnaires(resource)
 
-        common_variables_and_render
+        set_programs_and_new_application
+
+        render partial: 'common'
       end
     end
   end
@@ -33,16 +37,6 @@ class StudyApplicationsController < ApplicationController
     authorize super
 
     super
-  end
-
-  def common_variables_and_render
-    if permitted_params[:study_application].present?
-      set_programs_and_new_application(permitted_params[:study_application][:person_id])
-    else
-      set_programs_and_new_application
-    end
-
-    render partial: 'common'
   end
 
   def permitted_params
