@@ -33,7 +33,7 @@ class PeopleController < ApplicationController
   def show
     authorize @person
 
-    set_programs_and_new_application(@person, true)
+    set_programs_and_new_application(@person)
   end
 
   def edit
