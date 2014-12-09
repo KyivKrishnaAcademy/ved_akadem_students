@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   include CropDirectable
+  include StudyApplicationable
 
   before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport]
   before_action :authenticate_person!
@@ -31,6 +32,8 @@ class PeopleController < ApplicationController
 
   def show
     authorize @person
+
+    set_programs_and_new_application(@person, true)
   end
 
   def edit

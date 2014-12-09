@@ -36,7 +36,11 @@ class StudyApplicationsController < ApplicationController
   end
 
   def common_variables_and_render
-    set_programs_and_new_application
+    if permitted_params[:study_application].present?
+      set_programs_and_new_application(permitted_params[:study_application][:person_id])
+    else
+      set_programs_and_new_application
+    end
 
     render partial: 'common'
   end

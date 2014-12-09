@@ -46,6 +46,10 @@
     %br
     Work: #{@person.work}
 
+.row
+  .col-xs-12.vert-offset-top-1#study_application
+    = render 'shared/study_application', person: @person_decorator, programs: @programs, study_application: @study_application
+
 - if @person.psycho_test_result.present?
   .row.vert-offset-top-1
     .col-xs-12
