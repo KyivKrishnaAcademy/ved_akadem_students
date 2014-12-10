@@ -1,6 +1,5 @@
 class AkademGroupsController < ApplicationController
   before_action :set_akadem_group, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_person!
 
   after_filter :verify_authorized
   after_filter :verify_policy_scoped, except: [:new, :create]

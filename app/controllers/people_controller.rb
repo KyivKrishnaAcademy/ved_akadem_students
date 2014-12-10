@@ -3,7 +3,7 @@ class PeopleController < ApplicationController
   include StudyApplicationable
 
   before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport]
-  before_action :authenticate_person!
+
 
   after_filter :verify_authorized
   after_filter :verify_policy_scoped, except: [:new, :create]
