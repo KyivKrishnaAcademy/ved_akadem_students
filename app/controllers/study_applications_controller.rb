@@ -8,6 +8,8 @@ class StudyApplicationsController < ApplicationController
   after_filter :verify_authorized
 
   def create
+    authorize build_resource
+
     create! do |success|
       success.js do
         resource.person.add_application_questionnaires
@@ -20,6 +22,8 @@ class StudyApplicationsController < ApplicationController
   end
 
   def destroy
+    authorize resource
+
     destroy! do |success|
       success.js do
         resource.person.remove_application_questionnaires(resource)
@@ -32,12 +36,6 @@ class StudyApplicationsController < ApplicationController
   end
 
   private
-
-  def resource
-    authorize super
-
-    super
-  end
 
   def permitted_params
     params.permit(:id, study_application: [:person_id, :program_id])
