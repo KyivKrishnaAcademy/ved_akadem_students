@@ -45,6 +45,14 @@ describe StudyApplicationsController do
       it_behaves_like :athorized
     end
 
+    shared_examples :athorized_create do
+      Given { expect_any_instance_of(StudyApplication).to receive(:save).and_return(true) }
+      Given { expect_any_instance_of(StudyApplication).to receive(:person).and_return(person) }
+      Given { expect(person).to receive(:add_application_questionnaires) }
+
+      it_behaves_like :athorized
+    end
+
     Given(:person) { double(Person, id: 1, roles: roles) }
 
     Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
@@ -85,13 +93,9 @@ describe StudyApplicationsController do
 
       context 'create' do
         context 'allow own' do
-          Given { expect_any_instance_of(StudyApplication).to receive(:save).and_return(true) }
-          Given { expect_any_instance_of(StudyApplication).to receive(:person).and_return(person) }
-          Given { expect(person).to receive(:add_application_questionnaires) }
-
           When  { post :create, study_application: { person_id: person.id, program_id: 1 }, format: :js }
 
-          it_behaves_like :athorized
+          it_behaves_like :athorized_create
         end
 
         context 'disallow others' do
@@ -108,11 +112,12 @@ describe StudyApplicationsController do
     describe 'admin user' do
       Given(:roles) { double('roles', any?: true, name: 'Role') }
 
-      Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:destroy'] } }
       Given { allow(person).to receive(:can_act?).with('study_application:create') { true } }
 
       context 'destroy' do
         Given { allow(StudyApplication).to receive(:find).with('1').and_return(study_application) }
+
+        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:destroy'] } }
 
         When  { delete :destroy, id: 1, format: :js }
 
@@ -130,7 +135,19 @@ describe StudyApplicationsController do
       end
 
       context 'create' do
-        #TODO
+        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:create'] } }
+
+        context 'allow own' do
+          When  { post :create, study_application: { person_id: person.id, program_id: 1 }, format: :js }
+
+          it_behaves_like :athorized_create
+        end
+
+        context 'allow others' do
+          When  { post :create, study_application: { person_id: person.id + 1, program_id: 1 }, format: :js }
+
+          it_behaves_like :athorized_create
+        end
       end
     end
   end
