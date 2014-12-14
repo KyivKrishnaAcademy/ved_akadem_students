@@ -289,3 +289,54 @@ shared_examples :allow_with_activities do |activites|
     end
   end
 end
+
+shared_examples :study_applications do |admin|
+  Given!(:program) { create(:program, title_uk: 'Школа Бхакти', description_uk: 'Описание 1') }
+  Given { create(:program, title_uk: 'Бхакти Шастры', description_uk: 'Описание 2') }
+  Given { create(:program, title_uk: 'Invisible Program', visible: false) }
+
+  context 'with application' do
+    Given { StudyApplication.create(person_id: person.id, program_id: program.id) }
+    Given { person.questionnaires << create(:questionnaire, title_uk: 'Психо тест') }
+
+    describe 'have elements' do
+      Then { expect(find('#study_application')).to have_content('Школа Бхакти') }
+      And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
+      And  { expect(find('#study_application')).to have_link(I18n.t('links.withdraw')) }
+      And  { expect(find('#study_application')).to have_css('li', text: 'Заповнити Психо тест') }
+      And  { expect(find('#study_application')).to have_css('li', text: 'Додати фотографію до профілю') }
+      And  { expect(find('#study_application')).to have_css('li', text: 'Додати паспорт до профілю') }
+    end
+
+    describe 'withdraw', :js do
+      When { find('.btn-danger').click }
+
+      Then { expect(find('#study_application')).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
+      And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
+      And  { expect(find('#study_application')).to have_content('Бхакти Шастры') }
+    end
+  end
+
+  context 'without application' do
+    Given (:programs) { all('#study_application .panel-info') }
+
+    describe 'have elements' do
+      Then { expect(programs.first).to have_content('Школа Бхакти') }
+      And  { expect(programs.first).to have_content('Описание 1') }
+      And  { expect(programs.first).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
+      And  { expect(programs[1]).to have_content('Бхакти Шастры') }
+      And  { expect(programs[1]).to have_content('Описание 2') }
+      And  { expect(programs[1]).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
+      And  { expect(find('#study_application')).not_to have_content('Invisible Program') } unless admin
+      And  { expect(find('#study_application')).to have_content('Invisible Program') } if admin
+    end
+
+    describe 'apply', :js do
+      When { programs.first.find('.btn-success').click }
+
+      Then { expect(find('#study_application')).to have_css('.alert-success .btn-danger[data-method="delete"]') }
+      And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
+      And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
+    end
+  end
+end
