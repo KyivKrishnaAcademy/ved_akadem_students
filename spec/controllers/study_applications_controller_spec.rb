@@ -10,7 +10,7 @@ describe StudyApplicationsController do
     end
 
     context 'destroy' do
-      Given(:study_application) { double('StudyApplication', person_id: 1, program_id: 1 ) }
+      Given(:study_application) { double(StudyApplication, person_id: 1, program_id: 1 ) }
       Given(:action) { delete :destroy, id: 1, format: :js }
 
       Given { allow_any_instance_of(Pundit::PolicyFinder).to receive(:policy).and_return(StudyApplicationPolicy) }
@@ -42,9 +42,12 @@ describe StudyApplicationsController do
       And   { expect(response).to render_template('_common') }
     end
 
-    Given(:person) { create :person }
+    Given(:person) { double(Person, id: 1, roles: []) }
 
-    When  { sign_in :person, person }
+    Given { allow(person).to receive(:can_act?).with('study_application:create') { false } }
+
+    Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
+    Given { allow(controller).to receive(:current_person) { person } }
 
     context 'destroy' do
       Given { allow_any_instance_of(Pundit::PolicyFinder).to receive(:policy).and_return(StudyApplicationPolicy) }
@@ -53,7 +56,7 @@ describe StudyApplicationsController do
       When  { delete :destroy, id: 1, format: :js }
 
       context 'allow own' do
-        Given(:study_application) { double('StudyApplication', person_id: person.id, program_id: 1 ) }
+        Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1 ) }
 
         Given { expect(study_application).to receive(:destroy) }
         Given { allow(study_application).to receive(:person).and_return(person) }
@@ -63,7 +66,7 @@ describe StudyApplicationsController do
       end
 
       context 'disallow others' do
-        Given(:study_application) { double('StudyApplication', person_id: person.id + 1, program_id: 1 ) }
+        Given(:study_application) { double(StudyApplication, person_id: person.id + 1, program_id: 1 ) }
 
         Given { expect(study_application).not_to receive(:destroy) }
         Given { expect(person).not_to receive(:remove_application_questionnaires) }
