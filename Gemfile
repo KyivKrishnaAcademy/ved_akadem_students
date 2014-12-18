@@ -33,6 +33,8 @@ gem 'inherited_resources'
 group :production, :development do
   gem 'puma'
   gem 'whenever', require: false
+
+  gem 'newrelic_rpm'
 end
 
 group :development do
