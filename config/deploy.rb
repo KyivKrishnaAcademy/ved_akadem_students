@@ -113,6 +113,8 @@ namespace :deploy do
 
   after :updating, 'deploy:symlink'
 
+  after :updated, 'newrelic:notice_deployment'
+
   before :setup, 'deploy:starting'
   before :setup, 'deploy:updating'
   before :setup, 'bundler:install'
