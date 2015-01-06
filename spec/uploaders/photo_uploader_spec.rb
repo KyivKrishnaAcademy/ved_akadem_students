@@ -7,7 +7,7 @@ describe PhotoUploader do
   before do
     PhotoUploader.enable_processing = true
     @uploader = PhotoUploader.new(create(:person), :photo)
-    @uploader.store!(File.open(Rails.root.join('spec/fixtures/800x600.png')))
+    @uploader.store!(File.open('spec/fixtures/800x600.png'))
   end
 
   after do

@@ -1,6 +1,6 @@
 # Vedic Akadem Students
 
-[![Build Status](https://secure.travis-ci.org/mpugach/ved_akadem_students.png?branch=master)](https://travis-ci.org/mpugach/ved_akadem_students)
+[![Build Status](https://secure.travis-ci.org/KyivKrishnaAcademy/ved_akadem_students.png?branch=master)](https://travis-ci.org/KyivKrishnaAcademy/ved_akadem_students)
 [![Code Climate](https://codeclimate.com/github/mpugach/ved_akadem_students/badges/gpa.svg)](https://codeclimate.com/github/mpugach/ved_akadem_students)
 [![Test Coverage](https://codeclimate.com/github/mpugach/ved_akadem_students/badges/coverage.svg)](https://codeclimate.com/github/mpugach/ved_akadem_students)
 

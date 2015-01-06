@@ -199,6 +199,7 @@ describe 'Signing' do
   end
 
   describe 'forgot email' do
+    Given { expect_any_instance_of(Users::EmailsController).to receive(:verify_recaptcha).and_return(true) }
     Given { create :person, email: 'admin@example.com',   telephones: [create(:telephone, phone: '+380 50 111 2211')] }
     Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '+380 50 111 2211'), create(:telephone, phone: '+380 50 111 2222')] }
     Given { visit remind_email_path }
