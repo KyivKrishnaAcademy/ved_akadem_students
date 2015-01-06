@@ -30,10 +30,11 @@ gem 'ffaker'
 
 gem 'inherited_resources'
 
+gem 'airbrake'
+
 group :production, :development do
   gem 'puma'
   gem 'whenever', require: false
-  gem 'airbrake'
   gem 'newrelic_rpm'
 end
 
