@@ -30,6 +30,10 @@ gem 'ffaker'
 
 gem 'inherited_resources'
 
+group :production do
+  gem 'airbrake'
+end
+
 group :production, :development do
   gem 'puma'
   gem 'whenever', require: false
