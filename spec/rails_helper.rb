@@ -64,4 +64,9 @@ RSpec.configure do |config|
 
   config.include FactoryGirl::Syntax::Methods
   config.include HelperMethods
+
+  Recaptcha.configure do |config|
+    config.public_key  = '11111'
+    config.private_key = '22222'
+  end
 end
