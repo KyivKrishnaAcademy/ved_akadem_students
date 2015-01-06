@@ -8,6 +8,7 @@ require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'whenever/capistrano'
 require 'new_relic/recipes'
+require 'airbrake/capistrano3'
 
 # Includes tasks from other gems included in your Gemfile
 #

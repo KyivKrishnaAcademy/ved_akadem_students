@@ -115,6 +115,8 @@ namespace :deploy do
 
   after :updated, 'newrelic:notice_deployment'
 
+  after :finished, 'airbrake:deploy'
+
   before :setup, 'deploy:starting'
   before :setup, 'deploy:updating'
   before :setup, 'bundler:install'
