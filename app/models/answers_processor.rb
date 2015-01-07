@@ -41,13 +41,7 @@ class AnswersProcessor
     end
 
     def psycho_base_result(questionnaire, answers)
-      answers_by_keys     = Hash.new(0)
-      answers_to_consider = Hash.new(0)
-
-      answers.each do |answer|
-        answers_by_keys[answer.question.data[:key]]     += 1
-        answers_to_consider[answer.question.data[:key]] += 1 if answer.question.data[:key_anwers].include?(answer.data)
-      end
+      answers_by_keys, answers_to_consider = count_psycho_answers(answers)
 
       result = {}
 
@@ -65,6 +59,18 @@ class AnswersProcessor
       end
 
       result
+    end
+
+    def count_psycho_answers(answers)
+      answers_by_keys     = Hash.new(0)
+      answers_to_consider = Hash.new(0)
+
+      answers.each do |answer|
+        answers_by_keys[answer.question.data[:key]]     += 1
+        answers_to_consider[answer.question.data[:key]] += 1 if answer.question.data[:key_anwers].include?(answer.data)
+      end
+
+      [answers_by_keys, answers_to_consider]
     end
 
     def average_result(result, indexes, param)
