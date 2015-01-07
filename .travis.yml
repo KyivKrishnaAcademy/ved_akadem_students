@@ -1,7 +1,7 @@
 language: ruby
 script:
   - 'bundle exec rake test:prepare'
-  - 'CODECLIMATE_REPO_TOKEN=0d4c6a0f16f910a02bbb2cf8ce47e52d7c5f95b8bd6366d9b3a1a113a4e52486 bundle exec rspec'
+  - 'TRAVIS=1 CODECLIMATE_REPO_TOKEN=0d4c6a0f16f910a02bbb2cf8ce47e52d7c5f95b8bd6366d9b3a1a113a4e52486 bundle exec rspec'
 rvm:
   - 2.1.1
 addons:
