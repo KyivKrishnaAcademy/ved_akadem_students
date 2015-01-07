@@ -12,10 +12,6 @@ describe 'people/show.html.haml' do
 
   Then { expect(find('body')).to have_selector('h1', text: complex_name(@p)) }
 
-  Then { expect(find('body')).to have_text("Name: #{@p.name}") }
-  Then { expect(find('body')).to have_text("Surname: #{@p.surname}") }
-  Then { expect(find('body')).to have_text("Middle name: #{@p.middle_name}") }
-  Then { expect(find('body')).to have_text("Spiritual name: #{@p.spiritual_name}") }
   Then { expect(find('body')).to have_text("Telephone 1: #{@p.telephones.first.phone}") }
   Then { expect(find('body')).to have_text("Email: #{@p.email}") }
   Then { expect(find('body')).to have_text("Emergency contact: #{@p.emergency_contact}") }

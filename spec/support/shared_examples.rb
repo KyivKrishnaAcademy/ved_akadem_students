@@ -309,7 +309,7 @@ shared_examples :study_applications do |admin|
     end
 
     describe 'withdraw', :js do
-      When { find('.btn-danger').click }
+      When { find('.program .btn-danger').click }
 
       Then { expect(find('#study_application')).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
       And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
