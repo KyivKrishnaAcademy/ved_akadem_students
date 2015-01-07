@@ -93,7 +93,7 @@ class PeopleController < ApplicationController
   end
 
   class PersonParams
-    def self.filter params
+    def self.filter(params)
       params.require(:person).permit(
         :birthday       ,
         :education      ,
