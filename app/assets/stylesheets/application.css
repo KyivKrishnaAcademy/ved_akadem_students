@@ -10,5 +10,7 @@
  *
  *= require_self
  *= require jquery-ui/datepicker
+ *= require bootstrap-3-vert-offset-shim
+ *= require jquery.smartmenus.bootstrap
  *= require_tree .
  */
