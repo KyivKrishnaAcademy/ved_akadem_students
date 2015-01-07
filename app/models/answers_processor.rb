@@ -16,8 +16,7 @@ class AnswersProcessor
     end
 
     def compute_results!
-      result = {}
-
+      result  = {}
       answers = Answer.includes(:question).where(person_id: @person.id, questions: { questionnaire_id: @questionnaire.id })
 
       return if answers.none?
@@ -44,30 +43,31 @@ class AnswersProcessor
                           percentage: percentage }
         end
 
-        ai_max        = (result[1][:max] + result[2][:max] + result[3][:max])/3
-        ai_current    = (result[1][:current] + result[2][:current] + result[3][:current])/3
-        ai_percentage = ai_current * 100 / ai_max
+        ai_max        = average_result(result, (1..3), :max)
+        ai_current    = average_result(result, (1..3), :current)
+        result[9]     = index_result(@questionnaire, :ai, ai_max, ai_current)
 
-        result[9] = { ru: @questionnaire.rule[:indexes][:ai][:ru],
-                      uk: @questionnaire.rule[:indexes][:ai][:uk],
-                      max: ai_max,
-                      color: progressbar_color_class(ai_percentage),
-                      current: ai_current,
-                      percentage: ai_percentage }
-
-        oi_max        = (result[6][:max] + result[7][:max])/2
-        oi_current    = (result[6][:current] + result[7][:current])/2
-        oi_percentage = oi_current * 100 / oi_max
-
-        result[10] = { ru: @questionnaire.rule[:indexes][:oi][:ru],
-                      uk: @questionnaire.rule[:indexes][:oi][:uk],
-                      max: oi_max,
-                      color: progressbar_color_class(oi_percentage),
-                      current: oi_current,
-                      percentage: oi_percentage }
+        oi_max        = average_result(result, (6..7), :max)
+        oi_current    = average_result(result, (6..7), :max)
+        result[10]    = index_result(@questionnaire, :oi, oi_max, oi_current)
       end
 
       questionnaire_completeness.update_column(:result, result)
+    end
+
+    def average_result(result, indexes, param)
+      indexes.inject(0) { |sum, index| sum + result[index][param] } / indexes.size
+    end
+
+    def index_result(questionnaire, index_type, max, current)
+      percentage = current * 100 / max
+
+      { ru: questionnaire.rule[:indexes][index_type][:ru],
+        uk: questionnaire.rule[:indexes][index_type][:uk],
+        max: max,
+        color: progressbar_color_class(percentage),
+        current: current,
+        percentage: percentage }
     end
 
     def progressbar_color_class(percentage)
