@@ -21,38 +21,50 @@ class AnswersProcessor
 
       return if answers.none?
 
-      if @questionnaire.kind == 'psycho_test'
-        answers_by_keys     = Hash.new(0)
-        answers_to_consider = Hash.new(0)
-
-        answers.each do |answer|
-          answers_by_keys[answer.question.data[:key]]     += 1
-          answers_to_consider[answer.question.data[:key]] += 1 if answer.question.data[:key_anwers].include?(answer.data)
-        end
-
-        @questionnaire.rule[:keys].each do |key, value|
-          max         = answers_by_keys[key] * value[:multiplier]
-          current     = answers_to_consider[key] * value[:multiplier]
-          percentage  = current * 100 / max
-
-          result[key] = { ru: value[:ru],
-                          uk: value[:uk],
-                          max: max,
-                          color: progressbar_color_class(percentage),
-                          current: current,
-                          percentage: percentage }
-        end
-
-        ai_max        = average_result(result, (1..3), :max)
-        ai_current    = average_result(result, (1..3), :current)
-        result[9]     = index_result(@questionnaire, :ai, ai_max, ai_current)
-
-        oi_max        = average_result(result, (6..7), :max)
-        oi_current    = average_result(result, (6..7), :max)
-        result[10]    = index_result(@questionnaire, :oi, oi_max, oi_current)
-      end
+      result = compute_psycho_result(@questionnaire, answers) if @questionnaire.kind == 'psycho_test'
 
       questionnaire_completeness.update_column(:result, result)
+    end
+
+    def compute_psycho_result(questionnaire, answers)
+      result = psycho_base_result(questionnaire, answers)
+
+      ai_max        = average_result(result, (1..3), :max)
+      ai_current    = average_result(result, (1..3), :current)
+      result[9]     = index_result(questionnaire, :ai, ai_max, ai_current)
+
+      oi_max        = average_result(result, (6..7), :max)
+      oi_current    = average_result(result, (6..7), :current)
+      result[10]    = index_result(questionnaire, :oi, oi_max, oi_current)
+
+      result
+    end
+
+    def psycho_base_result(questionnaire, answers)
+      answers_by_keys     = Hash.new(0)
+      answers_to_consider = Hash.new(0)
+
+      answers.each do |answer|
+        answers_by_keys[answer.question.data[:key]]     += 1
+        answers_to_consider[answer.question.data[:key]] += 1 if answer.question.data[:key_anwers].include?(answer.data)
+      end
+
+      result = {}
+
+      questionnaire.rule[:keys].each do |key, value|
+        max         = answers_by_keys[key] * value[:multiplier]
+        current     = answers_to_consider[key] * value[:multiplier]
+        percentage  = current * 100 / max
+
+        result[key] = { ru: value[:ru],
+                        uk: value[:uk],
+                        max: max,
+                        color: progressbar_color_class(percentage),
+                        current: current,
+                        percentage: percentage }
+      end
+
+      result
     end
 
     def average_result(result, indexes, param)
