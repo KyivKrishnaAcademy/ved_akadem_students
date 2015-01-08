@@ -6,6 +6,7 @@ class PhotoUploader < BaseUploader
 
   version :standart do
     process :crop
+    process resize_to_limit: [150, 200]
   end
 
   version :thumb, from_version: :standart do
