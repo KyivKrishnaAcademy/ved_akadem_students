@@ -4,7 +4,6 @@ class PeopleController < ApplicationController
 
   before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport]
 
-
   after_filter :verify_authorized
   after_filter :verify_policy_scoped, except: [:new, :create]
 
@@ -26,7 +25,7 @@ class PeopleController < ApplicationController
 
       redirect_to direct_to_crop(new_person_path, @person)
     elsif
-      render      action: :new
+      render action: :new
     end
   end
 
@@ -77,19 +76,19 @@ class PeopleController < ApplicationController
              @person.photo.versions[params[:version].to_sym].url
            end
 
-    send_file( path,
-               disposition: 'inline',
-               type: 'image/jpeg',
-               x_sendfile: true )
+    send_file(path,
+              disposition: 'inline',
+              type: 'image/jpeg',
+              x_sendfile: true)
   end
 
   def show_passport
     authorize @person
 
-    send_file( @person.passport_url,
-               disposition: 'inline',
-               type: 'image/jpeg',
-               x_sendfile: true )
+    send_file(@person.passport_url,
+              disposition: 'inline',
+              type: 'image/jpeg',
+              x_sendfile: true)
   end
 
   class PersonParams
