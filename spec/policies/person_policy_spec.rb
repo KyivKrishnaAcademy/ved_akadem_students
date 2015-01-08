@@ -17,7 +17,7 @@ describe PersonPolicy do
     end
 
     context 'owned' do
-      permissions :crop_image?, :update_image?, :show?, :show_photo?, :show_passport? do
+      permissions :crop_image?, :update_image?, :show_photo?, :show_passport? do
         it 'allow' do
           should permit(user, user)
         end

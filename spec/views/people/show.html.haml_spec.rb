@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'people/show.html.haml' do
-  Given { @p = create :person }
+  Given { @p = create :person, :admin }
   When  do
     login_as_user(@p)
     visit person_path(@p)

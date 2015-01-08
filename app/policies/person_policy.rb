@@ -1,10 +1,6 @@
 class PersonPolicy < ApplicationPolicy
-  def show?
-    super || owned?
-  end
-
   def show_photo?
-    show?
+    owned? || show?
   end
 
   def show_passport?
