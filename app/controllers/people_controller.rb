@@ -63,7 +63,7 @@ class PeopleController < ApplicationController
 
       redirect_to direct_to_crop(person_path(@person), @person)
     else
-      render      action: :edit
+      render action: :edit
     end
   end
 

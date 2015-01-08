@@ -2,55 +2,55 @@ require 'rails_helper'
 
 describe PeopleController do
   describe 'not signed in' do
-    context "#index" do
+    context '#index' do
       Given(:action) { get :index }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#create" do
+    context '#create' do
       Given(:action) { post :create }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#new" do
+    context '#new' do
       Given(:action) { get :new }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#edit" do
+    context '#edit' do
       Given(:action) { get :edit, id: 1 }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#show" do
+    context '#show' do
       Given(:action) { get :show, id: 1 }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#update" do
+    context '#update' do
       Given(:action) { patch :update, id: 1 }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#destroy" do
+    context '#destroy' do
       Given(:action) { delete :destroy, id: 1 }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#show_photo" do
+    context '#show_photo' do
       Given(:action) { get :show, id: 1, version: 'default' }
 
       it_behaves_like :not_authenticated
     end
 
-    context "#show_passport" do
+    context '#show_passport' do
       Given(:action) { get :show, id: 1 }
 
       it_behaves_like :not_authenticated
