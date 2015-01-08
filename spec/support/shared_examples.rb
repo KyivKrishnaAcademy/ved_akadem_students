@@ -340,3 +340,10 @@ shared_examples :study_applications do |admin|
     end
   end
 end
+
+shared_examples :not_authenticated do
+  When  { action }
+
+  Then  { expect(response).to redirect_to(new_person_session_path) }
+  And   { is_expected.to set_the_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
+end

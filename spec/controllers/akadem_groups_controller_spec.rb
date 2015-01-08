@@ -72,7 +72,7 @@ describe AkademGroupsController do
     it_behaves_like :akadem_groups_actions, 'akadem_group:index'
   end
 
-  context 'get: :index with ["akadem_group:new"]' do
+  context 'get: :new with ["akadem_group:new"]' do
     Given(:action)      { get :new }
     Given(:expectation) do
       expect(response).to render_template(:new)
@@ -82,7 +82,7 @@ describe AkademGroupsController do
     it_behaves_like :akadem_groups_actions, 'akadem_group:new'
   end
 
-  context 'get: :index with ["akadem_group:show"]' do
+  context 'get: :show with ["akadem_group:show"]' do
     Given { @record = create :akadem_group }
 
     Given(:action)      { get :show, id: @record.id }
@@ -94,7 +94,7 @@ describe AkademGroupsController do
     it_behaves_like :akadem_groups_actions, 'akadem_group:show'
   end
 
-  context 'get: :index with ["akadem_group:edit"]' do
+  context 'get: :edit with ["akadem_group:edit"]' do
     Given { @record = create :akadem_group }
 
     Given(:action)      { get :edit, id: @record.id }
@@ -166,10 +166,7 @@ describe AkademGroupsController do
     end
 
     context 'not signed in' do
-      When { action }
-
-      Then { expect(response).to redirect_to(new_person_session_path) }
-      And  { is_expected.to set_the_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
+      it_behaves_like :not_authenticated
     end
   end
 end
