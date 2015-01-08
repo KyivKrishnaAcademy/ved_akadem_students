@@ -30,15 +30,12 @@ class PeopleController < ApplicationController
   end
 
   def show
-    authorize @person
-
     set_programs_and_new_application(@person)
 
     @akadem_groups = AkademGroup.select(:id, :group_name).order(:group_name)
   end
 
   def edit
-    authorize @person
   end
 
   def index
@@ -48,8 +45,6 @@ class PeopleController < ApplicationController
   end
 
   def destroy
-    authorize @person
-
     if @person.destroy.destroyed?
       redirect_to people_path, flash: { success: 'Person record deleted!' }
     else
@@ -58,8 +53,6 @@ class PeopleController < ApplicationController
   end
 
   def update
-    authorize @person
-
     if @person.update_attributes(PersonParams.filter(params).merge(skip_password_validation: true))
       flash[:success] = 'Person was successfully updated.'
 
@@ -70,8 +63,6 @@ class PeopleController < ApplicationController
   end
 
   def show_photo
-    authorize @person
-
     path = if params[:version] == 'default'
              @person.photo_url
            else
@@ -85,8 +76,6 @@ class PeopleController < ApplicationController
   end
 
   def show_passport
-    authorize @person
-
     send_file(@person.passport_url,
               disposition: 'inline',
               type: 'image/jpeg',
@@ -121,5 +110,7 @@ class PeopleController < ApplicationController
 
   def set_person
     @person = policy_scope(Person).find(params[:id])
+
+    authorize @person
   end
 end

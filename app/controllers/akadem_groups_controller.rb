@@ -11,7 +11,6 @@ class AkademGroupsController < ApplicationController
   end
 
   def show
-    authorize @akadem_group
   end
 
   def new
@@ -21,7 +20,6 @@ class AkademGroupsController < ApplicationController
   end
 
   def edit
-    authorize @akadem_group
   end
 
   def create
@@ -38,8 +36,6 @@ class AkademGroupsController < ApplicationController
   end
 
   def update
-    authorize @akadem_group
-
     if @akadem_group.update_attributes(AkademGroupParams.filter(params))
       redirect_to @akadem_group, flash: {success: 'Akadem group was successfully updated.'}
     else
@@ -48,8 +44,6 @@ class AkademGroupsController < ApplicationController
   end
 
   def destroy
-    authorize @akadem_group
-
     if @akadem_group.destroy.destroyed?
       redirect_to akadem_groups_path, flash: { success: 'Akadem Group record deleted!'  }
     else
@@ -68,7 +62,10 @@ class AkademGroupsController < ApplicationController
   end
 
   private
+
     def set_akadem_group
       @akadem_group = policy_scope(AkademGroup).find(params[:id])
+
+      authorize @akadem_group
     end
 end
