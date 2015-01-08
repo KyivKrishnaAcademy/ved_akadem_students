@@ -70,7 +70,7 @@ class Person < ActiveRecord::Base
   end
 
   def last_akadem_group
-    student_profile.akadem_groups.order('group_participations.join_date').last if student_profile.present?
+    student_profile.akadem_groups.where(group_participations: { leave_date: nil }).first if student_profile.present?
   end
 
   private
