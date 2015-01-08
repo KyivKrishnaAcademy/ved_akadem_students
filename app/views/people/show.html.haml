@@ -5,7 +5,15 @@
     = complex_name(@person)
   .col-xs-12.col-sm-6.clearfix
     .pull-right
-      = link_to 'Edit', edit_person_path(@person), class: 'btn btn-xs btn-success'
+      .btn-group
+        %button{ type: 'button', class: 'btn btn-xs btn-primary dropdown-toggle', data: { toggle: 'dropdown' }, aria: { expanded: 'false' } }
+          Change group
+          %span.caret
+        %ul.dropdown-menu{ role: 'menu' }
+          - @akadem_groups.each do |group|
+            %li{ class: @person.last_akadem_group == group ? 'disabled' : '' }
+              = link_to group.group_name, '#', data: { id: group.id }
+      = link_to 'Edit', edit_person_path(@person), class: 'btn btn-xs btn-primary'
       = link_to 'Delete', person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
   .col-xs-12
     .row

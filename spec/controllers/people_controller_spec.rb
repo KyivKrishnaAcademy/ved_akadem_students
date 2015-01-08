@@ -58,7 +58,50 @@ describe PeopleController do
   end
 
   describe 'with user' do
+    Given(:person) { double(Person, id: 1, roles: roles) }
+    Given(:people) { double }
 
+    Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
+    Given { allow(controller).to receive(:current_person) { person } }
+    Given { allow(person).to receive(:class).and_return(Person) }
+
+    Given { allow_any_instance_of(PersonPolicy::Scope).to receive(:resolve).and_return(people) }
+    Given { allow(people).to receive(:find).with('1').and_return(person) }
+
+    describe 'regular user' do
+      Given(:roles) { [] }
+
+      describe '#show' do
+        When  { get :show, id: 1 }
+
+        Then  { expect(response.status).to eq(302) }
+        And   { expect(response).not_to render_template('_common') }
+        And   { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+      end
+    end
+
+    describe 'admin user' do
+      Given(:roles) { double('roles', any?: true, name: 'Role') }
+
+      describe '#show' do
+        Given(:akadem_groups) { double }
+        Given(:programs) { double }
+
+        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:show'] } }
+        Given { allow(person).to receive(:can_act?).with('study_application:create') { true } }
+        Given { allow(AkademGroup).to receive_message_chain(:select, :order) { akadem_groups } }
+        Given { allow(Program).to receive(:all) { programs } }
+
+        When  { get :show, id: 1 }
+
+        Then { expect(response).to render_template(:show) }
+        And  { expect(assigns(:person)).to eq(person) }
+        And  { expect(assigns(:akadem_groups)).to eq(akadem_groups) }
+        And  { expect(assigns(:person_decorator)).to be_a(PersonDecorator) }
+        And  { expect(assigns(:programs)).to eq(programs) }
+        And  { expect(assigns(:study_application)).to be_a_new(StudyApplication) }
+      end
+    end
   end
 
   describe 'old specs to rewrite' do

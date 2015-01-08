@@ -33,6 +33,8 @@ class PeopleController < ApplicationController
     authorize @person
 
     set_programs_and_new_application(@person)
+
+    @akadem_groups = AkademGroup.select(:id, :group_name).order(:group_name)
   end
 
   def edit
