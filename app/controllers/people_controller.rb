@@ -2,8 +2,7 @@ class PeopleController < ApplicationController
   include CropDirectable
   include StudyApplicationable
 
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport]
-
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport, :move_to_group]
 
   after_filter :verify_authorized
   after_filter :verify_policy_scoped, except: [:new, :create]
@@ -26,18 +25,17 @@ class PeopleController < ApplicationController
 
       redirect_to direct_to_crop(new_person_path, @person)
     elsif
-      render      action: :new
+      render action: :new
     end
   end
 
   def show
-    authorize @person
-
     set_programs_and_new_application(@person)
+
+    @akadem_groups = AkademGroup.select(:id, :group_name).order(:group_name)
   end
 
   def edit
-    authorize @person
   end
 
   def index
@@ -47,8 +45,6 @@ class PeopleController < ApplicationController
   end
 
   def destroy
-    authorize @person
-
     if @person.destroy.destroyed?
       redirect_to people_path, flash: { success: 'Person record deleted!' }
     else
@@ -57,43 +53,45 @@ class PeopleController < ApplicationController
   end
 
   def update
-    authorize @person
-
     if @person.update_attributes(PersonParams.filter(params).merge(skip_password_validation: true))
       flash[:success] = 'Person was successfully updated.'
 
       redirect_to direct_to_crop(person_path(@person), @person)
     else
-      render      action: :edit
+      render action: :edit
     end
   end
 
   def show_photo
-    authorize @person
-
     path = if params[:version] == 'default'
              @person.photo_url
            else
              @person.photo.versions[params[:version].to_sym].url
            end
 
-    send_file( path,
-               disposition: 'inline',
-               type: 'image/jpeg',
-               x_sendfile: true )
+    send_file(path,
+              disposition: 'inline',
+              type: 'image/jpeg',
+              x_sendfile: true)
   end
 
   def show_passport
-    authorize @person
+    send_file(@person.passport_url,
+              disposition: 'inline',
+              type: 'image/jpeg',
+              x_sendfile: true)
+  end
 
-    send_file( @person.passport_url,
-               disposition: 'inline',
-               type: 'image/jpeg',
-               x_sendfile: true )
+  def move_to_group
+    if (@akadem_group = AkademGroup.find(params[:group_id]))
+      (@person.student_profile || @person.create_student_profile).move_to_group(@akadem_group)
+    else
+      render nothing: true
+    end
   end
 
   class PersonParams
-    def self.filter params
+    def self.filter(params)
       params.require(:person).permit(
         :birthday       ,
         :education      ,
@@ -120,5 +118,7 @@ class PeopleController < ApplicationController
 
   def set_person
     @person = policy_scope(Person).find(params[:id])
+
+    authorize @person
   end
 end

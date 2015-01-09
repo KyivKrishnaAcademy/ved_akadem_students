@@ -69,6 +69,10 @@ class Person < ActiveRecord::Base
     end
   end
 
+  def last_akadem_group
+    student_profile.akadem_groups.where(group_participations: { leave_date: nil }).first if student_profile.present?
+  end
+
   private
 
   def downcase_titleize(str)

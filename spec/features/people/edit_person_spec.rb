@@ -11,14 +11,14 @@ describe 'Edit person:' do
 
   context 'When values are valid:' do
     [
-      { field: 'phone'                    , value: '+380 50 111 2233' , test_field: 'Telephone 1: +380 50 111 2233'},
-      { field: 'person[spiritual_name]'   , value: 'AdiDasa dasa'     , test_field: 'Spiritual name: Adidasa Dasa' },
-      { field: 'person[name]'             , value: 'алексей'          , test_field: 'Name: Алексей'                },
-      { field: 'person[middle_name]'      , value: 'иванович'         , test_field: 'Middle name: Иванович'        },
-      { field: 'person[surname]'          , value: 'евгеньев'         , test_field: 'Surname: Евгеньев'            },
-      { field: 'person[email]'            , value: 'alex@PAMHO.net'   , test_field: 'Email: alex@pamho.net'        },
-      { field: 'person[education]'        , value: 'some'             , test_field: 'Education: some'              },
-      { field: 'person[work]'             , value: 'other'            , test_field: 'Work: other'                  },
+      { field: 'phone'                    , value: '+380 50 111 2233' , test_field: 'Telephone 1: +380 50 111 2233' },
+      { field: 'person[spiritual_name]'   , value: 'AdiDasa dasa'     , test_field: 'Adidasa Dasa' },
+      { field: 'person[name]'             , value: 'алексей'          , test_field: 'Алексей' },
+      { field: 'person[middle_name]'      , value: 'иванович'         , test_field: 'Иванович' },
+      { field: 'person[surname]'          , value: 'евгеньев'         , test_field: 'Евгеньев' },
+      { field: 'person[email]'            , value: 'alex@PAMHO.net'   , test_field: 'Email: alex@pamho.net' },
+      { field: 'person[education]'        , value: 'some'             , test_field: 'Education: some' },
+      { field: 'person[work]'             , value: 'other'            , test_field: 'Work: other' },
       { field: 'person[emergency_contact]', value: 'дядя Петя'        , test_field: 'Emergency contact: дядя Петя' }
     ].each do |h|
       it_behaves_like :valid_fill_in, h, 'Person'
