@@ -3,12 +3,12 @@ VedAkademStudents::Application.routes.draw do
 
   resources :people, :akadem_groups
 
-  resources :study_applications , only: [:create, :destroy]
-  resources :answers            , only: [:update, :edit]
+  resources :study_applications, only: [:create, :destroy]
+  resources :answers           , only: [:update, :edit]
 
   scope module: :users do
-    get   '/remind_email' => 'emails#new'
-    post  '/show_emails'  => 'emails#create'
+    get  '/remind_email' => 'emails#new'
+    post '/show_emails'  => 'emails#create'
   end
 
   root 'static_pages#home'
@@ -22,6 +22,7 @@ VedAkademStudents::Application.routes.draw do
   get   'image/crop/:id'  , controller: :crops, action: :crop_image  , as: :crop_image
   patch 'image/update/:id', controller: :crops, action: :update_image, as: :update_image
 
-  get 'people/show_photo/:version/:id', controller: :people, action: :show_photo
-  get 'people/show_passport/:id'      , controller: :people, action: :show_passport
+  get   'people/show_photo/:version/:id'    , controller: :people, action: :show_photo
+  get   'people/show_passport/:id'          , controller: :people, action: :show_passport
+  patch 'people/:id/move_to_group/:group_id', controller: :people, action: :move_to_group, constraints: { format: :js }
 end

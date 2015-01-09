@@ -2,7 +2,7 @@ class PeopleController < ApplicationController
   include CropDirectable
   include StudyApplicationable
 
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport, :move_to_group]
 
   after_filter :verify_authorized
   after_filter :verify_policy_scoped, except: [:new, :create]
@@ -80,6 +80,14 @@ class PeopleController < ApplicationController
               disposition: 'inline',
               type: 'image/jpeg',
               x_sendfile: true)
+  end
+
+  def move_to_group
+    if (@akadem_group = AkademGroup.find(params[:group_id]))
+      (@person.student_profile || @person.create_student_profile).move_to_group(@akadem_group)
+    else
+      render nothing: true
+    end
   end
 
   class PersonParams

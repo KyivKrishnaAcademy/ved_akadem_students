@@ -54,6 +54,13 @@ describe PeopleController do
       Given(:action) { get :show, id: 1 }
 
       it_behaves_like :not_authenticated
+      end
+
+    context '#move_to_group' do
+      When { patch :move_to_group, id: 1, group_id: 2, format: :js }
+
+      Then { expect(response.status).to eq(401) }
+      And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
     end
   end
 
@@ -72,11 +79,19 @@ describe PeopleController do
       Given(:roles) { [] }
 
       describe '#show' do
-        When  { get :show, id: 1 }
+        When { get :show, id: 1 }
 
-        Then  { expect(response.status).to eq(302) }
-        And   { expect(response).not_to render_template('_common') }
-        And   { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+        Then { expect(response.status).to eq(302) }
+        And  { expect(response).not_to render_template('show') }
+        And  { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+      end
+
+      describe '#move_to_group' do
+        When { patch :move_to_group, id: 1, group_id: 2, format: :js }
+
+        Then { expect(response.status).to eq(302) }
+        And  { expect(response).not_to render_template('move_to_group') }
+        And  { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
       end
     end
 
@@ -100,6 +115,21 @@ describe PeopleController do
         And  { expect(assigns(:person_decorator)).to be_a(PersonDecorator) }
         And  { expect(assigns(:programs)).to eq(programs) }
         And  { expect(assigns(:study_application)).to be_a_new(StudyApplication) }
+      end
+
+      describe '#move_to_group' do
+        Given(:akadem_group) { double }
+        Given(:student_profile) { double }
+
+        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:move_to_group'] } }
+        Given { allow(AkademGroup).to receive(:find).with('2').and_return(akadem_group) }
+        Given { allow(person).to receive(:student_profile).and_return(nil) }
+        Given { allow(person).to receive(:create_student_profile).and_return(student_profile) }
+        Given { allow(student_profile).to receive(:move_to_group).with(akadem_group) }
+
+        When { patch :move_to_group, id: 1, group_id: 2, format: :js }
+
+        Then { expect(response).to render_template(:move_to_group) }
       end
     end
   end
