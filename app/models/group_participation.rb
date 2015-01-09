@@ -4,6 +4,10 @@ class GroupParticipation < ActiveRecord::Base
 
   before_save :set_join_date
 
+  def leave!
+    update_column(:leave_date, DateTime.current)
+  end
+
   private
 
     def set_join_date

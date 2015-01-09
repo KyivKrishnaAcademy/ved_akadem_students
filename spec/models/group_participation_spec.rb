@@ -20,4 +20,12 @@ describe GroupParticipation do
       Then  { expect(@gp.join_date).to eq(@time) }
     end
   end
+
+  describe '#leave!' do
+    Given { @gp = GroupParticipation.create(leave_date: nil) }
+
+    When  { @gp.leave! }
+
+    Then  { expect(@gp.leave_date).not_to be_nil }
+  end
 end
