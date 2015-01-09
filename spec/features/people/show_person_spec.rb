@@ -8,5 +8,29 @@ describe 'Show person:' do
   When  { login_as_admin }
   When  { visit person_path(person) }
 
-  it_behaves_like :study_applications, true
+  describe 'study application' do
+    it_behaves_like :study_applications, true
+  end
+
+  describe 'change group' do
+    Given { @akadem_group_1 = create :akadem_group }
+    Given { @akadem_group_2 = create :akadem_group }
+    Given { person.create_student_profile }
+    Given { person.student_profile.akadem_groups << @akadem_group_1 }
+
+    describe 'initial' do
+      Then { expect(find('#akadem-group-link')).to have_link(@akadem_group_1.group_name) }
+      And  { expect(find('#change-akadem-group')).to have_css('li.disabled', visible: false, text: @akadem_group_1.group_name) }
+      And  { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: @akadem_group_2.group_name) }
+    end
+
+    describe 'do change', :js do
+      When  { click_button 'Change group' }
+      When  { find('#move-to-group', text: @akadem_group_2.group_name).click }
+
+      Then  { expect(find('#akadem-group-link')).to have_link(@akadem_group_2.group_name) }
+      And   { expect(find('#change-akadem-group')).to have_css('li.disabled', visible: false, text: @akadem_group_2.group_name) }
+      And   { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: @akadem_group_1.group_name) }
+    end
+  end
 end
