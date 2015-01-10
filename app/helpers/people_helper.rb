@@ -1,19 +1,19 @@
 module PeopleHelper
   def complex_name(person, *title)
     if person.nil?
-      "No such person"
+      'No such person'
     else
       if !person.spiritual_name.blank?
         if title.empty?
-          "#{person.spiritual_name} (#{person.name} #{person.middle_name} #{person.surname})"
+          "#{person.spiritual_name} (#{person.surname} #{person.name} #{person.middle_name})"
         else
           "#{person.spiritual_name}"
         end
       else
         if title.empty?
-          "#{person.name} #{person.middle_name} #{person.surname}"
+          "#{person.surname} #{person.name} #{person.middle_name}"
         else
-          "#{person.name} #{person.surname}"
+          "#{person.surname} #{person.name}"
         end
       end
     end
