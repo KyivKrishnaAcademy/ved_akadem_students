@@ -1,22 +1,35 @@
 = render 'shared/under_construction'
 - provide(:title, "All People")
 
-%h1 People
+.row
+  .col-xs-12
+    %h1 People
 
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th Surname
-      %th Spiritual Name
-  %tbody
-    - @people.each do |person|
-      %tr.person{ id: "#{person.id}" }
-        %td
-          = link_to person.name, person_path(person)
-        %td
-          = link_to person.surname, person_path(person)
-        %td
-          = link_to person.spiritual_name, person_path(person)
-
-= paginate @people
+.row
+  .col-xs-12
+    %table.table.table-condensed.table-striped
+      %thead
+        %tr
+          %th #
+          %th Photo
+          %th Full Name
+          %th Group or Application
+      %tbody
+        - @people.each_with_index do |person, index|
+          %tr
+            %td
+              #{@people.default_per_page * ( @people.current_page - 1) + index + 1}
+            %td
+              - if person.photo.present?
+                = image_tag "/people/show_photo/thumb/#{person.id}"
+              - else
+                = image_tag person.photo.versions[:thumb].url
+            %td
+              = link_to complex_name(person), person_path(person)
+            %td
+              - if person.last_akadem_group.present?
+                = link_to person.last_akadem_group.group_name, akadem_group_path(person.last_akadem_group)
+              - elsif person.study_application.present?
+                = person.study_application.program["title_#{locale}"]
+  .col-xs-12.text-center
+    = paginate @people

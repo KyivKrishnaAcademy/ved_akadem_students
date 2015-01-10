@@ -1,15 +1,21 @@
 require 'rails_helper'
 
 describe 'people/index' do
-  Given(:models_count)  { 20 }
-  Given(:title)         { 'All People' }
-  Given(:h1)            { 'People' }
-  Given(:row_class)     { 'person' }
-
-  Given { (models_count - 1).times { create :person } }
+  Given { 4.times { create :person } }
   Given { login_as_admin }
 
   When  { visit people_path }
 
-  it_behaves_like 'index.html', ['Name', 'Surname', 'Spiritual Name']
+  describe 'title and h1' do
+    Then { expect(page).to have_title(full_title('All People')) }
+    And  { expect(find('body')).to have_selector('h1', text: 'People')  }
+  end
+
+  describe 'table' do
+    Then { expect(find('.table')).to have_selector('tbody tr', count: 5 ) }
+
+    ['#', 'Photo', 'Full Name', 'Group or Application'].each do |header|
+      And { expect(find('.table')).to have_selector('th', text: header) }
+    end
+  end
 end
