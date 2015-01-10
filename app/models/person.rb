@@ -31,6 +31,8 @@ class Person < ActiveRecord::Base
 
   validate :check_photo_dimensions
 
+  scope :by_complex_name, ->() { order("CASE WHEN (spiritual_name IS NULL OR spiritual_name = '') THEN (surname || name || middle_name) ELSE spiritual_name END") }
+
   mount_uploader :photo, PhotoUploader
   mount_uploader :passport, PassportUploader
 

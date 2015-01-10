@@ -121,7 +121,7 @@ describe Person do
   end
 
   describe 'methods' do
-    Given { @person = create :person }
+    Given { @person = create :person, spiritual_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy' }
 
     describe '#crop_photo' do
       Then { expect(@person.photo).to receive(:recreate_versions!) }
@@ -191,7 +191,7 @@ describe Person do
       end
     end
 
-    describe 'last_akadem_group' do
+    describe '#last_akadem_group' do
       Given { @ag_1 = create :akadem_group }
       Given { @ag_2 = create :akadem_group }
       Given { @sp   = @person.create_student_profile }
@@ -199,6 +199,14 @@ describe Person do
       Given { GroupParticipation.create(student_profile: @sp, akadem_group: @ag_2, join_date: DateTime.current) }
 
       Then  { expect(@person.last_akadem_group.group_name).to eq(@ag_2.group_name) }
+    end
+
+    describe '#by_complex_name' do
+      Given { @person_2 = create :person, spiritual_name: nil, surname: 'Aavramenko', middle_name: 'Zakovich', name: 'Zinoviy'}
+      Given { @person_3 = create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Borisovich', name: 'Artem'}
+      Given { @person_4 = create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Andreevich', name: 'Artem'}
+
+      Then  { expect(Person.by_complex_name).to eq([@person_2, @person, @person_4, @person_3]) }
     end
   end
 end
