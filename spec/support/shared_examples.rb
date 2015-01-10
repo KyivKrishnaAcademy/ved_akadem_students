@@ -54,7 +54,7 @@ end
 
 shared_examples "GET" do |variable, model, action|
   case action
-  when :new, :index
+  when :new
     Given (:m) do
       3.times { create_model model }
       model.all
@@ -78,8 +78,6 @@ shared_examples "GET" do |variable, model, action|
       end
     else
       case action
-      when :index
-        describes = "assigns @#{variable} to be a #{model.name}.all"
       when :show, :edit
         describes = "assigns @#{variable} to be right #{model}"
       end
