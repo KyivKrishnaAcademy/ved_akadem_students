@@ -146,6 +146,9 @@ GEM
     jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
+    kaminari (0.16.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     letter_opener (1.2.0)
@@ -308,6 +311,7 @@ DEPENDENCIES
   jcrop-rails-v2
   jquery-rails
   jquery-ui-rails
+  kaminari
   letter_opener
   mini_magick
   nested_form

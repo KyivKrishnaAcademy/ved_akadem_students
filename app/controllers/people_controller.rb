@@ -39,7 +39,7 @@ class PeopleController < ApplicationController
   end
 
   def index
-    @people = policy_scope(Person)
+    @people = policy_scope(Person).page(params[:page])
 
     authorize Person
   end
