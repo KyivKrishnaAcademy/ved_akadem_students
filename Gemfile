@@ -10,6 +10,8 @@ gem 'jquery-rails'
 gem 'jbuilder'
 gem 'pg'
 
+gem 'kaminari'
+
 gem 'devise'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'

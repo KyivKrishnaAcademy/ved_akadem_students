@@ -78,25 +78,45 @@ describe PeopleController do
     describe 'regular user' do
       Given(:roles) { [] }
 
+      shared_examples_for :not_authorized do |not_renderder_template|
+        Then { expect(response).to redirect_to(root_path) }
+        And  { expect(response).not_to render_template(not_renderder_template) }
+        And  { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+      end
+
+      describe '#index' do
+        When { get :index }
+
+        it_behaves_like :not_authorized, 'index'
+      end
+
       describe '#show' do
         When { get :show, id: 1 }
 
-        Then { expect(response.status).to eq(302) }
-        And  { expect(response).not_to render_template('show') }
-        And  { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+        it_behaves_like :not_authorized, 'show'
       end
 
       describe '#move_to_group' do
         When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
-        Then { expect(response.status).to eq(302) }
-        And  { expect(response).not_to render_template('move_to_group') }
-        And  { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+        it_behaves_like :not_authorized, 'move_to_group'
       end
     end
 
     describe 'admin user' do
       Given(:roles) { double('roles', any?: true, name: 'Role') }
+
+      describe '#index' do
+        Given(:ordered_people) { double }
+
+        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:index'] } }
+        Given { allow(people).to receive_message_chain(:by_complex_name, :page).and_return(ordered_people) }
+
+        When  { get :index }
+
+        Then { expect(response).to render_template(:index) }
+        And  { expect(assigns(:people)).to eq(ordered_people) }
+      end
 
       describe '#show' do
         Given(:akadem_groups) { double }
@@ -167,7 +187,6 @@ describe PeopleController do
 
     it_behaves_like "GET", :person, Person, :new
     it_behaves_like "GET", :person, Person, :edit
-    it_behaves_like "GET", :people, Person, :index
     it_behaves_like "DELETE 'destroy'", Person
 
     describe "PATCH 'update'" do

@@ -39,9 +39,9 @@ class PeopleController < ApplicationController
   end
 
   def index
-    @people = policy_scope(Person)
-
     authorize Person
+
+    @people = policy_scope(Person).by_complex_name.page(params[:page])
   end
 
   def destroy
