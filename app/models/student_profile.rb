@@ -6,10 +6,14 @@ class StudentProfile < ActiveRecord::Base
   has_many    :class_schedules     , through:   :attendances
 
   def move_to_group(akadem_group)
+    remove_from_groups
+
+    akadem_groups << akadem_group
+  end
+
+  def remove_from_groups
     prev = group_participations.where(leave_date: nil).first
 
     prev.leave! if prev.present?
-
-    akadem_groups << akadem_group
   end
 end
