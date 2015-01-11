@@ -19,10 +19,13 @@
     .row
       .col-xs-12.col-sm-4
         .row
-          .col-xs-12
-            - if @person.photo.present?
+          - if @person.photo.present?
+            .col-xs-12
               = image_tag "/people/show_photo/standart/#{@person.id}", class: 'img-thumbnail'
-            - else
+            .col-xs-12
+              = link_to t('links.crop_photo'), crop_image_path(@person.id), class: 'btn btn-default'
+          - else
+            .col-xs-12
               = image_tag @person.photo_url, class: 'img-thumbnail'
           .col-xs-12
             - if @person.passport.present?
