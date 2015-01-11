@@ -54,13 +54,23 @@ describe PeopleController do
       Given(:action) { get :show, id: 1 }
 
       it_behaves_like :not_authenticated
-      end
+    end
+
+    shared_examples :not_authenticated_js do
+      Then { expect(response.status).to eq(401) }
+      And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
+    end
 
     context '#move_to_group' do
       When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
-      Then { expect(response.status).to eq(401) }
-      And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
+      it_behaves_like :not_authenticated_js
+    end
+
+    context '#remove_from_groups' do
+      When { delete :remove_from_groups, id: 1, format: :js }
+
+      it_behaves_like :not_authenticated_js
     end
   end
 
@@ -100,6 +110,12 @@ describe PeopleController do
         When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
         it_behaves_like :not_authorized, 'move_to_group'
+      end
+
+      context '#remove_from_groups' do
+        When { delete :remove_from_groups, id: 1, format: :js }
+
+        it_behaves_like :not_authorized, 'remove_from_groups'
       end
     end
 
@@ -150,6 +166,18 @@ describe PeopleController do
         When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
         Then { expect(response).to render_template(:move_to_group) }
+      end
+
+      describe '#remove_from_groups' do
+        Given(:student_profile) { double }
+
+        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:remove_from_groups'] } }
+        Given { allow(person).to receive(:student_profile).and_return(student_profile) }
+        Given { expect(student_profile).to receive(:remove_from_groups) }
+
+        When { delete :remove_from_groups, id: 1, format: :js }
+
+        Then { expect(response).to render_template(:remove_from_groups) }
       end
     end
   end

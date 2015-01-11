@@ -2,7 +2,7 @@ class PeopleController < ApplicationController
   include CropDirectable
   include StudyApplicationable
 
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport, :move_to_group]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport, :move_to_group, :remove_from_groups]
 
   after_filter :verify_authorized
   after_filter :verify_policy_scoped, except: [:new, :create]
@@ -88,6 +88,10 @@ class PeopleController < ApplicationController
     else
       render nothing: true
     end
+  end
+
+  def remove_from_groups
+    @person.student_profile.remove_from_groups if @person.student_profile.present?
   end
 
   class PersonParams
