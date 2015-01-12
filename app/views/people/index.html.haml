@@ -18,7 +18,7 @@
         - @people.each_with_index do |person, index|
           %tr
             %td
-              #{@people.default_per_page * ( @people.current_page - 1) + index + 1}
+              #{@people.default_per_page * ( @people.current_page.pred) + index.next}
             %td
               - if person.photo.present?
                 = image_tag "/people/show_photo/thumb/#{person.id}"
