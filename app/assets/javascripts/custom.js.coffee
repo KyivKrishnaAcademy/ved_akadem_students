@@ -11,16 +11,27 @@ $ ->
     delay: { show: 600, hide: 0 }
   })
 
-  if $('#change-akadem-group').length
-    $('#change-akadem-group'). on 'click', '#move-to-group', (e)->
+  changeAkademGroup = $('#change-akadem-group')
+
+  if changeAkademGroup.length
+    personId = changeAkademGroup.data('person')
+
+    changeAkademGroup. on 'click', '#move-to-group', (e)->
       e.preventDefault()
 
-      person_id = $('#change-akadem-group').data('person')
-      group_id  = $(this).data('group')
+      groupId  = $(this).data('group')
 
-      if confirm('Are you sure you want change group?')
-        $.ajax({
-          url: '/people/' + person_id + '/move_to_group/' + group_id
-          type: 'PATCH',
-          dataType: 'script'
-        })
+      $.ajax({
+        url: '/people/' + personId + '/move_to_group/' + groupId
+        type: 'PATCH',
+        dataType: 'script'
+      })
+
+    changeAkademGroup. on 'click', '#remove-from-groups a', (e)->
+      e.preventDefault()
+
+      $.ajax({
+        url: '/people/' + personId + '/remove_from_groups'
+        type: 'DELETE',
+        dataType: 'script'
+      })

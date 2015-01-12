@@ -12,7 +12,10 @@
         %ul.dropdown-menu{ role: 'menu' }
           - @akadem_groups.each do |group|
             %li{ class: @person.last_akadem_group == group ? 'disabled' : '' }
-              = link_to group.group_name, '#', data: { group: group.id }, id: 'move-to-group'
+              = link_to group.group_name, '#', data: { group: group.id, confirm: 'Are you sure you want change group?' }, id: 'move-to-group'
+          %li.divider
+          %li#remove-from-groups{ class: @person.last_akadem_group.blank? ? 'disabled' : '' }
+            = link_to 'Remove from group', '#', data: { confirm: 'Are you sure you want to remove from group?' }
       = link_to 'Edit', edit_person_path(@person), class: 'btn btn-xs btn-primary'
       = link_to 'Delete', person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
   .col-xs-12

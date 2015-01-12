@@ -60,7 +60,7 @@ describe StudyApplicationsController do
 
     describe 'regular user' do
       shared_examples :not_athorized do
-        Then  { expect(response.status).to eq(302) }
+        Then  { expect(response.status).to eq(303) }
         And   { expect(response).not_to render_template('_common') }
         And   { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
       end
