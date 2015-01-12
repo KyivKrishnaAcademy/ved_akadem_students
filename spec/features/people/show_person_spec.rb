@@ -22,15 +22,29 @@ describe 'Show person:' do
       Then { expect(find('#akadem-group-link')).to have_link(@akadem_group_1.group_name) }
       And  { expect(find('#change-akadem-group')).to have_css('li.disabled', visible: false, text: @akadem_group_1.group_name) }
       And  { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: @akadem_group_2.group_name) }
+      And  { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: 'Remove from group') }
+      And  { expect(find('#change-akadem-group')).to have_css('li', visible: false, text: 'Remove from group') }
     end
 
     describe 'do change', :js do
-      When  { click_button 'Change group' }
-      When  { find('#move-to-group', text: @akadem_group_2.group_name).click }
+      When { click_button 'Change group' }
+      When { find('#move-to-group', text: @akadem_group_2.group_name).click }
 
-      Then  { expect(find('#akadem-group-link')).to have_link(@akadem_group_2.group_name) }
-      And   { expect(find('#change-akadem-group')).to have_css('li.disabled', visible: false, text: @akadem_group_2.group_name) }
-      And   { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: @akadem_group_1.group_name) }
+      Then { expect(find('#akadem-group-link')).to have_link(@akadem_group_2.group_name) }
+      And  { expect(find('#change-akadem-group')).to have_css('li.disabled', visible: false, text: @akadem_group_2.group_name) }
+      And  { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: @akadem_group_1.group_name) }
+      And  { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: 'Remove from group') }
+      And  { expect(find('#change-akadem-group')).to have_css('li', visible: false, text: 'Remove from group') }
+    end
+
+    describe 'do remove', :js do
+      When { click_button 'Change group' }
+      When { click_link 'Remove from group' }
+
+      Then { expect(find('#akadem-group-link')).not_to have_link(@akadem_group_1.group_name) }
+      And  { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: @akadem_group_1.group_name) }
+      And  { expect(find('#change-akadem-group')).not_to have_css('li.disabled', visible: false, text: @akadem_group_2.group_name) }
+      And  { expect(find('#change-akadem-group')).to have_css('li.disabled', visible: false, text: 'Remove from group') }
     end
   end
 end
