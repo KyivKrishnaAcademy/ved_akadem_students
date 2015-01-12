@@ -20,7 +20,7 @@ describe 'Add akadem group:' do
     agf = build(:akadem_group, ag)
     fill_in 'akadem_group_group_name'       , with: (agf.group_name       )
     fill_in 'akadem_group_group_description', with: (agf.group_description)
-    select (ag[:establ_date_1i]||'2009'     ).to_s, from: 'akadem_group_establ_date_1i'
+    select (ag[:establ_date_1i]||'2010'     ).to_s, from: 'akadem_group_establ_date_1i'
     select (ag[:establ_date_2i]||'September').to_s, from: 'akadem_group_establ_date_2i'
     select (ag[:establ_date_3i]||'29'       ).to_s, from: 'akadem_group_establ_date_3i'
     agf

@@ -56,6 +56,8 @@ class AkademGroupsController < ApplicationController
       params.require(:akadem_group).permit(
         :group_name        ,
         :group_description ,
+        :message_ru        ,
+        :message_uk        ,
         :establ_date
       )
     end

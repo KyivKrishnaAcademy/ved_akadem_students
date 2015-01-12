@@ -79,7 +79,9 @@ uk:
         title:        'Реєстрація'
   static_pages:
     home:
-      title: 'Домашня'
+      title:                   'Домашня'
+      student_of_akadem_group: 'Ви студент групи %{akadem_group}'
+      message_for_group:       "Об'ява для групи:"
   people:
     show:
       psycho_test_results:  'Результати психологічного тесту'

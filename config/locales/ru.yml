@@ -79,7 +79,9 @@ ru:
         title:        'Регистрация'
   static_pages:
     home:
-      title: 'Домашняя'
+      title:                   'Домашняя'
+      student_of_akadem_group: 'Вы студент группы %{akadem_group}'
+      message_for_group:       'Объявление для группы:'
   people:
     show:
       psycho_test_results:  'Результаты психологического теста'
