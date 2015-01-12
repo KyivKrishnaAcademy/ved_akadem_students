@@ -1,17 +1,11 @@
 class CropsController < ApplicationController
   after_action :verify_authorized
+  before_action :set_person
 
   def crop_image
-    @person = Person.find(params[:id])
-
-    authorize @person
   end
 
   def update_image
-    @person = Person.find(params[:id])
-
-    authorize @person
-
     if @person.crop_photo(PersonParams.filter(params))
       redirect_to(session[:after_crop_path] || root_path)
     else
@@ -22,6 +16,12 @@ class CropsController < ApplicationController
   end
 
   private
+
+  def set_person
+    @person = Person.find(params[:id])
+
+    authorize @person
+  end
 
   class PersonParams
     def self.filter params
