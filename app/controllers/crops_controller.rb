@@ -13,9 +13,7 @@ class CropsController < ApplicationController
     authorize @person
 
     if @person.crop_photo(PersonParams.filter(params))
-      path = session[:after_crop_path].present? ? session[:after_crop_path] : root_path
-
-      redirect_to path
+      redirect_to(session[:after_crop_path] || root_path)
     else
       flash[:danger] = I18n.t('crops.error')
 
