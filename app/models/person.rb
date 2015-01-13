@@ -59,6 +59,13 @@ class Person < ActiveRecord::Base
     questionnaires.includes(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
   end
 
+  def initial_answers
+    answers.joins(question: [questionnaire: [:questionnaire_completenesses]])
+           .where(questionnaires: { kind: 'initial_questions' },
+                  questionnaire_completenesses: { completed: true, person_id: id })
+           .distinct
+  end
+
   def psycho_test_result
     psycho_tests = questionnaire_completenesses.joins(:questionnaire).where(questionnaires: { kind: 'psycho_test' })
 

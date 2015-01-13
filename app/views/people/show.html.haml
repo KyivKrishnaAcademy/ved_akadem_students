@@ -93,6 +93,15 @@
   .col-xs-12.vert-offset-top-1#study_application
     = render 'shared/study_application', person: @person_decorator, programs: @programs, study_application: @study_application
 
+- if @person.initial_answers.any?
+  .row.vert-offset-top-1
+    - @person.initial_answers.each do |answer|
+      .col-xs-12
+        %strong
+          = "#{answer.question.position}. #{answer.question.data[:text][locale]}"
+        %p
+          = answer.data
+
 - if @person.psycho_test_result.present?
   .row.vert-offset-top-1
     .col-xs-12
