@@ -113,6 +113,7 @@ class PeopleController < ApplicationController
         :spiritual_name ,
         :surname        ,
         :work           ,
+        :special_note   ,
         telephones_attributes: [:id, :phone, :_destroy]
       )
     end

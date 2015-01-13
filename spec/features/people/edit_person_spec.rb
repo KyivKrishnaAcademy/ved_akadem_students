@@ -19,6 +19,7 @@ describe 'Edit person:' do
       { field: 'person[email]'            , value: 'alex@PAMHO.net'   , test_field: 'Email: alex@pamho.net' },
       { field: 'person[education]'        , value: 'some'             , test_field: 'Education: some' },
       { field: 'person[work]'             , value: 'other'            , test_field: 'Work: other' },
+      { field: 'person[special_note]'     , value: 'some note'        , test_field: 'Special note: some note' },
       { field: 'person[emergency_contact]', value: 'дядя Петя'        , test_field: 'Emergency contact: дядя Петя' }
     ].each do |h|
       it_behaves_like :valid_fill_in, h, 'Person'
