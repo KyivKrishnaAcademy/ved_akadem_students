@@ -60,10 +60,11 @@ class Person < ActiveRecord::Base
   end
 
   def initial_answers
-    answers.joins(question: [questionnaire: [:questionnaire_completenesses]])
+    answers.select('answers.*, questions.position')
+           .joins(question: [questionnaire: [:questionnaire_completenesses]])
            .where(questionnaires: { kind: 'initial_questions' },
                   questionnaire_completenesses: { completed: true, person_id: id })
-           .distinct
+           .distinct.order('questions.position')
   end
 
   def psycho_test_result
