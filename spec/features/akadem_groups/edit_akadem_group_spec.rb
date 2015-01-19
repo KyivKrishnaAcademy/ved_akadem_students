@@ -8,16 +8,18 @@ describe 'Edit akadem group:' do
     visit edit_akadem_group_path(akadem_group)
   end
 
-  describe 'autocomplete admin', :js do
-    Given { create :person, name: 'Synchrophazotrone' }
+  %w[administrator praepostor curator].each do |admin_type|
+    describe "autocomplete #{admin_type}", :js do
+      Given { create :person, name: 'Synchrophazotrone' }
 
-    When  { find('#akadem_group_administrator').set('rophazotr') }
-    When  { choose_autocomplete_result('rophazotr', '#akadem_group_administrator') }
-    When  { click_button 'Update Akadem group' }
-    When  { find('.alert-success') }
-    When  { visit edit_akadem_group_path(akadem_group) }
+      When  { find("#akadem_group_#{admin_type}").set('rophazotr') }
+      When  { choose_autocomplete_result('rophazotr', "#akadem_group_#{admin_type}") }
+      When  { click_button 'Update Akadem group' }
+      When  { find('.alert-success') }
+      When  { visit edit_akadem_group_path(akadem_group) }
 
-    Then  { expect(find('#akadem_group_administrator').value).to have_content('Synchrophazotrone') }
+      Then  { expect(find("#akadem_group_#{admin_type}").value).to have_content('Synchrophazotrone') }
+    end
   end
 
   describe 'When values are valid:' do

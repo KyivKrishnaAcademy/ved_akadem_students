@@ -16,6 +16,21 @@ describe 'Add akadem group:' do
   it_behaves_like :not_adds_model
   it_behaves_like :link_in_flash
 
+  %w[administrator praepostor curator].each do |admin_type|
+    describe "autocomplete #{admin_type}", :js do
+      Given { create :person, name: 'Synchrophazotrone' }
+
+      When  { fill_right }
+      When  { find("#akadem_group_#{admin_type}").set('rophazotr') }
+      When  { choose_autocomplete_result('rophazotr', "#akadem_group_#{admin_type}") }
+      When  { click_button 'Create Akadem group' }
+      When  { find('.alert-success') }
+      When  { visit edit_akadem_group_path(AkademGroup.last) }
+
+      Then  { expect(find("#akadem_group_#{admin_type}").value).to have_content('Synchrophazotrone') }
+    end
+  end
+
   def fill_akadem_group_data ag={}
     agf = build(:akadem_group, ag)
     fill_in 'akadem_group_group_name'       , with: (agf.group_name       )

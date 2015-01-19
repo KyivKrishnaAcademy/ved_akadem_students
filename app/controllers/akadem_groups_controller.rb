@@ -67,6 +67,8 @@ class AkademGroupsController < ApplicationController
         :message_ru        ,
         :message_uk        ,
         :administrator_id  ,
+        :praepostor_id     ,
+        :curator_id        ,
         :establ_date
       )
     end

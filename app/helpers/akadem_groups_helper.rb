@@ -3,7 +3,7 @@ module AkademGroupsHelper
     content_tag :div, class: ['form-group', field] do
       div_content = ''
 
-      div_content << f.label(:administrator)
+      div_content << f.label(field)
       div_content << f.autocomplete_field(field,
                                           autocomplete_person_akadem_groups_path,
                                           id_element: "#akadem_group_#{field}_id",
