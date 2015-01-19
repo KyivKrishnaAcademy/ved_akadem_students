@@ -200,6 +200,8 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
+    rails3-jquery-autocomplete (1.0.14)
+      rails (>= 3.0)
     railties (4.0.10)
       actionpack (= 4.0.10)
       activesupport (= 4.0.10)
@@ -323,6 +325,7 @@ DEPENDENCIES
   quiet_assets
   rack_session_access
   rails (= 4.0.10)
+  rails3-jquery-autocomplete (~> 1.0.13)
   recaptcha
   rspec-activemodel-mocks
   rspec-given

@@ -38,6 +38,43 @@ describe AkademGroupsController do
     end
   end
 
+  context 'get: :autocomplete_person with ["akadem_group:edit"]' do
+    Given(:action) { get :autocomplete_person, term: 'phasotron', format: :json }
+
+    context 'signed in' do
+      When { sign_in(:person, user) }
+      When { action }
+
+      describe 'should allow' do
+        Given(:user) { create :person, roles: [create(:role, activities: ['akadem_group:edit'])] }
+
+        context 'when there are results' do
+          Given { @person = create :person, name: 'Synchrophasotronus' }
+
+          Then  { expect(response.body).to eq([{ id: @person.id.to_s, label: @person.complex_name, value: @person.complex_name }].to_json) }
+        end
+
+        context 'when there are no results' do
+          Then { expect(response.body).to eq([].to_json) }
+        end
+      end
+
+      describe 'should not allow with other activities' do
+        Given(:user) { create :person, roles: [create(:role, activities: (all_activities - ['akadem_group:edit']))] }
+
+        Then  { is_expected.to set_the_flash[:danger].to(I18n.t('not_authorized')) }
+        And { expect(response).to redirect_to(root_path) }
+      end
+    end
+    #it_behaves_like :akadem_groups_actions, 'akadem_group:create'
+
+    context 'not signed in' do
+      When { action }
+
+      Then { expect(response.status).to eq(401) }
+    end
+  end
+
   context 'post: :create with ["akadem_group:create"]' do
     Given(:action)      { post :create, akadem_group: { group_name: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
     Given(:expectation) do

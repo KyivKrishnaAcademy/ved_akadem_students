@@ -2,7 +2,15 @@ class AkademGroupsController < ApplicationController
   before_action :set_akadem_group, only: [:show, :edit, :update, :destroy]
 
   after_filter :verify_authorized
-  after_filter :verify_policy_scoped, except: [:new, :create]
+  after_filter :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
+
+  autocomplete :person, :complex_name, full: true
+
+  def autocomplete_person
+    authorize AkademGroup
+
+    autocomplete_person_complex_name
+  end
 
   def index
     @akadem_groups = policy_scope(AkademGroup)
@@ -58,6 +66,7 @@ class AkademGroupsController < ApplicationController
         :group_description ,
         :message_ru        ,
         :message_uk        ,
+        :administrator_id  ,
         :establ_date
       )
     end
