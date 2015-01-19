@@ -3,15 +3,11 @@ module PeopleHelper
     if person.nil?
       'No such person'
     else
-      if !person.spiritual_name.blank?
-        if title.empty?
-          "#{person.spiritual_name} (#{person.surname} #{person.name} #{person.middle_name})"
-        else
-          "#{person.spiritual_name}"
-        end
+      if title.empty?
+        person.complex_name
       else
-        if title.empty?
-          "#{person.surname} #{person.name} #{person.middle_name}"
+        if person.spiritual_name.present?
+          "#{person.spiritual_name}"
         else
           "#{person.surname} #{person.name}"
         end

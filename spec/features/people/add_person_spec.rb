@@ -7,11 +7,12 @@ describe 'Add person:' do
   When  { visit new_person_path }
 
   describe :link_in_flash do
-    When  { @person = fill_person_data(gender: 'Жіноча') }
-    When  { click_button 'Create Person' }
+    When { @person_built = fill_person_data(gender: 'Жіноча') }
+    When { click_button 'Create Person' }
+    When { @person = Person.find_by(email: @person_built.email) }
 
-    Then  { expect(page).to have_link(complex_name(@person).downcase.titleize,
-                                  href: person_path(Person.find_by(email: @person.email))) }
+    Then { expect(page).to have_link(complex_name(@person).downcase.titleize,
+                                     href: person_path(@person)) }
   end
 
   describe 'simple (no student, no teacher)' do

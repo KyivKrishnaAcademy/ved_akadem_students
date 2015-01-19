@@ -15,8 +15,11 @@ class Person < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
   has_many :questionnaires, through: :questionnaire_completenesses
+  has_many :administrated_groups, class_name: 'AkademGroup', foreign_key: 'administrator_id'
+  has_many :praeposted_groups, class_name: 'AkademGroup', foreign_key: 'praepostor_id'
+  has_many :curated_groups, class_name: 'AkademGroup', foreign_key: 'curator_id'
 
-  before_save :normalize_strings, :set_password
+  before_save :normalize_strings, :set_password, :set_complex_name
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
@@ -102,6 +105,14 @@ class Person < ActiveRecord::Base
       self.password = pswd
       self.password_confirmation = pswd
     end
+  end
+
+  def set_complex_name
+    self.complex_name = if spiritual_name.present?
+                          "#{spiritual_name} (#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''})"
+                        else
+                          "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
+                        end
   end
 
   def check_photo_dimensions

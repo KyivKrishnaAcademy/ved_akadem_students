@@ -13,7 +13,7 @@ describe PeopleHelper do
     end
 
     describe "full  without spiritual name should be 'name m_name surname'" do
-      Given { @person.spiritual_name = "" }
+      Given { @person.update(spiritual_name: '') }
 
       Then { expect(complex_name(@person)).to match(/\A#{@person.surname} #{@person.name} #{@person.middle_name}\z/) }
     end
