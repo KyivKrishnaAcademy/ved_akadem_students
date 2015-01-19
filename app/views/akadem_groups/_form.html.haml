@@ -3,12 +3,7 @@
   = f.input :group_name
   = f.input :establ_date
   = f.input :group_description
-  = f.input :administrator, url: autocomplete_person_akadem_groups_path,
-                            as: :autocomplete,
-                            input_html: { class: 'form-control',
-                                          value: f.object.administrator.present? ? f.object.administrator.complex_name : '' },
-                            id_element: '#akadem_group_administrator_id'
-  = f.input :administrator_id, as: :hidden
+  = people_autocomplete(f, 'administrator')
   = f.input :message_ru
   = f.input :message_uk
   = f.button :submit
