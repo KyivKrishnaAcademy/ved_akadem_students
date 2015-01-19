@@ -7,6 +7,6 @@
 |
 = link_to "Delete", akadem_group_path(@akadem_group), method: :delete, data: { confirm: 'Are you sure?' }
 
-%p="Group name: " << @akadem_group.group_name
+%p="Group name: " << @akadem_group.group_name.to_s
 %p="Establishment date: " << @akadem_group.establ_date.to_s
-%p="Description: " << @akadem_group.group_description
+%p="Description: " << @akadem_group.group_description.to_s

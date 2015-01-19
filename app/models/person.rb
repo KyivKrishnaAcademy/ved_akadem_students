@@ -101,8 +101,8 @@ class Person < ActiveRecord::Base
 
   def set_password
     if encrypted_password.blank? && password.blank? && password_confirmation.blank?
-      pswd          = SecureRandom.hex(6)
-      self.password = pswd
+      pswd                       = SecureRandom.hex(6)
+      self.password              = pswd
       self.password_confirmation = pswd
     end
   end
