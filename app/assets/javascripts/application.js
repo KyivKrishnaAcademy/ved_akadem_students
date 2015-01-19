@@ -17,6 +17,8 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/datepicker-ru
 //= require jquery-ui/datepicker-uk
+//= require jquery-ui/autocomplete
+//= require autocomplete-rails
 //= require jquery.smartmenus
 //= require jquery.smartmenus.bootstrap
 //= require custom

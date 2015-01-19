@@ -20,4 +20,21 @@ module HelperMethods
                         StudyApplicationsController.action_methods.map { |action| 'study_application:' << action } +
                         %w{questionnaire:update_all}
   end
+
+  def choose_autocomplete_result(item_text, input_selector="input[data-autocomplete]")
+    page.execute_script %Q{ $('#{input_selector}').trigger("focus") }
+    page.execute_script %Q{ $('#{input_selector}').trigger("keydown") }
+
+    item_selector = "ul.ui-autocomplete li.ui-menu-item:contains('#{item_text}')"
+
+    expect(page).to have_selector('ul.ui-autocomplete li.ui-menu-item', text: item_text)
+
+    page.execute_script %Q{ $("#{item_selector}").trigger("mouseenter").trigger("click"); }
+  end
+
+  def screenshot
+    sleep 10
+
+    save_screenshot(Rails.root.join 'tmp/capybara', 'Screenshot' << Time.now.strftime('%Y%m%d%H%M%S%L') << '.png')
+  end
 end

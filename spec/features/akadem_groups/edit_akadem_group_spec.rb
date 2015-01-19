@@ -1,10 +1,23 @@
 require 'rails_helper'
 
 describe 'Edit akadem group:' do
+  Given(:akadem_group) { create :akadem_group }
+
   When do
     login_as_admin
-    visit akadem_group_path(create(:akadem_group))
-    click_link 'Edit'
+    visit edit_akadem_group_path(akadem_group)
+  end
+
+  describe 'autocomplete admin', :js do
+    Given { create :person, name: 'Synchrophazotrone' }
+
+    When  { find('#akadem_group_administrator').set('rophazotr') }
+    When  { choose_autocomplete_result('rophazotr', '#akadem_group_administrator') }
+    When  { click_button 'Update Akadem group' }
+    When  { find('.alert-success') }
+    When  { visit edit_akadem_group_path(akadem_group) }
+
+    Then  { expect(find('#akadem_group_administrator').value).to have_content('Synchrophazotrone') }
   end
 
   describe 'When values are valid:' do
