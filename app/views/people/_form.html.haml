@@ -2,10 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    - if f.object.photo.present?
-      = image_tag("/people/show_photo/standart/#{f.object.id}")
-    - else
-      = image_tag(f.object.photo_url)
+    = person_photo(f.object, :standart)
     = f.input :photo, as: :file
     = f.input :photo_cache, as: :hidden
     - if f.object.passport.present?

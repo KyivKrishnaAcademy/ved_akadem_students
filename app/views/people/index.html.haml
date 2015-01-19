@@ -20,10 +20,7 @@
             %td
               #{@people.default_per_page * ( @people.current_page.pred) + index.next}
             %td
-              - if person.photo.present?
-                = image_tag "/people/show_photo/thumb/#{person.id}"
-              - else
-                = image_tag person.photo.versions[:thumb].url
+              = person_photo(person, :thumb)
             %td
               = link_to complex_name(person), person_path(person)
             %td

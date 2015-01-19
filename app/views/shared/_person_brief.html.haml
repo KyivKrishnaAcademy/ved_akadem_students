@@ -6,10 +6,7 @@
           = complex_name(person)
     .row
       .col-xs-12.col-sm-3
-        - if person.photo.present?
-          = image_tag "/people/show_photo/standart/#{person.id}", class: 'img-thumbnail'
-        - else
-          = image_tag person.photo_url, class: 'img-thumbnail'
+        = person_photo(person, :standart, class: 'img-thumbnail')
       .col-xs-12.col-sm-9
         = link_to t('links.edit_profile'), edit_person_registration_path(person)
       - if person.last_akadem_group.present?
