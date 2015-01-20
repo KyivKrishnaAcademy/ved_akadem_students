@@ -28,4 +28,21 @@ describe AkademGroup do
   describe 'upcases :group_name before save' do
     Then { expect(create(:akadem_group, {group_name: 'шб13-1'}).group_name).to eq('ШБ13-1') }
   end
+
+  describe '#active_student_profiles' do
+    Given { @group     = create :akadem_group }
+    Given { @profile_1 = create(:person).create_student_profile }
+    Given { @profile_2 = create(:person).create_student_profile }
+    Given { @profile_1.move_to_group(@group) }
+    Given { @profile_2.move_to_group(@group) }
+
+    context 'all active' do
+      Then { expect(@group.active_student_profiles).to match_array([@profile_1, @profile_2]) }
+    end
+
+    context 'there is inactive' do
+      Given { @profile_2.group_participations.first.leave! }
+      Then  { expect(@group.active_student_profiles).to match_array([@profile_1]) }
+    end
+  end
 end

@@ -13,4 +13,8 @@ class AkademGroup < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A(з|)[а-я]{2}\d{2}-\d\z/i
   validates :group_name, format: { with: VALID_EMAIL_REGEX }
   validates :group_name, presence: true, uniqueness: true
+
+  def active_student_profiles
+    student_profiles.where(group_participations: { leave_date: nil })
+  end
 end
