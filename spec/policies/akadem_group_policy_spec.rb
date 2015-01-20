@@ -9,19 +9,19 @@ describe AkademGroupPolicy do
 
   context 'complex conditions' do
     permissions :show? do
-      context 'user is student of ther group' do
+      context 'user is student of the group' do
         Given { user.create_student_profile.move_to_group(record) }
 
         Then  { is_expected.to permit(user, record) }
       end
 
-      context 'user is curator of ther group' do
+      context 'user is curator of the group' do
         Given { record.update(curator: user) }
 
         Then  { is_expected.to permit(user, record) }
       end
 
-      context 'user is administrator of ther group' do
+      context 'user is administrator of the group' do
         Given { record.update(administrator: user) }
 
         Then  { is_expected.to permit(user, record) }

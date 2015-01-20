@@ -41,7 +41,7 @@ describe AkademGroup do
     end
 
     context 'there is inactive' do
-      Given { @profile_2.group_participations.first.leave! }
+      Given { @profile_2.remove_from_groups }
       Then  { expect(@group.active_student_profiles).to match_array([@profile_1]) }
     end
   end
