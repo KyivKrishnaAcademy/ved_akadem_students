@@ -120,15 +120,62 @@ describe AkademGroupsController do
   end
 
   context 'get: :show with ["akadem_group:show"]' do
-    Given { @record = create :akadem_group }
-
-    Given(:action)      { get :show, id: @record.id }
+    Given(:action) { get :show, id: group.id }
     Given(:expectation) do
       expect(response).to render_template(:show)
-      expect(assigns(:akadem_group)).to eq(@record)
+      expect(assigns(:akadem_group)).to eq(group)
     end
 
-    it_behaves_like :akadem_groups_actions, 'akadem_group:show'
+    describe 'DB hit tests' do
+      Given(:group) { create :akadem_group }
+
+      it_behaves_like :akadem_groups_actions, 'akadem_group:show'
+    end
+
+    describe 'DBless tests' do
+      Given(:person) { double(Person, id: 1, roles: []) }
+      Given(:groups) { double }
+      Given(:group)  { double(AkademGroup, id: 1) }
+
+      Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
+      Given { allow(controller).to receive(:current_person) { person } }
+
+      Given { allow(group).to receive(:class).and_return(AkademGroup) }
+      Given { allow_any_instance_of(AkademGroupPolicy::Scope).to receive(:resolve).and_return(groups) }
+      Given { allow(groups).to receive(:find).with('1').and_return(group) }
+
+      context 'user is student of the group' do
+        Given(:student_profile) { double(StudentProfile) }
+
+        Given { allow(person).to receive(:student_profile).and_return(student_profile) }
+        Given { allow(group).to receive(:active_student_profiles).and_return([student_profile]) }
+
+        When { action }
+
+        Then { expectation }
+      end
+
+      describe 'curator and administrator' do
+        Given { allow_any_instance_of(AkademGroupPolicy).to receive(:student_of_the_group?).and_return(false) }
+
+        context 'user is curator of the group' do
+          Given { allow(group).to receive(:curator_id).and_return(1) }
+
+          When { action }
+
+          Then { expectation }
+        end
+
+        context 'user is administrator of the group' do
+          Given { allow(group).to receive(:curator_id).and_return(2) }
+          Given { allow(group).to receive(:administrator_id).and_return(1) }
+
+          When { action }
+
+          Then { expectation }
+        end
+      end
+    end
   end
 
   context 'get: :edit with ["akadem_group:edit"]' do
@@ -159,7 +206,6 @@ describe AkademGroupsController do
       When { sign_in :person, create(:person, roles: [create(:role, activities: %w[akadem_group:update])]) }
 
       describe 'record receives update' do
-
         Then do
           expect_any_instance_of(AkademGroup).to receive(:update_attributes).with(mod_params.with_indifferent_access)
           action
