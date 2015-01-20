@@ -4,8 +4,30 @@ require 'pundit/rspec'
 describe AkademGroupPolicy do
   subject { AkademGroupPolicy }
 
-  let(:record) { create(:akadem_group) }
-  let(:user)   { create(:person) }
+  Given(:record) { create(:akadem_group) }
+  Given(:user)   { create(:person) }
+
+  context 'complex conditions' do
+    permissions :show? do
+      context 'user is student of ther group' do
+        Given { user.create_student_profile.move_to_group(record) }
+
+        Then  { is_expected.to permit(user, record) }
+      end
+
+      context 'user is curator of ther group' do
+        Given { record.update(curator: user) }
+
+        Then  { is_expected.to permit(user, record) }
+      end
+
+      context 'user is administrator of ther group' do
+        Given { record.update(administrator: user) }
+
+        Then  { is_expected.to permit(user, record) }
+      end
+    end
+  end
 
   context 'given user\'s role activities' do
     permissions :autocomplete_person? do
