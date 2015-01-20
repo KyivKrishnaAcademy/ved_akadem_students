@@ -4,8 +4,41 @@ require 'pundit/rspec'
 describe PersonPolicy do
   subject { PersonPolicy }
 
-  let(:record) { create(:person) }
-  let(:user)   { create(:person) }
+  Given(:record) { create(:person) }
+  Given(:user)   { create(:person) }
+
+  context 'complex conditions' do
+    permissions :show_photo? do
+      Given(:group) { create :akadem_group }
+
+      Given { user.create_student_profile.move_to_group(group) }
+
+      context 'user can see classmate photo' do
+        Given { record.create_student_profile.move_to_group(group) }
+
+        Then  { is_expected.to permit(user, record) }
+      end
+
+      context 'user can not see exclassmate photo' do
+        Given { record.create_student_profile.move_to_group(group) }
+        Given { record.student_profile.remove_from_groups }
+
+        Then  { is_expected.not_to permit(user, record) }
+      end
+
+      context 'user can see currator photo' do
+        Given { group.update(curator: record) }
+
+        Then  { is_expected.to permit(user, record) }
+      end
+
+      context 'user can see administrator photo' do
+        Given { group.update(administrator: record) }
+
+        Then  { is_expected.to permit(user, record) }
+      end
+    end
+  end
 
   context 'given user\'s role activities' do
     permissions :show_photo? do
