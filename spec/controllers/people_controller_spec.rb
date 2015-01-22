@@ -85,6 +85,23 @@ describe PeopleController do
     Given { allow_any_instance_of(PersonPolicy::Scope).to receive(:resolve).and_return(people) }
     Given { allow(people).to receive(:find).with('1').and_return(person) }
 
+    Given(:other_person) { double(Person, id: 2) }
+
+    Given { allow(other_person).to receive(:class).and_return(Person) }
+    Given { allow(people).to receive(:find).with('2').and_return(other_person) }
+    Given { allow(other_person).to receive(:photo_url).and_return('/photo_path') }
+
+    shared_examples_for :get_show_photo_successed do |id|
+      Then do
+        expect(controller).to receive(:send_file).with('/photo_path',
+                                                       disposition: 'inline',
+                                                       type: 'image/jpeg',
+                                                       x_sendfile: true)
+
+        get :show_photo, id: id, version: 'default'
+      end
+    end
+
     describe 'regular user' do
       Given(:roles) { [] }
 
@@ -116,6 +133,59 @@ describe PeopleController do
         When { delete :remove_from_groups, id: 1, format: :js }
 
         it_behaves_like :not_authorized, 'remove_from_groups'
+      end
+
+      context '#show_photo' do
+        Given { allow(controller).to receive(:render) }
+
+        context 'self' do
+          Given { allow(person).to receive(:photo_url).and_return('/photo_path') }
+
+          it_behaves_like :get_show_photo_successed, 1
+        end
+
+        context 'other person' do
+          context 'stranger' do
+            Given { allow(person).to receive(:last_akadem_group).and_return(nil) }
+
+            When  { get :show_photo, id: 2, version: 'default' }
+
+            it_behaves_like :not_authorized, 'show_photo'
+          end
+
+          context 'classmate' do
+            Given(:group) { double(AkademGroup, id: 3) }
+
+            Given { allow(person).to receive(:last_akadem_group).and_return(group) }
+            Given { allow(other_person).to receive(:last_akadem_group).and_return(group) }
+
+            it_behaves_like :get_show_photo_successed, 2
+          end
+
+          context 'elder of person' do
+            Given(:join) { double }
+            Given(:groups) { double(any?: true) }
+
+            Given { allow(AkademGroup).to receive(:joins).and_return(join) }
+            Given { allow(join).to receive(:where).with(field => other_person.id, :student_profiles => { :person_id => person.id })
+                                                  .and_return(groups) }
+
+            context 'curator' do
+              Given(:field) { :curator_id }
+
+              it_behaves_like :get_show_photo_successed, 2
+            end
+
+            context 'administrator' do
+              Given(:field) { :administrator_id }
+
+              Given { allow(join).to receive(:where).with(:curator_id => other_person.id, :student_profiles => { :person_id => person.id })
+                                                    .and_return([]) }
+
+              it_behaves_like :get_show_photo_successed, 2
+            end
+          end
+        end
       end
     end
 
@@ -178,6 +248,13 @@ describe PeopleController do
         When { delete :remove_from_groups, id: 1, format: :js }
 
         Then { expect(response).to render_template(:remove_from_groups) }
+      end
+
+      describe '#show_photo' do
+        Given { allow(controller).to receive(:render) }
+        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:show'] } }
+
+        it_behaves_like :get_show_photo_successed, 2
       end
     end
   end
