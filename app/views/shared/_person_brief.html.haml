@@ -11,7 +11,8 @@
         = link_to t('links.edit_profile'), edit_person_registration_path(person)
       - if person.last_akadem_group.present?
         .col-xs-12.col-sm-9.vert-offset-top-1
-          = t('static_pages.home.student_of_akadem_group', akadem_group: person.last_akadem_group.group_name)
+          = t('static_pages.home.student_of_akadem_group')
+          = link_to person.last_akadem_group.group_name, akadem_group_path(person.last_akadem_group)
         - if person.last_akadem_group["message_#{locale}"].present?
           .col-xs-12.col-sm-9
             = t('static_pages.home.message_for_group')
