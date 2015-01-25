@@ -7,7 +7,6 @@ describe 'Edit person:' do
 
   When { login_as_admin }
   When { visit edit_person_path(create(:person, birthday: '2008-10-08')) }
-  #When { click_link I18n.t('links.edit') }
 
   context 'When values are valid:' do
     [

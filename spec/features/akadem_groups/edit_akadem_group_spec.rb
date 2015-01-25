@@ -3,6 +3,8 @@ require 'rails_helper'
 describe 'Edit akadem group:' do
   Given(:akadem_group) { create :akadem_group }
 
+  Given { page.set_rack_session(locale: :uk) }
+
   When { login_as_admin }
   When { visit edit_akadem_group_path(akadem_group) }
 
