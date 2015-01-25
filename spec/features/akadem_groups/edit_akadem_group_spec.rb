@@ -3,10 +3,8 @@ require 'rails_helper'
 describe 'Edit akadem group:' do
   Given(:akadem_group) { create :akadem_group }
 
-  When do
-    login_as_admin
-    visit edit_akadem_group_path(akadem_group)
-  end
+  When { login_as_admin }
+  When { visit edit_akadem_group_path(akadem_group) }
 
   %w[administrator praepostor curator].each do |admin_type|
     describe "autocomplete #{admin_type}", :js do
@@ -23,13 +21,15 @@ describe 'Edit akadem group:' do
   end
 
   describe 'When values are valid:' do
-    [ {field: 'Group name'       , value: 'БШ99-9'       , test_field: 'Group name: БШ99-9'        },
-      {field: 'Group description', value: 'Зис из э test', test_field: 'Description: Зис из э test'} ].each do |h|
+    [{ field: 'Group name'       , value: 'БШ99-9'       , test_field: 'БШ99-9'},
+     { field: I18n.t('activerecord.attributes.akadem_group.group_description'),
+       value: 'Зис из э test',
+       test_field: "#{I18n.t('activerecord.attributes.akadem_group.group_description')}: Зис из э test" }].each do |h|
       it_behaves_like :valid_fill_in, h, 'Akadem group'
     end
 
     describe 'Establishment date' do
-      it_behaves_like :valid_select_date, 'AkademGroup', 'establ_date', 'Establishment date: '
+      it_behaves_like :valid_select_date, 'AkademGroup', 'establ_date', "#{I18n.t('activerecord.attributes.akadem_group.establ_date')}: "
     end
   end
 

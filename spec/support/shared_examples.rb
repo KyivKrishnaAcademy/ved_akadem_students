@@ -8,15 +8,15 @@ shared_examples 'akadem group new and edit' do
     let(:form) { 'form.' << action << '_akadem_group' }
 
     it { is_expected.to have_selector(form) }
-    it { is_expected.to have_selector("#{form} label", text: "Group name") }
+    it { is_expected.to have_selector("#{form} label", text: 'Group name') }
     it { is_expected.to have_selector("#{form} input#akadem_group_group_name") }
-    it { is_expected.to have_selector("#{form} label", text: "Establ date") }
+    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.akadem_group.establ_date')) }
     it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_1i") }
     it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_2i") }
     it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_3i") }
-    it { is_expected.to have_selector("#{form} label", text: "Group description") }
-    it { is_expected.to have_selector("#{form} label", text: "Message uk") }
-    it { is_expected.to have_selector("#{form} label", text: "Message ru") }
+    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.akadem_group.group_description')) }
+    it { is_expected.to have_selector("#{form} label", text: 'Message uk') }
+    it { is_expected.to have_selector("#{form} label", text: 'Message ru') }
     it { is_expected.to have_selector("#{form} input#akadem_group_group_description") }
     it { is_expected.to have_selector("#{form} input.btn") }
   end
@@ -169,13 +169,13 @@ shared_examples :integration_delete_model do |model|
   end
 
   describe 'flash' do
-    When { click_link 'Delete' }
+    When { click_link I18n.t('links.delete') }
 
     Then { expect(page).to have_selector('.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!") }
   end
 
   describe 'model count' do
-    Then { expect{ click_link 'Delete' }.to change{model.count}.by(-1) }
+    Then { expect{ click_link I18n.t('links.delete') }.to change{model.count}.by(-1) }
   end
 end
 

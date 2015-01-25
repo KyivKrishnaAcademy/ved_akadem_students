@@ -6,8 +6,8 @@ describe 'Edit person:' do
   Given { page.set_rack_session(locale: :uk) }
 
   When { login_as_admin }
-  When { visit person_path(create(:person, birthday: '2008-10-08')) }
-  When { click_link 'Edit' }
+  When { visit edit_person_path(create(:person, birthday: '2008-10-08')) }
+  #When { click_link I18n.t('links.edit') }
 
   context 'When values are valid:' do
     [

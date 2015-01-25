@@ -69,4 +69,8 @@ RSpec.configure do |config|
     config.public_key  = '11111'
     config.private_key = '22222'
   end
+
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = false
+  end
 end

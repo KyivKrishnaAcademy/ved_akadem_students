@@ -20,6 +20,6 @@ describe 'people/show.html.haml' do
   Then { expect(find('body')).to have_text(/Gender: (Male|Female)/) }
   Then { expect(find('body')).to have_text("Birthday: #{@p.birthday.to_s}") }
 
-  Then { expect(find('body')).to have_link('Delete', href: person_path(@p)     ) }
-  Then { expect(find('body')).to have_link('Edit'  , href: edit_person_path(@p)) }
+  Then { expect(find('body')).to have_link(I18n.t('links.delete'), href: person_path(@p)) }
+  Then { expect(find('body')).to have_link(I18n.t('links.edit')  , href: edit_person_path(@p)) }
 end
