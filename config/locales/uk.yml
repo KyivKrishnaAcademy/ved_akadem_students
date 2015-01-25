@@ -17,12 +17,13 @@ uk:
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:
-    update:           'Зберегти'
-    delete:           'Видалити'
-    show_passport:    'Показати паспорт'
-    crop_photo:       'Обрізати фотографію'
-    edit_profile:     'Редагувати профіль'
     apply_to_program: 'Подати заяву'
+    crop_photo:       'Обрізати фотографію'
+    delete:           'Видалити'
+    edit:             'Редагувати'
+    edit_profile:     'Редагувати профіль'
+    show_passport:    'Показати паспорт'
+    update:           'Зберегти'
     withdraw:         'Відкликати заяву'
   hints:
     no_passport: 'Немає закріпленого паспорту'
@@ -80,8 +81,15 @@ uk:
   static_pages:
     home:
       title:                   'Домашня'
-      student_of_akadem_group: 'Ви студент групи %{akadem_group}'
+      student_of_akadem_group: 'Ви студент групи'
       message_for_group:       "Об'ява для групи:"
   people:
     show:
       psycho_test_results:  'Результати психологічного тесту'
+  akadem_groups:
+    show:
+      active_students_count:  'Активних студентів:'
+      administrator:          'Адміністратор'
+      curator:                'Куратор'
+      group_servants:         'Слуги групи'
+      praepostor:             'Староста'

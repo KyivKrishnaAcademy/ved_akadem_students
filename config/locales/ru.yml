@@ -17,12 +17,13 @@ ru:
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:
-    update:           'Сохранить'
-    delete:           'Удалить'
-    show_passport:    'Показать паспорт'
-    crop_photo:       'Обрезать фотографию'
-    edit_profile:     'Редактировать профиль'
     apply_to_program: 'Подать заявление'
+    crop_photo:       'Обрезать фотографию'
+    delete:           'Удалить'
+    edit:             'Редактировать'
+    edit_profile:     'Редактировать профиль'
+    show_passport:    'Показать паспорт'
+    update:           'Сохранить'
     withdraw:         'Отозвать заявление'
   hints:
     no_passport: 'Нет прикрепленного паспорта'
@@ -80,8 +81,15 @@ ru:
   static_pages:
     home:
       title:                   'Домашняя'
-      student_of_akadem_group: 'Вы студент группы %{akadem_group}'
+      student_of_akadem_group: 'Вы студент группы'
       message_for_group:       'Объявление для группы:'
   people:
     show:
       psycho_test_results:  'Результаты психологического теста'
+  akadem_groups:
+    show:
+      active_students_count:  'Активных студентов:'
+      administrator:          'Администратор'
+      curator:                'Куратор'
+      group_servants:         'Слуги группы'
+      praepostor:             'Староста'

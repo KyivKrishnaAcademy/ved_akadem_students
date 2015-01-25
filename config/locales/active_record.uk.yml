@@ -1,6 +1,9 @@
 uk:
   activerecord:
     attributes:
+      akadem_group:
+        establ_date:        'Дата створення'
+        group_description:  'Опис групи'
       person:
         birthday:               'День народження'
         current_password:       'Поточний пароль'
