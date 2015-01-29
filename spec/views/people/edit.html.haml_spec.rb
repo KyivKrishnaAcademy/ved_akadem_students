@@ -3,8 +3,6 @@ require 'rails_helper'
 describe 'people/edit.html.erb' do
   subject { page }
 
-  Given { page.set_rack_session(locale: :uk) }
-
   Given do
     @admin = create(:person, :admin,
       telephones:     [build(:telephone, phone: '+380 50 111 2233')],

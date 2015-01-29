@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe 'Signing' do
-  Given { page.set_rack_session(locale: :uk) }
-
   describe 'Sign in' do
     Given { create :person, email: 'test@example.com', password: 'password', password_confirmation: 'password' }
 

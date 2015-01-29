@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Questionnaires' do
-  Given { page.set_rack_session(locale: :uk) }
   Given { @question_1     = create :question, :single_select , data: {  text: { uk: 'Чи ти в своєму розумі?',
                                                                                 ru: 'Ты в своем уме?' },
                                                                         options: { uk: [['Так', true], ['Ні', false]],
