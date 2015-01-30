@@ -18,4 +18,9 @@ describe LocalesController do
       Then { expect(session[:locale]).to eq(:uk) }
     end
   end
+
+  after do
+    session.delete(:locale)
+    I18n.locale = :uk
+  end
 end

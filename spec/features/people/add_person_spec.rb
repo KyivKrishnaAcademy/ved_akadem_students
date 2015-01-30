@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe 'Add person:' do
-  Given { page.set_rack_session(locale: :uk) }
-
   When  { login_as_admin }
   When  { visit new_person_path }
 

@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe 'RBAC links visibility' do
-  Given { page.set_rack_session(locale: :uk) }
-    
   shared_examples :nav_links do |locator, href, *activities|
     context "with activities #{activities.flatten.inspect}" do
       When  { login_as_user(@user) }

@@ -210,6 +210,8 @@ describe PeopleController do
 
         Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:show'] } }
         Given { allow(person).to receive(:can_act?).with('study_application:create') { true } }
+        Given { allow(person).to receive(:is_a?).and_return(false) }
+        Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
         Given { allow(AkademGroup).to receive_message_chain(:select, :order) { akadem_groups } }
         Given { allow(Program).to receive(:all) { programs } }
 

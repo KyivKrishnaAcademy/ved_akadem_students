@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe 'Show person:' do
-  Given { page.set_rack_session(locale: :uk) }
-
   Given(:person) { create :person }
 
   When  { login_as_admin }

@@ -66,7 +66,6 @@ describe AkademGroupsController do
         And { expect(response).to redirect_to(root_path) }
       end
     end
-    #it_behaves_like :akadem_groups_actions, 'akadem_group:create'
 
     context 'not signed in' do
       When { action }

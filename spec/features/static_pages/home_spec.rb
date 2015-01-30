@@ -4,7 +4,6 @@ describe :home do
   Given(:person) { create(:person) }
 
   Given { login_as_user(person) }
-  Given { page.set_rack_session(locale: :uk) }
 
   When  { visit '/static_pages/home' }
 
