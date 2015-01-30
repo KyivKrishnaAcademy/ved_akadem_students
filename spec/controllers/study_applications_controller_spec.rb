@@ -55,6 +55,8 @@ describe StudyApplicationsController do
 
     Given(:person) { double(Person, id: 1, roles: roles) }
 
+    Given { allow(person).to receive(:is_a?).and_return(false) }
+    Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
     Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
     Given { allow(controller).to receive(:current_person) { person } }
 
@@ -81,7 +83,7 @@ describe StudyApplicationsController do
         end
 
         context 'disallow others' do
-          Given(:study_application) { double(StudyApplication, person_id: person.id + 1, program_id: 1 ) }
+          Given(:study_application) { double(StudyApplication, person_id: person.id.next, program_id: 1 ) }
 
           Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
           Given { expect(study_application).not_to receive(:destroy) }
@@ -93,6 +95,8 @@ describe StudyApplicationsController do
 
       context 'create' do
         context 'allow own' do
+          Given { allow(Person).to receive(:find).with(person.id).and_return(person) }
+
           When  { post :create, study_application: { person_id: person.id, program_id: 1 }, format: :js }
 
           it_behaves_like :athorized_create
@@ -102,7 +106,7 @@ describe StudyApplicationsController do
           Given { expect_any_instance_of(StudyApplication).not_to receive(:save) }
           Given { expect(person).not_to receive(:add_application_questionnaires) }
 
-          When  { post :create, study_application: { person_id: person.id + 1, program_id: 1 }, format: :js }
+          When  { post :create, study_application: { person_id: person.id.next, program_id: 1 }, format: :js }
 
           it_behaves_like :not_athorized
         end
@@ -128,7 +132,7 @@ describe StudyApplicationsController do
         end
 
         context 'allow others' do
-          Given(:study_application) { double(StudyApplication, person_id: person.id + 1, program_id: 1) }
+          Given(:study_application) { double(StudyApplication, person_id: person.id.next, program_id: 1) }
 
           it_behaves_like :athorized_destroy
         end
@@ -138,13 +142,17 @@ describe StudyApplicationsController do
         Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:create'] } }
 
         context 'allow own' do
+          Given { allow(Person).to receive(:find).with(person.id).and_return(person) }
+
           When  { post :create, study_application: { person_id: person.id, program_id: 1 }, format: :js }
 
           it_behaves_like :athorized_create
         end
 
         context 'allow others' do
-          When  { post :create, study_application: { person_id: person.id + 1, program_id: 1 }, format: :js }
+          Given { allow(Person).to receive(:find).with(person.id.next).and_return(person) }
+
+          When  { post :create, study_application: { person_id: person.id.next, program_id: 1 }, format: :js }
 
           it_behaves_like :athorized_create
         end
