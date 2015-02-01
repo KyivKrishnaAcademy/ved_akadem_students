@@ -14,8 +14,8 @@ describe AnswersController do
       }
 
       Then do
-        expect(AnswersProcessor).not_to receive(:new)
-        expect_any_instance_of(AnswersProcessor).not_to receive(:process!)
+        expect(AnswersProcessorService).not_to receive(:new)
+        expect_any_instance_of(AnswersProcessorService).not_to receive(:process!)
 
         patch :update, { id: @questionnaire.id, questionnaire: attributes }
       end
@@ -27,9 +27,9 @@ describe AnswersController do
       }
 
       Then do
-        answers_processor = double(AnswersProcessor)
+        answers_processor = double(AnswersProcessorService)
 
-        allow(AnswersProcessor).to receive(:new).with(@questionnaire, @person).and_return(answers_processor)
+        allow(AnswersProcessorService).to receive(:new).with(@questionnaire, @person).and_return(answers_processor)
 
         expect(answers_processor).to receive(:process!)
 

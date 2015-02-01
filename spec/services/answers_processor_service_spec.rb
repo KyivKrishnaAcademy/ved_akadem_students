@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-describe AnswersProcessor do
+describe AnswersProcessorService do
   Given { @questionnaire = create :questionnaire, :psycho_test }
   Given { @person        = create :person }
 
-  subject { AnswersProcessor.new(@questionnaire, @person) }
+  subject { AnswersProcessorService.new(@questionnaire, @person) }
 
   describe '#process!' do
     Given { @completeness = QuestionnaireCompleteness.create(person: @person, questionnaire: @questionnaire) }

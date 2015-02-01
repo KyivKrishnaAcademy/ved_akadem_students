@@ -18,9 +18,7 @@ class AnswersController < ApplicationController
 
     update! do |success, failure|
       success.html do
-        answers_processor = AnswersProcessor.new(resource, current_person)
-
-        answers_processor.process!
+        AnswersProcessorService.new(resource, current_person).process!
 
         redirect_to root_path
       end

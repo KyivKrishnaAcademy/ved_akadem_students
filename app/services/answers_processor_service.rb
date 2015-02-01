@@ -1,4 +1,4 @@
-class AnswersProcessor
+class AnswersProcessorService
   def initialize(questionnaire, person)
     @questionnaire  = questionnaire
     @person         = person
