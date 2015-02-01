@@ -15,14 +15,13 @@ module HelperMethods
 
   def all_activities
     @all_activities ||= (PeopleController.action_methods.map { |action| 'person:' << action } +
-                         %w[person:view_psycho_test_result] +
+                         %w[person:view_psycho_test_result person:crop_image] - %w{person:show_photo} +
                          (AkademGroupsController.action_methods -
                           %w[autocomplete_person get_prefix
                           get_autocomplete_order get_autocomplete_items
                           autocomplete_person_complex_name]).map { |action| 'akadem_group:' << action } +
-                         %w{person:crop_image} - %w{person:show_photo} +
                          StudyApplicationsController.action_methods.map { |action| 'study_application:' << action } +
-                         %w{questionnaire:update_all}).sort
+                         %w[questionnaire:update_all]).sort
   end
 
   def choose_autocomplete_result(item_text, input_selector="input[data-autocomplete]")

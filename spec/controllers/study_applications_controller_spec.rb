@@ -47,7 +47,7 @@ describe StudyApplicationsController do
 
     shared_examples :athorized_create do
       Given { expect_any_instance_of(StudyApplication).to receive(:save).and_return(true) }
-      Given { expect_any_instance_of(StudyApplication).to receive(:person).and_return(person) }
+      Given { expect_any_instance_of(StudyApplication).to receive(:person).twice.and_return(person) }
       Given { expect(person).to receive(:add_application_questionnaires) }
 
       it_behaves_like :athorized

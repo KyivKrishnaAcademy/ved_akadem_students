@@ -294,6 +294,7 @@ shared_examples :study_applications do |admin|
   Given!(:program) { create(:program, title_uk: 'Школа Бхакти', description_uk: 'Описание 1') }
   Given { create(:program, title_uk: 'Бхакти Шастры', description_uk: 'Описание 2') }
   Given { create(:program, title_uk: 'Invisible Program', visible: false) }
+  Given { StudyApplication.create(person_id: user.id, program_id: program.id) } if admin
 
   context 'with application' do
     Given { StudyApplication.create(person_id: person.id, program_id: program.id) }

@@ -97,7 +97,7 @@
           .col-xs-8.col-sm-9
             #{@person.special_note}
 
-- if @person_decorator.study_application.present? || policy(@study_application).create?
+- if @person.study_application.present? || policy(@study_application).create?
   .row
     .col-xs-12.vert-offset-top-1#study_application
       = render 'shared/study_application', person: @person_decorator, programs: @programs, study_application: @study_application
