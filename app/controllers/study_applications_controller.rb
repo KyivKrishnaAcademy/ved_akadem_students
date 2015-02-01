@@ -14,7 +14,7 @@ class StudyApplicationsController < ApplicationController
       success.js do
         resource.person.add_application_questionnaires
 
-        set_programs_and_new_application(permitted_params[:study_application][:person_id])
+        set_programs_and_new_application(resource.person)
 
         render partial: 'common'
       end
@@ -28,7 +28,7 @@ class StudyApplicationsController < ApplicationController
       success.js do
         resource.person.remove_application_questionnaires(resource)
 
-        set_programs_and_new_application
+        set_programs_and_new_application(resource.person)
 
         render partial: 'common'
       end

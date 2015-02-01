@@ -2,8 +2,9 @@ require 'rails_helper'
 
 describe 'Show person:' do
   Given(:person) { create :person }
+  Given(:user) { create(:person, :admin) }
 
-  When  { login_as_admin }
+  When  { login_as(user) }
   When  { visit person_path(person) }
 
   describe 'study application' do

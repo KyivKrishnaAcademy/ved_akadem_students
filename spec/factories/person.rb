@@ -30,6 +30,10 @@ FactoryGirl.define do
     photo { File.open("#{Rails.root}/spec/fixtures/150x200.png") }
   end
 
+  trait :with_passport do
+    passport { File.open("#{Rails.root}/spec/fixtures/150x200.png") }
+  end
+
   trait :student do
     student_profile { FactoryGirl.create(:student_profile) }
   end
