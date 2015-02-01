@@ -3,8 +3,7 @@ namespace :akadem do
   task create_questionnaires: :environment do
     puts 'Reading data...'
 
-    psycho_test       = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/psyho_test_2.yml'))
-    initial_questions = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/initial_questions.yml'))
+    psycho_test = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/psyho_test_2.yml'))
 
     puts 'Populating...'
 
@@ -27,15 +26,7 @@ namespace :akadem do
                                                                           key_anwers: q[:key_answers].map(&:to_s) })
                                               end)
 
-    initial_questionnaire = Questionnaire.create!(
-                            kind:         'initial_questions',
-                            title_uk:     initial_questions[:title_uk],
-                            title_ru:     initial_questions[:title_ru],
-                            questions:    initial_questions[:questions].map do |q|
-                                            Question.new(format: 'freeform',
-                                                         position: q[:position],
-                                                         data: { text: { uk: q[:question_uk], ru: q[:question_ru] } })
-                                          end)
+    initial_questionnaire = FactoryGirl.create :questionnaire, :initial
 
     puts 'Adding questionnaires to Study applications...'
 
