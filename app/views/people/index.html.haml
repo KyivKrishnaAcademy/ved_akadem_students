@@ -20,9 +20,9 @@
             %td
               #{@people.default_per_page * ( @people.current_page.pred) + index.next}
             %td
-              = person_photo(person, :thumb)
+              = thumb_with_pop(person)
             %td
-              = link_to complex_name(person), person_path(person)
+              = link_to_show_person_or_name(person)
             %td
               - if person.last_akadem_group.present?
                 = link_to person.last_akadem_group.group_name, akadem_group_path(person.last_akadem_group)

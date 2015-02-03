@@ -13,7 +13,7 @@ describe 'akadem_groups/show' do
   Given { allow(policy).to receive(:destroy?).and_return(false) }
 
   When  { render }
-
+#TODO
   describe 'common with restricted rights' do
     Then  { expect(rendered).to have_selector('h1', text: ag_name) }
     And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.akadem_group.establ_date')}: #{group.establ_date.to_s}") }

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe 'people/index' do
+  # TODO
   Given { 4.times { create :person } }
   Given { login_as_admin }
 

@@ -14,4 +14,10 @@ module AkademGroupsHelper
       div_content.html_safe
     end
   end
+
+  def am_i_group_elder?(akadem_group)
+    [akadem_group.curator_id,
+     akadem_group.administrator_id,
+     akadem_group.praepostor_id].include?(current_person.id)
+  end
 end

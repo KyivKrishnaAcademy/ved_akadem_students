@@ -26,4 +26,18 @@ module ApplicationHelper
       image_tag person.photo.versions[version].url, options
     end
   end
+
+  def thumb_with_pop(person)
+    person_photo(person,
+                 :thumb,
+                 class: 'popover-photo',
+                 data: { toggle: 'popover',
+                         content: "#{person_photo(person, :standart)}" })
+  end
+
+  def link_to_show_person_or_name(person)
+    link_to_if policy(person).show?, person.complex_name, person_path(person) do
+      person.complex_name
+    end
+  end
 end

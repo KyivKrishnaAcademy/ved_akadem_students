@@ -10,6 +10,6 @@ class AkademGroupPolicy < ApplicationPolicy
   private
 
     def student_of_the_group?
-      user.student_profile.present? && record.active_student_profiles.include?(user.student_profile)
+      record.active_students.map(&:id).include?(user.id)
     end
 end

@@ -14,7 +14,11 @@ class AkademGroup < ActiveRecord::Base
   validates :group_name, format: { with: VALID_EMAIL_REGEX }
   validates :group_name, presence: true, uniqueness: true
 
-  def active_student_profiles
-    student_profiles.where(group_participations: { leave_date: nil })
+  def active_students
+    Person.joins(student_profile: [group_participations: [:akadem_group]])
+          .where(group_participations: { leave_date: nil },
+                 akadem_groups: { id: id })
+          .order(:complex_name)
+          .distinct
   end
 end
