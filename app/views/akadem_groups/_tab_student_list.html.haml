@@ -17,7 +17,7 @@
             %td
               = thumb_with_pop(student)
             %td
-              = link_to_show_person_or_name(student)
+              = link_to_show_person_or_name(student, true)
             %td
               = l(student.birthday, format: :short)
             - if am_i_group_elder?(akadem_group)

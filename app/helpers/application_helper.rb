@@ -1,4 +1,20 @@
 module ApplicationHelper
+  def complex_name(person, short = false)
+    if person.nil?
+      'No such person'
+    else
+      if short
+        if person.spiritual_name.present?
+          "#{person.spiritual_name}"
+        else
+          "#{person.surname} #{person.name}"
+        end
+      else
+        person.complex_name
+      end
+    end
+  end
+
   def full_title(page_title)
     if page_title.empty?
       t(:application_title)
@@ -35,9 +51,9 @@ module ApplicationHelper
                          content: "#{person_photo(person, :standart)}" })
   end
 
-  def link_to_show_person_or_name(person)
-    link_to_if policy(person).show?, person.complex_name, person_path(person) do
-      person.complex_name
+  def link_to_show_person_or_name(person, short = false)
+    link_to_if policy(person).show?, complex_name(person, short), person_path(person) do
+      complex_name(person, short)
     end
   end
 end

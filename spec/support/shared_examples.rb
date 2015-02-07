@@ -187,7 +187,7 @@ shared_examples :valid_fill_in do |h, model_human|
   describe h[:field] do
     When do
       fill_in h[:field], with: h[:value]
-      click_button "Update #{model_human}"
+      click_button "Зберегти #{model_human}"
     end
 
     Then { expect(find('body')).to have_content(h[:test_field]) }
@@ -200,7 +200,7 @@ shared_examples :invalid_fill_in do |h, model_human|
   describe h[:field] do
     When do
       fill_in h[:field], with: h[:value]
-      click_button "Update #{model_human}"
+      click_button "Зберегти #{model_human}"
     end
 
     Then { expect(find('.alert-danger')).to have_content(I18n.t('content.form_has_errors', count: 1)) }
@@ -217,10 +217,12 @@ shared_examples :valid_select_date do |model_name, field_name, content|
 
   When do
     select_from = "#{model_name.underscore}[#{field_name}("
-    select year  , from: "#{select_from}1i)]"
-    select 'May' , from: "#{select_from}2i)]"
-    select '27'  , from: "#{select_from}3i)]"
-    click_button "Update #{underscore_humanize(model_name)}"
+
+    select(year, from: "#{select_from}1i)]")
+    select('Травня', from: "#{select_from}2i)]")
+    select('27', from: "#{select_from}3i)]")
+
+    click_button "Зберегти #{underscore_humanize(model_name)}"
   end
 
   Then { expect(find('body')).to have_content("#{content}#{year}-05-27") }
@@ -231,7 +233,7 @@ end
 shared_examples :valid_select do |model_name, field_name, value, content|
   When do
     select value, from: field_name
-    click_button "Update #{underscore_humanize(model_name)}"
+    click_button "Зберегти #{underscore_humanize(model_name)}"
   end
 
   Then { expect(find('body')).to have_content(content) }
@@ -243,7 +245,7 @@ shared_examples :adds_model do
 
   When  { fill_right }
 
-  Then  { expect { click_button 'Create ' << underscore_humanize(@m.name) }.to change{@m.count}.by(1) }
+  Then  { expect { click_button 'Створити ' << underscore_humanize(@m.name) }.to change{@m.count}.by(1) }
   And   { expect(page).to have_selector('.alert-success') }
 end
 
@@ -254,7 +256,7 @@ shared_examples :not_adds_model do
   end
 
   it do
-    expect { click_button 'Create ' << underscore_humanize(@m.name) }.not_to change{@m.count}
+    expect { click_button 'Створити ' << underscore_humanize(@m.name) }.not_to change{@m.count}
     expect(page).to have_selector('.alert-danger ul li')
   end
 end
@@ -267,7 +269,7 @@ shared_examples :link_in_flash do
 
   let(:the_m) { @the_m }
   scenario do
-    click_button "Create " << underscore_humanize(@m.name)
+    click_button 'Створити ' << underscore_humanize(@m.name)
     href = method(('' << model.name.underscore << '_path').to_sym).call @m.find_by(attr_name => @the_m[attr_name])
 
     expect(page).to have_link(locator, href: href)

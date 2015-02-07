@@ -12,7 +12,7 @@ describe 'Edit akadem group:' do
 
       When  { find("#akadem_group_#{admin_type}").set('rophazotr') }
       When  { choose_autocomplete_result('rophazotr', "#akadem_group_#{admin_type}") }
-      When  { click_button 'Update Akadem group' }
+      When  { click_button 'Зберегти Akadem group' }
       When  { find('.alert-success') }
       When  { visit edit_akadem_group_path(akadem_group) }
 
@@ -21,12 +21,12 @@ describe 'Edit akadem group:' do
   end
 
   describe 'When values are valid:' do
-    [{ field: 'Group name'       , value: 'БШ99-9'       , test_field: 'БШ99-9'},
+    [{ field: 'Group name', value: 'БШ99-9', test_field: 'БШ99-9'},
      { field: I18n.t('activerecord.attributes.akadem_group.group_description'),
        value: 'Зис из э test',
        test_field: "#{I18n.t('activerecord.attributes.akadem_group.group_description')}: Зис из э test" }].each do |h|
-      it_behaves_like :valid_fill_in, h, 'Akadem group'
-    end
+         it_behaves_like :valid_fill_in, h, 'Akadem group'
+       end
 
     describe 'Establishment date' do
       it_behaves_like :valid_select_date, 'AkademGroup', 'establ_date', "#{I18n.t('activerecord.attributes.akadem_group.establ_date')}: "
