@@ -62,6 +62,10 @@ describe 'akadem_groups/show' do
   describe 'has group students list' do
     subject { page.find('#group_list table') }
 
+    shared_examples_for :not_conditional_values do
+      Then { is_expected.to have_content(I18n.l(user.birthday, format: :short)) }
+    end
+
     shared_examples_for :group_list_table do |table_headers, table_no_headers|
       Then { is_expected.to have_selector('tbody tr', count: 1 ) }
 
@@ -78,6 +82,7 @@ describe 'akadem_groups/show' do
 
     context 'regular student' do
       it_behaves_like :group_list_table, ['#', 'Photo', 'Full Name', 'Birthday'], ['Telephones']
+      it_behaves_like :not_conditional_values
 
       Then { is_expected.not_to have_content(user.telephones.first.phone) }
       And  { is_expected.not_to have_link(user.complex_name, person_path(user)) }
@@ -89,6 +94,7 @@ describe 'akadem_groups/show' do
 
         context elder do
           it_behaves_like :group_list_table, ['#', 'Photo', 'Full Name', 'Birthday', 'Telephones'], []
+          it_behaves_like :not_conditional_values
 
           Then { is_expected.to have_content(user.telephones.first.phone) }
           And  { is_expected.not_to have_link(user.complex_name, person_path(user)) }
@@ -98,6 +104,8 @@ describe 'akadem_groups/show' do
 
     describe 'can see show_person link' do
       Given(:activities) { %w[akadem_group:show person:show] }
+
+      it_behaves_like :not_conditional_values
 
       Then { is_expected.to have_link(user.complex_name, person_path(user)) }
     end
