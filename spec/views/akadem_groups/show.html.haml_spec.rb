@@ -1,16 +1,17 @@
 require 'rails_helper'
 
 describe 'akadem_groups/show' do
+  Given(:activities) { ['akadem_group:show'] }
   Given(:ag_name) { 'ТВ99-1' }
   Given(:policy) { double(AkademGroupPolicy) }
   Given(:group) { create :akadem_group, { group_name: ag_name } }
-  Given(:user) { create :person }
+  Given(:user) { create :person, roles: [create(:role, activities: activities)] }
 
   Given { login_as(user) }
   Given { assign(:akadem_group, group) }
-  Given { allow(view).to receive(:policy).with(group).and_return(policy) }
-  Given { allow(policy).to receive(:edit?).and_return(false) }
-  Given { allow(policy).to receive(:destroy?).and_return(false) }
+  Given { allow(view).to receive(:policy).with(group).and_return(AkademGroupPolicy.new(user, group)) }
+  Given { allow(view).to receive(:policy).with(user).and_return(PersonPolicy.new(user, user)) }
+  Given { allow(view).to receive(:current_person).and_return(user) }
 
   When  { render }
 #TODO
@@ -26,14 +27,14 @@ describe 'akadem_groups/show' do
   end
 
   describe 'with edit rights' do
-    Given { allow(policy).to receive(:edit?).and_return(true) }
+    Given(:activities) { %w[akadem_group:show akadem_group:edit] }
 
     Then  { expect(rendered).to have_link(I18n.t('links.edit'))}
     And   { expect(rendered).not_to have_link(I18n.t('links.delete'))}
   end
 
   describe 'with destroy rights' do
-    Given { allow(policy).to receive(:destroy?).and_return(true) }
+    Given(:activities) { %w[akadem_group:show akadem_group:destroy] }
 
     Then  { expect(rendered).to have_link(I18n.t('links.delete'))}
     And   { expect(rendered).not_to have_link(I18n.t('links.edit'))}

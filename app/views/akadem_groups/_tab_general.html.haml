@@ -33,7 +33,7 @@
             - if akadem_group.send(servant_role).present?
               %tr
                 %td
-                  = t(".#{servant_role.to_s}")
+                  = t("akadem_groups.show.#{servant_role.to_s}")
                 %td
                   = thumb_with_pop(akadem_group.send(servant_role))
                 %td
