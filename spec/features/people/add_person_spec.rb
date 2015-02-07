@@ -6,7 +6,7 @@ describe 'Add person:' do
 
   describe :link_in_flash do
     When { @person_built = fill_person_data(gender: 'Жіноча') }
-    When { click_button 'Create Person' }
+    When { click_button 'Створити Person' }
     When { @person = Person.find_by(email: @person_built.email) }
 
     Then { expect(page).to have_link(complex_name(@person).downcase.titleize,
@@ -17,14 +17,14 @@ describe 'Add person:' do
     describe 'adds Person' do
       When  { fill_person_data(gender: 'Жіноча') }
 
-      Then  { expect { click_button 'Create Person' }.to change{Person.count}.by(1) }
+      Then  { expect { click_button 'Створити Person' }.to change{Person.count}.by(1) }
       And   { expect(page).to have_selector('.alert-success') }
     end
 
     describe 'do not adds person' do
       When  { fill_person_data email: '3322' }
 
-      Then  { expect { click_button 'Create Person' }.not_to change{Person.count} }
+      Then  { expect { click_button 'Створити Person' }.not_to change{Person.count} }
       And   { expect(page).to have_selector('.alert-danger') }
     end
   end

@@ -146,8 +146,7 @@ describe AkademGroupsController do
       context 'user is student of the group' do
         Given(:student_profile) { double(StudentProfile) }
 
-        Given { allow(person).to receive(:student_profile).and_return(student_profile) }
-        Given { allow(group).to receive(:active_student_profiles).and_return([student_profile]) }
+        Given { allow(group).to receive(:active_students).and_return([person]) }
 
         When { action }
 

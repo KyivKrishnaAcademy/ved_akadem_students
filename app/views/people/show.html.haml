@@ -1,8 +1,8 @@
 = render 'shared/under_construction'
-- provide(:title, complex_name(@person, :t))
+- provide(:title, complex_name(@person, true))
 .row
   %h1.col-xs-12.col-sm-6
-    = complex_name(@person)
+    = @person.complex_name
   .col-xs-12.col-sm-6.clearfix
     .pull-right
       - if policy(@person).move_to_group? || policy(@person).remove_from_groups?

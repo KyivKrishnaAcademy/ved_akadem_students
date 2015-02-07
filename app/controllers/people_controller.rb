@@ -21,7 +21,7 @@ class PeopleController < ApplicationController
     authorize @person
 
     if @person.save
-      flash[:success] = "#{view_context.link_to( view_context.complex_name(@person), person_path(@person) )} added.".html_safe
+      flash[:success] = "#{view_context.link_to(@person.complex_name, person_path(@person))} added.".html_safe
 
       redirect_to direct_to_crop(new_person_path, @person)
     elsif

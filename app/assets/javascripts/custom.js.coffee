@@ -5,10 +5,11 @@ $ ->
 
     $('input#datepicker').datepicker($.extend({}, $.datepicker.regional[locale], options))
 
-  $('.popover-description').popover({
+  $('.popover-description, .popover-photo').popover({
     trigger: 'hover',
     placement: 'auto top',
-    delay: { show: 600, hide: 0 }
+    delay: { show: 600, hide: 0 },
+    html: true
   })
 
   changeAkademGroup = $('#change-akadem-group')

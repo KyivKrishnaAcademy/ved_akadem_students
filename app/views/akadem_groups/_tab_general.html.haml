@@ -1,0 +1,44 @@
+.row
+  .col-xs-12.vert-offset-top-1
+    .row
+      .col-xs-3.col-sm-2
+        = "#{t('activerecord.attributes.akadem_group.establ_date')}:"
+      .col-xs-9.col-sm-10
+        = akadem_group.establ_date.to_s
+    - if akadem_group.group_description.present?
+      .row
+        .col-xs-3.col-sm-2
+          = "#{t('activerecord.attributes.akadem_group.group_description')}:"
+        .col-xs-9.col-sm-10
+          = akadem_group.group_description
+    .row
+      .col-xs-3.col-sm-2
+        = t('akadem_groups.show.active_students_count')
+      .col-xs-9.col-sm-10
+        = akadem_group.active_students.count
+    - if akadem_group["message_#{locale}"].present?
+      .row
+        .col-xs-3.col-sm-2
+          = t('static_pages.home.message_for_group')
+        .col-xs-9.col-sm-10
+          = akadem_group["message_#{locale}"]
+
+  - if [akadem_group.curator, akadem_group.administrator, akadem_group.praepostor].any?
+    %h4.col-xs-12.text-center
+      = t('akadem_groups.show.group_servants')
+    .col-xs-12
+      %table.table.table-condensed
+        %tbody
+          - %i[curator administrator praepostor].each do |servant_role|
+            - if akadem_group.send(servant_role).present?
+              %tr
+                %td
+                  = t("akadem_groups.show.#{servant_role.to_s}")
+                %td
+                  = thumb_with_pop(akadem_group.send(servant_role))
+                %td
+                  = link_to_show_person_or_name(akadem_group.send(servant_role), true)
+                %td
+                  = akadem_group.send(servant_role).email
+                %td
+                  = akadem_group.send(servant_role).telephones.pluck(:phone).join(', ')

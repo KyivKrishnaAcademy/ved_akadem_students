@@ -1,16 +1,20 @@
 require 'rails_helper'
 
 describe 'akadem_groups/show' do
+  GROUP_ELDERS = %w[administrator curator praepostor]
+
+  Given(:activities) { ['akadem_group:show'] }
   Given(:ag_name) { 'ТВ99-1' }
   Given(:policy) { double(AkademGroupPolicy) }
   Given(:group) { create :akadem_group, { group_name: ag_name } }
-  Given(:user) { create :person }
+  Given(:user) { create :person, roles: [create(:role, activities: activities)] }
+  Given(:page) { Capybara::Node::Simple.new(response.body) }
 
   Given { login_as(user) }
   Given { assign(:akadem_group, group) }
-  Given { allow(view).to receive(:policy).with(group).and_return(policy) }
-  Given { allow(policy).to receive(:edit?).and_return(false) }
-  Given { allow(policy).to receive(:destroy?).and_return(false) }
+  Given { allow(view).to receive(:policy).with(group).and_return(AkademGroupPolicy.new(user, group)) }
+  Given { allow(view).to receive(:policy).with(user).and_return(PersonPolicy.new(user, user)) }
+  Given { allow(view).to receive(:current_person).and_return(user) }
 
   When  { render }
 
@@ -26,23 +30,21 @@ describe 'akadem_groups/show' do
   end
 
   describe 'with edit rights' do
-    Given { allow(policy).to receive(:edit?).and_return(true) }
+    Given(:activities) { %w[akadem_group:show akadem_group:edit] }
 
     Then  { expect(rendered).to have_link(I18n.t('links.edit'))}
     And   { expect(rendered).not_to have_link(I18n.t('links.delete'))}
   end
 
   describe 'with destroy rights' do
-    Given { allow(policy).to receive(:destroy?).and_return(true) }
+    Given(:activities) { %w[akadem_group:show akadem_group:destroy] }
 
     Then  { expect(rendered).to have_link(I18n.t('links.delete'))}
     And   { expect(rendered).not_to have_link(I18n.t('links.edit'))}
   end
 
   describe 'has group elders' do
-    group_elders = %w[administrator curator praepostor]
-
-    group_elders.each do |elder|
+    GROUP_ELDERS.each do |elder|
       describe elder do
         Given { group.update_column("#{elder}_id", user.id) }
 
@@ -50,10 +52,62 @@ describe 'akadem_groups/show' do
         And   { expect(rendered).to have_text(I18n.t("akadem_groups.show.#{elder}")) }
         And   { expect(rendered).to have_text(user.email) }
 
-        (group_elders - [elder]).each do |missing_elder|
+        (GROUP_ELDERS - [elder]).each do |missing_elder|
           And { expect(rendered).not_to have_text(I18n.t("akadem_groups.show.#{missing_elder}")) }
         end
       end
+    end
+  end
+
+  describe 'has group students list' do
+    subject { page.find('#group_list table') }
+
+    shared_examples_for :not_conditional_values do
+      Then { is_expected.to have_content(I18n.l(user.birthday, format: :short)) }
+    end
+
+    shared_examples_for :group_list_table do |table_headers, table_no_headers|
+      Then { is_expected.to have_selector('tbody tr', count: 1 ) }
+
+      table_headers.each do |header|
+        And { is_expected.to have_selector('th', text: header) }
+      end
+
+      table_no_headers.each do |header|
+        And { is_expected.not_to have_selector('th', text: header) }
+      end
+    end
+
+    Given { user.create_student_profile.move_to_group(group) }
+
+    context 'regular student' do
+      it_behaves_like :group_list_table, ['#', 'Photo', 'Full Name', 'Birthday'], ['Telephones']
+      it_behaves_like :not_conditional_values
+
+      Then { is_expected.not_to have_content(user.telephones.first.phone) }
+      And  { is_expected.not_to have_link(user.complex_name, person_path(user)) }
+    end
+
+    describe 'I am the group elder' do
+      GROUP_ELDERS.each do |elder|
+        Given { group.update_column("#{elder}_id", user.id) }
+
+        context elder do
+          it_behaves_like :group_list_table, ['#', 'Photo', 'Full Name', 'Birthday', 'Telephones'], []
+          it_behaves_like :not_conditional_values
+
+          Then { is_expected.to have_content(user.telephones.first.phone) }
+          And  { is_expected.not_to have_link(user.complex_name, person_path(user)) }
+        end
+      end
+    end
+
+    describe 'can see show_person link' do
+      Given(:activities) { %w[akadem_group:show person:show] }
+
+      it_behaves_like :not_conditional_values
+
+      Then { is_expected.to have_link(complex_name(user, true), person_path(user)) }
     end
   end
 end

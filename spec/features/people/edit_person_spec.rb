@@ -24,7 +24,7 @@ describe 'Edit person:' do
 
     describe 'Birthday' do
       When { fill_in 'person[birthday]', with: '27.05.1985' }
-      When { click_button 'Update Person' }
+      When { click_button 'Зберегти Person' }
 
       describe 'brithdate is shown' do
         Then { expect(find('body')).to have_content('Birthday: 1985-05-27') }
@@ -49,7 +49,7 @@ describe 'Edit person:' do
       describe h[:field] do
         When do
           fill_in(h[:field], with: h[:value])
-          click_button('Update Person')
+          click_button('Зберегти Person')
         end
 
         Then { expect(find('body')).to have_selector('.alert-danger') }

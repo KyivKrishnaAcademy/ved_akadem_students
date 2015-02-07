@@ -29,20 +29,23 @@ describe AkademGroup do
     Then { expect(create(:akadem_group, {group_name: 'шб13-1'}).group_name).to eq('ШБ13-1') }
   end
 
-  describe '#active_student_profiles' do
-    Given { @group     = create :akadem_group }
-    Given { @profile_1 = create(:person).create_student_profile }
-    Given { @profile_2 = create(:person).create_student_profile }
-    Given { @profile_1.move_to_group(@group) }
-    Given { @profile_2.move_to_group(@group) }
+  describe '#active_students' do
+    Given { @group    = create :akadem_group }
+    Given { @person_c = create(:person, spiritual_name: nil, surname: 'C' ) }
+    Given { @person_b = create(:person, spiritual_name: 'Bhakta das' ) }
+    Given { @person_a = create(:person, spiritual_name: nil, surname: 'A' ) }
+    Given { @person_a.create_student_profile.move_to_group(@group) }
+    Given { @person_b.create_student_profile.move_to_group(@group) }
+    Given { @person_c.create_student_profile.move_to_group(@group) }
 
     context 'all active' do
-      Then { expect(@group.active_student_profiles).to match_array([@profile_1, @profile_2]) }
+      Then { expect(@group.active_students).to eq([@person_a, @person_b, @person_c]) }
     end
 
     context 'there is inactive' do
-      Given { @profile_2.remove_from_groups }
-      Then  { expect(@group.active_student_profiles).to match_array([@profile_1]) }
+      Given { @person_b.student_profile.remove_from_groups }
+
+      Then  { expect(@group.active_students).to eq([@person_a, @person_c]) }
     end
   end
 end

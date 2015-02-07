@@ -1,6 +1,6 @@
 = render 'shared/under_construction'
-- provide(:title, complex_name(@person, :t))
+- provide(:title, complex_name(@person, true))
 %h1
-  = complex_name(@person)
+  = @person.complex_name
 %br
 = render 'form'

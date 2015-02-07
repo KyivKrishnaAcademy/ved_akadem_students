@@ -1,4 +1,20 @@
 module ApplicationHelper
+  def complex_name(person, short = false)
+    if person.nil?
+      'No such person'
+    else
+      if short
+        if person.spiritual_name.present?
+          "#{person.spiritual_name}"
+        else
+          "#{person.surname} #{person.name}"
+        end
+      else
+        person.complex_name
+      end
+    end
+  end
+
   def full_title(page_title)
     if page_title.empty?
       t(:application_title)
@@ -24,6 +40,20 @@ module ApplicationHelper
       image_tag "/people/show_photo/#{version.to_s}/#{person.id}", options
     else
       image_tag person.photo.versions[version].url, options
+    end
+  end
+
+  def thumb_with_pop(person)
+    person_photo(person,
+                 :thumb,
+                 class: 'popover-photo',
+                 data: { toggle: 'popover',
+                         content: "#{person_photo(person, :standart)}" })
+  end
+
+  def link_to_show_person_or_name(person, short = false)
+    link_to_if policy(person).show?, complex_name(person, short), person_path(person) do
+      complex_name(person, short)
     end
   end
 end

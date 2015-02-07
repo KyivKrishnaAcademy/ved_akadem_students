@@ -1,0 +1,25 @@
+.row
+  .col-xs-12.vert-offset-top-1
+    %table.table.table-condensed.table-striped
+      %thead
+        %tr
+          %th #
+          %th Photo
+          %th Full Name
+          %th Birthday
+          - if am_i_group_elder?(akadem_group)
+            %th Telephones
+      %tbody
+        - students.each_with_index do |student, index|
+          %tr
+            %td
+              = index.next
+            %td
+              = thumb_with_pop(student)
+            %td
+              = link_to_show_person_or_name(student, true)
+            %td
+              = l(student.birthday, format: :short)
+            - if am_i_group_elder?(akadem_group)
+              %td
+                = student.telephones.map(&:phone).join(', ')
