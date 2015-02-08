@@ -4,11 +4,11 @@
       %thead
         %tr
           %th #
-          %th Photo
-          %th Full Name
-          %th Birthday
+          %th= t('akadem_groups.show.photo')
+          %th= t('akadem_groups.show.full_name')
+          %th= t('akadem_groups.show.birthday')
           - if am_i_group_elder?(akadem_group)
-            %th Telephones
+            %th= t('akadem_groups.show.telephones')
       %tbody
         - students.each_with_index do |student, index|
           %tr

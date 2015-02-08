@@ -90,6 +90,12 @@ ru:
     show:
       active_students_count:  'Активных студентов:'
       administrator:          'Администратор'
+      birthday:               'День рождения'
       curator:                'Куратор'
+      full_name:              'Имя'
       group_servants:         'Слуги группы'
+      photo:                  'Фото'
       praepostor:             'Староста'
+      tab_general:            'Осмотр'
+      tab_group_list:         'Список группы'
+      telephones:             'Телефоны'

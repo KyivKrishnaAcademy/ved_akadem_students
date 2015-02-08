@@ -81,7 +81,7 @@ describe 'akadem_groups/show' do
     Given { user.create_student_profile.move_to_group(group) }
 
     context 'regular student' do
-      it_behaves_like :group_list_table, ['#', 'Photo', 'Full Name', 'Birthday'], ['Telephones']
+      it_behaves_like :group_list_table, ['#', 'Фото', "Ім'я", 'День народження'], ['Телефони']
       it_behaves_like :not_conditional_values
 
       Then { is_expected.not_to have_content(user.telephones.first.phone) }
@@ -93,7 +93,7 @@ describe 'akadem_groups/show' do
         Given { group.update_column("#{elder}_id", user.id) }
 
         context elder do
-          it_behaves_like :group_list_table, ['#', 'Photo', 'Full Name', 'Birthday', 'Telephones'], []
+          it_behaves_like :group_list_table, ['#', 'Фото', "Ім'я", 'День народження', 'Телефони'], []
           it_behaves_like :not_conditional_values
 
           Then { is_expected.to have_content(user.telephones.first.phone) }

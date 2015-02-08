@@ -90,6 +90,12 @@ uk:
     show:
       active_students_count:  'Активних студентів:'
       administrator:          'Адміністратор'
+      birthday:               'День народження'
       curator:                'Куратор'
+      full_name:              "Ім'я"
       group_servants:         'Слуги групи'
+      photo:                  'Фото'
       praepostor:             'Староста'
+      tab_general:            'Огляд'
+      tab_group_list:         'Список групи'
+      telephones:             'Телефони'

@@ -14,9 +14,9 @@
   .col-xs-12
     %ul.nav.nav-tabs.admin-tabs
       %li{ class: 'active' }
-        = link_to 'General', '#general', data: { toggle: 'tab' }
+        = link_to t('.tab_general'), '#general', data: { toggle: 'tab' }
       %li
-        = link_to 'Group list', '#group_list', data: { toggle: 'tab' }
+        = link_to t('.tab_group_list'), '#group_list', data: { toggle: 'tab' }
 
     .tab-content
       .tab-pane#general.active
