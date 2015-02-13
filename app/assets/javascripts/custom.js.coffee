@@ -12,12 +12,12 @@ $ ->
     html: true
   })
 
-  changeAkademGroup = $('#change-akadem-group')
+  changeAcademicGroup = $('#change-academic-group')
 
-  if changeAkademGroup.length
-    personId = changeAkademGroup.data('person')
+  if changeAcademicGroup.length
+    personId = changeAcademicGroup.data('person')
 
-    changeAkademGroup. on 'click', '#move-to-group', (e)->
+    changeAcademicGroup. on 'click', '#move-to-group', (e)->
       e.preventDefault()
 
       groupId  = $(this).data('group')
@@ -28,7 +28,7 @@ $ ->
         dataType: 'script'
       })
 
-    changeAkademGroup. on 'click', '#remove-from-groups a', (e)->
+    changeAcademicGroup. on 'click', '#remove-from-groups a', (e)->
       e.preventDefault()
 
       $.ajax({

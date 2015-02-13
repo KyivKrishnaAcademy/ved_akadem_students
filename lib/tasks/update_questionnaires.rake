@@ -1,4 +1,4 @@
-namespace :akadem do
+namespace :academic do
   desc 'Update questionnaires'
   task update_questionnaires: :environment do
     puts 'Reading data...'

@@ -1,8 +1,8 @@
-VedAkademStudents::Application.routes.draw do
+VedicAcademyStudents::Application.routes.draw do
   devise_for :people, path: '', controllers: { registrations: 'users/registrations' }, path_names: { sign_up: 'register' }
 
   resources :people
-  resources :akadem_groups do
+  resources :academic_groups do
     get :autocomplete_person, on: :collection
   end
 

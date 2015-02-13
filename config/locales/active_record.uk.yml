@@ -1,7 +1,7 @@
 uk:
   activerecord:
     attributes:
-      akadem_group:
+      academic_group:
         establ_date:        'Дата створення'
         group_description:  'Опис групи'
       person:

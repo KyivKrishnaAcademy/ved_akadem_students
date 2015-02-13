@@ -11,4 +11,4 @@
 # if you're sharing your code publicly.
 
 require "#{Rails.root}/lib/secure_secret"
-VedAkademStudents::Application.config.secret_key_base = SecureSecret::secure_token('.secret')
+VedicAcademyStudents::Application.config.secret_key_base = SecureSecret::secure_token('.secret')

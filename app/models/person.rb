@@ -15,9 +15,9 @@ class Person < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
   has_many :questionnaires, through: :questionnaire_completenesses
-  has_many :administrated_groups, class_name: 'AkademGroup', foreign_key: 'administrator_id'
-  has_many :praeposted_groups, class_name: 'AkademGroup', foreign_key: 'praepostor_id'
-  has_many :curated_groups, class_name: 'AkademGroup', foreign_key: 'curator_id'
+  has_many :administrated_groups, class_name: 'AcademicGroup', foreign_key: 'administrator_id'
+  has_many :praeposted_groups, class_name: 'AcademicGroup', foreign_key: 'praepostor_id'
+  has_many :curated_groups, class_name: 'AcademicGroup', foreign_key: 'curator_id'
 
   before_save :normalize_strings, :set_password, :set_complex_name
 
@@ -84,8 +84,8 @@ class Person < ActiveRecord::Base
     activities.present? && roles.any? && (roles.pluck(:activities).flatten & activities.flatten).present?
   end
 
-  def last_akadem_group
-    student_profile.akadem_groups.where(group_participations: { leave_date: nil }).first if student_profile.present?
+  def last_academic_group
+    student_profile.academic_groups.where(group_participations: { leave_date: nil }).first if student_profile.present?
   end
 
   private

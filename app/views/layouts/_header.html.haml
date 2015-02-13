@@ -7,7 +7,7 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to 'AkademStudents', root_path, class: 'navbar-brand'
+      = link_to 'AcademyStudents', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         - if show_admin_menu?
@@ -20,12 +20,12 @@
                   %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }
                     = t('defaults.links.groups')
                   %ul.dropdown-menu{ role: 'menu' }
-                    - if current_person.can_act?('akadem_group:new')
+                    - if current_person.can_act?('academic_group:new')
                       %li
-                        = link_to(t('defaults.links.group_add'), new_akadem_group_path)
-                    - if current_person.can_act?('akadem_group:index')
+                        = link_to(t('defaults.links.group_add'), new_academic_group_path)
+                    - if current_person.can_act?('academic_group:index')
                       %li
-                        = link_to(t('defaults.links.groups_list'), akadem_groups_path)
+                        = link_to(t('defaults.links.groups_list'), academic_groups_path)
               - if show_admin_people_menu?
                 %li.dropdown
                   %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }

@@ -146,7 +146,7 @@ describe PeopleController do
 
         context 'other person' do
           context 'stranger' do
-            Given { allow(person).to receive(:last_akadem_group).and_return(nil) }
+            Given { allow(person).to receive(:last_academic_group).and_return(nil) }
 
             When  { get :show_photo, id: 2, version: 'default' }
 
@@ -154,10 +154,10 @@ describe PeopleController do
           end
 
           context 'classmate' do
-            Given(:group) { double(AkademGroup, id: 3) }
+            Given(:group) { double(AcademicGroup, id: 3) }
 
-            Given { allow(person).to receive(:last_akadem_group).and_return(group) }
-            Given { allow(other_person).to receive(:last_akadem_group).and_return(group) }
+            Given { allow(person).to receive(:last_academic_group).and_return(group) }
+            Given { allow(other_person).to receive(:last_academic_group).and_return(group) }
 
             it_behaves_like :get_show_photo_successed, 2
           end
@@ -166,7 +166,7 @@ describe PeopleController do
             Given(:join) { double }
             Given(:groups) { double(any?: true) }
 
-            Given { allow(AkademGroup).to receive(:joins).and_return(join) }
+            Given { allow(AcademicGroup).to receive(:joins).and_return(join) }
             Given { allow(join).to receive(:where).with(field => other_person.id, :student_profiles => { :person_id => person.id })
                                                   .and_return(groups) }
 
@@ -205,35 +205,35 @@ describe PeopleController do
       end
 
       describe '#show' do
-        Given(:akadem_groups) { double }
+        Given(:academic_groups) { double }
         Given(:programs) { double }
 
         Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:show'] } }
         Given { allow(person).to receive(:can_act?).with('study_application:create') { true } }
         Given { allow(person).to receive(:is_a?).and_return(false) }
         Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
-        Given { allow(AkademGroup).to receive_message_chain(:select, :order) { akadem_groups } }
+        Given { allow(AcademicGroup).to receive_message_chain(:select, :order) { academic_groups } }
         Given { allow(Program).to receive(:all) { programs } }
 
         When  { get :show, id: 1 }
 
         Then { expect(response).to render_template(:show) }
         And  { expect(assigns(:person)).to eq(person) }
-        And  { expect(assigns(:akadem_groups)).to eq(akadem_groups) }
+        And  { expect(assigns(:academic_groups)).to eq(academic_groups) }
         And  { expect(assigns(:person_decorator)).to be_a(PersonDecorator) }
         And  { expect(assigns(:programs)).to eq(programs) }
         And  { expect(assigns(:study_application)).to be_a_new(StudyApplication) }
       end
 
       describe '#move_to_group' do
-        Given(:akadem_group) { double }
+        Given(:academic_group) { double }
         Given(:student_profile) { double }
 
         Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:move_to_group'] } }
-        Given { allow(AkademGroup).to receive(:find).with('2').and_return(akadem_group) }
+        Given { allow(AcademicGroup).to receive(:find).with('2').and_return(academic_group) }
         Given { allow(person).to receive(:student_profile).and_return(nil) }
         Given { allow(person).to receive(:create_student_profile).and_return(student_profile) }
-        Given { allow(student_profile).to receive(:move_to_group).with(akadem_group) }
+        Given { allow(student_profile).to receive(:move_to_group).with(academic_group) }
 
         When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 

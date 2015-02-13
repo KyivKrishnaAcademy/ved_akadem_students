@@ -1,6 +1,6 @@
 common: &common
     adapter: postgresql
-    username: vedakadembase
+    username: vedacademicbase
     password: somepassword
     host: localhost
 

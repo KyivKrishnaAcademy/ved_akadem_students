@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def show_admin_group_menu?
-    current_person.can_act?(%w(akadem_group:index akadem_group:new))
+    current_person.can_act?(%w(academic_group:index academic_group:new))
   end
 
   def person_photo(person, version = :default, options = {})

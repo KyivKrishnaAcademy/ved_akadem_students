@@ -1,4 +1,4 @@
-namespace :akadem do
+namespace :academic do
   desc 'Create initial study programs'
   task create_programs: :environment do
     puts 'Reading data...'

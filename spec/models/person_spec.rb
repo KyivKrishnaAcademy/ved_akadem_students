@@ -191,14 +191,14 @@ describe Person do
       end
     end
 
-    describe '#last_akadem_group' do
-      Given { @ag_1 = create :akadem_group }
-      Given { @ag_2 = create :akadem_group }
+    describe '#last_academic_group' do
+      Given { @ag_1 = create :academic_group }
+      Given { @ag_2 = create :academic_group }
       Given { @sp   = @person.create_student_profile }
-      Given { GroupParticipation.create(student_profile: @sp, akadem_group: @ag_1, join_date: DateTime.current.yesterday, leave_date: DateTime.current) }
-      Given { GroupParticipation.create(student_profile: @sp, akadem_group: @ag_2, join_date: DateTime.current) }
+      Given { GroupParticipation.create(student_profile: @sp, academic_group: @ag_1, join_date: DateTime.current.yesterday, leave_date: DateTime.current) }
+      Given { GroupParticipation.create(student_profile: @sp, academic_group: @ag_2, join_date: DateTime.current) }
 
-      Then  { expect(@person.last_akadem_group.group_name).to eq(@ag_2.group_name) }
+      Then  { expect(@person.last_academic_group.group_name).to eq(@ag_2.group_name) }
     end
 
     describe '#by_complex_name' do

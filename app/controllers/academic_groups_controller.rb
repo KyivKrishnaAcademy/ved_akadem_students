@@ -13,7 +13,7 @@ class AcademicGroupsController < ApplicationController
   end
 
   def index
-    @akadem_groups = policy_scope(AcademicGroup)
+    @academic_groups = policy_scope(AcademicGroup)
 
     authorize AcademicGroup
   end
@@ -22,22 +22,22 @@ class AcademicGroupsController < ApplicationController
   end
 
   def new
-    @akadem_group = AcademicGroup.new(establ_date: Time.now)
+    @academic_group = AcademicGroup.new(establ_date: Time.now)
 
-    authorize @akadem_group
+    authorize @academic_group
   end
 
   def edit
   end
 
   def create
-    @akadem_group = AcademicGroup.new(AcademicGroupParams.filter(params))
+    @academic_group = AcademicGroup.new(AcademicGroupParams.filter(params))
 
-    authorize @akadem_group
+    authorize @academic_group
 
-    if @akadem_group.save
-      flash[:success] = "#{view_context.link_to(@akadem_group.group_name,
-                                                akadem_group_path(@akadem_group))} added.".html_safe
+    if @academic_group.save
+      flash[:success] = "#{view_context.link_to(@academic_group.group_name,
+                                                academic_group_path(@academic_group))} added.".html_safe
 
       redirect_to action: :new
     else
@@ -46,24 +46,24 @@ class AcademicGroupsController < ApplicationController
   end
 
   def update
-    if @akadem_group.update_attributes(AcademicGroupParams.filter(params))
-      redirect_to @akadem_group, flash: { success: 'Akadem group was successfully updated.' }
+    if @academic_group.update_attributes(AcademicGroupParams.filter(params))
+      redirect_to @academic_group, flash: { success: 'Academic group was successfully updated.' }
     else
       render action: :edit
     end
   end
 
   def destroy
-    if @akadem_group.destroy.destroyed?
-      redirect_to akadem_groups_path, flash: { success: 'Akadem Group record deleted!' }
+    if @academic_group.destroy.destroyed?
+      redirect_to academic_groups_path, flash: { success: 'Academic Group record deleted!' }
     else
-      redirect_to :back, flash: { danger: 'Akadem Group deletion failed!' }
+      redirect_to :back, flash: { danger: 'Academic Group deletion failed!' }
     end
   end
 
   class AcademicGroupParams
     def self.filter(params)
-      params.require(:akadem_group).permit(
+      params.require(:academic_group).permit(
         :group_name,
         :group_description,
         :message_ru,
@@ -79,8 +79,8 @@ class AcademicGroupsController < ApplicationController
   private
 
   def set_academic_group
-    @akadem_group = policy_scope(AcademicGroup).find(params[:id])
+    @academic_group = policy_scope(AcademicGroup).find(params[:id])
 
-    authorize @akadem_group
+    authorize @academic_group
   end
 end

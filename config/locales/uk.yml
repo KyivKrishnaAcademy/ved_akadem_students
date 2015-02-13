@@ -81,12 +81,12 @@ uk:
   static_pages:
     home:
       title:                   'Домашня'
-      student_of_akadem_group: 'Ви студент групи'
+      student_of_academic_group: 'Ви студент групи'
       message_for_group:       "Об'ява для групи:"
   people:
     show:
       psycho_test_results:  'Результати психологічного тесту'
-  akadem_groups:
+  academic_groups:
     show:
       active_students_count:  'Активних студентів:'
       administrator:          'Адміністратор'

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Add akadem group:' do
+describe 'Add academic group:' do
   before do
     login_as_admin
     visit new_academic_group_path
@@ -23,7 +23,7 @@ describe 'Add akadem group:' do
       When  { fill_right }
       When  { find("#academic_group_#{admin_type}").set('rophazotr') }
       When  { choose_autocomplete_result('rophazotr', "#academic_group_#{admin_type}") }
-      When  { click_button 'Створити Akadem group' }
+      When  { click_button 'Створити Academic group' }
       When  { find('.alert-success') }
       When  { visit edit_academic_group_path(AcademicGroup.last) }
 

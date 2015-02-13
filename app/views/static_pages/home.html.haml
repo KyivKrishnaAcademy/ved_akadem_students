@@ -3,6 +3,6 @@
 .row
   .col-xs-12
     = render 'shared/person_brief', person: current_person
-  - if current_person.last_akadem_group.blank?
+  - if current_person.last_academic_group.blank?
     .col-xs-12.vert-offset-top-1#study_application
       = render 'shared/study_application', person: @person_decorator, programs: @programs, study_application: @study_application

@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150118130719) do
+ActiveRecord::Schema.define(version: 20150213222112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "akadem_groups", force: true do |t|
+  create_table "academic_groups", force: true do |t|
     t.string   "group_name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150118130719) do
     t.date     "date"
     t.integer  "course_id"
     t.integer  "teacher_profile_id"
-    t.integer  "akadem_group_id"
+    t.integer  "academic_group_id"
     t.integer  "classroom_id"
   end
 
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20150118130719) do
 
   create_table "group_participations", force: true do |t|
     t.integer  "student_profile_id"
-    t.integer  "akadem_group_id"
+    t.integer  "academic_group_id"
     t.datetime "join_date"
     t.datetime "leave_date"
   end

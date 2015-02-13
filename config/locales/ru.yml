@@ -81,12 +81,12 @@ ru:
   static_pages:
     home:
       title:                   'Домашняя'
-      student_of_akadem_group: 'Вы студент группы'
+      student_of_academic_group: 'Вы студент группы'
       message_for_group:       'Объявление для группы:'
   people:
     show:
       psycho_test_results:  'Результаты психологического теста'
-  akadem_groups:
+  academic_groups:
     show:
       active_students_count:  'Активных студентов:'
       administrator:          'Администратор'

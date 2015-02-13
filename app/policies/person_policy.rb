@@ -22,14 +22,14 @@ class PersonPolicy < ApplicationPolicy
   end
 
   def elder_of_student?(field)
-    AkademGroup.joins(student_profiles: [:person])
+    AcademicGroup.joins(student_profiles: [:person])
       .where(field => record.id, :student_profiles => { person_id: user.id })
       .any?
   end
 
   def classmate?
-    user.last_akadem_group.present? &&
-      record.last_akadem_group.present? &&
-      user.last_akadem_group.id == record.last_akadem_group.id
+    user.last_academic_group.present? &&
+      record.last_academic_group.present? &&
+      user.last_academic_group.id == record.last_academic_group.id
   end
 end

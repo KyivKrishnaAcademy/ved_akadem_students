@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-VedAkademStudents::Application.load_tasks
+VedicAcademyStudents::Application.load_tasks

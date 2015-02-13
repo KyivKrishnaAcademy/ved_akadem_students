@@ -9,7 +9,7 @@ describe PersonPolicy do
 
   context 'complex conditions' do
     permissions :show_photo? do
-      Given(:group) { create :akadem_group }
+      Given(:group) { create :academic_group }
 
       Given { user.create_student_profile.move_to_group(group) }
 

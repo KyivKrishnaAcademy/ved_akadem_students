@@ -1,4 +1,4 @@
-class AkademGroup < ActiveRecord::Base
+class AcademicGroup < ActiveRecord::Base
   has_many :group_participations, dependent: :destroy
   has_many :student_profiles, through: :group_participations
   has_many :class_schedules, dependent: :destroy
@@ -15,9 +15,9 @@ class AkademGroup < ActiveRecord::Base
   validates :group_name, presence: true, uniqueness: true
 
   def active_students
-    Person.joins(student_profile: [group_participations: [:akadem_group]])
+    Person.joins(student_profile: [group_participations: [:academic_group]])
       .where(group_participations: { leave_date: nil },
-             akadem_groups: { id: id })
+             academic_groups: { id: id })
       .order(:complex_name)
       .distinct
   end

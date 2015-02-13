@@ -31,7 +31,7 @@ class PeopleController < ApplicationController
   def show
     preset_applications_variables(@person)
 
-    @akadem_groups = AkademGroup.select(:id, :group_name).order(:group_name)
+    @academic_groups = AcademicGroup.select(:id, :group_name).order(:group_name)
   end
 
   def edit
@@ -82,8 +82,8 @@ class PeopleController < ApplicationController
   end
 
   def move_to_group
-    if (@akadem_group = AkademGroup.find(params[:group_id]))
-      (@person.student_profile || @person.create_student_profile).move_to_group(@akadem_group)
+    if (@academic_group = AcademicGroup.find(params[:group_id]))
+      (@person.student_profile || @person.create_student_profile).move_to_group(@academic_group)
     else
       render nothing: true
     end

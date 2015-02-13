@@ -1,3 +1,3 @@
 # Be sure to restart your server when you modify this file.
 
-VedAkademStudents::Application.config.session_store :cookie_store, key: '_ved_akadem_students_session'
+VedicAcademyStudents::Application.config.session_store :cookie_store, key: '_ved_academic_students_session'

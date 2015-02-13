@@ -1,23 +1,23 @@
 # views
 
-shared_examples 'akadem group new and edit' do
+shared_examples 'academic group new and edit' do
   it { is_expected.to have_title(full_title(title)) }
   it { is_expected.to have_selector('h1', text: h1) }
 
   describe "form" do
-    let(:form) { 'form.' << action << '_akadem_group' }
+    let(:form) { 'form.' << action << '_academic_group' }
 
     it { is_expected.to have_selector(form) }
     it { is_expected.to have_selector("#{form} label", text: 'Group name') }
-    it { is_expected.to have_selector("#{form} input#akadem_group_group_name") }
-    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.akadem_group.establ_date')) }
-    it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_1i") }
-    it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_2i") }
-    it { is_expected.to have_selector("#{form} select#akadem_group_establ_date_3i") }
-    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.akadem_group.group_description')) }
+    it { is_expected.to have_selector("#{form} input#academic_group_group_name") }
+    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.establ_date')) }
+    it { is_expected.to have_selector("#{form} select#academic_group_establ_date_1i") }
+    it { is_expected.to have_selector("#{form} select#academic_group_establ_date_2i") }
+    it { is_expected.to have_selector("#{form} select#academic_group_establ_date_3i") }
+    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.group_description')) }
     it { is_expected.to have_selector("#{form} label", text: 'Message uk') }
     it { is_expected.to have_selector("#{form} label", text: 'Message ru') }
-    it { is_expected.to have_selector("#{form} input#akadem_group_group_description") }
+    it { is_expected.to have_selector("#{form} input#academic_group_group_description") }
     it { is_expected.to have_selector("#{form} input.btn") }
   end
 end

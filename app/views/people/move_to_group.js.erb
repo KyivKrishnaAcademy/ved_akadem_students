@@ -1,3 +1,3 @@
-$('#akadem-group-link').html('<%= link_to @akadem_group.group_name, akadem_group_path(@akadem_group) %>');
-$('#change-akadem-group li, #change-akadem-group li#remove-from-groups').removeClass('disabled');
-$('#change-akadem-group li a[data-group="<%= @akadem_group.id %>"]').closest('li').addClass('disabled');
+$('#academic-group-link').html('<%= link_to @academic_group.group_name, academic_group_path(@academic_group) %>');
+$('#change-academic-group li, #change-academic-group li#remove-from-groups').removeClass('disabled');
+$('#change-academic-group li a[data-group="<%= @academic_group.id %>"]').closest('li').addClass('disabled');

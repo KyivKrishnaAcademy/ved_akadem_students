@@ -1,7 +1,7 @@
-namespace :akadem do
+namespace :academic do
   desc 'run benchmarks'
   task benchmark: :environment do
-    system('rake akadem:benchmarks:include_or_join_distinct RAILS_ENV=test')
+    system('rake academic:benchmarks:include_or_join_distinct RAILS_ENV=test')
   end
 
   namespace :benchmarks do

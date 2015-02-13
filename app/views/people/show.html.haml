@@ -6,18 +6,18 @@
   .col-xs-12.col-sm-6.clearfix
     .pull-right
       - if policy(@person).move_to_group? || policy(@person).remove_from_groups?
-        .btn-group#change-akadem-group{ data: { person: @person.id } }
+        .btn-group#change-academic-group{ data: { person: @person.id } }
           %button{ type: 'button', class: 'btn btn-xs btn-primary dropdown-toggle', data: { toggle: 'dropdown' }, aria: { expanded: 'false' } }
             Change group
             %span.caret
           %ul.dropdown-menu{ role: 'menu' }
             - if policy(@person).move_to_group?
-              - @akadem_groups.each do |group|
-                %li{ class: @person.last_akadem_group == group ? 'disabled' : '' }
+              - @academic_groups.each do |group|
+                %li{ class: @person.last_academic_group == group ? 'disabled' : '' }
                   = link_to group.group_name, '#', data: { group: group.id, confirm: 'Are you sure you want change group?' }, id: 'move-to-group'
             %li.divider
             - if policy(@person).remove_from_groups?
-              %li#remove-from-groups{ class: @person.last_akadem_group.blank? ? 'disabled' : '' }
+              %li#remove-from-groups{ class: @person.last_academic_group.blank? ? 'disabled' : '' }
                 = link_to 'Remove from group', '#', data: { confirm: 'Are you sure you want to remove from group?' }
       - if policy(@person).edit?
         = link_to t('links.edit'), edit_person_path(@person), class: 'btn btn-xs btn-primary'
@@ -41,10 +41,10 @@
       .col-xs-12.col-sm-8
         .row
           .col-xs-4.col-sm-3
-            Akadem Group:
-          .col-xs-8.col-sm-9#akadem-group-link
-            - if @person.last_akadem_group.present?
-              = link_to @person.last_akadem_group.group_name, akadem_group_path(@person.last_akadem_group)
+            Academic Group:
+          .col-xs-8.col-sm-9#academic-group-link
+            - if @person.last_academic_group.present?
+              = link_to @person.last_academic_group.group_name, academic_group_path(@person.last_academic_group)
         .row
           .col-xs-4.col-sm-3
             Gender:

@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-describe AkademGroupsController do
-  it_behaves_like 'CRUD', 'akadem_groups'
+describe AcademicGroupsController do
+  it_behaves_like 'CRUD', 'academic_groups'
 end

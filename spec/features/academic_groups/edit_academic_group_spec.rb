@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Edit akadem group:' do
+describe 'Edit academic group:' do
   Given(:academic_group) { create :academic_group }
 
   When { login_as_admin }
@@ -12,7 +12,7 @@ describe 'Edit akadem group:' do
 
       When  { find("#academic_group_#{admin_type}").set('rophazotr') }
       When  { choose_autocomplete_result('rophazotr', "#academic_group_#{admin_type}") }
-      When  { click_button 'Зберегти Akadem group' }
+      When  { click_button 'Зберегти Academic group' }
       When  { find('.alert-success') }
       When  { visit edit_academic_group_path(academic_group) }
 
@@ -25,7 +25,7 @@ describe 'Edit akadem group:' do
      { field: I18n.t('activerecord.attributes.academic_group.group_description'),
        value: 'Зис из э test',
        test_field: "#{I18n.t('activerecord.attributes.academic_group.group_description')}: Зис из э test" }].each do |h|
-         it_behaves_like :valid_fill_in, h, 'Akadem group'
+         it_behaves_like :valid_fill_in, h, 'Academic group'
        end
 
     describe 'Establishment date' do
@@ -34,6 +34,6 @@ describe 'Edit akadem group:' do
   end
 
   context 'When values are invalid:' do
-    it_behaves_like :invalid_fill_in, {field: 'Group name', value: '12-2'}, 'Akadem group'
+    it_behaves_like :invalid_fill_in, {field: 'Group name', value: '12-2'}, 'Academic group'
   end
 end

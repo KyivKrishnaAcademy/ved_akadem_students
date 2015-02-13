@@ -19,9 +19,9 @@ describe 'RBAC links visibility' do
     end
   end
 
-  it_behaves_like :nav_links, I18n.t('defaults.links.groups')     , '#'                 , %w[akadem_group:new akadem_group:index]
-  it_behaves_like :nav_links, I18n.t('defaults.links.group_add')  , '/akadem_groups/new', 'akadem_group:new'
-  it_behaves_like :nav_links, I18n.t('defaults.links.groups_list'), '/akadem_groups'    , 'akadem_group:index'
+  it_behaves_like :nav_links, I18n.t('defaults.links.groups')     , '#'                 , %w[academic_group:new academic_group:index]
+  it_behaves_like :nav_links, I18n.t('defaults.links.group_add')  , '/academic_groups/new', 'academic_group:new'
+  it_behaves_like :nav_links, I18n.t('defaults.links.groups_list'), '/academic_groups'    , 'academic_group:index'
 
   it_behaves_like :nav_links, I18n.t('defaults.links.people')     , '#'           , %w[person:new person:index]
   it_behaves_like :nav_links, I18n.t('defaults.links.person_add') , '/people/new' , 'person:new'

@@ -5,7 +5,7 @@ describe 'people/show.html.haml' do
   Given(:new_study_application) { StudyApplication.new(person_id: person.id) }
   Given(:activities) { ['person:show'] }
   Given(:person) { create :person }
-  Given(:group) { create :akadem_group }
+  Given(:group) { create :academic_group }
   Given(:page) { Capybara::Node::Simple.new(response.body) }
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
 
@@ -15,7 +15,7 @@ describe 'people/show.html.haml' do
   Given { assign(:programs, []) }
   Given { assign(:study_application, new_study_application) }
   Given { assign(:person, person) }
-  Given { assign(:akadem_groups, []) }
+  Given { assign(:academic_groups, []) }
 
   Given { login_as(user) }
 
@@ -126,19 +126,19 @@ describe 'people/show.html.haml' do
   end
 
   describe 'change group dropdown' do
-    Given { assign(:akadem_groups, [group]) }
+    Given { assign(:academic_groups, [group]) }
 
     context 'no role' do
       Then { expect(rendered).not_to have_selector('button.dropdown-toggle', text: 'Change group') }
     end
 
     context 'with roles' do
-      Given(:menu) { page.find('#change-akadem-group ul.dropdown-menu') }
+      Given(:menu) { page.find('#change-academic-group ul.dropdown-menu') }
 
       describe 'move to group link' do
         Given(:activities) { ['person:move_to_group'] }
 
-        Then { expect(rendered).to have_selector('#change-akadem-group button.dropdown-toggle', text: 'Change group') }
+        Then { expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group') }
         And  { expect(menu).to have_link(group.group_name, href: '#') }
         And  { expect(menu).not_to have_link('Remove from group', href: '#') }
       end
@@ -146,7 +146,7 @@ describe 'people/show.html.haml' do
       describe 'remove from groups link' do
         Given(:activities) { ['person:remove_from_groups'] }
 
-        Then { expect(rendered).to have_selector('#change-akadem-group button.dropdown-toggle', text: 'Change group') }
+        Then { expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group') }
         And  { expect(menu).not_to have_link(group.group_name, href: '#') }
         And  { expect(menu).to have_link('Remove from group', href: '#') }
       end
@@ -201,11 +201,11 @@ describe 'people/show.html.haml' do
     context 'person has group' do
       Given { person.create_student_profile.move_to_group(group) }
 
-      Then  { expect(rendered).to have_link(group.group_name, href: akadem_group_path(group)) }
+      Then  { expect(rendered).to have_link(group.group_name, href: academic_group_path(group)) }
     end
 
     context 'person has no group' do
-      Then { expect(rendered).not_to have_link(group.group_name, href: akadem_group_path(group)) }
+      Then { expect(rendered).not_to have_link(group.group_name, href: academic_group_path(group)) }
     end
   end
 end

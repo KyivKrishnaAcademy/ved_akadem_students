@@ -8,5 +8,5 @@
 
 FactoryGirl.create(:person, :admin)
 
-Rake::Task['akadem:create_programs'].invoke
-Rake::Task['akadem:create_questionnaires'].invoke
+Rake::Task['academic:create_programs'].invoke
+Rake::Task['academic:create_questionnaires'].invoke
