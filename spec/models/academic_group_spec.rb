@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe AkademGroup do
+describe AcademicGroup do
   describe 'associations' do
     Then { is_expected.to have_many(:group_participations).dependent(:destroy) }
     Then { is_expected.to have_many(:student_profiles).through(:group_participations) }
@@ -26,11 +26,11 @@ describe AkademGroup do
   end
 
   describe 'upcases :group_name before save' do
-    Then { expect(create(:akadem_group, {group_name: 'шб13-1'}).group_name).to eq('ШБ13-1') }
+    Then { expect(create(:academic_group, {group_name: 'шб13-1'}).group_name).to eq('ШБ13-1') }
   end
 
   describe '#active_students' do
-    Given { @group    = create :akadem_group }
+    Given { @group    = create :academic_group }
     Given { @person_c = create(:person, spiritual_name: nil, surname: 'C' ) }
     Given { @person_b = create(:person, spiritual_name: 'Bhakta das' ) }
     Given { @person_a = create(:person, spiritual_name: nil, surname: 'A' ) }

@@ -1,4 +1,4 @@
-class AkademGroupPolicy < ApplicationPolicy
+class AcademicGroupPolicy < ApplicationPolicy
   def autocomplete_person?
     edit?
   end

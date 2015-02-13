@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :akadem_group do
+  factory :academic_group do
     sequence(:group_name, 1 ) do |n|
       nn = n % 1000
       "ШБ#{('%03d' % (nn == 0 ? nn + 1 : nn)).insert(2, '-')}"

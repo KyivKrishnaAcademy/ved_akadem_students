@@ -1,5 +1,5 @@
-class AkademGroupsController < ApplicationController
-  before_action :set_akadem_group, only: [:show, :edit, :update, :destroy]
+class AcademicGroupsController < ApplicationController
+  before_action :set_academic_group, only: [:show, :edit, :update, :destroy]
 
   after_action :verify_authorized
   after_action :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
@@ -7,22 +7,22 @@ class AkademGroupsController < ApplicationController
   autocomplete :person, :complex_name, full: true
 
   def autocomplete_person
-    authorize AkademGroup
+    authorize AcademicGroup
 
     autocomplete_person_complex_name
   end
 
   def index
-    @akadem_groups = policy_scope(AkademGroup)
+    @akadem_groups = policy_scope(AcademicGroup)
 
-    authorize AkademGroup
+    authorize AcademicGroup
   end
 
   def show
   end
 
   def new
-    @akadem_group = AkademGroup.new(establ_date: Time.now)
+    @akadem_group = AcademicGroup.new(establ_date: Time.now)
 
     authorize @akadem_group
   end
@@ -31,7 +31,7 @@ class AkademGroupsController < ApplicationController
   end
 
   def create
-    @akadem_group = AkademGroup.new(AkademGroupParams.filter(params))
+    @akadem_group = AcademicGroup.new(AcademicGroupParams.filter(params))
 
     authorize @akadem_group
 
@@ -46,7 +46,7 @@ class AkademGroupsController < ApplicationController
   end
 
   def update
-    if @akadem_group.update_attributes(AkademGroupParams.filter(params))
+    if @akadem_group.update_attributes(AcademicGroupParams.filter(params))
       redirect_to @akadem_group, flash: { success: 'Akadem group was successfully updated.' }
     else
       render action: :edit
@@ -61,7 +61,7 @@ class AkademGroupsController < ApplicationController
     end
   end
 
-  class AkademGroupParams
+  class AcademicGroupParams
     def self.filter(params)
       params.require(:akadem_group).permit(
         :group_name,
@@ -78,8 +78,8 @@ class AkademGroupsController < ApplicationController
 
   private
 
-  def set_akadem_group
-    @akadem_group = policy_scope(AkademGroup).find(params[:id])
+  def set_academic_group
+    @akadem_group = policy_scope(AcademicGroup).find(params[:id])
 
     authorize @akadem_group
   end

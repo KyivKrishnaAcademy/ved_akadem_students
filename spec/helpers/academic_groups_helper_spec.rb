@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe AkademGroupsHelper do
-  Given(:group) { create :akadem_group }
+describe AcademicGroupsHelper do
+  Given(:group) { create :academic_group }
 
   describe '#am_i_group_elder?' do
     Given(:person) { create :person }

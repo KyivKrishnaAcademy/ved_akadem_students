@@ -4,11 +4,11 @@
       %thead
         %tr
           %th #
-          %th= t('akadem_groups.show.photo')
-          %th= t('akadem_groups.show.full_name')
-          %th= t('akadem_groups.show.birthday')
-          - if am_i_group_elder?(akadem_group)
-            %th= t('akadem_groups.show.telephones')
+          %th= t('academic_groups.show.photo')
+          %th= t('academic_groups.show.full_name')
+          %th= t('academic_groups.show.birthday')
+          - if am_i_group_elder?(academic_group)
+            %th= t('academic_groups.show.telephones')
       %tbody
         - students.each_with_index do |student, index|
           %tr
@@ -20,6 +20,6 @@
               = link_to_show_person_or_name(student, true)
             %td
               = l(student.birthday, format: :short)
-            - if am_i_group_elder?(akadem_group)
+            - if am_i_group_elder?(academic_group)
               %td
                 = student.telephones.map(&:phone).join(', ')
