@@ -24,7 +24,7 @@ class CropsController < ApplicationController
   end
 
   class PersonParams
-    def self.filter params
+    def self.filter(params)
       params.require(:person).permit(:crop_x, :crop_y, :crop_w, :crop_h)
     end
   end

@@ -4,11 +4,7 @@ module ApplicationHelper
       'No such person'
     else
       if short
-        if person.spiritual_name.present?
-          "#{person.spiritual_name}"
-        else
-          "#{person.surname} #{person.name}"
-        end
+        person.spiritual_name.present? ? "#{person.spiritual_name}" : "#{person.surname} #{person.name}"
       else
         person.complex_name
       end
@@ -28,16 +24,16 @@ module ApplicationHelper
   end
 
   def show_admin_people_menu?
-    current_person.can_act?(%w[person:index person:new])
+    current_person.can_act?(%w(person:index person:new))
   end
 
   def show_admin_group_menu?
-    current_person.can_act?(%w[akadem_group:index akadem_group:new])
+    current_person.can_act?(%w(akadem_group:index akadem_group:new))
   end
 
   def person_photo(person, version = :default, options = {})
     if person.photo.present?
-      image_tag "/people/show_photo/#{version.to_s}/#{person.id}", options
+      image_tag "/people/show_photo/#{version}/#{person.id}", options
     else
       image_tag person.photo.versions[version].url, options
     end

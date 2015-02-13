@@ -1,0 +1,6 @@
+AllCops:
+  RunRailsCops: true
+Documentation:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120

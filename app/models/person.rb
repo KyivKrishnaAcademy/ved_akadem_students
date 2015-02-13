@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  MARITAL_STATUSES = %i[single in_relationship married divorced widowed]
+  MARITAL_STATUSES = %i(single in_relationship married divorced widowed)
 
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
@@ -47,15 +47,18 @@ class Person < ActiveRecord::Base
     photo.recreate_versions!
 
     self.skip_password_validation = true
-    self.save
+
+    save
   end
 
   def add_application_questionnaires
-    questionnaires << study_application.program.questionnaires.where.not(id: questionnaire_ids) if study_application.present?
+    questionnaires << study_application.program.questionnaires
+      .where.not(id: questionnaire_ids) if study_application.present?
   end
 
   def remove_application_questionnaires(application)
-    questionnaire_completenesses.where(completed: false, questionnaire_id: application.program.questionnaire_ids).destroy_all
+    questionnaire_completenesses
+      .where(completed: false, questionnaire_id: application.program.questionnaire_ids).destroy_all
   end
 
   def not_finished_questionnaires
@@ -63,11 +66,12 @@ class Person < ActiveRecord::Base
   end
 
   def initial_answers
-    answers.select('answers.*, questions.position')
-           .joins(question: [questionnaire: [:questionnaire_completenesses]])
-           .where(questionnaires: { kind: 'initial_questions' },
-                  questionnaire_completenesses: { completed: true, person_id: id })
-           .distinct.order('questions.position')
+    answers
+      .select('answers.*, questions.position')
+      .joins(question: [questionnaire: [:questionnaire_completenesses]])
+      .where(questionnaires: { kind: 'initial_questions' },
+             questionnaire_completenesses: { completed: true, person_id: id })
+      .distinct.order('questions.position')
   end
 
   def psycho_test_result
@@ -77,9 +81,7 @@ class Person < ActiveRecord::Base
   end
 
   def can_act?(*activities)
-    if activities.present? && roles.any?
-      (roles.pluck(:activities).flatten & activities.flatten).present?
-    end
+    activities.present? && roles.any? && (roles.pluck(:activities).flatten & activities.flatten).present?
   end
 
   def last_akadem_group
@@ -100,19 +102,19 @@ class Person < ActiveRecord::Base
   end
 
   def set_password
-    if encrypted_password.blank? && password.blank? && password_confirmation.blank?
-      pswd                       = SecureRandom.hex(6)
-      self.password              = pswd
-      self.password_confirmation = pswd
-    end
+    return unless encrypted_password.blank? && password.blank? && password_confirmation.blank?
+
+    pswd                       = SecureRandom.hex(6)
+    self.password              = pswd
+    self.password_confirmation = pswd
   end
 
   def set_complex_name
     self.complex_name = if spiritual_name.present?
-                          "#{spiritual_name} (#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''})"
-                        else
-                          "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
-                        end
+      "#{spiritual_name} (#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''})"
+    else
+      "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
+    end
   end
 
   def check_photo_dimensions

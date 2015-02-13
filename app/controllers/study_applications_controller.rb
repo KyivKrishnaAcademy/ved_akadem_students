@@ -5,7 +5,7 @@ class StudyApplicationsController < ApplicationController
   actions :create, :destroy
   respond_to :js
 
-  after_filter :verify_authorized
+  after_action :verify_authorized
 
   def create
     authorize build_resource
@@ -14,7 +14,7 @@ class StudyApplicationsController < ApplicationController
       success.js do
         resource.person.add_application_questionnaires
 
-        set_programs_and_new_application(resource.person)
+        preset_applications_variables(resource.person)
 
         render partial: 'common'
       end
@@ -28,7 +28,7 @@ class StudyApplicationsController < ApplicationController
       success.js do
         resource.person.remove_application_questionnaires(resource)
 
-        set_programs_and_new_application(resource.person)
+        preset_applications_variables(resource.person)
 
         render partial: 'common'
       end

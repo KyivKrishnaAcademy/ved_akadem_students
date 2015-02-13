@@ -1,8 +1,8 @@
 class AkademGroupsController < ApplicationController
   before_action :set_akadem_group, only: [:show, :edit, :update, :destroy]
 
-  after_filter :verify_authorized
-  after_filter :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
 
   autocomplete :person, :complex_name, full: true
 
@@ -36,16 +36,18 @@ class AkademGroupsController < ApplicationController
     authorize @akadem_group
 
     if @akadem_group.save
-      flash[:success] = "#{view_context.link_to( @akadem_group.group_name, akadem_group_path(@akadem_group) )} added.".html_safe
+      flash[:success] = "#{view_context.link_to(@akadem_group.group_name,
+                                                akadem_group_path(@akadem_group))} added.".html_safe
+
       redirect_to action: :new
     else
-      render      action: :new
+      render action: :new
     end
   end
 
   def update
     if @akadem_group.update_attributes(AkademGroupParams.filter(params))
-      redirect_to @akadem_group, flash: {success: 'Akadem group was successfully updated.'}
+      redirect_to @akadem_group, flash: { success: 'Akadem group was successfully updated.' }
     else
       render action: :edit
     end
@@ -53,22 +55,22 @@ class AkademGroupsController < ApplicationController
 
   def destroy
     if @akadem_group.destroy.destroyed?
-      redirect_to akadem_groups_path, flash: { success: 'Akadem Group record deleted!'  }
+      redirect_to akadem_groups_path, flash: { success: 'Akadem Group record deleted!' }
     else
       redirect_to :back, flash: { danger: 'Akadem Group deletion failed!' }
     end
   end
 
   class AkademGroupParams
-    def self.filter params
+    def self.filter(params)
       params.require(:akadem_group).permit(
-        :group_name        ,
-        :group_description ,
-        :message_ru        ,
-        :message_uk        ,
-        :administrator_id  ,
-        :praepostor_id     ,
-        :curator_id        ,
+        :group_name,
+        :group_description,
+        :message_ru,
+        :message_uk,
+        :administrator_id,
+        :praepostor_id,
+        :curator_id,
         :establ_date
       )
     end
@@ -76,9 +78,9 @@ class AkademGroupsController < ApplicationController
 
   private
 
-    def set_akadem_group
-      @akadem_group = policy_scope(AkademGroup).find(params[:id])
+  def set_akadem_group
+    @akadem_group = policy_scope(AkademGroup).find(params[:id])
 
-      authorize @akadem_group
-    end
+    authorize @akadem_group
+  end
 end

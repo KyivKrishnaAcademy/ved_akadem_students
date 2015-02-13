@@ -2,10 +2,11 @@ class PeopleController < ApplicationController
   include CropDirectable
   include StudyApplicationable
 
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo, :show_passport, :move_to_group, :remove_from_groups]
+  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo,
+                                    :show_passport, :move_to_group, :remove_from_groups]
 
-  after_filter :verify_authorized
-  after_filter :verify_policy_scoped, except: [:new, :create]
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, except: [:new, :create]
 
   def new
     @person = Person.new
@@ -21,16 +22,14 @@ class PeopleController < ApplicationController
     authorize @person
 
     if @person.save
-      flash[:success] = "#{view_context.link_to(@person.complex_name, person_path(@person))} added.".html_safe
-
-      redirect_to direct_to_crop(new_person_path, @person)
-    elsif
+      redirect_to direct_to_crop(new_person_path, @person), flash: create_successed(@person)
+    else
       render action: :new
     end
   end
 
   def show
-    set_programs_and_new_application(@person)
+    preset_applications_variables(@person)
 
     @akadem_groups = AkademGroup.select(:id, :group_name).order(:group_name)
   end
@@ -97,24 +96,9 @@ class PeopleController < ApplicationController
   class PersonParams
     def self.filter(params)
       params.require(:person).permit(
-        :birthday       ,
-        :education      ,
-        :email          ,
-        :emergency_contact,
-        :friends_to_be_with,
-        :gender         ,
-        :marital_status ,
-        :middle_name    ,
-        :name           ,
-        :passport       ,
-        :passport_cache ,
-        :photo          ,
-        :photo_cache    ,
-        :spiritual_name ,
-        :surname        ,
-        :work           ,
-        :special_note   ,
-        telephones_attributes: [:id, :phone, :_destroy]
+        :birthday, :education, :email, :emergency_contact, :friends_to_be_with, :gender, :marital_status,
+        :middle_name, :name, :passport, :passport_cache, :photo, :photo_cache, :spiritual_name,
+        :surname, :work, :special_note, telephones_attributes: [:id, :phone, :_destroy]
       )
     end
   end
@@ -125,5 +109,9 @@ class PeopleController < ApplicationController
     @person = policy_scope(Person).find(params[:id])
 
     authorize @person
+  end
+
+  def create_successed(person)
+    { success: "#{view_context.link_to(person.complex_name, person_path(person))} added.".html_safe }
   end
 end

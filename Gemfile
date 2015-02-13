@@ -52,6 +52,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'erd'
   gem 'letter_opener'
+  gem 'rubocop'
 end
 
 group :test do

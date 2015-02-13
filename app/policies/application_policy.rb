@@ -1,7 +1,7 @@
 class ApplicationPolicy
   attr_reader :user, :record
 
-  class Scope < Struct.new(:user, :scope)
+  Scope = Struct.new(:user, :scope) do
     def resolve
       scope.all
     end
@@ -22,15 +22,15 @@ class ApplicationPolicy
 
   def inferred_activity(method)
     if @record.is_a?(Class)
-      "#{@record.name.underscore}:#{method.to_s}"
+      "#{@record.name.underscore}:#{method}"
     else
-      "#{@record.class.name.underscore}:#{method.to_s}"
+      "#{@record.class.name.underscore}:#{method}"
     end
   end
 
-  def method_missing(name,*args)
+  def method_missing(name, *args)
     if name.to_s.last == '?'
-      user_activities.include?(inferred_activity(name.to_s.gsub('?','')))
+      user_activities.include?(inferred_activity(name.to_s.gsub('?', '')))
     else
       super
     end

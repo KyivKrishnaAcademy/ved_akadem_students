@@ -9,7 +9,7 @@ class AkademGroupPolicy < ApplicationPolicy
 
   private
 
-    def student_of_the_group?
-      record.active_students.map(&:id).include?(user.id)
-    end
+  def student_of_the_group?
+    record.active_students.map(&:id).include?(user.id)
+  end
 end

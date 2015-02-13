@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
   defaults resource_class: Questionnaire, collection_name: :questionnaires, instance_name: :questionnaire
   actions :edit, :update
 
-  after_filter :verify_authorized
+  after_action :verify_authorized
 
   def edit
     authorize resource, :show_form?
@@ -16,7 +16,7 @@ class AnswersController < ApplicationController
   def update
     authorize resource, :save_answers?
 
-    update! do |success, failure|
+    update! do |success, _|
       success.html do
         AnswersProcessorService.new(resource, current_person).process!
 

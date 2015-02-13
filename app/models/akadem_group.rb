@@ -1,7 +1,7 @@
 class AkademGroup < ActiveRecord::Base
-  has_many   :group_participations, dependent: :destroy
-  has_many   :student_profiles, through: :group_participations
-  has_many   :class_schedules, dependent: :destroy
+  has_many :group_participations, dependent: :destroy
+  has_many :student_profiles, through: :group_participations
+  has_many :class_schedules, dependent: :destroy
   belongs_to :administrator, class_name: 'Person'
   belongs_to :praepostor, class_name: 'Person'
   belongs_to :curator, class_name: 'Person'
@@ -16,9 +16,9 @@ class AkademGroup < ActiveRecord::Base
 
   def active_students
     Person.joins(student_profile: [group_participations: [:akadem_group]])
-          .where(group_participations: { leave_date: nil },
-                 akadem_groups: { id: id })
-          .order(:complex_name)
-          .distinct
+      .where(group_participations: { leave_date: nil },
+             akadem_groups: { id: id })
+      .order(:complex_name)
+      .distinct
   end
 end

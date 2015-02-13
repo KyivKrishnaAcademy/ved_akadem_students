@@ -17,19 +17,19 @@ class PersonPolicy < ApplicationPolicy
 
   private
 
-    def owned?
-      record.id == user.id
-    end
+  def owned?
+    record.id == user.id
+  end
 
-    def elder_of_student?(field)
-      AkademGroup.joins(student_profiles: [:person])
-                 .where(field => record.id, :student_profiles => { :person_id => user.id })
-                 .any?
-    end
+  def elder_of_student?(field)
+    AkademGroup.joins(student_profiles: [:person])
+      .where(field => record.id, :student_profiles => { person_id: user.id })
+      .any?
+  end
 
-    def classmate?
-      user.last_akadem_group.present? &&
-        record.last_akadem_group.present? &&
-        user.last_akadem_group.id == record.last_akadem_group.id
-    end
+  def classmate?
+    user.last_akadem_group.present? &&
+      record.last_akadem_group.present? &&
+      user.last_akadem_group.id == record.last_akadem_group.id
+  end
 end
