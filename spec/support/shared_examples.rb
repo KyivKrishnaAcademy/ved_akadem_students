@@ -4,21 +4,26 @@ shared_examples 'academic group new and edit' do
   it { is_expected.to have_title(full_title(title)) }
   it { is_expected.to have_selector('h1', text: h1) }
 
-  describe "form" do
+  describe 'form' do
     let(:form) { 'form.' << action << '_academic_group' }
 
     it { is_expected.to have_selector(form) }
     it { is_expected.to have_selector("#{form} label", text: 'Group name') }
     it { is_expected.to have_selector("#{form} input#academic_group_group_name") }
-    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.establ_date')) }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_1i") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_2i") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_3i") }
-    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.group_description')) }
     it { is_expected.to have_selector("#{form} label", text: 'Message uk') }
     it { is_expected.to have_selector("#{form} label", text: 'Message ru') }
     it { is_expected.to have_selector("#{form} input#academic_group_group_description") }
     it { is_expected.to have_selector("#{form} input.btn") }
+    it do
+      is_expected.to have_selector("#{form} label",
+                                   text: I18n.t('activerecord.attributes.academic_group.group_description'))
+    end
+    it do
+      is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.establ_date'))
+    end
   end
 end
 
@@ -29,7 +34,7 @@ shared_examples 'index.html' do |headers|
   end
 
   describe 'table' do
-    Then { expect(find('.table')).to have_selector('tr.' << row_class, count: models_count ) }
+    Then { expect(find('.table')).to have_selector('tr.' << row_class, count: models_count) }
 
     headers.each do |header|
       And { expect(find('.table')).to have_selector('th', text: header) }
@@ -38,15 +43,15 @@ shared_examples 'index.html' do |headers|
 end
 
 # routes
-shared_examples "CRUD" do |controller|
-  it { expect(get:    "/#{controller}"         ).to route_to("#{controller}#index"            ) }
-  it { expect(post:   "/#{controller}"         ).to route_to("#{controller}#create"           ) }
-  it { expect(get:    "/#{controller}/new"     ).to route_to("#{controller}#new"              ) }
-  it { expect(get:    "/#{controller}/1/edit"  ).to route_to("#{controller}#edit", id: "1"    ) }
-  it { expect(get:    "/#{controller}/1"       ).to route_to("#{controller}#show", id: "1"    ) }
-  it { expect(patch:  "/#{controller}/1"       ).to route_to("#{controller}#update", id: "1"  ) }
-  it { expect(put:    "/#{controller}/1"       ).to route_to("#{controller}#update", id: "1"  ) }
-  it { expect(delete: "/#{controller}/1"       ).to route_to("#{controller}#destroy", id: "1" ) }
+shared_examples 'CRUD' do |controller|
+  it { expect(get:    "/#{controller}").to route_to("#{controller}#index") }
+  it { expect(post:   "/#{controller}").to route_to("#{controller}#create") }
+  it { expect(get:    "/#{controller}/new").to route_to("#{controller}#new") }
+  it { expect(get:    "/#{controller}/1/edit").to route_to("#{controller}#edit", id: '1') }
+  it { expect(get:    "/#{controller}/1").to route_to("#{controller}#show", id: '1') }
+  it { expect(patch:  "/#{controller}/1").to route_to("#{controller}#update", id: '1') }
+  it { expect(put:    "/#{controller}/1").to route_to("#{controller}#update", id: '1') }
+  it { expect(delete: "/#{controller}/1").to route_to("#{controller}#destroy", id: '1') }
 end
 
 # controllers
@@ -54,17 +59,18 @@ def create_model(model)
   create model.name.underscore.to_sym
 end
 
-shared_examples "GET" do |variable, model, action|
+shared_examples 'GET' do |variable, model, action|
   case action
   when :new
-    Given (:m) do
+    Given(:m) do
       3.times { create_model model }
       model.all
     end
-    Given (:get_act) { get action }
+
+    Given(:get_act) { get action }
   when :show, :edit
-    Given (:m)        { create_model model }
-    Given (:get_act)  { get action, id: m }
+    Given(:m)       { create_model model }
+    Given(:get_act) { get action, id: m }
   end
 
   When { get_act }
@@ -94,11 +100,11 @@ end
 shared_examples "DELETE 'destroy'" do |model|
   Given { create_model model }
 
-  Given (:del_person) { delete 'destroy', id: model.last.id }
+  Given(:del_person) { delete 'destroy', id: model.last.id }
 
   context 'on success' do
     describe 'model count and redirect' do
-      Then { expect{del_person}.to change(model, :count).by(-1) }
+      Then { expect { del_person }.to change(model, :count).by(-1) }
       And  { expect(del_person).to redirect_to(action: :index)  }
     end
 
@@ -114,8 +120,8 @@ shared_examples "DELETE 'destroy'" do |model|
     Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
 
     describe 'model count and redirect' do
-      Then { expect{ del_person }.not_to change(model, :count) }
-      And  { expect( del_person ).to redirect_to('where_i_came_from') }
+      Then { expect { del_person }.not_to change(model, :count) }
+      And  { expect(del_person).to redirect_to('where_i_came_from') }
     end
 
     describe 'flash' do
@@ -133,7 +139,7 @@ shared_examples :controller_params_subclass do |subclass, model|
         expect(
           subclass.filter(
             ActionController::Parameters
-              .new(model => { foo: "foo" }.merge(mod_params))
+              .new(model => { foo: 'foo' }.merge(mod_params))
           )
         ).to eq(mod_params.with_indifferent_access)
       end
@@ -160,7 +166,7 @@ end
 # integration
 
 shared_examples :integration_delete_model do |model|
-  Given (:m_name_underscore) { model.name.underscore }
+  Given(:m_name_underscore) { model.name.underscore }
 
   When do
     visit method(('' << m_name_underscore << '_path').to_sym).call(
@@ -171,11 +177,13 @@ shared_examples :integration_delete_model do |model|
   describe 'flash' do
     When { click_link I18n.t('links.delete') }
 
-    Then { expect(page).to have_selector('.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!") }
+    Then do
+      expect(page).to have_selector('.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
+    end
   end
 
   describe 'model count' do
-    Then { expect{ click_link I18n.t('links.delete') }.to change{model.count}.by(-1) }
+    Then { expect { click_link I18n.t('links.delete') }.to change { model.count }.by(-1) }
   end
 end
 
@@ -213,7 +221,7 @@ def underscore_humanize(str)
 end
 
 shared_examples :valid_select_date do |model_name, field_name, content|
-  Given (:year) { model_name == 'Person' ? '1985' : '2010' }
+  Given(:year) { model_name == 'Person' ? '1985' : '2010' }
 
   When do
     select_from = "#{model_name.underscore}[#{field_name}("
@@ -245,7 +253,7 @@ shared_examples :adds_model do
 
   When  { fill_right }
 
-  Then  { expect { click_button 'Створити ' << underscore_humanize(@m.name) }.to change{@m.count}.by(1) }
+  Then  { expect { click_button 'Створити ' << underscore_humanize(@m.name) }.to change { @m.count }.by(1) }
   And   { expect(page).to have_selector('.alert-success') }
 end
 
@@ -256,7 +264,7 @@ shared_examples :not_adds_model do
   end
 
   it do
-    expect { click_button 'Створити ' << underscore_humanize(@m.name) }.not_to change{@m.count}
+    expect { click_button 'Створити ' << underscore_humanize(@m.name) }.not_to change { @m.count }
     expect(page).to have_selector('.alert-danger ul li')
   end
 end
@@ -321,7 +329,7 @@ shared_examples :study_applications do |admin|
   end
 
   context 'without application' do
-    Given (:programs) { all('#study_application .panel-info') }
+    Given(:programs) { all('#study_application .panel-info') }
 
     describe 'have elements' do
       Then { expect(programs.first).to have_content('Школа Бхакти') }
