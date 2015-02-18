@@ -7,7 +7,6 @@ gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'jbuilder'
 gem 'pg'
 
 gem 'kaminari'
@@ -28,9 +27,7 @@ gem 'bootstrap-sass'
 gem 'intl-tel-input-rails', github: 'ispyropoulos/intl-tel-input-rails'
 gem 'rails3-jquery-autocomplete', '~> 1.0.13'
 
-gem 'factory_girl_rails'
-gem 'ffaker'
-
+# TODO remove this, it is deprecated
 gem 'inherited_resources'
 
 gem 'airbrake'
@@ -52,7 +49,12 @@ group :development do
   gem 'binding_of_caller'
   gem 'erd'
   gem 'letter_opener'
-  gem 'rubocop'
+  gem 'haml-rails'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'ffaker'
 end
 
 group :test do
