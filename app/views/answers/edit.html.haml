@@ -1,16 +1,16 @@
-- provide(:title, resource["title_#{locale}"])
+- provide(:title, @questionnaire["title_#{locale}"])
 
 .row
   .col-xs-12
-    = simple_form_for resource, url: answer_path do |f|
+    = simple_form_for @questionnaire, url: answer_path do |f|
       .row
         .col-xs-12
           %h2
-            = resource["title_#{locale}"]
+            = @questionnaire["title_#{locale}"]
       .row
         .col-xs-12
           %h4
-            = resource["description_#{locale}"]
+            = @questionnaire["description_#{locale}"]
       .row
         .col-xs-12
           = render 'shared/error_messages', object: f.object

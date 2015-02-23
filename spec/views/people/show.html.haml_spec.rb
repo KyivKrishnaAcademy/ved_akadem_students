@@ -11,9 +11,9 @@ describe 'people/show.html.haml' do
 
   Given { allow(view).to receive(:policy).with(new_study_application).and_return(study_application_policy) }
   Given { allow(view).to receive(:policy).with(person).and_return(PersonPolicy.new(user, person)) }
-  Given { assign(:person_decorator, PersonDecorator.new(person)) }
+  Given { assign(:application_person, person) }
   Given { assign(:programs, []) }
-  Given { assign(:study_application, new_study_application) }
+  Given { assign(:new_study_application, new_study_application) }
   Given { assign(:person, person) }
   Given { assign(:academic_groups, []) }
 

@@ -27,11 +27,11 @@ FactoryGirl.define do
   end
 
   trait :with_photo do
-    photo { File.open("#{Rails.root}/spec/fixtures/150x200.png") }
+    photo { Rails.root.join('spec/fixtures/150x200.png').open }
   end
 
   trait :with_passport do
-    passport { File.open("#{Rails.root}/spec/fixtures/150x200.png") }
+    passport { Rails.root.join('spec/fixtures/150x200.png').open }
   end
 
   trait :student do

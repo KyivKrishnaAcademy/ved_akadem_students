@@ -88,7 +88,25 @@ class Person < ActiveRecord::Base
     student_profile.academic_groups.where(group_participations: { leave_date: nil }).first if student_profile.present?
   end
 
+  def pending_docs
+    @pending_docs ||= count_pending_docs
+  end
+
   private
+
+  def count_pending_docs
+    result = {}
+
+    result[:questionnaires] = not_finished_questionnaires.count
+
+    result.delete(:questionnaires) if result[:questionnaires].zero?
+
+    [:photo, :passport].each do |person_field|
+      result[person_field] = person_field if send(person_field).blank?
+    end
+
+    result
+  end
 
   def downcase_titleize(str)
     str.to_s.mb_chars.downcase.titleize.to_s

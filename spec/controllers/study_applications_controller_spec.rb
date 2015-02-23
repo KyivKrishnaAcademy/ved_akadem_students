@@ -38,7 +38,7 @@ describe StudyApplicationsController do
 
     shared_examples :athorized_destroy do
       Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
-      Given { expect(study_application).to receive(:destroy) }
+      Given { expect(study_application).to receive_message_chain(:destroy, :destroyed?).and_return(true) }
       Given { allow(study_application).to receive(:person).and_return(person) }
       Given { expect(person).to receive(:remove_application_questionnaires) }
 
@@ -57,6 +57,7 @@ describe StudyApplicationsController do
 
     Given { allow(person).to receive(:is_a?).and_return(false) }
     Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
+    Given { allow(person).to receive(:reload).and_return(person) }
     Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
     Given { allow(controller).to receive(:current_person) { person } }
 
@@ -64,7 +65,7 @@ describe StudyApplicationsController do
       shared_examples :not_athorized do
         Then  { expect(response.status).to eq(303) }
         And   { expect(response).not_to render_template('_common') }
-        And   { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+        And   { is_expected.to set_flash[:danger].to(I18n.t(:not_authorized)) }
       end
 
       Given(:roles) { [] }
@@ -77,13 +78,13 @@ describe StudyApplicationsController do
         When  { delete :destroy, id: 1, format: :js }
 
         context 'allow own' do
-          Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1 ) }
+          Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1) }
 
           it_behaves_like :athorized_destroy
         end
 
         context 'disallow others' do
-          Given(:study_application) { double(StudyApplication, person_id: person.id.next, program_id: 1 ) }
+          Given(:study_application) { double(StudyApplication, person_id: person.id.next, program_id: 1) }
 
           Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
           Given { expect(study_application).not_to receive(:destroy) }

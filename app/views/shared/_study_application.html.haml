@@ -37,10 +37,10 @@
               #{t('content.fill_questionnaire')} #{ link_to questionnaire["title_#{locale}"], edit_answer_path(questionnaire) }
         - if person.pending_docs[:photo].present?
           %li
-            #{t('content.attach_photo')} #{ link_to t('content.in_profile'), edit_person_registration_path(person.resource) }
+            #{t('content.attach_photo')} #{ link_to t('content.in_profile'), edit_person_registration_path(person) }
         - if person.pending_docs[:passport].present?
           %li
-            #{t('content.attach_passport')} #{ link_to t('content.in_profile'), edit_person_registration_path(person.resource) }
+            #{t('content.attach_passport')} #{ link_to t('content.in_profile'), edit_person_registration_path(person) }
   .program.alert.alert-success.clearfix
     #{t('content.you_applied')} "#{person.study_application.program["title_#{locale}"]}"
     .pull-right

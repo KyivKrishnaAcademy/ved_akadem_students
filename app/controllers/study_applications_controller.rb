@@ -1,43 +1,45 @@
 class StudyApplicationsController < ApplicationController
   include StudyApplicationable
 
-  inherit_resources
-  actions :create, :destroy
   respond_to :js
 
   after_action :verify_authorized
 
   def create
-    authorize build_resource
+    @study_application = StudyApplication.new(study_application_params)
 
-    create! do |success|
-      success.js do
-        resource.person.add_application_questionnaires
+    authorize @study_application
 
-        preset_applications_variables(resource.person)
+    if @study_application.save
+      @study_application.person.add_application_questionnaires
 
-        render partial: 'common'
-      end
+      preset_applications_variables(@study_application.person)
+
+      render partial: 'common'
+    else
+      render nothing: true, status: 501
     end
   end
-
+  #TODO DRY it
   def destroy
-    authorize resource
+    @study_application = StudyApplication.find(params[:id])
 
-    destroy! do |success|
-      success.js do
-        resource.person.remove_application_questionnaires(resource)
+    authorize @study_application
 
-        preset_applications_variables(resource.person)
+    if @study_application.destroy.destroyed?
+      @study_application.person.remove_application_questionnaires(@study_application)
 
-        render partial: 'common'
-      end
+      preset_applications_variables(@study_application.person)
+
+      render partial: 'common'
+    else
+      render nothing: true, status: 501
     end
   end
 
   private
 
-  def permitted_params
-    params.permit(:id, study_application: [:person_id, :program_id])
+  def study_application_params
+    params.require(:study_application).permit(:person_id, :program_id)
   end
 end

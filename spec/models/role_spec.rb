@@ -7,7 +7,7 @@ describe Role do
 
   describe 'validations' do
     Then { is_expected.to validate_presence_of(:name) }
-    And  { is_expected.to ensure_length_of(:name).is_at_most(30) }
+    And  { is_expected.to validate_length_of(:name).is_at_most(30) }
 
     Then { is_expected.to validate_presence_of(:activities) }
   end

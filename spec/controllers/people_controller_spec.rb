@@ -75,7 +75,7 @@ describe PeopleController do
   end
 
   describe 'with user' do
-    Given(:person) { double(Person, id: 1, roles: roles) }
+    Given(:person) { build_stubbed(:person, id: 1) }
     Given(:people) { double }
 
     Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
@@ -108,7 +108,7 @@ describe PeopleController do
       shared_examples_for :not_authorized do |not_renderder_template|
         Then { expect(response).to redirect_to(root_path) }
         And  { expect(response).not_to render_template(not_renderder_template) }
-        And  { is_expected.to set_the_flash[:danger].to(I18n.t(:not_authorized)) }
+        And  { is_expected.to set_flash[:danger].to(I18n.t(:not_authorized)) }
       end
 
       describe '#index' do
@@ -192,6 +192,8 @@ describe PeopleController do
     describe 'admin user' do
       Given(:roles) { double('roles', any?: true, name: 'Role') }
 
+      Given { allow(person).to receive(:roles).and_return(roles) }
+
       describe '#index' do
         Given(:ordered_people) { double }
 
@@ -212,6 +214,7 @@ describe PeopleController do
         Given { allow(person).to receive(:can_act?).with('study_application:create') { true } }
         Given { allow(person).to receive(:is_a?).and_return(false) }
         Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
+        Given { allow(person).to receive(:reload).and_return(person) }
         Given { allow(AcademicGroup).to receive_message_chain(:select, :order) { academic_groups } }
         Given { allow(Program).to receive(:all) { programs } }
 
@@ -220,9 +223,9 @@ describe PeopleController do
         Then { expect(response).to render_template(:show) }
         And  { expect(assigns(:person)).to eq(person) }
         And  { expect(assigns(:academic_groups)).to eq(academic_groups) }
-        And  { expect(assigns(:person_decorator)).to be_a(PersonDecorator) }
+        And  { expect(assigns(:application_person)).to be_a(Person) }
         And  { expect(assigns(:programs)).to eq(programs) }
-        And  { expect(assigns(:study_application)).to be_a_new(StudyApplication) }
+        And  { expect(assigns(:new_study_application)).to be_a_new(StudyApplication) }
       end
 
       describe '#move_to_group' do
@@ -270,7 +273,7 @@ describe PeopleController do
       context 'on success' do
         context 'redirect and flash' do
           Then { expect(response.status).to redirect_to(action: :new) }
-          And  { is_expected.to set_the_flash[:success] }
+          And  { is_expected.to set_flash[:success] }
         end
 
         context '@person' do
@@ -324,7 +327,7 @@ describe PeopleController do
         context 'flash and redirect' do
           When { update_model }
 
-          Then { is_expected.to set_the_flash[:success] }
+          Then { is_expected.to set_flash[:success] }
           And  { expect(response.status).to redirect_to person }
         end
       end

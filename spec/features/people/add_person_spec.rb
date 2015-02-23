@@ -29,8 +29,8 @@ describe 'Add person:' do
     end
   end
 
-  def fill_person_data p={}
-    pf = build(:person, p)
+  def fill_person_data(p = {})
+    pf = build_stubbed(:person, p)
     fill_in 'phone'                 , with: pf.telephones.first.phone
     fill_in 'person_spiritual_name' , with: pf.spiritual_name
     fill_in 'person_name'           , with: pf.name

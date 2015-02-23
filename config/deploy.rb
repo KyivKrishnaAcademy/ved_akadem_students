@@ -5,7 +5,7 @@ set :application, 'ved_akadem_students'
 set :repo_url, 'git@bitbucket.org:maksym_pugach/ved_akadem_students.git'
 application = 'ved_akadem_students'
 set :rvm_type, :user
-set :rvm_ruby_version, '2.1.1'
+set :rvm_ruby_version, '2.1.1' #TODO 2.1.5
 set :deploy_to, '/var/www/apps/ved_akadem_students'
 set :ssh_options, { forward_agent: true }
 set :pty, true
@@ -65,6 +65,7 @@ namespace :deploy do
       upload!('shared/mailer.yml', "#{shared_path}/config/mailer.yml")
       upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
       upload!('shared/ved_akadem_students.conf', "#{shared_path}/ved_akadem_students.conf")
+      #TODO secret and device secred moved to rails 4.1 secrets
 
       execute "chmod -R 700 #{shared_path}/config"
 
@@ -103,6 +104,7 @@ namespace :deploy do
       execute "ln -sf #{shared_path}/config/recaptcha.rb #{release_path}/config/initializers/recaptcha.rb"
       execute "ln -sf #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml"
       execute "ln -sf #{shared_path}/system #{release_path}/public/system"
+      #TODO secret and device secred moved to rails 4.1 secrets
 
       execute "ln -sf #{release_path} #{current_path}"
     end

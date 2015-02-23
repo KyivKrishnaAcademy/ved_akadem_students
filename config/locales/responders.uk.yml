@@ -1,0 +1,10 @@
+uk:
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} був успішно створений."
+      update:
+        notice: "%{resource_name} був успішно оновлений."
+      destroy:
+        notice: "%{resource_name} був успішно видалений."
+        alert: "%{resource_name} не вдалося видалити."

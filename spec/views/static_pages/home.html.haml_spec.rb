@@ -6,9 +6,9 @@ describe 'static_pages/home' do
   Given(:group) { create :academic_group, { group_name: ag_name } }
   Given(:user) { create :person }
 
-  Given { assign(:person_decorator, PersonDecorator.new(user)) }
+  Given { assign(:application_person, user) }
   Given { assign(:programs, []) }
-  Given { assign(:study_application, new_study_application) }
+  Given { assign(:new_study_application, new_study_application) }
   Given { allow(view).to receive(:current_person).and_return(user) }
 
   When  { render }

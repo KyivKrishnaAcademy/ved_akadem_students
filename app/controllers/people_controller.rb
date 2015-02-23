@@ -49,6 +49,8 @@ class PeopleController < ApplicationController
     else
       redirect_to :back, flash: { danger: 'Person deletion failed!' }
     end
+
+    #TODO DRY the controller with responders
   end
 
   def update

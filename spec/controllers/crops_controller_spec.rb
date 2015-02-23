@@ -64,7 +64,7 @@ describe CropsController do
       Given { allow(person).to receive(:crop_photo).and_return(false) }
 
       Then  { expect(assigns(:person)).to eq(person) }
-      And   { is_expected.to set_the_flash[:danger] }
+      And   { is_expected.to set_flash[:danger] }
       And   { expect(response.status).to render_template('crop_image') }
     end
   end

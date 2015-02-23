@@ -2,25 +2,21 @@ module StudyApplicationable
   private
 
   def preset_applications_variables(person = current_person)
-    @person_decorator  = person_decorator(person)
-    @programs          = programs(current_person)
-    @study_application = StudyApplication.new(person_id: @person_decorator.id) if @person_decorator.present?
+    @application_person    = application_person(person)
+    @programs              = programs(current_person)
+    @new_study_application = StudyApplication.new(person_id: @application_person.id) if @application_person.present?
   end
 
-  def person_decorator(person)
+  def application_person(person)
     return if person.blank?
 
-    if person.is_a?(Person)
-      PersonDecorator.new(person)
-    else
-      PersonDecorator.new(Person.find(person))
-    end
+    person.is_a?(Person) ? person.reload : Person.find(person)
   end
 
   def programs(person)
     return if person.blank?
 
-    if  person.can_act?('study_application:create')
+    if person.can_act?('study_application:create')
       Program.all
     else
       Program.where(visible: true)

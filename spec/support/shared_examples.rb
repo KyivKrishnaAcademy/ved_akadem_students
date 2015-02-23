@@ -111,7 +111,7 @@ shared_examples "DELETE 'destroy'" do |model|
     describe 'flash' do
       When { del_person }
 
-      Then { is_expected.to set_the_flash[:success] }
+      Then { is_expected.to set_flash[:success] }
     end
   end
 
@@ -127,7 +127,7 @@ shared_examples "DELETE 'destroy'" do |model|
     describe 'flash' do
       When { del_person }
 
-      Then { is_expected.to set_the_flash[:danger] }
+      Then { is_expected.to set_flash[:danger] }
     end
   end
 end
@@ -356,5 +356,5 @@ shared_examples :not_authenticated do
   When  { action }
 
   Then  { expect(response).to redirect_to(new_person_session_path) }
-  And   { is_expected.to set_the_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
+  And   { is_expected.to set_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
 end

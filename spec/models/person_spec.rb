@@ -28,8 +28,8 @@ describe Person do
     end
 
     context 'password' do
-      Then { is_expected.to ensure_length_of(:password).is_at_most(128) }
-      And  { is_expected.to ensure_length_of(:password).is_at_least(6) }
+      Then { is_expected.to validate_length_of(:password).is_at_most(128) }
+      And  { is_expected.to validate_length_of(:password).is_at_least(6) }
       And  do
         # due to https://github.com/thoughtbot/shoulda-matchers/issues/593
         # This do not work "is_expected.to validate_confirmation_of(:password)"
@@ -78,18 +78,18 @@ describe Person do
 
     context 'name, surname, middle_name, spiritual_name' do
       Then { is_expected.to validate_presence_of(:name) }
-      And  { is_expected.to ensure_length_of(:name).is_at_most(50) }
+      And  { is_expected.to validate_length_of(:name).is_at_most(50) }
 
       Then { is_expected.to validate_presence_of(:surname) }
-      And  { is_expected.to ensure_length_of(:surname).is_at_most(50) }
+      And  { is_expected.to validate_length_of(:surname).is_at_most(50) }
 
-      Then { is_expected.to ensure_length_of(:middle_name   ).is_at_most(50) }
-      Then { is_expected.to ensure_length_of(:spiritual_name).is_at_most(50) }
+      Then { is_expected.to validate_length_of(:middle_name   ).is_at_most(50) }
+      Then { is_expected.to validate_length_of(:spiritual_name).is_at_most(50) }
     end
 
     describe 'photo' do
       context 'less then 150x200 not valid' do
-        Then { expect(build(:person, photo: File.open("#{Rails.root}/spec/fixtures/10x10.png"))).not_to be_valid }
+        Then { expect(build(:person, photo: Rails.root.join('spec/fixtures/10x10.png').open)).not_to be_valid }
       end
 
       context 'equals 150x200 valid' do
@@ -124,6 +124,8 @@ describe Person do
     Given { @person = create :person, spiritual_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy' }
 
     describe '#crop_photo' do
+      Given { @person.update(photo: Rails.root.join('spec/fixtures/150x200.png').open) }
+
       Then { expect(@person.photo).to receive(:recreate_versions!) }
       And  { expect(@person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3)).to be(true) }
       And  { expect(@person.crop_x).to eq(0) }
@@ -229,6 +231,36 @@ describe Person do
 
       Then  { expect(@person.initial_answers).to eq([@answer_1_2, @answer_1_1]) }
       And   { expect(@person_2.initial_answers).to be_empty }
+    end
+
+    describe '#pending_docs' do
+      context 'no photo or passport, has no questionnaires' do
+        Then  { expect(@person.pending_docs).to eq({photo: :photo, passport: :passport}) }
+      end
+
+      context 'has passport' do
+        Given { allow(@person).to receive_message_chain(:passport, :blank?).and_return(false) }
+
+        Then  { expect(@person.pending_docs).to eq({photo: :photo}) }
+      end
+
+      context 'has photo' do
+        Given { allow(@person).to receive_message_chain(:photo, :blank?).and_return(false) }
+
+        Then  { expect(@person.pending_docs).to eq({passport: :passport}) }
+      end
+
+      context 'has completed questionnaire' do
+        Given { @person.questionnaire_completenesses.create(completed: true, questionnaire_id: create(:questionnaire).id) }
+
+        Then  { expect(@person.pending_docs).to eq({photo: :photo, passport: :passport}) }
+      end
+
+      context 'has has two unanswered questionnaires' do
+        Given { @person.questionnaires << [create(:questionnaire), create(:questionnaire)] }
+
+        Then  { expect(@person.pending_docs).to eq({questionnaires: 2, photo: :photo, passport: :passport}) }
+      end
     end
   end
 end

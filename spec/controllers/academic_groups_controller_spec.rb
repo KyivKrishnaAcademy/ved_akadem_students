@@ -25,7 +25,7 @@ describe AcademicGroupsController do
       describe 'should not allow with other activities' do
         Given { @user = create :person, roles: [create(:role, activities: (all_activities - activities.flatten))] }
 
-        Then  { is_expected.to set_the_flash[:danger].to(I18n.t('not_authorized')) }
+        Then  { is_expected.to set_flash[:danger].to(I18n.t('not_authorized')) }
         And   { expect(response).to redirect_to(root_path) }
       end
     end
@@ -34,7 +34,7 @@ describe AcademicGroupsController do
       When { action }
 
       Then { expect(response).to redirect_to(new_person_session_path) }
-      And  { is_expected.to set_the_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
+      And  { is_expected.to set_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
     end
   end
 
@@ -62,7 +62,7 @@ describe AcademicGroupsController do
       describe 'should not allow with other activities' do
         Given(:user) { create :person, roles: [create(:role, activities: (all_activities - ['academic_group:edit']))] }
 
-        Then  { is_expected.to set_the_flash[:danger].to(I18n.t('not_authorized')) }
+        Then  { is_expected.to set_flash[:danger].to(I18n.t('not_authorized')) }
         And { expect(response).to redirect_to(root_path) }
       end
     end
@@ -78,7 +78,7 @@ describe AcademicGroupsController do
     Given(:action)      { post :create, academic_group: { group_name: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
     Given(:expectation) do
       expect(response).to redirect_to(action: :new)
-      is_expected.to set_the_flash[:success]
+      is_expected.to set_flash[:success]
       expect(assigns(:academic_group)).to be_a(AcademicGroup)
       expect(assigns(:academic_group)).to be_persisted
     end
@@ -195,7 +195,7 @@ describe AcademicGroupsController do
     Given(:expectation) do
       expect(response).to redirect_to(@record)
       expect(assigns(:academic_group)).to eq(@record)
-      is_expected.to set_the_flash[:success]
+      is_expected.to set_flash[:success]
     end
 
     it_behaves_like :academic_groups_actions, 'academic_group:update'
@@ -233,7 +233,7 @@ describe AcademicGroupsController do
       context 'on success' do
         Then { expect{action}.to change(AcademicGroup, :count).by(-1) }
         And  { expect(action).to redirect_to(action: :index)  }
-        And  { is_expected.to set_the_flash[:success] }
+        And  { is_expected.to set_flash[:success] }
       end
 
       context 'on failure' do
@@ -242,7 +242,7 @@ describe AcademicGroupsController do
 
         Then { expect{action}.not_to change(AcademicGroup, :count) }
         And  { expect(action).to redirect_to('where_i_came_from') }
-        And { is_expected.to set_the_flash[:danger] }
+        And { is_expected.to set_flash[:danger] }
       end
     end
 

@@ -1,42 +1,33 @@
-class AnswersController < ApplicationController
-  inherit_resources
-  defaults resource_class: Questionnaire, collection_name: :questionnaires, instance_name: :questionnaire
-  actions :edit, :update
+class AnswersController < HtmlResponsableController
+  before_action :set_questionnaire
 
-  after_action :verify_authorized
+  after_action :verify_authorized, :verify_policy_scoped
 
   def edit
-    authorize resource, :show_form?
+    authorize @questionnaire, :show_form?
 
-    resource.questions.each { |q| q.answers.find_or_initialize_by(person: current_person) }
-
-    edit!
+    @questionnaire.questions.each { |q| q.answers.find_or_initialize_by(person: current_person) }
   end
 
   def update
-    authorize resource, :save_answers?
+    authorize @questionnaire, :save_answers?
 
-    update! do |success, _|
-      success.html do
-        AnswersProcessorService.new(resource, current_person).process!
+    AnswersProcessorService.new(@questionnaire, current_person).process! if @questionnaire.update(questionnaire_params)
 
-        redirect_to root_path
-      end
+    respond_with(@questionnaire) do |format|
+      format.html { redirect_to root_path }
     end
   end
 
   private
 
-  def begin_of_association_chain
-    Pundit.policy(current_person, Questionnaire).update_all? ? super : current_person
+  def set_questionnaire
+    @questionnaire = policy_scope(Questionnaire).find(params[:id])
   end
 
-  def permitted_params
-    params.permit(:id, questionnaire: [
-      questions_attributes: [
-        :id,
-        answers_attributes: [:id, :person_id, :data]
-      ]
-    ])
+  def questionnaire_params
+    params.require(:questionnaire).permit(
+      questions_attributes: [:id, answers_attributes: [:id, :person_id, :data]]
+    )
   end
 end

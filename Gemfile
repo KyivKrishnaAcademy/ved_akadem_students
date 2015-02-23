@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.13'
+gem 'rails', '4.2.0'
 
 gem 'haml'
 gem 'sass-rails'
@@ -8,6 +8,7 @@ gem 'uglifier'
 gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'pg'
+gem 'responders', '~> 2.0'
 
 gem 'kaminari'
 
@@ -15,7 +16,7 @@ gem 'devise'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
 
-gem 'simple_form', '3.1.0.rc2', github: 'plataformatec/simple_form'
+gem 'simple_form', '3.1.0', github: 'plataformatec/simple_form'
 gem 'nested_form'
 
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
@@ -26,9 +27,6 @@ gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'intl-tel-input-rails', github: 'ispyropoulos/intl-tel-input-rails'
 gem 'rails3-jquery-autocomplete', '~> 1.0.13'
-
-# TODO remove this, it is deprecated
-gem 'inherited_resources'
 
 gem 'airbrake'
 
@@ -50,6 +48,7 @@ group :development do
   gem 'erd'
   gem 'letter_opener'
   gem 'haml-rails'
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
