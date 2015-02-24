@@ -4,16 +4,16 @@ require 'pundit/rspec'
 describe QuestionnairePolicy do
   subject { QuestionnairePolicy }
 
-  before { @owner = create :person }
   let(:owned_record)  do
-    q = create(:questionnaire)
+    questionnaire = create(:questionnaire)
 
-    QuestionnaireCompleteness.create(person: @owner, questionnaire: q)
+    QuestionnaireCompleteness.create(person: owner, questionnaire: questionnaire)
 
-    q
+    questionnaire
   end
-  let(:record)        { create(:questionnaire) }
-  let(:user)          { create(:person) }
+  let(:record) { create(:questionnaire) }
+  let(:owner) { create :person }
+  let(:user) { create(:person) }
 
   context 'given user\'s role activities' do
     permissions :show_form? do
@@ -27,7 +27,7 @@ describe QuestionnairePolicy do
     context 'owned' do
       permissions :show_form?, :save_answers? do
         it 'allow' do
-          should permit(@owner, owned_record)
+          should permit(owner, owned_record)
         end
       end
     end
