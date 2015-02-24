@@ -1,4 +1,6 @@
-class AnswersController < HtmlResponsableController
+class AnswersController < ApplicationController
+  respond_to :html
+
   before_action :set_questionnaire
 
   after_action :verify_authorized, :verify_policy_scoped
