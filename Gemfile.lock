@@ -9,13 +9,6 @@ GIT
       mime-types (>= 1.16)
 
 GIT
-  remote: git://github.com/ispyropoulos/intl-tel-input-rails.git
-  revision: d9ca4ebfb87ace65f4d6ccd54a180f55e708e9b1
-  specs:
-    intl-tel-input-rails (4.0.0.1)
-      railties (>= 3.1)
-
-GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: b2516e717bca91179b28a49c795b483a6f1425b1
   specs:
@@ -161,6 +154,8 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
+    intl-tel-input-rails (3.6.0.1)
+      railties (>= 3.1)
     jcrop-rails-v2 (0.9.12.3)
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
@@ -357,7 +352,7 @@ DEPENDENCIES
   fuubar
   haml
   haml-rails
-  intl-tel-input-rails!
+  intl-tel-input-rails (= 3.6.0.1)
   jcrop-rails-v2
   jquery-rails
   jquery-ui-rails
