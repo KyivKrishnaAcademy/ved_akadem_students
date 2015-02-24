@@ -8,36 +8,36 @@ class StudyApplicationsController < ApplicationController
   def create
     @study_application = StudyApplication.new(study_application_params)
 
-    authorize @study_application
-
-    if @study_application.save
-      @study_application.person.add_application_questionnaires
-
-      preset_applications_variables(@study_application.person)
-
-      render partial: 'common'
-    else
-      render nothing: true, status: 501
+    common_handle(@study_application, :create) do |study_applicaiton|
+      study_applicaiton.person.add_application_questionnaires
     end
   end
-  #TODO DRY it
+
   def destroy
     @study_application = StudyApplication.find(params[:id])
 
-    authorize @study_application
-
-    if @study_application.destroy.destroyed?
-      @study_application.person.remove_application_questionnaires(@study_application)
-
-      preset_applications_variables(@study_application.person)
-
-      render partial: 'common'
-    else
-      render nothing: true, status: 501
+    common_handle(@study_application, :destroy) do |study_applicaiton|
+      study_applicaiton.person.remove_application_questionnaires(study_applicaiton)
     end
   end
 
   private
+
+  def common_handle(study_application, method)
+    authorize study_application
+
+    operation_result = method == :create ? study_application.save : study_application.destroy.destroyed?
+
+    if operation_result
+      yield study_application
+
+      preset_applications_variables(study_application.person)
+
+      render partial: 'common'
+    else
+      render nothing: true, status: 501
+    end
+  end
 
   def study_application_params
     params.require(:study_application).permit(:person_id, :program_id)
