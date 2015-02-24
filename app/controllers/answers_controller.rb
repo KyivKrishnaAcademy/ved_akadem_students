@@ -16,9 +16,7 @@ class AnswersController < ApplicationController
 
     AnswersProcessorService.new(@questionnaire, current_person).process! if @questionnaire.update(questionnaire_params)
 
-    respond_with(@questionnaire) do |format|
-      format.html { redirect_to root_path }
-    end
+    respond_with(@questionnaire, location: root_path)
   end
 
   private
