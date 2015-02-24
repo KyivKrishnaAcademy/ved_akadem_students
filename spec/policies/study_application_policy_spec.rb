@@ -18,7 +18,7 @@ describe StudyApplicationPolicy do
       end
     end
 
-    [:create?, :destroy?].each do |action|
+    %i(create? destroy?).each do |action|
       permissions action do
         it_behaves_like :allow_with_activities, ['study_application:' << action.to_s.sub('?', '')]
       end

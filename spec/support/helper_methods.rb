@@ -15,7 +15,7 @@ module HelperMethods
 
   def all_activities
     @all_activities ||= (people_activities + academic_groups_activities + study_applications_activities +
-      %w(questionnaire:update_all)).sort
+      %w(questionnaire:update_all) + courses_activities).sort
   end
 
   def choose_autocomplete_result(item_text, input_selector = 'input[data-autocomplete]')
@@ -51,5 +51,9 @@ module HelperMethods
 
   def study_applications_activities
     StudyApplicationsController.action_methods.map { |action| 'study_application:' << action }
+  end
+
+  def courses_activities
+    CoursesController.action_methods.map { |action| 'course:' << action }
   end
 end

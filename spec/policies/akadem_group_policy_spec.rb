@@ -34,7 +34,7 @@ describe AcademicGroupPolicy do
       it_behaves_like :allow_with_activities, %w(academic_group:edit)
     end
 
-    [:new?, :create?, :edit?, :show?, :index?, :destroy?, :update?].each do |action|
+    %i(new? create? edit? show? index? destroy? update?).each do |action|
       permissions action do
         it_behaves_like :allow_with_activities, ['academic_group:' << action.to_s.sub('?', '')]
       end

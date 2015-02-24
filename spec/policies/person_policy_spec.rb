@@ -57,7 +57,7 @@ describe PersonPolicy do
       end
     end
 
-    [:new?, :show?, :create?, :edit?, :index?, :destroy?, :update?, :crop_image?, :show_passport?].each do |action|
+    %i(new? show? create? edit? index? destroy? update? crop_image? show_passport?).each do |action|
       permissions action do
         it_behaves_like :allow_with_activities, ['person:' << action.to_s.sub('?', '')]
       end
