@@ -58,14 +58,6 @@ describe PeopleController do
     end
 
     describe 'regular user' do
-      Given(:roles) { [] }
-
-      shared_examples_for :not_authorized do |not_renderder_template|
-        Then { expect(response).to redirect_to(root_path) }
-        And  { expect(response).not_to render_template(not_renderder_template) }
-        And  { is_expected.to set_flash[:danger].to(I18n.t(:not_authorized)) }
-      end
-
       describe '#index' do
         When { get :index }
 
