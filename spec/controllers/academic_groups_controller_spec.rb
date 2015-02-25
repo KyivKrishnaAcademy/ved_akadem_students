@@ -4,7 +4,7 @@ describe AcademicGroupsController do
   Given (:mod_params) do
     { group_name:         'ШБ13-5',
       establ_date:        3600.days.ago.to_date.to_s,
-      group_description:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе'  }
+      group_description:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе' }
   end
 
   describe 'params' do

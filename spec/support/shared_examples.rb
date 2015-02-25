@@ -358,3 +358,10 @@ shared_examples :not_authenticated do
   Then  { expect(response).to redirect_to(new_person_session_path) }
   And   { is_expected.to set_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
 end
+
+shared_examples :not_authenticated_js do
+  When  { action }
+
+  Then { expect(response.status).to eq(401) }
+  And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
+end

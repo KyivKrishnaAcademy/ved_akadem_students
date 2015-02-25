@@ -56,19 +56,14 @@ describe PeopleController do
       it_behaves_like :not_authenticated
     end
 
-    shared_examples :not_authenticated_js do
-      Then { expect(response.status).to eq(401) }
-      And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
-    end
-
     context '#move_to_group' do
-      When { patch :move_to_group, id: 1, group_id: 2, format: :js }
+      Given(:action)  { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
       it_behaves_like :not_authenticated_js
     end
 
     context '#remove_from_groups' do
-      When { delete :remove_from_groups, id: 1, format: :js }
+      Given(:action)  { delete :remove_from_groups, id: 1, format: :js }
 
       it_behaves_like :not_authenticated_js
     end

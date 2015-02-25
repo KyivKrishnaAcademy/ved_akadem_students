@@ -2,13 +2,6 @@ require 'rails_helper'
 
 describe StudyApplicationsController do
   describe 'no user' do
-    shared_examples :not_authenticated do
-      When { action }
-
-      Then  { expect(response.status).to eq(401) }
-      And   { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
-    end
-
     context 'destroy' do
       Given(:study_application) { double(StudyApplication, person_id: 1, program_id: 1 ) }
       Given(:action) { delete :destroy, id: 1, format: :js }
@@ -18,7 +11,7 @@ describe StudyApplicationsController do
       Given { expect(study_application).not_to receive(:destroy) }
       Given { expect_any_instance_of(Person).not_to receive(:remove_application_questionnaires) }
 
-      it_behaves_like :not_authenticated
+      it_behaves_like :not_authenticated_js
     end
 
     context 'create' do
@@ -26,7 +19,7 @@ describe StudyApplicationsController do
 
       Given { expect_any_instance_of(StudyApplication).not_to receive(:save) }
 
-      it_behaves_like :not_authenticated
+      it_behaves_like :not_authenticated_js
     end
   end
 
