@@ -364,48 +364,50 @@ shared_examples :not_authenticated_js do
   And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
 end
 
-shared_examples :not_authenticated_crud do
-  context '#index' do
-    When { get :index }
+shared_examples :failed_auth_crud do |sub_example|
+  describe sub_example.to_s do
+    context '#index' do
+      When { get :index }
 
-    it_behaves_like :not_authenticated
-  end
+      it_behaves_like sub_example, 'index'
+    end
 
-  context '#create' do
-    When { post :create }
+      context '#create' do
+        When { post :create }
 
-    it_behaves_like :not_authenticated
-  end
+        it_behaves_like sub_example
+      end
 
-  context '#new' do
-    When { get :new }
+      context '#new' do
+        When { get :new }
 
-    it_behaves_like :not_authenticated
-  end
+        it_behaves_like sub_example
+      end
 
-  context '#edit' do
-    When { get :edit, id: 1 }
+      context '#edit' do
+        When { get :edit, id: 1 }
 
-    it_behaves_like :not_authenticated
-  end
+        it_behaves_like sub_example
+      end
 
-  context '#show' do
-    When { get :show, id: 1 }
+      context '#show' do
+        When { get :show, id: 1 }
 
-    it_behaves_like :not_authenticated
-  end
+        it_behaves_like sub_example
+      end
 
-  context '#update' do
-    When { patch :update, id: 1 }
+      context '#update' do
+        When { patch :update, id: 1 }
 
-    it_behaves_like :not_authenticated
-  end
+        it_behaves_like sub_example
+      end
 
-  context '#destroy' do
-    When { delete :destroy, id: 1 }
+      context '#destroy' do
+        When { delete :destroy, id: 1 }
 
-    it_behaves_like :not_authenticated
-  end
+        it_behaves_like sub_example
+      end
+    end
 end
 
 shared_examples_for :not_authorized do |not_rendered_template|
