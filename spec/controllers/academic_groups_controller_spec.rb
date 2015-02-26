@@ -242,11 +242,13 @@ describe AcademicGroupsController do
 
         Then { expect{action}.not_to change(AcademicGroup, :count) }
         And  { expect(action).to redirect_to('where_i_came_from') }
-        And { is_expected.to set_flash[:danger] }
+        And  { is_expected.to set_flash[:danger] }
       end
     end
 
     context 'not signed in' do
+      When { action }
+
       it_behaves_like :not_authenticated
     end
   end

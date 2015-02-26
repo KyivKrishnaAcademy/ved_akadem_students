@@ -353,8 +353,6 @@ shared_examples :study_applications do |admin|
 end
 
 shared_examples :not_authenticated do
-  When  { action }
-
   Then  { expect(response).to redirect_to(new_person_session_path) }
   And   { is_expected.to set_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
 end
@@ -368,43 +366,43 @@ end
 
 shared_examples :not_authenticated_crud do
   context '#index' do
-    Given(:action) { get :index }
+    When { get :index }
 
     it_behaves_like :not_authenticated
   end
 
   context '#create' do
-    Given(:action) { post :create }
+    When { post :create }
 
     it_behaves_like :not_authenticated
   end
 
   context '#new' do
-    Given(:action) { get :new }
+    When { get :new }
 
     it_behaves_like :not_authenticated
   end
 
   context '#edit' do
-    Given(:action) { get :edit, id: 1 }
+    When { get :edit, id: 1 }
 
     it_behaves_like :not_authenticated
   end
 
   context '#show' do
-    Given(:action) { get :show, id: 1 }
+    When { get :show, id: 1 }
 
     it_behaves_like :not_authenticated
   end
 
   context '#update' do
-    Given(:action) { patch :update, id: 1 }
+    When { patch :update, id: 1 }
 
     it_behaves_like :not_authenticated
   end
 
   context '#destroy' do
-    Given(:action) { delete :destroy, id: 1 }
+    When { delete :destroy, id: 1 }
 
     it_behaves_like :not_authenticated
   end

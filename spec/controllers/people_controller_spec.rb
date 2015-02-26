@@ -5,13 +5,13 @@ describe PeopleController do
     it_behaves_like :not_authenticated_crud
 
     context '#show_photo' do
-      Given(:action) { get :show, id: 1, version: 'default' }
+      When { get :show, id: 1, version: 'default' }
 
       it_behaves_like :not_authenticated
     end
 
     context '#show_passport' do
-      Given(:action) { get :show, id: 1 }
+      When { get :show, id: 1 }
 
       it_behaves_like :not_authenticated
     end
