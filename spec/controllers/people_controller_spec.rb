@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe PeopleController do
+  Given(:params) { { person: { some_param: true } } }
+
   describe 'not signed in' do
     it_behaves_like :failed_auth_crud, :not_authenticated
 
@@ -58,28 +60,18 @@ describe PeopleController do
     end
 
     describe 'regular user' do
-      describe '#index' do
-        When { get :index }
-
-        it_behaves_like :not_authorized, 'index'
-      end
-
-      describe '#show' do
-        When { get :show, id: 1 }
-
-        it_behaves_like :not_authorized, 'show'
-      end
+      it_behaves_like :failed_auth_crud, :not_authorized
 
       describe '#move_to_group' do
         When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
-        it_behaves_like :not_authorized, 'move_to_group'
+        it_behaves_like :not_authorized
       end
 
       context '#remove_from_groups' do
         When { delete :remove_from_groups, id: 1, format: :js }
 
-        it_behaves_like :not_authorized, 'remove_from_groups'
+        it_behaves_like :not_authorized
       end
 
       context '#show_photo' do
@@ -97,7 +89,7 @@ describe PeopleController do
 
             When  { get :show_photo, id: 2, version: 'default' }
 
-            it_behaves_like :not_authorized, 'show_photo'
+            it_behaves_like :not_authorized
           end
 
           context 'classmate' do

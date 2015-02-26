@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe CoursesController do
+  Given(:params) { { course: { some_param: true } } }
+
   describe 'not signed in' do
     it_behaves_like :failed_auth_crud, :not_authenticated
   end
@@ -16,17 +18,7 @@ describe CoursesController do
     Given { allow(Course).to receive(:find).with('1').and_return(course) }
 
     describe 'as regular user' do
-      describe '#index' do
-        When { get :index }
-
-        it_behaves_like :not_authorized, 'index'
-      end
-
-      describe '#show' do
-        When { get :show, id: 1 }
-
-        it_behaves_like :not_authorized, 'show'
-      end
+      it_behaves_like :failed_auth_crud, :not_authorized
     end
   end
 end

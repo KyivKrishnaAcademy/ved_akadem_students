@@ -369,11 +369,11 @@ shared_examples :failed_auth_crud do |sub_example|
     context '#index' do
       When { get :index }
 
-      it_behaves_like sub_example, 'index'
+      it_behaves_like sub_example
     end
 
       context '#create' do
-        When { post :create }
+        When { post :create, params }
 
         it_behaves_like sub_example
       end
@@ -410,8 +410,8 @@ shared_examples :failed_auth_crud do |sub_example|
     end
 end
 
-shared_examples_for :not_authorized do |not_rendered_template|
+shared_examples_for :not_authorized do
   Then { expect(response).to redirect_to(root_path) }
-  And  { expect(response).not_to render_template(not_rendered_template) }
+  And  { expect(response).to render_template(nil) }
   And  { is_expected.to set_flash[:danger].to(I18n.t(:not_authorized)) }
 end
