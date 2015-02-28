@@ -80,6 +80,11 @@ describe CoursesController do
             And  { expect(response).to redirect_to(course_path(assigns(:course))) }
             And  { is_expected.to set_flash[:notice] }
           end
+
+          describe 'failure' do
+            Then { expect { post :create, course: { name: 'John' } }.not_to change(Course, :count) }
+            And  { expect(response).to render_template(:new) }
+          end
         end
 
         describe '#update' do
@@ -93,6 +98,13 @@ describe CoursesController do
 
             Then { expect(response).to redirect_to(course_path(course)) }
             And  { is_expected.to set_flash[:notice] }
+            And  { expect(assigns(:course)).to eq(course) }
+          end
+
+          describe 'failure' do
+            Given(:course_params) { { name: 'Bhakti school', description: nil } }
+
+            Then { expect(response).to render_template(:edit) }
             And  { expect(assigns(:course)).to eq(course) }
           end
         end
