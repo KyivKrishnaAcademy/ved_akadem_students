@@ -17,8 +17,6 @@ namespace :academic do
     MALE              = 'м'
     MARRIED           = 'женат/замужем'
     PROFESSION        = 'profession'
-    QUESTION_IDS      = Question.where(questionnaire_id: QUESTIONNAIRE_ID)
-                            .each_with_object({}) { |q, h| h[q.position] = q.id }
     QUESTION_KEYS     = ('q1'..'q7').to_a
     QUESTIONNAIRE_ID  = Questionnaire.find_by!(kind: 'initial_questions').id
     SINGLE            = 'нет отношений'
@@ -26,6 +24,9 @@ namespace :academic do
     TIME_FORMAT       = '%F-%H%M%S%L'
     WIDOWED           = 'вдовец/вдова'
     YES               = 'yes'
+
+    QUESTION_IDS      = Question.where(questionnaire_id: QUESTIONNAIRE_ID)
+                                .each_with_object({}) { |q, h| h[q.position] = q.id }
     MAPPED_ASHRAM     = { SINGLE => 'single', MARRIED => 'married', WIDOWED => 'widowed',
                           IN_RELATIONSHIP => 'in_relationship', DIVORCED => 'divorced' }
 
