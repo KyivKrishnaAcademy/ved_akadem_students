@@ -10,6 +10,7 @@ namespace :academic do
     DIVORCED          = 'развод'
     EDUCATION         = 'education'
     EMAILS            = 'emails'
+    EMERGENCY_CONTACT = 'emergency_contact'
     FULL_NAME         = 'full_name'
     GENDER            = 'gender'
     GROUP             = 'group'
@@ -68,6 +69,7 @@ namespace :academic do
         telephones: telephones(row[TELEPHONES]),
         work: dash_if_blank(row[PROFESSION]),
         marital_status: MAPPED_ASHRAM[row[ASHRAM]],
+        emergency_contact: row[EMERGENCY_CONTACT],
         questionnaire_completenesses: [
           QuestionnaireCompleteness.new(questionnaire_id: QUESTIONNAIRE_ID,
                                         completed: QUESTION_KEYS.all? { |k| row[k].present? })
