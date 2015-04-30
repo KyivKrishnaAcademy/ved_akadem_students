@@ -15,8 +15,6 @@ namespace :academic do
     GROUP             = 'group'
     IN_RELATIONSHIP   = 'гражданский брак'
     MALE              = 'м'
-    MAPPED_ASHRAM     = { SINGLE => 'single', MARRIED => 'married', WIDOWED => 'widowed',
-                          IN_RELATIONSHIP => 'in_relationship', DIVORCED => 'divorced' }
     MARRIED           = 'женат/замужем'
     PROFESSION        = 'profession'
     QUESTION_IDS      = Question.where(questionnaire_id: QUESTIONNAIRE_ID)
@@ -28,6 +26,8 @@ namespace :academic do
     TIME_FORMAT       = '%F-%H%M%S%L'
     WIDOWED           = 'вдовец/вдова'
     YES               = 'yes'
+    MAPPED_ASHRAM     = { SINGLE => 'single', MARRIED => 'married', WIDOWED => 'widowed',
+                          IN_RELATIONSHIP => 'in_relationship', DIVORCED => 'divorced' }
 
 
     def telephones(str)
