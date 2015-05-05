@@ -4,10 +4,15 @@ require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 
-unless ENV['CODECLIMATE_REPO_TOKEN'].nil? || defined?(CodeClimate::TestReporter)
+if ENV['CODECLIMATE_REPO_TOKEN'].present?
   require 'codeclimate-test-reporter'
 
   CodeClimate::TestReporter.start
+
+elsif ENV['COVERAGE'].present?
+  require 'simplecov'
+
+  SimpleCov.start 'rails'
 end
 
 require 'rack_session_access/capybara'
