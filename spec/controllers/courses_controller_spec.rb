@@ -34,7 +34,7 @@ describe CoursesController do
           Given(:courses) { double }
           Given(:actions) { ['course:index'] }
 
-          Given { allow(Course).to receive(:all).and_return(courses) }
+          Given { allow(Course).to receive(:order).and_return(courses) }
 
           When  { get :index }
 

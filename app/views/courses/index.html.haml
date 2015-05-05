@@ -1,19 +1,26 @@
-%h1 Listing courses
+= render 'shared/under_construction'
+- provide(:title, 'Courses')
 
-%table
-  %thead
-    %tr
-      %th
-      %th
-      %th
-      
-  %tbody
-    - @courses.each do |course|
-      %tr
-        %td= link_to 'Show', course
-        %td= link_to 'Edit', edit_course_path(course)
-        %td= link_to 'Destroy', course, :method => :delete, :data => { :confirm => 'Are you sure?' }
+.row
+  .col-xs-12
+    %h1 Listing courses
 
-%br
+    = link_to 'New Course', new_course_path, class: 'btn btn-xs btn-success'
 
-= link_to 'New Course', new_course_path
+  .col-xs-12.vert-offset-top-1
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th Course title
+            %th Actions
+
+        %tbody
+          - @courses.each do |course|
+            %tr
+              %td.col-xs-9
+                = link_to course.name, course_path(course)
+              %td.col-xs-3
+                = link_to 'Show', course, class: 'btn btn-xs btn-primary'
+                = link_to 'Edit', edit_course_path(course), class: 'btn btn-xs btn-primary'
+                = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'

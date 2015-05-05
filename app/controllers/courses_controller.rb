@@ -4,7 +4,7 @@ class CoursesController < HtmlResponsableController
   after_action :verify_authorized
 
   def index
-    @courses = Course.all
+    @courses = Course.order(:name)
 
     authorize Course
 
@@ -24,6 +24,7 @@ class CoursesController < HtmlResponsableController
   end
 
   def edit
+    respond_with(@course)
   end
 
   def create
