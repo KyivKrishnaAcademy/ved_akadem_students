@@ -12,31 +12,21 @@
       %ul.nav.navbar-nav.navbar-right
         - if show_admin_menu?
           %li.dropdown
-            %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }
+            %a.dropdown-toggle{ href: '#', :'data-toggle' => :dropdown }
               = t('defaults.links.main_menu')
-            %ul.dropdown-menu{ role: 'menu' }
-              - if show_admin_group_menu?
-                %li.dropdown
-                  %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }
-                    = t('defaults.links.groups')
-                  %ul.dropdown-menu{ role: 'menu' }
-                    - if current_person.can_act?('academic_group:new')
-                      %li
-                        = link_to(t('defaults.links.group_add'), new_academic_group_path)
-                    - if current_person.can_act?('academic_group:index')
-                      %li
-                        = link_to(t('defaults.links.groups_list'), academic_groups_path)
-              - if show_admin_people_menu?
-                %li.dropdown
-                  %a.dropdown-toggle{ href: '#', 'data-toggle' => 'dropdown' }
-                    = t('defaults.links.people')
-                  %ul.dropdown-menu{ role: 'menu' }
-                    - if current_person.can_act?('person:new')
-                      %li
-                        = link_to(t('defaults.links.person_add'), new_person_path)
-                    - if current_person.can_act?('person:index')
-                      %li
-                        = link_to(t('defaults.links.people_list'), people_path)
+            %ul.dropdown-menu{ role: :menu }
+              - models_for_generic_menu.each do |singular, plural|
+                - if send("show_#{plural}_menu?")
+                  %li.dropdown
+                    %a.dropdown-toggle{ href: '#', :'data-toggle' => :dropdown }
+                      = t("defaults.links.#{plural}")
+                    %ul.dropdown-menu{ role: :menu }
+                      - if current_person.can_act?("#{singular}:new")
+                        %li
+                          = link_to(t("defaults.links.#{plural}_add"), send("new_#{singular}_path"))
+                      - if current_person.can_act?("#{singular}:index")
+                        %li
+                          = link_to(t("defaults.links.#{plural}_list"), send("#{plural}_path"))
         %li
           = link_to t(:locale_label), locales_toggle_path
         %li

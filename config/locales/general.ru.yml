@@ -6,14 +6,17 @@ ru:
       recaptcha_unreachable:  'Невозможно связаться с сервисом проверки.'
   defaults:
     links:
-      agreement:    'Соглашение'
-      group_add:    'Добавить группу'
-      groups:       'Группы'
-      groups_list:  'Список групп'
-      main_menu:    'Действия'
-      people:       'Люди'
-      people_list:  'Список всех'
-      person_add:   'Добавить человека'
+      academic_groups:      'Группы'
+      academic_groups_add:  'Добавить группу'
+      academic_groups_list: 'Список групп'
+      agreement:            'Соглашение'
+      courses:              'Предметы'
+      courses_add:          'Добавить предмет'
+      courses_list:         'Список предметов'
+      main_menu:            'Действия'
+      people:               'Люди'
+      people_list:          'Список всех'
+      people_add:           'Добавить человека'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:

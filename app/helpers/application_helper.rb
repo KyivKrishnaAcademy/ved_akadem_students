@@ -19,16 +19,24 @@ module ApplicationHelper
     end
   end
 
-  def show_admin_menu?
-    current_person.present? && (show_admin_people_menu? || show_admin_group_menu?)
+  def models_for_generic_menu
+    %w(academic_group person course).map { |model| [model, model.pluralize] }
   end
 
-  def show_admin_people_menu?
+  def show_admin_menu?
+    current_person.present? && (show_people_menu? || show_academic_groups_menu? || show_courses_menu?)
+  end
+
+  def show_people_menu?
     current_person.can_act?(%w(person:index person:new))
   end
 
-  def show_admin_group_menu?
+  def show_academic_groups_menu?
     current_person.can_act?(%w(academic_group:index academic_group:new))
+  end
+
+  def show_courses_menu?
+    current_person.can_act?(%w(course:index course:new))
   end
 
   def person_photo(person, version = :default, options = {})

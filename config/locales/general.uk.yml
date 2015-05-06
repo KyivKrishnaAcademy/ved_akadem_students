@@ -6,14 +6,17 @@ uk:
       recaptcha_unreachable:  "Неможливо звя'язатися з сервісом перевірки."
   defaults:
     links:
-      agreement:    'Згода'
-      group_add:    'Додати групу'
-      groups:       'Групи'
-      groups_list:  'Список груп'
-      main_menu:    'Дії'
-      people:       'Люди'
-      people_list:  'Список усіх'
-      person_add:   'Додати людину'
+      academic_groups:      'Групи'
+      academic_groups_add:  'Додати групу'
+      academic_groups_list: 'Список груп'
+      agreement:            'Згода'
+      courses:              'Предмети'
+      courses_add:          'Додати предмет'
+      courses_list:         'Список предметів'
+      main_menu:            'Дії'
+      people:               'Люди'
+      people_list:          'Список усіх'
+      people_add:           'Додати людину'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:
