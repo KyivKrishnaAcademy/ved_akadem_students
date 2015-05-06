@@ -1,7 +1,9 @@
-%h1 Editing course
+= render 'shared/under_construction'
+- provide(:title, @course.name)
 
-= render 'form'
+.row
+  .col-xs-12
+    %h1
+      = @course.name
 
-= link_to 'Show', @course
-\|
-= link_to 'Back', courses_path
+  = render 'form'

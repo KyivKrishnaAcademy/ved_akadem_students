@@ -1,5 +1,9 @@
-%h1 New course
+= render 'shared/under_construction'
+- provide(:title, 'Add New Course')
 
-= render 'form'
+.row
+  .col-xs-12
+    %h1
+      Add Course
 
-= link_to 'Back', courses_path
+  = render 'form'

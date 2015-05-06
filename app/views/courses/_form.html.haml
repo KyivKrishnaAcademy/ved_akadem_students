@@ -1,7 +1,7 @@
-= simple_form_for @course do |f|
-  = render 'shared/error_messages', object: f.object
+.col-xs-12.col-sm-6.vert-offset-top-1
+  = simple_form_for @course do |f|
+    = render 'shared/error_messages', object: f.object
 
-  = f.input :name
-  = f.input :description
-  = f.button :submit
-
+    = f.input :name
+    = f.input :description
+    = f.button :submit
