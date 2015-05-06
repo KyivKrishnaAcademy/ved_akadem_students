@@ -19,7 +19,7 @@ uk:
           divorced:         'розлучений/розлучена'
           widowed:          'вдівець/вдова'
     labels:
-      defaults:
+      person:
         password:               'Пароль'
         password_confirmation:  'Підтвердження паролю'
         current_password:       'Поточний пароль'
@@ -36,11 +36,10 @@ uk:
         education:              'Освіта (спеціальність)'
         work:                   'Робота (професія)'
         emergency_contact:      'Контакт для надзвичайних випадків'
-      person:
         marital_status:         'Сімейний стан'
         friends_to_be_with:     'Друзі в Академії'
     placeholders:
-      defaults:
+      person:
         email:                  'test@example.com'
         spiritual_name:         'Аді Даса дас'
         name:                   'Антон'
@@ -50,7 +49,6 @@ uk:
         education:              "Інженер з комп'ютерних систем, економіст"
         work:                   'Тестувальник, веб програміст, менеджер'
         emergency_contact:      'Тато: +380 (50) 111-22-44'
-      person:
         new:
           password:               '******'
           password_confirmation:  '******'

@@ -1,32 +1,33 @@
-= simple_nested_form_for(@person, defaults: { required: false }) do |f|
-  = f.error_notification
+.col-xs-12.col-sm-6.vert-offset-top-1
+  = simple_nested_form_for(@person, defaults: { required: false }) do |f|
+    = f.error_notification
 
-  .form-inputs
-    = person_photo(f.object, :standart)
-    = f.input :photo, as: :file
-    = f.input :photo_cache, as: :hidden
-    - if f.object.passport.present?
-      = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank'
-    - else
-      There is no passport attached.
-    = f.input :passport, as: :file
-    = f.input :passport_cache, as: :hidden
-    = f.input :email, autofocus: true
-    = f.input :spiritual_name
-    = f.input :name
-    = f.input :middle_name
-    = f.input :surname
-    = render 'shared/nested_telephones', f: f
-    = f.input :gender, collection: [[:male, true], [:female, false]],
-                       label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-    = f.input :marital_status, collection: Person::MARITAL_STATUSES,
-                       label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
-    = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
-    = f.input :friends_to_be_with
-    = f.input :education
-    = f.input :work
-    = f.input :emergency_contact
-    = f.input :special_note
+    .form-inputs
+      = person_photo(f.object, :standart)
+      = f.input :photo, as: :file
+      = f.input :photo_cache, as: :hidden
+      - if f.object.passport.present?
+        = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank'
+      - else
+        There is no passport attached.
+      = f.input :passport, as: :file
+      = f.input :passport_cache, as: :hidden
+      = f.input :email, autofocus: true
+      = f.input :spiritual_name
+      = f.input :name
+      = f.input :middle_name
+      = f.input :surname
+      = render 'shared/nested_telephones', f: f
+      = f.input :gender, collection: [[:male, true], [:female, false]],
+                         label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
+      = f.input :marital_status, collection: Person::MARITAL_STATUSES,
+                         label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
+      = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
+      = f.input :friends_to_be_with
+      = f.input :education
+      = f.input :work
+      = f.input :emergency_contact
+      = f.input :special_note
 
-  .form-actions
-    = f.button :submit
+    .form-actions
+      = f.button :submit
