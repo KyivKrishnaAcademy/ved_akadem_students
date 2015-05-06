@@ -13,7 +13,7 @@ describe CropsController do
     end
 
     context 'has_rights' do
-      Given { @person_2 = create :person, roles: [create(:role, activities: %w{person:crop_image})]}
+      Given { @person_2 = create :person, roles: [create(:role, activities: %w(person:crop_image))]}
 
       When { sign_in :person, @person_2 }
       When { get :crop_image, id: @person_1.id }
@@ -37,7 +37,7 @@ describe CropsController do
     Given (:person) { mock_model Person }
     Given { allow(Person).to receive(:find).with('2').and_return(person) }
 
-    When { sign_in :person, create(:person, roles: [create(:role, activities: %w{person:crop_image})]) }
+    When { sign_in :person, create(:person, roles: [create(:role, activities: %w(person:crop_image))]) }
     When { get :update_image, { person: { crop_x: 0 }, id: 2 } }
 
     context 'cropped' do

@@ -6,7 +6,7 @@ describe 'Edit academic group:' do
   When { login_as_admin }
   When { visit edit_academic_group_path(academic_group) }
 
-  %w[administrator praepostor curator].each do |admin_type|
+  %w(administrator praepostor curator).each do |admin_type|
     describe "autocomplete #{admin_type}", :js do
       Given { create :person, name: 'Synchrophazotrone' }
 

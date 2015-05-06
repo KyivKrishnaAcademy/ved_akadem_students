@@ -27,7 +27,7 @@
   .col-xs-12
     = form_for @person, url: update_image_path(@person), method: :patch do |f|
       .actions
-        - %w{x y w h}.each do |attribute|
+        - %w(x y w h).each do |attribute|
           = f.hidden_field "crop_#{attribute}"
 
         = f.submit t('.crop'), class: 'btn btn-primary'

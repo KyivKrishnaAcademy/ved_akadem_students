@@ -16,7 +16,7 @@ describe 'Add academic group:' do
   it_behaves_like :not_adds_model
   it_behaves_like :link_in_flash
 
-  %w[administrator praepostor curator].each do |admin_type|
+  %w(administrator praepostor curator).each do |admin_type|
     describe "autocomplete #{admin_type}", :js do
       Given { create :person, name: 'Synchrophazotrone' }
 

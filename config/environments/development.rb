@@ -42,7 +42,8 @@ Rails.application.configure do
     config.assets.debug         = false
     config.assets.digest        = true
     config.assets.js_compressor = :uglifier
-    config.assets.precompile    += %w( crops.js jquery.Jcrop.css jquery.Jcrop.js nested_form_custom_telephones.js flags.png intlTelInput.css initTelInput.js )
+    config.assets.precompile    += %w(crops.js jquery.Jcrop.css jquery.Jcrop.js nested_form_custom_telephones.js
+                                      flags.png intlTelInput.css initTelInput.js)
     config.assets.version       = '1.1'
   end
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,

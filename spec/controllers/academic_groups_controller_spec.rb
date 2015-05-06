@@ -88,7 +88,7 @@ describe AcademicGroupsController do
     describe 'on failure with valid rights' do
       Given { allow_any_instance_of(AcademicGroup).to receive(:save).and_return(false) }
 
-      When  { sign_in :person, create(:person, roles: [create(:role, activities: %w[academic_group:create])]) }
+      When  { sign_in :person, create(:person, roles: [create(:role, activities: %w(academic_group:create))]) }
       When  { action }
 
       Then  { expect(response).to render_template(:new) }
@@ -201,7 +201,7 @@ describe AcademicGroupsController do
     it_behaves_like :academic_groups_actions, 'academic_group:update'
 
     describe 'other' do
-      When { sign_in :person, create(:person, roles: [create(:role, activities: %w[academic_group:update])]) }
+      When { sign_in :person, create(:person, roles: [create(:role, activities: %w(academic_group:update))]) }
 
       describe 'record receives update' do
         Then do
@@ -226,7 +226,7 @@ describe AcademicGroupsController do
     Given(:action) { delete :destroy, id: @record.id }
 
     context 'signed in' do
-      Given { @user = create :person, roles: [create(:role, activities: %w[academic_group:destroy])] }
+      Given { @user = create :person, roles: [create(:role, activities: %w(academic_group:destroy))] }
 
       When { sign_in(:person, @user) }
 

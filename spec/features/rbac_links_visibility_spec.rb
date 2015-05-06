@@ -19,15 +19,15 @@ describe 'RBAC links visibility' do
     end
   end
 
-  it_behaves_like :nav_links, I18n.t('defaults.links.academic_groups'), '#', %w[academic_group:new academic_group:index]
+  it_behaves_like :nav_links, I18n.t('defaults.links.academic_groups'), '#', %w(academic_group:new academic_group:index)
   it_behaves_like :nav_links, I18n.t('defaults.links.academic_groups_add'), '/academic_groups/new', 'academic_group:new'
   it_behaves_like :nav_links, I18n.t('defaults.links.academic_groups_list'), '/academic_groups', 'academic_group:index'
 
-  it_behaves_like :nav_links, I18n.t('defaults.links.people'), '#', %w[person:new person:index]
+  it_behaves_like :nav_links, I18n.t('defaults.links.people'), '#', %w(person:new person:index)
   it_behaves_like :nav_links, I18n.t('defaults.links.people_add'), '/people/new', 'person:new'
   it_behaves_like :nav_links, I18n.t('defaults.links.people_list'), '/people', 'person:index'
 
-  it_behaves_like :nav_links, I18n.t('defaults.links.courses'), '#', %w[course:new course:index]
+  it_behaves_like :nav_links, I18n.t('defaults.links.courses'), '#', %w(course:new course:index)
   it_behaves_like :nav_links, I18n.t('defaults.links.courses_add'), '/courses/new', 'course:new'
   it_behaves_like :nav_links, I18n.t('defaults.links.courses_list'), '/courses', 'course:index'
 end

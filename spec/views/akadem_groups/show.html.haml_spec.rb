@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'academic_groups/show' do
-  GROUP_ELDERS = %w[administrator curator praepostor]
+  GROUP_ELDERS = %w(administrator curator praepostor)
 
   Given(:activities) { ['academic_group:show'] }
   Given(:ag_name) { 'ТВ99-1' }
@@ -30,14 +30,14 @@ describe 'academic_groups/show' do
   end
 
   describe 'with edit rights' do
-    Given(:activities) { %w[academic_group:show academic_group:edit] }
+    Given(:activities) { %w(academic_group:show academic_group:edit) }
 
     Then  { expect(rendered).to have_link(I18n.t('links.edit'))}
     And   { expect(rendered).not_to have_link(I18n.t('links.delete'))}
   end
 
   describe 'with destroy rights' do
-    Given(:activities) { %w[academic_group:show academic_group:destroy] }
+    Given(:activities) { %w(academic_group:show academic_group:destroy) }
 
     Then  { expect(rendered).to have_link(I18n.t('links.delete'))}
     And   { expect(rendered).not_to have_link(I18n.t('links.edit'))}
@@ -103,7 +103,7 @@ describe 'academic_groups/show' do
     end
 
     describe 'can see show_person link' do
-      Given(:activities) { %w[academic_group:show person:show] }
+      Given(:activities) { %w(academic_group:show person:show) }
 
       it_behaves_like :not_conditional_values
 

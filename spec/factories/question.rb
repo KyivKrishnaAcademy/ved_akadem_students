@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :question do
-    format  { %w[freeform single_select].sample }
+    format  { %w(freeform single_select).sample }
     data    { { text: { uk: Faker::Lorem.sentence, ru: Faker::Lorem.sentence } } }
   end
 

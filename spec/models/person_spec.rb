@@ -55,8 +55,8 @@ describe Person do
     end
 
     context 'email' do
-      Given (:valid_addresses)   { %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn] }
-      Given (:invalid_addresses) { %w[user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com ] }
+      Given (:valid_addresses)   { %w(user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn) }
+      Given (:invalid_addresses) { %w(user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com) }
 
       Then { is_expected.to validate_uniqueness_of(:email) }
       And { is_expected.not_to allow_value('').for(:email) }
@@ -171,7 +171,7 @@ describe Person do
       end
 
       describe '#can_act?' do
-        Given { @role = create :role, activities: %w[some:activity], people: [@person] }
+        Given { @role = create :role, activities: %w(some:activity), people: [@person] }
 
         Then  { expect(@person.can_act?('some:activity')).to be(true) }
         And   { expect(@person.can_act?(['some:activity'])).to be(true) }

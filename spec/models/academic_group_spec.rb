@@ -8,8 +8,8 @@ describe AcademicGroup do
   end
 
   describe 'validation' do
-    Given (:valid_names)   { %w[ ШБ13-1 БШ12-4 ЗШБ11-1 ] }
-    Given (:invalid_names) { %w[ 12-2 ШБ-1 БШ112 ШБ11- ] }
+    Given (:valid_names)   { %w(ШБ13-1 БШ12-4 ЗШБ11-1) }
+    Given (:invalid_names) { %w(12-2 ШБ-1 БШ112 ШБ11-) }
 
     Then { is_expected.to validate_uniqueness_of(:group_name) }
     And  { is_expected.to validate_presence_of(:group_name) }

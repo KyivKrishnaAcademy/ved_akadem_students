@@ -4,7 +4,7 @@ describe 'people/index' do
   Given(:page) { Capybara::Node::Simple.new(response.body) }
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
   Given(:person) { create :person }
-  Given(:activities) { %w[person:index person:show] }
+  Given(:activities) { %w(person:index person:show) }
 
   Given do
     [user, person].each do |record|
@@ -35,8 +35,8 @@ describe 'people/index' do
       And  { expect(page.find('tbody tr', text: person.complex_name)).to have_link(person.complex_name, href: person_path(person)) }
     end
 
-    context 'with show rights' do
-      Given(:activities) { %w[person:index] }
+    context 'without show rights' do
+      Given(:activities) { %w(person:index) }
 
       Then { expect(page.find('tbody tr', text: user.complex_name)).not_to have_link(user.complex_name, href: person_path(user)) }
       And  { expect(page.find('tbody tr', text: person.complex_name)).not_to have_link(person.complex_name, href: person_path(person)) }
