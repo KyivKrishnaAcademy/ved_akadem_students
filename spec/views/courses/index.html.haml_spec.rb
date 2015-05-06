@@ -14,11 +14,11 @@ describe 'courses/index' do
   When  { render }
 
   describe 'conditional links' do
-    Given(:row) { page.find('tbody tr', text: course.name) }
+    Given(:row) { page.find('tbody tr', text: course.title) }
     Given(:table_container) { page.find('.row', text: 'Listing courses') }
 
     Given(:no_new_link) { expect(table_container).not_to have_link('New Course', href: new_course_path) }
-    Given(:no_show_link) { expect(row).not_to have_link(course.name, href: course_path(course)) }
+    Given(:no_show_link) { expect(row).not_to have_link(course.title, href: course_path(course)) }
     Given(:no_edit_link) { expect(table_container).not_to have_link(I18n.t('links.edit'), href: edit_course_path(course)) }
     Given(:no_destroy_link) { expect(table_container).not_to have_link(I18n.t('links.delete'), href: "/courses/#{course.id}") }
 
@@ -32,7 +32,7 @@ describe 'courses/index' do
     context 'with :show rights' do
       Given(:activities) { %w(course:index course:show) }
 
-      Then { expect(row).to have_link(course.name, href: course_path(course)) }
+      Then { expect(row).to have_link(course.title, href: course_path(course)) }
       And  { no_new_link }
       And  { no_edit_link }
       And  { no_destroy_link }

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Course do
   describe 'validations' do
-    Then { is_expected.to validate_presence_of(:name) }
+    Then { is_expected.to validate_presence_of(:title) }
     Then { is_expected.to validate_presence_of(:description) }
   end
 

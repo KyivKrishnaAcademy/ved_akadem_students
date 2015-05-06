@@ -20,8 +20,8 @@
           - @courses.each do |course|
             %tr
               %td.col-xs-9
-                = link_to_if policy(course).show?, course.name, course_path(course) do
-                  = course.name
+                = link_to_if policy(course).show?, course.title, course_path(course) do
+                  = course.title
               %td.col-xs-3
                 - if policy(course).edit?
                   = link_to t('links.edit'), edit_course_path(course), class: 'btn btn-xs btn-primary'

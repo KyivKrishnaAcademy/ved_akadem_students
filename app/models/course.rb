@@ -3,5 +3,5 @@ class Course < ActiveRecord::Base
   has_many :teacher_specialities, dependent: :destroy
   has_many :teacher_profiles, through: :teacher_specialities
 
-  validates :name, :description, presence: true
+  validates :title, :description, presence: true
 end

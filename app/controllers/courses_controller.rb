@@ -4,7 +4,7 @@ class CoursesController < HtmlResponsableController
   after_action :verify_authorized
 
   def index
-    @courses = Course.order(:name)
+    @courses = Course.order(:title)
 
     authorize Course
 
@@ -56,6 +56,6 @@ class CoursesController < HtmlResponsableController
   end
 
   def course_params
-    params.require(:course).permit(:name, :description)
+    params.require(:course).permit(:title, :description)
   end
 end

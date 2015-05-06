@@ -22,7 +22,7 @@ describe CoursesController do
     end
 
     describe 'as admin' do
-      Given(:roles) { double('roles', any?: true, name: 'Role') }
+      Given(:roles) { double('roles', any?: true, title: 'Role') }
 
       Given { allow(person).to receive(:roles).and_return(roles) }
       Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { actions } }
@@ -82,7 +82,7 @@ describe CoursesController do
           end
 
           describe 'failure' do
-            Then { expect { post :create, course: { name: 'John' } }.not_to change(Course, :count) }
+            Then { expect { post :create, course: { title: 'John' } }.not_to change(Course, :count) }
             And  { expect(response).to render_template(:new) }
           end
         end
@@ -94,7 +94,7 @@ describe CoursesController do
           When  { patch :update, id: course.id, course: course_params }
 
           describe 'with success' do
-            Given(:course_params) { { name: 'Bhakti school', description: 'Awesome' } }
+            Given(:course_params) { { title: 'Bhakti school', description: 'Awesome' } }
 
             Then { expect(response).to redirect_to(course_path(course)) }
             And  { is_expected.to set_flash[:notice] }
@@ -102,7 +102,7 @@ describe CoursesController do
           end
 
           describe 'failure' do
-            Given(:course_params) { { name: 'Bhakti school', description: nil } }
+            Given(:course_params) { { title: 'Bhakti school', description: nil } }
 
             Then { expect(response).to render_template(:edit) }
             And  { expect(assigns(:course)).to eq(course) }

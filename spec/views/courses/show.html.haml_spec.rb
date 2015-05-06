@@ -14,7 +14,7 @@ describe 'courses/show' do
   When  { render }
 
   describe 'conditional links' do
-    Given(:container) { page.find('.row', text: course.name) }
+    Given(:container) { page.find('.row', text: course.title) }
 
     Given(:no_edit_link) { expect(container).not_to have_link(I18n.t('links.edit'), href: edit_course_path(course)) }
     Given(:no_destroy_link) { expect(container).not_to have_link(I18n.t('links.delete'), href: "/courses/#{course.id}") }
