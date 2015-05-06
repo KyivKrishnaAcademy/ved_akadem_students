@@ -3,15 +3,16 @@
 
 %h1 Academic Groups
 
-%table.table
-  %thead
-    %tr
-      %th Name
-      %th Estbalished
-      %th Description
-  %tbody
-    - @academic_groups.each do |academic_group|
-      %tr{class: 'academic_group', id: academic_group.id}
-        %td= link_to academic_group.group_name, academic_group
-        %td= academic_group.establ_date.to_s
-        %td= academic_group.group_description
+.table-responsive
+  %table.table.table-condensed.table-striped
+    %thead
+      %tr
+        %th Name
+        %th Estbalished
+        %th Description
+    %tbody
+      - @academic_groups.each do |academic_group|
+        %tr{class: 'academic_group', id: academic_group.id}
+          %td= link_to academic_group.group_name, academic_group
+          %td= academic_group.establ_date.to_s
+          %td= academic_group.group_description

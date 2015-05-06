@@ -1,6 +1,10 @@
 = render 'shared/under_construction'
 - provide(:title, complex_name(@person, true))
-%h1
-  = @person.complex_name
-%br
-= render 'form'
+
+.row
+  .col-xs-12
+    %h1
+      = @person.complex_name
+
+  .col-xs-12.vert-offset-top-1
+    = render 'form'
