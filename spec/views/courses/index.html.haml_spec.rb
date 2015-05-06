@@ -6,7 +6,6 @@ describe 'courses/index' do
   Given(:course) { create :course }
   Given(:activities) { %w(course:index) }
 
-  Given { allow(view).to receive(:policy).with(user).and_return(PersonPolicy.new(user, user)) }
   Given { allow(view).to receive(:policy).with(course).and_return(CoursePolicy.new(user, course)) }
 
   Given { assign(:courses, [course]) }
