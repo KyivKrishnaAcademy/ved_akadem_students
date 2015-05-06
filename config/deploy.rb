@@ -1,5 +1,4 @@
-# config valid only for Capistrano 3.3.5
-lock '3.3.5'
+lock '3.4.0'
 
 set :application, 'ved_akadem_students'
 set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
@@ -97,7 +96,9 @@ namespace :deploy do
     on roles(:all) do
       execute "mkdir -p #{shared_path}/tmp/puma"
       sudo    "rm -rf #{release_path}/tmp"
+      sudo    "rm -rf #{release_path}/log"
       execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
+      execute "ln -s #{shared_path}/log #{release_path}/log"
       execute "ln -s #{shared_path}/uploads #{release_path}/uploads"
       execute "ln -sf #{shared_path}/config/Backup ~/Backup"
       execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"

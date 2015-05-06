@@ -1,12 +1,25 @@
-rails_env ||= ENV['RAILS_ENV'] || 'development'
-port      ||= rails_env == 'production' ? 80 : 3000
+def rails_env
+  ENV['RAILS_ENV'] || 'development'
+end
 
-preload_app!
+environment rails_env
 
-threads 4,4
+if rails_env == 'production'
+  daemonize true
 
-bind  'unix:///var/www/apps/ved_akadem_students/shared/tmp/puma/ved_akadem_students.sock'
-pidfile '/var/www/apps/ved_akadem_students/current/tmp/puma/pid'
-state_path '/var/www/apps/ved_akadem_students/current/tmp/puma/state'
+  preload_app!
 
-activate_control_app
+  threads 4, 4
+
+  bind  'unix:///var/www/apps/ved_akadem_students/shared/tmp/puma/ved_akadem_students.sock'
+  pidfile '/var/www/apps/ved_akadem_students/current/tmp/puma/pid'
+  state_path '/var/www/apps/ved_akadem_students/current/tmp/puma/state'
+
+  stdout_redirect '/var/www/apps/ved_akadem_students/current/log/puma.stdout.log', '/var/www/apps/ved_akadem_students/current/log/puma.stderr.log', true
+
+  activate_control_app
+else
+  bind 'tcp://localhost:3000'
+
+  threads 0, 4
+end
