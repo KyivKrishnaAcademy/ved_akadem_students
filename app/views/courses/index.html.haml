@@ -5,7 +5,8 @@
   .col-xs-12
     %h1 Listing courses
 
-    = link_to 'New Course', new_course_path, class: 'btn btn-xs btn-success'
+    - if current_person.can_act?('course:new')
+      = link_to 'New Course', new_course_path, class: 'btn btn-xs btn-success'
 
   .col-xs-12.vert-offset-top-1
     .table-responsive
@@ -19,8 +20,11 @@
           - @courses.each do |course|
             %tr
               %td.col-xs-9
-                = link_to course.name, course_path(course)
+                = link_to_if policy(course).show?, course.name, course_path(course) do
+                  = course.name
               %td.col-xs-3
-                = link_to 'Show', course, class: 'btn btn-xs btn-primary'
-                = link_to 'Edit', edit_course_path(course), class: 'btn btn-xs btn-primary'
-                = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+                - if policy(course).edit?
+                  = link_to t('links.edit'), edit_course_path(course), class: 'btn btn-xs btn-primary'
+                - if policy(course).destroy?
+                  = link_to t('links.delete'), course, method: :delete,
+                            data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'

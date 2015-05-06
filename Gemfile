@@ -49,6 +49,7 @@ group :development do
   gem 'letter_opener'
   gem 'haml-rails'
   gem 'web-console', '~> 2.0'
+  gem 'meta_request'
 end
 
 group :development, :test do

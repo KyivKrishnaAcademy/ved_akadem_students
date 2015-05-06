@@ -73,6 +73,7 @@ GEM
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     builder (3.2.2)
+    callsite (0.0.11)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -172,6 +173,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    meta_request (0.3.4)
+      callsite (~> 0.0, >= 0.0.11)
+      rack-contrib (~> 1.1)
+      railties (>= 3.0.0, < 5.0.0)
     mime-types (2.5)
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
@@ -199,6 +204,8 @@ GEM
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.0)
+    rack-contrib (1.2.0)
+      rack (>= 0.9.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack_session_access (0.1.1)
@@ -352,6 +359,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   letter_opener
+  meta_request
   mini_magick
   nested_form
   newrelic_rpm
