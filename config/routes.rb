@@ -29,4 +29,8 @@ Rails.application.routes.draw do
   get    'people/show_passport/:id'          , controller: :people, action: :show_passport
   patch  'people/:id/move_to_group/:group_id', controller: :people, action: :move_to_group, constraints: { format: :js }
   delete 'people/:id/remove_from_groups'     , controller: :people, action: :remove_from_groups, constraints: { format: :js }
+
+  namespace :ui do
+    resources :teacher_profiles, only: :index
+  end
 end

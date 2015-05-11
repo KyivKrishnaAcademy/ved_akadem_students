@@ -22,5 +22,11 @@ module VedicAcademyStudents
     config.i18n.enforce_available_locales = true
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.generators do |g|
+      g.test_framework(:rspec, { fixtures: true, view_specs: true, helper_specs: true,
+                                 controller_specs: true, routing_specs: false })
+      g.factory_girl(true)
+    end
   end
 end
