@@ -5,7 +5,7 @@ describe 'Teacher multi select for courses:', :js do
   Given(:person_2) { create :person }
 
   Given!(:profile_1) { create :teacher_profile, person: person_1 }
-  Given { create :teacher_profile, person: person_2 }
+  Given!(:profile_2) { create :teacher_profile, person: person_2 }
 
   Given(:select_container) { find('span.select2-container') }
 
@@ -26,6 +26,8 @@ describe 'Teacher multi select for courses:', :js do
 
     Then { expect(select_container).not_to have_selector('li.select2-selection__choice') }
     And  { common_assertions }
+    And  { visit edit_course_path(Course.last) }
+    And  { expect(select_container).to have_selector('li.select2-selection__choice', text: person_2.complex_name) }
   end
 
   context 'existing course' do
@@ -33,7 +35,34 @@ describe 'Teacher multi select for courses:', :js do
 
     When { visit edit_course_path(course) }
 
-    Then { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
-    And  { common_assertions }
+    context 'add more' do
+      Then { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
+      And  { common_assertions }
+      And  { visit edit_course_path(course) }
+      And  { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
+      And  { expect(select_container).to have_selector('li.select2-selection__choice', text: person_2.complex_name) }
+    end
+
+    context 'remove some' do
+      Given { course.teacher_specialities.create(teacher_profile_id: profile_2.id) }
+
+      Then { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
+      And  { expect(select_container).to have_selector('li.select2-selection__choice', text: person_2.complex_name) }
+
+      And do
+            page.execute_script %Q{
+              $('li.select2-selection__choice[title="#{person_1.complex_name}"]').find('span').click();
+              $('select#course_teacher_profile_ids').select2('close');
+            }
+
+            true
+      end
+
+      And  { expect(select_container).not_to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
+      And  { find('input[type="submit"]').click }
+      And  { visit edit_course_path(course) }
+      And  { expect(select_container).not_to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
+      And  { expect(select_container).to have_selector('li.select2-selection__choice', text: person_2.complex_name) }
+    end
   end
 end
