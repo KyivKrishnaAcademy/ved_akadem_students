@@ -12,7 +12,7 @@ describe TeacherProfilesLoadingInteraction do
 
     Given(:expected) do
       { teacher_profiles: [{ id: right_profile.id,
-                             name: right_user.complex_name,
+                             text: right_user.complex_name,
                              imageUrl: '/assets/fallback/person/thumb_default.png' }] }
     end
 

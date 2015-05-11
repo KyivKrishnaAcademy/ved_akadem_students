@@ -21,4 +21,5 @@
 //= require autocomplete-rails
 //= require jquery.smartmenus
 //= require jquery.smartmenus.bootstrap
+//= require select_2_initializers
 //= require custom

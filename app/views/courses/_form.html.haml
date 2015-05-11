@@ -1,7 +1,14 @@
+- content_for(:js_and_css) do
+  = javascript_include_tag 'select2.min'
+  = stylesheet_link_tag 'select2.min', media: 'all'
+
 .col-xs-12.col-sm-6.vert-offset-top-1
   = simple_form_for @course do |f|
     = render 'shared/error_messages', object: f.object
 
     = f.input :title
     = f.input :description
+    = f.association :teacher_profiles, label_method: :complex_name, collection: f.object.teacher_profiles,
+                    input_html: { data: { placeholder: 'Select an option' } }
+
     = f.button :submit

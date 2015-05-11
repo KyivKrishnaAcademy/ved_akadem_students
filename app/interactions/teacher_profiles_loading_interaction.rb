@@ -9,7 +9,7 @@ class TeacherProfilesLoadingInteraction < BaseInteraction
   def serialize_profiles(profile)
     {
       id: profile.id,
-      name: profile.person.complex_name,
+      text: profile.person.complex_name,
       imageUrl: photo_url(profile.person)
     }
   end
