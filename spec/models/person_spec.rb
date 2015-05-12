@@ -108,16 +108,6 @@ describe Person do
     context 'downcases :email' do
       Then { expect(create(:person, {email: 'A_US-ER@f.B.org'}).email).to eq('a_us-er@f.b.org') }
     end
-
-    describe 'downcases and titelizes :name, :surname, :middle_name, :spiritual_name' do
-      Given { @person = FactoryGirl.create(:person, name: 'имЯ',surname: 'фАмИлиЯ',middle_name: 'ОтчествО',
-                                           spiritual_name: 'АдиДасаДаса ДаС') }
-
-      Then { expect(@person.name).to eq('Имя') }
-      And  { expect(@person.surname).to eq('Фамилия') }
-      And  { expect(@person.middle_name).to eq('Отчество') }
-      And  { expect(@person.spiritual_name).to eq('Адидасадаса Дас') }
-    end
   end
 
   describe 'methods' do

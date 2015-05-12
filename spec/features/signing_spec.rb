@@ -127,7 +127,7 @@ describe 'Signing' do
         When do
           attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/150x200.png"
           fill_in 'person_email', with: 'test@example.com'
-          fill_in 'person_spiritual_name', with: 'Adi dasa das'
+          fill_in 'person_spiritual_name', with: 'Adi Dasa Das'
           fill_in 'person_name', with: 'Vasyl'
           fill_in 'person_middle_name', with: 'Alexovich'
           fill_in 'person_surname', with: 'Mitrofanov'
