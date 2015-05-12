@@ -28,5 +28,8 @@ Rails.application.routes.draw do
 
   namespace :ui do
     resources :teacher_profiles, only: :index
+    get 'group_admins' => 'group_elders#group_admins_index'
+    get 'group_curators' => 'group_elders#group_curators_index'
+    get 'group_praepostors' => 'group_elders#group_praepostors_index'
   end
 end
