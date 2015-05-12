@@ -19,4 +19,10 @@ class BaseInteraction
   def as_json(opts = {})
     raise StandardError.new('Interaction.as_json should be overridden!')
   end
+
+  private
+
+  def photo_url(person)
+    person.photo.present? ? "/people/show_photo/thumb/#{person.id}" : person.photo.thumb.url
+  end
 end

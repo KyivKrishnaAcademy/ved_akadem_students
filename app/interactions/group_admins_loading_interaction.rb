@@ -1,13 +1,8 @@
 class GroupAdminsLoadingInteraction < BaseInteraction
+  include Peoplable
+
   def init
-
-  end
-
-  def serialize_profiles(profile)
-
-  end
-
-  def as_json(opts = {})
-    { }
+    #TODO replace this when ElasticSearch appears
+    @people = Person.where('complex_name ILIKE ?', "%#{params[:q]}%") #injection is possible!
   end
 end
