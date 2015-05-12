@@ -73,6 +73,8 @@ namespace :academic do
         end
       end
 
+      puts
+
       xlsx.serialize(group_dir.join("#{group.group_name}.xlsx"))
     end
 
