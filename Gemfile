@@ -27,7 +27,6 @@ gem 'axlsx'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'intl-tel-input-rails', '3.6.0.1'
-gem 'rails3-jquery-autocomplete', '~> 1.0.13'
 
 gem 'airbrake'
 

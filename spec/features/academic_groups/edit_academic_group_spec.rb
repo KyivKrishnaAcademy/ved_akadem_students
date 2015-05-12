@@ -7,7 +7,7 @@ describe 'Edit academic group:' do
   When { visit edit_academic_group_path(academic_group) }
 
   %w(administrator praepostor curator).each do |admin_type|
-    describe "autocomplete #{admin_type}", :js do
+    describe "autocomplete #{admin_type}", :pending, :js do
       Given { create :person, name: 'Synchrophazotrone' }
 
       When  { find("#academic_group_#{admin_type}").set('rophazotr') }

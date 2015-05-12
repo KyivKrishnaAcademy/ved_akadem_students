@@ -3,9 +3,9 @@
   = f.input :group_name
   = f.input :establ_date
   = f.input :group_description
-  = people_autocomplete(f, 'curator')
-  = people_autocomplete(f, 'administrator')
-  = people_autocomplete(f, 'praepostor')
+  = f.input :curator
+  = f.input :administrator
+  = f.input :praepostor
   = f.input :message_ru
   = f.input :message_uk
   = f.button :submit

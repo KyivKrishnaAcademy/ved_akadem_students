@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
   devise_for :people, path: '', controllers: { registrations: 'users/registrations' }, path_names: { sign_up: 'register' }
 
-  resources :people, :courses
-  resources :academic_groups do
-    get :autocomplete_person, on: :collection
-  end
-
+  resources :people, :courses, :academic_groups
   resources :study_applications, only: [:create, :destroy]
   resources :answers           , only: [:update, :edit]
 
