@@ -9,10 +9,10 @@ describe 'Edit person:' do
   context 'When values are valid:' do
     [
       { field: 'phone'                    , value: '+380 50 111 2233' , test_field: 'Telephone 1: +380 50 111 2233' },
-      { field: 'person[spiritual_name]'   , value: 'AdiDasa dasa'     , test_field: 'Adidasa Dasa' },
-      { field: 'person[name]'             , value: 'алексей'          , test_field: 'Алексей' },
-      { field: 'person[middle_name]'      , value: 'иванович'         , test_field: 'Иванович' },
-      { field: 'person[surname]'          , value: 'евгеньев'         , test_field: 'Евгеньев' },
+      { field: 'person[spiritual_name]'   , value: 'Adidasa Dasa'     , test_field: 'Adidasa Dasa' },
+      { field: 'person[name]'             , value: 'Алексей'          , test_field: 'Алексей' },
+      { field: 'person[middle_name]'      , value: 'Иванович'         , test_field: 'Иванович' },
+      { field: 'person[surname]'          , value: 'Евгеньев'         , test_field: 'Евгеньев' },
       { field: 'person[email]'            , value: 'alex@PAMHO.net'   , test_field: 'Email: alex@pamho.net' },
       { field: 'person[education]'        , value: 'some'             , test_field: 'Education: some' },
       { field: 'person[work]'             , value: 'other'            , test_field: 'Work: other' },

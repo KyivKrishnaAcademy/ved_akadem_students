@@ -19,7 +19,7 @@ class Person < ActiveRecord::Base
   has_many :praeposted_groups, class_name: 'AcademicGroup', foreign_key: 'praepostor_id'
   has_many :curated_groups, class_name: 'AcademicGroup', foreign_key: 'curator_id'
 
-  before_save :normalize_strings, :set_password, :set_complex_name
+  before_save :set_password, :set_complex_name
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
@@ -106,17 +106,6 @@ class Person < ActiveRecord::Base
     end
 
     result
-  end
-
-  def downcase_titleize(str)
-    str.to_s.mb_chars.downcase.titleize.to_s
-  end
-
-  def normalize_strings
-    self.name           = downcase_titleize(name)
-    self.middle_name    = downcase_titleize(middle_name)
-    self.surname        = downcase_titleize(surname)
-    self.spiritual_name = downcase_titleize(spiritual_name)
   end
 
   def set_password
