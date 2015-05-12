@@ -8,7 +8,7 @@ namespace :academic do
     def name_for_card(student)
       return student.spiritual_name if student.spiritual_name.present?
 
-      "#{student.surname.upcase} #{student.name}#{student.middle_name.present? ? ' ' << student.middle_name : ''}"
+      "#{student.surname.mb_chars.upcase} #{student.name}#{student.middle_name.present? ? ' ' << student.middle_name : ''}"
     end
 
     def card_id(student)
