@@ -25,7 +25,7 @@ describe StudentProfile do
         Given { @old_ag = create :academic_group }
         Given { @sp.academic_groups << @old_ag }
 
-        Then  { expect(@sp.academic_groups).to eq([@new_ag, @old_ag]) }
+        Then  { expect(@sp.academic_groups).to contain_exactly(@new_ag, @old_ag) }
         And   { expect(@sp.group_participations.find_by(academic_group_id: @new_ag.id).leave_date).to be_nil }
         And   { expect(@sp.group_participations.find_by(academic_group_id: @old_ag.id).leave_date).not_to be_nil }
       end

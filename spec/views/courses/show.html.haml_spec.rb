@@ -3,8 +3,9 @@ require 'rails_helper'
 describe 'courses/show' do
   Given(:page) { Capybara::Node::Simple.new(response.body) }
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
-  Given(:course) { create :course }
+  Given(:course) { create :course, title: course_title }
   Given(:activities) { %w(course:show) }
+  Given(:course_title) { 'Bhakta Program' }
 
   Given { allow(view).to receive(:policy).with(course).and_return(CoursePolicy.new(user, course)) }
 
@@ -14,7 +15,7 @@ describe 'courses/show' do
   When  { render }
 
   describe 'conditional links' do
-    Given(:container) { page.find('.row', text: course.title) }
+    Given(:container) { page.find('.row', text: course_title) }
 
     Given(:no_edit_link) { expect(container).not_to have_link(I18n.t('links.edit'), href: edit_course_path(course)) }
     Given(:no_destroy_link) { expect(container).not_to have_link(I18n.t('links.delete'), href: "/courses/#{course.id}") }
