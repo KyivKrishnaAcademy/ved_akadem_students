@@ -28,5 +28,7 @@ module VedicAcademyStudents
                                  controller_specs: true, routing_specs: false })
       g.factory_girl(true)
     end
+
+    config.autoload_paths += [Rails.root.join('app/interactions/concerns')]
   end
 end

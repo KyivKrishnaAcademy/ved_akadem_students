@@ -1,11 +1,21 @@
-= simple_form_for @academic_group do |f|
-  = render 'shared/error_messages', object: f.object
-  = f.input :group_name
-  = f.input :establ_date
-  = f.input :group_description
-  = people_autocomplete(f, 'curator')
-  = people_autocomplete(f, 'administrator')
-  = people_autocomplete(f, 'praepostor')
-  = f.input :message_ru
-  = f.input :message_uk
-  = f.button :submit
+- content_for(:js_and_css) do
+  = javascript_include_tag 'select2.min'
+  = stylesheet_link_tag 'select2.min', media: 'all'
+
+.col-xs-12.col-sm-6.vert-offset-top-1
+  = simple_form_for @academic_group do |f|
+    = render 'shared/error_messages', object: f.object
+    = f.input :group_name
+    = f.input :establ_date
+    = f.input :group_description
+    = f.association :curator, label_method: :complex_name, collection: [f.object.curator].compact,
+                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/group_curators' } }
+    = f.association :administrator, label_method: :complex_name, collection: [f.object.administrator].compact,
+                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/group_admins' } }
+    = f.association :praepostor, label_method: :complex_name, collection: [f.object.praepostor].compact,
+                    input_html: { data: { :placeholder => 'Select an option',
+                                          :'ajax--url' => "/ui/group_praepostors?group_id=#{f.object.id}" },
+                                  disabled: !f.object.persisted? }
+    = f.input :message_ru
+    = f.input :message_uk
+    = f.button :submit

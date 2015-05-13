@@ -15,7 +15,23 @@ class PersonPolicy < ApplicationPolicy
     crop_image?
   end
 
+  def group_admins_index?
+    academic_group_writable
+  end
+
+  def group_curators_index?
+    academic_group_writable
+  end
+
+  def group_praepostors_index?
+    academic_group_writable
+  end
+
   private
+
+  def academic_group_writable
+    user.can_act?(%w(academic_group:edit academic_group:new))
+  end
 
   def owned?
     record.id == user.id

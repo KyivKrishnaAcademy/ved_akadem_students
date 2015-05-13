@@ -41,6 +41,18 @@ describe PersonPolicy do
   end
 
   context 'given user\'s role activities' do
+    permissions :group_admins_index? do
+      it_behaves_like :allow_with_activities, %w(academic_group:edit academic_group:new)
+    end
+
+    permissions :group_curators_index? do
+      it_behaves_like :allow_with_activities, %w(academic_group:edit academic_group:new)
+    end
+
+    permissions :group_praepostors_index? do
+      it_behaves_like :allow_with_activities, %w(academic_group:edit academic_group:new)
+    end
+
     permissions :show_photo? do
       it_behaves_like :allow_with_activities, %w(person:show)
     end

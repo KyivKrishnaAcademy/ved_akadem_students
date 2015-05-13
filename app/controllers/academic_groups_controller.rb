@@ -4,14 +4,6 @@ class AcademicGroupsController < ApplicationController
   after_action :verify_authorized
   after_action :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
 
-  autocomplete :person, :complex_name, full: true
-
-  def autocomplete_person
-    authorize AcademicGroup
-
-    autocomplete_person_complex_name
-  end
-
   def index
     @academic_groups = policy_scope(AcademicGroup)
 

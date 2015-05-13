@@ -18,17 +18,6 @@ module HelperMethods
       %w(questionnaire:update_all) + courses_activities).sort
   end
 
-  def choose_autocomplete_result(item_text, input_selector = 'input[data-autocomplete]')
-    page.execute_script %{ $('#{input_selector}').trigger("focus") }
-    page.execute_script %{ $('#{input_selector}').trigger("keydown") }
-
-    item_selector = "ul.ui-autocomplete li.ui-menu-item:contains('#{item_text}')"
-
-    expect(page).to have_selector('ul.ui-autocomplete li.ui-menu-item', text: item_text)
-
-    page.execute_script %{ $("#{item_selector}").trigger("mouseenter").trigger("click"); }
-  end
-
   def screenshot
     sleep 10
 

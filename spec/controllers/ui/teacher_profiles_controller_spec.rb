@@ -5,8 +5,7 @@ describe Ui::TeacherProfilesController do
     context '#index' do
       When { get :index, format: :json }
 
-      Then { expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('devise.failure.unauthenticated')) }
-      And  { expect(response.status).to be(401) }
+      it_behaves_like :ui_not_authenticated
     end
   end
 
@@ -22,8 +21,7 @@ describe Ui::TeacherProfilesController do
       context '#index' do
         When { get :index, format: :json }
 
-        Then { expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: 'not_authorized') }
-        And  { expect(response.status).to be(401) }
+        it_behaves_like :ui_not_authorized
       end
     end
 
@@ -31,11 +29,9 @@ describe Ui::TeacherProfilesController do
       Given(:roles) { double('roles', any?: true, title: 'Role') }
 
       Given { allow(person).to receive(:roles).and_return(roles) }
-      Given { allow(roles).to receive_message_chain(:pluck, :flatten) { true } }
+      Given { allow(roles).to receive_message_chain(:pluck, :flatten) { ['course:edit'] } }
 
       context '#index' do
-        Given(:actions) { ['teacher_profile:index'] }
-
         Then { expect(TeacherProfilesLoadingInteraction).to receive(:new) }
         And  { get :index, format: :json }
       end

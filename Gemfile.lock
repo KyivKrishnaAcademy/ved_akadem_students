@@ -240,8 +240,6 @@ GEM
       ruby-graphviz (~> 1.0.4)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
-    rails3-jquery-autocomplete (1.0.15)
-      rails (>= 3.2)
     railties (4.2.1)
       actionpack (= 4.2.1)
       activesupport (= 4.2.1)
@@ -377,7 +375,6 @@ DEPENDENCIES
   quiet_assets
   rack_session_access
   rails (= 4.2.1)
-  rails3-jquery-autocomplete (~> 1.0.13)
   recaptcha
   responders (~> 2.0)
   rspec-activemodel-mocks

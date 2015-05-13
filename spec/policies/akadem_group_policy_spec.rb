@@ -28,16 +28,4 @@ describe AcademicGroupPolicy do
       end
     end
   end
-
-  context 'given user\'s role activities' do
-    permissions :autocomplete_person? do
-      it_behaves_like :allow_with_activities, %w(academic_group:edit)
-    end
-
-    %i(new? create? edit? show? index? destroy? update?).each do |action|
-      permissions action do
-        it_behaves_like :allow_with_activities, ['academic_group:' << action.to_s.sub('?', '')]
-      end
-    end
-  end
 end

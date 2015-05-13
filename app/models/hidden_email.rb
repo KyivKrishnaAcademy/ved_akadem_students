@@ -1,6 +1,9 @@
 class HiddenEmail
   def self.collect_hidden_emails(telephone)
-    Person.joins(:telephones).where(telephones: { phone: telephone }).pluck(:email).map { |email| hide_email(email) }
+    Person.joins(:telephones)
+          .where(telephones: { phone: telephone })
+          .order(:id).pluck(:email)
+          .map { |email| hide_email(email) }
   end
 
   def self.hide_email(email)

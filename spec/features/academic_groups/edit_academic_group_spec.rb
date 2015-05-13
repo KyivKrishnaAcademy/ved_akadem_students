@@ -6,17 +6,46 @@ describe 'Edit academic group:' do
   When { login_as_admin }
   When { visit edit_academic_group_path(academic_group) }
 
-  %w(administrator praepostor curator).each do |admin_type|
-    describe "autocomplete #{admin_type}", :js do
-      Given { create :person, name: 'Synchrophazotrone' }
+  describe 'select elders', :js do
+    Given(:prev_person) { create :person }
+    Given(:curator_container) { find('.academic_group_curator span.select2-container') }
+    Given(:praepostor_container) { find('.academic_group_praepostor span.select2-container') }
+    Given(:administrator_container) { find('.academic_group_administrator span.select2-container') }
 
-      When  { find("#academic_group_#{admin_type}").set('rophazotr') }
-      When  { choose_autocomplete_result('rophazotr', "#academic_group_#{admin_type}") }
-      When  { click_button 'Зберегти Academic group' }
-      When  { find('.alert-success') }
-      When  { visit edit_academic_group_path(academic_group) }
+    Given { academic_group.update_columns(curator_id: prev_person.id,
+                                          praepostor_id: prev_person.id,
+                                          administrator_id: prev_person.id) }
 
-      Then  { expect(find("#academic_group_#{admin_type}").value).to have_content('Synchrophazotrone') }
+    describe 'previous person seleced' do
+      Given(:selected_person) { "span.select2-selection__rendered[title='#{prev_person.complex_name}']" }
+
+      Then { expect(curator_container).to have_selector(selected_person) }
+      And  { expect(praepostor_container).to have_selector(selected_person) }
+      And  { expect(administrator_container).to have_selector(selected_person) }
+    end
+
+    describe 'select new person' do
+      Given(:person) { create :person }
+      Given(:selected_person) { "span.select2-selection__rendered[title='#{person.complex_name}']" }
+
+      Given { person.create_teacher_profile }
+      Given { person.create_student_profile.move_to_group(academic_group) }
+
+      When  { curator_container.click }
+      When  { find('#select2-academic_group_curator_id-results li.select2-results__option', text: person.complex_name).click }
+      When  { praepostor_container.click }
+      When  { find('#select2-academic_group_praepostor_id-results li.select2-results__option', text: person.complex_name).click }
+      When  { administrator_container.click }
+      When  { find('#select2-academic_group_administrator_id-results li.select2-results__option', text: person.complex_name).click }
+
+      Then  { expect(curator_container).to have_selector(selected_person) }
+      And   { expect(praepostor_container).to have_selector(selected_person) }
+      And   { expect(administrator_container).to have_selector(selected_person) }
+      And   { click_button 'Зберегти Academic group' }
+      And   { expect(page).to have_selector('.alert-success') }
+      And   { expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.curator'))).to have_content(person.spiritual_name) }
+      And   { expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.praepostor'))).to have_content(person.spiritual_name) }
+      And   { expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.administrator'))).to have_content(person.spiritual_name) }
     end
   end
 

@@ -3,10 +3,10 @@ class TeacherProfilesLoadingInteraction < BaseInteraction
     #TODO replace this when ElasticSearch appears
     @teacher_profiles = TeacherProfile.includes(:person)
                                       .joins(:person)
-                                      .where('people.complex_name ILIKE ?', "%#{params[:q]}%") #injection possible
+                                      .where('people.complex_name ILIKE ?', "%#{params[:q]}%") #injection is possible!
   end
 
-  def serialize_profiles(profile)
+  def serialize_profile(profile)
     {
       id: profile.id,
       text: profile.person.complex_name,
@@ -16,13 +16,7 @@ class TeacherProfilesLoadingInteraction < BaseInteraction
 
   def as_json(opts = {})
     {
-      teacher_profiles: @teacher_profiles.map { |p| serialize_profiles p }
+      teacher_profiles: @teacher_profiles.map { |p| serialize_profile p }
     }
-  end
-
-  private
-
-  def photo_url(person)
-    person.photo.present? ? "/people/show_photo/thumb/#{person.id}" : person.photo.thumb.url
   end
 end

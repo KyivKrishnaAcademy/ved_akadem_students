@@ -415,3 +415,13 @@ shared_examples_for :not_authorized do
   And  { expect(response).to render_template(nil) }
   And  { is_expected.to set_flash[:danger].to(I18n.t(:not_authorized)) }
 end
+
+shared_examples_for :ui_not_authorized do
+  Then { expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: 'not_authorized') }
+  And  { expect(response.status).to be(401) }
+end
+
+shared_examples_for :ui_not_authenticated do
+  Then { expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('devise.failure.unauthenticated')) }
+  And  { expect(response.status).to be(401) }
+end

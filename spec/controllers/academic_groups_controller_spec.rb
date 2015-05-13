@@ -38,42 +38,6 @@ describe AcademicGroupsController do
     end
   end
 
-  context 'get: :autocomplete_person with ["academic_group:edit"]' do
-    Given(:action) { get :autocomplete_person, term: 'phasotron', format: :json }
-
-    context 'signed in' do
-      When { sign_in(:person, user) }
-      When { action }
-
-      describe 'should allow' do
-        Given(:user) { create :person, roles: [create(:role, activities: ['academic_group:edit'])] }
-
-        context 'when there are results' do
-          Given { @person = create :person, name: 'Synchrophasotronus' }
-
-          Then  { expect(response.body).to eq([{ id: @person.id.to_s, label: @person.complex_name, value: @person.complex_name }].to_json) }
-        end
-
-        context 'when there are no results' do
-          Then { expect(response.body).to eq([].to_json) }
-        end
-      end
-
-      describe 'should not allow with other activities' do
-        Given(:user) { create :person, roles: [create(:role, activities: (all_activities - ['academic_group:edit']))] }
-
-        Then  { is_expected.to set_flash[:danger].to(I18n.t('not_authorized')) }
-        And { expect(response).to redirect_to(root_path) }
-      end
-    end
-
-    context 'not signed in' do
-      When { action }
-
-      Then { expect(response.status).to eq(401) }
-    end
-  end
-
   context 'post: :create with ["academic_group:create"]' do
     Given(:action)      { post :create, academic_group: { group_name: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
     Given(:expectation) do
