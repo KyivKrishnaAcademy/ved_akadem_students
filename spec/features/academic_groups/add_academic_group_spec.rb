@@ -16,19 +16,29 @@ describe 'Add academic group:' do
   it_behaves_like :not_adds_model
   it_behaves_like :link_in_flash
 
-  %w(administrator praepostor curator).each do |admin_type|
-    describe "autocomplete #{admin_type}", :pending, :js do
-      Given { create :person, name: 'Synchrophazotrone' }
+  describe 'select elders', :js do
+    Given(:person) { create :person }
+    Given(:curator_container) { find('.academic_group_curator span.select2-container') }
+    Given(:administrator_container) { find('.academic_group_administrator span.select2-container') }
 
-      When  { fill_right }
-      When  { find("#academic_group_#{admin_type}").set('rophazotr') }
-      When  { choose_autocomplete_result('rophazotr', "#academic_group_#{admin_type}") }
-      When  { click_button 'Створити Academic group' }
-      When  { find('.alert-success') }
-      When  { visit edit_academic_group_path(AcademicGroup.last) }
+    Given(:selected_person) { "span.select2-selection__rendered[title='#{person.complex_name}']" }
 
-      Then  { expect(find("#academic_group_#{admin_type}").value).to have_content('Synchrophazotrone') }
-    end
+    Given { person.create_teacher_profile }
+
+    When  { fill_right }
+    When  { curator_container.click }
+    When  { find('#select2-academic_group_curator_id-results li.select2-results__option', text: person.complex_name).click }
+    When  { administrator_container.click }
+    When  { find('#select2-academic_group_administrator_id-results li.select2-results__option', text: person.complex_name).click }
+
+    Then  { expect(curator_container).to have_selector(selected_person) }
+    And   { expect(administrator_container).to have_selector(selected_person) }
+    And   { expect(find('.academic_group_praepostor')).to have_selector('span.select2-container--disabled') }
+    And   { click_button 'Створити Academic group' }
+    And   { expect(page).to have_selector('.alert-success') }
+    And   { visit academic_group_path(AcademicGroup.last) }
+    And   { expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.curator'))).to have_content(person.spiritual_name) }
+    And   { expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.administrator'))).to have_content(person.spiritual_name) }
   end
 
   def fill_academic_group_data ag={}
