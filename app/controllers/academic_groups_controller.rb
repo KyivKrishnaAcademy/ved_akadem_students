@@ -1,7 +1,6 @@
 class AcademicGroupsController < ApplicationController
-  before_action :set_academic_group, only: [:show, :edit, :update, :destroy]
+  include Crudable
 
-  after_action :verify_authorized
   after_action :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
 
   def index
@@ -71,7 +70,7 @@ class AcademicGroupsController < ApplicationController
 
   private
 
-  def set_academic_group
+  def set_resource
     @academic_group = policy_scope(AcademicGroup).find(params[:id])
 
     authorize @academic_group

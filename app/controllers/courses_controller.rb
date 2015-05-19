@@ -1,7 +1,5 @@
 class CoursesController < HtmlResponsableController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
-
-  after_action :verify_authorized
+  include Crudable
 
   def index
     @courses = Course.order(:title)
@@ -57,7 +55,7 @@ class CoursesController < HtmlResponsableController
 
   private
 
-  def set_course
+  def set_resource
     @course = Course.find(params[:id])
 
     authorize @course
