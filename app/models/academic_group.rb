@@ -1,7 +1,10 @@
 class AcademicGroup < ActiveRecord::Base
   has_many :group_participations, dependent: :destroy
   has_many :student_profiles, through: :group_participations
-  has_many :class_schedules, dependent: :destroy
+
+  has_many :academic_group_schedules, dependent: :destroy
+  has_many :class_schedules, through: :academic_group_schedules
+
   belongs_to :administrator, class_name: 'Person'
   belongs_to :praepostor, class_name: 'Person'
   belongs_to :curator, class_name: 'Person'

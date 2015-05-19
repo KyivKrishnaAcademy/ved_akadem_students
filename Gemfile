@@ -53,6 +53,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'byebug'
   gem 'factory_girl_rails'
   gem 'ffaker'
 end

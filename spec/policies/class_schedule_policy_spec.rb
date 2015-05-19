@@ -4,7 +4,7 @@ require 'pundit/rspec'
 describe ClassSchedulePolicy do
   subject { ClassSchedulePolicy }
 
-  let(:record) { ClassSchedule.create }
+  let(:record) { create(:class_schedule) }
   let(:user)   { create(:person) }
 
   Then { expect(record).to be_persisted }
