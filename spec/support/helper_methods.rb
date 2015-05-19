@@ -15,7 +15,7 @@ module HelperMethods
 
   def all_activities
     @all_activities ||= (people_activities + academic_groups_activities + study_applications_activities +
-      %w(questionnaire:update_all) + courses_activities).sort
+      %w(questionnaire:update_all) + courses_activities + class_schedules_activities).sort
   end
 
   def screenshot
@@ -44,5 +44,9 @@ module HelperMethods
 
   def courses_activities
     CoursesController.action_methods.map { |action| 'course:' << action }
+  end
+
+  def class_schedules_activities
+    ClassSchedulesController.action_methods.map { |action| 'class_schedule:' << action }
   end
 end
