@@ -56,6 +56,7 @@ class ClassSchedulesController < HtmlResponsableController
   end
 
   def class_schedule_params
-    params.require(:class_schedule).permit(:course_id, :teacher_profile_id, :classroom_id, academic_group_ids: [])
+    params.require(:class_schedule).permit(:classroom_id, :course_id, :finish_time, :start_time,
+                                           :teacher_profile_id, academic_group_ids: [])
   end
 end

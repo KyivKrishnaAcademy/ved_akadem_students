@@ -15,5 +15,7 @@ describe ClassSchedule do
     Then { is_expected.to validate_presence_of(:classroom) }
     Then { is_expected.to validate_presence_of(:teacher_profile) }
     Then { is_expected.to validate_presence_of(:academic_groups) }
+    Then { is_expected.to validate_presence_of(:start_time) }
+    Then { is_expected.to validate_presence_of(:finish_time) }
   end
 end
