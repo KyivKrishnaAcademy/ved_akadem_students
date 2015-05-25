@@ -12,8 +12,8 @@ class StudentProfile < ActiveRecord::Base
   end
 
   def remove_from_groups
-    prev = group_participations.where(leave_date: nil).first
+    prev = group_participations.where(leave_date: nil)
 
-    prev.leave! if prev.present?
+    prev.each(&:leave!) if prev.any?
   end
 end
