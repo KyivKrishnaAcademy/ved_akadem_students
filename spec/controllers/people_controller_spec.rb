@@ -154,7 +154,7 @@ describe PeopleController do
         Given { allow(person).to receive(:is_a?).and_return(false) }
         Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
         Given { allow(person).to receive(:reload).and_return(person) }
-        Given { allow(AcademicGroup).to receive_message_chain(:select, :order) { academic_groups } }
+        Given { allow(AcademicGroup).to receive_message_chain(:where, :select, :order) { academic_groups } }
         Given { allow(Program).to receive(:all) { programs } }
 
         When  { get :show, id: 1 }
