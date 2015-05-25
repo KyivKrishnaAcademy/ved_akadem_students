@@ -15,10 +15,22 @@ class AcademicGroup < ActiveRecord::Base
   validates :group_name, presence: true, uniqueness: true
 
   def active_students
+    leave_date = if active?
+                   { query: 'group_participations.leave_date IS ?',
+                   value: nil }
+                 else
+                   { query: 'group_participations.leave_date >= ? OR group_participations.leave_date IS NULL',
+                     value: graduated_at }
+                 end
+
     Person.joins(student_profile: [group_participations: [:academic_group]])
-      .where(group_participations: { leave_date: nil },
-             academic_groups: { id: id })
+      .where(academic_groups: { id: id })
+      .where(leave_date[:query], leave_date[:value])
       .order(:complex_name)
       .distinct
+  end
+
+  def active?
+    !graduated_at
   end
 end

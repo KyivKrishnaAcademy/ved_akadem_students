@@ -30,22 +30,45 @@ describe AcademicGroup do
   end
 
   describe '#active_students' do
-    Given { @group    = create :academic_group }
-    Given { @person_c = create(:person, spiritual_name: nil, surname: 'C' ) }
-    Given { @person_b = create(:person, spiritual_name: 'Bhakta das' ) }
-    Given { @person_a = create(:person, spiritual_name: nil, surname: 'A' ) }
-    Given { @person_a.create_student_profile.move_to_group(@group) }
-    Given { @person_b.create_student_profile.move_to_group(@group) }
-    Given { @person_c.create_student_profile.move_to_group(@group) }
+    Given(:group) { create :academic_group }
+    Given(:person_c) { create(:person, spiritual_name: nil, surname: 'C' ) }
+    Given(:person_b) { create(:person, spiritual_name: 'Bhakta das' ) }
+    Given(:person_a) { create(:person, spiritual_name: nil, surname: 'A' ) }
+    Given { person_a.create_student_profile.move_to_group(group) }
+    Given { person_b.create_student_profile.move_to_group(group) }
+    Given { person_c.create_student_profile.move_to_group(group) }
 
     context 'all active' do
-      Then { expect(@group.active_students).to eq([@person_a, @person_b, @person_c]) }
+      Then { expect(group.active_students).to eq([person_a, person_b, person_c]) }
     end
 
     context 'there is inactive' do
-      Given { @person_b.student_profile.remove_from_groups }
+      Given { person_b.student_profile.remove_from_groups }
 
-      Then  { expect(@group.active_students).to eq([@person_a, @person_c]) }
+      context 'for active group' do
+        Then  { expect(group.active_students).to eq([person_a, person_c]) }
+      end
+
+      context 'for graduated group' do
+        Given { group.update_column(:graduated_at, Time.now - 1.day) }
+        Given { person_a.student_profile.group_participations.first.update_column(:leave_date, Time.now - 2.day) }
+
+        Then  { expect(group.active_students).to eq([person_b, person_c]) }
+      end
+    end
+  end
+
+  describe '#active?' do
+    context 'active' do
+      Given(:group) { create :academic_group }
+
+      Then { expect(group.active?).to be(true) }
+    end
+
+    context 'graduated' do
+      Given(:group) { create :academic_group, graduated_at: Time.now }
+
+      Then { expect(group.active?).to be(false) }
     end
   end
 end
