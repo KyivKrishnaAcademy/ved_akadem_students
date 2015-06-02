@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe AcademicGroupsController do
   Given (:mod_params) do
-    { group_name:         'ШБ13-5',
+    { title:              'ШБ13-5',
       establ_date:        3600.days.ago.to_date.to_s,
       group_description:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе' }
   end
@@ -39,7 +39,8 @@ describe AcademicGroupsController do
   end
 
   context 'post: :create with ["academic_group:create"]' do
-    Given(:action)      { post :create, academic_group: { group_name: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
+    Given(:action) { post :create, academic_group: { title: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
+
     Given(:expectation) do
       expect(response).to redirect_to(action: :new)
       is_expected.to set_flash[:success]

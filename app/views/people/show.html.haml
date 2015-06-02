@@ -14,7 +14,7 @@
             - if policy(@person).move_to_group?
               - @academic_groups.each do |group|
                 %li{ class: @person.last_academic_group == group ? 'disabled' : '' }
-                  = link_to group.group_name, '#', data: { group: group.id, confirm: 'Are you sure you want change group?' }, id: 'move-to-group'
+                  = link_to group.title, '#', data: { group: group.id, confirm: 'Are you sure you want change group?' }, id: 'move-to-group'
             %li.divider
             - if policy(@person).remove_from_groups?
               %li#remove-from-groups{ class: @person.last_academic_group.blank? ? 'disabled' : '' }
@@ -44,7 +44,7 @@
             Academic Group:
           .col-xs-8.col-sm-9#academic-group-link
             - if @person.last_academic_group.present?
-              = link_to @person.last_academic_group.group_name, academic_group_path(@person.last_academic_group)
+              = link_to @person.last_academic_group.title, academic_group_path(@person.last_academic_group)
         .row
           .col-xs-4.col-sm-3
             Gender:

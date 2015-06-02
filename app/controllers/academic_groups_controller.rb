@@ -28,7 +28,7 @@ class AcademicGroupsController < ApplicationController
 
     #TODO DRY the controller with responders
     if @academic_group.save
-      flash[:success] = "#{view_context.link_to(@academic_group.group_name,
+      flash[:success] = "#{view_context.link_to(@academic_group.title,
                                                 academic_group_path(@academic_group))} added.".html_safe
 
       redirect_to action: :new
@@ -56,7 +56,7 @@ class AcademicGroupsController < ApplicationController
   class AcademicGroupParams
     def self.filter(params)
       params.require(:academic_group).permit(
-        :group_name,
+        :title,
         :group_description,
         :message_ru,
         :message_uk,

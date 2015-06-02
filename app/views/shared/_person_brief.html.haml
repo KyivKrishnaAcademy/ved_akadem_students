@@ -12,7 +12,7 @@
       - if person.last_academic_group.present?
         .col-xs-12.col-sm-9.vert-offset-top-1
           = t('static_pages.home.student_of_academic_group')
-          = link_to person.last_academic_group.group_name, academic_group_path(person.last_academic_group)
+          = link_to person.last_academic_group.title, academic_group_path(person.last_academic_group)
         - if person.last_academic_group["message_#{locale}"].present?
           .col-xs-12.col-sm-9
             = t('static_pages.home.message_for_group')

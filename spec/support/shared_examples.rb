@@ -8,8 +8,8 @@ shared_examples 'academic group new and edit' do
     let(:form) { 'form.' << action << '_academic_group' }
 
     it { is_expected.to have_selector(form) }
-    it { is_expected.to have_selector("#{form} label", text: 'Group name') }
-    it { is_expected.to have_selector("#{form} input#academic_group_group_name") }
+    it { is_expected.to have_selector("#{form} label", text: 'Title') }
+    it { is_expected.to have_selector("#{form} input#academic_group_title") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_1i") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_2i") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_3i") }

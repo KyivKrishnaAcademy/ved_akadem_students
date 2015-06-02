@@ -34,7 +34,7 @@ describe 'class_schedules/index' do
                                                           href: course_path(class_schedule.course)) }
     Given(:no_person_link) { expect(row).not_to have_link(class_schedule.teacher_profile.complex_name,
                                                           href: person_path(class_schedule.teacher_profile.person)) }
-    Given(:no_group_link) { expect(row).not_to have_link(class_schedule.academic_groups.first.group_name,
+    Given(:no_group_link) { expect(row).not_to have_link(class_schedule.academic_groups.first.title,
                                                           href: academic_group_path(class_schedule.academic_groups.first)) }
 
     context 'without additional rights' do
@@ -107,7 +107,7 @@ describe 'class_schedules/index' do
     context 'with academic_group:show rights' do
       Given(:activities) { %w(class_schedule:index academic_group:show) }
 
-      Then { expect(row).to have_link(class_schedule.academic_groups.first.group_name,
+      Then { expect(row).to have_link(class_schedule.academic_groups.first.title,
                                           href: academic_group_path(class_schedule.academic_groups.first)) }
       And  { no_edit_link }
       And  { no_destroy_link }

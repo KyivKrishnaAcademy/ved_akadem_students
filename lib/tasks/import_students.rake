@@ -52,7 +52,7 @@ namespace :academic do
 
     CSV.read(Rails.root.join('tmp/to_import.csv'), headers: true).each do |row|
       surname, name, middle_name = row[FULL_NAME].split(/\s+/)
-      academic_group = AcademicGroup.find_by!(group_name: row[GROUP])
+      academic_group = AcademicGroup.find_by!(title: row[GROUP])
       password       = SecureRandom.hex(10)
 
       person = Person.create!(

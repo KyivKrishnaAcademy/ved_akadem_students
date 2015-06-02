@@ -37,9 +37,9 @@
               %td
                 - class_schedule.academic_groups.each do |academic_group|
                   = link_to_if policy(academic_group).show?,
-                               academic_group.group_name,
+                               academic_group.title,
                                academic_group_path(academic_group) do
-                    = academic_group.group_name
+                    = academic_group.title
               %td
                 = class_schedule.classroom.title
               %td

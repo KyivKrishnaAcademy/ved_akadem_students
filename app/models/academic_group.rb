@@ -10,12 +10,12 @@ class AcademicGroup < ActiveRecord::Base
   belongs_to :curator, class_name: 'Person'
 
   before_save do |p|
-    p.group_name = group_name.mb_chars.upcase.to_s
+    p.title = title.mb_chars.upcase.to_s
   end
 
   VALID_EMAIL_REGEX = /\A(з|)[а-я]{2}\d{2}-\d\z/i
-  validates :group_name, format: { with: VALID_EMAIL_REGEX }
-  validates :group_name, presence: true, uniqueness: true
+  validates :title, format: { with: VALID_EMAIL_REGEX }
+  validates :title, presence: true, uniqueness: true
 
   def active_students
     Person.joins(student_profile: [group_participations: [:academic_group]])

@@ -43,16 +43,16 @@ namespace :academic do
     AcademicGroup.all.each do |group|
       next if group.active_students.none?
 
-      puts group.group_name
+      puts group.title
 
-      group_dir = BASE_DIR.join "student_cards_data/#{group.group_name}"
+      group_dir = BASE_DIR.join "student_cards_data/#{group.title}"
       photo_dir = group_dir.join 'photo'
 
       photo_dir.mkpath
 
       xlsx = Axlsx::Package.new
 
-      xlsx.workbook.add_worksheet(name: group.group_name) do |sheet|
+      xlsx.workbook.add_worksheet(name: group.title) do |sheet|
         sheet.add_row HEADER
 
         group.active_students.each do |student|
@@ -63,7 +63,7 @@ namespace :academic do
                           name_for_card(student),
                           student.complex_name,
                           card_number,
-                          group.group_name,
+                          group.title,
                           student.telephones.first.phone,
                           email(student.email),
                           photo_file.present? ? photo_file.basename : nil
@@ -75,7 +75,7 @@ namespace :academic do
 
       puts
 
-      xlsx.serialize(group_dir.join("#{group.group_name}.xlsx"))
+      xlsx.serialize(group_dir.join("#{group.title}.xlsx"))
     end
 
     puts "\nDone!"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602100341) do
+ActiveRecord::Schema.define(version: 20150602145846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150602100341) do
   end
 
   create_table "academic_groups", force: :cascade do |t|
-    t.string   "group_name",        limit: 255
+    t.string   "title",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "group_description", limit: 255
