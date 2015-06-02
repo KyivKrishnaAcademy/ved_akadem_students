@@ -44,8 +44,17 @@ class PersonPolicy < ApplicationPolicy
   end
 
   def classmate?
-    user.last_academic_group.present? &&
-      record.last_academic_group.present? &&
-      user.last_academic_group.id == record.last_academic_group.id
+    (actual_group_ids(user) & actual_group_ids(record)).any?
+  end
+
+  def actual_group_ids(person)
+    return [] if person.student_profile.blank?
+
+    person.student_profile
+          .academic_groups
+          .where('group_participations.leave_date IS NULL OR
+                  (academic_groups.graduated_at IS NULL AND group_participations.leave_date IS NULL) OR
+                  group_participations.leave_date >= academic_groups.graduated_at')
+          .ids
   end
 end

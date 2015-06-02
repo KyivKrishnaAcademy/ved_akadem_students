@@ -13,17 +13,36 @@ describe PersonPolicy do
 
       Given { user.create_student_profile.move_to_group(group) }
 
-      context 'user can see classmate photo' do
+      context 'classmate' do
         Given { record.create_student_profile.move_to_group(group) }
 
-        Then  { is_expected.to permit(user, record) }
-      end
+        context 'user can see classmate photo' do
+          Then { is_expected.to permit(user, record) }
+          And  { is_expected.to permit(record, user) }
+        end
 
-      context 'user can not see exclassmate photo' do
-        Given { record.create_student_profile.move_to_group(group) }
-        Given { record.student_profile.remove_from_groups }
+        context 'exclassmate' do
+          When  { record.student_profile.remove_from_groups }
 
-        Then  { is_expected.not_to permit(user, record) }
+          context 'user can see exclassmate photo of graduated group' do
+            Given { group.update_column(:graduated_at, Time.now) }
+
+            Then  { is_expected.to permit(user, record) }
+            And   { is_expected.to permit(record, user) }
+          end
+
+          context 'user can not see excluded exclassmate photo of graduated group' do
+            Given { group.update_column(:graduated_at, Time.now + 1.day) }
+
+            Then  { is_expected.not_to permit(user, record) }
+            And   { is_expected.not_to permit(record, user) }
+          end
+
+          context 'user can not see exclassmate photo' do
+            Then { is_expected.not_to permit(user, record) }
+            And  { is_expected.not_to permit(record, user) }
+          end
+        end
       end
 
       context 'user can see currator photo' do
