@@ -1,0 +1,51 @@
+.row
+  .col-xs-12
+    %h1 Listing Class Schedules
+
+    - if current_person.can_act?('class_schedule:new')
+      = link_to 'New Class Schedule', new_class_schedule_path, class: 'btn btn-xs btn-success'
+
+  .col-xs-12.vert-offset-top-1
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th Course
+            %th Lector
+            %th Groups
+            %th Auditory
+            %th Start time
+            %th End time
+            %th
+
+        %tbody
+          - @class_schedules.each do |class_schedule|
+            %tr
+              %td
+                = link_to_if policy(class_schedule.course).show?,
+                             class_schedule.course.title,
+                             course_path(class_schedule.course) do
+                  = class_schedule.course.title
+              %td
+                = link_to_if policy(class_schedule.teacher_profile.person).show?,
+                             class_schedule.teacher_profile.complex_name,
+                             person_path(class_schedule.teacher_profile.person) do
+                  = class_schedule.teacher_profile.complex_name
+              %td
+                - class_schedule.academic_groups.each do |academic_group|
+                  = link_to_if policy(academic_group).show?,
+                               academic_group.group_name,
+                               academic_group_path(academic_group) do
+                    = academic_group.group_name
+              %td
+                = class_schedule.classroom.title
+              %td
+                = l(class_schedule.start_time, format: :long)
+              %td
+                = l(class_schedule.finish_time, format: :long)
+              %td
+                - if policy(class_schedule).edit?
+                  = link_to t('links.edit'), edit_class_schedule_path(class_schedule), class: 'btn btn-xs btn-primary'
+                - if policy(class_schedule).destroy?
+                  = link_to t('links.delete'), class_schedule, method: :delete,
+                            data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
