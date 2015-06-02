@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521082127) do
+ActiveRecord::Schema.define(version: 20150602100341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150521082127) do
     t.integer  "praepostor_id"
     t.integer  "curator_id"
     t.integer  "administrator_id"
+    t.datetime "graduated_at"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -68,6 +69,7 @@ ActiveRecord::Schema.define(version: 20150521082127) do
     t.string   "location",    limit: 255
     t.string   "description", limit: 255
     t.integer  "roominess"
+    t.string   "title"
   end
 
   create_table "courses", force: :cascade do |t|
