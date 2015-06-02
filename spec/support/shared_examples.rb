@@ -453,3 +453,41 @@ shared_examples_for :class_schedule_ui_index do
     end
   end
 end
+
+shared_examples_for :ui_controller_index do |index_action, interaction, permitted_activities|
+  describe 'not signed in' do
+    context "##{index_action}" do
+      When { get index_action, format: :json }
+
+      it_behaves_like :ui_not_authenticated
+    end
+  end
+
+  describe 'signed in' do
+    Given(:person) { build_stubbed(:person, id: 1) }
+
+    Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
+    Given { allow(controller).to receive(:current_person) { person } }
+    Given { allow(person).to receive(:class).and_return(Person) }
+
+    describe 'as regular user' do
+      context "##{index_action}" do
+        When { get index_action, format: :json }
+
+        it_behaves_like :ui_not_authorized
+      end
+    end
+
+    describe 'as authorized user' do
+      Given(:roles) { double('roles', any?: true, title: 'Role') }
+
+      Given { allow(person).to receive(:roles).and_return(roles) }
+      Given { allow(roles).to receive_message_chain(:pluck, :flatten) { permitted_activities } }
+
+      context "##{index_action}" do
+        Then { expect(interaction).to receive(:new) }
+        And  { get index_action, format: :json }
+      end
+    end
+  end
+end
