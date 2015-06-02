@@ -50,8 +50,8 @@ module ApplicationHelper
   def thumb_with_pop(person)
     person_photo(person,
                  :thumb,
-                 class: 'popover-photo',
-                 data: { toggle: 'popover',
+                 class: :'popover-photo',
+                 data: { toggle: :popover,
                          content: "#{person_photo(person, :standart)}" })
   end
 
