@@ -27,5 +27,7 @@ describe AcademicGroupPolicy do
         Then  { is_expected.to permit(user, record) }
       end
     end
+
+    it_behaves_like :class_schedule_ui_index
   end
 end
