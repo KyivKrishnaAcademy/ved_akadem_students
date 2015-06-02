@@ -43,7 +43,7 @@ describe ClassSchedulesController do
           Given(:class_schedules) { double }
           Given(:actions) { ['class_schedule:index'] }
 
-          Given { allow(ClassSchedule).to receive(:all).and_return(class_schedules) }
+          Given { allow(ClassSchedule).to receive(:order).and_return(class_schedules) }
 
           When  { get :index }
 

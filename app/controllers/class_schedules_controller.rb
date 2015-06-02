@@ -2,7 +2,7 @@ class ClassSchedulesController < HtmlResponsableController
   include Crudable
 
   def index
-    @class_schedules = ClassSchedule.all
+    @class_schedules = ClassSchedule.order(:start_time)
 
     authorize ClassSchedule
 
