@@ -16,30 +16,6 @@ describe CoursePolicy do
   end
 
   context 'complex conditions' do
-    permissions :ui_index? do
-      context 'permit with class_schedule:edit' do
-        Given { user.roles << [create(:role, activities: %w(class_schedule:edit))] }
-
-        Then  { is_expected.to permit(user, Course) }
-      end
-
-      context 'permit with class_schedule:new' do
-        Given { user.roles << [create(:role, activities: %w(class_schedule:new))] }
-
-        Then  { is_expected.to permit(user, Course) }
-      end
-
-      context 'not permit without roles' do
-        Then  { is_expected.not_to permit(user, Course) }
-      end
-
-      context 'not permit with all other' do
-        Given(:permitted_activities) { %w(class_schedule:edit class_schedule:new) }
-
-        Given { user.roles << [create(:role, activities: all_activities - permitted_activities)] }
-
-        Then  { is_expected.not_to permit(user, Course) }
-      end
-    end
+    it_behaves_like :class_schedule_ui_index
   end
 end
