@@ -28,7 +28,11 @@ Rails.application.routes.draw do
   delete 'people/:id/remove_from_groups'     , controller: :people, action: :remove_from_groups, constraints: { format: :js }
 
   namespace :ui do
+    resources :academic_groups,  only: :index
+    resources :classrooms,       only: :index
+    resources :courses,          only: :index
     resources :teacher_profiles, only: :index
+
     get 'group_admins' => 'group_elders#group_admins_index'
     get 'group_curators' => 'group_elders#group_curators_index'
     get 'group_praepostors' => 'group_elders#group_praepostors_index'
