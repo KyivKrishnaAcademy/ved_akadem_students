@@ -13,7 +13,43 @@ describe ClassSchedulesController do
                                     'academic_group_ids' => [existing_academic_group.id] } }
 
   describe 'not signed in' do
-    it_behaves_like :failed_auth_crud, :not_authenticated
+    describe 'not_authenticated' do
+      context '#index' do
+        When { get :index }
+
+        it_behaves_like :not_authenticated
+      end
+
+      context '#create' do
+        When { post :create, params }
+
+        it_behaves_like :not_authenticated
+      end
+
+      context '#new' do
+        When { get :new }
+
+        it_behaves_like :not_authenticated
+      end
+
+      context '#edit' do
+        When { get :edit, id: 1 }
+
+        it_behaves_like :not_authenticated
+      end
+
+      context '#update' do
+        When { patch :update, id: 1 }
+
+        it_behaves_like :not_authenticated
+      end
+
+      context '#destroy' do
+        When { delete :destroy, id: 1 }
+
+        it_behaves_like :not_authenticated
+      end
+    end
   end
 
   describe 'signed in' do
@@ -27,7 +63,43 @@ describe ClassSchedulesController do
     describe 'as regular user' do
       Given { allow(ClassSchedule).to receive(:find).with('1').and_return(class_schedule) }
 
-      it_behaves_like :failed_auth_crud, :not_authorized
+      describe 'not_authorized' do
+        context '#index' do
+          When { get :index }
+
+          it_behaves_like :not_authorized
+        end
+
+        context '#create' do
+          When { post :create, params }
+
+          it_behaves_like :not_authorized
+        end
+
+        context '#new' do
+          When { get :new }
+
+          it_behaves_like :not_authorized
+        end
+
+        context '#edit' do
+          When { get :edit, id: 1 }
+
+          it_behaves_like :not_authorized
+        end
+
+        context '#update' do
+          When { patch :update, id: 1 }
+
+          it_behaves_like :not_authorized
+        end
+
+        context '#destroy' do
+          When { delete :destroy, id: 1 }
+
+          it_behaves_like :not_authorized
+        end
+      end
     end
 
     describe 'as admin' do
@@ -66,15 +138,6 @@ describe ClassSchedulesController do
           When  { get :edit, id: 1 }
 
           Then  { expect(response).to render_template(:edit) }
-          And   { expect(assigns(:class_schedule)).to eq(class_schedule) }
-        end
-
-        describe '#show' do
-          Given(:actions) { ['class_schedule:show'] }
-
-          When  { get :show, id: 1 }
-
-          Then  { expect(response).to render_template(:show) }
           And   { expect(assigns(:class_schedule)).to eq(class_schedule) }
         end
       end

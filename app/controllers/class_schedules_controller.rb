@@ -9,10 +9,6 @@ class ClassSchedulesController < HtmlResponsableController
     respond_with(@class_schedules)
   end
 
-  def show
-    respond_with(@class_schedule)
-  end
-
   def new
     @class_schedule = ClassSchedule.new
 

@@ -372,42 +372,42 @@ shared_examples :failed_auth_crud do |sub_example|
       it_behaves_like sub_example
     end
 
-      context '#create' do
-        When { post :create, params }
+    context '#create' do
+      When { post :create, params }
 
-        it_behaves_like sub_example
-      end
-
-      context '#new' do
-        When { get :new }
-
-        it_behaves_like sub_example
-      end
-
-      context '#edit' do
-        When { get :edit, id: 1 }
-
-        it_behaves_like sub_example
-      end
-
-      context '#show' do
-        When { get :show, id: 1 }
-
-        it_behaves_like sub_example
-      end
-
-      context '#update' do
-        When { patch :update, id: 1 }
-
-        it_behaves_like sub_example
-      end
-
-      context '#destroy' do
-        When { delete :destroy, id: 1 }
-
-        it_behaves_like sub_example
-      end
+      it_behaves_like sub_example
     end
+
+    context '#new' do
+      When { get :new }
+
+      it_behaves_like sub_example
+    end
+
+    context '#edit' do
+      When { get :edit, id: 1 }
+
+      it_behaves_like sub_example
+    end
+
+    context '#show' do
+      When { get :show, id: 1 }
+
+      it_behaves_like sub_example
+    end
+
+    context '#update' do
+      When { patch :update, id: 1 }
+
+      it_behaves_like sub_example
+    end
+
+    context '#destroy' do
+      When { delete :destroy, id: 1 }
+
+      it_behaves_like sub_example
+    end
+  end
 end
 
 shared_examples_for :not_authorized do

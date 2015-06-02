@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :people, path: '', controllers: { registrations: 'users/registrations' }, path_names: { sign_up: 'register' }
 
-  resources :people, :courses, :academic_groups, :class_schedules
+  resources :people, :courses, :academic_groups
+  resources :class_schedules   , only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
   resources :answers           , only: [:update, :edit]
 
