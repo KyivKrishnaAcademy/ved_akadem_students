@@ -169,7 +169,7 @@ describe ClassSchedulesController do
             Given(:new_course) { create :course }
             Given(:class_schedule_params) { { course_id: new_course.id } }
 
-            Then { expect(response).to redirect_to(class_schedule_path(class_schedule)) }
+            Then { expect(response).to redirect_to(class_schedules_path) }
             And  { is_expected.to set_flash[:notice] }
             And  { expect(assigns(:class_schedule)).to eq(class_schedule) }
             And  { expect(class_schedule.reload.course_id).to eq(new_course.id) }

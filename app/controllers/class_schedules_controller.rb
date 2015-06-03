@@ -34,7 +34,7 @@ class ClassSchedulesController < HtmlResponsableController
   def update
     @class_schedule.update(class_schedule_params)
 
-    respond_with(@class_schedule)
+    respond_with(@class_schedule, location: class_schedules_path)
   end
 
   def destroy
