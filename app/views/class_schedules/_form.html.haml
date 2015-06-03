@@ -19,10 +19,10 @@
       .col-xs-12.col-sm-6
         = f.input :start_time, as: :string, input_html: { id: 'date-time-picker',
                                                           data: { locale: "#{locale}" },
-                                                          value: f.object.start_time.present? ? l(f.object.start_time, format: :time_picker) : ''  }
+                                                          value: time_value(f.object.start_time)  }
       .col-xs-12.col-sm-6
         = f.input :finish_time, as: :string, input_html: { id: 'date-time-picker',
                                                           data: { locale: "#{locale}" },
-                                                          value: f.object.finish_time.present? ? l(f.object.finish_time, format: :time_picker) : '' }
+                                                          value: time_value(f.object.finish_time) }
 
     = f.button :submit
