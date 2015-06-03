@@ -28,7 +28,7 @@ class ClassSchedulesController < HtmlResponsableController
 
     @class_schedule.save
 
-    respond_with(@class_schedule)
+    respond_with(@class_schedule, location: class_schedules_path)
   end
 
   def update

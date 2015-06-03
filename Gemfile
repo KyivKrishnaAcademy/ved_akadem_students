@@ -28,6 +28,9 @@ gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'intl-tel-input-rails', '3.6.0.1'
 
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+
 gem 'airbrake'
 
 group :production, :development do

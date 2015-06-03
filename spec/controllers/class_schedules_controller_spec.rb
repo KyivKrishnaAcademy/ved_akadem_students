@@ -149,7 +149,7 @@ describe ClassSchedulesController do
           describe 'with success' do
             Then { expect{post :create, params}.to change(ClassSchedule, :count).by(1) }
             And  { expect(assigns(:class_schedule)).to be_a_kind_of(ClassSchedule) }
-            And  { expect(response).to redirect_to(class_schedule_path(assigns(:class_schedule))) }
+            And  { expect(response).to redirect_to(class_schedules_path) }
             And  { is_expected.to set_flash[:notice] }
           end
 
