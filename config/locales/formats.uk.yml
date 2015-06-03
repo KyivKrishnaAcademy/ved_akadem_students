@@ -248,4 +248,5 @@ uk:
       long: ! '%d %B %Y, %H:%M'
       short: ! '%d %b, %H:%M'
       with_day: ! '%a %d.%m.%y %H:%M'
+      time_picker: ! '%d.%m.%Y %H:%M'
     pm: по полудні
