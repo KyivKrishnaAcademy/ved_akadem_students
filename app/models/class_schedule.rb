@@ -8,5 +8,5 @@ class ClassSchedule < ActiveRecord::Base
 
   has_many :attendances, dependent: :destroy
 
-  validates :course, :classroom, :teacher_profile, :academic_groups, :start_time, :finish_time, presence: true
+  validates :course, :classroom, :start_time, :finish_time, presence: true
 end
