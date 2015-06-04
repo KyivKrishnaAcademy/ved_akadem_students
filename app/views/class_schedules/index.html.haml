@@ -30,10 +30,11 @@
                              course_path(class_schedule.course) do
                   = class_schedule.course.title
               %td
-                = link_to_if policy(class_schedule.teacher_profile.person).show?,
-                             class_schedule.teacher_profile.complex_name,
-                             person_path(class_schedule.teacher_profile.person) do
-                  = class_schedule.teacher_profile.complex_name
+                - if class_schedule.teacher_profile.present?
+                  = link_to_if policy(class_schedule.teacher_profile.person).show?,
+                               class_schedule.teacher_profile.complex_name,
+                               person_path(class_schedule.teacher_profile.person) do
+                    = class_schedule.teacher_profile.complex_name
               %td
                 - class_schedule.academic_groups.each do |academic_group|
                   = link_to_if policy(academic_group).show?,
