@@ -30,6 +30,10 @@ ru:
           attributes:
             data:
               blank:  'не может быть пустым'
+        class_schedule:
+          attributes:
+            classroom:
+              roominess: 'вмещает %{actual}, а %{required} студентов не поместятся'
         person:
           blank:      'должно быть заполнено'
           too_long:   'слишком длинное (максимум %{count} символов)'
