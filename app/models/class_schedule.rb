@@ -10,7 +10,7 @@ class ClassSchedule < ActiveRecord::Base
 
   validates :course, :classroom, :start_time, :finish_time, presence: true
 
-  validate :enough_roominess
+  validate :enough_roominess, :duration
 
   private
 
@@ -25,5 +25,13 @@ class ClassSchedule < ActiveRecord::Base
                I18n.t('activerecord.errors.models.class_schedule.attributes.classroom.roominess',
                       actual: classroom.roominess,
                       required: required_roominess))
+  end
+
+  def duration
+    return if finish_time.blank? || start_time.blank?
+    return if finish_time - start_time < 1.day && finish_time - start_time >= 10.minutes && start_time < finish_time
+
+    errors.add(:start_time, I18n.t('activerecord.errors.models.class_schedule.wrong_times'))
+    errors.add(:finish_time, I18n.t('activerecord.errors.models.class_schedule.wrong_times'))
   end
 end

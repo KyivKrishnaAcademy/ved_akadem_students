@@ -31,6 +31,7 @@ ru:
             data:
               blank:  'не может быть пустым'
         class_schedule:
+          wrong_times:   'длительность должна быть меньше суток и хотя бы 10 минут'
           attributes:
             classroom:
               roominess: 'вмещает %{actual}, а %{required} студентов не поместятся'

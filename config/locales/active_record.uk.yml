@@ -31,6 +31,7 @@ uk:
             data:
               blank:  'не може бути пустою'
         class_schedule:
+          wrong_times:   'тривалість повинна бути менше доби і хоча б 10 хвилин'
           attributes:
             classroom:
               roominess: 'вміщує %{actual}, а %{required} студентів не помістяться'
