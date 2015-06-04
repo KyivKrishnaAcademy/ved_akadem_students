@@ -35,6 +35,8 @@ uk:
           attributes:
             classroom:
               roominess: 'вміщує %{actual}, а %{required} студентів не помістяться'
+            teacher_profile:
+              availability: 'недоступний на цей час'
         person:
           blank:      'повинно бути заповнено'
           too_long:   'занадто довге (максимум %{count} символів)'

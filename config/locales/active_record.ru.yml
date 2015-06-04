@@ -35,6 +35,8 @@ ru:
           attributes:
             classroom:
               roominess: 'вмещает %{actual}, а %{required} студентов не поместятся'
+            teacher_profile:
+              availability: 'не доступен на это время'
         person:
           blank:      'должно быть заполнено'
           too_long:   'слишком длинное (максимум %{count} символов)'
