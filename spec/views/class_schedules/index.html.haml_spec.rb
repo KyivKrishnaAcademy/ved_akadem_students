@@ -31,11 +31,19 @@ describe 'class_schedules/index' do
                                                                     href: edit_class_schedule_path(class_schedule)) }
     Given(:no_destroy_link) { expect(table_container).not_to have_link(I18n.t('links.delete'),
                                                                        href: "/class_schedules/#{class_schedule.id}") }
-    Given(:no_course_link) { expect(row).not_to have_link(class_schedule.course.title,
-                                                          href: course_path(class_schedule.course)) }
-    Given(:no_person_link) { expect(row).not_to have_link(teacher_profile.complex_name,
-                                                          href: person_path(teacher_profile.person)) }
-    Given(:no_group_link) { expect(row).not_to have_link(group.title, href: academic_group_path(group)) }
+    Given(:no_course_link) do
+      expect(row).not_to have_link(class_schedule.course.title, href: course_path(class_schedule.course))
+    end
+
+    Given(:no_person_link) do
+      expect(row).not_to have_link(teacher_profile.complex_name, href: person_path(teacher_profile.person))
+      expect(row).to have_content(teacher_profile.complex_name)
+    end
+
+    Given(:no_group_link) do
+      expect(row).not_to have_link(group.title, href: academic_group_path(group))
+      expect(row).to have_content(group.title)
+    end
 
     context 'without additional rights' do
       Then { no_new_link }
@@ -95,8 +103,7 @@ describe 'class_schedules/index' do
     context 'with person:show rights' do
       Given(:activities) { %w(class_schedule:index person:show) }
 
-      Then { expect(row).to have_link(teacher_profile.complex_name,
-                                          href: person_path(teacher_profile.person)) }
+      Then { expect(row).to have_link(teacher_profile.complex_name, href: person_path(teacher_profile.person)) }
       And  { no_edit_link }
       And  { no_destroy_link }
       And  { no_course_link }
