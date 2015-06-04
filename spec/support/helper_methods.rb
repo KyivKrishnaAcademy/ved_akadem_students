@@ -24,7 +24,24 @@ module HelperMethods
     save_screenshot(Rails.root.join 'tmp/capybara', 'Screenshot' << Time.now.strftime('%Y%m%d%H%M%S%L') << '.png')
   end
 
+  def select2_single(klass, option)
+    select2_common(klass, option)
+
+    find(".#{klass} .select2-selection__rendered[title='#{option}']")
+  end
+
+  def select2_multi(klass, option)
+    select2_common(klass, option)
+
+    find(".#{klass} li.select2-selection__choice", text: option)
+  end
+
   private
+
+  def select2_common(klass, option)
+    find(".#{klass} span.select2-container").click
+    find('li.select2-results__option', text: option).click
+  end
 
   def people_activities
     PeopleController.action_methods.map { |action| 'person:' << action } +
