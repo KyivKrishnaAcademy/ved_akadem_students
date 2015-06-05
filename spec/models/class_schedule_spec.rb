@@ -129,12 +129,6 @@ describe ClassSchedule do
 
         context 'valid' do
           if resource_is_optional
-            context 'with resource' do
-              Given(:schedule) { build :class_schedule, resource_name => resource }
-
-              Then { expect(schedule).to be_valid }
-            end
-
             context 'without resource' do
               Given(:schedule) { build :class_schedule }
 
@@ -167,9 +161,8 @@ describe ClassSchedule do
       end
 
       describe 'teacher availability' do
-        Given(:resource_name) { :teacher_profile }
-
         Given(:resource) { create resource_name }
+        Given(:resource_name) { :teacher_profile }
 
         shared_examples :invalid do
           Given(:error_message) do
@@ -184,9 +177,8 @@ describe ClassSchedule do
       end
 
       describe 'classroom availability' do
-        Given(:resource_name) { :classroom }
-
         Given(:resource) { create resource_name }
+        Given(:resource_name) { :classroom }
 
         shared_examples :invalid do
           Given(:error_message) do
@@ -198,6 +190,25 @@ describe ClassSchedule do
         end
 
         it_behaves_like :availability, false
+      end
+
+      describe 'academic_groups availability' do
+        Given(:group_1) { create :academic_group }
+        Given(:group_2) { create :academic_group }
+        Given(:resource) { [group_1, group_2] }
+        Given(:resource_name) { :academic_groups }
+
+        shared_examples :invalid do
+          Given(:error_message) do
+            I18n.t('activerecord.errors.models.class_schedule.attributes.academic_groups.availability',
+                   groups: resource.map(&:title).sort.join(', '))
+          end
+
+          Then { expect(schedule).not_to be_valid }
+          And  { expect(schedule.errors.messages[resource_name]).to eq([error_message]) }
+        end
+
+        it_behaves_like :availability, true
       end
     end
   end

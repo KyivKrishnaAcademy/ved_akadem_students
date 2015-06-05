@@ -33,6 +33,8 @@ uk:
         class_schedule:
           wrong_times:   'тривалість повинна бути менше доби і хоча б 10 хвилин'
           attributes:
+            academic_groups:
+              availability: '%{groups} недоступні на цей час'
             classroom:
               roominess:    'вміщує %{actual}, а %{required} студентів не помістяться'
               availability: 'недоступна на цей час'

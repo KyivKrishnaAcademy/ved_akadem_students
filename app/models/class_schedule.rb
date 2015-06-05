@@ -10,7 +10,7 @@ class ClassSchedule < ActiveRecord::Base
 
   validates :course, :classroom, :start_time, :finish_time, presence: true
 
-  validate :enough_roominess, :duration, :teacher_availability, :classroom_availability
+  validate :enough_roominess, :duration, :teacher_availability, :classroom_availability, :academic_groups_availability
 
   private
 
@@ -39,7 +39,8 @@ class ClassSchedule < ActiveRecord::Base
     return if teacher_profile.blank?
     return if obj_availability(teacher_profile_id: teacher_profile.id)
 
-    errors.add(:teacher_profile, I18n.t('activerecord.errors.models.class_schedule.attributes.teacher_profile.availability'))
+    errors.add(:teacher_profile,
+               I18n.t('activerecord.errors.models.class_schedule.attributes.teacher_profile.availability'))
   end
 
   def classroom_availability
@@ -47,6 +48,23 @@ class ClassSchedule < ActiveRecord::Base
     return if obj_availability(classroom_id: classroom.id)
 
     errors.add(:classroom, I18n.t('activerecord.errors.models.class_schedule.attributes.classroom.availability'))
+  end
+
+  def academic_groups_availability
+    return if academic_groups.none?
+
+    unavailable_groups = AcademicGroup.joins(:class_schedules)
+                                      .where(academic_group_schedules: { academic_group_id: academic_groups.map(&:id) })
+                                      .where('(class_schedules.start_time, class_schedules.finish_time) '\
+                                               'OVERLAPS (:start, :finish)',
+                                             { start: start_time, finish: finish_time })
+                                      .distinct
+
+    return if unavailable_groups.none?
+
+    errors.add(:academic_groups,
+               I18n.t('activerecord.errors.models.class_schedule.attributes.academic_groups.availability',
+                      groups: unavailable_groups.pluck(:title).sort.join(', ')))
   end
 
   def obj_availability(params)

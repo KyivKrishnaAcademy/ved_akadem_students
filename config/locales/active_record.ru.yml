@@ -33,6 +33,8 @@ ru:
         class_schedule:
           wrong_times:   'длительность должна быть меньше суток и хотя бы 10 минут'
           attributes:
+            academic_groups:
+              availability: '%{groups} не доступны на это время'
             classroom:
               roominess:    'вмещает %{actual}, а %{required} студентов не поместятся'
               availability: 'не доступная на это время'
