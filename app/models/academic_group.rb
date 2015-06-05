@@ -15,7 +15,7 @@ class AcademicGroup < ActiveRecord::Base
     p.title = title.mb_chars.upcase.to_s
   end
 
-  validates :title, format: { with: VALID_EMAIL_REGEX }
+  validates :title, format: { with: VALID_TITLE_REGEX }
   validates :title, presence: true, uniqueness: true
 
   def active_students
