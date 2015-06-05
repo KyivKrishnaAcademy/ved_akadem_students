@@ -31,7 +31,7 @@ class PeopleController < ApplicationController
   def show
     preset_applications_variables(@person)
 
-    @academic_groups = AcademicGroup.where(graduated_at: nil).select(:id, :group_name).order(:group_name)
+    @academic_groups = AcademicGroup.where(graduated_at: nil).select(:id, :title).order(:title)
   end
 
   def edit

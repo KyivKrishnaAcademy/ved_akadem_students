@@ -20,11 +20,12 @@ module ApplicationHelper
   end
 
   def models_for_generic_menu
-    %w(academic_group person course).map { |model| [model, model.pluralize] }
+    %w(academic_group person course class_schedule).map { |model| [model, model.pluralize] }
   end
 
   def show_admin_menu?
-    current_person.present? && (show_people_menu? || show_academic_groups_menu? || show_courses_menu?)
+    current_person.present? && (show_people_menu? || show_academic_groups_menu? ||
+                                show_courses_menu? || show_class_schedules_menu?)
   end
 
   def show_people_menu?
@@ -39,6 +40,10 @@ module ApplicationHelper
     current_person.can_act?(%w(course:index course:new))
   end
 
+  def show_class_schedules_menu?
+    current_person.can_act?(%w(class_schedule:index class_schedule:new))
+  end
+
   def person_photo(person, version = :default, options = {})
     if person.photo.present?
       image_tag "/people/show_photo/#{version}/#{person.id}", options
@@ -50,8 +55,8 @@ module ApplicationHelper
   def thumb_with_pop(person)
     person_photo(person,
                  :thumb,
-                 class: 'popover-photo',
-                 data: { toggle: 'popover',
+                 class: :'popover-photo',
+                 data: { toggle: :popover,
                          content: "#{person_photo(person, :standart)}" })
   end
 

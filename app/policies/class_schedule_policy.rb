@@ -1,0 +1,2 @@
+class ClassSchedulePolicy < ApplicationPolicy
+end

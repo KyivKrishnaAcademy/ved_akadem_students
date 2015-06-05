@@ -15,7 +15,7 @@ module HelperMethods
 
   def all_activities
     @all_activities ||= (people_activities + academic_groups_activities + study_applications_activities +
-      %w(questionnaire:update_all) + courses_activities).sort
+      %w(questionnaire:update_all) + courses_activities + class_schedules_activities).sort
   end
 
   def screenshot
@@ -24,7 +24,24 @@ module HelperMethods
     save_screenshot(Rails.root.join 'tmp/capybara', 'Screenshot' << Time.now.strftime('%Y%m%d%H%M%S%L') << '.png')
   end
 
+  def select2_single(klass, option)
+    select2_common(klass, option)
+
+    find(".#{klass} .select2-selection__rendered[title='#{option}']")
+  end
+
+  def select2_multi(klass, option)
+    select2_common(klass, option)
+
+    find(".#{klass} li.select2-selection__choice", text: option)
+  end
+
   private
+
+  def select2_common(klass, option)
+    find(".#{klass} span.select2-container").click
+    find('li.select2-results__option', text: option).click
+  end
 
   def people_activities
     PeopleController.action_methods.map { |action| 'person:' << action } +
@@ -44,5 +61,9 @@ module HelperMethods
 
   def courses_activities
     CoursesController.action_methods.map { |action| 'course:' << action }
+  end
+
+  def class_schedules_activities
+    ClassSchedulesController.action_methods.map { |action| 'class_schedule:' << action }
   end
 end

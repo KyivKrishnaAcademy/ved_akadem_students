@@ -10,9 +10,7 @@ describe 'Teacher multi select for courses:', :js do
   Given(:select_container) { find('span.select2-container') }
 
   Given(:common_assertions) do
-    select_container.click
-    find('li.select2-results__option', text: person_2.complex_name).click
-    expect(select_container).to have_selector('li.select2-selection__choice', text: person_2.complex_name)
+    select2_multi('course_teacher_profiles', person_2.complex_name)
     find('input[type="submit"]').click
     expect(page).to have_selector('.alert-dismissible.alert-notice')
   end

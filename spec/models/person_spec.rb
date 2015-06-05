@@ -190,7 +190,7 @@ describe Person do
       Given { GroupParticipation.create(student_profile: @sp, academic_group: @ag_1, join_date: DateTime.current.yesterday, leave_date: DateTime.current) }
       Given { GroupParticipation.create(student_profile: @sp, academic_group: @ag_2, join_date: DateTime.current) }
 
-      Then  { expect(@person.last_academic_group.group_name).to eq(@ag_2.group_name) }
+      Then  { expect(@person.last_academic_group.title).to eq(@ag_2.title) }
     end
 
     describe '#by_complex_name' do

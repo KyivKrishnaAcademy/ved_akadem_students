@@ -1,7 +1,5 @@
 class CoursesController < HtmlResponsableController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
-
-  after_action :verify_authorized
+  include Crudable
 
   def index
     @courses = Course.order(:title)
@@ -32,21 +30,15 @@ class CoursesController < HtmlResponsableController
 
     authorize @course
 
-    associate_to_teachers
-
     @course.save
 
     respond_with(@course)
   end
 
   def update
-    associate_to_teachers
-
     @course.update(course_params)
 
     respond_with(@course)
-
-    remove_teachers_associations
   end
 
   def destroy
@@ -57,29 +49,13 @@ class CoursesController < HtmlResponsableController
 
   private
 
-  def set_course
+  def set_resource
     @course = Course.find(params[:id])
 
     authorize @course
   end
 
   def course_params
-    params.require(:course).permit(:title, :description)
-  end
-
-  def associate_to_teachers
-    (new_teacher_profile_ids - @course.teacher_profiles.ids).each do |id|
-      @course.teacher_specialities.build(teacher_profile_id: id)
-    end
-  end
-
-  def remove_teachers_associations
-    teacher_profile_ids = @course.teacher_profiles.ids - new_teacher_profile_ids
-
-    TeacherSpeciality.where(course_id: @course.id, teacher_profile_id: teacher_profile_ids).destroy_all
-  end
-
-  def new_teacher_profile_ids
-    (params[:course][:teacher_profile_ids] || []).select(&:present?).map(&:to_i)
+    params.require(:course).permit(:title, :description, teacher_profile_ids: [])
   end
 end

@@ -4,29 +4,30 @@ describe AcademicGroup do
   describe 'associations' do
     Then { is_expected.to have_many(:group_participations).dependent(:destroy) }
     Then { is_expected.to have_many(:student_profiles).through(:group_participations) }
-    Then { is_expected.to have_many(:class_schedules).dependent(:destroy) }
+    Then { is_expected.to have_many(:academic_group_schedules).dependent(:destroy) }
+    Then { is_expected.to have_many(:class_schedules).through(:academic_group_schedules) }
   end
 
   describe 'validation' do
     Given (:valid_names)   { %w(ШБ13-1 БШ12-4 ЗШБ11-1) }
     Given (:invalid_names) { %w(12-2 ШБ-1 БШ112 ШБ11-) }
 
-    Then { is_expected.to validate_uniqueness_of(:group_name) }
-    And  { is_expected.to validate_presence_of(:group_name) }
+    Then { is_expected.to validate_uniqueness_of(:title) }
+    And  { is_expected.to validate_presence_of(:title) }
     And  do
       valid_names.each do |name|
-        is_expected.to allow_value(name).for(:group_name)
+        is_expected.to allow_value(name).for(:title)
       end
     end
     And  do
       invalid_names.each do |name|
-        is_expected.not_to allow_value(name).for(:group_name)
+        is_expected.not_to allow_value(name).for(:title)
       end
     end
   end
 
-  describe 'upcases :group_name before save' do
-    Then { expect(create(:academic_group, {group_name: 'шб13-1'}).group_name).to eq('ШБ13-1') }
+  describe 'upcases :title before save' do
+    Then { expect(create(:academic_group, {title: 'шб13-1'}).title).to eq('ШБ13-1') }
   end
 
   describe '#active_students' do

@@ -50,7 +50,7 @@ describe 'Edit academic group:' do
   end
 
   describe 'When values are valid:' do
-    [{ field: 'Group name', value: 'БШ99-9', test_field: 'БШ99-9'},
+    [{ field: 'Title', value: 'БШ99-9', test_field: 'БШ99-9'},
      { field: I18n.t('activerecord.attributes.academic_group.group_description'),
        value: 'Зис из э test',
        test_field: "#{I18n.t('activerecord.attributes.academic_group.group_description')}: Зис из э test" }].each do |h|
@@ -63,6 +63,6 @@ describe 'Edit academic group:' do
   end
 
   context 'When values are invalid:' do
-    it_behaves_like :invalid_fill_in, {field: 'Group name', value: '12-2'}, 'Academic group'
+    it_behaves_like :invalid_fill_in, { field: 'Title', value: '12-2' }, 'Academic group'
   end
 end

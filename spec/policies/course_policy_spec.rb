@@ -14,4 +14,8 @@ describe CoursePolicy do
       end
     end
   end
+
+  context 'complex conditions' do
+    it_behaves_like :class_schedule_ui_index
+  end
 end

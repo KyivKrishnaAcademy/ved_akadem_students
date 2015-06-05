@@ -30,6 +30,16 @@ uk:
           attributes:
             data:
               blank:  'не може бути пустою'
+        class_schedule:
+          wrong_times:   'тривалість повинна бути менше доби і хоча б 10 хвилин'
+          attributes:
+            academic_groups:
+              availability: '%{groups} недоступні на цей час'
+            classroom:
+              roominess:    'вміщує %{actual}, а %{required} студентів не помістяться'
+              availability: 'недоступна на цей час'
+            teacher_profile:
+              availability: 'недоступний на цей час'
         person:
           blank:      'повинно бути заповнено'
           too_long:   'занадто довге (максимум %{count} символів)'

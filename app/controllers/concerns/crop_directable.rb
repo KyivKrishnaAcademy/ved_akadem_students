@@ -1,6 +1,4 @@
 module CropDirectable
-  extend ActiveSupport::Concern
-
   private
 
   def direct_to_crop(default, resource)

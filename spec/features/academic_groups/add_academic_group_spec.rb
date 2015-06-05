@@ -7,10 +7,10 @@ describe 'Add academic group:' do
   end
 
   let(:fill_right) { fill_academic_group_data }
-  let(:fill_wrong) { fill_academic_group_data group_name: '12-1' }
+  let(:fill_wrong) { fill_academic_group_data title: '12-1' }
   let(:model)      { AcademicGroup }
-  let(:attr_name)  { :group_name }
-  let(:locator)    { "#{the_m.group_name}" }
+  let(:attr_name)  { :title }
+  let(:locator)    { "#{the_m.title}" }
 
   it_behaves_like :adds_model
   it_behaves_like :not_adds_model
@@ -43,7 +43,7 @@ describe 'Add academic group:' do
 
   def fill_academic_group_data ag={}
     agf = build(:academic_group, ag)
-    fill_in 'academic_group_group_name'       , with: (agf.group_name       )
+    fill_in 'academic_group_title', with: (agf.title)
     fill_in 'academic_group_group_description', with: (agf.group_description)
     select (ag[:establ_date_1i]||'2010').to_s, from: 'academic_group_establ_date_1i'
     select (ag[:establ_date_2i]||'Вересня').to_s, from: 'academic_group_establ_date_2i'

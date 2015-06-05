@@ -1,0 +1,12 @@
+= render 'shared/under_construction'
+- provide(:title, class_schedule_title(@class_schedule))
+
+.row
+  .col-xs-12
+    %h1
+      = class_schedule_title(@class_schedule)
+
+  = render 'form'
+
+  .col-xs-12.vert-offset-top-2
+    = link_to 'Back', class_schedules_path, class: 'btn btn-sm btn-primary'

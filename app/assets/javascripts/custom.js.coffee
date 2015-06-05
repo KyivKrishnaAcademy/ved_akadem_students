@@ -5,6 +5,16 @@ $ ->
 
     $('input#datepicker').datepicker($.extend({}, $.datepicker.regional[locale], options))
 
+  dateTimePicker = $('input#date-time-picker')
+
+  if dateTimePicker.length
+    dateTimePicker.datetimepicker
+      locale: dateTimePicker.data('locale')
+      sideBySide: true
+      widgetPositioning:
+        horizontal: 'left'
+      stepping: 5
+
   $('.popover-description, .popover-photo').popover({
     trigger: 'hover',
     placement: 'auto top',

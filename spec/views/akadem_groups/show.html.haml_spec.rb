@@ -6,7 +6,7 @@ describe 'academic_groups/show' do
   Given(:activities) { ['academic_group:show'] }
   Given(:ag_name) { 'ТВ99-1' }
   Given(:policy) { double(AcademicGroupPolicy) }
-  Given(:group) { create :academic_group, { group_name: ag_name } }
+  Given(:group) { create :academic_group, { title: ag_name } }
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
   Given(:page) { Capybara::Node::Simple.new(response.body) }
 

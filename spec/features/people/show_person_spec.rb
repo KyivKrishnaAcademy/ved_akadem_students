@@ -18,20 +18,20 @@ describe 'Show person:' do
     Given { person.student_profile.academic_groups << @academic_group_1 }
 
     describe 'initial' do
-      Then { expect(find('#academic-group-link')).to have_link(@academic_group_1.group_name) }
-      And  { expect(find('#change-academic-group')).to have_css('li.disabled', visible: false, text: @academic_group_1.group_name) }
-      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_2.group_name) }
+      Then { expect(find('#academic-group-link')).to have_link(@academic_group_1.title) }
+      And  { expect(find('#change-academic-group')).to have_css('li.disabled', visible: false, text: @academic_group_1.title) }
+      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_2.title) }
       And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: 'Remove from group') }
       And  { expect(find('#change-academic-group')).to have_css('li', visible: false, text: 'Remove from group') }
     end
 
     describe 'do change', :js do
       When { click_button 'Change group' }
-      When { find('#move-to-group', text: @academic_group_2.group_name).click }
+      When { find('#move-to-group', text: @academic_group_2.title).click }
 
-      Then { expect(find('#academic-group-link')).to have_link(@academic_group_2.group_name) }
-      And  { expect(find('#change-academic-group')).to have_css('li.disabled', visible: false, text: @academic_group_2.group_name) }
-      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_1.group_name) }
+      Then { expect(find('#academic-group-link')).to have_link(@academic_group_2.title) }
+      And  { expect(find('#change-academic-group')).to have_css('li.disabled', visible: false, text: @academic_group_2.title) }
+      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_1.title) }
       And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: 'Remove from group') }
       And  { expect(find('#change-academic-group')).to have_css('li', visible: false, text: 'Remove from group') }
     end
@@ -40,9 +40,9 @@ describe 'Show person:' do
       When { click_button 'Change group' }
       When { click_link 'Remove from group' }
 
-      Then { expect(find('#academic-group-link')).not_to have_link(@academic_group_1.group_name) }
-      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_1.group_name) }
-      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_2.group_name) }
+      Then { expect(find('#academic-group-link')).not_to have_link(@academic_group_1.title) }
+      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_1.title) }
+      And  { expect(find('#change-academic-group')).not_to have_css('li.disabled', visible: false, text: @academic_group_2.title) }
       And  { expect(find('#change-academic-group')).to have_css('li.disabled', visible: false, text: 'Remove from group') }
     end
   end
