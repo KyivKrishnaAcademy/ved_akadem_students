@@ -10,7 +10,7 @@ class ClassSchedule < ActiveRecord::Base
 
   validates :course, :classroom, :start_time, :finish_time, presence: true
 
-  validate :enough_roominess, :duration, :teacher_availability
+  validate :enough_roominess, :duration, :teacher_availability, :classroom_availability
 
   private
 
@@ -37,13 +37,23 @@ class ClassSchedule < ActiveRecord::Base
 
   def teacher_availability
     return if teacher_profile.blank?
-
-    return if ClassSchedule.where(teacher_profile_id: teacher_profile.id)
-                           .where('(start_time, finish_time) OVERLAPS (:start, :finish)',
-                                  { start: start_time, finish: finish_time })
-                           .first
-                           .blank?
+    return if obj_availability(teacher_profile_id: teacher_profile.id)
 
     errors.add(:teacher_profile, I18n.t('activerecord.errors.models.class_schedule.attributes.teacher_profile.availability'))
+  end
+
+  def classroom_availability
+    return if classroom.blank?
+    return if obj_availability(classroom_id: classroom.id)
+
+    errors.add(:classroom, I18n.t('activerecord.errors.models.class_schedule.attributes.classroom.availability'))
+  end
+
+  def obj_availability(params)
+    ClassSchedule.where(params)
+                 .where('(start_time, finish_time) OVERLAPS (:start, :finish)',
+                        { start: start_time, finish: finish_time })
+                 .first
+                 .blank?
   end
 end

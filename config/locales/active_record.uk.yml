@@ -34,7 +34,8 @@ uk:
           wrong_times:   'тривалість повинна бути менше доби і хоча б 10 хвилин'
           attributes:
             classroom:
-              roominess: 'вміщує %{actual}, а %{required} студентів не помістяться'
+              roominess:    'вміщує %{actual}, а %{required} студентів не помістяться'
+              availability: 'недоступна на цей час'
             teacher_profile:
               availability: 'недоступний на цей час'
         person:

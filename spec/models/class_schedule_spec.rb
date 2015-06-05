@@ -88,91 +88,116 @@ describe ClassSchedule do
         end
       end
 
-      describe 'teacher availability' do
-        Given(:teacher_profile) { create :teacher_profile }
-
+      shared_examples :availability do |resource_is_optional|
         context 'invalid' do
-          shared_examples :invalid do
-            Given(:error_message) do
-              I18n.t('activerecord.errors.models.class_schedule.attributes.teacher_profile.availability')
-            end
-
-            Then { expect(schedule).not_to be_valid }
-            And  { expect(schedule.errors.messages[:teacher_profile]).to eq([error_message]) }
-          end
-
-          Given { create :class_schedule, teacher_profile: teacher_profile,
-                                          start_time: '01.01.2015 12:00',
-                                          finish_time: '01.01.2015 12:20' }
+          Given { create :class_schedule, resource_name => resource,
+                         start_time: '01.01.2015 12:00',
+                         finish_time: '01.01.2015 12:20' }
 
           context 'overlaps on start' do
-            Given(:schedule) { build :class_schedule, teacher_profile: teacher_profile,
-                                                      start_time: '01.01.2015 11:00',
-                                                      finish_time: '01.01.2015 12:01' }
+            Given(:schedule) { build :class_schedule, resource_name => resource,
+                                     start_time: '01.01.2015 11:00',
+                                     finish_time: '01.01.2015 12:01' }
 
             it_behaves_like :invalid
           end
 
           context 'overlaps on finish' do
-            Given(:schedule) { build :class_schedule, teacher_profile: teacher_profile,
-                                                      start_time: '01.01.2015 12:19',
-                                                      finish_time: '01.01.2015 12:40' }
+            Given(:schedule) { build :class_schedule, resource_name => resource,
+                                     start_time: '01.01.2015 12:19',
+                                     finish_time: '01.01.2015 12:40' }
 
             it_behaves_like :invalid
           end
 
           context 'overlaps inside' do
-            Given(:schedule) { build :class_schedule, teacher_profile: teacher_profile,
-                                                      start_time: '01.01.2015 12:01',
-                                                      finish_time: '01.01.2015 12:19' }
+            Given(:schedule) { build :class_schedule, resource_name => resource,
+                                     start_time: '01.01.2015 12:01',
+                                     finish_time: '01.01.2015 12:19' }
 
             it_behaves_like :invalid
           end
 
           context 'overlaps outside' do
-            Given(:schedule) { build :class_schedule, teacher_profile: teacher_profile,
-                                                      start_time: '01.01.2015 11:00',
-                                                      finish_time: '01.01.2015 13:00' }
+            Given(:schedule) { build :class_schedule, resource_name => resource,
+                                     start_time: '01.01.2015 11:00',
+                                     finish_time: '01.01.2015 13:00' }
 
             it_behaves_like :invalid
           end
         end
 
         context 'valid' do
-          context 'with profile' do
-            Given(:schedule) { build :class_schedule, teacher_profile: teacher_profile }
+          if resource_is_optional
+            context 'with resource' do
+              Given(:schedule) { build :class_schedule, resource_name => resource }
 
-            Then { expect(schedule).to be_valid }
-          end
+              Then { expect(schedule).to be_valid }
+            end
 
-          context 'without profile' do
-            Given(:schedule) { build :class_schedule }
+            context 'without resource' do
+              Given(:schedule) { build :class_schedule }
 
-            Then { expect(schedule).to be_valid }
+              Then { expect(schedule).to be_valid }
+            end
           end
 
           context 'with no overlapping' do
-            Given { create :class_schedule, teacher_profile: teacher_profile,
-                                            start_time: '01.01.2015 11:00',
-                                            finish_time: '01.01.2015 13:00' }
+            Given { create :class_schedule, resource_name => resource,
+                           start_time: '01.01.2015 11:00',
+                           finish_time: '01.01.2015 13:00' }
 
             context 'in the future' do
-              Given(:schedule) { build :class_schedule, teacher_profile: teacher_profile,
-                                                        start_time: '01.01.2015 14:00',
-                                                        finish_time: '01.01.2015 15:00' }
+              Given(:schedule) { build :class_schedule, resource_name => resource,
+                                       start_time: '01.01.2015 14:00',
+                                       finish_time: '01.01.2015 15:00' }
 
               Then { expect(schedule).to be_valid }
             end
 
             context 'in the past' do
-              Given(:schedule) { build :class_schedule, teacher_profile: teacher_profile,
-                                                        start_time: '01.01.2015 09:00',
-                                                        finish_time: '01.01.2015 10:00' }
+              Given(:schedule) { build :class_schedule, resource_name => resource,
+                                       start_time: '01.01.2015 09:00',
+                                       finish_time: '01.01.2015 10:00' }
 
               Then { expect(schedule).to be_valid }
             end
           end
         end
+      end
+
+      describe 'teacher availability' do
+        Given(:resource_name) { :teacher_profile }
+
+        Given(:resource) { create resource_name }
+
+        shared_examples :invalid do
+          Given(:error_message) do
+            I18n.t('activerecord.errors.models.class_schedule.attributes.teacher_profile.availability')
+          end
+
+          Then { expect(schedule).not_to be_valid }
+          And  { expect(schedule.errors.messages[resource_name]).to eq([error_message]) }
+        end
+
+        it_behaves_like :availability, true
+      end
+
+      describe 'classroom availability' do
+        Given(:resource_name) { :classroom }
+
+        Given(:resource) { create resource_name }
+
+        shared_examples :invalid do
+          Given(:error_message) do
+            I18n.t('activerecord.errors.models.class_schedule.attributes.classroom.availability')
+          end
+
+          Then { expect(schedule).not_to be_valid }
+          And  { expect(schedule.errors.messages[resource_name]).to eq([error_message]) }
+        end
+
+        it_behaves_like :availability, false
       end
     end
   end

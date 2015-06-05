@@ -34,7 +34,8 @@ ru:
           wrong_times:   'длительность должна быть меньше суток и хотя бы 10 минут'
           attributes:
             classroom:
-              roominess: 'вмещает %{actual}, а %{required} студентов не поместятся'
+              roominess:    'вмещает %{actual}, а %{required} студентов не поместятся'
+              availability: 'не доступная на это время'
             teacher_profile:
               availability: 'не доступен на это время'
         person:
