@@ -43,6 +43,9 @@ describe PeopleController do
     Given { allow(people).to receive(:find).with('1').and_return(person) }
 
     Given(:other_person) { double(Person, id: 2) }
+    Given(:group) { double(AcademicGroup, id: 3) }
+
+    Given { allow(other_person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([group.id]) }
 
     Given { allow(other_person).to receive(:class).and_return(Person) }
     Given { allow(people).to receive(:find).with('2').and_return(other_person) }
@@ -85,7 +88,7 @@ describe PeopleController do
 
         context 'other person' do
           context 'stranger' do
-            Given { allow(person).to receive(:last_academic_group).and_return(nil) }
+            Given { allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([]) }
 
             When  { get :show_photo, id: 2, version: 'default' }
 
@@ -95,8 +98,7 @@ describe PeopleController do
           context 'classmate' do
             Given(:group) { double(AcademicGroup, id: 3) }
 
-            Given { allow(person).to receive(:last_academic_group).and_return(group) }
-            Given { allow(other_person).to receive(:last_academic_group).and_return(group) }
+            Given { allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([group.id]) }
 
             it_behaves_like :get_show_photo_successed, 2
           end
@@ -154,7 +156,7 @@ describe PeopleController do
         Given { allow(person).to receive(:is_a?).and_return(false) }
         Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
         Given { allow(person).to receive(:reload).and_return(person) }
-        Given { allow(AcademicGroup).to receive_message_chain(:select, :order) { academic_groups } }
+        Given { allow(AcademicGroup).to receive_message_chain(:where, :select, :order) { academic_groups } }
         Given { allow(Program).to receive(:all) { programs } }
 
         When  { get :show, id: 1 }
