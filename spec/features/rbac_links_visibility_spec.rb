@@ -30,4 +30,8 @@ describe 'RBAC links visibility' do
   it_behaves_like :nav_links, I18n.t('defaults.links.courses'), '#', %w(course:new course:index)
   it_behaves_like :nav_links, I18n.t('defaults.links.courses_add'), '/courses/new', 'course:new'
   it_behaves_like :nav_links, I18n.t('defaults.links.courses_list'), '/courses', 'course:index'
+
+  it_behaves_like :nav_links, I18n.t('defaults.links.class_schedules'), '#', %w(class_schedule:new class_schedule:index)
+  it_behaves_like :nav_links, I18n.t('defaults.links.class_schedules_add'), '/class_schedules/new', 'class_schedule:new'
+  it_behaves_like :nav_links, I18n.t('defaults.links.class_schedules_list'), '/class_schedules', 'class_schedule:index'
 end
