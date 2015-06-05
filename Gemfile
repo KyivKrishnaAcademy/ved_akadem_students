@@ -22,7 +22,9 @@ gem 'nested_form'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
 gem 'jcrop-rails-v2'
+
 gem 'axlsx'
+gem 'prawn-rails'
 
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'

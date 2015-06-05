@@ -50,8 +50,10 @@ module HelperMethods
 
   def academic_groups_activities
     (
-      AcademicGroupsController.action_methods - %w(autocomplete_person get_prefix get_autocomplete_order
-                                                   get_autocomplete_items autocomplete_person_complex_name)
+      AcademicGroupsController.action_methods -
+        %w(autocomplete_person get_prefix get_autocomplete_order
+           get_autocomplete_items autocomplete_person_complex_name) +
+        %w(group_list_pdf)
     ).map { |action| 'academic_group:' << action }
   end
 

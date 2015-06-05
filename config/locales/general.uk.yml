@@ -99,6 +99,7 @@ uk:
       birthday:               'День народження'
       curator:                'Куратор'
       full_name:              "Ім'я"
+      group_list_pdf:         ' Скачати/Друкувати'
       group_servants:         'Слуги групи'
       photo:                  'Фото'
       praepostor:             'Староста'
