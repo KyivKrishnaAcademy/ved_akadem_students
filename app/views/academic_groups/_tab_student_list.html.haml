@@ -1,5 +1,11 @@
-.row
-  .col-xs-12.vert-offset-top-1
+- if current_person.can_act?('academic_group:group_list_pdf')
+  .row.vert-offset-top-1
+    .col-xs-12
+      = link_to t('academic_groups.show.group_list_pdf'),
+                group_list_pdf_path(academic_group),
+                class: 'btn btn-success btn-xs glyphicon glyphicon-print'
+.row.vert-offset-top-1
+  .col-xs-12
     %table.table.table-condensed.table-striped
       %thead
         %tr
