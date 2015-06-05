@@ -212,4 +212,14 @@ describe ClassSchedule do
       end
     end
   end
+
+  describe 'able to update existing with overlapping time' do
+    Given(:group) { create :academic_group }
+    Given(:teacher) { create :teacher_profile }
+    Given(:schedule) { create :class_schedule, academic_groups: [group], teacher_profile: teacher }
+
+    When { schedule.update(finish_time: schedule.finish_time + 5.minutes) }
+
+    Then { expect(schedule).to be_valid }
+  end
 end
