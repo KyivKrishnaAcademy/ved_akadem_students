@@ -37,4 +37,9 @@ Rails.application.routes.draw do
     get 'group_curators' => 'group_elders#group_curators_index'
     get 'group_praepostors' => 'group_elders#group_praepostors_index'
   end
+
+  format_pdf = { format: :pdf }
+
+  get 'export/group_list/:id', controller: :pdf_exports, action: :group_list, as: :group_list_pdf,
+                                     defaults: format_pdf, constraints: format_pdf
 end

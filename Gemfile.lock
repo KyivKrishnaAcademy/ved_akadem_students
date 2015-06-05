@@ -203,12 +203,21 @@ GEM
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
+    pdf-core (0.5.1)
     pg (0.18.1)
     poltergeist (1.6.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       multi_json (~> 1.0)
       websocket-driver (>= 0.2.0)
+    prawn (2.0.1)
+      pdf-core (~> 0.5.1)
+      ttfunk (~> 1.4.0)
+    prawn-rails (0.1.1)
+      prawn
+      prawn-table
+      rails (>= 3.1.0)
+    prawn-table (0.2.1)
     puma (2.11.1)
       rack (>= 1.1, < 2.0)
     pundit (0.3.0)
@@ -319,6 +328,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    ttfunk (1.4.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.0)
@@ -380,6 +390,7 @@ DEPENDENCIES
   newrelic_rpm
   pg
   poltergeist
+  prawn-rails
   puma
   pundit
   quiet_assets
