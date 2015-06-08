@@ -31,10 +31,7 @@
                   = class_schedule.course.title
               %td
                 - if class_schedule.teacher_profile.present?
-                  = link_to_if policy(class_schedule.teacher_profile.person).show?,
-                               class_schedule.teacher_profile.complex_name,
-                               person_path(class_schedule.teacher_profile.person) do
-                    = class_schedule.teacher_profile.complex_name
+                  = link_to_show_person_or_name(class_schedule.teacher_profile.person, true)
               %td
                 - class_schedule.academic_groups.each do |academic_group|
                   = link_to_if policy(academic_group).show?,
