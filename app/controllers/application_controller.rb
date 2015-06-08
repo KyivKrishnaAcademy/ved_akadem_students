@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = session[:locale] if session[:locale].present?
+    I18n.locale = session[:locale].present? ? session[:locale] : :uk
   end
 
   def user_not_authorized
