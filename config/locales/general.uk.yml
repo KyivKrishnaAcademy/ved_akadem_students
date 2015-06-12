@@ -106,3 +106,5 @@ uk:
       tab_general:            'Огляд'
       tab_group_list:         'Список групи'
       telephones:             'Телефони'
+  class_schedules:
+    create_and_clone: 'Створити і копіювати'

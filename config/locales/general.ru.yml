@@ -106,3 +106,5 @@ ru:
       tab_general:            'Осмотр'
       tab_group_list:         'Список группы'
       telephones:             'Телефоны'
+  class_schedules:
+    create_and_clone: 'Создать и копировать'

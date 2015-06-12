@@ -39,19 +39,35 @@ describe 'ClassSchedule create and update:', :js do
       When { page.execute_script %Q{
                $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 13:00')
              } }
-      When { find('input[type="submit"]').click }
 
-      subject { find('table tbody') }
+      describe 'single create' do
+        When { first('input[type="submit"]').click }
 
-      Then { expect(page).to have_selector('.alert-dismissible.alert-notice') }
-      And  { is_expected.to have_selector('tr', count: 1) }
-      And  { is_expected.to have_selector('td', text: course.title) }
-      And  { is_expected.to have_selector('td', text: classroom.title) }
-      And  { is_expected.to have_selector('td', text: person.complex_name) }
-      And  { is_expected.to have_selector('td', text: group_1.title) }
-      And  { is_expected.to have_selector('td', text: group_2.title) }
-      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 12:00') }
-      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 13:00') }
+        subject { find('table tbody') }
+
+        Then { expect(page).to have_selector('.alert-dismissible.alert-notice') }
+        And  { is_expected.to have_selector('tr', count: 1) }
+        And  { is_expected.to have_selector('td', text: course.title) }
+        And  { is_expected.to have_selector('td', text: classroom.title) }
+        And  { is_expected.to have_selector('td', text: person.spiritual_name) }
+        And  { is_expected.to have_selector('td', text: group_1.title) }
+        And  { is_expected.to have_selector('td', text: group_2.title) }
+        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 12:00') }
+        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 13:00') }
+      end
+
+      describe 'create and clone' do
+        When { find("input[value='#{I18n.t('class_schedules.create_and_clone')}']").click }
+
+        Then { expect(page).to have_selector('.alert-dismissible.alert-notice') }
+        And  { expect(course_select).to have_selector(".select2-selection__rendered[title='#{course.title}']") }
+        And  { expect(teacher_select).to have_selector(".select2-selection__rendered[title='#{person.complex_name}']") }
+        And  { expect(classroom_select).to have_selector(".select2-selection__rendered[title='#{classroom.title}']") }
+        And  { expect(groups_select).to have_selector('li.select2-selection__choice', text: group_1.title) }
+        And  { expect(groups_select).to have_selector('li.select2-selection__choice', text: group_2.title) }
+        And  { expect(find('.class_schedule_start_time #date-time-picker').value).to eq('08.01.2015 12:00') }
+        And  { expect(find('.class_schedule_finish_time #date-time-picker').value).to eq('08.01.2015 13:00') }
+      end
     end
   end
 
@@ -105,7 +121,7 @@ describe 'ClassSchedule create and update:', :js do
       And  { is_expected.to have_selector('tr', count: 1) }
       And  { is_expected.to have_selector('td', text: course_2.title) }
       And  { is_expected.to have_selector('td', text: classroom_2.title) }
-      And  { is_expected.to have_selector('td', text: person_2.complex_name) }
+      And  { is_expected.to have_selector('td', text: person_2.spiritual_name) }
       And  { is_expected.not_to have_selector('td', text: group_1.title) }
       And  { is_expected.to have_selector('td', text: group_2.title) }
       And  { is_expected.to have_selector('td', text: group_3.title) }
