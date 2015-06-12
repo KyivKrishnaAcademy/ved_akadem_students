@@ -25,4 +25,9 @@
                                                            data: { locale: "#{locale}" },
                                                            value: time_value(f.object.finish_time) }
 
-    = f.button :submit
+    .row
+      .col-xs-12.col-sm-6
+        = f.button :submit
+      - if %w(new create).include? params[:action]
+        .col-xs-12.col-sm-6
+          = f.button :submit, t('class_schedules.create_and_clone')
