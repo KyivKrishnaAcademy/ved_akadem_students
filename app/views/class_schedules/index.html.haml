@@ -15,6 +15,7 @@
           %tr
             %th Course
             %th Lector
+            %th Subject
             %th Groups
             %th Auditory
             %th Start time
@@ -32,6 +33,8 @@
               %td
                 - if class_schedule.teacher_profile.present?
                   = link_to_show_person_or_name(class_schedule.teacher_profile.person, true)
+              %td
+                = class_schedule.subject
               %td
                 - class_schedule.academic_groups.each do |academic_group|
                   = link_to_if policy(academic_group).show?,
