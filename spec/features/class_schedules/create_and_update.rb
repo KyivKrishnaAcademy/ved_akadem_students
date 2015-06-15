@@ -54,8 +54,7 @@ describe 'ClassSchedule create and update:', :js do
         And  { is_expected.to have_selector('td', text: person.spiritual_name) }
         And  { is_expected.to have_selector('td', text: group_1.title) }
         And  { is_expected.to have_selector('td', text: group_2.title) }
-        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 12:00') }
-        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 13:00') }
+        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 12:00 - 13:00') }
         And  { is_expected.to have_selector('td', text: 'My special subject') }
       end
 
@@ -129,8 +128,7 @@ describe 'ClassSchedule create and update:', :js do
       And  { is_expected.not_to have_selector('td', text: group_1.title) }
       And  { is_expected.to have_selector('td', text: group_2.title) }
       And  { is_expected.to have_selector('td', text: group_3.title) }
-      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 14:00') }
-      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 15:00') }
+      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 14:00 - 15:00') }
     end
   end
 end
