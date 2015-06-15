@@ -15,10 +15,10 @@
           %tr
             %th Course
             %th Lector
+            %th Subject
             %th Groups
             %th Auditory
-            %th Start time
-            %th End time
+            %th Schedule time
             %th
 
         %tbody
@@ -33,6 +33,8 @@
                 - if class_schedule.teacher_profile.present?
                   = link_to_show_person_or_name(class_schedule.teacher_profile.person, true)
               %td
+                = class_schedule.subject
+              %td
                 - class_schedule.academic_groups.each do |academic_group|
                   = link_to_if policy(academic_group).show?,
                                academic_group.title,
@@ -41,9 +43,7 @@
               %td
                 = class_schedule.classroom.title
               %td
-                = l(class_schedule.start_time, format: :with_day)
-              %td
-                = l(class_schedule.finish_time, format: :with_day)
+                = "#{l(class_schedule.start_time, format: :with_day)} - #{l(class_schedule.finish_time, format: :just_time)}"
               %td
                 - if policy(class_schedule).edit?
                   = link_to t('links.edit'), edit_class_schedule_path(class_schedule), class: 'btn btn-xs btn-primary'

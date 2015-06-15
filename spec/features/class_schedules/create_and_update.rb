@@ -25,6 +25,7 @@ describe 'ClassSchedule create and update:', :js do
       And  { expect(classroom_select).not_to have_selector(".select2-selection__rendered[title='#{classroom.title}']") }
       And  { expect(groups_select).not_to have_selector('li.select2-selection__choice', text: group_1.title) }
       And  { expect(groups_select).not_to have_selector('li.select2-selection__choice', text: group_2.title) }
+      And  { expect(find('#class_schedule_subject').value).to be_empty }
     end
 
     describe 'valid fill' do
@@ -39,6 +40,7 @@ describe 'ClassSchedule create and update:', :js do
       When { page.execute_script %Q{
                $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 13:00')
              } }
+      When { find('#class_schedule_subject').set('My special subject') }
 
       describe 'single create' do
         When { first('input[type="submit"]').click }
@@ -52,8 +54,8 @@ describe 'ClassSchedule create and update:', :js do
         And  { is_expected.to have_selector('td', text: person.spiritual_name) }
         And  { is_expected.to have_selector('td', text: group_1.title) }
         And  { is_expected.to have_selector('td', text: group_2.title) }
-        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 12:00') }
-        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 13:00') }
+        And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 12:00 - 13:00') }
+        And  { is_expected.to have_selector('td', text: 'My special subject') }
       end
 
       describe 'create and clone' do
@@ -67,6 +69,7 @@ describe 'ClassSchedule create and update:', :js do
         And  { expect(groups_select).to have_selector('li.select2-selection__choice', text: group_2.title) }
         And  { expect(find('.class_schedule_start_time #date-time-picker').value).to eq('08.01.2015 12:00') }
         And  { expect(find('.class_schedule_finish_time #date-time-picker').value).to eq('08.01.2015 13:00') }
+        And  { expect(find('#class_schedule_subject').value).to eq('My special subject') }
       end
     end
   end
@@ -125,8 +128,7 @@ describe 'ClassSchedule create and update:', :js do
       And  { is_expected.not_to have_selector('td', text: group_1.title) }
       And  { is_expected.to have_selector('td', text: group_2.title) }
       And  { is_expected.to have_selector('td', text: group_3.title) }
-      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 14:00') }
-      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 15:00') }
+      And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 14:00 - 15:00') }
     end
   end
 end
