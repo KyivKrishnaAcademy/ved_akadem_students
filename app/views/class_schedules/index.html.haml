@@ -43,7 +43,7 @@
               %td
                 = class_schedule.classroom.title
               %td
-                = "#{l(class_schedule.start_time, format: :with_day)} - #{l(class_schedule.finish_time, format: :just_time)}"
+                = show_scheduled_time(class_schedule)
               %td
                 - if policy(class_schedule).edit?
                   = link_to t('links.edit'), edit_class_schedule_path(class_schedule), class: 'btn btn-xs btn-primary'
