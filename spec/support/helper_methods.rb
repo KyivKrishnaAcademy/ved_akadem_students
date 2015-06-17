@@ -1,16 +1,10 @@
 module HelperMethods
-  def login_as_admin(admin = nil)
-    @admin = admin
-    @admin ||= create(:person, :admin)
-    login_as(@admin)
-    visit '/'
+  def login_as_admin
+    login_as(create(:person, :admin))
   end
 
-  def login_as_user(user = nil)
-    @user = user
-    @user ||= create(:person)
-    login_as(@user)
-    visit '/'
+  def login_as_user
+    login_as(create(:person))
   end
 
   def all_activities

@@ -106,7 +106,7 @@ describe 'Signing' do
   describe 'Edit' do
     context 'with photo' do
       Given { @person = create :person, :with_photo }
-      When  { login_as_user(@person) }
+      When  { login_as(@person) }
       When  { visit edit_person_registration_path(@person) }
 
       Then  { expect(find('.form-inputs img')['src']).to have_content("/people/show_photo/standart/#{@person.id}") }
@@ -115,7 +115,7 @@ describe 'Signing' do
 
     context 'without photo' do
       Given { @person = create :person }
-      When  { login_as_user(@person) }
+      When  { login_as(@person) }
       When  { visit edit_person_registration_path(@person) }
 
       describe 'photo should be placeholded' do

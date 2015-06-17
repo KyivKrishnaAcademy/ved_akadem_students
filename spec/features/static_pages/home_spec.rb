@@ -3,7 +3,7 @@ require 'rails_helper'
 describe :home do
   Given(:person) { create(:person) }
 
-  Given { login_as_user(person) }
+  Given { login_as(person) }
 
   When  { visit '/static_pages/home' }
 
