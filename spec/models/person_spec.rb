@@ -111,145 +111,153 @@ describe Person do
   end
 
   describe 'methods' do
-    Given { @person = create :person, spiritual_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy' }
+    Given(:person) { create :person, spiritual_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy' }
 
     describe '#crop_photo' do
-      Given { @person.update(photo: Rails.root.join('spec/fixtures/150x200.png').open) }
+      Given { person.update(photo: Rails.root.join('spec/fixtures/150x200.png').open) }
 
-      Then { expect(@person.photo).to receive(:recreate_versions!) }
-      And  { expect(@person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3)).to be(true) }
-      And  { expect(@person.crop_x).to eq(0) }
-      And  { expect(@person.crop_y).to eq(1) }
-      And  { expect(@person.crop_h).to eq(2) }
-      And  { expect(@person.crop_w).to eq(3) }
+      Then { expect(person.photo).to receive(:recreate_versions!) }
+      And  { expect(person.crop_photo(crop_x: 0, crop_y: 1, crop_h: 2, crop_w: 3)).to be(true) }
+      And  { expect(person.crop_x).to eq(0) }
+      And  { expect(person.crop_y).to eq(1) }
+      And  { expect(person.crop_h).to eq(2) }
+      And  { expect(person.crop_w).to eq(3) }
     end
 
     describe 'questionnaires methods' do
-      Given { @questionnaire_1    = create :questionnaire }
-      Given { @questionnaire_2    = create :questionnaire }
-      Given { @program            = create :program, questionnaires: [@questionnaire_1] }
-      Given { @study_application  = StudyApplication.create(person_id: @person.id, program_id: @program.id) }
+      Given(:program) { create :program, questionnaires: [questionnaire_1] }
+      Given(:questionnaire_1) { create :questionnaire }
+      Given(:questionnaire_2) { create :questionnaire }
+      Given(:study_application) { StudyApplication.create(person_id: person.id, program_id: program.id) }
 
       describe '#add_application_questionnaires' do
-        Then  { expect{@person.add_application_questionnaires}.to change{@person.questionnaires.count}.by(1) }
-        And   { expect(@person.questionnaire_ids).to eq([@questionnaire_1.id]) }
-        And   { expect{@person.add_application_questionnaires}.not_to change{@person.questionnaires.count} }
+        Given { study_application }
+
+        Then  { expect{person.add_application_questionnaires}.to change{person.questionnaires.count}.by(1) }
+        And   { expect(person.questionnaire_ids).to eq([questionnaire_1.id]) }
+        And   { expect{person.add_application_questionnaires}.not_to change{person.questionnaires.count} }
       end
 
       describe '#remove_application_questionnaires' do
         context 'not completed' do
-          Given { @person.questionnaires << [@questionnaire_1, @questionnaire_2] }
+          Given { person.questionnaires << [questionnaire_1, questionnaire_2] }
 
-          Then  { expect{@person.remove_application_questionnaires(@study_application)}.to change{@person.questionnaires.count}.by(-1) }
+          Then  { expect{person.remove_application_questionnaires(study_application)}.to change{person.questionnaires.count}.by(-1) }
         end
 
         context 'completed' do
-          Given { QuestionnaireCompleteness.create(person_id: @person.id, questionnaire_id: @questionnaire_1.id, completed: true) }
+          Given { QuestionnaireCompleteness.create(person_id: person.id, questionnaire_id: questionnaire_1.id, completed: true) }
 
-          Then  { expect{@person.remove_application_questionnaires(@study_application)}.not_to change{@person.questionnaires.count} }
+          Then  { expect{person.remove_application_questionnaires(study_application)}.not_to change{person.questionnaires.count} }
         end
       end
 
       describe '#not_finished_questionnaires' do
-        Given { @person_2 = create :person }
-        Given { @person.questionnaire_completenesses.create(completed: true , questionnaire_id: @questionnaire_1.id) }
-        Given { @person.questionnaire_completenesses.create(completed: false, questionnaire_id: @questionnaire_2.id) }
-        Given { @person_2.questionnaire_completenesses.create(questionnaire_id: @questionnaire_1.id) }
-        Given { @person_2.questionnaire_completenesses.create(questionnaire_id: @questionnaire_2.id) }
+        Given(:person_2) { create :person }
 
-        Then  { expect(@person.not_finished_questionnaires.map(&:id)).to eq([@questionnaire_2.id]) }
+        Given { person.questionnaire_completenesses.create(completed: true , questionnaire_id: questionnaire_1.id) }
+        Given { person.questionnaire_completenesses.create(completed: false, questionnaire_id: questionnaire_2.id) }
+        Given { person_2.questionnaire_completenesses.create(questionnaire_id: questionnaire_1.id) }
+        Given { person_2.questionnaire_completenesses.create(questionnaire_id: questionnaire_2.id) }
+
+        Then  { expect(person.not_finished_questionnaires.map(&:id)).to eq([questionnaire_2.id]) }
       end
 
       describe '#can_act?' do
-        Given { @role = create :role, activities: %w(some:activity), people: [@person] }
+        Given { create :role, activities: %w(some:activity), people: [person] }
 
-        Then  { expect(@person.can_act?('some:activity')).to be(true) }
-        And   { expect(@person.can_act?(['some:activity'])).to be(true) }
-        And   { expect(@person.can_act?(['other:activity', 'some:activity'])).to be(true) }
-        And   { expect(@person.can_act?('other:activity')).to be(false) }
+        Then  { expect(person.can_act?('some:activity')).to be(true) }
+        And   { expect(person.can_act?(['some:activity'])).to be(true) }
+        And   { expect(person.can_act?(['other:activity', 'some:activity'])).to be(true) }
+        And   { expect(person.can_act?('other:activity')).to be(false) }
       end
 
       describe '#psycho_test_result' do
         context 'no psycho test' do
-          Then { expect(@person.psycho_test_result).to be_nil }
+          Then { expect(person.psycho_test_result).to be_nil }
         end
 
         context 'with result' do
-          Given { @psycho_test = create :questionnaire, kind: 'psycho_test' }
-          Given { @person.questionnaire_completenesses.create(questionnaire_id: @psycho_test.id, result: {a: :b}) }
+          Given(:psycho_test) { create :questionnaire, kind: 'psycho_test' }
 
-          Then  { expect(@person.psycho_test_result).to eq({a: :b}) }
+          Given { person.questionnaire_completenesses.create(questionnaire_id: psycho_test.id, result: {a: :b}) }
+
+          Then  { expect(person.psycho_test_result).to eq({a: :b}) }
         end
       end
     end
 
     describe '#last_academic_group' do
-      Given { @ag_1 = create :academic_group }
-      Given { @ag_2 = create :academic_group }
-      Given { @sp   = @person.create_student_profile }
-      Given { GroupParticipation.create(student_profile: @sp, academic_group: @ag_1, join_date: DateTime.current.yesterday, leave_date: DateTime.current) }
-      Given { GroupParticipation.create(student_profile: @sp, academic_group: @ag_2, join_date: DateTime.current) }
+      Given(:sp) { person.create_student_profile }
+      Given(:ag_1) { create :academic_group }
+      Given(:ag_2) { create :academic_group }
 
-      Then  { expect(@person.last_academic_group.title).to eq(@ag_2.title) }
+      Given { GroupParticipation.create(student_profile: sp, academic_group: ag_1, join_date: DateTime.current.yesterday,
+                                        leave_date: DateTime.current) }
+      Given { GroupParticipation.create(student_profile: sp, academic_group: ag_2, join_date: DateTime.current) }
+
+      Then  { expect(person.last_academic_group.title).to eq(ag_2.title) }
     end
 
     describe '#by_complex_name' do
-      Given { @person_2 = create :person, spiritual_name: nil, surname: 'Aavramenko', middle_name: 'Zakovich', name: 'Zinoviy'}
-      Given { @person_3 = create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Borisovich', name: 'Artem'}
-      Given { @person_4 = create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Andreevich', name: 'Artem'}
+      Given(:person_2) { create :person, spiritual_name: nil, surname: 'Aavramenko', middle_name: 'Zakovich', name: 'Zinoviy'}
+      Given(:person_3) { create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Borisovich', name: 'Artem'}
+      Given(:person_4) { create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Andreevich', name: 'Artem'}
 
-      Then  { expect(Person.by_complex_name).to eq([@person_2, @person, @person_4, @person_3]) }
+      Then  { expect(Person.by_complex_name).to eq([person_2, person, person_4, person_3]) }
     end
 
     describe '#initial_answers' do
-      Given { @person_2 = create :person }
-      Given { @question_1 = create :question, :freeform, position: 2 }
-      Given { @question_2 = create :question, :freeform, position: 1 }
-      Given { @question_3 = create :question, :single_select, position: 1 }
-      Given { @questionnaire_1 = create :questionnaire, kind: 'initial_questions', questions: [@question_1, @question_2] }
-      Given { @questionnaire_2 = create :questionnaire, kind: 'psycho_test', questions: [@question_3] }
-      Given { @person.questionnaire_completenesses.create(completed: true , questionnaire_id: @questionnaire_1.id) }
-      Given { @person.questionnaire_completenesses.create(completed: true , questionnaire_id: @questionnaire_2.id) }
-      Given { @person_2.questionnaire_completenesses.create(completed: false , questionnaire_id: @questionnaire_1.id) }
-      Given { @person_2.questionnaire_completenesses.create(completed: false , questionnaire_id: @questionnaire_2.id) }
-      Given { @answer_1_1 = create :answer, :freeform_answer, person: @person, question: @question_1 }
-      Given { @answer_1_2 = create :answer, :freeform_answer, person: @person, question: @question_2 }
-      Given { @answer_1_3 = create :answer, :single_select_answer, person: @person, question: @question_3 }
-      Given { @answer_2_1 = create :answer, :freeform_answer, person: @person_2, question: @question_1 }
-      Given { @answer_2_2 = create :answer, :freeform_answer, person: @person_2, question: @question_2 }
-      Given { @answer_2_3 = create :answer, :single_select_answer, person: @person_2, question: @question_3 }
+      Given(:person_2) { create :person }
+      Given(:question_1) { create :question, :freeform, position: 2 }
+      Given(:question_2) { create :question, :freeform, position: 1 }
+      Given(:question_3) { create :question, :single_select, position: 1 }
+      Given(:questionnaire_1) { create :questionnaire, kind: 'initial_questions', questions: [question_1, question_2] }
+      Given(:questionnaire_2) { create :questionnaire, kind: 'psycho_test', questions: [question_3] }
 
-      Then  { expect(@person.initial_answers).to eq([@answer_1_2, @answer_1_1]) }
-      And   { expect(@person_2.initial_answers).to be_empty }
+      Given { person.questionnaire_completenesses.create(completed: true, questionnaire_id: questionnaire_1.id) }
+      Given { person.questionnaire_completenesses.create(completed: true, questionnaire_id: questionnaire_2.id) }
+      Given { person_2.questionnaire_completenesses.create(completed: false, questionnaire_id: questionnaire_1.id) }
+      Given { person_2.questionnaire_completenesses.create(completed: false, questionnaire_id: questionnaire_2.id) }
+
+      Given!(:answer_1_1) { create :answer, :freeform_answer, person: person, question: question_1 }
+      Given!(:answer_1_2) { create :answer, :freeform_answer, person: person, question: question_2 }
+      Given!(:answer_1_3) { create :answer, :single_select_answer, person: person, question: question_3 }
+      Given!(:answer_2_1) { create :answer, :freeform_answer, person: person_2, question: question_1 }
+      Given!(:answer_2_2) { create :answer, :freeform_answer, person: person_2, question: question_2 }
+      Given!(:answer_2_3) { create :answer, :single_select_answer, person: person_2, question: question_3 }
+
+      Then  { expect(person.initial_answers).to eq([answer_1_2, answer_1_1]) }
+      And   { expect(person_2.initial_answers).to be_empty }
     end
 
     describe '#pending_docs' do
       context 'no photo or passport, has no questionnaires' do
-        Then  { expect(@person.pending_docs).to eq({photo: :photo, passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq({photo: :photo, passport: :passport}) }
       end
 
       context 'has passport' do
-        Given { allow(@person).to receive_message_chain(:passport, :blank?).and_return(false) }
+        Given { allow(person).to receive_message_chain(:passport, :blank?).and_return(false) }
 
-        Then  { expect(@person.pending_docs).to eq({photo: :photo}) }
+        Then  { expect(person.pending_docs).to eq({photo: :photo}) }
       end
 
       context 'has photo' do
-        Given { allow(@person).to receive_message_chain(:photo, :blank?).and_return(false) }
+        Given { allow(person).to receive_message_chain(:photo, :blank?).and_return(false) }
 
-        Then  { expect(@person.pending_docs).to eq({passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq({passport: :passport}) }
       end
 
       context 'has completed questionnaire' do
-        Given { @person.questionnaire_completenesses.create(completed: true, questionnaire_id: create(:questionnaire).id) }
+        Given { person.questionnaire_completenesses.create(completed: true, questionnaire_id: create(:questionnaire).id) }
 
-        Then  { expect(@person.pending_docs).to eq({photo: :photo, passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq({photo: :photo, passport: :passport}) }
       end
 
       context 'has has two unanswered questionnaires' do
-        Given { @person.questionnaires << [create(:questionnaire), create(:questionnaire)] }
+        Given { person.questionnaires << [create(:questionnaire), create(:questionnaire)] }
 
-        Then  { expect(@person.pending_docs).to eq({questionnaires: 2, photo: :photo, passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq({questionnaires: 2, photo: :photo, passport: :passport}) }
       end
     end
   end
