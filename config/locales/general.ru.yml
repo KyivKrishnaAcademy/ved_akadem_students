@@ -108,3 +108,11 @@ ru:
       telephones:             'Телефоны'
   class_schedules:
     create_and_clone: 'Создать и копировать'
+    table_headers:
+      course:     'Предмет'
+      teacher:    'Лектор'
+      subject:    'Тема'
+      groups:     'Группы'
+      classroom:  'Аудитория'
+      time:       'Запланированное время'
+      actions:    ''

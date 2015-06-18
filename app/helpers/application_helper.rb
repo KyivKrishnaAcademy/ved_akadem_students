@@ -65,4 +65,10 @@ module ApplicationHelper
       complex_name(person, short)
     end
   end
+
+  def class_schedules_table_headers
+    %w(course teacher subject groups classroom time actions).map do |key|
+      I18n.t("class_schedules.table_headers.#{key}")
+    end
+  end
 end

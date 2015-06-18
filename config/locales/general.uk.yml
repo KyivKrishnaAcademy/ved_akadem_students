@@ -108,3 +108,11 @@ uk:
       telephones:             'Телефони'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
+    table_headers:
+      course:     'Предмет'
+      teacher:    'Лектор'
+      subject:    'Тема'
+      groups:     'Групи'
+      classroom:  'Аудиторія'
+      time:       'Запланований час'
+      actions:    ''

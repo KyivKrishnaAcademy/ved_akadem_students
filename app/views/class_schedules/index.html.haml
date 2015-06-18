@@ -13,13 +13,9 @@
       %table.table.table-condensed.table-striped
         %thead
           %tr
-            %th Course
-            %th Lector
-            %th Subject
-            %th Groups
-            %th Auditory
-            %th Schedule time
-            %th
+            - class_schedules_table_headers.each do |header|
+              %th
+                = header
 
         %tbody
           - @class_schedules.each do |class_schedule|
