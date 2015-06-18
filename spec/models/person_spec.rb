@@ -260,5 +260,11 @@ describe Person do
         Then  { expect(person.pending_docs).to eq({questionnaires: 2, photo: :photo, passport: :passport}) }
       end
     end
+
+    describe 'delegated #student_active?' do
+      Then { expect(person.student_active?).to be_nil }
+
+      Then { is_expected.to delegate_method(:active?).to(:student_profile).with_prefix(:student) }
+    end
   end
 end
