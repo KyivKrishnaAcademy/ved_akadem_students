@@ -77,7 +77,13 @@ describe PersonClassSchedulesLoadingInteraction do
       }
     end
 
+    Given(:paginated_array) { Kaminari.paginate_array(array_for_pagination).page(1).per(10) }
+
+    Given { allow(ClassSchedule).to receive(:personal_schedule).and_return(paginated_array) }
+
     describe 'optional schedule' do
+      Given(:array_for_pagination) { [optional_schedule] }
+
       Given(:expected_optional_payload) do
         {
           class_schedules: [
@@ -103,16 +109,13 @@ describe PersonClassSchedulesLoadingInteraction do
         }
       end
 
-      When { optional_schedule }
-
       Then { expect(interaction.as_json).to eq(expected_optional_payload) }
     end
 
     describe 'full schedule' do
       Given(:user) { create :person, roles: [create(:role, activities: activities)] }
       Given(:activities) { ['some'] }
-
-      When { full_schedule }
+      Given(:array_for_pagination) { [full_schedule] }
 
       describe 'no permissions' do
         Then { expect(interaction.as_json).to eq(expected_full_payload) }
