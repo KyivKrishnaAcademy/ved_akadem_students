@@ -21,7 +21,7 @@ class AcademicGroup < ActiveRecord::Base
   def active_students
     leave_date = if active?
                    { query: 'group_participations.leave_date IS ?',
-                   value: nil }
+                     value: nil }
                  else
                    { query: 'group_participations.leave_date >= ? OR group_participations.leave_date IS NULL',
                      value: graduated_at }
