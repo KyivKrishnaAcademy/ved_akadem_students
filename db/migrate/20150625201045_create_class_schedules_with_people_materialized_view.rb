@@ -1,6 +1,6 @@
 class CreateClassSchedulesWithPeopleMaterializedView < ActiveRecord::Migration
   def up
-    connection.execute(IO.read(Rails.root.join('db/materialized_views/class_schedules_with_people.sql')))
+    connection.execute(IO.read(Rails.root.join('db/materialized_views/class_schedules_with_people_v1.sql')))
   end
 
   def down

@@ -1,3 +1,6 @@
+-- Do not change after merge to master, because it will produce irreversible migration
+-- create new version instead
+
 DROP MATERIALIZED VIEW IF EXISTS class_schedules_with_people;
 
 CREATE MATERIALIZED VIEW class_schedules_with_people AS
