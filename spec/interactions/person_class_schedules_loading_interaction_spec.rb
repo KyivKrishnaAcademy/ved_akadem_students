@@ -7,7 +7,7 @@ describe PersonClassSchedulesLoadingInteraction do
   describe 'calls ClassSchedule#personal_schedule' do
     Given(:result) { ClassSchedule.none.page(nil).per(1) }
 
-    Then { expect(ClassSchedule).to receive(:personal_schedule).with(user, 1).and_return(result) }
+    Then { expect(ClassScheduleWithPeople).to receive(:personal_schedule).with(user, 1).and_return(result) }
     And  { expect(interaction.as_json).to eq({ class_schedules: [], pages: 0 }) }
   end
 
@@ -79,9 +79,11 @@ describe PersonClassSchedulesLoadingInteraction do
 
     Given(:paginated_array) { Kaminari.paginate_array(array_for_pagination).page(1).per(10) }
 
-    Given { allow(ClassSchedule).to receive(:personal_schedule).and_return(paginated_array) }
+    Given { allow(ClassScheduleWithPeople).to receive(:personal_schedule).and_return(paginated_array) }
 
     describe 'optional schedule' do
+      Given { allow(optional_schedule).to receive(:real_class_schedule).and_return(optional_schedule) }
+
       Given(:array_for_pagination) { [optional_schedule] }
 
       Given(:expected_optional_payload) do
@@ -113,6 +115,8 @@ describe PersonClassSchedulesLoadingInteraction do
     end
 
     describe 'full schedule' do
+      Given { allow(full_schedule).to receive(:real_class_schedule).and_return(full_schedule) }
+
       Given(:user) { create :person, roles: [create(:role, activities: activities)] }
       Given(:activities) { ['some'] }
       Given(:array_for_pagination) { [full_schedule] }

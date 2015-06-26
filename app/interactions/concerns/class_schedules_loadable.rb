@@ -23,8 +23,8 @@ module ClassSchedulesLoadable
       academic_groups: class_schedule.academic_groups.map { |ag| serialize_academic_group ag },
       classroom: class_schedule.classroom.title,
       time: show_scheduled_time(class_schedule),
-      can_edit: policy(class_schedule).edit?,
-      can_delete: policy(class_schedule).destroy?,
+      can_edit: policy(class_schedule.real_class_schedule).edit?,
+      can_delete: policy(class_schedule.real_class_schedule).destroy?,
       edit_path: edit_class_schedule_path(class_schedule),
       delete_path: class_schedule_path(class_schedule)
     }
