@@ -30,5 +30,6 @@ module VedicAcademyStudents
     end
 
     config.autoload_paths += [Rails.root.join('app/interactions/concerns')]
+    config.active_record.schema_format = :sql
   end
 end
