@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe ClassScheduleWithPeople do
-  When { ClassScheduleWithPeople.refresh }
+  When { ClassScheduleWithPeople.connection.execute("REFRESH MATERIALIZED VIEW #{ClassScheduleWithPeople.table_name}") }
 
   describe 'readonly' do
     Given { create :class_schedule }

@@ -18,7 +18,7 @@ class ClassScheduleWithPeople < ClassSchedule
   end
 
   def self.refresh
-    connection.execute("REFRESH MATERIALIZED VIEW #{table_name}")
+    connection.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY #{table_name}")
   end
 
   def self.personal_schedule(person, page = nil)

@@ -44,3 +44,5 @@ WITH (fastupdate = off);
 CREATE INDEX class_schedules_with_people_teacher_id_idx
 ON class_schedules_with_people
 USING hash (teacher_id);
+
+REFRESH MATERIALIZED VIEW class_schedules_with_people;
