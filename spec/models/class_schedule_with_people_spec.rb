@@ -16,4 +16,12 @@ describe ClassScheduleWithPeople do
     Then { expect{instance.delete}.to raise_error(ActiveRecord::ReadOnlyRecord) }
     Then { expect{instance.destroy}.to raise_error(ActiveRecord::ReadOnlyRecord) }
   end
+
+  describe 'methods' do
+    describe '#real_class_schedule' do
+      Given!(:class_schedule) { create :class_schedule }
+
+      Then { expect(ClassScheduleWithPeople.find(class_schedule.id).real_class_schedule).to eq(class_schedule) }
+    end
+  end
 end
