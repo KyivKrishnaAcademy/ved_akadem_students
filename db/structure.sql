@@ -281,11 +281,11 @@ CREATE MATERIALIZED VIEW class_schedules_with_people AS
           WHERE (tp.id = cs.teacher_profile_id)) AS teacher_id,
     ARRAY( SELECT DISTINCT p.id
            FROM ((((people p
-      JOIN student_profiles sp ON ((sp.person_id = p.id)))
-   JOIN group_participations gp ON ((gp.student_profile_id = sp.id)))
-   JOIN academic_groups ag ON ((ag.id = gp.academic_group_id)))
-   JOIN academic_group_schedules ags ON ((ags.academic_group_id = ag.id)))
-  WHERE (((ags.class_schedule_id = cs.id) AND (gp.leave_date IS NULL)) AND (ag.graduated_at IS NULL))) AS people_ids
+             JOIN student_profiles sp ON ((sp.person_id = p.id)))
+             JOIN group_participations gp ON ((gp.student_profile_id = sp.id)))
+             JOIN academic_groups ag ON ((ag.id = gp.academic_group_id)))
+             JOIN academic_group_schedules ags ON ((ags.academic_group_id = ag.id)))
+          WHERE (((ags.class_schedule_id = cs.id) AND (gp.leave_date IS NULL)) AND (ag.graduated_at IS NULL))) AS people_ids
    FROM class_schedules cs
   WHERE (cs.finish_time > now())
   ORDER BY cs.start_time, cs.finish_time
@@ -1051,6 +1051,27 @@ ALTER TABLE ONLY teacher_specialities
 
 ALTER TABLE ONLY telephones
     ADD CONSTRAINT telephones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: class_schedules_with_people_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX class_schedules_with_people_id_idx ON class_schedules_with_people USING btree (id);
+
+
+--
+-- Name: class_schedules_with_people_people_ids_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX class_schedules_with_people_people_ids_idx ON class_schedules_with_people USING gin (people_ids) WITH (fastupdate=off);
+
+
+--
+-- Name: class_schedules_with_people_teacher_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX class_schedules_with_people_teacher_id_idx ON class_schedules_with_people USING hash (teacher_id);
 
 
 --

@@ -1,8 +1,6 @@
 -- Do not change after merge to master, because it will produce irreversible migration
 -- create new version instead
 
-DROP MATERIALIZED VIEW IF EXISTS class_schedules_with_people;
-
 CREATE MATERIALIZED VIEW class_schedules_with_people AS
 SELECT
   cs.id,
@@ -35,3 +33,14 @@ ORDER BY
   cs.start_time ASC,
   cs.finish_time ASC
 ;
+
+CREATE UNIQUE INDEX class_schedules_with_people_id_idx ON class_schedules_with_people (id);
+
+CREATE INDEX class_schedules_with_people_people_ids_idx
+ON class_schedules_with_people
+USING gin (people_ids)
+WITH (fastupdate = off);
+
+CREATE INDEX class_schedules_with_people_teacher_id_idx
+ON class_schedules_with_people
+USING hash (teacher_id);
