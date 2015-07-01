@@ -18,6 +18,26 @@ describe ClassScheduleWithPeople do
   end
 
   describe 'methods' do
+    describe '.refresh' do
+      Given(:updated_subject) { 'My special subject' }
+
+      Given!(:class_schedule) { create :class_schedule }
+
+      When { class_schedule.update_column(:subject, updated_subject) }
+
+      subject { ClassScheduleWithPeople.find(class_schedule.id).subject }
+
+      context 'not refreshed' do
+        Then { is_expected.not_to eq(updated_subject) }
+      end
+
+      context 'refreshed' do
+        When { ClassScheduleWithPeople.refresh }
+
+        Then { is_expected.to eq(updated_subject) }
+      end
+    end
+
     describe '#real_class_schedule' do
       Given!(:class_schedule) { create :class_schedule }
 
