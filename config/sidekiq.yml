@@ -4,6 +4,7 @@ default: &default
     - urgent
     - default
     - low
+    - mailers
 
 development:
   <<: *default
