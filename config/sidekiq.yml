@@ -1,0 +1,22 @@
+default: &default
+  :verbose: true
+  :queues:
+    - urgent
+    - default
+    - low
+
+development:
+  <<: *default
+  :verbose: true
+  :concurrency: 5
+  :namespace: va_dev
+
+test:
+  <<: *default
+  :namespace: va_tst
+
+production:
+  <<: *default
+  :verbose: false
+  :concurrency: 20
+  :namespace: va_prod

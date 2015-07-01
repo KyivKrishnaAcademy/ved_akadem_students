@@ -35,6 +35,8 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
 gem 'react-rails', '~> 1.0'
 
+gem 'sidekiq'
+
 gem 'airbrake'
 
 group :production, :development do
