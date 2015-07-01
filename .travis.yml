@@ -6,6 +6,8 @@ rvm:
   - 2.1.5
 addons:
   postgresql: '9.4'
+services:
+  - redis-server
 before_script:
   - psql -c 'create database va_db_tst;' -U postgres
   - cp config/database.yml.travis config/database.yml
@@ -15,4 +17,5 @@ before_install:
   - tar -xjf phantomjs-2.0.0-ubuntu-12.04.tar.bz2
   - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
   - sudo mv phantomjs /usr/local/phantomjs/bin/phantomjs
-bundler_args: --without development production
+bundler_args:
+  --without development production
