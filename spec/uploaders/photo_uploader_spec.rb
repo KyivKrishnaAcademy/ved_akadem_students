@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'carrierwave/test/matchers'
 
-if ENV['TRAVIS'].blank?
+if ENV['TRAVIS_off'].blank?
   describe PhotoUploader do
     include CarrierWave::Test::Matchers
 
