@@ -86,9 +86,10 @@ ru:
         title:        'Регистрация'
   static_pages:
     home:
-      title:                   'Домашняя'
-      student_of_academic_group: 'Вы студент группы'
-      message_for_group:       'Объявление для группы:'
+      message_for_group:          'Объявление для группы:'
+      schedules_title:            'Ваше персональное расписание'
+      student_of_academic_group:  'Вы студент группы'
+      title:                      'Домашняя'
   people:
     show:
       psycho_test_results:  'Результаты психологического теста'

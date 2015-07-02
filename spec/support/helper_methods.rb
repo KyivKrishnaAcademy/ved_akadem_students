@@ -30,6 +30,10 @@ module HelperMethods
     find(".#{klass} li.select2-selection__choice", text: option)
   end
 
+  def init_schedules_mv
+    ClassScheduleWithPeople.connection.execute("REFRESH MATERIALIZED VIEW #{ClassScheduleWithPeople.table_name}")
+  end
+
   private
 
   def select2_common(klass, option)

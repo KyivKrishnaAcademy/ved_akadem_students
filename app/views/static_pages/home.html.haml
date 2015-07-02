@@ -10,7 +10,8 @@
                                            study_application: @new_study_application
   - if policy(ClassSchedule).ui_person?
     .col-xs-12
-      %h3.text-center Schedule
+      %h3.text-center
+        = t('.schedules_title')
     .col-xs-12
       = react_component('SchedulesTable',
                         { url: ui_person_class_schedules_path,
