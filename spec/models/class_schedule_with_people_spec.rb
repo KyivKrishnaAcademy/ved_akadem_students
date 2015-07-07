@@ -56,8 +56,6 @@ describe ClassScheduleWithPeople do
         And  { ClassScheduleWithPeople.refresh_later; true }
         And  { expect(lock_status).to be(true) }
       end
-
-      after(:each) { Sidekiq.redis { |c| c.del(:class_schedule_with_people_mv_refresh) } }
     end
 
     describe '#real_class_schedule' do
