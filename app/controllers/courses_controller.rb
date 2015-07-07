@@ -1,5 +1,8 @@
 class CoursesController < HtmlResponsableController
   include Crudable
+  include ClassSchedulesRefreshable
+
+  after_action :refresh_class_schedules_mv, only: %i(destroy update)
 
   def index
     @courses = Course.order(:title)
