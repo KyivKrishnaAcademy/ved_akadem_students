@@ -21,6 +21,14 @@ class ClassScheduleWithPeople < ClassSchedule
     connection.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY #{table_name}")
   end
 
+  def self.refresh_later
+    return if Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) }
+
+    Sidekiq.redis { |c| c.set(:class_schedule_with_people_mv_refresh, 1) }
+
+    RefreshClassSchedulesMvJob.set(wait: 5.minutes).perform_later
+  end
+
   def self.personal_schedule(person, page = nil)
     ClassScheduleWithPeople.where('finish_time > now()')
                            .where("teacher_id = ? OR '{?}'::int[] <@ people_ids", person.id, person.id)

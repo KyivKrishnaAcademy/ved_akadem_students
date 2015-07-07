@@ -38,6 +38,28 @@ describe ClassScheduleWithPeople do
       end
     end
 
+    describe '.refresh_later' do
+      describe 'do nothing' do
+        Given { Sidekiq.redis { |c| c.set(:class_schedule_with_people_mv_refresh, 1) } }
+
+        Then  { expect(RefreshClassSchedulesMvJob).not_to receive(:set) }
+        And   { ClassScheduleWithPeople.refresh_later; true }
+      end
+
+      describe 'do perform' do
+        def lock_status
+          Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) }
+        end
+
+        Then { expect(lock_status).to be(false) }
+        And  { expect(RefreshClassSchedulesMvJob).to receive_message_chain(:set, :perform_later) }
+        And  { ClassScheduleWithPeople.refresh_later; true }
+        And  { expect(lock_status).to be(true) }
+      end
+
+      after(:each) { Sidekiq.redis { |c| c.del(:class_schedule_with_people_mv_refresh) } }
+    end
+
     describe '#real_class_schedule' do
       Given!(:class_schedule) { create :class_schedule }
 
