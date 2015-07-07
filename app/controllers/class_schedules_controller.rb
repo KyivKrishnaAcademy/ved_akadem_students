@@ -1,5 +1,8 @@
 class ClassSchedulesController < HtmlResponsableController
   include Crudable
+  include ClassSchedulesRefreshable
+
+  after_action :refresh_class_schedules_mv, only: %i(create destroy update)
 
   def index
     @class_schedules = ClassSchedule.order(:start_time)
