@@ -106,7 +106,7 @@ describe ClassScheduleWithPeople do
                start_time: time.change(hour: 8), finish_time: time.change(hour: 9)
       end
 
-      Given(:subject) { ClassScheduleWithPeople.personal_schedule(user) }
+      Given(:subject) { ClassScheduleWithPeople.personal_schedule(user.id) }
       Given(:expected_schedules) { %w(teacher all_groups active_group) }
 
       Then { expect(subject.pluck(:subject)).to eq(expected_schedules) }
