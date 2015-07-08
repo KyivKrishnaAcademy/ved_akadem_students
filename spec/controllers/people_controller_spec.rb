@@ -179,6 +179,8 @@ describe PeopleController do
         Given { allow(person).to receive(:create_student_profile).and_return(student_profile) }
         Given { allow(student_profile).to receive(:move_to_group).with(academic_group) }
 
+        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
         When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
         Then { expect(response).to render_template(:move_to_group) }
@@ -190,6 +192,8 @@ describe PeopleController do
         Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:remove_from_groups'] } }
         Given { allow(person).to receive(:student_profile).and_return(student_profile) }
         Given { expect(student_profile).to receive(:remove_from_groups) }
+
+        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
         When { delete :remove_from_groups, id: 1, format: :js }
 
@@ -250,6 +254,8 @@ describe PeopleController do
 
         patch :update, { id: person.id, person: attributes }
       end
+
+      Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
       context 'on success' do
         context 'field chenged' do

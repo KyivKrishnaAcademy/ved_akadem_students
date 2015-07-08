@@ -1,11 +1,21 @@
 language: ruby
 script:
   - 'bundle exec rake test:prepare'
-  - 'TRAVIS=1 CODECLIMATE_REPO_TOKEN=783e4ac8cc44be68f2be2932fb13e2805e1f21b4541d689c9c7fe12bfb2373fb bundle exec rspec -s 63423'
+  - 'CODECLIMATE_REPO_TOKEN=783e4ac8cc44be68f2be2932fb13e2805e1f21b4541d689c9c7fe12bfb2373fb bundle exec rspec -s 63423'
 rvm:
   - 2.1.5
 addons:
-  postgresql: '9.3'
+  postgresql: '9.4'
+services:
+  - redis-server
 before_script:
   - psql -c 'create database va_db_tst;' -U postgres
   - cp config/database.yml.travis config/database.yml
+before_install:
+  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+  - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - tar -xjf phantomjs-2.0.0-ubuntu-12.04.tar.bz2
+  - sudo rm -rf /usr/local/phantomjs/bin/phantomjs
+  - sudo mv phantomjs /usr/local/phantomjs/bin/phantomjs
+bundler_args:
+  --without development production

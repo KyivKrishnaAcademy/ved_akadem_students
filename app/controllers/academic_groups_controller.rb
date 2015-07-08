@@ -1,7 +1,9 @@
 class AcademicGroupsController < ApplicationController
   include Crudable
+  include ClassSchedulesRefreshable
 
-  after_action :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, only: %i(index show edit update destroy)
+  after_action :refresh_class_schedules_mv, only: %i(destroy update)
 
   def index
     @academic_groups = policy_scope(AcademicGroup)

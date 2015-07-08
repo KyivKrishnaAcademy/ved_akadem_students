@@ -33,6 +33,10 @@ gem 'intl-tel-input-rails', '3.6.0.1'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
+gem 'react-rails', '~> 1.0'
+
+gem 'sidekiq'
+
 gem 'airbrake'
 
 group :production, :development do
@@ -55,6 +59,8 @@ group :development do
   gem 'haml-rails'
   gem 'web-console', '~> 2.0'
   gem 'meta_request'
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do

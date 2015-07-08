@@ -25,7 +25,7 @@ describe ClassSchedule do
         Given(:group) { create :academic_group}
         Given(:student) { create :person }
         Given(:schedule) { build :class_schedule, academic_groups: [group], classroom: classroom }
-        Given(:classroom) { create :classroom }
+        Given(:classroom) { create :classroom, roominess: 0 }
         Given(:error_message) { I18n.t('activerecord.errors.models.class_schedule.attributes.classroom.roominess',
                                        actual: 0,
                                        required: 1) }

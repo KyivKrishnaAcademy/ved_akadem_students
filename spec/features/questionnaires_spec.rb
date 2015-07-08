@@ -12,7 +12,7 @@ describe 'Questionnaires' do
   Given { @person         = create :person }
   Given { StudyApplication.create(person: @person, program: @program) }
   Given { QuestionnaireCompleteness.create(person: @person, questionnaire: @questionnaire) }
-  Given { login_as_user(@person) }
+  Given { login_as(@person) }
 
   describe 'should show pending questionnaires' do
     When { visit root_path }

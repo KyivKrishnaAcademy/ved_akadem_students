@@ -143,6 +143,8 @@ describe ClassSchedulesController do
       end
 
       describe 'DB hit tests' do
+        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
         describe '#create' do
           Given(:actions) { ['class_schedule:create'] }
 

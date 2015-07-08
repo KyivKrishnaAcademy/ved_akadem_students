@@ -33,9 +33,11 @@ Rails.application.routes.draw do
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index
 
-    get 'group_admins' => 'group_elders#group_admins_index'
-    get 'group_curators' => 'group_elders#group_curators_index'
-    get 'group_praepostors' => 'group_elders#group_praepostors_index'
+    get 'group_admins'      , controller: :group_elders, action: :group_admins_index
+    get 'group_curators'    , controller: :group_elders, action: :group_curators_index
+    get 'group_praepostors' , controller: :group_elders, action: :group_praepostors_index
+
+    get 'person_class_schedules', controller: :class_schedules, action: :person
   end
 
   format_pdf = { format: :pdf }

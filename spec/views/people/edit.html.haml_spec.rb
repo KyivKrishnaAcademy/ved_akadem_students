@@ -18,7 +18,7 @@ describe 'people/edit.html.erb' do
       birthday: '1975-01-30'.to_date)
   end
 
-  Given { login_as_admin(@admin) }
+  Given { login_as(@admin) }
 
   When  { visit edit_person_path(@admin) }
 

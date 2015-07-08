@@ -17,6 +17,10 @@ describe AcademicGroupsController do
       When { action }
 
       describe 'should allow' do
+        if activities.include?('academic_group:update')
+          Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+        end
+
         Given { @user = create :person, roles: [create(:role, activities: activities.flatten)] }
 
         Then  { expectation }
@@ -166,6 +170,8 @@ describe AcademicGroupsController do
     it_behaves_like :academic_groups_actions, 'academic_group:update'
 
     describe 'other' do
+      Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
       When { sign_in :person, create(:person, roles: [create(:role, activities: %w(academic_group:update))]) }
 
       describe 'record receives update' do
@@ -191,6 +197,8 @@ describe AcademicGroupsController do
     Given(:action) { delete :destroy, id: @record.id }
 
     context 'signed in' do
+      Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
       Given { @user = create :person, roles: [create(:role, activities: %w(academic_group:destroy))] }
 
       When { sign_in(:person, @user) }

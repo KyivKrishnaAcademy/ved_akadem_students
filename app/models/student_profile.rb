@@ -5,6 +5,10 @@ class StudentProfile < ActiveRecord::Base
   has_many :attendances, dependent: :destroy
   has_many :class_schedules, through: :attendances
 
+  def active?
+    group_participations.where(leave_date: nil).limit(1).present?
+  end
+
   def move_to_group(academic_group)
     remove_from_groups
 

@@ -86,9 +86,10 @@ uk:
         title:        'Реєстрація'
   static_pages:
     home:
-      title:                   'Домашня'
-      student_of_academic_group: 'Ви студент групи'
-      message_for_group:       "Об'ява для групи:"
+      message_for_group:          "Об'ява для групи:"
+      schedules_title:            'Ваш персональний розклад'
+      student_of_academic_group:  'Ви студент групи'
+      title:                      'Домашня'
   people:
     show:
       psycho_test_results:  'Результати психологічного тесту'
@@ -108,3 +109,11 @@ uk:
       telephones:             'Телефони'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
+    table_headers:
+      course:     'Предмет'
+      teacher:    'Лектор'
+      subject:    'Тема'
+      groups:     'Групи'
+      classroom:  'Аудиторія'
+      time:       'Запланований час'
+      actions:    ''
