@@ -51,6 +51,8 @@ namespace :deploy do
       execute "mkdir -p /var/www/apps/#{application}/socket/"
       execute "mkdir -p #{shared_path}/uploads/"
       execute "mkdir -p #{shared_path}/system"
+      execute "mkdir -p #{shared_path}/pids"
+      execute "mkdir -p #{shared_path}/init"
       execute 'mkdir -p /var/www/log'
       sudo    'mkdir -p /usr/local/nginx/conf/sites-enabled'
 
@@ -65,6 +67,8 @@ namespace :deploy do
       upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
       upload!('shared/ved_akadem_students.conf', "#{shared_path}/ved_akadem_students.conf")
       upload!('shared/secrets.yml', "#{shared_path}/config/secrets.yml")
+      upload!('shared/init/sidekiq.conf', "#{shared_path}/init/sidekiq.conf")
+      upload!('shared/init/workers.conf', "#{shared_path}/init/workers.conf")
 
       execute "chmod -R 700 #{shared_path}/config"
 
@@ -72,6 +76,8 @@ namespace :deploy do
       sudo 'rm -f /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf'
       sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
       sudo "ln -sf #{shared_path}/ved_akadem_students.conf /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf"
+
+      sudo "cp #{shared_path}/init/* /etc/init"
     end
   end
 
@@ -188,6 +194,38 @@ namespace :nginx do
   end
 end
 
+namespace :sidekiq do
+  desc 'Restart application'
+  task :restart do
+    on roles(:app) do
+      sudo 'service workers restart'
+    end
+  end
+  after 'deploy:restart', 'sidekiq:restart'
+
+  desc 'Start application'
+  task :start do
+    on roles(:app) do
+      sudo 'service workers start'
+    end
+  end
+
+
+  desc 'Stop application'
+  task :stop do
+    on roles(:app) do
+      sudo 'service workers stop'
+    end
+  end
+  before 'deploy:starting', 'sidekiq:stop'
+
+  desc 'Application status'
+  task :status do
+    on roles(:app) do
+      sudo 'service workers status'
+    end
+  end
+end
 
 namespace :db do
   desc 'Backup DB'

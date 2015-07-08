@@ -4,6 +4,6 @@ class PersonClassSchedulesLoadingInteraction < BaseInteraction
   def init
     #TODO replace this when ElasticSearch appears
     #injection is possible!
-    @class_schedules = ClassScheduleWithPeople.personal_schedule(user, params[:page])
+    @class_schedules = ClassScheduleWithPeople.personal_schedule(user.id, params[:page])
   end
 end

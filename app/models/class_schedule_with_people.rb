@@ -29,9 +29,9 @@ class ClassScheduleWithPeople < ClassSchedule
     RefreshClassSchedulesMvJob.set(wait: 5.minutes).perform_later
   end
 
-  def self.personal_schedule(person, page = nil)
+  def self.personal_schedule(person_id, page = nil)
     ClassScheduleWithPeople.where('finish_time > now()')
-                           .where("teacher_id = ? OR '{?}'::int[] <@ people_ids", person.id, person.id)
+                           .where("teacher_id = ? OR '{?}'::int[] <@ people_ids", person_id, person_id)
                            .page(page)
                            .per(10)
   end

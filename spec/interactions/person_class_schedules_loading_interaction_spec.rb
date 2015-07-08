@@ -7,7 +7,7 @@ describe PersonClassSchedulesLoadingInteraction do
   describe 'calls ClassSchedule#personal_schedule' do
     Given(:result) { ClassSchedule.none.page(nil).per(1) }
 
-    Then { expect(ClassScheduleWithPeople).to receive(:personal_schedule).with(user, 1).and_return(result) }
+    Then { expect(ClassScheduleWithPeople).to receive(:personal_schedule).with(user.id, 1).and_return(result) }
     And  { expect(interaction.as_json).to eq({ class_schedules: [], pages: 0 }) }
   end
 
