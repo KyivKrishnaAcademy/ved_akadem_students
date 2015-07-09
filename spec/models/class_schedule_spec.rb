@@ -10,6 +10,8 @@ describe ClassSchedule do
     Then { is_expected.to have_many(:attendances).dependent(:destroy) }
   end
 
+  Given(:group) { create :academic_group}
+
   describe 'validations' do
     describe 'generic' do
       Then { is_expected.to validate_presence_of(:course) }
@@ -22,7 +24,6 @@ describe ClassSchedule do
 
     describe 'custom' do
       describe 'classroom roominess' do
-        Given(:group) { create :academic_group}
         Given(:student) { create :person }
         Given(:schedule) { build :class_schedule, academic_groups: [group], classroom: classroom }
         Given(:classroom) { create :classroom, roominess: 0 }
@@ -214,7 +215,6 @@ describe ClassSchedule do
   end
 
   describe 'able to update existing with overlapping time' do
-    Given(:group) { create :academic_group }
     Given(:teacher) { create :teacher_profile }
     Given(:schedule) { create :class_schedule, academic_groups: [group], teacher_profile: teacher }
 
@@ -224,10 +224,27 @@ describe ClassSchedule do
   end
 
   describe 'methods' do
-    describe '#real_class_schedule' do
-      Given(:schedule) { create :class_schedule }
+    Given!(:schedule) { create :class_schedule }
 
+    describe '#real_class_schedule' do
       Then { expect(schedule.real_class_schedule.id).to eq(schedule.id) }
+    end
+
+    describe '.by_group' do
+      Given!(:schedule_3) { create :class_schedule, academic_groups: [group],
+                                                    start_time: Time.now + 4.hour,
+                                                    finish_time: Time.now + 5.hour }
+      Given!(:schedule_1) { create :class_schedule, academic_groups: [group],
+                                                    start_time: Time.now + 1.hour,
+                                                    finish_time: Time.now + 2.hour }
+      Given!(:schedule_2) { create :class_schedule, academic_groups: [group],
+                                                    start_time: Time.now + 2.hour,
+                                                    finish_time: Time.now + 3.hour }
+      Given!(:past_schedule) { create :class_schedule, academic_groups: [group],
+                                                       start_time: '01.01.2015 14:00',
+                                                       finish_time: '01.01.2015 15:00' }
+
+      Then { expect(ClassSchedule.by_group(group.id).map(&:id)).to eq([schedule_1, schedule_2, schedule_3].map(&:id)) }
     end
   end
 end
