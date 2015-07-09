@@ -14,5 +14,5 @@
       - @academic_groups.each do |academic_group|
         %tr{class: 'academic_group', id: academic_group.id}
           %td= link_to academic_group.title, academic_group
-          %td= academic_group.establ_date.to_s
+          %td= l(academic_group.establ_date) if academic_group.establ_date.present?
           %td= academic_group.group_description

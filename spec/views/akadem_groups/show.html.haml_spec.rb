@@ -22,7 +22,7 @@ describe 'academic_groups/show' do
 
   describe 'common with restricted rights' do
     Then  { expect(rendered).to have_selector('h1', text: ag_name) }
-    And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{group.establ_date.to_s}") }
+    And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{I18n.l(group.establ_date)}") }
     And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.group_description')}: #{group.group_description}") }
 
     And   { expect(rendered).not_to have_link(I18n.t('links.edit'))}

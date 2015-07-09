@@ -233,7 +233,7 @@ shared_examples :valid_select_date do |model_name, field_name, content|
     click_button "Зберегти #{underscore_humanize(model_name)}"
   end
 
-  Then { expect(find('body')).to have_content("#{content}#{year}-05-27") }
+  Then { expect(find('body')).to have_content("#{content}27.05.#{year}") }
 
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end

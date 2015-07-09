@@ -4,7 +4,7 @@
       .col-xs-3.col-sm-2
         = "#{t('activerecord.attributes.academic_group.establ_date')}:"
       .col-xs-9.col-sm-10
-        = academic_group.establ_date.to_s
+        = l(academic_group.establ_date)
     - if academic_group.group_description.present?
       .row
         .col-xs-3.col-sm-2
