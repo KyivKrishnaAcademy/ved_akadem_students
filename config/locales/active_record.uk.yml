@@ -3,6 +3,7 @@ uk:
     attributes:
       academic_group:
         establ_date:        'Дата створення'
+        graduated_at:       'Дата закінчення'
         group_description:  'Опис групи'
       person:
         birthday:               'День народження'

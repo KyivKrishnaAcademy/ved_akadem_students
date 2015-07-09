@@ -1,5 +1,11 @@
 .row
   .col-xs-12.vert-offset-top-1
+    - unless academic_group.active?
+      .row
+        .col-xs-3.col-sm-2
+          = "#{t('activerecord.attributes.academic_group.graduated_at')}:"
+        .col-xs-9.col-sm-10
+          = l(academic_group.graduated_at, format: :with_day)
     .row
       .col-xs-3.col-sm-2
         = "#{t('activerecord.attributes.academic_group.establ_date')}:"

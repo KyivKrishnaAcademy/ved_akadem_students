@@ -3,6 +3,7 @@ ru:
     attributes:
       academic_group:
         establ_date:        'Дата создания'
+        graduated_at:       'Дата окончания'
         group_description:  'Описание группы'
       person:
         birthday:               'День рождения'

@@ -30,6 +30,8 @@ describe 'academic_groups/show' do
     And   { expect(page).not_to have_css(pdf_link) }
 
     And   { expect(rendered).not_to have_text(I18n.t('academic_groups.show.group_servants')) }
+
+    And   { expect(rendered).not_to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
   end
 
   describe 'with group_list_pdf rights' do
@@ -118,5 +120,12 @@ describe 'academic_groups/show' do
 
       Then { is_expected.to have_link(complex_name(user, true), person_path(user)) }
     end
+  end
+
+  describe 'graduated group' do
+    Given { group.graduate! }
+
+    Then  { expect(rendered).to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
+    And   { expect(rendered).to have_text(I18n.l(group.graduated_at, format: :with_day)) }
   end
 end
