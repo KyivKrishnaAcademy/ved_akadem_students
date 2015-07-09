@@ -6,4 +6,6 @@ class Program < ActiveRecord::Base
   has_and_belongs_to_many :questionnaires
 
   validates :title_uk, :title_ru, :description_uk, :description_ru, presence: true
+
+  has_paper_trail
 end

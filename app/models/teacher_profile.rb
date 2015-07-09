@@ -5,4 +5,6 @@ class TeacherProfile < ActiveRecord::Base
   has_many :courses, through: :teacher_specialities
 
   delegate :complex_name, to: :person
+
+  has_paper_trail
 end

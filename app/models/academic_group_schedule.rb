@@ -4,4 +4,6 @@ class AcademicGroupSchedule < ActiveRecord::Base
 
   validates :academic_group_id, uniqueness: { scope: :class_schedule_id }
   validates :class_schedule_id, uniqueness: { scope: :academic_group_id }
+
+  has_paper_trail
 end

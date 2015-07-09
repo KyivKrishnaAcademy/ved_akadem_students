@@ -4,4 +4,6 @@ class Telephone < ActiveRecord::Base
   belongs_to :person
 
   validates :phone, format: { with: VALID_PHONE_REGEX }
+
+  has_paper_trail
 end

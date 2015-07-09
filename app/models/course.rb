@@ -4,4 +4,6 @@ class Course < ActiveRecord::Base
   has_many :teacher_profiles, through: :teacher_specialities
 
   validates :title, :description, presence: true
+
+  has_paper_trail
 end

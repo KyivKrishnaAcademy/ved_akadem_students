@@ -43,6 +43,8 @@ class Person < ActiveRecord::Base
 
   delegate :active?, to: :student_profile, prefix: :student, allow_nil: true
 
+  has_paper_trail
+
   def crop_photo(params)
     assign_attributes(params)
 

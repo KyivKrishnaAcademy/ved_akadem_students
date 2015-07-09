@@ -3,4 +3,6 @@ class Role < ActiveRecord::Base
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :activities, presence: true
+
+  has_paper_trail
 end
