@@ -18,6 +18,8 @@ class AcademicGroup < ActiveRecord::Base
   validates :title, format: { with: VALID_TITLE_REGEX }
   validates :title, presence: true, uniqueness: true
 
+  has_paper_trail
+
   def active_students
     leave_date = if active?
                    { query: 'group_participations.leave_date IS ?',

@@ -9,4 +9,6 @@ class Questionnaire < ActiveRecord::Base
   accepts_nested_attributes_for :questions
 
   validates :title_ru, :title_uk, presence: true
+
+  has_paper_trail
 end

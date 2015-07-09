@@ -39,6 +39,8 @@ gem 'sidekiq'
 
 gem 'airbrake'
 
+gem 'paper_trail', '~> 4.0.0.rc'
+
 group :production, :development do
   gem 'puma'
   gem 'whenever', require: false

@@ -12,6 +12,8 @@ class ClassSchedule < ActiveRecord::Base
 
   validates :course, :classroom, :start_time, :finish_time, presence: true
 
+  has_paper_trail
+
   def self.by_group(id, page = nil)
     ClassSchedule.joins(:academic_group_schedules)
                  .where('finish_time > now()')
