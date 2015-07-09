@@ -34,4 +34,8 @@ class AcademicGroup < ActiveRecord::Base
   def active?
     !graduated_at
   end
+
+  def graduate!
+    update!(graduated_at: DateTime.current)
+  end
 end
