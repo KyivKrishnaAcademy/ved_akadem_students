@@ -102,10 +102,12 @@ ru:
       full_name:              'Имя'
       group_list_pdf:         ' Скачать/Печатать'
       group_servants:         'Слуги группы'
+      no_pending_schedules:   'Нет грядущих событий'
       photo:                  'Фото'
       praepostor:             'Староста'
       tab_general:            'Осмотр'
       tab_group_list:         'Список группы'
+      tab_schedules:          'Расписание'
       telephones:             'Телефоны'
   class_schedules:
     create_and_clone: 'Создать и копировать'

@@ -1,0 +1,10 @@
+.row.vert-offset-top-1
+  .col-xs-12
+    - if ClassSchedule.by_group(academic_group_id).any?
+      = react_component('SchedulesTable',
+                        { url: ui_group_class_schedules_path(academic_group_id),
+                          headers: class_schedules_table_headers },
+                        { prerender: true })
+    - else
+      %h5.text-center
+        = t('academic_groups.show.no_pending_schedules')

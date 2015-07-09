@@ -16,10 +16,14 @@
       %li{ class: 'active' }
         = link_to t('.tab_general'), '#general', data: { toggle: 'tab' }
       %li
+        = link_to t('.tab_schedules'), '#schedules', data: { toggle: 'tab' }
+      %li
         = link_to t('.tab_group_list'), '#group_list', data: { toggle: 'tab' }
 
     .tab-content
       .tab-pane#general.active
         = render 'tab_general', academic_group: @academic_group
+      .tab-pane#schedules
+        = render 'tab_schedules', academic_group_id: @academic_group.id
       .tab-pane#group_list
         = render 'tab_student_list', students: @academic_group.active_students, academic_group: @academic_group

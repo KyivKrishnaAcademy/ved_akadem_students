@@ -32,6 +32,22 @@ describe 'academic_groups/show' do
     And   { expect(rendered).not_to have_text(I18n.t('academic_groups.show.group_servants')) }
   end
 
+  describe 'group schedule' do
+    subject { page.find('#schedules') }
+
+    context 'no schedule' do
+      Then { is_expected.to have_content(I18n.t('academic_groups.show.no_pending_schedules')) }
+      And  { is_expected.not_to have_content(I18n.t('class_schedules.table_headers.time'))}
+    end
+
+    context 'some schedules' do
+      Given { create :class_schedule, academic_groups: [group] }
+
+      Then  { is_expected.to have_content(I18n.t('class_schedules.table_headers.time')) }
+      And   { is_expected.not_to have_content(I18n.t('academic_groups.show.no_pending_schedules'))}
+    end
+  end
+
   describe 'with group_list_pdf rights' do
     Given(:activities) { %w(academic_group:show academic_group:group_list_pdf) }
 
