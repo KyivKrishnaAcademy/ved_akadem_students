@@ -4,4 +4,10 @@ class Ui::ClassSchedulesController < Ui::BaseController
 
     respond_with_interaction PersonClassSchedulesLoadingInteraction
   end
+
+  def academic_group
+    authorize AcademicGroup.find(params[:id]), :show?
+
+    respond_with_interaction GroupClassSchedulesLoadingInteraction
+  end
 end

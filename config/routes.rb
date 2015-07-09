@@ -37,7 +37,8 @@ Rails.application.routes.draw do
     get 'group_curators'    , controller: :group_elders, action: :group_curators_index
     get 'group_praepostors' , controller: :group_elders, action: :group_praepostors_index
 
-    get 'person_class_schedules', controller: :class_schedules, action: :person
+    get 'person_class_schedules'    , controller: :class_schedules, action: :person
+    get 'group_class_schedules/:id' , controller: :class_schedules, action: :academic_group, as: :group_class_schedules
   end
 
   format_pdf = { format: :pdf }
