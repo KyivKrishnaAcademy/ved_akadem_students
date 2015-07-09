@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   resources :study_applications, only: [:create, :destroy]
   resources :answers           , only: [:update, :edit]
 
+  post '/academic_groups/:id/graduate', controller: :academic_groups, action: :graduate, as: :graduate_academic_group
+
   scope module: :users do
     get  '/remind_email' => 'emails#new'
     post '/show_emails'  => 'emails#create'

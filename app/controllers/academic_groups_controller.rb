@@ -1,9 +1,11 @@
 class AcademicGroupsController < ApplicationController
-  include Crudable
   include ClassSchedulesRefreshable
 
+  before_action :set_resource, only: [:show, :edit, :update, :destroy, :graduate]
+
+  after_action :verify_authorized
   after_action :verify_policy_scoped, only: %i(index show edit update destroy)
-  after_action :refresh_class_schedules_mv, only: %i(destroy update)
+  after_action :refresh_class_schedules_mv, only: %i(destroy update graduate)
 
   def index
     @academic_groups = policy_scope(AcademicGroup)
@@ -53,6 +55,12 @@ class AcademicGroupsController < ApplicationController
     else
       redirect_to :back, flash: { danger: 'Academic Group deletion failed!' }
     end
+  end
+
+  def graduate
+    @academic_group.graduate!
+
+    redirect_to academic_group_path(@academic_group), flash: { success: 'Academic group was successfully graduated.' }
   end
 
   class AcademicGroupParams

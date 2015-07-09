@@ -225,4 +225,40 @@ describe AcademicGroupsController do
       it_behaves_like :not_authenticated
     end
   end
+
+  context 'post: :graduate' do
+    Given(:group) { create :academic_group }
+    Given(:action) { post :graduate, id: group.id }
+
+    context 'not signed in' do
+      When { action }
+
+      it_behaves_like :not_authenticated
+    end
+
+    context 'signed in' do
+      Given(:user) { create :person, roles: roles }
+
+      When { sign_in(:person, user) }
+
+      context 'no rights' do
+        Given(:roles) { [] }
+
+        When { action }
+
+        it_behaves_like :not_authorized
+      end
+
+      context 'valid rights' do
+        Given(:roles) { [create(:role, activities: %w(academic_group:graduate))] }
+
+        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
+        When { action }
+
+        Then { is_expected.to set_flash[:success] }
+        And  { expect(response).to redirect_to(academic_group_path(group)) }
+      end
+    end
+  end
 end
