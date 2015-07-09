@@ -9,4 +9,6 @@ class Question < ActiveRecord::Base
   def answers_by_person(person)
     answers.select { |a| a.person_id == person.id }
   end
+
+  has_paper_trail
 end

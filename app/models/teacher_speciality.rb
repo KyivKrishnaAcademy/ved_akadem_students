@@ -4,4 +4,6 @@ class TeacherSpeciality < ActiveRecord::Base
 
   validates :teacher_profile_id, uniqueness: { scope: :course_id }
   validates :course_id, uniqueness: { scope: :teacher_profile_id }
+
+  has_paper_trail
 end

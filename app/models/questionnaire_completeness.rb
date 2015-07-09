@@ -3,4 +3,6 @@ class QuestionnaireCompleteness < ActiveRecord::Base
 
   belongs_to :person
   belongs_to :questionnaire
+
+  has_paper_trail
 end

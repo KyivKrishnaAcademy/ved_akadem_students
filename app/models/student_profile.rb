@@ -5,6 +5,8 @@ class StudentProfile < ActiveRecord::Base
   has_many :attendances, dependent: :destroy
   has_many :class_schedules, through: :attendances
 
+  has_paper_trail
+
   def active?
     group_participations.where(leave_date: nil).limit(1).present?
   end

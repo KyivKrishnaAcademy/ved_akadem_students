@@ -4,8 +4,10 @@ class GroupParticipation < ActiveRecord::Base
 
   before_save :set_join_date
 
+  has_paper_trail
+
   def leave!
-    update_column(:leave_date, DateTime.current)
+    update(leave_date: DateTime.current)
   end
 
   private
