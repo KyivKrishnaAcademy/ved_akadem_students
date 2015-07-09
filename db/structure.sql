@@ -754,6 +754,40 @@ ALTER SEQUENCE telephones_id_seq OWNED BY telephones.id;
 
 
 --
+-- Name: versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE versions (
+    id integer NOT NULL,
+    item_type character varying NOT NULL,
+    item_id integer NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object text,
+    created_at timestamp without time zone
+);
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -891,6 +925,13 @@ ALTER TABLE ONLY teacher_specialities ALTER COLUMN id SET DEFAULT nextval('teach
 --
 
 ALTER TABLE ONLY telephones ALTER COLUMN id SET DEFAULT nextval('telephones_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
 
 
 --
@@ -1054,6 +1095,14 @@ ALTER TABLE ONLY telephones
 
 
 --
+-- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY versions
+    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: class_schedules_with_people_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1079,6 +1128,13 @@ CREATE INDEX class_schedules_with_people_teacher_id_idx ON class_schedules_with_
 --
 
 CREATE UNIQUE INDEX index_people_on_email ON people USING btree (email);
+
+
+--
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
 
 
 --
@@ -1241,4 +1297,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150604104338');
 INSERT INTO schema_migrations (version) VALUES ('20150614072444');
 
 INSERT INTO schema_migrations (version) VALUES ('20150625201045');
+
+INSERT INTO schema_migrations (version) VALUES ('20150709064042');
 

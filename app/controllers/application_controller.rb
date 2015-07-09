@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
   def pundit_user
     current_person
   end
+
+  def user_for_paper_trail
+    current_person.present? ? current_person.id : :anonymous
+  end
 end
