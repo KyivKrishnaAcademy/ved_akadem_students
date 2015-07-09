@@ -25,8 +25,9 @@ describe 'academic_groups/show' do
     And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{I18n.l(group.establ_date)}") }
     And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.group_description')}: #{group.group_description}") }
 
-    And   { expect(rendered).not_to have_link(I18n.t('links.edit'))}
-    And   { expect(rendered).not_to have_link(I18n.t('links.delete'))}
+    And   { expect(rendered).not_to have_link(I18n.t('links.edit')) }
+    And   { expect(rendered).not_to have_link(I18n.t('links.delete')) }
+    And   { expect(rendered).not_to have_link(I18n.t('links.graduate')) }
     And   { expect(page).not_to have_css(pdf_link) }
 
     And   { expect(rendered).not_to have_text(I18n.t('academic_groups.show.group_servants')) }
@@ -125,7 +126,21 @@ describe 'academic_groups/show' do
   describe 'graduated group' do
     Given { group.graduate! }
 
-    Then  { expect(rendered).to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
-    And   { expect(rendered).to have_text(I18n.l(group.graduated_at, format: :with_day)) }
+    describe 'date shown' do
+      Then  { expect(rendered).to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
+      And   { expect(rendered).to have_text(I18n.l(group.graduated_at, format: :with_day)) }
+    end
+
+    describe 'graduate link hidden with valid rights' do
+      Given(:activities) { %w(academic_group:graduate) }
+
+      Then { expect(rendered).not_to have_link(I18n.t('links.graduate')) }
+    end
+  end
+
+  describe 'graduate link' do
+    Given(:activities) { %w(academic_group:graduate) }
+
+    Then { expect(rendered).to have_link(I18n.t('links.graduate')) }
   end
 end

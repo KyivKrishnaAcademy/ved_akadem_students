@@ -28,6 +28,7 @@ ru:
     delete:           'Удалить'
     edit:             'Редактировать'
     edit_profile:     'Редактировать профиль'
+    graduate:         'Выпуск'
     show_passport:    'Показать паспорт'
     update:           'Сохранить'
     withdraw:         'Отозвать заявление'
