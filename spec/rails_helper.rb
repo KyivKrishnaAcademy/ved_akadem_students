@@ -16,7 +16,6 @@ elsif ENV['COVERAGE'].present?
 end
 
 require 'rack_session_access/capybara'
-require 'paper_trail/frameworks/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
