@@ -6,6 +6,10 @@
 
   .col-xs-12.clearfix
     .pull-right
+      - if @academic_group.active? && policy(@academic_group).graduate?
+        = link_to t('links.graduate'),
+                  graduate_academic_group_path(@academic_group),
+                  method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-warning'
       - if policy(@academic_group).edit?
         = link_to t('links.edit'), edit_academic_group_path(@academic_group), class: 'btn btn-xs btn-primary'
       - if policy(@academic_group).destroy?

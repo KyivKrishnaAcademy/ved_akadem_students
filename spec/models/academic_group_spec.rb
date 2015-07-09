@@ -72,4 +72,10 @@ describe AcademicGroup do
       Then { expect(group.active?).to be(false) }
     end
   end
+
+  describe '#graduate!' do
+    Given(:group) { create :academic_group }
+
+    Then { expect{group.graduate!}.to change{group.graduated_at}.from(nil) }
+  end
 end

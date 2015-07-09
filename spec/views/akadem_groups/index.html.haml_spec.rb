@@ -11,5 +11,5 @@ describe 'academic_groups/index' do
 
   When  { visit academic_groups_path }
 
-  it_behaves_like 'index.html', ['Name', 'Estbalished', 'Description']
+  it_behaves_like 'index.html', ['Name', 'Established', 'Description']
 end

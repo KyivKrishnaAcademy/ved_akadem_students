@@ -8,11 +8,13 @@
     %thead
       %tr
         %th Name
-        %th Estbalished
+        %th Established
+        %th Graduated
         %th Description
     %tbody
       - @academic_groups.each do |academic_group|
         %tr{class: 'academic_group', id: academic_group.id}
           %td= link_to academic_group.title, academic_group
-          %td= academic_group.establ_date.to_s
+          %td= l(academic_group.establ_date) if academic_group.establ_date.present?
+          %td= l(academic_group.graduated_at, format: :with_day) unless academic_group.active?
           %td= academic_group.group_description
