@@ -1,0 +1,1 @@
+ClassScheduleWithPeople.paper_trail_off!
