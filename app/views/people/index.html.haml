@@ -26,7 +26,7 @@
                 = link_to_show_person_or_name(person)
               %td
                 - if person.last_academic_group.present? && person.last_academic_group.active?
-                  = link_to person.last_academic_group.group_name, academic_group_path(person.last_academic_group)
+                  = link_to person.last_academic_group.title, academic_group_path(person.last_academic_group)
                 - elsif person.study_application.present?
                   = person.study_application.program["title_#{locale}"]
   .col-xs-12.text-center

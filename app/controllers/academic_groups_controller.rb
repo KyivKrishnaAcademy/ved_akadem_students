@@ -1,8 +1,9 @@
 class AcademicGroupsController < ApplicationController
-  before_action :set_academic_group, only: [:show, :edit, :update, :destroy]
+  include Crudable
+  include ClassSchedulesRefreshable
 
-  after_action :verify_authorized
-  after_action :verify_policy_scoped, only: [:index, :show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, only: %i(index show edit update destroy)
+  after_action :refresh_class_schedules_mv, only: %i(destroy update)
 
   def index
     @academic_groups = policy_scope(AcademicGroup)
@@ -29,7 +30,7 @@ class AcademicGroupsController < ApplicationController
 
     #TODO DRY the controller with responders
     if @academic_group.save
-      flash[:success] = "#{view_context.link_to(@academic_group.group_name,
+      flash[:success] = "#{view_context.link_to(@academic_group.title,
                                                 academic_group_path(@academic_group))} added.".html_safe
 
       redirect_to action: :new
@@ -57,7 +58,7 @@ class AcademicGroupsController < ApplicationController
   class AcademicGroupParams
     def self.filter(params)
       params.require(:academic_group).permit(
-        :group_name,
+        :title,
         :group_description,
         :message_ru,
         :message_uk,
@@ -71,7 +72,7 @@ class AcademicGroupsController < ApplicationController
 
   private
 
-  def set_academic_group
+  def set_resource
     @academic_group = policy_scope(AcademicGroup).find(params[:id])
 
     authorize @academic_group

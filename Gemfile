@@ -22,11 +22,20 @@ gem 'nested_form'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'mini_magick'
 gem 'jcrop-rails-v2'
+
 gem 'axlsx'
+gem 'prawn-rails'
 
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'intl-tel-input-rails', '3.6.0.1'
+
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+
+gem 'react-rails', '~> 1.0'
+
+gem 'sidekiq'
 
 gem 'airbrake'
 
@@ -50,9 +59,12 @@ group :development do
   gem 'haml-rails'
   gem 'web-console', '~> 2.0'
   gem 'meta_request'
+  gem 'spring'
+  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
+  gem 'byebug'
   gem 'factory_girl_rails'
   gem 'ffaker'
 end

@@ -43,6 +43,9 @@ describe PeopleController do
     Given { allow(people).to receive(:find).with('1').and_return(person) }
 
     Given(:other_person) { double(Person, id: 2) }
+    Given(:group) { double(AcademicGroup, id: 3) }
+
+    Given { allow(other_person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([group.id]) }
 
     Given { allow(other_person).to receive(:class).and_return(Person) }
     Given { allow(people).to receive(:find).with('2').and_return(other_person) }
@@ -85,7 +88,7 @@ describe PeopleController do
 
         context 'other person' do
           context 'stranger' do
-            Given { allow(person).to receive(:last_academic_group).and_return(nil) }
+            Given { allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([]) }
 
             When  { get :show_photo, id: 2, version: 'default' }
 
@@ -95,8 +98,7 @@ describe PeopleController do
           context 'classmate' do
             Given(:group) { double(AcademicGroup, id: 3) }
 
-            Given { allow(person).to receive(:last_academic_group).and_return(group) }
-            Given { allow(other_person).to receive(:last_academic_group).and_return(group) }
+            Given { allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([group.id]) }
 
             it_behaves_like :get_show_photo_successed, 2
           end
@@ -177,6 +179,8 @@ describe PeopleController do
         Given { allow(person).to receive(:create_student_profile).and_return(student_profile) }
         Given { allow(student_profile).to receive(:move_to_group).with(academic_group) }
 
+        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
         When { patch :move_to_group, id: 1, group_id: 2, format: :js }
 
         Then { expect(response).to render_template(:move_to_group) }
@@ -188,6 +192,8 @@ describe PeopleController do
         Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:remove_from_groups'] } }
         Given { allow(person).to receive(:student_profile).and_return(student_profile) }
         Given { expect(student_profile).to receive(:remove_from_groups) }
+
+        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
         When { delete :remove_from_groups, id: 1, format: :js }
 
@@ -248,6 +254,8 @@ describe PeopleController do
 
         patch :update, { id: person.id, person: attributes }
       end
+
+      Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
       context 'on success' do
         context 'field chenged' do

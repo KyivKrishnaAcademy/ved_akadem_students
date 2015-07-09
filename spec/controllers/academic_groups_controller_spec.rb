@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe AcademicGroupsController do
   Given (:mod_params) do
-    { group_name:         'ШБ13-5',
+    { title:              'ШБ13-5',
       establ_date:        3600.days.ago.to_date.to_s,
       group_description:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе' }
   end
@@ -17,6 +17,10 @@ describe AcademicGroupsController do
       When { action }
 
       describe 'should allow' do
+        if activities.include?('academic_group:update')
+          Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+        end
+
         Given { @user = create :person, roles: [create(:role, activities: activities.flatten)] }
 
         Then  { expectation }
@@ -39,7 +43,8 @@ describe AcademicGroupsController do
   end
 
   context 'post: :create with ["academic_group:create"]' do
-    Given(:action)      { post :create, academic_group: { group_name: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
+    Given(:action) { post :create, academic_group: { title: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
+
     Given(:expectation) do
       expect(response).to redirect_to(action: :new)
       is_expected.to set_flash[:success]
@@ -165,6 +170,8 @@ describe AcademicGroupsController do
     it_behaves_like :academic_groups_actions, 'academic_group:update'
 
     describe 'other' do
+      Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
       When { sign_in :person, create(:person, roles: [create(:role, activities: %w(academic_group:update))]) }
 
       describe 'record receives update' do
@@ -190,6 +197,8 @@ describe AcademicGroupsController do
     Given(:action) { delete :destroy, id: @record.id }
 
     context 'signed in' do
+      Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
       Given { @user = create :person, roles: [create(:role, activities: %w(academic_group:destroy))] }
 
       When { sign_in(:person, @user) }

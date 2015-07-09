@@ -1,13 +1,13 @@
 uk:
   date:
     abbr_day_names:
-    - нд.
-    - пн.
-    - вт.
-    - ср.
-    - чт.
-    - пт.
-    - сб.
+    - Нд
+    - Пн
+    - Вт
+    - Ср
+    - Чт
+    - Пт
+    - Сб
     abbr_month_names:
     -
     - січ.
@@ -246,5 +246,8 @@ uk:
     formats:
       default: ! '%a, %d %b %Y, %H:%M:%S %z'
       long: ! '%d %B %Y, %H:%M'
+      just_time: ! '%H:%M'
       short: ! '%d %b, %H:%M'
+      with_day: ! '%a %d.%m.%y %H:%M'
+      time_picker: ! '%d.%m.%Y %H:%M'
     pm: по полудні

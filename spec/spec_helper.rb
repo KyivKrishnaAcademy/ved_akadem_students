@@ -57,6 +57,10 @@ RSpec.configure do |config|
     FileUtils.rm_rf(Dir["#{Rails.root}/uploads/test"])
   end
 
+  config.after(:each) do
+    Sidekiq.redis { |c| c.del(:class_schedule_with_people_mv_refresh) }
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

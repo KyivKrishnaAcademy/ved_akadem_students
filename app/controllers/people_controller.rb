@@ -1,12 +1,14 @@
 class PeopleController < ApplicationController
   include CropDirectable
   include StudyApplicationable
+  include ClassSchedulesRefreshable
 
-  before_action :set_person, only: [:show, :edit, :update, :destroy, :show_photo,
-                                    :show_passport, :move_to_group, :remove_from_groups]
+  before_action :set_person, only: %i(show edit update destroy show_photo
+                                      show_passport move_to_group remove_from_groups)
 
   after_action :verify_authorized
-  after_action :verify_policy_scoped, except: [:new, :create]
+  after_action :verify_policy_scoped, except: %i(new create)
+  after_action :refresh_class_schedules_mv, only: %i(update move_to_group remove_from_groups)
 
   def new
     @person = Person.new
@@ -31,7 +33,7 @@ class PeopleController < ApplicationController
   def show
     preset_applications_variables(@person)
 
-    @academic_groups = AcademicGroup.where(graduated_at: nil).select(:id, :group_name).order(:group_name)
+    @academic_groups = AcademicGroup.where(graduated_at: nil).select(:id, :title).order(:title)
   end
 
   def edit

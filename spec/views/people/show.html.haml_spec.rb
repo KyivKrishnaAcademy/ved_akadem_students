@@ -139,7 +139,7 @@ describe 'people/show.html.haml' do
         Given(:activities) { ['person:move_to_group'] }
 
         Then { expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group') }
-        And  { expect(menu).to have_link(group.group_name, href: '#') }
+        And  { expect(menu).to have_link(group.title, href: '#') }
         And  { expect(menu).not_to have_link('Remove from group', href: '#') }
       end
 
@@ -147,7 +147,7 @@ describe 'people/show.html.haml' do
         Given(:activities) { ['person:remove_from_groups'] }
 
         Then { expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group') }
-        And  { expect(menu).not_to have_link(group.group_name, href: '#') }
+        And  { expect(menu).not_to have_link(group.title, href: '#') }
         And  { expect(menu).to have_link('Remove from group', href: '#') }
       end
     end
@@ -201,11 +201,11 @@ describe 'people/show.html.haml' do
     context 'person has group' do
       Given { person.create_student_profile.move_to_group(group) }
 
-      Then  { expect(rendered).to have_link(group.group_name, href: academic_group_path(group)) }
+      Then  { expect(rendered).to have_link(group.title, href: academic_group_path(group)) }
     end
 
     context 'person has no group' do
-      Then { expect(rendered).not_to have_link(group.group_name, href: academic_group_path(group)) }
+      Then { expect(rendered).not_to have_link(group.title, href: academic_group_path(group)) }
     end
   end
 end

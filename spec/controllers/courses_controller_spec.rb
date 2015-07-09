@@ -91,6 +91,8 @@ describe CoursesController do
           Given(:actions) { ['course:update'] }
           Given(:course) { create :course }
 
+          Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
+
           When  { patch :update, id: course.id, course: course_params }
 
           describe 'with success' do
@@ -112,6 +114,8 @@ describe CoursesController do
         describe '#destroy' do
           Given(:actions) { ['course:destroy'] }
           Given!(:course) { create :course }
+
+          Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
           describe 'with success' do
             Then { expect { delete :destroy, id: course.id }.to change(Course, :count).by(-1) }

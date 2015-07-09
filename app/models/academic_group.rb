@@ -3,22 +3,25 @@ class AcademicGroup < ActiveRecord::Base
 
   has_many :group_participations, dependent: :destroy
   has_many :student_profiles, through: :group_participations
-  has_many :class_schedules, dependent: :destroy
+
+  has_many :academic_group_schedules, dependent: :destroy
+  has_many :class_schedules, through: :academic_group_schedules
+
   belongs_to :administrator, class_name: 'Person'
   belongs_to :praepostor, class_name: 'Person'
   belongs_to :curator, class_name: 'Person'
 
   before_save do |p|
-    p.group_name = group_name.mb_chars.upcase.to_s
+    p.title = title.mb_chars.upcase.to_s
   end
 
-  validates :group_name, format: { with: VALID_TITLE_REGEX }
-  validates :group_name, presence: true, uniqueness: true
+  validates :title, format: { with: VALID_TITLE_REGEX }
+  validates :title, presence: true, uniqueness: true
 
   def active_students
     leave_date = if active?
                    { query: 'group_participations.leave_date IS ?',
-                   value: nil }
+                     value: nil }
                  else
                    { query: 'group_participations.leave_date >= ? OR group_participations.leave_date IS NULL',
                      value: graduated_at }

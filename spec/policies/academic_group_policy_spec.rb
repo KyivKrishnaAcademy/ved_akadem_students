@@ -27,5 +27,11 @@ describe AcademicGroupPolicy do
         Then  { is_expected.to permit(user, record) }
       end
     end
+
+    permissions :group_list_pdf? do
+      it_behaves_like :allow_with_activities, %w(academic_group:group_list_pdf)
+    end
+
+    it_behaves_like :class_schedule_ui_index
   end
 end

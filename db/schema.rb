@@ -11,13 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524193448) do
+ActiveRecord::Schema.define(version: 20150625201045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "academic_group_schedules", force: :cascade do |t|
+    t.integer  "academic_group_id"
+    t.integer  "class_schedule_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "academic_groups", force: :cascade do |t|
-    t.string   "group_name",        limit: 255
+    t.string   "title",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "group_description", limit: 255
@@ -52,8 +59,9 @@ ActiveRecord::Schema.define(version: 20150524193448) do
     t.integer  "course_id"
     t.integer  "teacher_profile_id"
     t.integer  "classroom_id"
-    t.date     "date"
-    t.integer  "academic_group_id"
+    t.datetime "start_time"
+    t.datetime "finish_time"
+    t.string   "subject"
   end
 
   create_table "classrooms", force: :cascade do |t|
@@ -61,7 +69,8 @@ ActiveRecord::Schema.define(version: 20150524193448) do
     t.datetime "updated_at"
     t.string   "location",    limit: 255
     t.string   "description", limit: 255
-    t.integer  "roominess"
+    t.integer  "roominess",               default: 0
+    t.string   "title"
   end
 
   create_table "courses", force: :cascade do |t|

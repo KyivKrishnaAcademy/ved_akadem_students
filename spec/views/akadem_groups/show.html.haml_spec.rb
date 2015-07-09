@@ -6,7 +6,7 @@ describe 'academic_groups/show' do
   Given(:activities) { ['academic_group:show'] }
   Given(:ag_name) { 'ТВ99-1' }
   Given(:policy) { double(AcademicGroupPolicy) }
-  Given(:group) { create :academic_group, { group_name: ag_name } }
+  Given(:group) { create :academic_group, { title: ag_name } }
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
   Given(:page) { Capybara::Node::Simple.new(response.body) }
 
@@ -18,6 +18,8 @@ describe 'academic_groups/show' do
 
   When  { render }
 
+  Given(:pdf_link) { "a.glyphicon-print[href='#{group_list_pdf_path(group)}']" }
+
   describe 'common with restricted rights' do
     Then  { expect(rendered).to have_selector('h1', text: ag_name) }
     And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{group.establ_date.to_s}") }
@@ -25,8 +27,15 @@ describe 'academic_groups/show' do
 
     And   { expect(rendered).not_to have_link(I18n.t('links.edit'))}
     And   { expect(rendered).not_to have_link(I18n.t('links.delete'))}
+    And   { expect(page).not_to have_css(pdf_link) }
 
     And   { expect(rendered).not_to have_text(I18n.t('academic_groups.show.group_servants')) }
+  end
+
+  describe 'with group_list_pdf rights' do
+    Given(:activities) { %w(academic_group:show academic_group:group_list_pdf) }
+
+    Then { expect(page).to have_css(pdf_link) }
   end
 
   describe 'with edit rights' do

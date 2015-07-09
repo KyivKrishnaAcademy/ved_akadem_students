@@ -10,6 +10,9 @@ uk:
       academic_groups_add:  'Додати групу'
       academic_groups_list: 'Список груп'
       agreement:            'Згода'
+      class_schedules:      'Розклад'
+      class_schedules_add:  'Додати'
+      class_schedules_list: 'Список'
       courses:              'Предмети'
       courses_add:          'Додати предмет'
       courses_list:         'Список предметів'
@@ -31,7 +34,7 @@ uk:
   hints:
     no_passport: 'Немає закріпленого паспорту'
   content:
-    courses:                  'Дисципліни що викладаються на курсі:'
+    courses:                  'Предмети що розглядаються на курсі:'
     apply_to_programs:        'У Вас є можливість поступити на такі курси:'
     confirm_withdraw:         'Ви впевнені, що хочете відкликати заяву на навчання?'
     you_applied:              'Ви подали заяву на курс'
@@ -83,9 +86,10 @@ uk:
         title:        'Реєстрація'
   static_pages:
     home:
-      title:                   'Домашня'
-      student_of_academic_group: 'Ви студент групи'
-      message_for_group:       "Об'ява для групи:"
+      message_for_group:          "Об'ява для групи:"
+      schedules_title:            'Ваш персональний розклад'
+      student_of_academic_group:  'Ви студент групи'
+      title:                      'Домашня'
   people:
     show:
       psycho_test_results:  'Результати психологічного тесту'
@@ -96,9 +100,20 @@ uk:
       birthday:               'День народження'
       curator:                'Куратор'
       full_name:              "Ім'я"
+      group_list_pdf:         ' Скачати/Друкувати'
       group_servants:         'Слуги групи'
       photo:                  'Фото'
       praepostor:             'Староста'
       tab_general:            'Огляд'
       tab_group_list:         'Список групи'
       telephones:             'Телефони'
+  class_schedules:
+    create_and_clone: 'Створити і копіювати'
+    table_headers:
+      course:     'Предмет'
+      teacher:    'Лектор'
+      subject:    'Тема'
+      groups:     'Групи'
+      classroom:  'Аудиторія'
+      time:       'Запланований час'
+      actions:    ''

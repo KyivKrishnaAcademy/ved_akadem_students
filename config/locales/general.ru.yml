@@ -10,6 +10,9 @@ ru:
       academic_groups_add:  'Добавить группу'
       academic_groups_list: 'Список групп'
       agreement:            'Соглашение'
+      class_schedules:      'Расписание'
+      class_schedules_add:  'Добавить'
+      class_schedules_list: 'Список'
       courses:              'Предметы'
       courses_add:          'Добавить предмет'
       courses_list:         'Список предметов'
@@ -31,7 +34,7 @@ ru:
   hints:
     no_passport: 'Нет прикрепленного паспорта'
   content:
-    courses:                  'Дисциплины излагаемые на курсе:'
+    courses:                  'Предметы рассматриваемые на курсе:'
     apply_to_programs:        'У Вас есть возможность поступить на такие курсы:'
     confirm_withdraw:         'Вы уверены, что хотите отозвать заявление на обучение?'
     you_applied:              'Вы подали заявление на курс'
@@ -83,9 +86,10 @@ ru:
         title:        'Регистрация'
   static_pages:
     home:
-      title:                   'Домашняя'
-      student_of_academic_group: 'Вы студент группы'
-      message_for_group:       'Объявление для группы:'
+      message_for_group:          'Объявление для группы:'
+      schedules_title:            'Ваше персональное расписание'
+      student_of_academic_group:  'Вы студент группы'
+      title:                      'Домашняя'
   people:
     show:
       psycho_test_results:  'Результаты психологического теста'
@@ -96,9 +100,20 @@ ru:
       birthday:               'День рождения'
       curator:                'Куратор'
       full_name:              'Имя'
+      group_list_pdf:         ' Скачать/Печатать'
       group_servants:         'Слуги группы'
       photo:                  'Фото'
       praepostor:             'Староста'
       tab_general:            'Осмотр'
       tab_group_list:         'Список группы'
       telephones:             'Телефоны'
+  class_schedules:
+    create_and_clone: 'Создать и копировать'
+    table_headers:
+      course:     'Предмет'
+      teacher:    'Лектор'
+      subject:    'Тема'
+      groups:     'Группы'
+      classroom:  'Аудитория'
+      time:       'Запланированное время'
+      actions:    ''

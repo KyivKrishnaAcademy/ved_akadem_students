@@ -1,0 +1,48 @@
+= render 'shared/under_construction'
+- provide(:title, 'Class Schedules')
+
+.row
+  .col-xs-12
+    %h1 Listing Class Schedules
+
+    - if current_person.can_act?('class_schedule:new')
+      = link_to 'New Class Schedule', new_class_schedule_path, class: 'btn btn-xs btn-success'
+
+  .col-xs-12.vert-offset-top-1
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            - class_schedules_table_headers.each do |header|
+              %th
+                = header
+
+        %tbody
+          - @class_schedules.each do |class_schedule|
+            %tr
+              %td
+                = link_to_if policy(class_schedule.course).show?,
+                             class_schedule.course.title,
+                             course_path(class_schedule.course) do
+                  = class_schedule.course.title
+              %td
+                - if class_schedule.teacher_profile.present?
+                  = link_to_show_person_or_name(class_schedule.teacher_profile.person, true)
+              %td
+                = class_schedule.subject
+              %td
+                - class_schedule.academic_groups.each do |academic_group|
+                  = link_to_if policy(academic_group).show?,
+                               academic_group.title,
+                               academic_group_path(academic_group) do
+                    = academic_group.title
+              %td
+                = class_schedule.classroom.title
+              %td
+                = show_scheduled_time(class_schedule)
+              %td
+                - if policy(class_schedule).edit?
+                  = link_to t('links.edit'), edit_class_schedule_path(class_schedule), class: 'btn btn-xs btn-primary'
+                - if policy(class_schedule).destroy?
+                  = link_to t('links.delete'), class_schedule, method: :delete,
+                            data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'

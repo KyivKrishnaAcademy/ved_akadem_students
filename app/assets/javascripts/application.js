@@ -21,4 +21,11 @@
 //= require jquery.smartmenus
 //= require jquery.smartmenus.bootstrap
 //= require select_2_initializers
+//= require moment
+//= require moment/ru
+//= require moment/uk
+//= require bootstrap-datetimepicker
 //= require custom
+//= require react
+//= require react_ujs
+//= require components

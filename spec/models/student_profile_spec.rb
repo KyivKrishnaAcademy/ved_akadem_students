@@ -40,5 +40,27 @@ describe StudentProfile do
       Then  { expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).not_to be_nil }
       And   { expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).not_to be_nil }
     end
+
+    describe '#active?' do
+      subject { student_profile.active? }
+
+      context 'no groups' do
+        Then { is_expected.to be(false) }
+      end
+
+      context 'with group' do
+        Given { student_profile.academic_groups << group_1 }
+
+        context 'active' do
+          Then { is_expected.to be(true) }
+        end
+
+        context 'inactive' do
+          Given { student_profile.group_participations.first.leave! }
+
+          Then  { is_expected.to be(false) }
+        end
+      end
+    end
   end
 end

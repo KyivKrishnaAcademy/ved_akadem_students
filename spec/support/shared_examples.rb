@@ -8,8 +8,8 @@ shared_examples 'academic group new and edit' do
     let(:form) { 'form.' << action << '_academic_group' }
 
     it { is_expected.to have_selector(form) }
-    it { is_expected.to have_selector("#{form} label", text: 'Group name') }
-    it { is_expected.to have_selector("#{form} input#academic_group_group_name") }
+    it { is_expected.to have_selector("#{form} label", text: 'Title') }
+    it { is_expected.to have_selector("#{form} input#academic_group_title") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_1i") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_2i") }
     it { is_expected.to have_selector("#{form} select#academic_group_establ_date_3i") }
@@ -372,42 +372,42 @@ shared_examples :failed_auth_crud do |sub_example|
       it_behaves_like sub_example
     end
 
-      context '#create' do
-        When { post :create, params }
+    context '#create' do
+      When { post :create, params }
 
-        it_behaves_like sub_example
-      end
-
-      context '#new' do
-        When { get :new }
-
-        it_behaves_like sub_example
-      end
-
-      context '#edit' do
-        When { get :edit, id: 1 }
-
-        it_behaves_like sub_example
-      end
-
-      context '#show' do
-        When { get :show, id: 1 }
-
-        it_behaves_like sub_example
-      end
-
-      context '#update' do
-        When { patch :update, id: 1 }
-
-        it_behaves_like sub_example
-      end
-
-      context '#destroy' do
-        When { delete :destroy, id: 1 }
-
-        it_behaves_like sub_example
-      end
+      it_behaves_like sub_example
     end
+
+    context '#new' do
+      When { get :new }
+
+      it_behaves_like sub_example
+    end
+
+    context '#edit' do
+      When { get :edit, id: 1 }
+
+      it_behaves_like sub_example
+    end
+
+    context '#show' do
+      When { get :show, id: 1 }
+
+      it_behaves_like sub_example
+    end
+
+    context '#update' do
+      When { patch :update, id: 1 }
+
+      it_behaves_like sub_example
+    end
+
+    context '#destroy' do
+      When { delete :destroy, id: 1 }
+
+      it_behaves_like sub_example
+    end
+  end
 end
 
 shared_examples_for :not_authorized do
@@ -424,4 +424,70 @@ end
 shared_examples_for :ui_not_authenticated do
   Then { expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('devise.failure.unauthenticated')) }
   And  { expect(response.status).to be(401) }
+end
+
+shared_examples_for :class_schedule_ui_index do
+  permissions :ui_index? do
+    context 'permit with class_schedule:edit' do
+      Given { user.roles << [create(:role, activities: %w(class_schedule:edit))] }
+
+      Then  { is_expected.to permit(user, Course) }
+    end
+
+    context 'permit with class_schedule:new' do
+      Given { user.roles << [create(:role, activities: %w(class_schedule:new))] }
+
+      Then  { is_expected.to permit(user, Course) }
+    end
+
+    context 'not permit without roles' do
+      Then  { is_expected.not_to permit(user, Course) }
+    end
+
+    context 'not permit with all other' do
+      Given(:permitted_activities) { %w(class_schedule:edit class_schedule:new) }
+
+      Given { user.roles << [create(:role, activities: all_activities - permitted_activities)] }
+
+      Then  { is_expected.not_to permit(user, Course) }
+    end
+  end
+end
+
+shared_examples_for :ui_controller_index do |index_action, interaction, permitted_activities|
+  describe 'not signed in' do
+    context "##{index_action}" do
+      When { get index_action, format: :json }
+
+      it_behaves_like :ui_not_authenticated
+    end
+  end
+
+  describe 'signed in' do
+    Given(:person) { build_stubbed(:person, id: 1) }
+
+    Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
+    Given { allow(controller).to receive(:current_person) { person } }
+    Given { allow(person).to receive(:class).and_return(Person) }
+
+    describe 'as regular user' do
+      context "##{index_action}" do
+        When { get index_action, format: :json }
+
+        it_behaves_like :ui_not_authorized
+      end
+    end
+
+    describe 'as authorized user' do
+      Given(:roles) { double('roles', any?: true, title: 'Role') }
+
+      Given { allow(person).to receive(:roles).and_return(roles) }
+      Given { allow(roles).to receive_message_chain(:pluck, :flatten) { permitted_activities } }
+
+      context "##{index_action}" do
+        Then { expect(interaction).to receive(:new) }
+        And  { get index_action, format: :json }
+      end
+    end
+  end
 end

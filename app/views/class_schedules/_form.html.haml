@@ -1,0 +1,34 @@
+- content_for(:js_and_css) do
+  = javascript_include_tag 'select2.min'
+  = stylesheet_link_tag 'select2.min', media: 'all'
+
+.col-xs-12.col-sm-6.vert-offset-top-1
+  = simple_form_for @class_schedule do |f|
+    = render 'shared/error_messages', object: f.object
+
+    = f.association :course, label_method: :title, collection: [*f.object.course],
+                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/courses' } }
+    = f.input :subject
+    = f.association :classroom, label_method: :title, collection: [*f.object.classroom],
+                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/classrooms' } }
+    = f.association :teacher_profile, label_method: :complex_name, collection: [*f.object.teacher_profile],
+                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/teacher_profiles' } }
+    = f.association :academic_groups, label_method: :title, collection: f.object.academic_groups,
+                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/academic_groups' } }
+
+    .row
+      .col-xs-12.col-sm-6
+        = f.input :start_time, as: :string, input_html: { id: 'date-time-picker',
+                                                          data: { locale: "#{locale}" },
+                                                          value: time_value(f.object.start_time)  }
+      .col-xs-12.col-sm-6
+        = f.input :finish_time, as: :string, input_html: { id: 'date-time-picker',
+                                                           data: { locale: "#{locale}" },
+                                                           value: time_value(f.object.finish_time) }
+
+    .row
+      .col-xs-12.col-sm-6
+        = f.button :submit
+      - if %w(new create).include? params[:action]
+        .col-xs-12.col-sm-6
+          = f.button :submit, t('class_schedules.create_and_clone')

@@ -41,6 +41,8 @@ class Person < ActiveRecord::Base
 
   default_scope { where(deleted: false) }
 
+  delegate :active?, to: :student_profile, prefix: :student, allow_nil: true
+
   def crop_photo(params)
     assign_attributes(params)
 
