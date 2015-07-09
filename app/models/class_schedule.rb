@@ -11,4 +11,8 @@ class ClassSchedule < ActiveRecord::Base
   has_many :attendances, dependent: :destroy
 
   validates :course, :classroom, :start_time, :finish_time, presence: true
+
+  def real_class_schedule
+    self
+  end
 end

@@ -222,4 +222,12 @@ describe ClassSchedule do
 
     Then { expect(schedule).to be_valid }
   end
+
+  describe 'methods' do
+    describe '#real_class_schedule' do
+      Given(:schedule) { create :class_schedule }
+
+      Then { expect(schedule.real_class_schedule.id).to eq(schedule.id) }
+    end
+  end
 end
