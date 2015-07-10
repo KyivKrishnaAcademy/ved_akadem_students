@@ -100,3 +100,34 @@ footer
   width: 100%
   .flag
     background-image: asset-url('flags.png') !important
+
+/* changelog */
+
+ul.changelog
+  list-style-type: none
+  padding-left: 0
+
+  li
+    padding-left: 2em
+
+    &:before
+      font-weight: bold
+      font-family: monospace
+
+    &.addition
+      @extend .text-info
+
+      &:before
+        content: '+ '
+
+    &.deletion
+      @extend .text-danger
+
+      &:before
+        content: '- '
+
+    &.modification
+      @extend .text-warning
+
+      &:before
+        content: '* '
