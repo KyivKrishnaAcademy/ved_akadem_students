@@ -201,7 +201,6 @@ namespace :sidekiq do
       sudo 'service workers restart'
     end
   end
-  after 'deploy:restart', 'sidekiq:restart'
 
   desc 'Start application'
   task :start do
@@ -210,14 +209,12 @@ namespace :sidekiq do
     end
   end
 
-
   desc 'Stop application'
   task :stop do
     on roles(:app) do
       sudo 'service workers stop'
     end
   end
-  before 'deploy:starting', 'sidekiq:stop'
 
   desc 'Application status'
   task :status do
