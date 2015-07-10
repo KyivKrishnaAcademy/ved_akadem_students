@@ -93,6 +93,7 @@ uk:
       title:                      'Домашня'
   people:
     show:
+      not_adult:            '(ще нема 18! треба дозвіл від батьків)'
       psycho_test_results:  'Результати психологічного тесту'
   academic_groups:
     show:
