@@ -93,6 +93,7 @@ ru:
       title:                      'Домашняя'
   people:
     show:
+      not_adult:            '(еще нет 18! нужно разрешение от родителей)'
       psycho_test_results:  'Результаты психологического теста'
   academic_groups:
     show:

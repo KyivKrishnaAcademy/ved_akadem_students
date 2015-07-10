@@ -55,6 +55,7 @@
             Birthday:
           .col-xs-8.col-sm-9
             #{@person.birthday}
+            = not_adult_warning(@person.birthday)
         .row
           .col-xs-4.col-sm-3
             Email:
