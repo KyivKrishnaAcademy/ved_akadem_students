@@ -25,10 +25,12 @@ var SchedulesTable = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({
-          schedules: data.class_schedules,
-          pages: data.pages
-        });
+        if (this.isMounted()) {
+          this.setState({
+            schedules: data.class_schedules,
+            pages: data.pages
+          });
+        }
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
