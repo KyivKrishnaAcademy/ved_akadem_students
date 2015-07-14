@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 
   get 'static_pages/home'
-  get 'static_pages/about'
-  get 'privacy_agreement' => 'static_pages#privacy_agreement'
+  get 'changelog', controller: :static_pages, action: :changelog
+  get 'privacy_agreement', controller: :static_pages, action: :privacy_agreement
 
   get 'locales/toggle'
 

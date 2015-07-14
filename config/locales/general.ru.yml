@@ -10,6 +10,7 @@ ru:
       academic_groups_add:  'Добавить группу'
       academic_groups_list: 'Список групп'
       agreement:            'Соглашение'
+      changelog:            'Журнал изменений'
       class_schedules:      'Расписание'
       class_schedules_add:  'Добавить'
       class_schedules_list: 'Список'
@@ -18,8 +19,8 @@ ru:
       courses_list:         'Список предметов'
       main_menu:            'Действия'
       people:               'Люди'
-      people_list:          'Список всех'
       people_add:           'Добавить человека'
+      people_list:          'Список всех'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:

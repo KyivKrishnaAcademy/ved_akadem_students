@@ -10,6 +10,7 @@ uk:
       academic_groups_add:  'Додати групу'
       academic_groups_list: 'Список груп'
       agreement:            'Згода'
+      changelog:            'Журнал змін'
       class_schedules:      'Розклад'
       class_schedules_add:  'Додати'
       class_schedules_list: 'Список'
@@ -18,8 +19,8 @@ uk:
       courses_list:         'Список предметів'
       main_menu:            'Дії'
       people:               'Люди'
-      people_list:          'Список усіх'
       people_add:           'Додати людину'
+      people_list:          'Список усіх'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:
