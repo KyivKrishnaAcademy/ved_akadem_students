@@ -98,20 +98,21 @@ uk:
       psycho_test_results:  'Результати психологічного тесту'
   academic_groups:
     show:
-      active_students_count:  'Активних студентів:'
-      administrator:          'Адміністратор'
-      birthday:               'День народження'
-      curator:                'Куратор'
-      full_name:              "Ім'я"
-      group_list_pdf:         ' Скачати/Друкувати'
-      group_servants:         'Слуги групи'
-      no_pending_schedules:   'Немає майбутніх подій'
-      photo:                  'Фото'
-      praepostor:             'Староста'
-      tab_general:            'Огляд'
-      tab_group_list:         'Список групи'
-      tab_schedules:          'Розклад'
-      telephones:             'Телефони'
+      active_students_count:    'Активних студентів:'
+      attendance_template_pdf:  ' Бланк відвідуванності'
+      administrator:            'Адміністратор'
+      birthday:                 'День народження'
+      curator:                  'Куратор'
+      full_name:                "Ім'я"
+      group_list_pdf:           ' PDF із фото'
+      group_servants:           'Слуги групи'
+      no_pending_schedules:     'Немає майбутніх подій'
+      photo:                    'Фото'
+      praepostor:               'Староста'
+      tab_general:              'Огляд'
+      tab_group_list:           'Список групи'
+      tab_schedules:            'Розклад'
+      telephones:               'Телефони'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
     table_headers:
