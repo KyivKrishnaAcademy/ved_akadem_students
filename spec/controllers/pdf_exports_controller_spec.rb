@@ -40,7 +40,7 @@ describe PdfExportsController do
         Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { actions } }
 
         describe "##{described_action}" do
-          Given(:actions) { ["academic_group:#{described_action}_pdf"] }
+          Given(:actions) { ["academic_group:#{described_action}_pdf", 'academic_group:show'] }
 
           When { get described_action, id: 1, format: :pdf }
 

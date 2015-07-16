@@ -7,29 +7,53 @@ describe AcademicGroupPolicy do
   Given(:record) { create(:academic_group) }
   Given(:user)   { create(:person) }
 
+  shared_examples_for 'user is student of other group' do
+    Given { user.create_student_profile.move_to_group(create(:academic_group)) }
+
+    Then  { is_expected.not_to permit(user, record) }
+  end
+
+  shared_examples_for 'user is student of the group' do
+    Given { user.create_student_profile.move_to_group(record) }
+
+    Then  { is_expected.to permit(user, record) }
+  end
+
+  shared_examples_for 'user is curator of the group' do
+    Given { record.update(curator: user) }
+
+    Then  { is_expected.to permit(user, record) }
+  end
+
+  shared_examples_for 'user is administrator of the group' do
+    Given { record.update(administrator: user) }
+
+    Then  { is_expected.to permit(user, record) }
+  end
+
   context 'complex conditions' do
     permissions :show? do
-      context 'user is student of the group' do
-        Given { user.create_student_profile.move_to_group(record) }
+      it_behaves_like 'user is student of the group'
+      it_behaves_like 'user is curator of the group'
+      it_behaves_like 'user is administrator of the group'
+      it_behaves_like 'user is student of other group'
 
-        Then  { is_expected.to permit(user, record) }
-      end
-
-      context 'user is curator of the group' do
-        Given { record.update(curator: user) }
-
-        Then  { is_expected.to permit(user, record) }
-      end
-
-      context 'user is administrator of the group' do
-        Given { record.update(administrator: user) }
-
-        Then  { is_expected.to permit(user, record) }
-      end
+      it_behaves_like :allow_with_activities, ['academic_group:show']
     end
 
-    permissions :group_list_pdf? do
-      it_behaves_like :allow_with_activities, %w(academic_group:group_list_pdf)
+    %i(group_list attendance_template).each do |described_permission|
+      permissions :"#{described_permission}_pdf?" do
+        describe "with 'academic_group:#{described_permission}_pdf'" do
+          Given { user.roles << [create(:role, activities: ["academic_group:#{described_permission}_pdf"])] }
+
+          it_behaves_like 'user is student of the group'
+          it_behaves_like 'user is curator of the group'
+          it_behaves_like 'user is administrator of the group'
+          it_behaves_like 'user is student of other group'
+        end
+
+        it_behaves_like :allow_with_activities, ["academic_group:#{described_permission}_pdf", 'academic_group:show']
+      end
     end
 
     it_behaves_like :class_schedule_ui_index

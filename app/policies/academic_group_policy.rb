@@ -7,6 +7,14 @@ class AcademicGroupPolicy < ApplicationPolicy
     user.can_act?(%w(class_schedule:edit class_schedule:new))
   end
 
+  def group_list_pdf?
+    super && show?
+  end
+
+  def attendance_template_pdf?
+    super && show?
+  end
+
   private
 
   def student_of_the_group?
