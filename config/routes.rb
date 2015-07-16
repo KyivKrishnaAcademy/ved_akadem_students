@@ -46,5 +46,8 @@ Rails.application.routes.draw do
   format_pdf = { format: :pdf }
 
   get 'export/group_list/:id', controller: :pdf_exports, action: :group_list, as: :group_list_pdf,
-                                     defaults: format_pdf, constraints: format_pdf
+                               defaults: format_pdf, constraints: format_pdf
+
+  get 'export/attendance_template/:id', controller: :pdf_exports, action: :attendance_template,
+                                        as: :attendance_template_pdf, defaults: format_pdf, constraints: format_pdf
 end
