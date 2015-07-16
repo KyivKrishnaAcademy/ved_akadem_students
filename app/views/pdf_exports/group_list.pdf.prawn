@@ -5,13 +5,13 @@ prawn_document do |pdf|
     pdf.column_box([0, pdf.cursor], columns: 2, width: pdf.bounds.width) do
       pdf.table(
         @academic_group.active_students.each_with_index.map do |person, index|
-          image = if person.photo.thumb.path.present?
-                    person.photo.thumb.path
+          image = if person.photo.standart.path.present?
+                    person.photo.standart.path
                   else
-                    Rails.root.join 'app/assets/images/fallback/person/thumb_default.png'
+                    Rails.root.join 'app/assets/images/fallback/person/standart_default.png'
                   end
 
-          [index.next, { image: image }, complex_name(person, true)]
+          [index.next, { image: image, image_width: 60, width: 70 }, complex_name(person, true)]
         end
       )
     end
