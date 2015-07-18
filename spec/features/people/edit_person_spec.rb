@@ -42,9 +42,7 @@ describe 'Edit person:' do
   context 'When values are invalid:' do
     [
       { field: 'person[telephones_attributes][0][phone]', value: '050 111 2233' },
-      { field: 'person[email]'  , value: '@@.com@' },
-      { field: 'person[name]'   , value: '' },
-      { field: 'person[surname]', value: '' }
+      { field: 'person[email]'  , value: '@@.com@' }
     ].each do |h|
       describe h[:field] do
         When do

@@ -25,12 +25,12 @@ class Person < ActiveRecord::Base
 
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   validates :gender, inclusion: { in: [true, false] }
-  validates :middle_name, :spiritual_name, length: { maximum: 50 }
-  validates :name, :surname, length: { maximum: 50 }, presence: true
+  validates :middle_name, :spiritual_name, :name, :surname, length: { maximum: 50 }
+  validates :name, :surname, presence: { if: :spiritual_name_blank? }
   validates :password, confirmation: true
   validates :password, length: { in: 6..128, unless: :skip_password_validation  }
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
-  validates :telephones, :birthday, :education, :work, :marital_status, presence: true
+  validates :telephones, :birthday, :marital_status, presence: true
 
   validate :check_photo_dimensions
 
@@ -121,10 +121,16 @@ class Person < ActiveRecord::Base
   end
 
   def set_complex_name
+    civil_name = "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
+
     self.complex_name = if spiritual_name.present?
-      "#{spiritual_name} (#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''})"
+      if surname.present? && name.present?
+        "#{spiritual_name} (#{civil_name})"
+      else
+        spiritual_name
+      end
     else
-      "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
+      civil_name
     end
   end
 
@@ -133,5 +139,9 @@ class Person < ActiveRecord::Base
     dimensions_invalid = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
     errors.add(:photo, :size) if dimensions_invalid
+  end
+
+  def spiritual_name_blank?
+    spiritual_name.blank?
   end
 end
