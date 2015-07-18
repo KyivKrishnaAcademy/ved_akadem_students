@@ -121,10 +121,16 @@ class Person < ActiveRecord::Base
   end
 
   def set_complex_name
+    civil_name = "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
+
     self.complex_name = if spiritual_name.present?
-      "#{spiritual_name} (#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''})"
+      if surname.present? && name.present?
+        "#{spiritual_name} (#{civil_name})"
+      else
+        spiritual_name
+      end
     else
-      "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
+      civil_name
     end
   end
 

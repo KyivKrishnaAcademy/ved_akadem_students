@@ -115,6 +115,45 @@ describe Person do
     context 'downcases :email' do
       Then { expect(create(:person, {email: 'A_US-ER@f.B.org'}).email).to eq('a_us-er@f.b.org') }
     end
+
+    context 'sets complex_name' do
+      Given(:subject) { create(:person, params).complex_name }
+      Given(:generic_params) { { spiritual_name: 'Adi das', name: 'Vasya', surname: 'Pupkin', middle_name: 'Petrovich' } }
+
+      context 'spiritual_name is present' do
+        context 'with middle_name' do
+          Given(:params) { generic_params }
+
+          Then { is_expected.to eq('Adi das (Pupkin Vasya Petrovich)') }
+        end
+
+        context 'without middle_name' do
+          Given(:params) { generic_params.merge(middle_name: nil) }
+
+          Then { is_expected.to eq('Adi das (Pupkin Vasya)') }
+        end
+
+        context 'without name and surname' do
+          Given(:params) {  generic_params.merge(name: nil, surname: nil, middle_name: nil) }
+
+          Then { is_expected.to eq('Adi das') }
+        end
+      end
+
+      context 'spiritual_name is blank' do
+        context 'with middle_name' do
+          Given(:params) {  generic_params.merge(spiritual_name: nil) }
+
+          Then { is_expected.to eq('Pupkin Vasya Petrovich') }
+        end
+
+        context 'without middle_name' do
+          Given(:params) {  generic_params.merge(spiritual_name: nil, middle_name: nil) }
+
+          Then { is_expected.to eq('Pupkin Vasya') }
+        end
+      end
+    end
   end
 
   describe 'methods' do
