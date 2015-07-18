@@ -77,14 +77,23 @@ describe Person do
     end
 
     context 'name, surname, middle_name, spiritual_name' do
-      Then { is_expected.to validate_presence_of(:name) }
-      And  { is_expected.to validate_length_of(:name).is_at_most(50) }
+      context 'blank spiritual_name' do
+        Then { is_expected.to validate_presence_of(:name) }
+        And  { is_expected.to validate_length_of(:name).is_at_most(50) }
 
-      Then { is_expected.to validate_presence_of(:surname) }
-      And  { is_expected.to validate_length_of(:surname).is_at_most(50) }
+        Then { is_expected.to validate_presence_of(:surname) }
+        And  { is_expected.to validate_length_of(:surname).is_at_most(50) }
 
-      Then { is_expected.to validate_length_of(:middle_name   ).is_at_most(50) }
-      Then { is_expected.to validate_length_of(:spiritual_name).is_at_most(50) }
+        Then { is_expected.to validate_length_of(:middle_name   ).is_at_most(50) }
+        Then { is_expected.to validate_length_of(:spiritual_name).is_at_most(50) }
+      end
+
+      context 'spiritual_name present' do
+        Given { subject.spiritual_name = 'Adi dasa' }
+
+        Then { is_expected.not_to validate_presence_of(:name) }
+        Then { is_expected.not_to validate_presence_of(:surname) }
+      end
     end
 
     describe 'photo' do
