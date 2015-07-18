@@ -30,7 +30,7 @@ class Person < ActiveRecord::Base
   validates :password, confirmation: true
   validates :password, length: { in: 6..128, unless: :skip_password_validation  }
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
-  validates :telephones, :birthday, :education, :work, :marital_status, presence: true
+  validates :telephones, :birthday, :marital_status, presence: true
 
   validate :check_photo_dimensions
 

@@ -106,10 +106,8 @@ describe Person do
       end
     end
 
-    describe 'birthday, education, work' do
-      Then { is_expected.to validate_presence_of(:education) }
-      And  { is_expected.to validate_presence_of(:birthday) }
-      And  { is_expected.to validate_presence_of(:work) }
+    describe 'birthday' do
+      Then { is_expected.to validate_presence_of(:birthday) }
     end
   end
 
