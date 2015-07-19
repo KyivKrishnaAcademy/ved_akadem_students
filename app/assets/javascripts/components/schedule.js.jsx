@@ -12,6 +12,13 @@ var Schedule = React.createClass({
         return text;
       }
     };
+    var lectorLinkOrText = function(lector) {
+      if (lector) {
+        return linkOrText(lector.can_view, lector.path, lector.complex_name);
+      }
+
+      return '';
+    };
     var editLink = function(schedule) {
       if (schedule.can_edit) {
         return (
@@ -38,7 +45,7 @@ var Schedule = React.createClass({
     return (
       <tr>
         <td>{linkOrText(schedule.course.can_view, schedule.course.path, schedule.course.title)}</td>
-        <td>{linkOrText(schedule.lector.can_view, schedule.lector.path, schedule.lector.complex_name)}</td>
+        <td>{lectorLinkOrText(schedule.lector)}</td>
         <td>{schedule.subject}</td>
         <td>
           {
