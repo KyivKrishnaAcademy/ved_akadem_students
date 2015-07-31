@@ -10,4 +10,4 @@ Rails.application.config.assets.version = '1.1'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w(crops.js jquery.Jcrop.css jquery.Jcrop.js
                                                  nested_form_custom_telephones.js flags.png
-                                                 intlTelInput.css initTelInput.js select2.min.js select2.min.css)
+                                                 intlTelInput.css initTelInput.js select2.min.css)
