@@ -99,15 +99,17 @@ ru:
   academic_groups:
     show:
       active_students_count:    'Активных студентов:'
-      attendance_template_pdf:  ' Бланк посещаемости'
       administrator:            'Администратор'
+      attendance_template_pdf:  ' Бланк посещаемости'
       birthday:                 'День рождения'
       curator:                  'Куратор'
       full_name:                'Имя'
       group_list_pdf:           ' PDF c фото'
       group_servants:           'Слуги группы'
+      mataji_count:             'Матаджи'
       no_pending_schedules:     'Нет грядущих событий'
       photo:                    'Фото'
+      prabhu_count:             'Прабху'
       praepostor:               'Староста'
       tab_general:              'Осмотр'
       tab_group_list:           'Список группы'
