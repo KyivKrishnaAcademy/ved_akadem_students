@@ -99,15 +99,17 @@ uk:
   academic_groups:
     show:
       active_students_count:    'Активних студентів:'
-      attendance_template_pdf:  ' Бланк відвідуванності'
       administrator:            'Адміністратор'
+      attendance_template_pdf:  ' Бланк відвідуванності'
       birthday:                 'День народження'
       curator:                  'Куратор'
       full_name:                "Ім'я"
       group_list_pdf:           ' PDF із фото'
       group_servants:           'Слуги групи'
+      mataji_count:             'Матаджи'
       no_pending_schedules:     'Немає майбутніх подій'
       photo:                    'Фото'
+      prabhu_count:             'Прабгу'
       praepostor:               'Староста'
       tab_general:              'Огляд'
       tab_group_list:           'Список групи'

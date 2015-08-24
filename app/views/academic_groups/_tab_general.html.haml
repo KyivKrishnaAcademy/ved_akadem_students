@@ -22,6 +22,16 @@
         = t('academic_groups.show.active_students_count')
       .col-xs-9.col-sm-10
         = academic_group.active_students.count
+    .row
+      .col-xs-3.col-sm-2
+        = t('academic_groups.show.prabhu_count')
+      .col-xs-9.col-sm-10
+        = academic_group.active_students.where(gender: true).count
+    .row
+      .col-xs-3.col-sm-2
+        = t('academic_groups.show.mataji_count')
+      .col-xs-9.col-sm-10
+        = academic_group.active_students.where(gender: false).count
     - if academic_group["message_#{locale}"].present?
       .row
         .col-xs-3.col-sm-2
