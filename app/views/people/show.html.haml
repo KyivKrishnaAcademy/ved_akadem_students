@@ -41,6 +41,11 @@
       .col-xs-12.col-sm-8
         .row
           .col-xs-4.col-sm-3
+            Registration time:
+          .col-xs-8.col-sm-9
+            = I18n.l(@person.created_at, format: :long)
+        .row
+          .col-xs-4.col-sm-3
             Academic Group:
           .col-xs-8.col-sm-9#academic-group-link
             - if @person.last_academic_group.present?

@@ -46,5 +46,8 @@
                   = link_to person.last_academic_group.title, academic_group_path(person.last_academic_group)
                 - elsif person.study_application.present?
                   = person.study_application.program["title_#{locale}"]
+                  = "(application time #{I18n.l(person.study_application.created_at, format: :long)})"
+                - else
+                  = "(registration time #{I18n.l(person.created_at, format: :long)})"
   .col-xs-12.text-center
     = paginate @people
