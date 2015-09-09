@@ -45,7 +45,7 @@ class PeopleController < ApplicationController
     @people = if params[:with_application].present?
       people_list.with_application(params[:with_application]).page(params[:page])
     elsif params[:without_application].present?
-      people_list.without_application.page(params[:page])
+      policy_scope(Person).order(created_at: :desc).without_application.page(params[:page])
     else
       people_list.page(params[:page])
     end
