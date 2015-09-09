@@ -42,7 +42,13 @@ class PeopleController < ApplicationController
   def index
     authorize Person
 
-    @people = policy_scope(Person).by_complex_name.page(params[:page])
+    @people = if params[:with_application].present?
+      people_list.with_application(params[:with_application]).page(params[:page])
+    elsif params[:without_application].present?
+      people_list.without_application.page(params[:page])
+    else
+      people_list.page(params[:page])
+    end
   end
 
   def destroy
@@ -117,5 +123,9 @@ class PeopleController < ApplicationController
 
   def create_successed(person)
     { success: "#{view_context.link_to(person.complex_name, person_path(person))} added.".html_safe }
+  end
+
+  def people_list
+    policy_scope(Person).by_complex_name
   end
 end
