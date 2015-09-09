@@ -253,6 +253,28 @@ describe Person do
       Then  { expect(Person.by_complex_name).to eq([person_2, person, person_4, person_3]) }
     end
 
+    context 'study application scopes' do
+      Given(:program_1) { create :program }
+      Given(:program_2) { create :program }
+
+      Given(:person_1) { create :person }
+      Given(:person_2) { create :person }
+
+      Given { person_1.create_study_application(program: program_1) }
+      Given { person_2.create_study_application(program: program_2) }
+
+      describe '#with_application' do
+        Then { expect(Person.with_application(program_1.id)).to eq([person_1]) }
+      end
+
+      describe '#without_application' do
+        Given!(:student) { create(:person).create_student_profile }
+        Given!(:teacher) { create(:person).create_teacher_profile }
+
+        Then { expect(Person.without_application).to eq([person]) }
+      end
+    end
+
     describe '#initial_answers' do
       Given(:person_2) { create :person }
       Given(:question_1) { create :question, :freeform, position: 2 }
