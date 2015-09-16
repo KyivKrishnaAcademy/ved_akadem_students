@@ -20,6 +20,7 @@
 //= require jquery-ui/autocomplete
 //= require jquery.smartmenus
 //= require jquery.smartmenus.bootstrap
+//= require main.bundle.js
 //= require select_2_initializers
 //= require moment
 //= require moment/ru

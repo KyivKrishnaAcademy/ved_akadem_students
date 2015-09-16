@@ -22,6 +22,8 @@ bundler_stubs/
 erd?.dot
 recaptcha.rb
 
+node_modules/
+
 /Procfile
 /config/deploy/
 /shared/
