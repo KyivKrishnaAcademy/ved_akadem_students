@@ -23,7 +23,7 @@ namespace :academic do
     end
 
     def email(email)
-      email unless email =~ /(example\.com)|(students.veda-kiev.org.ua)/
+      email unless email =~ /(example\.com)|(students\.veda-kiev\.org\.ua)/
     end
 
     def copy_photo(student, card_number, photo_dir)
