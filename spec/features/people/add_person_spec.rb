@@ -9,7 +9,7 @@ describe 'Add person:' do
     When { click_button 'Створити Person' }
     When { @person = Person.find_by(email: @person_built.email) }
 
-    Then { expect(page).to have_link(@person.complex_name, href: person_path(@person)) }
+    Then { expect(find('.alert-dismissible')).to have_link(@person.complex_name, href: person_path(@person)) }
   end
 
   describe 'simple (no student, no teacher)' do

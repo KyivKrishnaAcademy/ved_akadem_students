@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.4'
+
+gem 'redis-session-store'
 
 gem 'haml'
 gem 'sass-rails'
@@ -13,6 +15,7 @@ gem 'responders', '~> 2.0'
 gem 'kaminari'
 
 gem 'devise'
+gem 'devise_token_auth'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
 
@@ -66,9 +69,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'byebug'
   gem 'factory_girl_rails'
   gem 'ffaker'
+  gem 'pry'
+  gem 'pry-nav'
 end
 
 group :test do

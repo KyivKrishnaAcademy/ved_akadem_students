@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625201045) do
+ActiveRecord::Schema.define(version: 20150821112132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,9 +111,14 @@ ActiveRecord::Schema.define(version: 20150625201045) do
     t.string   "friends_to_be_with",     limit: 255
     t.text     "special_note"
     t.string   "complex_name",           limit: 255
+    t.string   "provider",                           default: "email", null: false
+    t.string   "uid",                                default: "",      null: false
+    t.jsonb    "tokens",                             default: {},      null: false
   end
 
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
+  add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
+  add_index "people", ["uid", "provider"], name: "index_people_on_uid_and_provider", unique: true, using: :btree
 
   create_table "people_roles", force: :cascade do |t|
     t.integer "person_id"
@@ -207,5 +212,16 @@ ActiveRecord::Schema.define(version: 20150625201045) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "versions", force: :cascade do |t|
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.string   "event",      null: false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

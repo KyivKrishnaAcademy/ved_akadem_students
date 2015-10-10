@@ -235,7 +235,10 @@ CREATE TABLE people (
     marital_status character varying(255),
     friends_to_be_with character varying(255),
     special_note text,
-    complex_name character varying(255)
+    complex_name character varying(255),
+    provider character varying DEFAULT 'email'::character varying NOT NULL,
+    uid character varying DEFAULT ''::character varying NOT NULL,
+    tokens jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -1131,6 +1134,20 @@ CREATE UNIQUE INDEX index_people_on_email ON people USING btree (email);
 
 
 --
+-- Name: index_people_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_people_on_reset_password_token ON people USING btree (reset_password_token);
+
+
+--
+-- Name: index_people_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_people_on_uid_and_provider ON people USING btree (uid, provider);
+
+
+--
 -- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1299,4 +1316,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150614072444');
 INSERT INTO schema_migrations (version) VALUES ('20150625201045');
 
 INSERT INTO schema_migrations (version) VALUES ('20150709064042');
+
+INSERT INTO schema_migrations (version) VALUES ('20150821112132');
 
