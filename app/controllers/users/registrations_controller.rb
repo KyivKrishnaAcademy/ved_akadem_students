@@ -76,8 +76,9 @@ module Users
     def hide_or_destroy(person)
       if person.student_profile.present? || person.teacher_profile.present?
         new_email = "#{SecureRandom.hex(3)}.deleted.#{person.email}"
+        new_uid = person.uid == person.email ? new_email : person.uid
 
-        person.update_attributes(email: new_email, skip_password_validation: true, deleted: true)
+        person.update_attributes(email: new_email, uid: new_uid, deleted: true)
       else
         person.destroy
       end
