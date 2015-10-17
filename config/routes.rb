@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       mount_devise_token_auth_for 'Person', at: 'auth', skip: [:passwords, :registrations]
+
+      resources :people, only: :index
     end
   end
 

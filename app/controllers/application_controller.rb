@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  protect_from_forgery with: :exception, unless: :devise_token_auth?
+  protect_from_forgery with: :exception, unless: :is_api?
 
   before_action :set_locale, :authenticate_person!, unless: :devise_token_auth?
 
@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
 
   def user_for_paper_trail
     current_person.present? ? current_person.id : :anonymous
+  end
+
+  def respond_with_interaction(klass)
+    respond_with klass.new(user: current_person, request: request, params: params), location: false
   end
 
   def is_api?
