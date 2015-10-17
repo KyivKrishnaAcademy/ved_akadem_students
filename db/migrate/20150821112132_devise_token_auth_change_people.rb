@@ -4,7 +4,7 @@ class DeviseTokenAuthChangePeople < ActiveRecord::Migration
     add_column :people, :uid, :string, null: false, default: ''
     add_column :people, :tokens, :jsonb, null: false, default: '{}'
 
-    Person.all.each { |p| p.update_column(:uid, p.email) }
+    Person.unscoped.each { |p| p.update_column(:uid, p.email) }
 
     add_index :people, [:uid, :provider], unique: true
     add_index :people, :reset_password_token, unique: true

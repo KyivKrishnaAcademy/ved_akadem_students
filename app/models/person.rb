@@ -30,7 +30,7 @@ class Person < ActiveRecord::Base
   validates :name, :surname, presence: { if: :spiritual_name_blank? }
   validates :password, confirmation: true
   validates :password, length: { in: 6..128, unless: :skip_password_validation }, on: :create
-  validates :password, length: { in: 6..128 }, on: :update, allow_blank: true
+  validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
   validates :telephones, :birthday, :marital_status, presence: true
 
