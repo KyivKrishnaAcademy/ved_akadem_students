@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   devise_for :people, path: '', controllers: { registrations: 'users/registrations' }, path_names: { sign_up: 'register' }
 
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      mount_devise_token_auth_for 'Person', at: 'auth', skip: [:passwords, :registrations]
+
+      resources :people, only: :index
+    end
+  end
+
   resources :people, :courses, :academic_groups
   resources :class_schedules   , only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]

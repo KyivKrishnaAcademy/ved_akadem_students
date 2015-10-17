@@ -6,6 +6,7 @@ class Person < ActiveRecord::Base
   attr_accessor :privacy_agreement
 
   devise :database_authenticatable, :registerable, :recoverable
+  include DeviseTokenAuth::Concerns::User
 
   has_one :student_profile, dependent: :destroy
   has_one :teacher_profile, dependent: :destroy
@@ -19,7 +20,7 @@ class Person < ActiveRecord::Base
   has_many :praeposted_groups, class_name: 'AcademicGroup', foreign_key: 'praepostor_id'
   has_many :curated_groups, class_name: 'AcademicGroup', foreign_key: 'curator_id'
 
-  before_save :set_password, :set_complex_name
+  before_save :set_password, :set_complex_name, :set_uid
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
@@ -28,7 +29,8 @@ class Person < ActiveRecord::Base
   validates :middle_name, :spiritual_name, :name, :surname, length: { maximum: 50 }
   validates :name, :surname, presence: { if: :spiritual_name_blank? }
   validates :password, confirmation: true
-  validates :password, length: { in: 6..128, unless: :skip_password_validation  }
+  validates :password, length: { in: 6..128, unless: :skip_password_validation }, on: :create
+  validates :password, length: { in: 6..128 }, on: :update, allow_blank: true
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
   validates :telephones, :birthday, :marital_status, presence: true
 
@@ -48,6 +50,12 @@ class Person < ActiveRecord::Base
   delegate :active?, to: :student_profile, prefix: :student, allow_nil: true
 
   has_paper_trail
+
+  def token_validation_response
+    {
+      complex_name: complex_name
+    }
+  end
 
   def crop_photo(params)
     assign_attributes(params)
@@ -147,5 +155,9 @@ class Person < ActiveRecord::Base
 
   def spiritual_name_blank?
     spiritual_name.blank?
+  end
+
+  def set_uid
+    self.uid = email if uid.blank?
   end
 end

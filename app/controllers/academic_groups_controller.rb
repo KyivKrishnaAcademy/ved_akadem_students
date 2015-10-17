@@ -33,7 +33,7 @@ class AcademicGroupsController < ApplicationController
     #TODO DRY the controller with responders
     if @academic_group.save
       flash[:success] = "#{view_context.link_to(@academic_group.title,
-                                                academic_group_path(@academic_group))} added.".html_safe
+                                                academic_group_path(@academic_group))} added."
 
       redirect_to action: :new
     else
