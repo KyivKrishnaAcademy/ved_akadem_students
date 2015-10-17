@@ -1,6 +1,6 @@
 language: ruby
 script:
-  - bundle exec rake db:schema:load db:seed
+  - bundle exec rake db:structure:load db:seed
   - 'CODECLIMATE_REPO_TOKEN=783e4ac8cc44be68f2be2932fb13e2805e1f21b4541d689c9c7fe12bfb2373fb bundle exec rspec -s 63423'
 rvm:
   - 2.1.5
