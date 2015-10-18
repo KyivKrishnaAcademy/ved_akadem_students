@@ -41,7 +41,7 @@ class Api::PeopleLoadingInteraction < BaseInteraction
         email: 'test1@example.com',
         birthday: Date.parse('1985/10/11'),
         groups: ['Студенти', 'ШБ15-1', 'УЧ15-2'],
-        telephones: ['+380 50 111 22 34', '+380 50 111 22 35']
+        telephones: ['+380 50 111 22 34', '+380501112235']
       },
       {
         id: 3,
@@ -72,14 +72,14 @@ class Api::PeopleLoadingInteraction < BaseInteraction
       },
       {
         id: 2,
-        spiritual_name: nil,
-        name: 'Василий',
-        middle_name: 'Васильевич',
-        surname: 'Васин',
-        email: 'test1@example.com',
-        birthday: Date.parse('1985/10/11'),
-        groups: ['Студенти', 'ШБ15-1', 'УЧ15-2', 'Старости'],
-        telephones: ['+380 50 111 22 34', '+380 50 111 22 35']
+        spiritual_name: 'Starosta prabhu',
+        name: 'Вася',
+        middle_name: nil,
+        surname: 'Васютин',
+        email: 'test12@example.com',
+        birthday: Date.parse('1985/10/12'),
+        groups: ['Студенти', 'ШБ15-1', 'Старости'],
+        telephones: ['+380 50 111 22 34', '+380 50 111 22 38']
       }
     ]
   end
