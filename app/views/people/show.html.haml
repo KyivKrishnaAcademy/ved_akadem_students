@@ -18,7 +18,7 @@
             %li.divider
             - if policy(@person).remove_from_groups?
               %li#remove-from-groups{ class: @person.last_academic_group.blank? ? 'disabled' : '' }
-                = link_to 'Remove from group', '#', data: { confirm: 'Are you sure you want to remove from group?' }
+                = link_to 'Remove from group', '#', data: { confirmation: 'Are you sure you want to remove from group?' }
       - if policy(@person).edit?
         = link_to t('links.edit'), edit_person_path(@person), class: 'btn btn-xs btn-primary'
       - if policy(@person).destroy?

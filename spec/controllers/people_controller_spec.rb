@@ -17,12 +17,6 @@ describe PeopleController do
 
       it_behaves_like :not_authenticated
     end
-
-    context '#remove_from_groups' do
-      Given(:action)  { delete :remove_from_groups, id: 1, format: :js }
-
-      it_behaves_like :not_authenticated_js
-    end
   end
 
   describe 'with user' do
@@ -58,12 +52,6 @@ describe PeopleController do
 
     describe 'regular user' do
       it_behaves_like :failed_auth_crud, :not_authorized
-
-      context '#remove_from_groups' do
-        When { delete :remove_from_groups, id: 1, format: :js }
-
-        it_behaves_like :not_authorized
-      end
 
       context '#show_photo' do
         Given { allow(controller).to receive(:render) }
@@ -155,20 +143,6 @@ describe PeopleController do
         And  { expect(assigns(:application_person)).to be_a(Person) }
         And  { expect(assigns(:programs)).to eq(programs) }
         And  { expect(assigns(:new_study_application)).to be_a_new(StudyApplication) }
-      end
-
-      describe '#remove_from_groups' do
-        Given(:student_profile) { double }
-
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:remove_from_groups'] } }
-        Given { allow(person).to receive(:student_profile).and_return(student_profile) }
-        Given { expect(student_profile).to receive(:remove_from_groups) }
-
-        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
-
-        When { delete :remove_from_groups, id: 1, format: :js }
-
-        Then { expect(response).to render_template(:remove_from_groups) }
       end
 
       describe '#show_photo' do

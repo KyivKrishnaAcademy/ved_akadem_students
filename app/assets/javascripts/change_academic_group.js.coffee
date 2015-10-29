@@ -30,10 +30,20 @@ $ ->
     changeAcademicGroup. on 'click', '#remove-from-groups a', (e) ->
       e.preventDefault()
 
-      $.ajax({
-        url: '/people/' + personId + '/remove_from_groups'
-        type: 'DELETE',
-        dataType: 'script'
-      })
+      if confirm $(@).data('confirmation')
+        $.ajax
+          url: '/ui/people/' + personId + '/remove_from_groups'
+          type: 'DELETE',
+          dataType: 'json'
+        .done () ->
+          $ '#academic-group-link'
+          .html ''
 
+          $ '#change-academic-group li'
+          .removeClass 'disabled'
+
+          $ '#change-academic-group li#remove-from-groups'
+          .addClass 'disabled'
+
+          true
   true

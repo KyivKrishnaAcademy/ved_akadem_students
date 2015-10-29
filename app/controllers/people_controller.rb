@@ -1,14 +1,14 @@
 class PeopleController < ApplicationController
+  include PersonSetable
   include CropDirectable
   include StudyApplicationable
   include ClassSchedulesRefreshable
 
-  before_action :set_person, only: %i(show edit update destroy show_photo
-                                      show_passport remove_from_groups)
+  before_action :set_person, only: %i(show edit update destroy show_photo show_passport)
 
   after_action :verify_authorized
   after_action :verify_policy_scoped, except: %i(new create)
-  after_action :refresh_class_schedules_mv, only: %i(update remove_from_groups)
+  after_action :refresh_class_schedules_mv, only: :update
 
   def new
     @person = Person.new
@@ -91,10 +91,6 @@ class PeopleController < ApplicationController
               x_sendfile: true)
   end
 
-  def remove_from_groups
-    @person.student_profile.remove_from_groups if @person.student_profile.present?
-  end
-
   class PersonParams
     def self.filter(params)
       params.require(:person).permit(
@@ -107,11 +103,7 @@ class PeopleController < ApplicationController
 
   private
 
-  def set_person
-    @person = policy_scope(Person).find(params[:id])
 
-    authorize @person
-  end
 
   def create_successed(person)
     { success: "#{view_context.link_to(person.complex_name, person_path(person))} added." }
