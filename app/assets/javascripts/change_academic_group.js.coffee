@@ -2,7 +2,8 @@ $ ->
   changeAcademicGroup = $ '#change-academic-group'
 
   if changeAcademicGroup.length
-    personId = changeAcademicGroup.data 'person'
+    personId  = changeAcademicGroup.data 'person'
+    button    = changeAcademicGroup.find('button')
 
     changeAcademicGroup. on 'click', '#move-to-group', (e) ->
       e.preventDefault()
@@ -10,6 +11,8 @@ $ ->
       groupId  = $(@).data 'group'
 
       if confirm $(@).data('confirmation')
+        button.addClass 'disabled'
+
         $.ajax
           url: '/ui/people/' + personId + '/move_to_group/' + groupId
           type: 'PATCH',
@@ -26,11 +29,15 @@ $ ->
           .addClass 'disabled'
 
           true
+        .always () ->
+          button.removeClass 'disabled'
 
     changeAcademicGroup. on 'click', '#remove-from-groups a', (e) ->
       e.preventDefault()
 
       if confirm $(@).data('confirmation')
+        button.addClass 'disabled'
+
         $.ajax
           url: '/ui/people/' + personId + '/remove_from_groups'
           type: 'DELETE',
@@ -46,4 +53,6 @@ $ ->
           .addClass 'disabled'
 
           true
+        .always () ->
+          button.removeClass 'disabled'
   true

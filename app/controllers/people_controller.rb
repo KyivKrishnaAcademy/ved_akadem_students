@@ -103,8 +103,6 @@ class PeopleController < ApplicationController
 
   private
 
-
-
   def create_successed(person)
     { success: "#{view_context.link_to(person.complex_name, person_path(person))} added." }
   end
