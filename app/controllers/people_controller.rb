@@ -4,11 +4,11 @@ class PeopleController < ApplicationController
   include ClassSchedulesRefreshable
 
   before_action :set_person, only: %i(show edit update destroy show_photo
-                                      show_passport move_to_group remove_from_groups)
+                                      show_passport remove_from_groups)
 
   after_action :verify_authorized
   after_action :verify_policy_scoped, except: %i(new create)
-  after_action :refresh_class_schedules_mv, only: %i(update move_to_group remove_from_groups)
+  after_action :refresh_class_schedules_mv, only: %i(update remove_from_groups)
 
   def new
     @person = Person.new
@@ -89,14 +89,6 @@ class PeopleController < ApplicationController
               disposition: 'inline',
               type: 'image/jpeg',
               x_sendfile: true)
-  end
-
-  def move_to_group
-    if (@academic_group = AcademicGroup.find(params[:group_id]))
-      (@person.student_profile || @person.create_student_profile).move_to_group(@academic_group)
-    else
-      render nothing: true
-    end
   end
 
   def remove_from_groups

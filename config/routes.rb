@@ -34,7 +34,6 @@ Rails.application.routes.draw do
 
   get    'people/show_photo/:version/:id'    , controller: :people, action: :show_photo
   get    'people/show_passport/:id'          , controller: :people, action: :show_passport
-  patch  'people/:id/move_to_group/:group_id', controller: :people, action: :move_to_group, constraints: { format: :js }
   delete 'people/:id/remove_from_groups'     , controller: :people, action: :remove_from_groups, constraints: { format: :js }
 
   namespace :ui do
@@ -49,6 +48,8 @@ Rails.application.routes.draw do
 
     get 'person_class_schedules'    , controller: :class_schedules, action: :person
     get 'group_class_schedules/:id' , controller: :class_schedules, action: :academic_group, as: :group_class_schedules
+
+    patch 'people/:id/move_to_group/:group_id', controller: :people, action: :move_to_group
   end
 
   format_pdf = { format: :pdf }

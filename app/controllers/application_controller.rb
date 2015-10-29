@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def respond_with_interaction(klass)
-    respond_with klass.new(user: current_person, request: request, params: params), location: false
+    render json: klass.new(user: current_person, request: request, params: params)
   end
 
   def is_api?
