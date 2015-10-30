@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe GroupPraepostorsLoadingInteraction do
+describe Ui::GroupPraepostorsLoadingInteraction do
   describe '#as_json' do
     Given!(:right_user) { create :person, name: 'Vasyl' }
     Given!(:wrong_user_1) { create :person, name: 'Vasyl' }
     Given!(:wrong_user_2) { create :person, name: 'Vasyl' }
 
     Given(:group) { create :academic_group }
-    Given(:interaction) { GroupPraepostorsLoadingInteraction.new(params: { q: 'vasy', group_id: group.id }) }
+    Given(:interaction) { described_class.new(params: { q: 'vasy', group_id: group.id }) }
 
     Given { right_user.create_student_profile.move_to_group(group) }
     Given { wrong_user_1.create_student_profile }

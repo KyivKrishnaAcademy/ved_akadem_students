@@ -2,15 +2,15 @@ class Ui::GroupEldersController < Ui::BaseController
   before_action :authorize_person
 
   def group_admins_index
-    respond_with_interaction GroupAdminsLoadingInteraction
+    respond_with_interaction Ui::GroupAdminsLoadingInteraction
   end
 
   def group_curators_index
-    respond_with_interaction GroupCuratorsLoadingInteraction
+    respond_with_interaction Ui::GroupCuratorsLoadingInteraction
   end
 
   def group_praepostors_index
-    respond_with_interaction GroupPraepostorsLoadingInteraction
+    respond_with_interaction Ui::GroupPraepostorsLoadingInteraction
   end
 
   private

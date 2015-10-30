@@ -2,6 +2,6 @@ class Ui::ClassroomsController < Ui::BaseController
   def index
     authorize Classroom, :ui_index?
 
-    respond_with_interaction ClassroomsLoadingInteraction
+    respond_with_interaction Ui::ClassroomsLoadingInteraction
   end
 end

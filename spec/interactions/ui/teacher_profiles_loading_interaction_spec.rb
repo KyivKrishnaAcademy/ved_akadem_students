@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe TeacherProfilesLoadingInteraction do
-  Given(:interaction) { TeacherProfilesLoadingInteraction.new(params: { q: 'vasy' }) }
+describe Ui::TeacherProfilesLoadingInteraction do
+  Given(:interaction) { described_class.new(params: { q: 'vasy' }) }
 
   describe '#as_json' do
     Given(:right_user) { create :person, name: 'Vasyl' }
