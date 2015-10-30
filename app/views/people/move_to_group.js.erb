@@ -1,3 +1,0 @@
-$('#academic-group-link').html('<%= link_to @academic_group.title, academic_group_path(@academic_group) %>');
-$('#change-academic-group li, #change-academic-group li#remove-from-groups').removeClass('disabled');
-$('#change-academic-group li a[data-group="<%= @academic_group.id %>"]').closest('li').addClass('disabled');

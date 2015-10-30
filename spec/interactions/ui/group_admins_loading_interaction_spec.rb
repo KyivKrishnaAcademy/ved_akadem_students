@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe GroupAdminsLoadingInteraction do
-  Given(:interaction) { GroupAdminsLoadingInteraction.new(params: { q: 'vasy' }) }
+describe Ui::GroupAdminsLoadingInteraction do
+  Given(:interaction) { described_class.new(params: { q: 'vasy' }) }
 
   describe '#as_json' do
     Given!(:right_user) { create :person, name: 'Vasyl' }

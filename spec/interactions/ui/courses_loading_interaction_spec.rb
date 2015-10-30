@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe CoursesLoadingInteraction do
-  Given(:interaction) { CoursesLoadingInteraction.new(params: { q: 'шко' }) }
+describe Ui::CoursesLoadingInteraction do
+  Given(:interaction) { described_class.new(params: { q: 'шко' }) }
 
   describe '#as_json' do
     Given!(:right_course) { create :course, title: 'Школа Бхакти' }

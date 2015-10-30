@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe ClassroomsLoadingInteraction do
-  Given(:interaction) { ClassroomsLoadingInteraction.new(params: { q: 'ардв' }) }
+describe Ui::ClassroomsLoadingInteraction do
+  Given(:interaction) { described_class.new(params: { q: 'ардв' }) }
 
   describe '#as_json' do
     Given!(:right_classroom) { create :classroom, title: 'Антардвипа' }

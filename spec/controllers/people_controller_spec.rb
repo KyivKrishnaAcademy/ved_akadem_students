@@ -17,18 +17,6 @@ describe PeopleController do
 
       it_behaves_like :not_authenticated
     end
-
-    context '#move_to_group' do
-      Given(:action)  { patch :move_to_group, id: 1, group_id: 2, format: :js }
-
-      it_behaves_like :not_authenticated_js
-    end
-
-    context '#remove_from_groups' do
-      Given(:action)  { delete :remove_from_groups, id: 1, format: :js }
-
-      it_behaves_like :not_authenticated_js
-    end
   end
 
   describe 'with user' do
@@ -64,18 +52,6 @@ describe PeopleController do
 
     describe 'regular user' do
       it_behaves_like :failed_auth_crud, :not_authorized
-
-      describe '#move_to_group' do
-        When { patch :move_to_group, id: 1, group_id: 2, format: :js }
-
-        it_behaves_like :not_authorized
-      end
-
-      context '#remove_from_groups' do
-        When { delete :remove_from_groups, id: 1, format: :js }
-
-        it_behaves_like :not_authorized
-      end
 
       context '#show_photo' do
         Given { allow(controller).to receive(:render) }
@@ -167,37 +143,6 @@ describe PeopleController do
         And  { expect(assigns(:application_person)).to be_a(Person) }
         And  { expect(assigns(:programs)).to eq(programs) }
         And  { expect(assigns(:new_study_application)).to be_a_new(StudyApplication) }
-      end
-
-      describe '#move_to_group' do
-        Given(:academic_group) { double }
-        Given(:student_profile) { double }
-
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:move_to_group'] } }
-        Given { allow(AcademicGroup).to receive(:find).with('2').and_return(academic_group) }
-        Given { allow(person).to receive(:student_profile).and_return(nil) }
-        Given { allow(person).to receive(:create_student_profile).and_return(student_profile) }
-        Given { allow(student_profile).to receive(:move_to_group).with(academic_group) }
-
-        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
-
-        When { patch :move_to_group, id: 1, group_id: 2, format: :js }
-
-        Then { expect(response).to render_template(:move_to_group) }
-      end
-
-      describe '#remove_from_groups' do
-        Given(:student_profile) { double }
-
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:remove_from_groups'] } }
-        Given { allow(person).to receive(:student_profile).and_return(student_profile) }
-        Given { expect(student_profile).to receive(:remove_from_groups) }
-
-        Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
-
-        When { delete :remove_from_groups, id: 1, format: :js }
-
-        Then { expect(response).to render_template(:remove_from_groups) }
       end
 
       describe '#show_photo' do

@@ -7,13 +7,9 @@ class BaseInteraction
     @request = args[:request]
 
     init
-    exec
   end
 
   def init
-  end
-
-  def exec
   end
 
   def as_json(opts = {})

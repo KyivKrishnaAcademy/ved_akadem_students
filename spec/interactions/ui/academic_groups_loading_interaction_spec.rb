@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe AcademicGroupsLoadingInteraction do
-  Given(:interaction) { AcademicGroupsLoadingInteraction.new(params: { q: 'шб' }) }
+describe Ui::AcademicGroupsLoadingInteraction do
+  Given(:interaction) { described_class.new(params: { q: 'шб' }) }
 
   describe '#as_json' do
     Given!(:right_group) { create :academic_group, title: 'ШБ14-1' }

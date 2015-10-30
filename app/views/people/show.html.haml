@@ -14,11 +14,11 @@
             - if policy(@person).move_to_group?
               - @academic_groups.each do |group|
                 %li{ class: @person.last_academic_group == group ? 'disabled' : '' }
-                  = link_to group.title, '#', data: { group: group.id, confirm: 'Are you sure you want change group?' }, id: 'move-to-group'
+                  = link_to group.title, '#', data: { group: group.id, confirmation: 'Are you sure you want change group?' }, id: 'move-to-group'
             %li.divider
             - if policy(@person).remove_from_groups?
               %li#remove-from-groups{ class: @person.last_academic_group.blank? ? 'disabled' : '' }
-                = link_to 'Remove from group', '#', data: { confirm: 'Are you sure you want to remove from group?' }
+                = link_to 'Remove from group', '#', data: { confirmation: 'Are you sure you want to remove from group?' }
       - if policy(@person).edit?
         = link_to t('links.edit'), edit_person_path(@person), class: 'btn btn-xs btn-primary'
       - if policy(@person).destroy?

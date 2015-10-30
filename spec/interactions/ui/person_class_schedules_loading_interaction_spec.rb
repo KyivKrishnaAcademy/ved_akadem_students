@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-describe PersonClassSchedulesLoadingInteraction do
+describe Ui::PersonClassSchedulesLoadingInteraction do
   Given(:user) { create :person }
-  Given(:interaction) { PersonClassSchedulesLoadingInteraction.new(user: user, params: { page: 1 }) }
+  Given(:interaction) { described_class.new(user: user, params: { page: 1 }) }
 
   describe 'calls ClassSchedule#personal_schedule' do
     Given(:result) { ClassSchedule.none.page(nil).per(1) }

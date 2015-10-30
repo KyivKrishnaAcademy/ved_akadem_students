@@ -31,7 +31,7 @@ describe Ui::ClassSchedulesController do
       describe 'as teacher' do
         Given { person.create_teacher_profile }
 
-        Then  { expect(PersonClassSchedulesLoadingInteraction).to receive(:new) }
+        Then  { expect(Ui::PersonClassSchedulesLoadingInteraction).to receive(:new) }
         And   { action }
       end
 
@@ -50,7 +50,7 @@ describe Ui::ClassSchedulesController do
           Given { person.student_profile.academic_groups << group }
 
           context 'active' do
-            Then { expect(PersonClassSchedulesLoadingInteraction).to receive(:new) }
+            Then { expect(Ui::PersonClassSchedulesLoadingInteraction).to receive(:new) }
             And  { action }
           end
 
@@ -70,7 +70,7 @@ describe Ui::ClassSchedulesController do
       Given(:group) { create :academic_group }
 
       shared_examples :valid_group_schedules_loading do
-        Then { expect(GroupClassSchedulesLoadingInteraction).to receive(:new) }
+        Then { expect(Ui::GroupClassSchedulesLoadingInteraction).to receive(:new) }
         And  { action }
       end
 

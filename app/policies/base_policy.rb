@@ -1,4 +1,4 @@
-class ApplicationPolicy
+class BasePolicy
   attr_reader :user, :record
 
   Scope = Struct.new(:user, :scope) do

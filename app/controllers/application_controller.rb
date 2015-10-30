@@ -28,11 +28,11 @@ class ApplicationController < ActionController::Base
   end
 
   def respond_with_interaction(klass)
-    respond_with klass.new(user: current_person, request: request, params: params), location: false
+    render json: klass.new(user: current_person, request: request, params: params)
   end
 
   def is_api?
-    devise_token_auth? || self.class < Api::V1::ApplicationController
+    devise_token_auth? || self.class < Api::V1::BaseController
   end
 
   def devise_token_auth?

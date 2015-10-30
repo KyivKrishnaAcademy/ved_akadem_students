@@ -1,4 +1,4 @@
-class QuestionnairePolicy < ApplicationPolicy
+class QuestionnairePolicy < BasePolicy
   class Scope < Scope
     def resolve
       if Pundit.policy(user, Questionnaire).update_all?

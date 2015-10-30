@@ -5,16 +5,16 @@ describe Ui::GroupEldersController do
 
   it_behaves_like :ui_controller_index,
                   :group_admins_index,
-                  GroupAdminsLoadingInteraction,
+                  Ui::GroupAdminsLoadingInteraction,
                   PERMITTED_ACTIVITIES
 
   it_behaves_like :ui_controller_index,
                   :group_curators_index,
-                  GroupCuratorsLoadingInteraction,
+                  Ui::GroupCuratorsLoadingInteraction,
                   PERMITTED_ACTIVITIES
 
   it_behaves_like :ui_controller_index,
                   :group_praepostors_index,
-                  GroupPraepostorsLoadingInteraction,
+                  Ui::GroupPraepostorsLoadingInteraction,
                   PERMITTED_ACTIVITIES
 end

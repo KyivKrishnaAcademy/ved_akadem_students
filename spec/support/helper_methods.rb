@@ -43,7 +43,8 @@ module HelperMethods
 
   def people_activities
     PeopleController.action_methods.map { |action| 'person:' << action } +
-      %w(person:view_psycho_test_result person:crop_image) - %w(person:show_photo)
+      %w(person:view_psycho_test_result person:crop_image person:move_to_group
+         person:remove_from_groups) - %w(person:show_photo)
   end
 
   def academic_groups_activities

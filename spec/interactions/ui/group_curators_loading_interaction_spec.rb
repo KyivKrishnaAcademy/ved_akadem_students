@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe GroupCuratorsLoadingInteraction do
-  Given(:interaction) { GroupCuratorsLoadingInteraction.new(params: { q: 'vasy' }) }
+describe Ui::GroupCuratorsLoadingInteraction do
+  Given(:interaction) { described_class.new(params: { q: 'vasy' }) }
 
   describe '#as_json' do
     Given!(:right_user) { create :person, name: 'Vasyl' }

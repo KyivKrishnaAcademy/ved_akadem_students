@@ -26,6 +26,7 @@
 //= require moment/uk
 //= require bootstrap-datetimepicker
 //= require custom
+//= require change_academic_group
 //= require react
 //= require react_ujs
 //= require components

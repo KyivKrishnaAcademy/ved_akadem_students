@@ -112,10 +112,10 @@ GEM
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.3.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.0)
+    coffee-script-source (1.9.1.1)
     colorize (0.7.7)
     connection_pool (2.2.0)
     database_cleaner (1.4.0)
@@ -136,7 +136,7 @@ GEM
       nokogiri
       rails-erd (>= 0.4.5)
     erubis (2.7.0)
-    execjs (2.3.0)
+    execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
