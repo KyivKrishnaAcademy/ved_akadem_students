@@ -1,6 +1,6 @@
 module Api
   module V1
-    class ApplicationController < ApplicationController
+    class BaseController < ApplicationController
       include DeviseTokenAuth::Concerns::SetUserByToken
 
       protect_from_forgery with: :null_session

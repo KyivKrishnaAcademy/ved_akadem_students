@@ -1,4 +1,4 @@
-class PersonPolicy < ApplicationPolicy
+class PersonPolicy < BasePolicy
   def show_photo?
     owned? || show? || elder_of_student?(:curator_id) || elder_of_student?(:administrator_id) || classmate?
   end

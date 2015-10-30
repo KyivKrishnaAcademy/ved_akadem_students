@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_api?
-    devise_token_auth? || self.class < Api::V1::ApplicationController
+    devise_token_auth? || self.class < Api::V1::BaseController
   end
 
   def devise_token_auth?

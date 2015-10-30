@@ -1,4 +1,4 @@
-class StudyApplicationPolicy < ApplicationPolicy
+class StudyApplicationPolicy < BasePolicy
   def create?
     owned? || super
   end
