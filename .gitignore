@@ -27,3 +27,5 @@ recaptcha.rb
 /shared/
 /coverage
 /uploads
+
+bower_components/

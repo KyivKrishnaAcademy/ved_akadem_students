@@ -233,3 +233,15 @@ namespace :db do
   end
   after 'deploy:starting', 'db:backup'
 end
+
+namespace :bower do
+  desc 'Install bower'
+  task :update:prune do
+    on roles(:web) do
+      within release_path do
+        execute :rake, 'bower:update:prune CI=true'
+      end
+    end
+  end
+  before 'deploy:compile_assets', 'bower:update:prune'
+end
