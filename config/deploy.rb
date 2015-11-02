@@ -236,12 +236,12 @@ end
 
 namespace :bower do
   desc 'Install bower'
-  task :update:prune do
+  task :update_prune do
     on roles(:web) do
       within release_path do
         execute :rake, 'bower:update:prune CI=true'
       end
     end
   end
-  before 'deploy:compile_assets', 'bower:update:prune'
+  before 'deploy:compile_assets', 'bower:update_prune'
 end
