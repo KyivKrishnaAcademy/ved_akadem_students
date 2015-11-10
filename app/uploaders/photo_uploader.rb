@@ -2,6 +2,8 @@ class PhotoUploader < BaseUploader
   before :cache, :capture_size
   before :retrieve_from_cache, :capture_size
 
+  process :optimize
+
   process resize_to_limit: [500, 500]
 
   version :standart do
@@ -18,8 +20,6 @@ class PhotoUploader < BaseUploader
   def capture_size(new_file)
     return unless new_file.present? && model.photo_upload_width.nil?
 
-    path = new_file.is_a?(String) ? Rails.root.join('tmp/uploads/cache', new_file) : new_file.path
-
-    model.photo_upload_width, model.photo_upload_height = `identify -format "%wx %h" #{path}`.split(/x/).map(&:to_i)
+    model.photo_upload_width, model.photo_upload_height = get_file_size(new_file)
   end
 end

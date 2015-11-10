@@ -6,4 +6,6 @@ class CertificateTemplate < ActiveRecord::Base
   serialize :fields, HashSerializer
 
   enum status: %i(draft ready)
+
+  mount_uploader :background, CertificateTemplateUploader
 end
