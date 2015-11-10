@@ -1,4 +1,4 @@
-class ClassSchedulesController < HtmlResponsableController
+class ClassSchedulesController < HtmlRespondableController
   include Crudable
   include ClassSchedulesRefreshable
 
