@@ -8,4 +8,6 @@ class CertificateTemplate < ActiveRecord::Base
   enum status: %i(draft ready)
 
   mount_uploader :background, CertificateTemplateUploader
+
+  validates :background, :title, presence: true
 end
