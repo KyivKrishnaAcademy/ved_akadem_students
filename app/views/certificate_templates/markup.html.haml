@@ -1,0 +1,50 @@
+.row
+  %h1.col-xs-12.col-sm-6
+    = @certificate_template.title
+  .col-xs-12
+    = image_tag background_certificate_template_path(@certificate_template),
+      id: 'markup-box',
+      data: { height: @certificate_template.background_height, width: @certificate_template.background_width }
+
+  .col-xs-12
+    = simple_form_for @certificate_template,
+                      url: finish_certificate_template_path(@certificate_template),
+                      method: :patch do |f|
+      .row
+        .col-xs-12
+          = render 'shared/error_messages', object: f.object
+
+      - CertificateTemplate::FIELDS.each do |field|
+        .row.field-set{ data: { label: field }, id: field }
+          .col-xs-2
+            = label_tag "certificate_template[fields][#{field}]", field
+          .col-xs-10
+            - CertificateTemplate::DIMENSIONS.each do |dimension|
+              - field_name = "certificate_template[fields][#{field}][#{dimension}]"
+              = label_tag field_name, dimension
+              = number_field_tag field_name, (f.object.fields[field] || {})[dimension] || 0,
+                min: 0,
+                id: dimension
+            = link_to 'Remove', '#'
+
+      - CertificateTemplate::ARRAY_FIELDS.each do |field|
+        - (f.object.fields[field] && f.object.fields[field].count || 1).times do |index|
+          - label_name = "#{field}_#{index}"
+          .row.field-set{ data: { label: label_name }, id: label_name }
+            .col-xs-2
+              = label_tag "certificate_template[fields][#{field}]", label_name
+            .col-xs-10
+              - CertificateTemplate::DIMENSIONS.each do |dimension|
+                - field_name = "certificate_template[fields][#{field}][][#{dimension}]"
+                = label_tag field_name, dimension
+                = number_field_tag field_name,
+                  (f.object.fields[field] && f.object.fields[field][index] || {})[dimension] || 0,
+                  min: 0,
+                  id: dimension
+              = link_to 'Remove', '#'
+
+      .row
+        .col-xs-12
+          = f.button :submit
+
+

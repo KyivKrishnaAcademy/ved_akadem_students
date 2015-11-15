@@ -1,0 +1,38 @@
+= render 'shared/under_construction'
+- provide(:title, 'Certificate Templates')
+
+.row
+  .col-xs-12
+    %h1 Listing Certificate Templates
+
+    -# if current_person.can_act?('certificate_template:new')
+    = link_to 'New Certificate Template', new_certificate_template_path, class: 'btn btn-xs btn-success'
+
+  .col-xs-12.col-sm-6.vert-offset-top-1
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th Title
+            %th Actions
+
+        %tbody
+          - @certificate_templates.each do |certificate_template|
+            %tr
+              %td
+                -# link_to_if policy(certificate_template).show?
+                = link_to_if true, certificate_template.title, certificate_template do
+                  = certificate_template.title
+              %td
+                -# if policy(certificate_template).edit?
+                = link_to edit_certificate_template_path(certificate_template),
+                  class: 'btn btn-xs btn-primary', data: { toggle: :tooltip }, title: t('links.edit') do
+                  = tag :span, class: 'glyphicon glyphicon-pencil', aria: { hidden: true }
+                -# if policy(certificate_template).markup?
+                = link_to markup_certificate_template_path(certificate_template),
+                  class: 'btn btn-xs btn-warning', data: { toggle: :tooltip }, title: t('links.markup') do
+                  = tag :span, class: 'glyphicon glyphicon-picture', aria: { hidden: true }
+                -# if policy(certificate_template).delete?
+                = link_to certificate_template, method: :delete, class: 'btn btn-xs btn-danger',
+                  data: { toggle: :tooltip, confirm: 'Are you sure?' }, title: t('links.delete') do
+                  = tag :span, class: 'glyphicon glyphicon-trash', aria: { hidden: true }

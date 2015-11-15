@@ -1,0 +1,11 @@
+.col-xs-12.col-sm-6.vert-offset-top-1
+  = simple_form_for @certificate_template do |f|
+    = render 'shared/error_messages', object: f.object
+
+    = f.input :title
+    = f.input :background, as: :file
+    = f.input :background_cache, as: :hidden
+
+    .row
+      .col-xs-12.col-sm-6
+        = f.button :submit
