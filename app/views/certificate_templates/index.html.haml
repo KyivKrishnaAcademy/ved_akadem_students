@@ -1,20 +1,22 @@
-= render 'shared/under_construction'
-- provide(:title, 'Certificate Templates')
+- provide(:title, t('.title'))
 
 .row
   .col-xs-12
-    %h1 Listing Certificate Templates
+    %h1.text-center=t('.title')
 
-    -# if current_person.can_act?('certificate_template:new')
-    = link_to 'New Certificate Template', new_certificate_template_path, class: 'btn btn-xs btn-success'
+  -# if current_person.can_act?('certificate_template:new')
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to new_certificate_template_path, class: 'btn btn-xs btn-success',
+      data: { toggle: :tooltip }, title: t('links.new') do
+      = tag :span, class: 'glyphicon glyphicon-file', aria: { hidden: true }
 
-  .col-xs-12.col-sm-6.vert-offset-top-1
+  .col-xs-12.col-sm-6.col-sm-offset-3
     .table-responsive
       %table.table.table-condensed.table-striped
         %thead
           %tr
-            %th Title
-            %th Actions
+            %th=t('.template_title')
+            %th=t('.actions')
 
         %tbody
           - @certificate_templates.each do |certificate_template|
@@ -23,7 +25,7 @@
                 -# link_to_if policy(certificate_template).show?
                 = link_to_if true, certificate_template.title, certificate_template do
                   = certificate_template.title
-              %td
+              %td.col-xs-2.col-sm-4.col-md-3
                 -# if policy(certificate_template).edit?
                 = link_to edit_certificate_template_path(certificate_template),
                   class: 'btn btn-xs btn-primary', data: { toggle: :tooltip }, title: t('links.edit') do

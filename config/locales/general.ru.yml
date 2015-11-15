@@ -31,6 +31,7 @@ ru:
     edit_profile:     'Редактировать профиль'
     graduate:         'Выпуск'
     markup:           'Разметить'
+    new:              'Новий'
     show_passport:    'Показать паспорт'
     update:           'Сохранить'
     withdraw:         'Отозвать заявление'
@@ -54,6 +55,11 @@ ru:
   answers:
     edit:
       update: 'Отправить ответ'
+  certificate_templates:
+    index:
+      actions:        'Действия'
+      template_title: 'Название шаблона'
+      title:          'Шаблоны сертификатов'
   crops:
     crop_image:
       title:        'Кадрирование изображения'

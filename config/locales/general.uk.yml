@@ -31,6 +31,7 @@ uk:
     edit_profile:     'Редагувати профіль'
     graduate:         'Випуск'
     markup:           'Розмітити'
+    new:              'Новий'
     show_passport:    'Показати паспорт'
     update:           'Зберегти'
     withdraw:         'Відкликати заяву'
@@ -54,6 +55,11 @@ uk:
   answers:
     edit:
       update: 'Надіслати відповідь'
+  certificate_templates:
+    index:
+      actions:        'Дії'
+      template_title: 'Назва шаблону'
+      title:          'Шаблони сертифікатів'
   crops:
     crop_image:
       title:    'Кадрування зображення'
