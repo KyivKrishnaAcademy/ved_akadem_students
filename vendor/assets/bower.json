@@ -1,6 +1,7 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "Jcrop": "2.0.1"
+    "Jcrop": "2.0.1",
+    "jquery-bigtext": "1.3.0"
   }
 }

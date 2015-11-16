@@ -1,3 +1,7 @@
+- content_for(:js_and_css) do
+  = stylesheet_link_tag 'Jcrop/css/Jcrop', media: 'all'
+  = javascript_include_tag 'cert_template_markup'
+
 .row
   %h1.col-xs-12.col-sm-6
     = @certificate_template.title
