@@ -1,8 +1,8 @@
 class LocalesController < ApplicationController
-  skip_before_action :authenticate_person!, :set_locale
+  skip_before_action :authenticate_person!
 
   def toggle
-    session[:locale] = I18n.locale.to_sym == :ru ? :uk : :ru
+    session[:locale] = I18n.locale == :ru ? :uk : :ru
 
     redirect_to :back
   end
