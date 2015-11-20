@@ -8,6 +8,6 @@ class CertificateTemplatePolicy < BasePolicy
   end
 
   def background?
-    show?
+    markup?
   end
 end

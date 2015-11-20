@@ -15,11 +15,7 @@ describe CertificateTemplatePolicy do
     end
   end
 
-  permissions :markup?, :finish? do
+  permissions :markup?, :finish?, :background? do
     it_behaves_like :allow_with_activities, %w(certificate_template:edit)
-  end
-
-  permissions :background? do
-    it_behaves_like :allow_with_activities, %w(certificate_template:show)
   end
 end
