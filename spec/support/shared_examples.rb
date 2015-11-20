@@ -285,7 +285,7 @@ shared_examples :link_in_flash do
 end
 
 shared_examples :allow_with_activities do |activites|
-  context "with #{activites.join(' ')}" do
+  context "with #{activites.join(' ')} only" do
     Given { user.roles << create(:role, activities: activites) }
 
     context 'allow' do
@@ -294,6 +294,8 @@ shared_examples :allow_with_activities do |activites|
   end
 
   context "without #{activites.join(' ')}" do
+    Given { user.roles << create(:role, activities: all_activities - activites) }
+
     context 'disallow' do
       Then { is_expected.not_to permit(user, record) }
     end
