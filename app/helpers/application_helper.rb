@@ -71,4 +71,33 @@ module ApplicationHelper
       I18n.t("class_schedules.table_headers.#{key}")
     end
   end
+
+  def link_to_edit(condition, path)
+    link_to_action(
+      condition, path, 'primary', t('links.edit'), 'pencil'
+    )
+  end
+
+  def link_to_destroy(condition, path)
+    link_to_action(
+      condition, path, 'danger', t('links.delete'), 'trash',
+      data: { confirm: 'Are you sure?' }, method: :delete
+    )
+  end
+
+  def link_to_action(condition, path, btn_color, tooltip, icon, params = {})
+    if condition
+      link_params = {
+        class: "btn btn-xs btn-#{btn_color}",
+        data: { toggle: :tooltip },
+        title: tooltip
+      }
+
+      link_params.deep_merge!(params)
+
+      link_to path, link_params do
+        tag :span, class: "glyphicon glyphicon-#{icon}", aria: { hidden: true }
+      end
+    end
+  end
 end
