@@ -36,7 +36,7 @@ class CertificateTemplatesController < HtmlRespondableController
 
     respond_with(
       @certificate_template,
-      location: markup_certificate_template_path(@certificate_template)
+      location: -> { markup_certificate_template_path(@certificate_template) }
     )
   end
 
