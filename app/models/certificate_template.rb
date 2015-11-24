@@ -1,5 +1,5 @@
 class CertificateTemplate < ActiveRecord::Base
-  FIELDS        = %i(holder id date)
+  FIELDS        = %i(holder_name cert_id date)
   DIMENSIONS    = %i(x y w h)
   ARRAY_FIELDS  = %i(teachers)
 
