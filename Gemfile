@@ -74,6 +74,8 @@ group :development, :test do
   gem 'ffaker'
   gem 'pry'
   gem 'pry-nav'
+  gem 'pry-doc'
+  gem 'pry-rails'
 end
 
 group :test do
