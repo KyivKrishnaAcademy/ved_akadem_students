@@ -30,7 +30,7 @@ class CertTemplateMarkuper
     $('.field-set').each () ->
       fieldSet      = $(@)
       dimensions    = cropper.getDimensions fieldSet
-      selection     = jcrop_api.newSelection().update($.Jcrop.wrapFromXywh(dimensions))
+      selection     = jcrop_api.newSelection().update(dimensions)
       fieldSetId    = fieldSet.attr('id')
       selectionBox  = $('.jcrop-current')
 
@@ -56,9 +56,15 @@ class CertTemplateMarkuper
   getDimensions: (fieldSet) =>
     ratio = @ratio
 
-    $.map(fieldSet.find('input'), (el) ->
-      Math.round((Number($(el).val()) || 10) / ratio)
-    )
+    dimensions = {}
+
+    ['x', 'y', 'w', 'h'].forEach (dimension) ->
+      dimensions[dimension] = Math.round(fieldSet.find('input#' + dimension).val() / ratio)
+
+    dimensions['x2'] = dimensions['x'] + dimensions['w']
+    dimensions['y2'] = dimensions['y'] + dimensions['h']
+
+    dimensions
 
   adjustLabelSize: (parent, id) =>
     label = parent.find('#' + id)
