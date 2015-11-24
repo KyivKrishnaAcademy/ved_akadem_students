@@ -18,34 +18,15 @@
         .col-xs-12
           = render 'shared/error_messages', object: f.object
 
-      - CertificateTemplate::FIELDS.each do |field|
-        .row.field-set{ data: { label: field }, id: field }
+      - dimension_fields(@certificate_template) do |field_key, label_name, dimensions, is_array|
+        .row.field-set{ data: { label: label_name }, id: label_name }
           .col-xs-2
-            = label_tag "certificate_template[fields][#{field}]", field
+            = label_tag "certificate_template[fields][#{field_key}]", label_name
           .col-xs-10
-            - CertificateTemplate::DIMENSIONS.each do |dimension|
-              - field_name = "certificate_template[fields][#{field}][#{dimension}]"
+            - dimensions.each do |dimension, value|
+              - field_name = "certificate_template[fields][#{field_key}]#{ is_array ? '[]' : '' }[#{dimension}]"
               = label_tag field_name, dimension
-              = number_field_tag field_name, (f.object.fields[field] || {})[dimension] || 0,
-                min: 0,
-                id: dimension
-            = link_to 'Remove', '#'
-
-      - CertificateTemplate::ARRAY_FIELDS.each do |field|
-        - (f.object.fields[field] && f.object.fields[field].count || 1).times do |index|
-          - label_name = "#{field}_#{index}"
-          .row.field-set{ data: { label: label_name }, id: label_name }
-            .col-xs-2
-              = label_tag "certificate_template[fields][#{field}]", label_name
-            .col-xs-10
-              - CertificateTemplate::DIMENSIONS.each do |dimension|
-                - field_name = "certificate_template[fields][#{field}][][#{dimension}]"
-                = label_tag field_name, dimension
-                = number_field_tag field_name,
-                  (f.object.fields[field] && f.object.fields[field][index] || {})[dimension] || 0,
-                  min: 0,
-                  id: dimension
-              = link_to 'Remove', '#'
+              = number_field_tag field_name, value, min: 0, id: dimension
 
       .row
         .col-xs-12

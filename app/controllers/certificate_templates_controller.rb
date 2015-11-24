@@ -41,6 +41,7 @@ class CertificateTemplatesController < HtmlRespondableController
   end
 
   def markup
+    @certificate_template.init_fields
   end
 
   def finish
