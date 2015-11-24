@@ -15,7 +15,7 @@ class AnswersController < ApplicationController
     authorize @questionnaire, :save_answers?
 
     AnswersProcessorService.new(@questionnaire, current_person).process! if @questionnaire.update(questionnaire_params)
-
+    # TODO check the location on failure
     respond_with(@questionnaire, location: root_path)
   end
 
