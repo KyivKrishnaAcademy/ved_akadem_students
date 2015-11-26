@@ -15,7 +15,9 @@
                   = simple_form_for study_application, remote: true, format: :js do |f|
                     = f.input :person_id, as: :hidden, input_html: { value: person.id }
                     = f.input :program_id, as: :hidden, input_html: { value: program.id }
-                    = f.submit t('links.apply_to_program'), class: 'btn btn-xs btn-success'
+                    = f.button :button, class: 'btn btn-xs btn-success btn-submit' do
+                      %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+                      = t('links.apply_to_program')
           .panel-collapse.collapse{ id: "program-#{index}" }
             .panel-body
               %p
