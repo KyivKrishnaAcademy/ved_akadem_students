@@ -306,6 +306,9 @@ shared_examples :study_applications do |admin|
   Given { create(:program, title_uk: 'Invisible Program', visible: false) }
   Given { StudyApplication.create(person_id: user.id, program_id: program.id) } if admin
 
+  Given(:have_apply_button) { have_selector('button.btn-submit', text: I18n.t('links.apply_to_program')) }
+  Given(:have_withdraw_button) { have_selector('button.btn-submit', text: I18n.t('links.withdraw')) }
+
   context 'with application' do
     Given { StudyApplication.create(person_id: person.id, program_id: program.id) }
     Given { person.questionnaires << create(:questionnaire, title_uk: 'Психо тест') }
@@ -313,7 +316,7 @@ shared_examples :study_applications do |admin|
     describe 'have elements' do
       Then { expect(find('#study_application')).to have_content('Школа Бхакти') }
       And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
-      And  { expect(find('#study_application')).to have_link(I18n.t('links.withdraw')) }
+      And  { expect(find('#study_application')).to have_withdraw_button }
       And  { expect(find('#study_application')).to have_css('li', text: 'Заповнити Психо тест') }
       And  { expect(find('#study_application')).to have_css('li', text: 'Додати фотографію до профілю') }
       And  { expect(find('#study_application')).to have_css('li', text: 'Додати паспорт до профілю') }
@@ -322,7 +325,7 @@ shared_examples :study_applications do |admin|
     describe 'withdraw', :js do
       When { find('.program .btn-danger').click }
 
-      Then { expect(find('#study_application')).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
+      Then { expect(find('#study_application')).to have_apply_button }
       And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
       And  { expect(find('#study_application')).to have_content('Бхакти Шастры') }
     end
@@ -334,10 +337,10 @@ shared_examples :study_applications do |admin|
     describe 'have elements' do
       Then { expect(programs.first).to have_content('Школа Бхакти') }
       And  { expect(programs.first).to have_content('Описание 1') }
-      And  { expect(programs.first).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
+      And  { expect(programs.first).to have_apply_button }
       And  { expect(programs[1]).to have_content('Бхакти Шастры') }
       And  { expect(programs[1]).to have_content('Описание 2') }
-      And  { expect(programs[1]).to have_selector(:link_or_button, I18n.t('links.apply_to_program')) }
+      And  { expect(programs[1]).to have_apply_button }
       And  { expect(find('#study_application')).not_to have_content('Invisible Program') } unless admin
       And  { expect(find('#study_application')).to have_content('Invisible Program') } if admin
     end
@@ -345,7 +348,7 @@ shared_examples :study_applications do |admin|
     describe 'apply', :js do
       When { programs.first.find('.btn-success').click }
 
-      Then { expect(find('#study_application')).to have_css('.alert-success .btn-danger[data-method="delete"]') }
+      Then { expect(find('#study_application')).to have_withdraw_button }
       And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
       And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
     end
