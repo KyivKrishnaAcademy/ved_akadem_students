@@ -4,7 +4,7 @@
   = t('.title')
 
 .row.vert-offset-top-2
-  .col-xs-12
+  .col-xs-12.stop_double_submit
     = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false }, html: { method: :put }) do |f|
       = render 'shared/error_messages', object: f.object
 
@@ -58,7 +58,9 @@
 
       .row.form-actions
         .col-xs-12.text-center
-          = f.button :submit, t('links.update'), class: 'btn-lg'
+          = f.button :button, class: 'btn btn-lg btn-submit' do
+            %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+            = t('links.update')
 
 .row.vert-offset-top-1
   .col-xs-12

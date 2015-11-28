@@ -4,7 +4,7 @@
   = t('.title')
 
 .row.vert-offset-top-2
-  .col-xs-12
+  .col-xs-12.stop_double_submit
     = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false } ) do |f|
       = render 'shared/error_messages', object: f.object
 
@@ -42,4 +42,6 @@
         .col-xs-12.text-center
           = f.input :privacy_agreement, as: :boolean, checked_value: 'yes', unchecked_value: 'no',
                     wrapper: :inline_checkbox, label: t('.i_agree_html')
-          = f.button :submit, t('devise.links.sign_up'), class: 'btn-lg'
+          = f.button :button, class: 'btn btn-lg btn-submit' do
+            %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+            = t('devise.links.sign_up')
