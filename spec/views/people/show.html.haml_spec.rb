@@ -33,9 +33,12 @@ describe 'people/show.html.haml' do
   end
 
   describe 'study application' do
+    Given(:have_apply_button) { have_selector('button.btn-submit', text: I18n.t('links.apply_to_program')) }
+    Given(:have_withdraw_button) { have_selector('button.btn-submit', text: I18n.t('links.withdraw')) }
+
     shared_examples :show_submit do
-      Then { expect(rendered).to have_selector("input[type='submit'][name='commit'][value='#{I18n.t('links.apply_to_program')}']") }
-      And  { expect(rendered).not_to have_link(I18n.t('links.withdraw')) }
+      Then { expect(rendered).to have_apply_button }
+      And  { expect(rendered).not_to have_withdraw_button }
     end
 
     shared_examples :show_withdraw do
@@ -43,8 +46,8 @@ describe 'people/show.html.haml' do
 
       Given { allow(view).to receive(:policy).with(study_application).and_return(StudyApplicationPolicy.new(user, study_application)) }
 
-      Then  { expect(rendered).to have_link(I18n.t('links.withdraw')) }
-      And   { expect(rendered).not_to have_selector("input[type='submit'][name='commit'][value='#{I18n.t('links.apply_to_program')}']") }
+      Then  { expect(rendered).to have_withdraw_button }
+      And   { expect(rendered).not_to have_apply_button }
     end
 
     Given(:program) { create(:program) }

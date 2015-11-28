@@ -15,7 +15,9 @@
                   = simple_form_for study_application, remote: true, format: :js do |f|
                     = f.input :person_id, as: :hidden, input_html: { value: person.id }
                     = f.input :program_id, as: :hidden, input_html: { value: program.id }
-                    = f.submit t('links.apply_to_program'), class: 'btn btn-xs btn-success'
+                    = f.button :button, class: 'btn btn-xs btn-success btn-submit' do
+                      %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+                      = t('links.apply_to_program')
           .panel-collapse.collapse{ id: "program-#{index}" }
             .panel-body
               %p
@@ -45,5 +47,6 @@
     #{t('content.you_applied')} "#{person.study_application.program["title_#{locale}"]}"
     .pull-right
       - if policy(person.study_application).destroy?
-        = link_to t('links.withdraw'), person.study_application, remote: true, method: :delete,
-                  class: 'btn btn-xs btn-danger', data: { confirm: t('content.confirm_withdraw') }
+        = button_to person.study_application, { method: :delete, remote: true, data: { confirm: t('content.confirm_withdraw') }, class: 'btn btn-xs btn-danger btn-submit' } do
+          %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+          = t('links.withdraw')

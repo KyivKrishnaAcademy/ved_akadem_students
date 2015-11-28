@@ -27,6 +27,8 @@ describe 'static_pages/home' do
 
   describe 'study applications' do
     Given(:program) { create(:program) }
+    Given(:have_apply_button) { have_selector('button.btn-submit', text: I18n.t('links.apply_to_program')) }
+    Given(:have_withdraw_button) { have_selector('button.btn-submit', text: I18n.t('links.withdraw')) }
 
     Given { assign(:programs, [program]) }
 
@@ -34,8 +36,8 @@ describe 'static_pages/home' do
       Given(:study_application_policy) { StudyApplicationPolicy.new(user, new_study_application) }
       Given { allow(view).to receive(:policy).with(new_study_application).and_return(study_application_policy) }
 
-      Then  { expect(rendered).to have_selector("input[type='submit'][name='commit'][value='#{I18n.t('links.apply_to_program')}']") }
-      And   { expect(rendered).not_to have_link(I18n.t('links.withdraw')) }
+      Then  { expect(rendered).to have_apply_button }
+      And   { expect(rendered).not_to have_withdraw_button }
     end
 
     describe 'show "withraw" link' do
@@ -44,8 +46,8 @@ describe 'static_pages/home' do
 
       Given { allow(view).to receive(:policy).with(study_application).and_return(study_application_policy) }
 
-      Then  { expect(rendered).to have_link(I18n.t('links.withdraw')) }
-      And   { expect(rendered).not_to have_selector("input[type='submit'][name='commit'][value='#{I18n.t('links.apply_to_program')}']") }
+      Then  { expect(rendered).to have_withdraw_button }
+      And   { expect(rendered).not_to have_apply_button }
     end
   end
 

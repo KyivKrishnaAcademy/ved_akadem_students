@@ -4,7 +4,7 @@
   .col-xs-12
     = render 'shared/person_brief', person: current_person
   - if current_person.last_academic_group.blank?
-    .col-xs-12.vert-offset-top-1#study_application
+    .col-xs-12.vert-offset-top-1.stop_double_submit#study_application
       = render 'shared/study_application', person: @application_person,
                                            programs: @programs,
                                            study_application: @new_study_application
