@@ -5,10 +5,7 @@
     %h1.text-center=t('.title')
 
   .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
-    - if current_person.can_act?('certificate_template:new')
-      = link_to new_certificate_template_path, class: 'btn btn-xs btn-success',
-        data: { toggle: :tooltip }, title: t('links.new') do
-        = tag :span, class: 'glyphicon glyphicon-file', aria: { hidden: true }
+    = link_to_new current_person.can_act?('certificate_template:new'), new_certificate_template_path
 
   .col-xs-12.col-sm-6.col-sm-offset-3
     .table-responsive

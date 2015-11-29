@@ -72,6 +72,10 @@ module ApplicationHelper
     end
   end
 
+  def link_to_new(condition, path)
+    link_to_action(condition, path, 'success', t('links.new'), 'file')
+  end
+
   def link_to_edit(condition, path)
     link_to_action(condition, path, 'primary', t('links.edit'), 'pencil')
   end
