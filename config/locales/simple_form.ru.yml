@@ -19,6 +19,9 @@ ru:
           divorced:         'разведен/разведена'
           widowed:          'вдовец/вдова'
     labels:
+      certificate_template:
+        background: 'Базовое изображение'
+        title:      'Название'
       person:
         password:               'Пароль'
         password_confirmation:  'Подтверждение пароля'
@@ -53,6 +56,8 @@ ru:
           password:               '******'
           password_confirmation:  '******'
     hints:
+      certificate_template:
+        background: 'Разрешены только .png файлы'
       person:
         edit:
           password:           'Оставьте пустым, если не хотите менять'

@@ -25,6 +25,8 @@ ru:
         phone:    'Телефонний номер'
       questions/answers:
         data:             'Ответ'
+    models:
+      certificate_template:   'Шаблон сертификата'
     errors:
       models:
         answer:

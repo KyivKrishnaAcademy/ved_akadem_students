@@ -80,6 +80,10 @@ module ApplicationHelper
     link_to_action(condition, path, 'primary', t('links.edit'), 'pencil')
   end
 
+  def link_to_index(condition, path)
+    link_to_action(condition, path, 'primary', t('links.list'), 'list')
+  end
+
   def link_to_destroy(condition, path)
     link_to_action(
       condition, path, 'danger', t('links.delete'), 'trash',

@@ -1,5 +1,11 @@
-%h1 New certificate_template
+- provide(:title, t('.title'))
 
-= render 'form'
+.row
+  .col-xs-12
+    %h1.text-center=t('.title')
 
-= link_to 'Back', certificate_templates_path
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_index policy(CertificateTemplate).index?, certificate_templates_path
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    = render 'form'

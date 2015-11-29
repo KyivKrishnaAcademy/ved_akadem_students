@@ -25,6 +25,8 @@ uk:
         phone:    'Телефонний номер'
       questions/answers:
         data:             'Відповідь'
+    models:
+      certificate_template:   'Шаблон сертифікату'
     errors:
       models:
         answer:

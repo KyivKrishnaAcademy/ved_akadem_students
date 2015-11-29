@@ -30,6 +30,7 @@ ru:
     edit:             'Редактировать'
     edit_profile:     'Редактировать профиль'
     graduate:         'Выпуск'
+    list:             'Список'
     markup:           'Разметить'
     new:              'Новий'
     show_passport:    'Показать паспорт'
@@ -60,6 +61,8 @@ ru:
       actions:        'Действия'
       template_title: 'Название шаблона'
       title:          'Шаблоны сертификатов'
+    new:
+      title: 'Новый шаблон сертификата'
   crops:
     crop_image:
       title:        'Кадрирование изображения'

@@ -30,6 +30,7 @@ uk:
     edit:             'Редагувати'
     edit_profile:     'Редагувати профіль'
     graduate:         'Випуск'
+    list:             'Список'
     markup:           'Розмітити'
     new:              'Новий'
     show_passport:    'Показати паспорт'
@@ -60,6 +61,8 @@ uk:
       actions:        'Дії'
       template_title: 'Назва шаблону'
       title:          'Шаблони сертифікатів'
+    new:
+      title: 'Новий шаблон сертифікату'
   crops:
     crop_image:
       title:    'Кадрування зображення'
