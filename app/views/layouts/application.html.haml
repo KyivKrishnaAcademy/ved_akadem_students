@@ -24,9 +24,9 @@
         - flash.each do |name, msg|
           .col-xs-12.alert.alert-dismissible{ class: "alert-#{name}" }
             = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
-              = content_tag :span, 'aria-hidden' => true do
+              %span{ aria: { hidden: true } }
                 &times;
-              = content_tag :span, class: 'sr-only' do
+              %span.sr-only
                 Close
             = raw msg
 
