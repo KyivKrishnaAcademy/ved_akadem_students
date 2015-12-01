@@ -22,7 +22,6 @@ describe 'certificate_templates/index' do
     Given(:destroy_link_selector) { "a[href='#{certificate_template_path(template)}'] .glyphicon-trash" }
 
     Given(:no_new_link) { expect(page).not_to have_selector(new_link_selector) }
-    Given(:no_show_link) { expect(row).not_to have_link(template.title, href: certificate_template_path(template)) }
     Given(:no_edit_link) { expect(row).not_to have_selector(edit_link_selector) }
     Given(:no_markup_link) { expect(row).not_to have_selector(markup_link_selector) }
     Given(:no_destroy_link) { expect(row).not_to have_selector(destroy_link_selector) }
@@ -31,7 +30,6 @@ describe 'certificate_templates/index' do
       Given(:activity) { 'none' }
 
       Then { no_new_link }
-      And  { no_show_link }
       And  { no_edit_link }
       And  { no_markup_link }
       And  { no_destroy_link }
@@ -41,7 +39,6 @@ describe 'certificate_templates/index' do
       Given(:activity) { 'new' }
 
       Then { expect(page).to have_selector(new_link_selector) }
-      And  { no_show_link }
       And  { no_edit_link }
       And  { no_markup_link }
       And  { no_destroy_link }
@@ -52,7 +49,6 @@ describe 'certificate_templates/index' do
 
       Then { expect(row).to have_selector(edit_link_selector) }
       And  { no_new_link }
-      And  { no_show_link }
       And  { expect(row).to have_selector(markup_link_selector) }
       And  { no_destroy_link }
     end
@@ -61,20 +57,9 @@ describe 'certificate_templates/index' do
       Given(:activity) { 'destroy' }
 
       Then { expect(page).to have_selector(destroy_link_selector) }
-      And  { no_show_link }
       And  { no_edit_link }
       And  { no_markup_link }
       And  { no_new_link }
-    end
-
-    context 'with :show rights' do
-      Given(:activity) { 'show' }
-
-      Then { expect(row).to have_link(template.title, href: certificate_template_path(template)) }
-      And  { no_new_link }
-      And  { no_edit_link }
-      And  { no_markup_link }
-      And  { no_destroy_link }
     end
   end
 end

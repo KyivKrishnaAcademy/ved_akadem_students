@@ -4,7 +4,41 @@ describe CertificateTemplatesController do
   describe 'not signed in' do
     Given(:params) { {} }
 
-    it_behaves_like :failed_auth_crud, :not_authenticated
+    context '#index' do
+      When { get :index }
+
+      it_behaves_like :not_authenticated
+    end
+
+    context '#create' do
+      When { post :create, params }
+
+      it_behaves_like :not_authenticated
+    end
+
+    context '#new' do
+      When { get :new }
+
+      it_behaves_like :not_authenticated
+    end
+
+    context '#edit' do
+      When { get :edit, id: 1 }
+
+      it_behaves_like :not_authenticated
+    end
+
+    context '#update' do
+      When { patch :update, id: 1 }
+
+      it_behaves_like :not_authenticated
+    end
+
+    context '#destroy' do
+      When { delete :destroy, id: 1 }
+
+      it_behaves_like :not_authenticated
+    end
 
     context '#markup' do
       When { get :markup, id: 1 }
@@ -48,12 +82,6 @@ describe CertificateTemplatesController do
 
       describe 'GET #index' do
         When { get :index }
-
-        it_behaves_like :not_authorized
-      end
-
-      describe 'GET #show' do
-        When { get :show, id: template.id }
 
         it_behaves_like :not_authorized
       end
