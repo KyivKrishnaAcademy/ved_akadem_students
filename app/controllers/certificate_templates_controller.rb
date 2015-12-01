@@ -61,7 +61,11 @@ class CertificateTemplatesController < HtmlRespondableController
 
   def update
     @certificate_template.update(certificate_template_params)
-    respond_with(@certificate_template)
+
+    respond_with(
+      @certificate_template,
+      location: -> { edit_certificate_template_path(@certificate_template) }
+    )
   end
 
   def destroy

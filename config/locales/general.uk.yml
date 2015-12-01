@@ -57,6 +57,8 @@ uk:
     edit:
       update: 'Надіслати відповідь'
   certificate_templates:
+    edit:
+      title: 'Редагування шаблону сертифікату'
     index:
       actions:        'Дії'
       template_title: 'Назва шаблону'

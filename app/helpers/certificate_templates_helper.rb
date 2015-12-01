@@ -10,4 +10,8 @@ module CertificateTemplatesHelper
       end
     end
   end
+
+  def link_to_markup(condition, path)
+    link_to_action(condition, path, 'warning', t('links.markup'), 'picture')
+  end
 end

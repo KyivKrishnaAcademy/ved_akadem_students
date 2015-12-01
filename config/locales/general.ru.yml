@@ -57,6 +57,8 @@ ru:
     edit:
       update: 'Отправить ответ'
   certificate_templates:
+    edit:
+      title: 'Редактирование шаблона сертификата'
     index:
       actions:        'Действия'
       template_title: 'Название шаблона'
