@@ -5,11 +5,7 @@
     %h1.text-center= t('.title')
 
   .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
-    = link_to_markup policy(@certificate_template).markup?,
-      markup_certificate_template_path(@certificate_template)
-    = link_to_new policy(@certificate_template).new?, new_certificate_template_path
-    = link_to_index policy(CertificateTemplate).index?, certificate_templates_path
-    = link_to_destroy policy(@certificate_template).destroy?, @certificate_template
+    = render 'nav_links', certificate_template: @certificate_template
 
   .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
     = render 'form'
