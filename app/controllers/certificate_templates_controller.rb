@@ -41,7 +41,7 @@ class CertificateTemplatesController < HtmlRespondableController
 
   def finish
     if @certificate_template.update(finish_params)
-      redirect_to @certificate_template
+      redirect_to certificate_templates_path
     else
       render :markup
     end

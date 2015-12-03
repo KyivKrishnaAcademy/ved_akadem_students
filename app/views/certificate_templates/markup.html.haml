@@ -1,35 +1,38 @@
+- provide(:title, t('.title'))
 - content_for(:js_and_css) do
   = stylesheet_link_tag 'Jcrop/css/Jcrop', media: 'all'
   = javascript_include_tag 'cert_template_markup', type: 'text/javascript', defer: true
 
 .row
-  %h1.col-xs-12.col-sm-6
-    = @certificate_template.title
   .col-xs-12
-    = image_tag background_certificate_template_path(@certificate_template),
-      id: 'markup-box',
+    %h1.text-center= t('.title')
+
+  .col-xs-12.text-right
+    = render 'nav_links', certificate_template: @certificate_template
+
+  .col-xs-12.col-lg-offset-1.vert-offset-top-1
+    = image_tag background_certificate_template_path(@certificate_template), id: 'markup-box',
       data: { height: @certificate_template.background_height, width: @certificate_template.background_width }
 
-  .col-xs-12
+  .col-xs-12.vert-offset-top-1
     = simple_form_for @certificate_template,
                       url: finish_certificate_template_path(@certificate_template),
                       method: :patch do |f|
-      .row
-        .col-xs-12
-          = render 'shared/error_messages', object: f.object
 
       - dimension_fields(@certificate_template) do |field_key, label_name, dimensions, is_array|
         .row.field-set{ data: { label: label_name }, id: label_name }
-          .col-xs-2
+          .col-xs-12.col-md-2.col-md-offset-1
             = label_tag "certificate_template[fields][#{field_key}]", label_name
-          .col-xs-10
-            - dimensions.each do |dimension, value|
+          - dimensions.each do |dimension, value|
+            .col-xs-6.col-md-2
               - field_name = "certificate_template[fields][#{field_key}]#{ is_array ? '[]' : '' }[#{dimension}]"
-              = label_tag field_name, dimension
-              = number_field_tag field_name, value, min: 0, id: dimension
+              .input-group.input-group-sm
+                %span.input-group-addon= dimension
+                = hidden_field_tag field_name, value, class: dimension
+                = number_field_tag field_name, value, min: 0, id: dimension,
+                  disabled: true, class: "form-control text-center #{dimension}"
+                %span.input-group-addon px
 
-      .row
-        .col-xs-12
-          = f.button :submit
-
-
+      .row.vert-offset-top-1
+        .col-xs-12.col-sm-offset-3.col-sm-6
+          = f.button :submit, class: 'col-xs-12'

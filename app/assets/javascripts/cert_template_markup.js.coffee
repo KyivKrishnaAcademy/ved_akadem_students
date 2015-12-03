@@ -75,10 +75,10 @@ class CertTemplateMarkuper
     true
 
   applyCoordsOnMove: (selection, fieldSet) =>
-    xField  = fieldSet.find('#x')
-    yField  = fieldSet.find('#y')
-    wField  = fieldSet.find('#w')
-    hField  = fieldSet.find('#h')
+    xField  = fieldSet.find('.x')
+    yField  = fieldSet.find('.y')
+    wField  = fieldSet.find('.w')
+    hField  = fieldSet.find('.h')
     ratio   = @ratio
 
     selection.element.on 'cropmove', (event, selection, coords) ->

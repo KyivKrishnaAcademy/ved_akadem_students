@@ -63,6 +63,8 @@ uk:
       actions:        'Дії'
       template_title: 'Назва шаблону'
       title:          'Шаблони сертифікатів'
+    markup:
+      title: 'Розмітка шаблону'
     new:
       title: 'Створення шаблону сертифікату'
   crops:
