@@ -20,12 +20,14 @@ module ApplicationHelper
   end
 
   def models_for_generic_menu
-    %w(academic_group person course class_schedule).map { |model| [model, model.pluralize] }
+    %w(academic_group person course
+      class_schedule certificate_template).map { |model| [model, model.pluralize] }
   end
 
   def show_admin_menu?
     current_person.present? && (show_people_menu? || show_academic_groups_menu? ||
-                                show_courses_menu? || show_class_schedules_menu?)
+                                show_courses_menu? || show_class_schedules_menu? ||
+                                show_certificate_templates_menu?)
   end
 
   def show_people_menu?
@@ -34,6 +36,10 @@ module ApplicationHelper
 
   def show_academic_groups_menu?
     current_person.can_act?(%w(academic_group:index academic_group:new))
+  end
+
+  def show_certificate_templates_menu?
+    current_person.can_act?(%w(certificate_template:index certificate_template:new))
   end
 
   def show_courses_menu?
