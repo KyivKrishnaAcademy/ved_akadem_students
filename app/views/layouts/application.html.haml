@@ -8,7 +8,7 @@
   = stylesheet_link_tag 'application', media: 'all'
   = javascript_include_tag '//errbit.mpugach.net/javascripts/notifier.js',
     type: 'text/javascript', async: true
-  = javascript_include_tag 'application', type: 'text/javascript', defer: true
+  = javascript_include_tag 'application', type: 'text/javascript', defer: !Rails.env.test?
   = csrf_meta_tags
   - if content_for?(:js_and_css)
     = yield(:js_and_css)
