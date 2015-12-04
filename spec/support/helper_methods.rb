@@ -8,8 +8,9 @@ module HelperMethods
   end
 
   def all_activities
-    @all_activities ||= (people_activities + academic_groups_activities + study_applications_activities +
-      %w(questionnaire:update_all) + courses_activities + class_schedules_activities).sort
+    @all_activities ||= (person_activities + academic_group_activities + study_application_activities +
+      %w(questionnaire:update_all) + course_activities + class_schedule_activities +
+      certificate_template_activities).sort
   end
 
   def screenshot
@@ -41,13 +42,13 @@ module HelperMethods
     find('li.select2-results__option', text: option).click
   end
 
-  def people_activities
+  def person_activities
     PeopleController.action_methods.map { |action| 'person:' << action } +
       %w(person:view_psycho_test_result person:crop_image person:move_to_group
          person:remove_from_groups) - %w(person:show_photo)
   end
 
-  def academic_groups_activities
+  def academic_group_activities
     (
       AcademicGroupsController.action_methods -
         %w(autocomplete_person get_prefix get_autocomplete_order
@@ -56,15 +57,21 @@ module HelperMethods
     ).map { |action| 'academic_group:' << action }
   end
 
-  def study_applications_activities
+  def study_application_activities
     StudyApplicationsController.action_methods.map { |action| 'study_application:' << action }
   end
 
-  def courses_activities
+  def course_activities
     CoursesController.action_methods.map { |action| 'course:' << action }
   end
 
-  def class_schedules_activities
+  def class_schedule_activities
     ClassSchedulesController.action_methods.map { |action| 'class_schedule:' << action }
+  end
+
+  def certificate_template_activities
+    (
+      CertificateTemplatesController.action_methods - %w(markup finish background)
+    ).map { |action| 'certificate_template:' << action }
   end
 end

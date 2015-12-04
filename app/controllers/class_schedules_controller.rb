@@ -1,4 +1,4 @@
-class ClassSchedulesController < HtmlResponsableController
+class ClassSchedulesController < HtmlRespondableController
   include Crudable
   include ClassSchedulesRefreshable
 
@@ -36,13 +36,13 @@ class ClassSchedulesController < HtmlResponsableController
                else
                  class_schedules_path
                end
-
+    # TODO check the location on failure
     respond_with(@class_schedule, location: location)
   end
 
   def update
     @class_schedule.update(class_schedule_params)
-
+    # TODO check the location on failure
     respond_with(@class_schedule, location: class_schedules_path)
   end
 

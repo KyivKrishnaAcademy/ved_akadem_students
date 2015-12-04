@@ -10,6 +10,9 @@ uk:
       academic_groups_add:  'Додати групу'
       academic_groups_list: 'Список груп'
       agreement:            'Згода'
+      certificate_templates:      'Шаблони сертифікатів'
+      certificate_templates_add:  'Додати'
+      certificate_templates_list: 'Список'
       changelog:            'Журнал змін'
       class_schedules:      'Розклад'
       class_schedules_add:  'Додати'
@@ -30,6 +33,9 @@ uk:
     edit:             'Редагувати'
     edit_profile:     'Редагувати профіль'
     graduate:         'Випуск'
+    list:             'Список'
+    markup:           'Розмітити'
+    new:              'Новий'
     show_passport:    'Показати паспорт'
     update:           'Зберегти'
     withdraw:         'Відкликати заяву'
@@ -53,6 +59,20 @@ uk:
   answers:
     edit:
       update: 'Надіслати відповідь'
+  certificate_templates:
+    edit:
+      submit:   'Оновити шаблон сертифікату'
+      title:    'Редагування шаблону сертифікату'
+    index:
+      actions:        'Дії'
+      template_title: 'Назва шаблону'
+      title:          'Шаблони сертифікатів'
+    markup:
+      submit:   'Розмітити шаблон сертифікату'
+      title:    'Розмітка шаблону'
+    new:
+      submit:   'Створити шаблон сертифікату'
+      title:    'Створення шаблону сертифікату'
   crops:
     crop_image:
       title:    'Кадрування зображення'

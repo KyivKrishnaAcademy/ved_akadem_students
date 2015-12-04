@@ -20,19 +20,9 @@ describe 'RBAC links visibility' do
     end
   end
 
-  it_behaves_like :nav_links, I18n.t('defaults.links.academic_groups'), '#', %w(academic_group:new academic_group:index)
-  it_behaves_like :nav_links, I18n.t('defaults.links.academic_groups_add'), '/academic_groups/new', 'academic_group:new'
-  it_behaves_like :nav_links, I18n.t('defaults.links.academic_groups_list'), '/academic_groups', 'academic_group:index'
-
-  it_behaves_like :nav_links, I18n.t('defaults.links.people'), '#', %w(person:new person:index)
-  it_behaves_like :nav_links, I18n.t('defaults.links.people_add'), '/people/new', 'person:new'
-  it_behaves_like :nav_links, I18n.t('defaults.links.people_list'), '/people', 'person:index'
-
-  it_behaves_like :nav_links, I18n.t('defaults.links.courses'), '#', %w(course:new course:index)
-  it_behaves_like :nav_links, I18n.t('defaults.links.courses_add'), '/courses/new', 'course:new'
-  it_behaves_like :nav_links, I18n.t('defaults.links.courses_list'), '/courses', 'course:index'
-
-  it_behaves_like :nav_links, I18n.t('defaults.links.class_schedules'), '#', %w(class_schedule:new class_schedule:index)
-  it_behaves_like :nav_links, I18n.t('defaults.links.class_schedules_add'), '/class_schedules/new', 'class_schedule:new'
-  it_behaves_like :nav_links, I18n.t('defaults.links.class_schedules_list'), '/class_schedules', 'class_schedule:index'
+  %w(academic_group person course class_schedule certificate_template).each do |model|
+    include_examples :nav_links, I18n.t("defaults.links.#{model.pluralize}"), '#', %W(#{model}:new #{model}:index)
+    include_examples :nav_links, I18n.t("defaults.links.#{model.pluralize}_add"), "/#{model.pluralize}/new", "#{model}:new"
+    include_examples :nav_links, I18n.t("defaults.links.#{model.pluralize}_list"), "/#{model.pluralize}", "#{model}:index"
+  end
 end

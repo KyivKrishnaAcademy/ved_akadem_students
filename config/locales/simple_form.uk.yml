@@ -19,6 +19,9 @@ uk:
           divorced:         'розлучений/розлучена'
           widowed:          'вдівець/вдова'
     labels:
+      certificate_template:
+        background: 'Базове зображення'
+        title:      'Назва'
       person:
         password:               'Пароль'
         password_confirmation:  'Підтвердження паролю'
@@ -53,6 +56,8 @@ uk:
           password:               '******'
           password_confirmation:  '******'
     hints:
+      certificate_template:
+        background: 'Дозволено тільки .png файли'
       person:
         edit:
           password:           'Залиште пустим, якщо не хочете змінювати'

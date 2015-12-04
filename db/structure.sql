@@ -159,6 +159,42 @@ ALTER SEQUENCE attendances_id_seq OWNED BY attendances.id;
 
 
 --
+-- Name: certificate_templates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE certificate_templates (
+    id integer NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    background_height integer DEFAULT 0 NOT NULL,
+    background_width integer DEFAULT 0 NOT NULL,
+    background character varying,
+    title character varying,
+    fields jsonb DEFAULT '{}'::jsonb NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: certificate_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE certificate_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: certificate_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE certificate_templates_id_seq OWNED BY certificate_templates.id;
+
+
+--
 -- Name: class_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -822,6 +858,13 @@ ALTER TABLE ONLY attendances ALTER COLUMN id SET DEFAULT nextval('attendances_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY certificate_templates ALTER COLUMN id SET DEFAULT nextval('certificate_templates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY class_schedules ALTER COLUMN id SET DEFAULT nextval('class_schedules_id_seq'::regclass);
 
 
@@ -967,6 +1010,14 @@ ALTER TABLE ONLY answers
 
 ALTER TABLE ONLY attendances
     ADD CONSTRAINT attendances_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: certificate_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY certificate_templates
+    ADD CONSTRAINT certificate_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -1124,6 +1175,13 @@ CREATE INDEX class_schedules_with_people_people_ids_idx ON class_schedules_with_
 --
 
 CREATE INDEX class_schedules_with_people_teacher_id_idx ON class_schedules_with_people USING hash (teacher_id);
+
+
+--
+-- Name: index_certificate_templates_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_certificate_templates_on_status ON certificate_templates USING btree (status);
 
 
 --
@@ -1318,4 +1376,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150625201045');
 INSERT INTO schema_migrations (version) VALUES ('20150709064042');
 
 INSERT INTO schema_migrations (version) VALUES ('20150821112132');
+
+INSERT INTO schema_migrations (version) VALUES ('20151102155321');
 

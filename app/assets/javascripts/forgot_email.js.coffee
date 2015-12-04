@@ -1,0 +1,4 @@
+#= require initTelInput
+
+$ ->
+    window.initTelInput()

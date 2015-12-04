@@ -13,6 +13,14 @@ Rails.application.routes.draw do
   resources :class_schedules   , only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
   resources :answers           , only: [:update, :edit]
+  resources :certificate_templates, except: :show do
+    member do
+      get :markup
+      get :background
+
+      patch :finish
+    end
+  end
 
   post '/academic_groups/:id/graduate', controller: :academic_groups, action: :graduate, as: :graduate_academic_group
 

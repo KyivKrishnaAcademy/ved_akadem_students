@@ -5,8 +5,6 @@ class BaseUploader < CarrierWave::Uploader::Base
   permissions 0600
   directory_permissions 0700
 
-  process :optimize
-
   def store_dir
     subfolder = Rails.env.test? ? '/test' : ''
 
@@ -18,7 +16,7 @@ class BaseUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    "#{secure_token}.jpg" if original_filename.present?
+    "#{secure_token}.#{default_extension}" if original_filename.present?
   end
 
   def default_url
@@ -31,6 +29,10 @@ class BaseUploader < CarrierWave::Uploader::Base
   end
 
   private
+
+  def default_extension
+    'jpg'
+  end
 
   def optimize(quality_percent = '80')
     manipulate! do |img|
@@ -68,5 +70,11 @@ class BaseUploader < CarrierWave::Uploader::Base
     var = :"@#{mounted_as}_secure_token"
 
     model.instance_variable_get(var) || model.instance_variable_set(var, SecureRandom.uuid)
+  end
+
+  def get_file_size(file)
+    path = file.is_a?(String) ? Rails.root.join('tmp/uploads/cache', file) : file.path
+
+    `identify -format "%wx %h" #{path}`.split(/x/).map(&:to_i)
   end
 end

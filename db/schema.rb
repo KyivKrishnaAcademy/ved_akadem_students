@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821112132) do
+ActiveRecord::Schema.define(version: 20151102155321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,19 @@ ActiveRecord::Schema.define(version: 20150821112132) do
     t.integer  "student_profile_id"
     t.boolean  "presence"
   end
+
+  create_table "certificate_templates", force: :cascade do |t|
+    t.integer  "status",            default: 0,  null: false
+    t.integer  "background_height", default: 0,  null: false
+    t.integer  "background_width",  default: 0,  null: false
+    t.string   "background"
+    t.string   "title"
+    t.jsonb    "fields",            default: {}, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "certificate_templates", ["status"], name: "index_certificate_templates_on_status", using: :btree
 
   create_table "class_schedules", force: :cascade do |t|
     t.datetime "created_at"
@@ -172,7 +185,7 @@ ActiveRecord::Schema.define(version: 20150821112132) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "activities",            default: [], array: true
+    t.string   "activities", limit: 255, default: [], array: true
     t.string   "name",       limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"

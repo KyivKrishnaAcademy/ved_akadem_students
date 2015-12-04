@@ -10,6 +10,9 @@ ru:
       academic_groups_add:  'Добавить группу'
       academic_groups_list: 'Список групп'
       agreement:            'Соглашение'
+      certificate_templates:      'Шаблоны сертификатов'
+      certificate_templates_add:  'Добавить'
+      certificate_templates_list: 'Список'
       changelog:            'Журнал изменений'
       class_schedules:      'Расписание'
       class_schedules_add:  'Добавить'
@@ -30,6 +33,9 @@ ru:
     edit:             'Редактировать'
     edit_profile:     'Редактировать профиль'
     graduate:         'Выпуск'
+    list:             'Список'
+    markup:           'Разметить'
+    new:              'Новый'
     show_passport:    'Показать паспорт'
     update:           'Сохранить'
     withdraw:         'Отозвать заявление'
@@ -53,6 +59,20 @@ ru:
   answers:
     edit:
       update: 'Отправить ответ'
+  certificate_templates:
+    edit:
+      submit:   'Обновить шаблон сертификата'
+      title:    'Редактирование шаблона сертификата'
+    index:
+      actions:        'Действия'
+      template_title: 'Название шаблона'
+      title:          'Шаблоны сертификатов'
+    markup:
+      submit:   'Разметить шаблон сертификата'
+      title:    'Разметка шаблона'
+    new:
+      submit:   'Создать шаблон сертификата'
+      title:    'Создание шаблона сертификата'
   crops:
     crop_image:
       title:        'Кадрирование изображения'
