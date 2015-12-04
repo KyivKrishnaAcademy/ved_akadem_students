@@ -8,7 +8,7 @@ describe 'Markup Certificate Template' do
   When { visit markup_certificate_template_path(template) }
 
   describe 'can be submited', :js do
-    When { find('input[type="submit"]').click }
+    When { find('button[type="submit"]').click }
 
     Then { is_expected.to have_selector('h1', text: I18n.t('certificate_templates.index.title')) }
   end

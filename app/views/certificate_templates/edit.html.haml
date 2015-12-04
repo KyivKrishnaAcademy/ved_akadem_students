@@ -7,5 +7,5 @@
   .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
     = render 'nav_links', certificate_template: @certificate_template
 
-  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
-    = render 'form'
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = render 'form', submit_label: t('.submit')
