@@ -126,6 +126,18 @@ ALTER SEQUENCE answers_id_seq OWNED BY answers.id;
 
 
 --
+-- Name: assigned_cert_templates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE assigned_cert_templates (
+    academic_group_id integer,
+    certificate_template_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: attendances; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1185,6 +1197,13 @@ CREATE INDEX index_certificate_templates_on_status ON certificate_templates USIN
 
 
 --
+-- Name: index_group_id_cert_template_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_group_id_cert_template_id ON assigned_cert_templates USING btree (academic_group_id, certificate_template_id);
+
+
+--
 -- Name: index_people_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1378,4 +1397,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150709064042');
 INSERT INTO schema_migrations (version) VALUES ('20150821112132');
 
 INSERT INTO schema_migrations (version) VALUES ('20151102155321');
+
+INSERT INTO schema_migrations (version) VALUES ('20151208055458');
 

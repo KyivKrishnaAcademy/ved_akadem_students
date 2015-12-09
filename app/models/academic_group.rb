@@ -7,6 +7,9 @@ class AcademicGroup < ActiveRecord::Base
   has_many :academic_group_schedules, dependent: :destroy
   has_many :class_schedules, through: :academic_group_schedules
 
+  has_many :assigned_cert_templates, dependent: :destroy
+  has_many :certificate_templates, through: :assigned_cert_templates
+
   belongs_to :administrator, class_name: 'Person'
   belongs_to :praepostor, class_name: 'Person'
   belongs_to :curator, class_name: 'Person'

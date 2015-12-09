@@ -4,8 +4,12 @@ describe AcademicGroup do
   describe 'associations' do
     Then { is_expected.to have_many(:group_participations).dependent(:destroy) }
     Then { is_expected.to have_many(:student_profiles).through(:group_participations) }
+
     Then { is_expected.to have_many(:academic_group_schedules).dependent(:destroy) }
     Then { is_expected.to have_many(:class_schedules).through(:academic_group_schedules) }
+
+    Then { is_expected.to have_many(:assigned_cert_templates).dependent(:destroy) }
+    Then { is_expected.to have_many(:certificate_templates).through(:assigned_cert_templates) }
   end
 
   describe 'validation' do

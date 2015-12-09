@@ -3,6 +3,9 @@ class CertificateTemplate < ActiveRecord::Base
   DIMENSIONS    = %i(x y w h)
   ARRAY_FIELDS  = %i(teachers)
 
+  has_many :assigned_cert_templates, dependent: :destroy
+  has_many :academic_groups, through: :assigned_cert_templates
+
   serialize :fields, HashSerializer
 
   enum status: %i(draft ready)
