@@ -1,10 +1,9 @@
 class BaseInteraction
-  attr_accessor :user, :params, :request
+  attr_accessor :user, :params
 
   def initialize(args)
     @user    = args[:user]
     @params  = args[:params]
-    @request = args[:request]
 
     init
   end

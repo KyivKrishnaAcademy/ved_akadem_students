@@ -6,7 +6,6 @@ describe BaseInteraction do
   describe 'init' do
     Then { expect(interaction.user).to be(:user) }
     And  { expect(interaction.params).to be(:params) }
-    And  { expect(interaction.request).to be(:request) }
   end
 
   describe '#as_json' do
