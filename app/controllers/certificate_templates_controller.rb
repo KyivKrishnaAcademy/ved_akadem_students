@@ -40,6 +40,8 @@ class CertificateTemplatesController < HtmlRespondableController
   end
 
   def finish
+    @certificate_template.status = CertificateTemplate.statuses[:ready]
+
     if @certificate_template.update(finish_params)
       redirect_to certificate_templates_path
     else

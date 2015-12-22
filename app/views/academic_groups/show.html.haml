@@ -23,6 +23,8 @@
         = link_to t('.tab_schedules'), '#schedules', data: { toggle: 'tab' }
       %li
         = link_to t('.tab_group_list'), '#group_list', data: { toggle: 'tab' }
+      %li
+        = link_to t('.tab_certificates'), '#certificates', data: { toggle: 'tab' }
 
     .tab-content
       .tab-pane#general.active
@@ -31,3 +33,8 @@
         = render 'tab_schedules', academic_group_id: @academic_group.id
       .tab-pane#group_list
         = render 'tab_student_list', students: @academic_group.active_students, academic_group: @academic_group
+      .tab-pane#certificates
+        = render 'tab_certificates',
+          students: @academic_group.active_students,
+          academic_group: @academic_group,
+          cert_templates: @cert_templates

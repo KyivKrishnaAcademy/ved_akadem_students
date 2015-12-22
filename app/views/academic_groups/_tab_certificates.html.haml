@@ -1,0 +1,38 @@
+- if current_person.can_act?('assigned_cert_template:create')
+  .row.vert-offset-top-1.stop_double_submit
+    = simple_form_for :assigned_cert_template,
+      wrapper: :single_line, url: assigned_cert_templates_path do |f|
+
+      = f.input :academic_group_id, as: :hidden, input_html: { value: academic_group.id }
+      = f.input :certificate_template_id, collection: cert_templates
+
+      .col-xs-12.col-sm-3
+        = f.button :button, class: 'btn-submit col-xs-12' do
+          %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+          = 'submit_label'
+
+- if academic_group.assigned_cert_templates.any?
+  .row.vert-offset-top-1
+    .col-xs-12
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th #
+            %th= t('academic_groups.show.photo')
+            %th= t('academic_groups.show.full_name')
+            - academic_group.certificate_templates.each do |cert_template|
+              %th= cert_template.title
+        %tbody
+          - students.each_with_index do |student, index|
+            %tr
+              %td
+                = index.next
+              %td
+                = thumb_with_pop(student)
+              %td
+                = link_to_show_person_or_name(student, true)
+              - academic_group.certificate_templates.each do |cert_template|
+                %td
+                  %button.btn.btn-submit.active
+                    %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+                    %span.glyphicon.glyphicon-remove{ aria: { hidden: true } }
