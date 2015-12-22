@@ -130,11 +130,31 @@ ALTER SEQUENCE answers_id_seq OWNED BY answers.id;
 --
 
 CREATE TABLE assigned_cert_templates (
+    id integer NOT NULL,
     academic_group_id integer,
     certificate_template_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: assigned_cert_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE assigned_cert_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: assigned_cert_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE assigned_cert_templates_id_seq OWNED BY assigned_cert_templates.id;
 
 
 --
@@ -863,6 +883,13 @@ ALTER TABLE ONLY answers ALTER COLUMN id SET DEFAULT nextval('answers_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY assigned_cert_templates ALTER COLUMN id SET DEFAULT nextval('assigned_cert_templates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY attendances ALTER COLUMN id SET DEFAULT nextval('attendances_id_seq'::regclass);
 
 
@@ -1014,6 +1041,14 @@ ALTER TABLE ONLY academic_groups
 
 ALTER TABLE ONLY answers
     ADD CONSTRAINT answers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assigned_cert_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY assigned_cert_templates
+    ADD CONSTRAINT assigned_cert_templates_pkey PRIMARY KEY (id);
 
 
 --

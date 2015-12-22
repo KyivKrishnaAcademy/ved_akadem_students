@@ -1,6 +1,6 @@
 class CreateAssignedCertTemplates < ActiveRecord::Migration
   def change
-    create_table :assigned_cert_templates, id: false do |t|
+    create_table :assigned_cert_templates do |t|
       t.integer :academic_group_id
       t.integer :certificate_template_id
 
