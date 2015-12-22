@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :class_schedules   , only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
   resources :answers           , only: [:update, :edit]
+  resources :assigned_cert_templates, only: :create
   resources :certificate_templates, except: :show do
     member do
       get :markup
@@ -26,8 +27,6 @@ Rails.application.routes.draw do
     member do
       post :graduate
     end
-
-    resources :assigned_cert_templates, only: :create
   end
 
   scope module: :users do

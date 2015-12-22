@@ -3,7 +3,7 @@ require 'rails_helper'
 describe AssignedCertTemplatesController do
   describe 'not signed in' do
     context '#create' do
-      When  { post :create, academic_group_id: 1, certificate_template_id: 2 }
+      When  { post :create, assigned_cert_template: { academic_group_id: 1, certificate_template_id: 2 } }
 
       it_behaves_like :not_authenticated
     end
@@ -15,7 +15,9 @@ describe AssignedCertTemplatesController do
     Given(:template) { create :certificate_template }
     Given(:activities) { ['some'] }
     Given(:create_action) do
-      post :create, academic_group_id: group.id, certificate_template_id: template.id
+      post :create, assigned_cert_template: {
+        academic_group_id: group.id, certificate_template_id: template.id
+      }
     end
 
     Given { sign_in person }
