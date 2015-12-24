@@ -134,7 +134,8 @@ CREATE TABLE assigned_cert_templates (
     academic_group_id integer,
     certificate_template_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    cert_id_prefix character varying NOT NULL
 );
 
 
@@ -1434,4 +1435,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150821112132');
 INSERT INTO schema_migrations (version) VALUES ('20151102155321');
 
 INSERT INTO schema_migrations (version) VALUES ('20151208055458');
+
+INSERT INTO schema_migrations (version) VALUES ('20151224051539');
 
