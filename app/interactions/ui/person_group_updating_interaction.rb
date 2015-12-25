@@ -1,10 +1,9 @@
 module Ui
   class PersonGroupUpdatingInteraction < BaseInteraction
     def init
-      person          = params.require(:person)
       @academic_group = AcademicGroup.find(params.require(:group_id))
 
-      (person.student_profile || person.create_student_profile).move_to_group(@academic_group)
+      (resource.student_profile || resource.create_student_profile).move_to_group(@academic_group)
     end
 
     def as_json(opts = {})
