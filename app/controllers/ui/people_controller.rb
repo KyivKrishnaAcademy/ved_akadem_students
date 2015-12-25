@@ -8,9 +8,7 @@ module Ui
     after_action :verify_authorized, :verify_policy_scoped, :refresh_class_schedules_mv
 
     def move_to_group
-      params[:person] = @person
-
-      respond_with_interaction Ui::PersonGroupUpdatingInteraction
+      respond_with_interaction Ui::PersonGroupUpdatingInteraction, @person
     end
 
     def remove_from_groups

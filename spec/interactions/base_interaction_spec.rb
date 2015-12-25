@@ -9,6 +9,6 @@ describe BaseInteraction do
   end
 
   describe '#as_json' do
-    Then { expect{interaction.as_json}.to raise_error(StandardError, /should be overridden/) }
+    Then { expect(interaction.as_json).to eq({}) }
   end
 end
