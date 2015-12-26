@@ -10,7 +10,7 @@ module HelperMethods
   def all_activities
     @all_activities ||= (person_activities + academic_group_activities + study_application_activities +
       %w(questionnaire:update_all) + course_activities + class_schedule_activities +
-      certificate_template_activities + assigned_cert_template_activities).sort
+      certificate_template_activities + assigned_cert_template_activities + certificate_activities).sort
   end
 
   def screenshot
@@ -73,6 +73,10 @@ module HelperMethods
     (
       CertificateTemplatesController.action_methods - %w(markup finish background)
     ).map { |action| 'certificate_template:' << action }
+  end
+
+  def certificate_activities
+    ['certificate:ui_create']
   end
 
   def assigned_cert_template_activities
