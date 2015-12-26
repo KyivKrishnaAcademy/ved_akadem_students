@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   namespace :ui do
     resources :academic_groups,  only: :index
+    resources :certificates,     only: :create
     resources :classrooms,       only: :index
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index
