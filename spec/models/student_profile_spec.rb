@@ -7,6 +7,7 @@ describe StudentProfile do
     Then { is_expected.to have_many(:academic_groups).through(:group_participations) }
     Then { is_expected.to have_many(:attendances).dependent(:destroy) }
     Then { is_expected.to have_many(:class_schedules).through(:attendances) }
+    Then { is_expected.to have_many(:certificates) }
   end
 
   describe 'methods' do

@@ -2,6 +2,8 @@ class AssignedCertTemplate < ActiveRecord::Base
   belongs_to :academic_group
   belongs_to :certificate_template
 
+  has_many :certificates
+
   before_save :set_cert_id_prefix
 
   validates :academic_group, :certificate_template, presence: true

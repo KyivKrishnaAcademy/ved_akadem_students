@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224051539) do
+ActiveRecord::Schema.define(version: 20151225050416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 20151224051539) do
   end
 
   add_index "certificate_templates", ["status"], name: "index_certificate_templates_on_status", using: :btree
+
+  create_table "certificates", force: :cascade do |t|
+    t.integer  "student_profile_id"
+    t.integer  "assigned_cert_template_id"
+    t.string   "cert_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "certificates", ["assigned_cert_template_id"], name: "index_certificates_on_assigned_cert_template_id", using: :btree
+  add_index "certificates", ["student_profile_id"], name: "index_certificates_on_student_profile_id", using: :btree
 
   create_table "class_schedules", force: :cascade do |t|
     t.datetime "created_at"
@@ -247,4 +258,6 @@ ActiveRecord::Schema.define(version: 20151224051539) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "certificates", "assigned_cert_templates"
+  add_foreign_key "certificates", "student_profiles"
 end

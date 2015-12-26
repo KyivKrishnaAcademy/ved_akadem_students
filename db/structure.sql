@@ -228,6 +228,39 @@ ALTER SEQUENCE certificate_templates_id_seq OWNED BY certificate_templates.id;
 
 
 --
+-- Name: certificates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE certificates (
+    id integer NOT NULL,
+    student_profile_id integer,
+    assigned_cert_template_id integer,
+    cert_id character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: certificates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE certificates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: certificates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE certificates_id_seq OWNED BY certificates.id;
+
+
+--
 -- Name: class_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -905,6 +938,13 @@ ALTER TABLE ONLY certificate_templates ALTER COLUMN id SET DEFAULT nextval('cert
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY certificates ALTER COLUMN id SET DEFAULT nextval('certificates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY class_schedules ALTER COLUMN id SET DEFAULT nextval('class_schedules_id_seq'::regclass);
 
 
@@ -1066,6 +1106,14 @@ ALTER TABLE ONLY attendances
 
 ALTER TABLE ONLY certificate_templates
     ADD CONSTRAINT certificate_templates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: certificates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY certificates
+    ADD CONSTRAINT certificates_pkey PRIMARY KEY (id);
 
 
 --
@@ -1233,6 +1281,20 @@ CREATE INDEX index_certificate_templates_on_status ON certificate_templates USIN
 
 
 --
+-- Name: index_certificates_on_assigned_cert_template_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_certificates_on_assigned_cert_template_id ON certificates USING btree (assigned_cert_template_id);
+
+
+--
+-- Name: index_certificates_on_student_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_certificates_on_student_profile_id ON certificates USING btree (student_profile_id);
+
+
+--
 -- Name: index_group_id_cert_template_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1272,6 +1334,22 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (it
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: fk_rails_672a123b82; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY certificates
+    ADD CONSTRAINT fk_rails_672a123b82 FOREIGN KEY (student_profile_id) REFERENCES student_profiles(id);
+
+
+--
+-- Name: fk_rails_f165d91c39; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY certificates
+    ADD CONSTRAINT fk_rails_f165d91c39 FOREIGN KEY (assigned_cert_template_id) REFERENCES assigned_cert_templates(id);
 
 
 --
@@ -1437,4 +1515,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151102155321');
 INSERT INTO schema_migrations (version) VALUES ('20151208055458');
 
 INSERT INTO schema_migrations (version) VALUES ('20151224051539');
+
+INSERT INTO schema_migrations (version) VALUES ('20151225050416');
 

@@ -4,6 +4,7 @@ describe AssignedCertTemplate do
   describe 'associations' do
     Then { is_expected.to belong_to(:academic_group) }
     Then { is_expected.to belong_to(:certificate_template) }
+    Then { is_expected.to have_many(:certificates) }
   end
 
   describe 'validation' do
