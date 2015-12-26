@@ -1274,24 +1274,17 @@ CREATE INDEX class_schedules_with_people_teacher_id_idx ON class_schedules_with_
 
 
 --
+-- Name: index_assigned_template_id_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_assigned_template_id_profile_id ON certificates USING btree (assigned_cert_template_id, student_profile_id);
+
+
+--
 -- Name: index_certificate_templates_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_certificate_templates_on_status ON certificate_templates USING btree (status);
-
-
---
--- Name: index_certificates_on_assigned_cert_template_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_certificates_on_assigned_cert_template_id ON certificates USING btree (assigned_cert_template_id);
-
-
---
--- Name: index_certificates_on_student_profile_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_certificates_on_student_profile_id ON certificates USING btree (student_profile_id);
 
 
 --

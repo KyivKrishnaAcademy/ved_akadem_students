@@ -84,8 +84,7 @@ ActiveRecord::Schema.define(version: 20151225050416) do
     t.datetime "updated_at",                null: false
   end
 
-  add_index "certificates", ["assigned_cert_template_id"], name: "index_certificates_on_assigned_cert_template_id", using: :btree
-  add_index "certificates", ["student_profile_id"], name: "index_certificates_on_student_profile_id", using: :btree
+  add_index "certificates", ["assigned_cert_template_id", "student_profile_id"], name: "index_assigned_template_id_profile_id", unique: true, using: :btree
 
   create_table "class_schedules", force: :cascade do |t|
     t.datetime "created_at"

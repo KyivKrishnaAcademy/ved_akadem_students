@@ -5,6 +5,8 @@ class Certificate < ActiveRecord::Base
   before_save :set_cert_id
 
   validates :assigned_cert_template, :student_profile, presence: true
+  validates :assigned_cert_template_id, uniqueness: { scope: :student_profile_id }
+  validates :student_profile_id, uniqueness: { scope: :assigned_cert_template_id }
 
   private
 
