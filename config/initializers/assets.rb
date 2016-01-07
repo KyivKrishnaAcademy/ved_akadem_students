@@ -12,4 +12,4 @@ Rails.application.config.assets.precompile += %w(crops.js Jcrop/css/Jcrop.css Jc
                                                  cert_template_markup.js forgot_email.js
                                                  nested_form_custom_telephones.js flags.png
                                                  intlTelInput.css initTelInput.js
-                                                 select2.min.js select2.min.css)
+                                                 select2.min.js select2.min.css cert_assign.js)
