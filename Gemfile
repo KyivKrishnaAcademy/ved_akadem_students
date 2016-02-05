@@ -38,7 +38,7 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
 gem 'react-rails', '~> 1.0'
-gem 'react_on_rails', '2.0.0.rc.3'
+gem 'react_on_rails', '2.3'
 
 gem 'sidekiq'
 
