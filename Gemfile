@@ -8,7 +8,6 @@ gem 'haml'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
-gem 'jquery-rails'
 gem 'pg'
 gem 'responders', '~> 2.0'
 
@@ -28,8 +27,6 @@ gem 'mini_magick'
 gem 'axlsx'
 gem 'prawn-rails'
 
-gem 'bower-rails'
-
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem 'intl-tel-input-rails', '3.6.0.1'
@@ -37,7 +34,6 @@ gem 'intl-tel-input-rails', '3.6.0.1'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
-gem 'react-rails', '~> 1.0'
 gem 'react_on_rails', '~> 3.0.0-rc.1'
 
 gem 'sidekiq'

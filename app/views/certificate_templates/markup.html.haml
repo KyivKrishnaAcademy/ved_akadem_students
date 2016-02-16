@@ -1,6 +1,7 @@
 - provide(:title, t('.title'))
 - content_for(:js_and_css) do
   = stylesheet_link_tag 'Jcrop/css/Jcrop', media: 'all'
+  = javascript_include_tag 'Jcrop/js/Jcrop', type: 'text/javascript', defer: true
   = javascript_include_tag 'cert_template_markup', type: 'text/javascript', defer: true
 
 .row
