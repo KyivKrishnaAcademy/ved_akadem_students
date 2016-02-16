@@ -19,7 +19,12 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery_nested_form
+
+// bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
+//= require bootstrap-sprockets
+
 //= require jquery-ui/datepicker
 //= require jquery-ui/datepicker-ru
 //= require jquery-ui/datepicker-uk
@@ -34,7 +39,3 @@
 //= require custom
 //= require stop_double_submit
 //= require change_academic_group
-
-// bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
-//= require bootstrap-sprockets
-
