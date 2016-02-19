@@ -1,31 +1,46 @@
-var SchedulesTable = React.createClass({
-  propTypes: {
-    url: React.PropTypes.string.isRequired,
-    headers: React.PropTypes.array.isRequired
-  },
+import _ from 'lodash';
+import Paginator from 'react-paginate-component';
+import React, { PropTypes } from 'react';
+import ScheduleEntry from '../components/ScheduleEntry';
 
-  getInitialState: function() {
-    return {
+export default class ScheduleList extends React.Component {
+  static propTypes = {
+    url: PropTypes.string.isRequired,
+    headers: PropTypes.array.isRequired
+  };
+
+  constructor(props, context) {
+    super(props, context);
+
+    this.state = {
       schedules: [],
       pages: 1
     }
-  },
 
-  componentDidMount: function() {
+    _.bindAll(this, '_onChangePage');
+  }
+
+  componentDidMount() {
+    this.mounted = true
+
     return this._updateSchedules(this.props.url);
-  },
+  }
 
-  _onChangePage: function(page) {
+  componentWillUnmount() {
+    this.mounted = false
+  }
+
+  _onChangePage(page) {
     return this._updateSchedules(this.props.url + '?page=' + page);
-  },
+  }
 
-  _updateSchedules: function(url) {
+  _updateSchedules(url) {
     return $.ajax({
       url: url,
       dataType: 'json',
       cache: false,
       success: function(data) {
-        if (this.isMounted()) {
+        if (this.mounted) {
           this.setState({
             schedules: data.class_schedules,
             pages: data.pages
@@ -36,9 +51,9 @@ var SchedulesTable = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-  },
+  }
 
-  _paginator: function(maxPages, onChange) {
+  _paginator(maxPages, onChange) {
     if (maxPages > 1) {
       var maxVisible;
 
@@ -57,11 +72,11 @@ var SchedulesTable = React.createClass({
         </div>
       );
     }
-  },
+  }
 
-  render: function() {
+  render() {
     var schedules = this.state.schedules.map(function(schedule) {
-      return(<Schedule key={schedule.id} schedule={schedule} />);
+      return(<ScheduleEntry key={schedule.id} schedule={schedule} />);
     });
 
     var headers = this.props.headers.map(function(header) {
@@ -89,4 +104,4 @@ var SchedulesTable = React.createClass({
       </div>
     );
   }
-});
+}

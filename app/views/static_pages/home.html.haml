@@ -13,7 +13,6 @@
       %h3.text-center
         = t('.schedules_title')
     .col-xs-12
-      = react_component('SchedulesTable',
-                        { url: ui_person_class_schedules_path,
-                          headers: class_schedules_table_headers },
-                        { prerender: true })
+      = react_component('ScheduleListApp',
+        { url: ui_person_class_schedules_path,
+          headers: class_schedules_table_headers })
