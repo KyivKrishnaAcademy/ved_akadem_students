@@ -53,6 +53,7 @@ export default class ScheduleEntry extends React.Component {
           {this._linkOrText(schedule.course.can_view, schedule.course.path, schedule.course.title)}
         </td>
         <td>{this._lectorLinkOrText(schedule.lector)}</td>
+        <td>{schedule.subject}</td>
         <td>{groups}</td>
         <td>{schedule.classroom}</td>
         <td>{schedule.time}</td>
