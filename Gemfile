@@ -57,7 +57,6 @@ group :development do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'erd'
   gem 'letter_opener'
   gem 'haml-rails'
   gem 'web-console', '~> 2.0'
