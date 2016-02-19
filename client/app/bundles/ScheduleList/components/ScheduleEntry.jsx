@@ -41,12 +41,11 @@ export default class ScheduleEntry extends React.Component {
 
   render() {
     const schedule = this.props.schedule,
-          // TODO use => !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          groups = schedule.academic_groups.map(function (group) {
+          groups = schedule.academic_groups.map((group) => {
             return(<span key={group.id}>
               {this._linkOrText(group.can_view, group.path, group.title)}
             </span>);
-          }.bind(this));
+          });
 
     return (
       <tr>

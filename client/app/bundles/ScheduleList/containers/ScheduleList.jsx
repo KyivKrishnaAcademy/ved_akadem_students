@@ -39,17 +39,17 @@ export default class ScheduleList extends React.Component {
       url: url,
       dataType: 'json',
       cache: false,
-      success: function(data) {
+      success: (data) => {
         if (this.mounted) {
           this.setState({
             schedules: data.class_schedules,
             pages: data.pages
           });
         }
-      }.bind(this),
-      error: function(xhr, status, err) {
+      },
+      error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString());
-      }.bind(this)
+      }
     });
   }
 
@@ -75,13 +75,13 @@ export default class ScheduleList extends React.Component {
   }
 
   render() {
-    var schedules = this.state.schedules.map(function(schedule) {
-      return(<ScheduleEntry key={schedule.id} schedule={schedule} />);
-    });
+    const schedules = this.state.schedules.map((schedule) =>
+      <ScheduleEntry key={schedule.id} schedule={schedule} />
+    );
 
-    var headers = this.props.headers.map(function(header) {
-      return <th key={header}>{header}</th>;
-    });
+    const headers = this.props.headers.map((header) =>
+      <th key={header}>{header}</th>
+    );
 
     return(
       <div className="row">
