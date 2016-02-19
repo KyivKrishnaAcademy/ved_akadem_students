@@ -10,17 +10,16 @@ Developed specially for [Kyiv Spiritual Academy of Krishna Consciousness in Ukra
 * postgresql libpq-dev
 * imagemagick
 * redis
-* bower
+* node
 
 nice to have:
 * rvm
 
 ## Project setup
 
-Install system dependencies
-
-Start PostgreSQL
-
+* Install system dependencies
+* Start PostgreSQL
+* Init DB:
 ```bash
 cp config/database.yml.template config/database.yml
 bundle install
@@ -28,12 +27,17 @@ bundle exec rake db:create
 bundle exec rake db:structure:load
 bundle exec rake db:seed
 ```
+* Install node packages
+```bash
+npm install
+npm run postinstall
+```
 
 ## Run the app locally
 
 Start PostgreSQL and Redis
 
-```bundle exec rails s``` to start webserver
+```node run rails-server``` to start webserver
 
 Type ```http://localhost:3000``` in your browser
 
@@ -45,13 +49,13 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 
 1. Fork repository using GitHub
 2. ```git clone git@github.com:you/project.git```
-3. ```git remote add upstream git@github.com:our/project.git```
+3. ```git remote add upstream git@github.com:KyivKrishnaAcademy/ved_akadem_students.git```
 4. ```git checkout master```
 5. ```git pull upstream master```
 6. Check issue tracker for assigned tickets
 7. ```git checkout -b my_important_feature_or_bugfix```
 8. Work on your feature
-9. Run tests ```bundle exec rspec```
+9. Run tests ```node run test```
 10. ```git add .```
 11. ```git commit -m '[issue_number_here] My commit detailed message'```
 12. ```git push origin my-important-feature```
