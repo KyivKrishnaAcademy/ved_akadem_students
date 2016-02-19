@@ -24,7 +24,9 @@ Start PostgreSQL
 ```bash
 cp config/database.yml.template config/database.yml
 bundle install
-bundle exec rake db:setup
+bundle exec rake db:create
+bundle exec rake db:structure:load
+bundle exec rake db:seed
 ```
 
 ## Run the app locally
