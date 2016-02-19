@@ -221,7 +221,7 @@ def underscore_humanize(str)
 end
 
 shared_examples :valid_select_date do |model_name, field_name, content|
-  Given(:year) { model_name == 'Person' ? '1985' : '2010' }
+  Given(:year) { model_name == 'Person' ? '1985' : '2015' }
 
   When do
     select_from = "#{model_name.underscore}[#{field_name}("

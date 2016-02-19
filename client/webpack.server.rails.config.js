@@ -12,7 +12,7 @@ module.exports = {
   context: __dirname,
   entry: [
     'babel-polyfill',
-    './app/bundles/ScheduleList/startup/serverRegistration',
+    './app/bundles/ScheduleList/startup/clientRegistration',
   ],
   output: {
     filename: 'server-bundle.js',

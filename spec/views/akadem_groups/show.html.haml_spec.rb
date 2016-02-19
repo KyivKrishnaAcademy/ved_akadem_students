@@ -37,7 +37,7 @@ describe 'academic_groups/show' do
     And   { expect(rendered).not_to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
   end
 
-  describe 'group schedule' do
+  describe 'group schedule', :js do
     subject { page.find('#schedules') }
 
     context 'no schedule' do
