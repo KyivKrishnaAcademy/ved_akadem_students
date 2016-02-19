@@ -11,7 +11,7 @@
     "postinstall": "cd client && npm install",
     "test": "rspec && (cd client && npm run lint)",
     "express-server": "echo 'visit http://localhost:4000' && cd client && npm start",
-    "rails-server": "echo 'visit http://localhost:3000/hello_world' && foreman start -f Procfile.dev",
+    "rails-server": "foreman start -f Procfile.dev -t 10",
     "build:dev:client": "sh -c 'rm app/assets/javascripts/generated/* || true && cd client && npm run build:dev:client'"
   },
   "repository": {
