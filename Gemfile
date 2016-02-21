@@ -21,7 +21,7 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'simple_form', '3.1.0', github: 'plataformatec/simple_form'
 gem 'nested_form'
 
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'carrierwave', '0.10.0'
 gem 'mini_magick'
 
 gem 'axlsx'

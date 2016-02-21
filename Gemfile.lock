@@ -1,14 +1,4 @@
 GIT
-  remote: git://github.com/carrierwaveuploader/carrierwave.git
-  revision: 1e4e7b0bf20fee70d8ac3815d0921144f39e14cf
-  specs:
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
-
-GIT
   remote: git://github.com/plataformatec/simple_form.git
   revision: b2516e717bca91179b28a49c795b483a6f1425b1
   specs:
@@ -101,6 +91,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
@@ -399,7 +394,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
-  carrierwave!
+  carrierwave (= 0.10.0)
   codeclimate-test-reporter
   coffee-rails
   database_cleaner
