@@ -60,6 +60,7 @@
     "react-bootstrap": "^0.28.3",
     "react-dom": "^0.14.7",
     "react-on-rails": "3.0.3",
+    "react-paginate-component": "0.0.3",
     "react-redux": "^4.4.0",
     "redux": "^3.3.1",
     "redux-promise": "^0.5.1",
