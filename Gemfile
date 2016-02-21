@@ -18,7 +18,7 @@ gem 'devise_token_auth'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
 
-gem 'simple_form', '3.1.0', github: 'plataformatec/simple_form'
+gem 'simple_form', '3.1.0'
 gem 'nested_form'
 
 gem 'carrierwave', '0.10.0'
