@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/shakacode/react-webpack-rails-tutorial",
   "dependencies": {
-    "Jcrop": "git+ssh://git@github.com/tapmodo/Jcrop.git#v2.0.4",
-    "jquery-bigtext": "git+ssh://git@github.com/mpugach/jquery-bigtext.git"
+    "Jcrop": "git+https://github.com/tapmodo/Jcrop.git#v2.0.4",
+    "jquery-bigtext": "git+https://github.com/mpugach/jquery-bigtext.git"
   }
 }
