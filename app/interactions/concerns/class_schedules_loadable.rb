@@ -7,7 +7,7 @@ module ClassSchedulesLoadable
 
   def as_json(opts = {})
     {
-      class_schedules: @class_schedules.map { |cs| serialize_class_schedule cs },
+      classSchedules: @class_schedules.map { |cs| serialize_class_schedule cs },
       pages: @class_schedules.total_pages
     }
   end
@@ -20,13 +20,13 @@ module ClassSchedulesLoadable
       subject: class_schedule.subject,
       course: serialize_course(class_schedule.course),
       lector: class_schedule.teacher_profile.present? ? serialize_lector(class_schedule.teacher_profile.person) : nil,
-      academic_groups: class_schedule.academic_groups.map { |ag| serialize_academic_group ag },
+      academicGroups: class_schedule.academic_groups.map { |ag| serialize_academic_group ag },
       classroom: class_schedule.classroom.title,
       time: show_scheduled_time(class_schedule),
-      can_edit: policy(class_schedule.real_class_schedule).edit?,
-      can_delete: policy(class_schedule.real_class_schedule).destroy?,
-      edit_path: edit_class_schedule_path(class_schedule),
-      delete_path: class_schedule_path(class_schedule)
+      canEdit: policy(class_schedule.real_class_schedule).edit?,
+      canDelete: policy(class_schedule.real_class_schedule).destroy?,
+      editPath: edit_class_schedule_path(class_schedule),
+      deletePath: class_schedule_path(class_schedule)
     }
   end
 
@@ -34,7 +34,7 @@ module ClassSchedulesLoadable
     {
       id: model.id,
       title: model.title,
-      can_view: policy(model).show?
+      canView: policy(model).show?
     }
   end
 
@@ -50,8 +50,8 @@ module ClassSchedulesLoadable
     {
       id: lector.id,
       path: person_path(lector),
-      can_view: policy(lector).show?,
-      complex_name: complex_name(lector, true)
+      canView: policy(lector).show?,
+      complexName: complex_name(lector, true)
     }
   end
 

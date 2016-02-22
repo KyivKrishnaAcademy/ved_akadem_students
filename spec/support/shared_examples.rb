@@ -528,35 +528,35 @@ shared_examples_for :class_schedules_loadable do
 
   Given(:expected_full_payload) do
     {
-        class_schedules: [
+        classSchedules: [
             { id: full_schedule.id,
               subject: subject,
               course: {
                   id: course.id,
                   title: course_title,
-                  can_view: course_can_view,
+                  canView: course_can_view,
                   path: path_helper.course_path(course)
               },
               lector: {
                   id: teacher_profile.person.id,
                   path: path_helper.person_path(teacher_profile.person),
-                  can_view: lector_can_view,
-                  complex_name: teacher_profile.person.spiritual_name
+                  canView: lector_can_view,
+                  complexName: teacher_profile.person.spiritual_name
               },
-              academic_groups: [
+              academicGroups: [
                   {
                       id: group.id,
                       title: group_title,
-                      can_view: group_can_view,
+                      canView: group_can_view,
                       path: path_helper.academic_group_path(group)
                   }
               ],
               classroom: classroom_title,
               time: result_time,
-              can_edit: schedule_can_edit,
-              can_delete: schedule_can_delete,
-              edit_path: path_helper.edit_class_schedule_path(full_schedule),
-              delete_path: path_helper.class_schedule_path(full_schedule)
+              canEdit: schedule_can_edit,
+              canDelete: schedule_can_delete,
+              editPath: path_helper.edit_class_schedule_path(full_schedule),
+              deletePath: path_helper.class_schedule_path(full_schedule)
             }
         ],
         pages: 1
@@ -575,23 +575,23 @@ shared_examples_for :class_schedules_loadable do
 
     Given(:expected_optional_payload) do
       {
-          class_schedules: [
+          classSchedules: [
               { id: optional_schedule.id,
                 subject: nil,
                 course: {
                     id: course.id,
                     title: course_title,
-                    can_view: false,
+                    canView: false,
                     path: path_helper.course_path(course)
                 },
                 lector: nil,
-                academic_groups: [],
+                academicGroups: [],
                 classroom: classroom_title,
                 time: result_time,
-                can_edit: false,
-                can_delete: false,
-                edit_path: path_helper.edit_class_schedule_path(optional_schedule),
-                delete_path: path_helper.class_schedule_path(optional_schedule)
+                canEdit: false,
+                canDelete: false,
+                editPath: path_helper.edit_class_schedule_path(optional_schedule),
+                deletePath: path_helper.class_schedule_path(optional_schedule)
               }
           ],
           pages: 1

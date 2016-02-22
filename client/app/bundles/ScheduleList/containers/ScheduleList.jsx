@@ -1,3 +1,4 @@
+import $ from 'jquery'; // eslint-disable-line id-length
 import _ from 'lodash';
 import Paginator from 'react-paginate-component';
 import React, { PropTypes } from 'react';
@@ -6,7 +7,7 @@ import ScheduleEntry from '../components/ScheduleEntry';
 export default class ScheduleList extends React.Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
-    headers: PropTypes.array.isRequired
+    headers: PropTypes.array.isRequired,
   };
 
   constructor(props, context) {
@@ -14,48 +15,49 @@ export default class ScheduleList extends React.Component {
 
     this.state = {
       schedules: [],
-      pages: 1
-    }
+      pages: 1,
+    };
 
     _.bindAll(this, '_onChangePage');
   }
 
   componentDidMount() {
-    this.mounted = true
+    this.mounted = true;
 
     return this._updateSchedules(this.props.url);
   }
 
   componentWillUnmount() {
-    this.mounted = false
+    this.mounted = false;
   }
 
   _onChangePage(page) {
-    return this._updateSchedules(this.props.url + '?page=' + page);
+    return this._updateSchedules(`${this.props.url}?page=${page}`);
   }
 
   _updateSchedules(url) {
     return $.ajax({
-      url: url,
+      url,
       dataType: 'json',
       cache: false,
       success: (data) => {
         if (this.mounted) {
           this.setState({
-            schedules: data.class_schedules,
-            pages: data.pages
+            schedules: data.classSchedules,
+            pages: data.pages,
           });
         }
       },
+
       error: (xhr, status, err) => {
-        console.error(this.props.url, status, err.toString());
-      }
+        console.error(this.props.url, status, err.toString()); // eslint-disable-line no-console
+      },
     });
   }
 
   _paginator(maxPages, onChange) {
     if (maxPages > 1) {
-      var maxVisible;
+      let maxVisible;
 
       if (maxPages < 5) {
         maxVisible = maxPages;
@@ -63,12 +65,13 @@ export default class ScheduleList extends React.Component {
         maxVisible = 5;
       }
 
-      return(
+      return (
         <div className="col-xs-12 text-center">
           <Paginator max={maxPages}
             maxVisible={maxVisible}
             onChange={onChange}
-            className={"pagination-sm"} />
+            className="pagination-sm"
+          />
         </div>
       );
     }
@@ -83,7 +86,7 @@ export default class ScheduleList extends React.Component {
       <th key={header}>{header}</th>
     );
 
-    return(
+    return (
       <div className="row">
         <div className="col-xs-12">
           <div className="table-responsive">

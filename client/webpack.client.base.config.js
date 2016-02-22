@@ -22,7 +22,7 @@ module.exports = {
     // webpack.rails.config
     app: [
       './app/bundles/ScheduleList/startup/clientRegistration',
-    ]
+    ],
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
