@@ -12,7 +12,7 @@ describe Ui::GroupCuratorsLoadingInteraction do
     Given(:expected) do
       { people: [{ id: right_user.id,
                    text: right_user.complex_name,
-                   imageUrl: '/assets/fallback/person/thumb_default.png' }] }
+                   imageUrl: right_user.photo.thumb.url }] }
     end
 
     Then { expect(interaction.as_json).to eq(expected) }
