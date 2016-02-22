@@ -8,7 +8,7 @@ describe Ui::PersonClassSchedulesLoadingInteraction do
     Given(:result) { ClassSchedule.none.page(nil).per(1) }
 
     Then { expect(ClassScheduleWithPeople).to receive(:personal_schedule).with(user.id, 1).and_return(result) }
-    And  { expect(interaction.as_json).to eq({ class_schedules: [], pages: 0 }) }
+    And  { expect(interaction.as_json).to eq({ classSchedules: [], pages: 0 }) }
   end
 
   it_behaves_like :class_schedules_loadable

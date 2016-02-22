@@ -1,21 +1,3 @@
-GIT
-  remote: git://github.com/carrierwaveuploader/carrierwave.git
-  revision: 1e4e7b0bf20fee70d8ac3815d0921144f39e14cf
-  specs:
-    carrierwave (0.10.0)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-      json (>= 1.7)
-      mime-types (>= 1.16)
-
-GIT
-  remote: git://github.com/plataformatec/simple_form.git
-  revision: b2516e717bca91179b28a49c795b483a6f1425b1
-  specs:
-    simple_form (3.1.0)
-      actionpack (~> 4.0)
-      activemodel (~> 4.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,7 +60,6 @@ GEM
       sass (>= 3.2.19)
     bootstrap3-datetimepicker-rails (4.0.0)
       momentjs-rails (>= 2.8.1)
-    bower-rails (0.10.0)
     builder (3.2.2)
     callsite (0.0.11)
     capistrano (3.4.0)
@@ -102,9 +83,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
-    choice (0.1.7)
     chronic (0.10.2)
     cliver (0.3.2)
     codeclimate-test-reporter (0.4.6)
@@ -118,6 +103,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
+    concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
     database_cleaner (1.4.0)
     debug_inspector (0.0.2)
@@ -133,9 +119,6 @@ GEM
       rails (~> 4.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    erd (0.3.2)
-      nokogiri
-      rails-erd (>= 0.4.5)
     erubis (2.7.0)
     execjs (2.6.0)
     factory_girl (4.5.0)
@@ -144,6 +127,8 @@ GEM
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
     ffaker (1.32.1)
+    foreman (0.78.0)
+      thor (~> 0.19.1)
     fuubar (2.0.0)
       rspec (~> 3.0)
       ruby-progressbar (~> 1.4)
@@ -169,10 +154,6 @@ GEM
     i18n (0.7.0)
     intl-tel-input-rails (3.6.0.1)
       railties (>= 3.1)
-    jquery-rails (4.0.3)
-      rails-dom-testing (~> 1.0)
-      railties (>= 4.2.0)
-      thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.3)
@@ -183,6 +164,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.3.0)
       launchy (~> 2.2)
+    libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -192,11 +174,11 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
-    mime-types (2.6.2)
+    mime-types (2.99)
     mini_magick (3.8.1)
       subexec (~> 0.2.1)
-    mini_portile (0.6.2)
-    minitest (5.8.1)
+    mini_portile2 (2.0.0)
+    minitest (5.8.4)
     momentjs-rails (2.10.2)
       railties (>= 3.1)
     multi_json (1.11.2)
@@ -204,9 +186,9 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
-    newrelic_rpm (3.10.0.279)
-    nokogiri (1.6.6.2)
-      mini_portile (~> 0.6.0)
+    newrelic_rpm (3.15.0.314)
+    nokogiri (1.6.7.2)
+      mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
     paper_trail (4.0.0)
       activerecord (>= 3.0, < 6.0)
@@ -269,26 +251,21 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-erd (1.3.0)
-      activerecord (>= 3.2)
-      activesupport (>= 3.2)
-      choice (~> 0.1.6)
-      ruby-graphviz (~> 1.0.4)
-    rails-html-sanitizer (1.0.2)
+    rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     railties (4.2.4)
       actionpack (= 4.2.4)
       activesupport (= 4.2.4)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.4.2)
-    react-rails (1.0.0)
-      coffee-script-source (~> 1.8)
+    rainbow (2.1.0)
+    rake (10.5.0)
+    react_on_rails (3.0.3)
       connection_pool
-      execjs
-      rails (>= 3.1)
-      react-source (~> 0.13)
-    react-source (0.13.2)
+      execjs (~> 2.5)
+      foreman
+      rails (>= 3.2)
+      rainbow (~> 2.1)
     recaptcha (0.3.6)
     redis (3.2.1)
     redis-namespace (1.5.2)
@@ -296,6 +273,7 @@ GEM
     redis-session-store (0.8.0)
       actionpack (>= 3, < 5)
       redis
+    ref (2.0.0)
     request_store (1.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
@@ -327,7 +305,6 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
-    ruby-graphviz (1.0.9)
     ruby-progressbar (1.7.1)
     ruby_parser (3.6.4)
       sexp_processor (~> 4.1)
@@ -348,6 +325,9 @@ GEM
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     simplecov (0.9.1)
       docile (~> 1.1.0)
       multi_json (~> 1.0)
@@ -358,17 +338,21 @@ GEM
     spring (1.3.6)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
-    sprockets (3.4.0)
+    sprockets (3.5.2)
+      concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (2.3.3)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
-      sprockets (>= 2.8, < 4.0)
+    sprockets-rails (3.0.1)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
     sshkit (1.7.1)
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     subexec (0.2.3)
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
@@ -406,27 +390,24 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   bootstrap3-datetimepicker-rails (~> 4.0.0)
-  bower-rails
   capistrano
   capistrano-bundler
   capistrano-puma
   capistrano-rails
   capistrano-rvm
   capybara
-  carrierwave!
+  carrierwave (= 0.10.0)
   codeclimate-test-reporter
   coffee-rails
   database_cleaner
   devise
   devise_token_auth
-  erd
   factory_girl_rails
   ffaker
   fuubar
   haml
   haml-rails
   intl-tel-input-rails (= 3.6.0.1)
-  jquery-rails
   jquery-ui-rails
   kaminari
   letter_opener
@@ -448,7 +429,7 @@ DEPENDENCIES
   quiet_assets
   rack_session_access
   rails (= 4.2.4)
-  react-rails (~> 1.0)
+  react_on_rails (~> 3.0)
   recaptcha
   redis-session-store
   responders (~> 2.0)
@@ -458,9 +439,10 @@ DEPENDENCIES
   sass-rails
   shoulda-matchers
   sidekiq
-  simple_form (= 3.1.0)!
+  simple_form (= 3.1.0)
   spring
   spring-commands-rspec
+  therubyracer
   uglifier
   web-console (~> 2.0)
   whenever

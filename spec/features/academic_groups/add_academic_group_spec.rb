@@ -45,7 +45,7 @@ describe 'Add academic group:' do
     agf = build(:academic_group, ag)
     fill_in 'academic_group_title', with: (agf.title)
     fill_in 'academic_group_group_description', with: (agf.group_description)
-    select (ag[:establ_date_1i]||'2010').to_s, from: 'academic_group_establ_date_1i'
+    select (ag[:establ_date_1i]||'2015').to_s, from: 'academic_group_establ_date_1i'
     select (ag[:establ_date_2i]||'Вересня').to_s, from: 'academic_group_establ_date_2i'
     select (ag[:establ_date_3i]||'29').to_s, from: 'academic_group_establ_date_3i'
     agf

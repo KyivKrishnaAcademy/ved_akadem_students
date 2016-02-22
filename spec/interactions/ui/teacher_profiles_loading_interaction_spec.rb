@@ -13,7 +13,7 @@ describe Ui::TeacherProfilesLoadingInteraction do
     Given(:expected) do
       { teacher_profiles: [{ id: right_profile.id,
                              text: right_user.complex_name,
-                             imageUrl: '/assets/fallback/person/thumb_default.png' }] }
+                             imageUrl: right_user.photo.thumb.url }] }
     end
 
     Then { expect(interaction.as_json).to eq(expected) }

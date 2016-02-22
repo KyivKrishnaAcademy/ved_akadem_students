@@ -1,4 +1,7 @@
 - provide(:title, t('devise.links.sign_in'))
+- content_for(:js_and_css) do
+  = javascript_include_tag 'generated/app-bundle', type: 'text/javascript', defer: true
+
 
 .row.vert-offset-top-4
   .col-xs-12.col-sm-offset-3.col-sm-6.col-md-offset-4.col-md-4
