@@ -54,6 +54,8 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
+  gem 'capistrano-nvm', require: false
+  gem 'capistrano-npm', require: false
   gem 'capistrano-puma', require: false
   gem 'quiet_assets'
   gem 'better_errors'
