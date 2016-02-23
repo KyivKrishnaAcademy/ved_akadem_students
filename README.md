@@ -7,13 +7,18 @@
 Developed specially for [Kyiv Spiritual Academy of Krishna Consciousness in Ukraine](http://veda-kiev.org.ua/) and [ISKCON](http://iskcon.com/).
 
 ## System dependencies
-* postgresql libpq-dev
-* imagemagick
-* redis
-* node
+* imagemagick >= 6.7.7-10
+* node >= 5.5.0
+* postgresql >= 9.4
+* redis >= 2.8.0
+* ruby >= 2.1.5
 
-nice to have:
+### Develpment dependencies
+* phantomjs >= 2.0.0
+
+### Nice to have
 * rvm
+* nvm
 
 ## Project setup
 
@@ -30,7 +35,6 @@ bundle exec rake db:seed
 * Install node packages
 ```bash
 npm install
-npm run postinstall
 ```
 
 ## Run the app locally
