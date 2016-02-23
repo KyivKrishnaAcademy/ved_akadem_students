@@ -1,8 +1,4 @@
-#= require Jcrop/js/Jcrop
 #= require jquery-bigtext/jquery-bigtext
-
-$ ->
-  new CertTemplateMarkuper()
 
 class CertTemplateMarkuper
   constructor: () ->
@@ -89,3 +85,6 @@ class CertTemplateMarkuper
 
       true
     true
+
+$ ->
+  new CertTemplateMarkuper()

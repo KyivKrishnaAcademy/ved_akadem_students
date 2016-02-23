@@ -9,6 +9,9 @@ set :deploy_to, '/var/www/apps/ved_akadem_students'
 set :ssh_options, { forward_agent: true }
 set :pty, true
 
+set :nvm_type, :user # or :system, depends on your nvm setup
+set :nvm_node, 'v5.5.0'
+set :nvm_map_bins, %w{node npm}
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -32,7 +35,7 @@ set :pty, true
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
-# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{node_modules client/node_modules}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -232,16 +235,4 @@ namespace :db do
     end
   end
   after 'deploy:starting', 'db:backup'
-end
-
-namespace :bower do
-  desc 'Install bower'
-  task :update_prune do
-    on roles(:web) do
-      within release_path do
-        execute :rake, 'bower:update:prune CI=true'
-      end
-    end
-  end
-  before 'deploy:compile_assets', 'bower:update_prune'
 end

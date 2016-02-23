@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'carrierwave/test/matchers'
+require 'lib/carrierwave/test/matchers'
 
 describe PhotoUploader do
   include CarrierWave::Test::Matchers

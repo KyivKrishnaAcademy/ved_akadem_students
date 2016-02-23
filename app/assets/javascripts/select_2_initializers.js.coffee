@@ -4,8 +4,12 @@ personOption = (person) ->
   if person.loading
     return person.text
 
-  '<div class="row"><div class="col-sm-1"><img src="' + person.imageUrl + '" />' +
-    '</div><div clas="col-sm-10">' + person.text + '</div></div>'
+  '<div class="row">' +
+    '<div class="col-sm-1">' +
+      '<img src="' + person.imageUrl + '" />' +
+    '</div>' +
+    '<div clas="col-sm-10">' + person.text + '</div>' +
+  '</div>'
 
 personSelect = (domObj, jsonRoot) ->
   if domObj.length

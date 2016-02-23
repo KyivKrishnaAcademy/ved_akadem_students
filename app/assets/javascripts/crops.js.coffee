@@ -1,6 +1,3 @@
-$ ->
-  new ImageCropper(150, 200, .75)
-
 class ImageCropper
   constructor: (@width, @height, @aspectRatio) ->
     $('#cropbox').Jcrop
@@ -23,3 +20,6 @@ class ImageCropper
       height: Math.round(@height/coords.h * $('#cropbox').height()) + 'px'
       marginLeft: '-' + Math.round(@width/coords.w * coords.x) + 'px'
       marginTop: '-' + Math.round(@height/coords.h * coords.y) + 'px'
+
+$ ->
+  new ImageCropper(150, 200, .75)

@@ -1,0 +1,68 @@
+doctype html
+html
+
+  head
+    title Hello, React
+
+  body
+
+    h1.alert.alert-info.this-works webpack dev server (with HMR)
+    #app
+
+    script(src="vendor-bundle.js")
+    script(src="app-bundle.js")
+    script.
+      var headers = [
+        'course',
+        'teacher',
+        'subject',
+        'groups',
+        'classroom',
+        'time',
+        'actions'
+      ];
+
+      var schedule = {
+        id: 194,
+        subject: "",
+        course: {
+          id: 3,
+          title: "Бхагавад Гита",
+          can_view: true,
+          path: "/courses/3"
+        },
+        lector: {
+          id: 461,
+          path: "/people/461",
+          can_view: true,
+          complex_name: "Нітьянанда Рай дас"
+        },
+        academic_groups: [
+          {
+            id: 13,
+            title: "БШ15-2",
+            can_view: true,
+            path: "/academic_groups/13"
+          }
+        ],
+        classroom: "Гурукула",
+        time: "Сб 20.02.16 09:00 - 13:00",
+        can_edit: true,
+        can_delete: true,
+        edit_path: "/class_schedules/194/edit",
+        delete_path: "/class_schedules/194"
+      };
+
+      var schedules = {
+        class_schedules: [
+          schedule,
+          schedule,
+          schedule,
+          schedule,
+          schedule,
+          schedule
+        ],
+        pages: 1
+      };
+
+      ReactOnRails.render("ScheduleListApp", {schedules: schedules, headers: headers}, 'app');

@@ -119,7 +119,7 @@ describe 'Signing' do
       When  { visit edit_person_registration_path(@person) }
 
       describe 'photo should be placeholded' do
-        Then  { expect(find('.form-inputs img')['src']).to have_content('/assets/fallback/person/standart_default.png') }
+        Then  { expect(find('.form-inputs img')['src']).to have_content(@person.photo.thumb.path) }
         And   { expect(find('.form-inputs')).not_to have_link(I18n.t('links.crop_photo')) }
       end
 

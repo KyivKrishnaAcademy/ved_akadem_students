@@ -7,35 +7,47 @@
 Developed specially for [Kyiv Spiritual Academy of Krishna Consciousness in Ukraine](http://veda-kiev.org.ua/) and [ISKCON](http://iskcon.com/).
 
 ## System dependencies
-* postgresql libpq-dev
-* imagemagick
-* redis
-* bower
+* imagemagick >= 6.7.7-10
+* node >= 5.5.0
+* postgresql >= 9.4
+* redis >= 2.8.0
+* ruby >= 2.1.5
 
-nice to have:
+### Develpment dependencies
+* phantomjs >= 2.0.0
+
+### Nice to have
 * rvm
+* nvm
 
 ## Project setup
 
-Install system dependencies
-
-Start PostgreSQL
+* Install system packages
+* Install gems
+* Install node packages
+* Start PostgreSQL
+* Edit `database.yml`
+* Init DB
 
 ```bash
-cp config/database.yml.template config/database.yml
 bundle install
-bundle exec rake db:setup
+npm install
+
+cp config/database.yml.template config/database.yml
+vi config/database.yml
+bundle exec rake db:create
+bundle exec rake db:structure:load
+bundle exec rake db:seed
 ```
 
 ## Run the app locally
 
-Start PostgreSQL and Redis
+* Start PostgreSQL
+* Start Redis
+* Start webserver `npm run rails-server`
+* Type `http://localhost:3000` in your browser
 
-```bundle exec rails s``` to start webserver
-
-Type ```http://localhost:3000``` in your browser
-
-Default credentials ```admin@example.com/password```
+Default credentials are ```admin@example.com/password```
 
 ## Contribution guide
 
@@ -43,13 +55,13 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 
 1. Fork repository using GitHub
 2. ```git clone git@github.com:you/project.git```
-3. ```git remote add upstream git@github.com:our/project.git```
+3. ```git remote add upstream git@github.com:KyivKrishnaAcademy/ved_akadem_students.git```
 4. ```git checkout master```
 5. ```git pull upstream master```
 6. Check issue tracker for assigned tickets
 7. ```git checkout -b my_important_feature_or_bugfix```
 8. Work on your feature
-9. Run tests ```bundle exec rspec```
+9. Run tests ```npm run test```
 10. ```git add .```
 11. ```git commit -m '[issue_number_here] My commit detailed message'```
 12. ```git push origin my-important-feature```
