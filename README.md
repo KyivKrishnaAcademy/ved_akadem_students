@@ -44,7 +44,7 @@ bundle exec rake db:seed
 
 * Start PostgreSQL
 * Start Redis
-* Start webserver `node run rails-server`
+* Start webserver `npm run rails-server`
 * Type `http://localhost:3000` in your browser
 
 Default credentials are ```admin@example.com/password```
@@ -61,7 +61,7 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 6. Check issue tracker for assigned tickets
 7. ```git checkout -b my_important_feature_or_bugfix```
 8. Work on your feature
-9. Run tests ```node run test```
+9. Run tests ```npm run test```
 10. ```git add .```
 11. ```git commit -m '[issue_number_here] My commit detailed message'```
 12. ```git push origin my-important-feature```
