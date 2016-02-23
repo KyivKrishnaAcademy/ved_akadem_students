@@ -18,9 +18,14 @@ module.exports = {
       'jquery',
     ],
 
+    react: [
+      'react',
+      'react-on-rails',
+    ],
+
     // This will contain the app entry points defined by webpack.hot.config and
     // webpack.rails.config
-    app: [
+    'schedule-list': [
       './app/bundles/ScheduleList/startup/clientRegistration',
     ],
   },
@@ -43,10 +48,10 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
 
       // This name 'vendor' ties into the entry definition
-      name: 'vendor',
+      names: ['react', 'vendor'],
 
       // We don't want the default vendor.js name
-      filename: 'vendor-bundle.js',
+      filename: '[name]-bundle.js',
 
       // Passing Infinity just creates the commons chunk, but moves no modules into it.
       // In other words, we only put what's in the vendor entry definition in vendor-bundle.js

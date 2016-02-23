@@ -6,10 +6,28 @@ Rails.application.config.assets.version = '1.1'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w(
-  crops.js Jcrop/css/Jcrop.css Jcrop/js/Jcrop.js Jcrop/css/Jcrop.gif
-  generated/app-bundle.js generated/server-bundle.js cert_template_markup.js forgot_email.js
-  nested_form_custom_telephones.js flags.png intlTelInput.css initTelInput.js
-  select2.min.js select2.min.css
+  crops.js
+  Jcrop/css/Jcrop.css
+  Jcrop/js/Jcrop.js
+  Jcrop/css/Jcrop.gif
+
+  generated/app-bundle.js
+  generated/server-bundle.js
+  generated/react-bundle.js
+  generated/schedule-list-bundle.js
+
+  cert_template_markup.js
+
+  forgot_email.js
+
+  nested_form_custom_telephones.js
+
+  flags.png
+  intlTelInput.css
+  initTelInput.js
+
+  select2.min.js
+  select2.min.css
 )
 
 # Add client/assets/ folders to asset pipeline's search path.

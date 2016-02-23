@@ -7,7 +7,7 @@ const webpack = require('webpack');
 const path = require('path');
 const config = require('./webpack.client.base.config');
 
-config.entry.app.push(
+config.entry.vendor.push(
 
   // Webpack dev server
   'webpack-dev-server/client?http://localhost:4000',
