@@ -22,30 +22,32 @@ Developed specially for [Kyiv Spiritual Academy of Krishna Consciousness in Ukra
 
 ## Project setup
 
-* Install system dependencies
+* Install system packages
+* Install gems
+* Install node packages
 * Start PostgreSQL
-* Init DB:
+* Edit `database.yml`
+* Init DB
+
 ```bash
-cp config/database.yml.template config/database.yml
 bundle install
+npm install
+
+cp config/database.yml.template config/database.yml
+vi config/database.yml
 bundle exec rake db:create
 bundle exec rake db:structure:load
 bundle exec rake db:seed
 ```
-* Install node packages
-```bash
-npm install
-```
 
 ## Run the app locally
 
-Start PostgreSQL and Redis
+* Start PostgreSQL
+* Start Redis
+* Start webserver `node run rails-server`
+* Type `http://localhost:3000` in your browser
 
-```node run rails-server``` to start webserver
-
-Type ```http://localhost:3000``` in your browser
-
-Default credentials ```admin@example.com/password```
+Default credentials are ```admin@example.com/password```
 
 ## Contribution guide
 
