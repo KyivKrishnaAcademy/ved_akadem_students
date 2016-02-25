@@ -119,7 +119,7 @@ uk:
   academic_groups:
     show:
       active_students_count:    'Активних студентів:'
-      administrator:            'Адміністратор'
+      administrator:            'Координатор'
       attendance_template_pdf:  ' Бланк відвідуванності'
       birthday:                 'День народження'
       curator:                  'Куратор'
