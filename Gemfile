@@ -75,6 +75,10 @@ group :development, :test do
   gem 'pry-nav'
   gem 'pry-doc'
   gem 'pry-rails'
+
+  gem 'rubocop', require: false
+  gem 'ruby-lint', require: false
+  gem 'haml_lint', require: false
 end
 
 group :test do
