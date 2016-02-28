@@ -1,10 +1,10 @@
 import $ from 'jquery'; // eslint-disable-line id-length
-import BaseComponent from '../../../lib/components/BaseComponent';
+import bindAll from '../../../lib/helpers/bindAll';
 import Paginator from 'react-paginate-component';
 import React, { PropTypes } from 'react';
 import ScheduleEntry from '../components/ScheduleEntry';
 
-export default class ScheduleList extends BaseComponent {
+export default class ScheduleList extends React.Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
     headers: PropTypes.array.isRequired,
@@ -18,7 +18,7 @@ export default class ScheduleList extends BaseComponent {
       pages: 1,
     };
 
-    this._bind('_onChangePage');
+    bindAll(this, '_onChangePage');
   }
 
   componentDidMount() {
