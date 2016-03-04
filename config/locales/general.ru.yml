@@ -119,7 +119,7 @@ ru:
   academic_groups:
     show:
       active_students_count:    'Активных студентов:'
-      administrator:            'Администратор'
+      administrator:            'Координатор'
       attendance_template_pdf:  ' Бланк посещаемости'
       birthday:                 'День рождения'
       curator:                  'Куратор'

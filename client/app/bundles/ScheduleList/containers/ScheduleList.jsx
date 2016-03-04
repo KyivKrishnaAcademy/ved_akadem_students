@@ -1,6 +1,6 @@
 import $ from 'jquery'; // eslint-disable-line id-length
-import _ from 'lodash';
-import Paginator from 'react-paginate-component';
+import bindAll from '../../../lib/helpers/bindAll';
+import Paginator from '../components/Paginator';
 import React, { PropTypes } from 'react';
 import ScheduleEntry from '../components/ScheduleEntry';
 
@@ -18,7 +18,7 @@ export default class ScheduleList extends React.Component {
       pages: 1,
     };
 
-    _.bindAll(this, '_onChangePage');
+    bindAll(this, '_onChangePage');
   }
 
   componentDidMount() {
@@ -55,28 +55,6 @@ export default class ScheduleList extends React.Component {
     });
   }
 
-  _paginator(maxPages, onChange) {
-    if (maxPages > 1) {
-      let maxVisible;
-
-      if (maxPages < 5) {
-        maxVisible = maxPages;
-      } else {
-        maxVisible = 5;
-      }
-
-      return (
-        <div className="col-xs-12 text-center">
-          <Paginator max={maxPages}
-            maxVisible={maxVisible}
-            onChange={onChange}
-            className="pagination-sm"
-          />
-        </div>
-      );
-    }
-  }
-
   render() {
     const schedules = this.state.schedules.map((schedule) =>
       <ScheduleEntry key={schedule.id} schedule={schedule} />
@@ -103,7 +81,7 @@ export default class ScheduleList extends React.Component {
           </div>
         </div>
 
-        {this._paginator(this.state.pages, this._onChangePage)}
+        <Paginator maxPages={this.state.pages} onChangePage={this._onChangePage} />
       </div>
     );
   }

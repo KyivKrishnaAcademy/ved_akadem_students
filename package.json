@@ -1,7 +1,7 @@
 {
-  "name": "react-webpack-rails-tutorial",
+  "name": "kyiv-krishna-academy-students",
   "version": "1.1.1",
-  "description": "Built using the react_on_rails generator. Allows you to run npm install from root.",
+  "description": "Developed specially for Kyiv Spiritual Academy of Krishna Consciousness in Ukraine and ISKCON.",
   "main": "server.js",
   "engines": {
     "node": "5.5.0",
@@ -12,24 +12,23 @@
     "test": "bundle exec rspec && (cd client && npm run lint)",
     "express-server": "echo 'visit http://localhost:4000' && cd client && npm start",
     "rails-server": "foreman start -f Procfile.dev -t 10",
-    "build:dev:client": "sh -c 'rm app/assets/javascripts/generated/* || true && cd client && npm run build:dev:client'"
+    "webpack-server": "foreman start -f Procfile.dev-webpack -t 10"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shakacode/react-webpack-rails-tutorial.git"
+    "url": "https://github.com/KyivKrishnaAcademy/ved_akadem_students.git"
   },
   "keywords": [
-    "react",
-    "tutorial",
-    "comment",
-    "example"
+    "kyiv",
+    "krishna",
+    "academy",
+    "students"
   ],
-  "author": "justin808",
-  "license": "MIT",
+  "author": "mpugach",
   "bugs": {
-    "url": "https://github.com/shakacode/react-webpack-rails-tutorial/issues"
+    "url": "https://github.com/KyivKrishnaAcademy/ved_akadem_students/issues"
   },
-  "homepage": "https://github.com/shakacode/react-webpack-rails-tutorial",
+  "homepage": "https://github.com/KyivKrishnaAcademy/ved_akadem_students",
   "dependencies": {
     "Jcrop": "git+https://github.com/tapmodo/Jcrop.git#v2.0.4",
     "jquery-bigtext": "git+https://github.com/mpugach/jquery-bigtext.git"
