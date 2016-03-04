@@ -27,9 +27,9 @@ RSpec.configure do |config|
 
   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 
-  Recaptcha.configure do |config|
-    config.public_key  = '11111'
-    config.private_key = '22222'
+  Recaptcha.configure do |cfg|
+    cfg.public_key  = '11111'
+    cfg.private_key = '22222'
   end
 
   config.mock_with :rspec do |mocks|
