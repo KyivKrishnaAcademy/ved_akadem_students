@@ -51,6 +51,10 @@ class Person < ActiveRecord::Base
 
   has_paper_trail
 
+  def locale
+    @locale.to_sym
+  end
+
   def token_validation_response
     {
       complex_name: complex_name

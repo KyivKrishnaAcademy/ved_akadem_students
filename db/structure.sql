@@ -15,6 +15,14 @@ SET client_min_messages = warning;
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -59,10 +67,10 @@ ALTER SEQUENCE academic_group_schedules_id_seq OWNED BY academic_group_schedules
 
 CREATE TABLE academic_groups (
     id integer NOT NULL,
-    title character varying(255),
+    title character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    group_description character varying(255),
+    group_description character varying,
     establ_date date,
     message_ru text,
     message_uk text,
@@ -249,32 +257,33 @@ CREATE TABLE group_participations (
 
 CREATE TABLE people (
     id integer NOT NULL,
-    name character varying(255),
+    name character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    middle_name character varying(255),
-    surname character varying(255),
-    spiritual_name character varying(255),
-    email character varying(255),
+    middle_name character varying,
+    surname character varying,
+    spiritual_name character varying,
+    email character varying,
     gender boolean,
     birthday date,
-    emergency_contact character varying(255),
-    photo character varying(255),
+    emergency_contact character varying,
+    photo character varying,
     profile_fullness boolean,
-    encrypted_password character varying(255),
-    reset_password_token character varying(255),
+    encrypted_password character varying,
+    reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
     deleted boolean DEFAULT false,
-    passport character varying(255),
+    passport character varying,
     education text,
     work text,
-    marital_status character varying(255),
-    friends_to_be_with character varying(255),
+    marital_status character varying,
+    friends_to_be_with character varying,
     special_note text,
-    complex_name character varying(255),
+    complex_name character varying,
     provider character varying DEFAULT 'email'::character varying NOT NULL,
     uid character varying DEFAULT ''::character varying NOT NULL,
-    tokens jsonb DEFAULT '{}'::jsonb NOT NULL
+    tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
+    locale character varying(2) DEFAULT 'uk'::character varying
 );
 
 
@@ -298,7 +307,7 @@ CREATE TABLE teacher_profiles (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    description character varying(255),
+    description character varying,
     person_id integer
 );
 
@@ -339,8 +348,8 @@ CREATE TABLE classrooms (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    location character varying(255),
-    description character varying(255),
+    location character varying,
+    description character varying,
     roominess integer DEFAULT 0,
     title character varying
 );
@@ -373,8 +382,8 @@ CREATE TABLE courses (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    title character varying(255),
-    description character varying(255)
+    title character varying,
+    description character varying
 );
 
 
@@ -473,8 +482,8 @@ CREATE TABLE programs (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    title_uk character varying(255),
-    title_ru character varying(255),
+    title_uk character varying,
+    title_ru character varying,
     description_uk text,
     description_ru text,
     courses_uk text,
@@ -553,12 +562,12 @@ ALTER SEQUENCE questionnaire_completenesses_id_seq OWNED BY questionnaire_comple
 CREATE TABLE questionnaires (
     id integer NOT NULL,
     description_uk text,
-    title_uk character varying(255),
+    title_uk character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    title_ru character varying(255),
+    title_ru character varying,
     description_ru text,
-    kind character varying(255),
+    kind character varying,
     rule text
 );
 
@@ -589,7 +598,7 @@ ALTER SEQUENCE questionnaires_id_seq OWNED BY questionnaires.id;
 CREATE TABLE questions (
     id integer NOT NULL,
     questionnaire_id integer,
-    format character varying(255),
+    format character varying,
     data text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -622,7 +631,7 @@ ALTER SEQUENCE questions_id_seq OWNED BY questions.id;
 
 CREATE TABLE roles (
     id integer NOT NULL,
-    activities character varying(255)[] DEFAULT '{}'::character varying[],
+    activities character varying[] DEFAULT '{}'::character varying[],
     name character varying(30),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -653,7 +662,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 --
 
 CREATE TABLE schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -767,7 +776,7 @@ ALTER SEQUENCE teacher_specialities_id_seq OWNED BY teacher_specialities.id;
 CREATE TABLE telephones (
     id integer NOT NULL,
     person_id integer,
-    phone character varying(255),
+    phone character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -1315,11 +1324,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140918091449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140920200640');
 
-INSERT INTO schema_migrations (version) VALUES ('20140920201921');
-
 INSERT INTO schema_migrations (version) VALUES ('20140921162651');
-
-INSERT INTO schema_migrations (version) VALUES ('20140924202052');
 
 INSERT INTO schema_migrations (version) VALUES ('20141001130412');
 
@@ -1378,4 +1383,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150709064042');
 INSERT INTO schema_migrations (version) VALUES ('20150821112132');
 
 INSERT INTO schema_migrations (version) VALUES ('20151102155321');
+
+INSERT INTO schema_migrations (version) VALUES ('20160226214442');
+
+INSERT INTO schema_migrations (version) VALUES ('20160309211822');
 
