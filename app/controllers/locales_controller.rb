@@ -4,9 +4,7 @@ class LocalesController < ApplicationController
   def toggle
     locale = I18n.locale == :ru ? :uk : :ru
     if current_person
-      person = Person.find(current_person.id)
-      person.locale = locale
-      person.save
+      current_person.update(locale: locale)
     else
       session[:locale] = locale
     end

@@ -1,6 +1,18 @@
 class Person < ActiveRecord::Base
   MARITAL_STATUSES = %i(single in_relationship married divorced widowed) #TODO use enums here since we run rails 4.1
 
+  class SymbolWrapper
+    def self.load(string)
+      string ? string.to_sym : nil
+    end
+
+    def self.dump(symbol)
+      symbol.to_s
+    end
+  end
+
+  serialize :locale, SymbolWrapper
+
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :privacy_agreement
@@ -50,10 +62,6 @@ class Person < ActiveRecord::Base
   delegate :active?, to: :student_profile, prefix: :student, allow_nil: true
 
   has_paper_trail
-
-  def locale
-    @locale.to_sym
-  end
 
   def token_validation_response
     {
