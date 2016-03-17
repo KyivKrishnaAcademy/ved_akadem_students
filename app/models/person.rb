@@ -3,7 +3,7 @@ class Person < ActiveRecord::Base
 
   class SymbolWrapper
     def self.load(string)
-      string ? string.to_sym : nil
+      string.try(:to_sym)
     end
 
     def self.dump(symbol)
