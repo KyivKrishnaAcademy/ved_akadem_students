@@ -67,10 +67,10 @@ ALTER SEQUENCE academic_group_schedules_id_seq OWNED BY academic_group_schedules
 
 CREATE TABLE academic_groups (
     id integer NOT NULL,
-    title character varying,
+    title character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    group_description character varying,
+    group_description character varying(255),
     establ_date date,
     message_ru text,
     message_uk text,
@@ -257,29 +257,29 @@ CREATE TABLE group_participations (
 
 CREATE TABLE people (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    middle_name character varying,
-    surname character varying,
-    spiritual_name character varying,
-    email character varying,
+    middle_name character varying(255),
+    surname character varying(255),
+    spiritual_name character varying(255),
+    email character varying(255),
     gender boolean,
     birthday date,
-    emergency_contact character varying,
-    photo character varying,
+    emergency_contact character varying(255),
+    photo character varying(255),
     profile_fullness boolean,
-    encrypted_password character varying,
-    reset_password_token character varying,
+    encrypted_password character varying(255),
+    reset_password_token character varying(255),
     reset_password_sent_at timestamp without time zone,
     deleted boolean DEFAULT false,
-    passport character varying,
+    passport character varying(255),
     education text,
     work text,
-    marital_status character varying,
-    friends_to_be_with character varying,
+    marital_status character varying(255),
+    friends_to_be_with character varying(255),
     special_note text,
-    complex_name character varying,
+    complex_name character varying(255),
     provider character varying DEFAULT 'email'::character varying NOT NULL,
     uid character varying DEFAULT ''::character varying NOT NULL,
     tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
@@ -307,7 +307,7 @@ CREATE TABLE teacher_profiles (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    description character varying,
+    description character varying(255),
     person_id integer
 );
 
@@ -348,8 +348,8 @@ CREATE TABLE classrooms (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    location character varying,
-    description character varying,
+    location character varying(255),
+    description character varying(255),
     roominess integer DEFAULT 0,
     title character varying
 );
@@ -382,8 +382,8 @@ CREATE TABLE courses (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    title character varying,
-    description character varying
+    title character varying(255),
+    description character varying(255)
 );
 
 
@@ -482,8 +482,8 @@ CREATE TABLE programs (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    title_uk character varying,
-    title_ru character varying,
+    title_uk character varying(255),
+    title_ru character varying(255),
     description_uk text,
     description_ru text,
     courses_uk text,
@@ -562,12 +562,12 @@ ALTER SEQUENCE questionnaire_completenesses_id_seq OWNED BY questionnaire_comple
 CREATE TABLE questionnaires (
     id integer NOT NULL,
     description_uk text,
-    title_uk character varying,
+    title_uk character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    title_ru character varying,
+    title_ru character varying(255),
     description_ru text,
-    kind character varying,
+    kind character varying(255),
     rule text
 );
 
@@ -598,7 +598,7 @@ ALTER SEQUENCE questionnaires_id_seq OWNED BY questionnaires.id;
 CREATE TABLE questions (
     id integer NOT NULL,
     questionnaire_id integer,
-    format character varying,
+    format character varying(255),
     data text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -631,7 +631,7 @@ ALTER SEQUENCE questions_id_seq OWNED BY questions.id;
 
 CREATE TABLE roles (
     id integer NOT NULL,
-    activities character varying[] DEFAULT '{}'::character varying[],
+    activities character varying(255)[] DEFAULT '{}'::character varying[],
     name character varying(30),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -662,7 +662,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 --
 
 CREATE TABLE schema_migrations (
-    version character varying NOT NULL
+    version character varying(255) NOT NULL
 );
 
 
@@ -776,7 +776,7 @@ ALTER SEQUENCE teacher_specialities_id_seq OWNED BY teacher_specialities.id;
 CREATE TABLE telephones (
     id integer NOT NULL,
     person_id integer,
-    phone character varying,
+    phone character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -1383,8 +1383,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150709064042');
 INSERT INTO schema_migrations (version) VALUES ('20150821112132');
 
 INSERT INTO schema_migrations (version) VALUES ('20151102155321');
-
-INSERT INTO schema_migrations (version) VALUES ('20160226214442');
 
 INSERT INTO schema_migrations (version) VALUES ('20160309211822');
 

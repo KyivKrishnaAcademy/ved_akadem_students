@@ -14,16 +14,16 @@ describe LocalesController do
 
   describe 'toggles locale' do
 
-    Then { expect(user.locale).to eq(:uk) }
+    Then { expect(user.reload.locale).to eq(:uk) }
 
     describe 'toggles locale again' do
       When { get :toggle }
-      Then { expect(user.locale).to eq(:ru) }
+      Then { expect(user.reload.locale).to eq(:ru) }
     end
   end
 
   after do
-    # session.delete(:locale)
-    I18n.locale = :ru
+    session.delete(:locale)
+    I18n.locale = :uk
   end
 end
