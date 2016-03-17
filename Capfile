@@ -11,6 +11,7 @@ require 'new_relic/recipes'
 require 'airbrake/capistrano3'
 require 'capistrano/nvm'
 require 'capistrano/npm'
+require 'airbrussh/capistrano'
 
 # Includes tasks from other gems included in your Gemfile
 #

@@ -13,6 +13,10 @@ set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v5.5.0'
 set :nvm_map_bins, %w{node npm}
 
+Airbrussh.configure do |config|
+  config.command_output = true
+end
+
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
