@@ -58,6 +58,7 @@ group :development do
   gem 'capistrano-nvm', require: false
   gem 'capistrano-npm', require: false
   gem 'capistrano-puma', require: false
+  gem 'airbrussh', require: false
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
