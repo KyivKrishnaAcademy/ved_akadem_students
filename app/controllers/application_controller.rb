@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    I18n.locale = current_person ? current_person.locale : session[:locale] || :uk
+    I18n.locale = current_person.present? ? current_person.locale : session[:locale] || :uk
   end
 
   def user_not_authorized
