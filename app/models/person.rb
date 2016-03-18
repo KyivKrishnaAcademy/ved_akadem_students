@@ -1,6 +1,18 @@
 class Person < ActiveRecord::Base
   MARITAL_STATUSES = %i(single in_relationship married divorced widowed) #TODO use enums here since we run rails 4.1
 
+  class SymbolWrapper
+    def self.load(string)
+      string.try(:to_sym)
+    end
+
+    def self.dump(symbol)
+      symbol.to_s
+    end
+  end
+
+  serialize :locale, SymbolWrapper
+
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :privacy_agreement

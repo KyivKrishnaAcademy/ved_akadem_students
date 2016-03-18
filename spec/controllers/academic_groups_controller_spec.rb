@@ -101,7 +101,7 @@ describe AcademicGroupsController do
     end
 
     describe 'DBless tests' do
-      Given(:person) { double(Person, id: 1, roles: []) }
+      Given(:person) { double(Person, id: 1, roles: [], locale: :uk) }
       Given(:groups) { double }
       Given(:group)  { double(AcademicGroup, id: 1) }
 

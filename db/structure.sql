@@ -15,6 +15,14 @@ SET client_min_messages = warning;
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -274,7 +282,8 @@ CREATE TABLE people (
     complex_name character varying(255),
     provider character varying DEFAULT 'email'::character varying NOT NULL,
     uid character varying DEFAULT ''::character varying NOT NULL,
-    tokens jsonb DEFAULT '{}'::jsonb NOT NULL
+    tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
+    locale character varying(2) DEFAULT 'uk'::character varying
 );
 
 
@@ -1315,11 +1324,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140918091449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140920200640');
 
-INSERT INTO schema_migrations (version) VALUES ('20140920201921');
-
 INSERT INTO schema_migrations (version) VALUES ('20140921162651');
-
-INSERT INTO schema_migrations (version) VALUES ('20140924202052');
 
 INSERT INTO schema_migrations (version) VALUES ('20141001130412');
 
@@ -1378,4 +1383,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150709064042');
 INSERT INTO schema_migrations (version) VALUES ('20150821112132');
 
 INSERT INTO schema_migrations (version) VALUES ('20151102155321');
+
+INSERT INTO schema_migrations (version) VALUES ('20160309211822');
 
