@@ -13,16 +13,16 @@ describe GroupParticipation do
 
   describe '#set_join_date before save when' do
     context 'no date is set' do
-      Given { @gp = GroupParticipation.create }
+      Given(:gp) { create :group_participation }
 
-      Then  { expect(@gp.join_date).not_to be_nil }
+      Then { expect(gp.join_date).not_to be_nil }
     end
 
     context 'some date is set' do
-      Given { @time = DateTime.current.yesterday }
-      Given { @gp   = GroupParticipation.create(join_date: @time) }
+      Given(:time) { DateTime.current.yesterday }
+      Given(:gp) { create :group_participation, join_date: time }
 
-      Then  { expect(@gp.join_date).to eq(@time) }
+      Then { expect(gp.join_date).to eq(time) }
     end
   end
 
