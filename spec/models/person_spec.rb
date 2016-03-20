@@ -334,5 +334,25 @@ describe Person do
 
       Then { is_expected.to delegate_method(:active?).to(:student_profile).with_prefix(:student) }
     end
+
+    describe '#short_name' do
+      context 'spiritual_name present' do
+        Then { expect(person.short_name).to eq 'Adi das' }
+      end
+
+      context 'no spiritual_name' do
+        context 'middle_name present' do
+          Given { person.update(spiritual_name: '') }
+
+          Then { expect(person.short_name).to eq 'Zinoviy Zakovich' }
+        end
+
+        context 'no middle_name' do
+          Given { person.update(spiritual_name: '', middle_name: '') }
+
+          Then { expect(person.short_name).to eq 'Zinoviy' }
+        end
+      end
+    end
   end
 end

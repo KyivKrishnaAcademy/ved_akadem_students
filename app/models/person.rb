@@ -120,6 +120,13 @@ class Person < ActiveRecord::Base
     @pending_docs ||= count_pending_docs
   end
 
+  def short_name
+    return spiritual_name if spiritual_name.present?
+    return name if middle_name.blank?
+
+    "#{name} #{middle_name}"
+  end
+
   private
 
   def count_pending_docs
