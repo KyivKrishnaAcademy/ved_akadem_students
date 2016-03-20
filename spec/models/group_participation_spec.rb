@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe GroupParticipation do
+  describe 'validations' do
+    Then { is_expected.to validate_presence_of(:academic_group) }
+    Then { is_expected.to validate_presence_of(:student_profile) }
+  end
+
   describe 'associations' do
     Then { is_expected.to belong_to(:student_profile) }
     Then { is_expected.to belong_to(:academic_group) }
