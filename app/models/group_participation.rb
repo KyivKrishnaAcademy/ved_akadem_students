@@ -10,6 +10,12 @@ class GroupParticipation < ActiveRecord::Base
 
   def leave!
     update(leave_date: DateTime.current)
+
+    person = student_profile.person
+
+    return if person.fake_email? || !academic_group.active?
+
+    GroupTransactionsMailer.leave_the_group(academic_group, person).deliver_later(queue: :mailers)
   end
 
   private
