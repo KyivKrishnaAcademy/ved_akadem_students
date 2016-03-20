@@ -17,6 +17,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default_url_options   = { host: '0.0.0.0', port: 3000 }
   config.action_mailer.delivery_method       = :letter_opener
+  config.action_mailer.smtp_settings         = { user_name: 'test@example.com' }
+  config.action_mailer.preview_path          = Rails.root.join 'spec/mailers/previews'
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

@@ -1,0 +1,5 @@
+uk:
+  mail:
+    group:
+      leave:
+        subject: "Вас відраховано з групи %{group_title}"
