@@ -1,18 +1,23 @@
 ENV['RAILS_ENV'] ||= 'test'
-require 'spec_helper'
-require File.expand_path("../../config/environment", __FILE__)
-require 'rspec/rails'
 
-if ENV['CODECLIMATE_REPO_TOKEN'].present?
+def present?(obj)
+  # NOTE Rails is not loaded yet
+  !obj.nil? && !obj.empty?
+end
+
+if present?(ENV['CODECLIMATE_REPO_TOKEN'])
   require 'codeclimate-test-reporter'
 
   CodeClimate::TestReporter.start
-elsif ENV['COVERAGE'].present?
+elsif present?(ENV['COVERAGE'])
   require 'simplecov'
 
   SimpleCov.start 'rails'
 end
 
+require 'spec_helper'
+require File.expand_path('../../config/environment', __FILE__)
+require 'rspec/rails'
 require 'rack_session_access/capybara'
 
 ActiveRecord::Migration.maintain_test_schema!
