@@ -2,11 +2,13 @@ require 'rails_helper'
 
 describe 'academic_groups/show' do
   GROUP_ELDERS = %w(administrator curator praepostor)
+  OPTIONAL_GROUP_ELDERS = GROUP_ELDERS - %w(administrator)
 
   Given(:activities) { ['academic_group:show'] }
   Given(:ag_name) { 'ТВ99-1' }
   Given(:policy) { double(AcademicGroupPolicy) }
   Given(:group) { create :academic_group, { title: ag_name } }
+  Given(:admin) { group.administrator }
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
   Given(:page) { Capybara::Node::Simple.new(response.body) }
 
@@ -14,6 +16,7 @@ describe 'academic_groups/show' do
   Given { assign(:academic_group, group) }
   Given { allow(view).to receive(:policy).with(group).and_return(AcademicGroupPolicy.new(user, group)) }
   Given { allow(view).to receive(:policy).with(user).and_return(PersonPolicy.new(user, user)) }
+  Given { allow(view).to receive(:policy).with(admin).and_return(PersonPolicy.new(user, admin)) }
   Given { allow(view).to receive(:current_person).and_return(user) }
 
   When  { render }
@@ -32,7 +35,9 @@ describe 'academic_groups/show' do
     And   { expect(page).not_to have_css(pdf_photos_link) }
     And   { expect(page).not_to have_css(pdf_attendance_link) }
 
-    And   { expect(rendered).not_to have_text(I18n.t('academic_groups.show.group_servants')) }
+    And   { expect(rendered).to have_text(I18n.t('academic_groups.show.group_servants')) }
+    And   { expect(rendered).to have_text(I18n.t('academic_groups.show.administrator')) }
+    And   { expect(rendered).to have_text(admin.email) }
 
     And   { expect(rendered).not_to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
   end
@@ -82,7 +87,7 @@ describe 'academic_groups/show' do
   end
 
   describe 'has group elders' do
-    GROUP_ELDERS.each do |elder|
+    OPTIONAL_GROUP_ELDERS.each do |elder|
       describe elder do
         Given { group.update_column("#{elder}_id", user.id) }
 
@@ -90,7 +95,7 @@ describe 'academic_groups/show' do
         And   { expect(rendered).to have_text(I18n.t("academic_groups.show.#{elder}")) }
         And   { expect(rendered).to have_text(user.email) }
 
-        (GROUP_ELDERS - [elder]).each do |missing_elder|
+        (OPTIONAL_GROUP_ELDERS - [elder]).each do |missing_elder|
           And { expect(rendered).not_to have_text(I18n.t("academic_groups.show.#{missing_elder}")) }
         end
       end

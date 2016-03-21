@@ -17,6 +17,7 @@ class AcademicGroup < ActiveRecord::Base
 
   validates :title, format: { with: VALID_TITLE_REGEX }
   validates :title, presence: true, uniqueness: true
+  validates :administrator, presence: true
 
   has_paper_trail
 

@@ -283,7 +283,8 @@ CREATE TABLE people (
     provider character varying DEFAULT 'email'::character varying NOT NULL,
     uid character varying DEFAULT ''::character varying NOT NULL,
     tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
-    locale character varying(2) DEFAULT 'uk'::character varying
+    locale character varying(2) DEFAULT 'uk'::character varying,
+    fake_email boolean DEFAULT false
 );
 
 
@@ -1385,4 +1386,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150821112132');
 INSERT INTO schema_migrations (version) VALUES ('20151102155321');
 
 INSERT INTO schema_migrations (version) VALUES ('20160309211822');
+
+INSERT INTO schema_migrations (version) VALUES ('20160319204426');
 
