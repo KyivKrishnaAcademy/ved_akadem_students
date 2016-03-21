@@ -3,11 +3,7 @@
 Якщо Ви вважаєте що це непорозуміння або у Вас є інші питання,
 зв'яжіться, будь ласка, з координатором курсу.
 
-<%= @group.administrator.complex_name %> <%= @group.administrator.email %>
-<% @group.administrator.telephones.each do |t| %>
-  <%= t.phone %>
-<% end %>
-
+<%= render 'contact', person: @group.administrator %>
 Ви можете подати заяву на інший курс, знову реєструватися вже не потрібно.
 
 Заходьте на http://students.veda-kiev.org.ua та введіть свій логін і пароль.
