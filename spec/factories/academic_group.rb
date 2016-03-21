@@ -6,5 +6,6 @@ FactoryGirl.define do
     end
     group_description         { generate(:char_sequence)*10 }
     establ_date               Date.today
+    administrator             { create :person }
   end
 end

@@ -43,7 +43,14 @@ describe AcademicGroupsController do
   end
 
   context 'post: :create with ["academic_group:create"]' do
-    Given(:action) { post :create, academic_group: { title: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
+    Given(:action) do
+      post :create, academic_group: {
+        administrator_id: create(:person).id,
+        title: 'ШБ00-1',
+        group_description: 'aaaaaaaaaa',
+        establ_date: DateTime.now
+      }
+    end
 
     Given(:expectation) do
       expect(response).to redirect_to(action: :new)

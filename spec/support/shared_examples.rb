@@ -248,42 +248,6 @@ shared_examples :valid_select do |model_name, field_name, value, content|
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 
-shared_examples :adds_model do
-  Given { @m = model }
-
-  When  { fill_right }
-
-  Then  { expect { click_button 'Створити ' << underscore_humanize(@m.name) }.to change { @m.count }.by(1) }
-  And   { expect(page).to have_selector('.alert-success') }
-end
-
-shared_examples :not_adds_model do
-  before do
-    fill_wrong
-    @m = model
-  end
-
-  it do
-    expect { click_button 'Створити ' << underscore_humanize(@m.name) }.not_to change { @m.count }
-    expect(page).to have_selector('.alert-danger ul li')
-  end
-end
-
-shared_examples :link_in_flash do
-  before do
-    @the_m = fill_right
-    @m     = model
-  end
-
-  let(:the_m) { @the_m }
-  scenario do
-    click_button 'Створити ' << underscore_humanize(@m.name)
-    href = method(('' << model.name.underscore << '_path').to_sym).call @m.find_by(attr_name => @the_m[attr_name])
-
-    expect(page).to have_link(locator, href: href)
-  end
-end
-
 shared_examples :allow_with_activities do |activites|
   context "with #{activites.join(' ')} only" do
     Given { user.roles << create(:role, activities: activites) }
