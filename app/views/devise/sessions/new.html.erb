@@ -1,6 +1,7 @@
 <% provide(:title, t('devise.links.sign_in')) %>
 <% content_for(:js_and_css) do %>
-  <%= javascript_include_tag 'generated/app-bundle', type: 'text/javascript', defer: true %>
+  <%= javascript_include_tag 'generated/react-bundle', type: 'text/javascript', defer: true %>
+  <%= javascript_include_tag 'generated/schedule-list-bundle', type: 'text/javascript', defer: true %>
 <% end %>
 
 <div class="row vert-offset-top-4">
