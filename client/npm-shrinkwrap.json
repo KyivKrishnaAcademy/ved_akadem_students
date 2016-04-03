@@ -4030,6 +4030,11 @@
       "from": "react-bootstrap@>=0.28.2 <0.29.0",
       "resolved": "https://registry.npmjs.org/react-bootstrap/-/react-bootstrap-0.28.3.tgz"
     },
+    "react-bootstrap-switch": {
+      "version": "3.4.4",
+      "from": "react-bootstrap-switch@*",
+      "resolved": "https://registry.npmjs.org/react-bootstrap-switch/-/react-bootstrap-switch-3.4.4.tgz"
+    },
     "react-deep-force-update": {
       "version": "1.0.1",
       "from": "react-deep-force-update@>=1.0.0 <2.0.0",

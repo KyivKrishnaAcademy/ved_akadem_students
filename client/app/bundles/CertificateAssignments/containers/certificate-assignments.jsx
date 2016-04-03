@@ -3,6 +3,7 @@ import CertificateAssignmentsWidget from '../components/certificate-assignments-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as certificateAssignmentsActionCreators from '../actions/certificate-assignments-action-creators';
+import Switch from 'react-bootstrap-switch';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
@@ -31,7 +32,21 @@ class CertificateAssignments extends React.Component {
     // This is equivalent to:
     // <CertificateAssignmentsWidget certificateAssignmentsStore={certificateAssignmentsStore} actions={actions} />
     return (
-      <CertificateAssignmentsWidget {...{ updateName, name }} />
+      <div>
+        <div className="row vert-offset-top-1">
+          <div className="col-xs-12">
+            <Switch
+              size="mini"
+              onColor="danger"
+              offColor="success"
+              labelText="writeable"
+              state={false}
+            />
+          </div>
+        </div>
+
+        <CertificateAssignmentsWidget {...{ updateName, name }} />
+      </div>
     );
   }
 }
