@@ -1,14 +1,14 @@
 // A real world app will likely have many reducers and it helps to organize them in one file.
 import certificateAssignmentsReducer from './certificate-assignments-reducer';
-import { $$initialState as $$helloWorldState } from './certificate-assignments-reducer';
+import { initialState as certificateAssigmentsState } from './certificate-assignments-reducer';
 import { combineReducers } from 'redux';
 
 export const initialStates = {
-  $$helloWorldState,
+  certificateAssigmentsState,
 };
 
 const reducer = combineReducers({
-  $$helloWorldStore: certificateAssignmentsReducer,
+  certificateAssignmentsStore: certificateAssignmentsReducer,
 });
 
 export default reducer;

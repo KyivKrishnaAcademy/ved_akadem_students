@@ -2,25 +2,19 @@ import React, { PropTypes } from 'react';
 import CertificateAssignmentsWidget from '../components/certificate-assignments-widget';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Immutable from 'immutable';
 import * as certificateAssignmentsActionCreators from '../actions/certificate-assignments-action-creators';
 
 function select(state) {
   // Which part of the Redux global state does our component want to receive as props?
-  // Note the use of `$$` to prefix the property name because the value is of type Immutable.js
-  return { $$helloWorldStore: state.$$helloWorldStore };
+  // Note the use of `` to prefix the property name because the value is of type Immutable.js
+  return { certificateAssignmentsStore: state.certificateAssignmentsStore };
 }
 
 // Simple example of a React "smart" component
 class CertificateAssignments extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-
-    // This corresponds to the value used in function select above.
-    // We prefix all property and variable names pointing to Immutable.js objects with '$$'.
-    // This allows us to immediately know we don't call $$helloWorldStore['someProperty'], but
-    // instead use the Immutable.js `get` API for Immutable.Map
-    $$helloWorldStore: PropTypes.instanceOf(Immutable.Map).isRequired,
+    certificateAssignmentsStore: PropTypes.object.isRequired,
   };
 
   constructor(props, context) {
@@ -28,14 +22,14 @@ class CertificateAssignments extends React.Component {
   }
 
   render() {
-    const { dispatch, $$helloWorldStore } = this.props;
+    const { dispatch, certificateAssignmentsStore } = this.props;
     const actions = bindActionCreators(certificateAssignmentsActionCreators, dispatch);
     const { updateName } = actions;
-    const name = $$helloWorldStore.get('name');
+    const name = certificateAssignmentsStore.name;
 
     // This uses the ES2015 spread operator to pass properties as it is more DRY
     // This is equivalent to:
-    // <CertificateAssignmentsWidget $$helloWorldStore={$$helloWorldStore} actions={actions} />
+    // <CertificateAssignmentsWidget certificateAssignmentsStore={certificateAssignmentsStore} actions={actions} />
     return (
       <CertificateAssignmentsWidget {...{ updateName, name }} />
     );
