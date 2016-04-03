@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
+import bindAll from '../../../lib/helpers/bind-all';
 import { Input } from 'react-bootstrap';
 
 export default class CertificateAssignmentsWidget extends React.Component {
@@ -13,10 +13,7 @@ export default class CertificateAssignmentsWidget extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    // Uses lodash to bind all methods to the context of the object instance, otherwise
-    // the methods defined here would not refer to the component's class, not the component
-    // instance itself.
-    _.bindAll(this, 'handleChange');
+    bindAll(this, 'handleChange');
   }
 
   // React will automatically provide us with the event `e`
