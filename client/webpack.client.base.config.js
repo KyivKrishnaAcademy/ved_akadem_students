@@ -24,6 +24,8 @@ module.exports = {
     ],
 
     'schedule-list': './app/bundles/ScheduleList/startup/clientRegistration',
+
+    'certificate-assignments': './app/bundles/CertificateAssignments/startup/client-registration',
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
