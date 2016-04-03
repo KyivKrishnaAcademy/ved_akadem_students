@@ -1,5 +1,5 @@
 import $ from 'jquery'; // eslint-disable-line id-length
-import bindAll from '../../../lib/helpers/bindAll';
+import bindAll from '../../../lib/helpers/bind-all';
 import Paginator from '../components/Paginator';
 import React, { PropTypes } from 'react';
 import ScheduleEntry from '../components/ScheduleEntry';
