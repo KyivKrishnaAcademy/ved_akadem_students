@@ -1,4 +1,4 @@
-import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
+import { compose, createStore, applyMiddleware } from 'redux';
 
 // See
 // https://github.com/gaearon/redux-thunk and http://redux.js.org/docs/advanced/AsyncActions.html
@@ -6,8 +6,7 @@ import { compose, createStore, applyMiddleware, combineReducers } from 'redux';
 // once your app has asynchronous actions.
 import thunkMiddleware from 'redux-thunk';
 
-import reducers from '../reducers';
-import { initialStates } from '../reducers';
+import reducer, { initialStates } from '../reducers/root-reducer';
 
 export default props => {
   // This is how we get initial props Rails into redux.
@@ -21,7 +20,6 @@ export default props => {
     }),
   };
 
-  const reducer = combineReducers(reducers);
   const composedStore = compose(
     applyMiddleware(thunkMiddleware),
     typeof window !== 'undefined' && window.devToolsExtension ? window.devToolsExtension() : f => f
