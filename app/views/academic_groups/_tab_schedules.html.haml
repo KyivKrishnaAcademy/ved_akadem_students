@@ -2,7 +2,6 @@
   .col-xs-12
     - if ClassSchedule.by_group(academic_group_id).any?
       - content_for(:js_and_css) do
-        = javascript_include_tag 'generated/react-bundle', type: 'text/javascript'
         = javascript_include_tag 'generated/schedule-list-bundle', type: 'text/javascript'
 
       = react_component('ScheduleListApp',
