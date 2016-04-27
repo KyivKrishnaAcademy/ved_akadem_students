@@ -20,5 +20,9 @@ describe GroupTransactionsMailer do
     describe 'general' do
       Then { expect(mail.to).to eql([student.email]) }
     end
+
+    describe 'reply-to coordinator' do
+      Then { expect(mail.reply_to).to eql([admin.email]) }
+    end
   end
 end
