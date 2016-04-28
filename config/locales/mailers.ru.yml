@@ -3,3 +3,5 @@ ru:
     group:
       leave:
         subject: "Вы были отчислены из группы %{group_title}"
+      join:
+        subject: "Вы были зачислены в группу %{group_title}"

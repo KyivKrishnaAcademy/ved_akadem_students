@@ -1,12 +1,11 @@
 require 'rails_helper'
 
 describe GroupTransactionsMailer do
-  describe 'leave_the_group' do
-    Given(:student) { create :person }
-    Given(:group) { create :academic_group, administrator: admin }
-    Given(:admin) { create :person, spiritual_name: 'Sarvamahaguru das' }
-    Given(:mail) { described_class.leave_the_group(group, student) }
+  Given(:student) { create :person }
+  Given(:group) { create :academic_group, administrator: admin }
+  Given(:admin) { create :person, spiritual_name: 'Sarvamahaguru das' }
 
+  shared_examples 'email general' do
     context 'admin has spiritual name' do
       Then { expect(mail.body.encoded).to match('Sarvamahaguru das') }
     end
@@ -19,10 +18,24 @@ describe GroupTransactionsMailer do
 
     describe 'general' do
       Then { expect(mail.to).to eql([student.email]) }
-    end
-
-    describe 'reply-to coordinator' do
       Then { expect(mail.reply_to).to eql([admin.email]) }
     end
+  end
+
+  describe 'leave_the_group' do
+    Given(:mail) { described_class.leave_the_group(group, student) }
+
+    include_examples 'email general'
+
+    Then { expect(mail.subject).to eq(I18n.t('mail.group.leave.subject', group_title: group.title)) }
+  end
+
+  describe 'join_the_group' do
+    Given(:mail) { described_class.join_the_group(group, student) }
+
+    include_examples 'email general'
+
+    Then { expect(mail.body.encoded).to match(academic_group_url(group)) }
+    Then { expect(mail.subject).to eq(I18n.t('mail.group.join.subject', group_title: group.title)) }
   end
 end
