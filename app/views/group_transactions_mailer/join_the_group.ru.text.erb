@@ -1,0 +1,6 @@
+Добро пожаловать в группу <%= @group.title %><%= @group.group_description.present? ? ", #{@group.group_description}" : '' %>.
+
+Информацию о расписании и студентах, Вы можете посмотреть по ссылке <%= academic_group_url(@group) %>.
+
+По организационным вопросам обращайтесь к координатору группы:
+<%= render 'contact', person: @group.administrator %>

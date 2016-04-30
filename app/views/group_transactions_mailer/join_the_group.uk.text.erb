@@ -1,0 +1,6 @@
+Ласкаво просимо до групи <%= @group.title %><%= @group.group_description.present? ? ", #{@group.group_description}" : '' %>.
+
+Інформацію про росклад та студентів, Ви можете подивится за посиланням <%= academic_group_url(@group) %>.
+
+З організаційних питань звертайтеся до координатора групи:
+<%= render 'contact', person: @group.administrator %>

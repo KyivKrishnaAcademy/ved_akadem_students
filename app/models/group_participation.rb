@@ -15,7 +15,7 @@ class GroupParticipation < ActiveRecord::Base
 
     return if person.fake_email? || !academic_group.active?
 
-    GroupTransactionsMailer.leave_the_group(academic_group, person).deliver_later(queue: :mailers)
+    GroupTransactionsMailer.leave_the_group(academic_group, person).deliver_later
   end
 
   private

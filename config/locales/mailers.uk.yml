@@ -3,3 +3,5 @@ uk:
     group:
       leave:
         subject: "Вас відраховано з групи %{group_title}"
+      leave:
+        subject: "Вас зараховано до групи %{group_title}"
