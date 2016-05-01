@@ -29,7 +29,8 @@ ru:
         email:                  'Электронная почта'
         photo:                  'Фотография на студенческий билет'
         passport:               'Фотография первой страницы паспорта'
-        spiritual_name:         'Духовное имя (оставьте пустым, если нет)'
+        spiritual_name:         'Духовное имя в вайшнавской традиции (оставьте пустым, если нет)'
+        diksha_guru:            'Имя дикша гуру (если есть)'
         name:                   'Имя'
         middle_name:            'Отчество'
         surname:                'Фамилия'
@@ -45,6 +46,7 @@ ru:
       person:
         email:                  'test@example.com'
         spiritual_name:         'Ади Даса дас'
+        diksha_guru:            'Шрила Прабхупада'
         name:                   'Антон'
         middle_name:            'Иванович'
         surname:                'Петренко'

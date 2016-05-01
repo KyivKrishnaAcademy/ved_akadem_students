@@ -45,6 +45,7 @@ class Person < ActiveRecord::Base
   validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
   validates :telephones, :birthday, :marital_status, presence: true
+  validates :diksha_guru, presence: { unless: :spiritual_name_blank? }
 
   validate :check_photo_dimensions
 

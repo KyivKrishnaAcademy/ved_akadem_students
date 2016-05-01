@@ -284,7 +284,8 @@ CREATE TABLE people (
     uid character varying DEFAULT ''::character varying NOT NULL,
     tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
     locale character varying(2) DEFAULT 'uk'::character varying,
-    fake_email boolean DEFAULT false
+    fake_email boolean DEFAULT false,
+    diksha_guru character varying
 );
 
 
@@ -1388,4 +1389,6 @@ INSERT INTO schema_migrations (version) VALUES ('20151102155321');
 INSERT INTO schema_migrations (version) VALUES ('20160309211822');
 
 INSERT INTO schema_migrations (version) VALUES ('20160319204426');
+
+INSERT INTO schema_migrations (version) VALUES ('20160430185957');
 

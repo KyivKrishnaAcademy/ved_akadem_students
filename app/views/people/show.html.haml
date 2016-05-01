@@ -41,6 +41,11 @@
       .col-xs-12.col-sm-8
         .row
           .col-xs-4.col-sm-3
+            Diksha guru:
+          .col-xs-8.col-sm-9
+            = @person.diksha_guru
+        .row
+          .col-xs-4.col-sm-3
             Registration time:
           .col-xs-8.col-sm-9
             = I18n.l(@person.created_at, format: :long)

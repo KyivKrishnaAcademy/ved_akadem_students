@@ -50,7 +50,7 @@ module Users
     end
 
     def configure_permitted_parameters
-      permitted_params = [:name, :surname, :spiritual_name, :middle_name, :gender, :photo,
+      permitted_params = [:name, :surname, :spiritual_name, :middle_name, :gender, :photo, :diksha_guru,
                           :birthday, :education, :work, :emergency_contact, :passport, :marital_status,
                           :friends_to_be_with, telephones_attributes: [:id, :phone, :_destroy]]
 
