@@ -21,6 +21,7 @@ describe 'Signing' do
       fill_in 'person_password', with: 'password'
       fill_in 'person_password_confirmation', with: 'password'
       fill_in 'person_spiritual_name', with: 'Adi dasa das'
+      fill_in 'person_diksha_guru', with: 'Prabhupada'
       fill_in 'person_name', with: 'Vasyl'
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'

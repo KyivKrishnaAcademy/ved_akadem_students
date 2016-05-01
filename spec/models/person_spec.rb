@@ -86,6 +86,8 @@ describe Person do
 
         Then { is_expected.to validate_length_of(:middle_name   ).is_at_most(50) }
         Then { is_expected.to validate_length_of(:spiritual_name).is_at_most(50) }
+
+        Then { is_expected.not_to validate_presence_of(:diksha_guru) }
       end
 
       context 'spiritual_name present' do
@@ -93,6 +95,7 @@ describe Person do
 
         Then { is_expected.not_to validate_presence_of(:name) }
         Then { is_expected.not_to validate_presence_of(:surname) }
+        Then { is_expected.to validate_presence_of(:diksha_guru) }
       end
     end
 
