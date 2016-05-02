@@ -2,6 +2,7 @@ class PhotoUploader < BaseUploader
   before :cache, :capture_size
   before :retrieve_from_cache, :capture_size
 
+  process :auto_orient
   process :optimize
 
   process resize_to_limit: [500, 500]
