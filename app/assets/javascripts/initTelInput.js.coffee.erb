@@ -1,0 +1,17 @@
+#= require intl-tel-input
+#= require intl-tel-input/build/js/utils
+
+window.initTelInput = ->
+  telInput = $('#phone:not(.tel-input)')
+
+  telInput.intlTelInput({
+    preferredCountries: ['ua', 'ru']
+    separateDialCode: true
+  })
+
+  telInput.on 'keyup change', (e) ->
+    $phone = $(e.target)
+
+    $phone.closest('.row').find('#hidden-phone').val($phone.intlTelInput('getNumber'))
+
+  telInput.addClass('tel-input')
