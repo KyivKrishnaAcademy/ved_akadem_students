@@ -5,13 +5,16 @@ window.initTelInput = ->
   telInput = $('#phone:not(.tel-input)')
 
   telInput.intlTelInput({
-    preferredCountries: ['ua', 'ru']
+    preferredCountries: ['ua', 'by', 'md', 'ru']
     separateDialCode: true
   })
 
   telInput.on 'keyup change', (e) ->
     $phone = $(e.target)
 
-    $phone.closest('.row').find('#hidden-phone').val($phone.intlTelInput('getNumber'))
+    $hidden = $phone.closest('.row').find('#hidden-phone')
+
+    $hidden.val($phone.intlTelInput('getNumber'))
+    $hidden.attr('name', $phone.attr('name'))
 
   telInput.addClass('tel-input')

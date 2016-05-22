@@ -1,9 +1,9 @@
 class Telephone < ActiveRecord::Base
   belongs_to :person
 
-  validate :phone_format
+  before_validation :normalize
 
-  before_save :normalize
+  validate :phone_format
 
   has_paper_trail
 
