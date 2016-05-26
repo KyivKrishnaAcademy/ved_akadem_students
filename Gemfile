@@ -17,6 +17,7 @@ gem 'devise'
 gem 'devise_token_auth'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
+gem 'global_phone'
 
 gem 'simple_form', '3.1.0'
 gem 'nested_form'
@@ -29,7 +30,6 @@ gem 'prawn-rails'
 
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
-gem 'intl-tel-input-rails', '3.6.0.1'
 
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'

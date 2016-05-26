@@ -22,9 +22,10 @@ Rails.application.config.assets.precompile += %w(
 
   nested_form_custom_telephones.js
 
-  flags.png
-  intlTelInput.css
-  initTelInput.js
+  intl-tel-input/build/img/flags.png
+  intl-tel-input/build/css/intlTelInput
+  intl-tel-input/build/js/intlTelInput
+  intl-tel-input/build/js/utils
 
   select2.min.js
   select2.min.css

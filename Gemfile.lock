@@ -139,6 +139,7 @@ GEM
       ruby-progressbar (~> 1.4)
     given_core (3.7.0)
       sorcerer (>= 0.3.7)
+    global_phone (1.0.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.6)
@@ -162,8 +163,6 @@ GEM
       ruby_parser (~> 3.5)
     htmlentities (4.3.3)
     i18n (0.7.0)
-    intl-tel-input-rails (3.6.0.1)
-      railties (>= 3.1)
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.3)
@@ -431,10 +430,10 @@ DEPENDENCIES
   factory_girl_rails
   ffaker
   fuubar
+  global_phone
   haml
   haml-rails
   haml_lint
-  intl-tel-input-rails (= 3.6.0.1)
   jquery-ui-rails
   kaminari
   letter_opener

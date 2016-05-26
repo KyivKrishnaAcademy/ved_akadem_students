@@ -8,7 +8,9 @@ describe 'Edit person:' do
 
   context 'When values are valid:' do
     [
-      { field: 'phone'                    , value: '+380 50 111 2233' , test_field: 'Telephone 1: +380 50 111 2233' },
+      { field: 'phone'                    , value: '+380 50 111 2233' , test_field: 'Telephone 1: +380501112233' },
+      { field: 'phone'                    , value: '50 111 2233'      , test_field: 'Telephone 1: +380501112233' },
+      { field: 'phone'                    , value: '+7 495 739-22-22' , test_field: 'Telephone 1: +74957392222' },
       { field: 'person[spiritual_name]'   , value: 'Adidasa Dasa'     , test_field: 'Adidasa Dasa' },
       { field: 'person[name]'             , value: 'Алексей'          , test_field: 'Алексей' },
       { field: 'person[middle_name]'      , value: 'Иванович'         , test_field: 'Иванович' },
@@ -41,8 +43,9 @@ describe 'Edit person:' do
 
   context 'When values are invalid:' do
     [
-      { field: 'person[telephones_attributes][0][phone]', value: '050 111 2233' },
-      { field: 'person[email]'  , value: '@@.com@' }
+      { field: 'person[telephones_attributes][0][phone]', value: '111' },
+      { field: 'person[telephones_attributes][0][phone]', value: '+10632223344' },
+      { field: 'person[email]', value: '@@.com@' }
     ].each do |h|
       describe h[:field] do
         When do
@@ -51,7 +54,7 @@ describe 'Edit person:' do
         end
 
         Then { expect(find('body')).to have_selector('.alert-danger') }
-        And  { expect(find('.has-error')).to have_selector('span.help-block') }
+        And  { expect(find('.has-error:not(.hidden)')).to have_selector('span.help-block') }
       end
     end
   end

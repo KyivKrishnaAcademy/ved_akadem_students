@@ -1,40 +1,40 @@
 !!! 5
 %html
-%head
-  %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
+  %head
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1' }
 
-  %title
-    = full_title(yield(:title))
-  = stylesheet_link_tag 'application', media: 'all'
-  = javascript_include_tag('//errbit.mpugach.net/javascripts/notifier.js',
-    type: 'text/javascript', async: true) if Rails.env.production?
-  = javascript_include_tag 'application', type: 'text/javascript'
-  = csrf_meta_tags
-  - if content_for?(:js_and_css)
-    = yield(:js_and_css)
-  /[if lt IE 9]
-    %script{ src: '//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' }
-    %script{ src: '//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js' }
-%body
-  = render 'layouts/header'
+    %title
+      = full_title(yield(:title))
+    = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag('//errbit.mpugach.net/javascripts/notifier.js',
+      type: 'text/javascript', async: true) if Rails.env.production?
+    = javascript_include_tag 'application', type: 'text/javascript'
+    = csrf_meta_tags
+    - if content_for?(:js_and_css)
+      = yield(:js_and_css)
+    /[if lt IE 9]
+      %script{ src: '//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' }
+      %script{ src: '//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js' }
+  %body
+    = render 'layouts/header'
 
-  .container
-    - if flash.any?
-      .row
-        - flash.each do |name, msg|
-          .col-xs-12.alert.alert-dismissible{ class: "alert-#{name}" }
-            = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
-              %span{ aria: { hidden: true } }
-                &times;
-              %span.sr-only
-                Close
-            = raw msg
+    .container
+      - if flash.any?
+        .row
+          - flash.each do |name, msg|
+            .col-xs-12.alert.alert-dismissible{ class: "alert-#{name}" }
+              = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
+                %span{ aria: { hidden: true } }
+                  &times;
+                %span.sr-only
+                  Close
+              = raw msg
 
-    = yield
+      = yield
 
-    = render 'layouts/footer'
+      = render 'layouts/footer'
 
-    - if Rails.env.development? && DEBUG
-      .row
-        .col-xs-12
-          = debug(session[:locale])
+      - if Rails.env.development? && DEBUG
+        .row
+          .col-xs-12
+            = debug(session[:locale])

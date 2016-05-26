@@ -36,7 +36,6 @@ class Person < ActiveRecord::Base
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   validates :gender, inclusion: { in: [true, false] }
   validates :middle_name, :spiritual_name, :name, :surname, length: { maximum: 50 }
   validates :name, :surname, presence: { if: :spiritual_name_blank? }
