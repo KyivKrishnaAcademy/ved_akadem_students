@@ -21,6 +21,8 @@ class AcademicGroup < ActiveRecord::Base
 
   has_paper_trail
 
+  scope :by_active_title, -> { order(graduated_at: :desc, title: :asc) }
+
   def active_students
     leave_date = if active?
                    { query: 'group_participations.leave_date IS ?',

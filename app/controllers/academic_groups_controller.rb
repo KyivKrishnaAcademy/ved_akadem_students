@@ -8,7 +8,7 @@ class AcademicGroupsController < ApplicationController
   after_action :refresh_class_schedules_mv, only: %i(destroy update graduate)
 
   def index
-    @academic_groups = policy_scope(AcademicGroup)
+    @academic_groups = policy_scope(AcademicGroup).by_active_title
 
     authorize AcademicGroup
   end
