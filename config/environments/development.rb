@@ -38,7 +38,7 @@ Rails.application.configure do
     config.cache_classes                      = true
     config.consider_all_requests_local        = false
     config.eager_load                         = true
-    config.serve_static_assets                = true
+    config.serve_static_files                 = true
 
     config.assets.compile       = false
     config.assets.debug         = false
