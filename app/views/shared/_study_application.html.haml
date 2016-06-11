@@ -4,7 +4,7 @@
       %p
         = t('content.apply_to_programs')
       - programs.each_with_index do |program, index|
-        .panel.panel-info
+        .panel{ class: program.visible? ? 'panel-info' : 'panel-default' }
           .panel-heading
             %h4.panel-title.clearfix
               = link_to "#program-#{index}", data: { parent: '#accordion', toggle: 'collapse' } do
