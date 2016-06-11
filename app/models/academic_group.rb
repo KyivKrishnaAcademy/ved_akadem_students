@@ -11,9 +11,7 @@ class AcademicGroup < ActiveRecord::Base
   belongs_to :praepostor, class_name: 'Person'
   belongs_to :curator, class_name: 'Person'
 
-  before_save do |p|
-    p.title = title.mb_chars.upcase.to_s
-  end
+  before_save { |p| p.title = title.mb_chars.upcase.to_s }
 
   validates :title, format: { with: VALID_TITLE_REGEX }
   validates :title, presence: true, uniqueness: true

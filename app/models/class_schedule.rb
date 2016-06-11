@@ -15,12 +15,12 @@ class ClassSchedule < ActiveRecord::Base
   has_paper_trail
 
   def self.by_group(id, page = nil)
-    ClassSchedule.joins(:academic_group_schedules)
-                 .where('finish_time > now()')
-                 .where(academic_group_schedules: { academic_group_id: id })
-                 .order(:start_time)
-                 .page(page)
-                 .per(25)
+    joins(:academic_group_schedules)
+      .where('finish_time > now()')
+      .where(academic_group_schedules: { academic_group_id: id })
+      .order(:start_time)
+      .page(page)
+      .per(25)
   end
 
   def real_class_schedule

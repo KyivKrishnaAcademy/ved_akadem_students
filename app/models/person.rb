@@ -48,11 +48,7 @@ class Person < ActiveRecord::Base
 
   validate :check_photo_dimensions
 
-  scope :by_complex_name, ->() { order("CASE WHEN (spiritual_name IS NULL OR spiritual_name = '') THEN (surname || name || middle_name) ELSE spiritual_name END") }
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }
-  scope :without_application, ->() { where('id NOT IN (SELECT person_id FROM study_applications)')
-                                    .where('id NOT IN (SELECT person_id FROM student_profiles)')
-                                    .where('id NOT IN (SELECT person_id FROM teacher_profiles)') }
 
   mount_uploader :photo, PhotoUploader
   mount_uploader :passport, PassportUploader
@@ -63,10 +59,25 @@ class Person < ActiveRecord::Base
 
   has_paper_trail
 
-  def token_validation_response
-    {
-      complex_name: complex_name
-    }
+  def self.by_complex_name
+    order(
+      <<-SQL.strip_heredoc
+        CASE
+          WHEN (spiritual_name IS NULL OR spiritual_name = '')
+          THEN (surname || name || middle_name)
+          ELSE spiritual_name
+        END
+      SQL
+    )
+  end
+
+  def self.without_application
+    joins('LEFT OUTER JOIN "study_applications" ON "study_applications"."person_id" = "people"."id"')
+      .joins('LEFT OUTER JOIN "student_profiles" ON "student_profiles"."person_id" = "people"."id"')
+      .joins('LEFT OUTER JOIN "teacher_profiles" ON "teacher_profiles"."person_id" = "people"."id"')
+      .where(study_applications: { id: nil })
+      .where(student_profiles: { id: nil })
+      .where(teacher_profiles: { id: nil })
   end
 
   def crop_photo(params)

@@ -30,11 +30,11 @@ class ClassScheduleWithPeople < ClassSchedule
   end
 
   def self.personal_schedule(person_id, page = nil)
-    ClassScheduleWithPeople.where('finish_time > now()')
-                           .where("teacher_id = ? OR '{?}'::int[] <@ people_ids", person_id, person_id)
-                           .order(:start_time, :finish_time)
-                           .page(page)
-                           .per(10)
+    where('finish_time > now()')
+      .where("teacher_id = ? OR '{?}'::int[] <@ people_ids", person_id, person_id)
+      .order(:start_time, :finish_time)
+      .page(page)
+      .per(10)
   end
 
   def real_class_schedule
