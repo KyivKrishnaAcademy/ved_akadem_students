@@ -257,8 +257,8 @@ describe Person do
     end
 
     context 'study application scopes' do
-      Given(:program_1) { create :program }
-      Given(:program_2) { create :program }
+      Given(:program_1) { create :program, manager: person }
+      Given(:program_2) { create :program, manager: person }
 
       Given(:person_1) { create :person }
       Given(:person_2) { create :person }

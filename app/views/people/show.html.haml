@@ -59,54 +59,54 @@
           .col-xs-4.col-sm-3
             Gender:
           .col-xs-8.col-sm-9
-            #{@person.gender ? 'Male' : 'Female'}
+            = @person.gender ? 'Male' : 'Female'
         .row
           .col-xs-4.col-sm-3
             Birthday:
           .col-xs-8.col-sm-9
-            #{@person.birthday}
+            = @person.birthday
             = not_adult_warning(@person.birthday)
         .row
           .col-xs-4.col-sm-3
             Email:
           .col-xs-8.col-sm-9
-            #{@person.email}
+            = mail_to @person.email
         .row
           .col-xs-4.col-sm-3
             Marital status:
           .col-xs-8.col-sm-9
-            #{@person.marital_status}
+            = @person.marital_status
         .row
           .col-xs-4.col-sm-3
             Friends to be with:
           .col-xs-8.col-sm-9
-            #{@person.friends_to_be_with}
+            = @person.friends_to_be_with
         - @person.telephones.each_with_index do |telephone, index|
           .row
             .col-xs-4.col-sm-3
               Telephone #{index + 1}:
             .col-xs-8.col-sm-9
-              #{telephone.phone}
+              = telephone.phone
         .row
           .col-xs-4.col-sm-3
             Emergency contact:
           .col-xs-8.col-sm-9
-            #{@person.emergency_contact}
+            = @person.emergency_contact
         .row
           .col-xs-4.col-sm-3
             Education:
           .col-xs-8.col-sm-9
-            #{@person.education}
+            = @person.education
         .row
           .col-xs-4.col-sm-3
             Work:
           .col-xs-8.col-sm-9
-            #{@person.work}
+            = @person.work
         .row
           .col-xs-4.col-sm-3
             Special note:
           .col-xs-8.col-sm-9
-            #{@person.special_note}
+            = @person.special_note
 
 - if @person.study_application.present? || policy(@new_study_application).create?
   .row
@@ -118,7 +118,7 @@
     - @person.initial_answers.each do |answer|
       .col-xs-12
         %strong
-          = "#{answer.question.position}. #{answer.question.data[:text][locale]}"
+          #{answer.question.position}. #{answer.question.data[:text][locale]}
         %p
           = answer.data
 

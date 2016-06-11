@@ -7,13 +7,20 @@ namespace :academic do
 
     puts 'Populating...'
 
-    programs.each { |p| Program.create!(title_uk: p[:title_uk],
-                                        title_ru: p[:title_ru],
-                                        visible:  p[:visible],
-                                        description_uk: p[:description_uk],
-                                        description_ru: p[:description_ru],
-                                        courses_uk: p[:courses_uk],
-                                        courses_ru: p[:courses_ru]) } if Program.all.none?
+    manager_id = Person.first.id
+
+    programs.each do |p|
+      Program.create!(
+        visible:  p[:visible],
+        title_uk: p[:title_uk],
+        title_ru: p[:title_ru],
+        manager_id: manager_id,
+        courses_uk: p[:courses_uk],
+        courses_ru: p[:courses_ru],
+        description_uk: p[:description_uk],
+        description_ru: p[:description_ru]
+      )
+    end if Program.all.none?
 
     puts 'Done.'
   end

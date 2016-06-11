@@ -5,5 +5,6 @@ FactoryGirl.define do
     description_uk  { Faker::Lorem.sentence }
     description_ru  { Faker::Lorem.sentence }
     visible         { true }
+    manager         { build :person }
   end
 end

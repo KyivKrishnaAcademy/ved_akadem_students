@@ -36,6 +36,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
 gem 'react_on_rails', '~> 3.0'
 gem 'therubyracer', platforms: :ruby
+gem 'fast_blank'
 
 gem 'sidekiq'
 

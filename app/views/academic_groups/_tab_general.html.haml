@@ -55,6 +55,6 @@
                 %td
                   = link_to_show_person_or_name(academic_group.send(servant_role), true)
                 %td
-                  = academic_group.send(servant_role).email
+                  = mail_to academic_group.send(servant_role).email
                 %td
                   = academic_group.send(servant_role).telephones.pluck(:phone).join(', ')
