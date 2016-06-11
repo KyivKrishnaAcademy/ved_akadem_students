@@ -56,3 +56,4 @@
     %p
       = link_to_show_person_or_name(person.study_application.program.manager, true)
       = person.study_application.program.manager.telephones.pluck(:phone).join(', ')
+      = mail_to person.study_application.program.manager.email
