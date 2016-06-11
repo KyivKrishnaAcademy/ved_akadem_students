@@ -490,7 +490,8 @@ CREATE TABLE programs (
     description_ru text,
     courses_uk text,
     courses_ru text,
-    visible boolean DEFAULT false
+    visible boolean DEFAULT false,
+    manager_id integer
 );
 
 
@@ -1391,4 +1392,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160309211822');
 INSERT INTO schema_migrations (version) VALUES ('20160319204426');
 
 INSERT INTO schema_migrations (version) VALUES ('20160430185957');
+
+INSERT INTO schema_migrations (version) VALUES ('20160611125828');
 
