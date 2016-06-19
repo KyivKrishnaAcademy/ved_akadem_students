@@ -30,6 +30,12 @@ class BaseUploader < CarrierWave::Uploader::Base
 
   private
 
+  def auto_orient
+    manipulate! do |image|
+      image.tap(&:auto_orient)
+    end
+  end
+
   def default_extension
     'jpg'
   end

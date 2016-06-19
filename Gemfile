@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.6'
 
 gem 'redis-session-store'
 
@@ -17,6 +17,7 @@ gem 'devise'
 gem 'devise_token_auth'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
+gem 'global_phone'
 
 gem 'simple_form', '3.1.0'
 gem 'nested_form'
@@ -29,13 +30,13 @@ gem 'prawn-rails'
 
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
-gem 'intl-tel-input-rails', '3.6.0.1'
 
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
 gem 'react_on_rails', '~> 3.0'
 gem 'therubyracer', platforms: :ruby
+gem 'fast_blank'
 
 gem 'sidekiq'
 
@@ -83,7 +84,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'codeclimate-test-reporter', require: nil
+  gem 'codeclimate-test-reporter', require: false
   gem 'rspec-rails'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-given'

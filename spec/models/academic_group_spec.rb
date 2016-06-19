@@ -13,21 +13,25 @@ describe AcademicGroup do
   end
 
   describe 'validation' do
-    Given (:valid_names)   { %w(ШБ13-1 БШ12-4 ЗШБ11-1) }
-    Given (:invalid_names) { %w(12-2 ШБ-1 БШ112 ШБ11-) }
+    context '#title' do
+      Given (:valid_names)   { %w(ШБ13-1 БШ12-4 ЗШБ11-1) }
+      Given (:invalid_names) { %w(12-2 ШБ-1 БШ112 ШБ11-) }
 
-    Then { is_expected.to validate_uniqueness_of(:title) }
-    And  { is_expected.to validate_presence_of(:title) }
-    And  do
-      valid_names.each do |name|
-        is_expected.to allow_value(name).for(:title)
+      Then { is_expected.to validate_uniqueness_of(:title) }
+      Then { is_expected.to validate_presence_of(:title) }
+      Then do
+        valid_names.each do |name|
+          is_expected.to allow_value(name).for(:title)
+        end
+      end
+      Then do
+        invalid_names.each do |name|
+          is_expected.not_to allow_value(name).for(:title)
+        end
       end
     end
-    And  do
-      invalid_names.each do |name|
-        is_expected.not_to allow_value(name).for(:title)
-      end
-    end
+
+    Then { is_expected.to validate_presence_of(:administrator) }
   end
 
   describe 'upcases :title before save' do

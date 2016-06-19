@@ -14,6 +14,7 @@ FactoryGirl.define do
     telephones                 { [build(:telephone)] }
     work                       { generate(:char_sequence)*20 }
     marital_status             { 'single' }
+    diksha_guru                { 'Srila Prabhupada' }
   end
 
   trait :admin do

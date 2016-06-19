@@ -32,6 +32,7 @@ describe 'Add person:' do
     pf = build_stubbed(:person, p)
     fill_in 'phone'                 , with: pf.telephones.first.phone
     fill_in 'person_spiritual_name' , with: pf.spiritual_name
+    fill_in 'person_diksha_guru'    , with: pf.diksha_guru
     fill_in 'person_name'           , with: pf.name
     fill_in 'person_middle_name'    , with: pf.middle_name
     fill_in 'person_surname'        , with: pf.surname

@@ -43,7 +43,14 @@ describe AcademicGroupsController do
   end
 
   context 'post: :create with ["academic_group:create"]' do
-    Given(:action) { post :create, academic_group: { title: 'ШБ00-1', group_description: 'aaaaaaaaaa', establ_date: DateTime.now } }
+    Given(:action) do
+      post :create, academic_group: {
+        administrator_id: create(:person).id,
+        title: 'ШБ00-1',
+        group_description: 'aaaaaaaaaa',
+        establ_date: DateTime.now
+      }
+    end
 
     Given(:expectation) do
       expect(response).to redirect_to(action: :new)
@@ -66,7 +73,7 @@ describe AcademicGroupsController do
   end
 
   context 'get: :index with ["academic_group:index"]' do
-    Given { allow(AcademicGroup).to receive(:all).and_return('some records') }
+    Given { allow(AcademicGroup).to receive_message_chain(:all, :by_active_title).and_return('some records') }
 
     Given(:action)      { get :index }
     Given(:expectation) do
@@ -101,7 +108,7 @@ describe AcademicGroupsController do
     end
 
     describe 'DBless tests' do
-      Given(:person) { double(Person, id: 1, roles: []) }
+      Given(:person) { double(Person, id: 1, roles: [], locale: :uk) }
       Given(:groups) { double }
       Given(:group)  { double(AcademicGroup, id: 1) }
 

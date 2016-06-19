@@ -340,7 +340,10 @@ CREATE TABLE people (
     complex_name character varying(255),
     provider character varying DEFAULT 'email'::character varying NOT NULL,
     uid character varying DEFAULT ''::character varying NOT NULL,
-    tokens jsonb DEFAULT '{}'::jsonb NOT NULL
+    tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
+    locale character varying(2) DEFAULT 'uk'::character varying,
+    fake_email boolean DEFAULT false,
+    diksha_guru character varying
 );
 
 
@@ -545,7 +548,8 @@ CREATE TABLE programs (
     description_ru text,
     courses_uk text,
     courses_ru text,
-    visible boolean DEFAULT false
+    visible boolean DEFAULT false,
+    manager_id integer
 );
 
 
@@ -1441,11 +1445,7 @@ INSERT INTO schema_migrations (version) VALUES ('20140918091449');
 
 INSERT INTO schema_migrations (version) VALUES ('20140920200640');
 
-INSERT INTO schema_migrations (version) VALUES ('20140920201921');
-
 INSERT INTO schema_migrations (version) VALUES ('20140921162651');
-
-INSERT INTO schema_migrations (version) VALUES ('20140924202052');
 
 INSERT INTO schema_migrations (version) VALUES ('20141001130412');
 
@@ -1510,4 +1510,12 @@ INSERT INTO schema_migrations (version) VALUES ('20151208055458');
 INSERT INTO schema_migrations (version) VALUES ('20151224051539');
 
 INSERT INTO schema_migrations (version) VALUES ('20151225050416');
+
+INSERT INTO schema_migrations (version) VALUES ('20160309211822');
+
+INSERT INTO schema_migrations (version) VALUES ('20160319204426');
+
+INSERT INTO schema_migrations (version) VALUES ('20160430185957');
+
+INSERT INTO schema_migrations (version) VALUES ('20160611125828');
 

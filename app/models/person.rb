@@ -1,6 +1,18 @@
 class Person < ActiveRecord::Base
   MARITAL_STATUSES = %i(single in_relationship married divorced widowed) #TODO use enums here since we run rails 4.1
 
+  class SymbolWrapper
+    def self.load(string)
+      string.try(:to_sym)
+    end
+
+    def self.dump(symbol)
+      symbol.to_s
+    end
+  end
+
+  serialize :locale, SymbolWrapper
+
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :privacy_agreement
@@ -24,7 +36,6 @@ class Person < ActiveRecord::Base
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   validates :gender, inclusion: { in: [true, false] }
   validates :middle_name, :spiritual_name, :name, :surname, length: { maximum: 50 }
   validates :name, :surname, presence: { if: :spiritual_name_blank? }
@@ -33,14 +44,11 @@ class Person < ActiveRecord::Base
   validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
   validates :telephones, :birthday, :marital_status, presence: true
+  validates :diksha_guru, presence: { unless: :spiritual_name_blank? }
 
   validate :check_photo_dimensions
 
-  scope :by_complex_name, ->() { order("CASE WHEN (spiritual_name IS NULL OR spiritual_name = '') THEN (surname || name || middle_name) ELSE spiritual_name END") }
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }
-  scope :without_application, ->() { where('id NOT IN (SELECT person_id FROM study_applications)')
-                                    .where('id NOT IN (SELECT person_id FROM student_profiles)')
-                                    .where('id NOT IN (SELECT person_id FROM teacher_profiles)') }
 
   mount_uploader :photo, PhotoUploader
   mount_uploader :passport, PassportUploader
@@ -51,10 +59,25 @@ class Person < ActiveRecord::Base
 
   has_paper_trail
 
-  def token_validation_response
-    {
-      complex_name: complex_name
-    }
+  def self.by_complex_name
+    order(
+      <<-SQL.strip_heredoc
+        CASE
+          WHEN (spiritual_name IS NULL OR spiritual_name = '')
+          THEN (surname || name || middle_name)
+          ELSE spiritual_name
+        END
+      SQL
+    )
+  end
+
+  def self.without_application
+    joins('LEFT OUTER JOIN "study_applications" ON "study_applications"."person_id" = "people"."id"')
+      .joins('LEFT OUTER JOIN "student_profiles" ON "student_profiles"."person_id" = "people"."id"')
+      .joins('LEFT OUTER JOIN "teacher_profiles" ON "teacher_profiles"."person_id" = "people"."id"')
+      .where(study_applications: { id: nil })
+      .where(student_profiles: { id: nil })
+      .where(teacher_profiles: { id: nil })
   end
 
   def crop_photo(params)
@@ -106,6 +129,13 @@ class Person < ActiveRecord::Base
 
   def pending_docs
     @pending_docs ||= count_pending_docs
+  end
+
+  def short_name
+    return spiritual_name if spiritual_name.present?
+    return name if middle_name.blank?
+
+    "#{name} #{middle_name}"
   end
 
   private

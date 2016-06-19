@@ -208,6 +208,7 @@ namespace :sidekiq do
       sudo 'service workers restart'
     end
   end
+  after 'deploy:restart', 'sidekiq:restart'
 
   desc 'Start application'
   task :start do

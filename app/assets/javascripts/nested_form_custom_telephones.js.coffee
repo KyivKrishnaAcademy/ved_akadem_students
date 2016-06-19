@@ -1,30 +1,26 @@
 #= require initTelInput
 
+toggleAddLink = (telephonesFieldsCount) ->
+  $('a.add_nested_fields').toggle telephonesFieldsCount < 4
+
+toggleRemoveLink = (telephonesFieldsCount) ->
+  $('a.remove_nested_fields').toggle telephonesFieldsCount != 1
+
 $ ->
   telephonesFieldsCount = $('#nested-telephones #phone').length
 
   if telephonesFieldsCount
-    toggleAddLink = ->
-      $('a.add_nested_fields').toggle telephonesFieldsCount < 4
-      return
-
-    toggleRemoveLink = ->
-      $('a.remove_nested_fields').toggle telephonesFieldsCount != 1
-      return
-
     $(document).on 'nested:fieldAdded', ->
       telephonesFieldsCount += 1
-      toggleAddLink()
-      toggleRemoveLink()
+      toggleAddLink(telephonesFieldsCount)
+      toggleRemoveLink(telephonesFieldsCount)
       window.initTelInput()
-      return
 
     $(document).on 'nested:fieldRemoved', ->
       telephonesFieldsCount -= 1
-      toggleAddLink()
-      toggleRemoveLink()
-      return
+      toggleAddLink(telephonesFieldsCount)
+      toggleRemoveLink(telephonesFieldsCount)
 
-    toggleAddLink()
-    toggleRemoveLink()
+    toggleAddLink(telephonesFieldsCount)
+    toggleRemoveLink(telephonesFieldsCount)
     window.initTelInput()

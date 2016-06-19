@@ -86,6 +86,8 @@ describe Person do
 
         Then { is_expected.to validate_length_of(:middle_name   ).is_at_most(50) }
         Then { is_expected.to validate_length_of(:spiritual_name).is_at_most(50) }
+
+        Then { is_expected.not_to validate_presence_of(:diksha_guru) }
       end
 
       context 'spiritual_name present' do
@@ -93,6 +95,7 @@ describe Person do
 
         Then { is_expected.not_to validate_presence_of(:name) }
         Then { is_expected.not_to validate_presence_of(:surname) }
+        Then { is_expected.to validate_presence_of(:diksha_guru) }
       end
     end
 
@@ -254,8 +257,8 @@ describe Person do
     end
 
     context 'study application scopes' do
-      Given(:program_1) { create :program }
-      Given(:program_2) { create :program }
+      Given(:program_1) { create :program, manager: person }
+      Given(:program_2) { create :program, manager: person }
 
       Given(:person_1) { create :person }
       Given(:person_2) { create :person }
@@ -333,6 +336,26 @@ describe Person do
       Then { expect(person.student_active?).to be_nil }
 
       Then { is_expected.to delegate_method(:active?).to(:student_profile).with_prefix(:student) }
+    end
+
+    describe '#short_name' do
+      context 'spiritual_name present' do
+        Then { expect(person.short_name).to eq 'Adi das' }
+      end
+
+      context 'no spiritual_name' do
+        context 'middle_name present' do
+          Given { person.update(spiritual_name: '') }
+
+          Then { expect(person.short_name).to eq 'Zinoviy Zakovich' }
+        end
+
+        context 'no middle_name' do
+          Given { person.update(spiritual_name: '', middle_name: '') }
+
+          Then { expect(person.short_name).to eq 'Zinoviy' }
+        end
+      end
     end
   end
 end

@@ -46,7 +46,7 @@ describe StudyApplicationsController do
       it_behaves_like :athorized
     end
 
-    Given(:person) { double(Person, id: 1, roles: roles) }
+    Given(:person) { double(Person, id: 1, roles: roles, locale: :uk) }
 
     Given { allow(person).to receive(:is_a?).and_return(false) }
     Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }

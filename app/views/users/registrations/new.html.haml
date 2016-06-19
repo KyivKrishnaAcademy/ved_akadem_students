@@ -17,11 +17,12 @@
               = f.input :passport, as: :file, wrapper: :vertical_file_input
               = f.input :passport_cache, as: :hidden
             .col-xs-12.col-sm-6
-              = f.input :email, autofocus: true
+              = f.input :email, autofocus: true, error: ''
               = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
           .row
             .col-xs-12.col-sm-6
               = f.input :spiritual_name
+              = f.input :diksha_guru
               = f.input :name
               = f.input :middle_name
               = f.input :surname

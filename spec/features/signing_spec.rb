@@ -21,6 +21,7 @@ describe 'Signing' do
       fill_in 'person_password', with: 'password'
       fill_in 'person_password_confirmation', with: 'password'
       fill_in 'person_spiritual_name', with: 'Adi dasa das'
+      fill_in 'person_diksha_guru', with: 'Prabhupada'
       fill_in 'person_name', with: 'Vasyl'
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'
@@ -159,7 +160,7 @@ describe 'Signing' do
           And  { expect(find('#person_name')['value']).to have_content('Vasyl') }
           And  { expect(find('#person_middle_name')['value']).to have_content('Alexovich') }
           And  { expect(find('#person_surname')['value']).to have_content('Mitrofanov') }
-          And  { expect(find('#phone')['value']).to have_content('+380 50 111 2233') }
+          And  { expect(find('#phone')['value']).to have_content('+380501112233') }
           And  { expect(find('#person_education')['value']).to have_content('NTUU KPI') }
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
           And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }

@@ -4,10 +4,18 @@ class GroupParticipation < ActiveRecord::Base
 
   before_save :set_join_date
 
+  validates :academic_group, :student_profile, presence: true
+
   has_paper_trail
 
   def leave!
     update(leave_date: DateTime.current)
+
+    person = student_profile.person
+
+    return if person.fake_email? || !academic_group.active?
+
+    GroupTransactionsMailer.leave_the_group(academic_group, person).deliver_later
   end
 
   private

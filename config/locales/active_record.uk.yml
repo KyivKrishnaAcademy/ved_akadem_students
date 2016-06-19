@@ -8,6 +8,7 @@ uk:
       person:
         birthday:               'День народження'
         current_password:       'Поточний пароль'
+        diksha_guru:            'Дікша гуру'
         education:              'Освіта'
         email:                  'Електронна пошта'
         gender:                 'Стать'
@@ -52,9 +53,13 @@ uk:
             current_password:
               blank:                'повинен бути заповненим'
               invalid:              'не вірний'
+            diksha_guru:
+              blank:                'вкажіть будь ласка'
             email:
-              blank:                'повинен бути заповненим'
+              blank:                'повинна бути заповнена'
               invalid:              'повинна відповідати формату «pryklad@example.com»'
+              already_in_use:       &taken 'зайнята. Можливо Ви вже зареєстровані, спробуйте <a href="/password/new">відновити пароль</a>'
+              taken:                *taken
             gender:
               inclusion:            'повинна бути обрана'
             marital_status:
@@ -71,4 +76,4 @@ uk:
             work:
               blank:                'повинна бути заповнена'
         telephone:
-          invalid:  'повинен починатися із символу «+» та містити коди країни та міста (або оператора)'
+          invalid:  'повинен бути вірний'

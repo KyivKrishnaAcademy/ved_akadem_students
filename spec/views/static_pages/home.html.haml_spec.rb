@@ -45,6 +45,7 @@ describe 'static_pages/home' do
       Given(:study_application) { StudyApplication.create(program: program, person: user) }
 
       Given { allow(view).to receive(:policy).with(study_application).and_return(study_application_policy) }
+      Given { allow(view).to receive(:policy).with(program.manager).and_return(PersonPolicy.new(user, program.manager)) }
 
       Then  { expect(rendered).to have_withdraw_button }
       And   { expect(rendered).not_to have_apply_button }

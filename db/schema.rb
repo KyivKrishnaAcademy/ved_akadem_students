@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225050416) do
+ActiveRecord::Schema.define(version: 20160611125828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,9 @@ ActiveRecord::Schema.define(version: 20151225050416) do
     t.string   "provider",                           default: "email", null: false
     t.string   "uid",                                default: "",      null: false
     t.jsonb    "tokens",                             default: {},      null: false
+    t.string   "locale",                 limit: 2,   default: "uk"
+    t.boolean  "fake_email",                         default: false
+    t.string   "diksha_guru"
   end
 
   add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
@@ -168,6 +171,7 @@ ActiveRecord::Schema.define(version: 20151225050416) do
     t.text     "courses_uk"
     t.text     "courses_ru"
     t.boolean  "visible",                    default: false
+    t.integer  "manager_id"
   end
 
   create_table "programs_questionnaires", id: false, force: :cascade do |t|

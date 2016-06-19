@@ -8,6 +8,7 @@ ru:
       person:
         birthday:               'День рождения'
         current_password:       'Текущий пароль'
+        diksha_guru:            'Дикша гуру'
         education:              'Образование'
         email:                  'Электронная почта'
         gender:                 'Пол'
@@ -48,11 +49,15 @@ ru:
           too_long:   'слишком длинное (максимум %{count} символов)'
           attributes:
             email:
-              blank:                'должен быть заполнен'
+              blank:                'должна быть заполнена'
               invalid:              'должна иметь формат «primer@example.com»'
+              already_in_use:       &taken 'занята. Возможно Вы уже зарегистрированы, попробуйте <a href="/password/new">восстановить пароль</a>'
+              taken:                *taken
             current_password:
               blank:                'должен быть заполнен'
               invalid:              'не правильный'
+            diksha_guru:
+              blank:                'укажите пожалуйста'
             gender:
               inclusion:            'должен быть выбран'
             marital_status:
@@ -72,4 +77,4 @@ ru:
             work:
               blank:                'должна быть заполнена'
         telephone:
-          invalid:  'должен начинаться со знака «+» и содержать коды страны и города (или оператора)'
+          invalid:  'должен быть верный'
