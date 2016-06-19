@@ -4,6 +4,8 @@ module Ui
       @academic_group = AcademicGroup.find(params.require(:group_id))
 
       (resource.student_profile || resource.create_student_profile).move_to_group(@academic_group)
+
+      GroupTransactionsMailer.join_the_group(@academic_group, resource).deliver_later
     end
 
     def as_json(opts = {})
