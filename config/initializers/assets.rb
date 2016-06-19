@@ -31,8 +31,6 @@ Rails.application.config.assets.precompile += %w(
 
   select2.min.js
   select2.min.css
-
-  cert_assign.js
 )
 
 # Add client/assets/ folders to asset pipeline's search path.
