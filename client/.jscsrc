@@ -17,5 +17,6 @@
   },
   "requireCamelCaseOrUpperCaseIdentifiers": {
     "allowedSuffixes": ["_"]
-  }
+  },
+  "maximumLineLength": 120
 }

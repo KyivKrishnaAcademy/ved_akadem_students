@@ -6,12 +6,9 @@ import * as certificateAssignmentsActionCreators from '../actions/certificate-as
 import Switch from 'react-bootstrap-switch';
 
 function select(state) {
-  // Which part of the Redux global state does our component want to receive as props?
-  // Note the use of `` to prefix the property name because the value is of type Immutable.js
   return { certificateAssignmentsStore: state.certificateAssignmentsStore };
 }
 
-// Simple example of a React "smart" component
 class CertificateAssignments extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -28,9 +25,6 @@ class CertificateAssignments extends React.Component {
     const { updateName } = actions;
     const name = certificateAssignmentsStore.name;
 
-    // This uses the ES2015 spread operator to pass properties as it is more DRY
-    // This is equivalent to:
-    // <CertificateAssignmentsWidget certificateAssignmentsStore={certificateAssignmentsStore} actions={actions} />
     return (
       <div>
         <div className="row vert-offset-top-1">
