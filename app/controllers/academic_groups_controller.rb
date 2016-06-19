@@ -14,6 +14,7 @@ class AcademicGroupsController < ApplicationController
   end
 
   def show
+    @cert_templates = CertificateTemplate.not_assigned_to(@academic_group.id)
   end
 
   def new

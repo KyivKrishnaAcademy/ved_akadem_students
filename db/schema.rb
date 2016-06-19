@@ -45,6 +45,16 @@ ActiveRecord::Schema.define(version: 20160611125828) do
     t.datetime "updated_at"
   end
 
+  create_table "assigned_cert_templates", force: :cascade do |t|
+    t.integer  "academic_group_id"
+    t.integer  "certificate_template_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "cert_id_prefix",          null: false
+  end
+
+  add_index "assigned_cert_templates", ["academic_group_id", "certificate_template_id"], name: "index_group_id_cert_template_id", unique: true, using: :btree
+
   create_table "attendances", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -65,6 +75,16 @@ ActiveRecord::Schema.define(version: 20160611125828) do
   end
 
   add_index "certificate_templates", ["status"], name: "index_certificate_templates_on_status", using: :btree
+
+  create_table "certificates", force: :cascade do |t|
+    t.integer  "student_profile_id"
+    t.integer  "assigned_cert_template_id"
+    t.string   "cert_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "certificates", ["assigned_cert_template_id", "student_profile_id"], name: "index_assigned_template_id_profile_id", unique: true, using: :btree
 
   create_table "class_schedules", force: :cascade do |t|
     t.datetime "created_at"
@@ -241,4 +261,6 @@ ActiveRecord::Schema.define(version: 20160611125828) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "certificates", "assigned_cert_templates"
+  add_foreign_key "certificates", "student_profiles"
 end

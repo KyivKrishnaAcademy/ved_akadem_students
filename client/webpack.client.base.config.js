@@ -14,16 +14,21 @@ module.exports = {
 
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
-      'babel-polyfill',
       'jquery',
     ],
 
     react: [
       'react',
+      'redux',
+      'react-redux',
+      'mirror-creator',
       'react-on-rails',
+      'babel-polyfill',
     ],
 
     'schedule-list': './app/bundles/ScheduleList/startup/clientRegistration',
+
+    'certificate-assignments': './app/bundles/CertificateAssignments/startup/client-registration',
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

@@ -1,4 +1,6 @@
 - provide(:title, @academic_group.title)
+- content_for(:js_and_css) do
+  = javascript_include_tag 'generated/react-bundle', type: 'text/javascript'
 
 .row
   %h1.col-xs-12
@@ -23,6 +25,8 @@
         = link_to t('.tab_schedules'), '#schedules', data: { toggle: 'tab' }
       %li
         = link_to t('.tab_group_list'), '#group_list', data: { toggle: 'tab' }
+      %li
+        = link_to t('.tab_certificates'), '#certificates', data: { toggle: 'tab' }
 
     .tab-content
       .tab-pane#general.active
@@ -31,3 +35,14 @@
         = render 'tab_schedules', academic_group_id: @academic_group.id
       .tab-pane#group_list
         = render 'tab_student_list', students: @academic_group.active_students, academic_group: @academic_group
+      .tab-pane#certificates
+        - content_for(:js_and_css) do
+          = javascript_include_tag 'generated/certificate-assignments-bundle', type: 'text/javascript'
+          = stylesheet_link_tag 'react-bootstrap-switch.min', media: 'all'
+
+        = react_component('CertificateAssignmentsApp', props: { name: 'testo' }, prerender: false)
+
+        = render 'tab_certificates',
+          students: @academic_group.active_students,
+          academic_group: @academic_group,
+          cert_templates: @cert_templates

@@ -3,6 +3,9 @@ class CertificateTemplate < ActiveRecord::Base
   DIMENSIONS    = %i(x y w h)
   ARRAY_FIELDS  = %i(teachers)
 
+  has_many :assigned_cert_templates, dependent: :destroy
+  has_many :academic_groups, through: :assigned_cert_templates
+
   serialize :fields, HashSerializer
 
   enum status: %i(draft ready)
@@ -10,6 +13,13 @@ class CertificateTemplate < ActiveRecord::Base
   mount_uploader :background, CertificateTemplateUploader
 
   validates :background, :title, presence: true
+
+  def self.not_assigned_to(academic_group_id)
+    where(status: CertificateTemplate.statuses[:ready])
+      .joins('LEFT OUTER JOIN assigned_cert_templates act ON certificate_templates.id = act.certificate_template_id')
+      .where('"act"."academic_group_id" != ? OR "act"."id" IS NULL', academic_group_id)
+      .order(:title)
+  end
 
   def init_fields
     return fields if fields.present?

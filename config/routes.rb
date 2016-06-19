@@ -9,10 +9,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :people, :courses, :academic_groups
+  resources :people, :courses
   resources :class_schedules   , only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
   resources :answers           , only: [:update, :edit]
+  resources :assigned_cert_templates, only: :create
   resources :certificate_templates, except: :show do
     member do
       get :markup
@@ -22,7 +23,11 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/academic_groups/:id/graduate', controller: :academic_groups, action: :graduate, as: :graduate_academic_group
+  resources :academic_groups do
+    member do
+      post :graduate
+    end
+  end
 
   scope module: :users do
     get  '/remind_email' => 'emails#new'
@@ -45,6 +50,7 @@ Rails.application.routes.draw do
 
   namespace :ui do
     resources :academic_groups,  only: :index
+    resources :certificates,     only: :create
     resources :classrooms,       only: :index
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index

@@ -58,6 +58,7 @@
     "mirror-creator": "1.0.0",
     "react": "^0.14.7",
     "react-bootstrap": "^0.28.3",
+    "react-bootstrap-switch": "3.4.4",
     "react-dom": "^0.14.7",
     "react-on-rails": "3.0.4",
     "react-paginate-component": "0.0.3",

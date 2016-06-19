@@ -15,6 +15,9 @@ Rails.application.config.assets.precompile += %w(
   generated/server-bundle.js
   generated/react-bundle.js
   generated/schedule-list-bundle.js
+  generated/certificate-assignments-bundle.js
+
+  react-bootstrap-switch.min.css
 
   cert_template_markup.js
 
@@ -40,3 +43,4 @@ Rails.application.config.assets.paths << Rails.root.join('client/assets/images')
 Rails.application.config.assets.paths << Rails.root.join('client/assets/fonts')
 
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
+Rails.application.config.assets.paths << Rails.root.join('client/node_modules/react-bootstrap-switch/dist/css/bootstrap3')

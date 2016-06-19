@@ -1,0 +1,2 @@
+class CertificatePolicy < BasePolicy
+end
