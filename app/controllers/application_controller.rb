@@ -27,8 +27,8 @@ class ApplicationController < ActionController::Base
     current_person.present? ? current_person.id : :anonymous
   end
 
-  def respond_with_interaction(klass)
-    render json: klass.new(user: current_person, request: request, params: params)
+  def respond_with_interaction(klass, resource = nil)
+    render json: klass.new(user: current_person, params: params, resource: resource)
   end
 
   def is_api?

@@ -1,10 +1,10 @@
 class BaseInteraction
-  attr_accessor :user, :params, :request
+  attr_accessor :user, :params, :resource
 
   def initialize(args)
-    @user    = args[:user]
-    @params  = args[:params]
-    @request = args[:request]
+    @user     = args[:user]
+    @params   = args[:params]
+    @resource = args[:resource]
 
     init
   end
@@ -13,7 +13,7 @@ class BaseInteraction
   end
 
   def as_json(opts = {})
-    raise StandardError.new('Interaction.as_json should be overridden!')
+    {}
   end
 
   private
