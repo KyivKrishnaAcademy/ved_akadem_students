@@ -14,11 +14,13 @@
   </div>
 
   <div class="col-xs-12 col-sm-offset-1 col-sm-1 col-md-offset-1 col-md-1">
-    <h1 class="text-center"><small>Або</small></h1>
+    <h1 class="text-center"><small><%=t('devise.links.or') %></small></h1>
   </div>
 
   <div class="col-xs-12 col-sm-offset-1 col-sm-5 col-md-offset-1 col-md-5 stop_double_submit">
-    <h4 class="text-center"><b>Якщо Ви вже зарееструвалися</b></h4>
+    <h4 class="text-center">
+      <b><%=t('devise.links.already_registered') %></b>
+    </h4>
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|  %>
       <%= f.input :email, required: false, autofocus: true  %>
       <%= f.input :password, required: false %>
