@@ -6,12 +6,12 @@ application = 'ved_akadem_students'
 set :rvm_type, :user
 set :rvm_ruby_version, '2.1.5'
 set :deploy_to, '/var/www/apps/ved_akadem_students'
-set :ssh_options, { forward_agent: true }
+set :ssh_options, forward_agent: true
 set :pty, true
 
 set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v5.5.0'
-set :nvm_map_bins, %w{node npm}
+set :nvm_map_bins, %w(node npm)
 
 Airbrussh.configure do |config|
   config.command_output = true
@@ -39,7 +39,7 @@ end
 # set :linked_files, %w{config/database.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{node_modules client/node_modules}
+set :linked_dirs, %w(node_modules client/node_modules)
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -48,7 +48,6 @@ set :linked_dirs, %w{node_modules client/node_modules}
 # set :keep_releases, 5
 
 namespace :deploy do
-
   desc 'Copy shared'
   task :copy_shared do
     on roles(:all) do
@@ -98,7 +97,7 @@ namespace :deploy do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-          execute :rake, "db:reset"
+          execute :rake, 'db:reset'
         end
       end
     end

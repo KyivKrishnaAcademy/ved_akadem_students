@@ -15,6 +15,7 @@ AllCops:
     - 'client/node_modules/**/*'
     - 'bin/**/*'
     - 'bundler_stubs/**/*'
+    - 'config/locales/plurals.rb'
     - !ruby/regexp /old_and_unused\.rb$/
 
 Metrics/AbcSize:
