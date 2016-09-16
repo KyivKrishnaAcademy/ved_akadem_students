@@ -15,7 +15,7 @@
             %a.dropdown-toggle{ href: '#', :'data-toggle' => :dropdown }
               = t('defaults.links.main_menu')
             %ul.dropdown-menu{ role: :menu }
-              - models_for_generic_menu.each do |singular, plural|
+              - ApplicationHelper::MODELS_FOR_GENERIC_MENU.each do |singular, plural|
                 - if send("show_#{plural}_menu?")
                   %li.dropdown
                     %a.dropdown-toggle{ href: '#', :'data-toggle' => :dropdown }
