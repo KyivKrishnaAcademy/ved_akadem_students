@@ -32,17 +32,18 @@ class ClassSchedulesController < HtmlRespondableController
     @class_schedule.save
 
     location = if params[:commit] == t('class_schedules.create_and_clone')
-                 new_class_schedule_path(class_schedule: class_schedule_params)
-               else
-                 class_schedules_path
-               end
-    # TODO check the location on failure
+      new_class_schedule_path(class_schedule: class_schedule_params)
+    else
+      class_schedules_path
+    end
+
+    # TODO: check the location on failure
     respond_with(@class_schedule, location: location)
   end
 
   def update
     @class_schedule.update(class_schedule_params)
-    # TODO check the location on failure
+    # TODO: check the location on failure
     respond_with(@class_schedule, location: class_schedules_path)
   end
 
@@ -75,6 +76,6 @@ class ClassSchedulesController < HtmlRespondableController
   end
 
   def offset_time(param, value)
-    Time.parse(params[:class_schedule][param]) + value
+    Time.zone.parse(params[:class_schedule][param]) + value
   end
 end

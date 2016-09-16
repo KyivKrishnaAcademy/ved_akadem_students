@@ -60,15 +60,17 @@ module ApplicationHelper
   end
 
   def thumb_with_pop(person)
+    # rubocop:disable Style/UnneededInterpolation
     person_photo(
       person,
       :thumb,
       class: :'popover-photo',
       data: {
         toggle: :popover,
-        content: person_photo(person, :standart)
+        content: "#{person_photo(person, :standart)}"
       }
     )
+    # rubocop:enable Style/UnneededInterpolation
   end
 
   def link_to_show_person_or_name(person, short = false)

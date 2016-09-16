@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  protect_from_forgery with: :exception, unless: :is_api?
+  protect_from_forgery with: :exception, unless: :api?
 
   before_action :set_locale, :authenticate_person!, unless: :devise_token_auth?
 
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:danger] = t('not_authorized')
 
-    redirect_to((request.referrer || root_path), status: :see_other)
+    redirect_to((request.referer || root_path), status: :see_other)
   end
 
   def pundit_user
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     render json: klass.new(user: current_person, params: params, resource: resource)
   end
 
-  def is_api?
+  def api?
     devise_token_auth? || self.class < Api::V1::BaseController
   end
 

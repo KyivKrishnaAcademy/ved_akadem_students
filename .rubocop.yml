@@ -14,7 +14,11 @@ AllCops:
     - 'db/seeds.rb'
     - 'client/node_modules/**/*'
     - 'bin/**/*'
+    - 'bundler_stubs/**/*'
     - !ruby/regexp /old_and_unused\.rb$/
+
+Metrics/AbcSize:
+  Max: 25
 
 Metrics/LineLength:
   Max: 120
@@ -37,3 +41,11 @@ Style/Documentation:
 Rails:
   Enabled: true
 
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Lint/EndAlignment:
+  AlignWith: variable
