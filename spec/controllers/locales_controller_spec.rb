@@ -13,7 +13,6 @@ describe LocalesController do
   end
 
   describe 'toggles locale' do
-
     Then { expect(user.reload.locale).to eq(:uk) }
 
     describe 'toggles locale again' do

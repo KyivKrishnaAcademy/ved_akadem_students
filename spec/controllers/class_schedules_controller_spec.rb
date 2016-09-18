@@ -6,11 +6,15 @@ describe ClassSchedulesController do
   Given(:existing_classroom) { create :classroom }
   Given(:existing_teacher_profile) { create :teacher_profile }
   Given(:existing_academic_group) { create :academic_group }
-  Given(:additional_attributes) { { 'id' => nil,
-                                    'course_id' => existing_course.id,
-                                    'classroom_id' => existing_classroom.id,
-                                    'teacher_profile_id' => existing_teacher_profile.id,
-                                    'academic_group_ids' => [existing_academic_group.id] } }
+  Given(:additional_attributes) do
+    {
+      'id' => nil,
+      'course_id' => existing_course.id,
+      'classroom_id' => existing_classroom.id,
+      'teacher_profile_id' => existing_teacher_profile.id,
+      'academic_group_ids' => [existing_academic_group.id]
+    }
+  end
 
   describe 'not signed in' do
     describe 'not_authenticated' do
@@ -149,7 +153,7 @@ describe ClassSchedulesController do
           Given(:actions) { ['class_schedule:create'] }
 
           describe 'with success' do
-            Then { expect{post :create, params}.to change(ClassSchedule, :count).by(1) }
+            Then { expect { post :create, params }.to change(ClassSchedule, :count).by(1) }
             And  { expect(assigns(:class_schedule)).to be_a_kind_of(ClassSchedule) }
             And  { expect(response).to redirect_to(class_schedules_path) }
             And  { is_expected.to set_flash[:notice] }
@@ -165,7 +169,7 @@ describe ClassSchedulesController do
           Given(:actions) { ['class_schedule:update'] }
           Given(:class_schedule) { create :class_schedule }
 
-          When  { patch :update, id: class_schedule.id, class_schedule: class_schedule_params }
+          When { patch :update, id: class_schedule.id, class_schedule: class_schedule_params }
 
           describe 'with success' do
             Given(:new_course) { create :course }

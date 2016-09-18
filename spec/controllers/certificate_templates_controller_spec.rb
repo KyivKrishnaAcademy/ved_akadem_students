@@ -124,7 +124,7 @@ describe CertificateTemplatesController do
         end
 
         context 'should not update' do
-          Then { expect{action}.not_to change{template.reload.fields} }
+          Then { expect { action }.not_to change { template.reload.fields } }
         end
 
         context 'redirects' do
@@ -143,7 +143,7 @@ describe CertificateTemplatesController do
         end
 
         context 'should not create' do
-          Then { expect{action}.not_to change{CertificateTemplate.count} }
+          Then { expect { action }.not_to change { CertificateTemplate.count } }
         end
 
         context 'redirects' do
@@ -157,7 +157,7 @@ describe CertificateTemplatesController do
         Given(:action) { put :update, id: template.id, certificate_template: { title: 'some' } }
 
         context 'should not update' do
-          Then { expect{action}.not_to change{template.reload.title} }
+          Then { expect { action }.not_to change { template.reload.title } }
         end
 
         context 'redirects' do
@@ -173,7 +173,7 @@ describe CertificateTemplatesController do
         Given { template }
 
         context 'should not destroy' do
-          Then { expect{action}.not_to change{CertificateTemplate.count} }
+          Then { expect { action }.not_to change { CertificateTemplate.count } }
         end
 
         context 'redirects' do

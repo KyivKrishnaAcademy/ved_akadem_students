@@ -3,7 +3,7 @@ require 'rails_helper'
 describe StudyApplicationsController do
   describe 'no user' do
     context 'destroy' do
-      Given(:study_application) { double(StudyApplication, person_id: 1, program_id: 1 ) }
+      Given(:study_application) { double(StudyApplication, person_id: 1, program_id: 1) }
       Given(:action) { delete :destroy, id: 1, format: :js }
 
       Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
@@ -115,12 +115,14 @@ describe StudyApplicationsController do
       context 'destroy' do
         Given { allow(StudyApplication).to receive(:find).with('1').and_return(study_application) }
 
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:destroy'] } }
+        Given do
+          allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:destroy'] }
+        end
 
-        When  { delete :destroy, id: 1, format: :js }
+        When { delete :destroy, id: 1, format: :js }
 
         context 'allow own' do
-          Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1 ) }
+          Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1) }
 
           it_behaves_like :athorized_destroy
         end
@@ -133,7 +135,9 @@ describe StudyApplicationsController do
       end
 
       context 'create' do
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:create'] } }
+        Given do
+          allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:create'] }
+        end
 
         context 'allow own' do
           Given { allow(Person).to receive(:find).with(person.id).and_return(person) }
