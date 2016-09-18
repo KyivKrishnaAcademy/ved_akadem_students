@@ -21,25 +21,35 @@ describe 'ClassSchedule create and update:', :js do
 
     describe 'form is empty' do
       Then { expect(course_select).not_to have_selector(".select2-selection__rendered[title='#{course.title}']") }
-      And  { expect(teacher_select).not_to have_selector(".select2-selection__rendered[title='#{person.complex_name}']") }
-      And  { expect(classroom_select).not_to have_selector(".select2-selection__rendered[title='#{classroom.title}']") }
-      And  { expect(groups_select).not_to have_selector('li.select2-selection__choice', text: group_1.title) }
-      And  { expect(groups_select).not_to have_selector('li.select2-selection__choice', text: group_2.title) }
-      And  { expect(find('#class_schedule_subject').value).to be_empty }
+
+      And do
+        expect(teacher_select).not_to have_selector(".select2-selection__rendered[title='#{person.complex_name}']")
+      end
+
+      And { expect(classroom_select).not_to have_selector(".select2-selection__rendered[title='#{classroom.title}']") }
+      And { expect(groups_select).not_to have_selector('li.select2-selection__choice', text: group_1.title) }
+      And { expect(groups_select).not_to have_selector('li.select2-selection__choice', text: group_2.title) }
+      And { expect(find('#class_schedule_subject').value).to be_empty }
     end
 
     describe 'valid fill' do
       When { select2_single('class_schedule_course', course.title) }
       When { select2_single('class_schedule_classroom', classroom.title) }
       When { select2_single('class_schedule_teacher_profile', person.complex_name) }
-      When { select2_multi('class_schedule_academic_groups', group_1.title ) }
-      When { select2_multi('class_schedule_academic_groups', group_2.title ) }
-      When { page.execute_script %Q{
-               $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2015 12:00')
-             } }
-      When { page.execute_script %Q{
-               $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 13:00')
-             } }
+      When { select2_multi('class_schedule_academic_groups', group_1.title) }
+      When { select2_multi('class_schedule_academic_groups', group_2.title) }
+
+      When do
+        page.execute_script %{
+          $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2015 12:00')
+        }
+      end
+
+      When do
+        page.execute_script %{
+          $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 13:00')
+        }
+      end
       When { find('#class_schedule_subject').set('My special subject') }
 
       describe 'single create' do
@@ -75,12 +85,17 @@ describe 'ClassSchedule create and update:', :js do
   end
 
   describe 'update' do
-    Given(:class_schedule) { create :class_schedule, course: course,
-                                                     teacher_profile: teacher_profile,
-                                                     classroom: classroom,
-                                                     academic_groups: [group_1, group_2],
-                                                     start_time: '01.01.2015 12:00',
-                                                     finish_time: '01.01.2015 13:00' }
+    Given(:class_schedule) do
+      create(
+        :class_schedule,
+        course: course,
+        teacher_profile: teacher_profile,
+        classroom: classroom,
+        academic_groups: [group_1, group_2],
+        start_time: '01.01.2015 12:00',
+        finish_time: '01.01.2015 13:00'
+      )
+    end
 
     When { visit edit_class_schedule_path(class_schedule) }
 
@@ -105,17 +120,27 @@ describe 'ClassSchedule create and update:', :js do
       When { select2_single('class_schedule_course', course_2.title) }
       When { select2_single('class_schedule_classroom', classroom_2.title) }
       When { select2_single('class_schedule_teacher_profile', person_2.complex_name) }
-      When { select2_multi('class_schedule_academic_groups', group_3.title ) }
-      When { page.execute_script %Q{
-               $('li.select2-selection__choice[title="#{group_1.title}"]').find('span').click();
-               $('select#class_schedule_academic_group_ids').select2('close');
-             } }
-      When { page.execute_script %Q{
-               $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2015 14:00')
-             } }
-      When { page.execute_script %Q{
-               $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 15:00')
-             } }
+      When { select2_multi('class_schedule_academic_groups', group_3.title) }
+
+      When do
+        page.execute_script %{
+          $('li.select2-selection__choice[title="#{group_1.title}"]').find('span').click();
+          $('select#class_schedule_academic_group_ids').select2('close');
+        }
+      end
+
+      When do
+        page.execute_script %{
+          $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2015 14:00')
+        }
+      end
+
+      When do
+        page.execute_script %{
+          $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 15:00')
+        }
+      end
+
       When { find('input[type="submit"]').click }
 
       subject { find('table tbody') }

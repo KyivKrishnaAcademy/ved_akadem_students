@@ -39,7 +39,7 @@ describe 'Signing' do
       When { click_button I18n.t('devise.links.sign_up') }
 
       describe 'flash and home page' do
-        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
+        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up')) }
         And  { expect(page).to have_css('.person-brief') }
       end
 
@@ -59,13 +59,19 @@ describe 'Signing' do
         end
 
         describe 'should show error' do
-          Then { expect(find('.alert-danger')).to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size')) }
+          Then do
+            expect(find('.alert-danger'))
+              .to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size'))
+          end
         end
 
         context 'on second click' do
           When { click_button I18n.t('devise.links.sign_up') }
 
-          Then { expect(find('.alert-danger')).to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size')) }
+          Then do
+            expect(find('.alert-danger'))
+              .to have_content(I18n.t('activerecord.errors.models.person.attributes.photo.size'))
+          end
         end
       end
 
@@ -76,7 +82,7 @@ describe 'Signing' do
         end
 
         describe 'should show flash' do
-          Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
+          Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up')) }
         end
 
         describe 'should direct to crop path' do
@@ -92,7 +98,7 @@ describe 'Signing' do
       end
 
       describe 'should show flash' do
-        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up'))}
+        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up')) }
       end
 
       describe 'should show passport image' do
@@ -165,8 +171,13 @@ describe 'Signing' do
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
           And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
           And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Чоловіча') }
-          And  { expect(find('#person_marital_status')).to have_css('option[selected="selected"]', text: 'одружений/заміжня') }
-          And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1982-05-20') }
+
+          And do
+            expect(find('#person_marital_status'))
+              .to have_css('option[selected="selected"]', text: 'одружений/заміжня')
+          end
+
+          And { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1982-05-20') }
         end
       end
 
@@ -199,8 +210,15 @@ describe 'Signing' do
 
   describe 'forgot email' do
     Given { expect_any_instance_of(Users::EmailsController).to receive(:verify_recaptcha).and_return(true) }
-    Given { create :person, email: 'admin@example.com',   telephones: [create(:telephone, phone: '+380 50 111 2211')] }
-    Given { create :person, email: 'terminator@test.org', telephones: [create(:telephone, phone: '+380 50 111 2211'), create(:telephone, phone: '+380 50 111 2222')] }
+    Given { create :person, email: 'admin@example.com', telephones: [create(:telephone, phone: '+380 50 111 2211')] }
+
+    Given do
+      create :person, email: 'terminator@test.org', telephones: [
+        create(:telephone, phone: '+380 50 111 2211'),
+        create(:telephone, phone: '+380 50 111 2222')
+      ]
+    end
+
     Given { visit remind_email_path }
 
     subject { page.body }

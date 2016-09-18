@@ -1,18 +1,36 @@
 require 'rails_helper'
 
 describe 'Questionnaires' do
-  Given { @question_1     = create :question, :single_select , data: {  text: { uk: 'Чи ти в своєму розумі?',
-                                                                                ru: 'Ты в своем уме?' },
-                                                                        options: { uk: [['Так', true], ['Ні', false]],
-                                                                                   ru: [['Да', true], ['Нет', false]] }} }
-  Given { @question_2     = create :question, :freeform, data: { text: { uk: 'Яке Ваше відношення до ...',
-                                                                         ru: 'Как Вы относитесь к?' } } }
-  Given { @questionnaire  = create :questionnaire, title_uk: 'Псих тест', questions: [@question_1, @question_2] }
-  Given { @program        = create :program, questionnaires: [@questionnaire] }
-  Given { @person         = create :person }
-  Given { StudyApplication.create(person: @person, program: @program) }
-  Given { QuestionnaireCompleteness.create(person: @person, questionnaire: @questionnaire) }
-  Given { login_as(@person) }
+  Given(:question_1) do
+    create :question, :single_select, data: {
+      text: {
+        uk: 'Чи ти в своєму розумі?',
+        ru: 'Ты в своем уме?'
+      },
+      options: {
+        uk: [['Так', true], ['Ні', false]],
+        ru: [['Да', true], ['Нет', false]]
+      }
+    }
+  end
+
+  Given(:question_2) do
+    create :question, :freeform, data: {
+      text: {
+        uk: 'Яке Ваше відношення до ...',
+        ru: 'Как Вы относитесь к?'
+      }
+    }
+  end
+
+  Given(:person) { create :person }
+  Given(:program) { create :program, questionnaires: [questionnaire] }
+  Given(:questionnaire) { create :questionnaire, title_uk: 'Псих тест', questions: [question_1, question_2] }
+
+  Given { StudyApplication.create(person: person, program: program) }
+  Given { QuestionnaireCompleteness.create(person: person, questionnaire: questionnaire) }
+
+  When { login_as(person) }
 
   describe 'should show pending questionnaires' do
     When { visit root_path }
@@ -21,7 +39,7 @@ describe 'Questionnaires' do
   end
 
   describe 'answer the questions' do
-    When { visit edit_answer_path(@questionnaire) }
+    When { visit edit_answer_path(questionnaire) }
 
     describe 'should have fields' do
       subject { find('body > .container') }

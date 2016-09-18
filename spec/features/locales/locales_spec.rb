@@ -20,7 +20,7 @@ describe 'Locales' do
       end
 
       describe 'should not write to DB' do
-        Then { expect {toggle_link.click}.not_to change {Person.order(:id).reload.pluck(:locale)} }
+        Then { expect { toggle_link.click }.not_to change { Person.order(:id).reload.pluck(:locale) } }
       end
     end
   end
@@ -43,7 +43,7 @@ describe 'Locales' do
       end
 
       describe 'should not write to DB' do
-        Then { expect {toggle_link.click}.to change {person.reload.locale} }
+        Then { expect { toggle_link.click }.to change { person.reload.locale } }
       end
     end
   end
