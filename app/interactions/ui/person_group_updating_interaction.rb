@@ -8,7 +8,7 @@ module Ui
       GroupTransactionsMailer.join_the_group(@academic_group, resource).deliver_later
     end
 
-    def as_json(opts = {})
+    def as_json(_opts = {})
       {
         id: @academic_group.id,
         title: @academic_group.title,

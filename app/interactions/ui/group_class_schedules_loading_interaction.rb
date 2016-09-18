@@ -3,9 +3,9 @@ module Ui
     include ClassSchedulesLoadable
 
     def init
-      #TODO replace this when ElasticSearch appears
-      #injection is possible!
+      # TODO: replace this when ElasticSearch appears
       @class_schedules = ClassSchedule.by_group(params[:id], params[:page])
+      # TODO: injection is possible!
     end
   end
 end
