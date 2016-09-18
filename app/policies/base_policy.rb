@@ -28,9 +28,10 @@ class BasePolicy
     end
   end
 
+  # rubocop:disable Style/MethodMissing
   def method_missing(name, *args)
     if name.to_s.last == '?'
-      user_activities.include?(inferred_activity(name.to_s.gsub('?', '')))
+      user_activities.include?(inferred_activity(name.to_s.delete('?')))
     else
       super
     end
