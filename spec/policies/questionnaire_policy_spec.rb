@@ -4,7 +4,7 @@ require 'pundit/rspec'
 describe QuestionnairePolicy do
   subject { QuestionnairePolicy }
 
-  let(:owned_record)  do
+  let(:owned_record) do
     questionnaire = create(:questionnaire)
 
     QuestionnaireCompleteness.create(person: owner, questionnaire: questionnaire)
