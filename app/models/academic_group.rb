@@ -23,12 +23,16 @@ class AcademicGroup < ActiveRecord::Base
 
   def active_students
     leave_date = if active?
-                   { query: 'group_participations.leave_date IS ?',
-                     value: nil }
-                 else
-                   { query: 'group_participations.leave_date >= ? OR group_participations.leave_date IS NULL',
-                     value: graduated_at }
-                 end
+      {
+        query: 'group_participations.leave_date IS ?',
+        value: nil
+      }
+    else
+      {
+        query: 'group_participations.leave_date >= ? OR group_participations.leave_date IS NULL',
+        value: graduated_at
+      }
+    end
 
     Person.joins(student_profile: [group_participations: [:academic_group]])
       .where(academic_groups: { id: id })

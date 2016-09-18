@@ -42,6 +42,9 @@ Style/Documentation:
 Rails:
   Enabled: true
 
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 

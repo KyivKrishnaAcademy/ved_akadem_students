@@ -1,5 +1,6 @@
 class Person < ActiveRecord::Base
-  MARITAL_STATUSES = %i(single in_relationship married divorced widowed) #TODO use enums here since we run rails 4.1
+  # TODO: use enums here since we run rails 4.1
+  MARITAL_STATUSES = %i(single in_relationship married divorced widowed).freeze
 
   class SymbolWrapper
     def self.load(string)
@@ -91,8 +92,12 @@ class Person < ActiveRecord::Base
   end
 
   def add_application_questionnaires
-    questionnaires << study_application.program.questionnaires
-      .where.not(id: questionnaire_ids) if study_application.present?
+    return if study_application.blank?
+
+    questionnaires << study_application
+                        .program
+                        .questionnaires
+                        .where.not(id: questionnaire_ids)
   end
 
   def remove_application_questionnaires(application)
@@ -124,7 +129,7 @@ class Person < ActiveRecord::Base
   end
 
   def last_academic_group
-    student_profile.academic_groups.where(group_participations: { leave_date: nil }).first if student_profile.present?
+    student_profile.academic_groups.find_by(group_participations: { leave_date: nil }) if student_profile.present?
   end
 
   def pending_docs
