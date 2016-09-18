@@ -16,7 +16,9 @@ module HelperMethods
   def screenshot
     sleep 10
 
-    save_screenshot(Rails.root.join 'tmp/capybara', 'Screenshot' << Time.now.strftime('%Y%m%d%H%M%S%L') << '.png')
+    # rubocop:disable Lint/Debugger
+    save_screenshot(Rails.root.join('tmp/capybara', 'Screenshot' << Time.zone.now.strftime('%Y%m%d%H%M%S%L') << '.png'))
+    # rubocop:enable Lint/Debugger
   end
 
   def select2_single(klass, option)
