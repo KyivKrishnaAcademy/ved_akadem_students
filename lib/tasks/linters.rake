@@ -49,7 +49,7 @@ if %w(development test).include? Rails.env
     end
 
     # task lint: [:rubocop, :ruby, :sass, :js, :haml_lint] do
-    task lint: [:ruby, :js] do
+    task lint: [:rubocop, :ruby, :js] do
       puts "Completed all linting"
     end
   end
