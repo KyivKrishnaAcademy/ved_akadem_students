@@ -15,19 +15,28 @@ describe StudentProfile do
     Given(:group_2) { create :academic_group }
 
     describe '#move_to_group' do
-      When  { student_profile.move_to_group(group_1) }
+      When { student_profile.move_to_group(group_1) }
 
       context 'first group' do
         Then { expect(student_profile.academic_groups).to eq([group_1]) }
-        And  { expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).to be_nil }
+
+        And do
+          expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).to be_nil
+        end
       end
 
       context 'second group' do
         Given { student_profile.academic_groups << group_2 }
 
         Then  { expect(student_profile.academic_groups).to contain_exactly(group_1, group_2) }
-        And   { expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).to be_nil }
-        And   { expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).not_to be_nil }
+
+        And do
+          expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).to be_nil
+        end
+
+        And do
+          expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).not_to be_nil
+        end
       end
     end
 
@@ -37,8 +46,13 @@ describe StudentProfile do
 
       When  { student_profile.remove_from_groups }
 
-      Then  { expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).not_to be_nil }
-      And   { expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).not_to be_nil }
+      Then do
+        expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).not_to be_nil
+      end
+
+      And do
+        expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).not_to be_nil
+      end
     end
 
     describe '#active?' do

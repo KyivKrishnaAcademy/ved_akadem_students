@@ -46,7 +46,9 @@ describe Person do
     end
 
     describe 'should skip password validation' do
-      Then { expect(build(:person, password: '', password_confirmation: '', skip_password_validation: true)).to be_valid }
+      Then do
+        expect(build(:person, password: '', password_confirmation: '', skip_password_validation: true)).to be_valid
+      end
     end
 
     context 'gender' do
@@ -55,8 +57,8 @@ describe Person do
     end
 
     context 'email' do
-      Given (:valid_addresses)   { %w(user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn) }
-      Given (:invalid_addresses) { %w(user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com) }
+      Given(:valid_addresses)   { %w(user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn) }
+      Given(:invalid_addresses) { %w(user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com) }
 
       Then { is_expected.to validate_uniqueness_of(:email) }
       And { is_expected.not_to allow_value('').for(:email) }
@@ -84,7 +86,7 @@ describe Person do
         Then { is_expected.to validate_presence_of(:surname) }
         And  { is_expected.to validate_length_of(:surname).is_at_most(50) }
 
-        Then { is_expected.to validate_length_of(:middle_name   ).is_at_most(50) }
+        Then { is_expected.to validate_length_of(:middle_name).is_at_most(50) }
         Then { is_expected.to validate_length_of(:spiritual_name).is_at_most(50) }
 
         Then { is_expected.not_to validate_presence_of(:diksha_guru) }
@@ -116,12 +118,14 @@ describe Person do
 
   describe 'before save processing' do
     context 'downcases :email' do
-      Then { expect(create(:person, {email: 'A_US-ER@f.B.org'}).email).to eq('a_us-er@f.b.org') }
+      Then { expect(create(:person, email: 'A_US-ER@f.B.org').email).to eq('a_us-er@f.b.org') }
     end
 
     context 'sets complex_name' do
       Given(:subject) { create(:person, params).complex_name }
-      Given(:generic_params) { { spiritual_name: 'Adi das', name: 'Vasya', surname: 'Pupkin', middle_name: 'Petrovich' } }
+      Given(:generic_params) do
+        { spiritual_name: 'Adi das', name: 'Vasya', surname: 'Pupkin', middle_name: 'Petrovich' }
+      end
 
       context 'spiritual_name is present' do
         context 'with middle_name' do
@@ -137,7 +141,7 @@ describe Person do
         end
 
         context 'without name and surname' do
-          Given(:params) {  generic_params.merge(name: nil, surname: nil, middle_name: nil) }
+          Given(:params) { generic_params.merge(name: nil, surname: nil, middle_name: nil) }
 
           Then { is_expected.to eq('Adi das') }
         end
@@ -145,13 +149,13 @@ describe Person do
 
       context 'spiritual_name is blank' do
         context 'with middle_name' do
-          Given(:params) {  generic_params.merge(spiritual_name: nil) }
+          Given(:params) { generic_params.merge(spiritual_name: nil) }
 
           Then { is_expected.to eq('Pupkin Vasya Petrovich') }
         end
 
         context 'without middle_name' do
-          Given(:params) {  generic_params.merge(spiritual_name: nil, middle_name: nil) }
+          Given(:params) { generic_params.merge(spiritual_name: nil, middle_name: nil) }
 
           Then { is_expected.to eq('Pupkin Vasya') }
         end
@@ -160,7 +164,9 @@ describe Person do
   end
 
   describe 'methods' do
-    Given(:person) { create :person, spiritual_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy' }
+    Given(:person) do
+      create :person, spiritual_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy'
+    end
 
     describe '#crop_photo' do
       Given { person.update(photo: Rails.root.join('spec/fixtures/150x200.png').open) }
@@ -182,29 +188,41 @@ describe Person do
       describe '#add_application_questionnaires' do
         Given { study_application }
 
-        Then  { expect{person.add_application_questionnaires}.to change{person.questionnaires.count}.by(1) }
+        Then  { expect { person.add_application_questionnaires }.to change { person.questionnaires.count }.by(1) }
         And   { expect(person.questionnaire_ids).to eq([questionnaire_1.id]) }
-        And   { expect{person.add_application_questionnaires}.not_to change{person.questionnaires.count} }
+        And   { expect { person.add_application_questionnaires } .not_to change { person.questionnaires.count } }
       end
 
       describe '#remove_application_questionnaires' do
         context 'not completed' do
           Given { person.questionnaires << [questionnaire_1, questionnaire_2] }
 
-          Then  { expect{person.remove_application_questionnaires(study_application)}.to change{person.questionnaires.count}.by(-1) }
+          Then do
+            expect { person.remove_application_questionnaires(study_application) }
+              .to change { person.questionnaires.count }.by(-1)
+          end
         end
 
         context 'completed' do
-          Given { QuestionnaireCompleteness.create(person_id: person.id, questionnaire_id: questionnaire_1.id, completed: true) }
+          Given do
+            QuestionnaireCompleteness.create(
+              person_id: person.id,
+              questionnaire_id: questionnaire_1.id,
+              completed: true
+            )
+          end
 
-          Then  { expect{person.remove_application_questionnaires(study_application)}.not_to change{person.questionnaires.count} }
+          Then do
+            expect { person.remove_application_questionnaires(study_application) }
+              .not_to change { person.questionnaires.count }
+          end
         end
       end
 
       describe '#not_finished_questionnaires' do
         Given(:person_2) { create :person }
 
-        Given { person.questionnaire_completenesses.create(completed: true , questionnaire_id: questionnaire_1.id) }
+        Given { person.questionnaire_completenesses.create(completed: true,  questionnaire_id: questionnaire_1.id) }
         Given { person.questionnaire_completenesses.create(completed: false, questionnaire_id: questionnaire_2.id) }
         Given { person_2.questionnaire_completenesses.create(questionnaire_id: questionnaire_1.id) }
         Given { person_2.questionnaire_completenesses.create(questionnaire_id: questionnaire_2.id) }
@@ -229,9 +247,9 @@ describe Person do
         context 'with result' do
           Given(:psycho_test) { create :questionnaire, kind: 'psycho_test' }
 
-          Given { person.questionnaire_completenesses.create(questionnaire_id: psycho_test.id, result: {a: :b}) }
+          Given { person.questionnaire_completenesses.create(questionnaire_id: psycho_test.id, result: { a: :b }) }
 
-          Then  { expect(person.psycho_test_result).to eq({a: :b}) }
+          Then  { expect(person.psycho_test_result).to eq(a: :b) }
         end
       end
     end
@@ -241,19 +259,34 @@ describe Person do
       Given(:ag_1) { create :academic_group }
       Given(:ag_2) { create :academic_group }
 
-      Given { GroupParticipation.create(student_profile: sp, academic_group: ag_1, join_date: DateTime.current.yesterday,
-                                        leave_date: DateTime.current) }
+      Given do
+        GroupParticipation.create(
+          student_profile: sp,
+          academic_group: ag_1,
+          join_date: DateTime.current.yesterday,
+          leave_date: DateTime.current
+        )
+      end
+
       Given { GroupParticipation.create(student_profile: sp, academic_group: ag_2, join_date: DateTime.current) }
 
       Then  { expect(person.last_academic_group.title).to eq(ag_2.title) }
     end
 
     describe '#by_complex_name' do
-      Given(:person_2) { create :person, spiritual_name: nil, surname: 'Aavramenko', middle_name: 'Zakovich', name: 'Zinoviy'}
-      Given(:person_3) { create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Borisovich', name: 'Artem'}
-      Given(:person_4) { create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Andreevich', name: 'Artem'}
+      Given(:person_2) do
+        create :person, spiritual_name: nil, surname: 'Aavramenko', middle_name: 'Zakovich', name: 'Zinoviy'
+      end
 
-      Then  { expect(Person.by_complex_name).to eq([person_2, person, person_4, person_3]) }
+      Given(:person_3) do
+        create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Borisovich', name: 'Artem'
+      end
+
+      Given(:person_4) do
+        create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Andreevich', name: 'Artem'
+      end
+
+      Then { expect(Person.by_complex_name).to eq([person_2, person, person_4, person_3]) }
     end
 
     context 'study application scopes' do
@@ -304,31 +337,33 @@ describe Person do
 
     describe '#pending_docs' do
       context 'no photo or passport, has no questionnaires' do
-        Then  { expect(person.pending_docs).to eq({photo: :photo, passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq(photo: :photo, passport: :passport) }
       end
 
       context 'has passport' do
         Given { allow(person).to receive_message_chain(:passport, :blank?).and_return(false) }
 
-        Then  { expect(person.pending_docs).to eq({photo: :photo}) }
+        Then  { expect(person.pending_docs).to eq(photo: :photo) }
       end
 
       context 'has photo' do
         Given { allow(person).to receive_message_chain(:photo, :blank?).and_return(false) }
 
-        Then  { expect(person.pending_docs).to eq({passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq(passport: :passport) }
       end
 
       context 'has completed questionnaire' do
-        Given { person.questionnaire_completenesses.create(completed: true, questionnaire_id: create(:questionnaire).id) }
+        Given do
+          person.questionnaire_completenesses.create(completed: true, questionnaire_id: create(:questionnaire).id)
+        end
 
-        Then  { expect(person.pending_docs).to eq({photo: :photo, passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq(photo: :photo, passport: :passport) }
       end
 
       context 'has has two unanswered questionnaires' do
         Given { person.questionnaires << [create(:questionnaire), create(:questionnaire)] }
 
-        Then  { expect(person.pending_docs).to eq({questionnaires: 2, photo: :photo, passport: :passport}) }
+        Then  { expect(person.pending_docs).to eq(questionnaires: 2, photo: :photo, passport: :passport) }
       end
     end
 

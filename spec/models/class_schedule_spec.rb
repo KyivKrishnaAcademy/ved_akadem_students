@@ -10,7 +10,7 @@ describe ClassSchedule do
     Then { is_expected.to have_many(:attendances).dependent(:destroy) }
   end
 
-  Given(:group) { create :academic_group}
+  Given(:group) { create :academic_group }
 
   describe 'validations' do
     describe 'generic' do
@@ -27,9 +27,13 @@ describe ClassSchedule do
         Given(:student) { create :person }
         Given(:schedule) { build :class_schedule, academic_groups: [group], classroom: classroom }
         Given(:classroom) { create :classroom, roominess: 0 }
-        Given(:error_message) { I18n.t('activerecord.errors.models.class_schedule.attributes.classroom.roominess',
-                                       actual: 0,
-                                       required: 1) }
+        Given(:error_message) do
+          I18n.t(
+            'activerecord.errors.models.class_schedule.attributes.classroom.roominess',
+            actual: 0,
+            required: 1
+          )
+        end
 
         Given { student.create_student_profile.move_to_group(group) }
 
@@ -91,38 +95,63 @@ describe ClassSchedule do
 
       shared_examples :availability do |resource_is_optional|
         context 'invalid' do
-          Given { create :class_schedule, resource_name => resource,
-                         start_time: '01.01.2015 12:00',
-                         finish_time: '01.01.2015 12:20' }
+          Given do
+            create(
+              :class_schedule,
+              resource_name => resource,
+              start_time: '01.01.2015 12:00',
+              finish_time: '01.01.2015 12:20'
+            )
+          end
 
           context 'overlaps on start' do
-            Given(:schedule) { build :class_schedule, resource_name => resource,
-                                     start_time: '01.01.2015 11:00',
-                                     finish_time: '01.01.2015 12:01' }
+            Given(:schedule) do
+              build(
+                :class_schedule,
+                resource_name => resource,
+                start_time: '01.01.2015 11:00',
+                finish_time: '01.01.2015 12:01'
+              )
+            end
 
             it_behaves_like :invalid
           end
 
           context 'overlaps on finish' do
-            Given(:schedule) { build :class_schedule, resource_name => resource,
-                                     start_time: '01.01.2015 12:19',
-                                     finish_time: '01.01.2015 12:40' }
+            Given(:schedule) do
+              build(
+                :class_schedule,
+                resource_name => resource,
+                start_time: '01.01.2015 12:19',
+                finish_time: '01.01.2015 12:40'
+              )
+            end
 
             it_behaves_like :invalid
           end
 
           context 'overlaps inside' do
-            Given(:schedule) { build :class_schedule, resource_name => resource,
-                                     start_time: '01.01.2015 12:01',
-                                     finish_time: '01.01.2015 12:19' }
+            Given(:schedule) do
+              build(
+                :class_schedule,
+                resource_name => resource,
+                start_time: '01.01.2015 12:01',
+                finish_time: '01.01.2015 12:19'
+              )
+            end
 
             it_behaves_like :invalid
           end
 
           context 'overlaps outside' do
-            Given(:schedule) { build :class_schedule, resource_name => resource,
-                                     start_time: '01.01.2015 11:00',
-                                     finish_time: '01.01.2015 13:00' }
+            Given(:schedule) do
+              build(
+                :class_schedule,
+                resource_name => resource,
+                start_time: '01.01.2015 11:00',
+                finish_time: '01.01.2015 13:00'
+              )
+            end
 
             it_behaves_like :invalid
           end
@@ -138,22 +167,37 @@ describe ClassSchedule do
           end
 
           context 'with no overlapping' do
-            Given { create :class_schedule, resource_name => resource,
-                           start_time: '01.01.2015 11:00',
-                           finish_time: '01.01.2015 13:00' }
+            Given do
+              create(
+                :class_schedule,
+                resource_name => resource,
+                start_time: '01.01.2015 11:00',
+                finish_time: '01.01.2015 13:00'
+              )
+            end
 
             context 'in the future' do
-              Given(:schedule) { build :class_schedule, resource_name => resource,
-                                       start_time: '01.01.2015 14:00',
-                                       finish_time: '01.01.2015 15:00' }
+              Given(:schedule) do
+                build(
+                  :class_schedule,
+                  resource_name => resource,
+                  start_time: '01.01.2015 14:00',
+                  finish_time: '01.01.2015 15:00'
+                )
+              end
 
               Then { expect(schedule).to be_valid }
             end
 
             context 'in the past' do
-              Given(:schedule) { build :class_schedule, resource_name => resource,
-                                       start_time: '01.01.2015 09:00',
-                                       finish_time: '01.01.2015 10:00' }
+              Given(:schedule) do
+                build(
+                  :class_schedule,
+                  resource_name => resource,
+                  start_time: '01.01.2015 09:00',
+                  finish_time: '01.01.2015 10:00'
+                )
+              end
 
               Then { expect(schedule).to be_valid }
             end
@@ -231,18 +275,41 @@ describe ClassSchedule do
     end
 
     describe '.by_group' do
-      Given!(:schedule_3) { create :class_schedule, academic_groups: [group],
-                                                    start_time: Time.now + 4.hour,
-                                                    finish_time: Time.now + 5.hour }
-      Given!(:schedule_1) { create :class_schedule, academic_groups: [group],
-                                                    start_time: Time.now + 1.hour,
-                                                    finish_time: Time.now + 2.hour }
-      Given!(:schedule_2) { create :class_schedule, academic_groups: [group],
-                                                    start_time: Time.now + 2.hour,
-                                                    finish_time: Time.now + 3.hour }
-      Given!(:past_schedule) { create :class_schedule, academic_groups: [group],
-                                                       start_time: '01.01.2015 14:00',
-                                                       finish_time: '01.01.2015 15:00' }
+      Given!(:schedule_3) do
+        create(
+          :class_schedule,
+          academic_groups: [group],
+          start_time: Time.zone.now + 4.hours,
+          finish_time: Time.zone.now + 5.hours
+        )
+      end
+
+      Given!(:schedule_1) do
+        create(
+          :class_schedule,
+          academic_groups: [group],
+          start_time: Time.zone.now + 1.hour,
+          finish_time: Time.zone.now + 2.hours
+        )
+      end
+
+      Given!(:schedule_2) do
+        create(
+          :class_schedule,
+          academic_groups: [group],
+          start_time: Time.zone.now + 2.hours,
+          finish_time: Time.zone.now + 3.hours
+        )
+      end
+
+      Given!(:past_schedule) do
+        create(
+          :class_schedule,
+          academic_groups: [group],
+          start_time: '01.01.2015 14:00',
+          finish_time: '01.01.2015 15:00'
+        )
+      end
 
       Then { expect(ClassSchedule.by_group(group.id).map(&:id)).to eq([schedule_1, schedule_2, schedule_3].map(&:id)) }
     end
