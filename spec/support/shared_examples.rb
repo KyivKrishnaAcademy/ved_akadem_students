@@ -30,7 +30,7 @@ end
 shared_examples 'index.html' do |headers|
   describe 'title and h1' do
     Then { expect(page).to have_title(full_title(title)) }
-    And  { expect(find('body')).to have_selector('h1', text: h1)  }
+    And  { expect(find('body')).to have_selector('h1', text: h1) }
   end
 
   describe 'table' do
@@ -105,7 +105,7 @@ shared_examples "DELETE 'destroy'" do |model|
   context 'on success' do
     describe 'model count and redirect' do
       Then { expect { del_person }.to change(model, :count).by(-1) }
-      And  { expect(del_person).to redirect_to(action: :index)  }
+      And  { expect(del_person).to redirect_to(action: :index) }
     end
 
     describe 'flash' do
@@ -133,7 +133,7 @@ shared_examples "DELETE 'destroy'" do |model|
 end
 
 shared_examples :controller_params_subclass do |subclass, model|
-  describe "#{subclass}" do
+  describe subclass.to_s do
     describe '.filter' do
       it 'returns the cleaned params' do
         expect(
@@ -168,11 +168,7 @@ end
 shared_examples :integration_delete_model do |model|
   Given(:m_name_underscore) { model.name.underscore }
 
-  When do
-    visit method(('' << m_name_underscore << '_path').to_sym).call(
-      create m_name_underscore.to_sym
-    )
-  end
+  When { visit method(('' << m_name_underscore << '_path').to_sym).call(create(m_name_underscore.to_sym)) }
 
   describe 'flash' do
     When { click_link I18n.t('links.delete') }
@@ -391,8 +387,11 @@ shared_examples_for :ui_not_authorized do
 end
 
 shared_examples_for :ui_not_authenticated do
-  Then { expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('devise.failure.unauthenticated')) }
-  And  { expect(response.status).to be(401) }
+  Then do
+    expect(JSON.parse(response.body, symbolize_names: true)).to eq(error: I18n.t('devise.failure.unauthenticated'))
+  end
+
+  And { expect(response.status).to be(401) }
 end
 
 shared_examples_for :class_schedule_ui_index do
@@ -474,13 +473,28 @@ shared_examples_for :class_schedules_loadable do
   Given(:classroom_title) { 'Antardwipa' }
   Given(:teacher_profile) { create :teacher_profile }
 
-  Given(:full_schedule) { create :class_schedule, course: course, classroom: classroom,
-                                 teacher_profile: teacher_profile,
-                                 subject: subject, start_time: start_time,
-                                 finish_time: finish_time, academic_groups: [group] }
+  Given(:full_schedule) do
+    create(
+      :class_schedule,
+      course: course,
+      classroom: classroom,
+      teacher_profile: teacher_profile,
+      subject: subject,
+      start_time: start_time,
+      finish_time: finish_time,
+      academic_groups: [group]
+    )
+  end
 
-  Given(:optional_schedule) { create :class_schedule, course: course, classroom: classroom,
-                                     start_time: start_time, finish_time: finish_time }
+  Given(:optional_schedule) do
+    create(
+      :class_schedule,
+      course: course,
+      classroom: classroom,
+      start_time: start_time,
+      finish_time: finish_time
+    )
+  end
 
   Given(:group_can_view) { false }
   Given(:course_can_view) { false }
@@ -492,38 +506,39 @@ shared_examples_for :class_schedules_loadable do
 
   Given(:expected_full_payload) do
     {
-        classSchedules: [
-            { id: full_schedule.id,
-              subject: subject,
-              course: {
-                  id: course.id,
-                  title: course_title,
-                  canView: course_can_view,
-                  path: path_helper.course_path(course)
-              },
-              lector: {
-                  id: teacher_profile.person.id,
-                  path: path_helper.person_path(teacher_profile.person),
-                  canView: lector_can_view,
-                  complexName: teacher_profile.person.spiritual_name
-              },
-              academicGroups: [
-                  {
-                      id: group.id,
-                      title: group_title,
-                      canView: group_can_view,
-                      path: path_helper.academic_group_path(group)
-                  }
-              ],
-              classroom: classroom_title,
-              time: result_time,
-              canEdit: schedule_can_edit,
-              canDelete: schedule_can_delete,
-              editPath: path_helper.edit_class_schedule_path(full_schedule),
-              deletePath: path_helper.class_schedule_path(full_schedule)
+      classSchedules: [
+        {
+          id: full_schedule.id,
+          subject: subject,
+          course: {
+            id: course.id,
+            title: course_title,
+            canView: course_can_view,
+            path: path_helper.course_path(course)
+          },
+          lector: {
+            id: teacher_profile.person.id,
+            path: path_helper.person_path(teacher_profile.person),
+            canView: lector_can_view,
+            complexName: teacher_profile.person.spiritual_name
+          },
+          academicGroups: [
+            {
+              id: group.id,
+              title: group_title,
+              canView: group_can_view,
+              path: path_helper.academic_group_path(group)
             }
-        ],
-        pages: 1
+          ],
+          classroom: classroom_title,
+          time: result_time,
+          canEdit: schedule_can_edit,
+          canDelete: schedule_can_delete,
+          editPath: path_helper.edit_class_schedule_path(full_schedule),
+          deletePath: path_helper.class_schedule_path(full_schedule)
+        }
+      ],
+      pages: 1
     }
   end
 
@@ -539,26 +554,27 @@ shared_examples_for :class_schedules_loadable do
 
     Given(:expected_optional_payload) do
       {
-          classSchedules: [
-              { id: optional_schedule.id,
-                subject: nil,
-                course: {
-                    id: course.id,
-                    title: course_title,
-                    canView: false,
-                    path: path_helper.course_path(course)
-                },
-                lector: nil,
-                academicGroups: [],
-                classroom: classroom_title,
-                time: result_time,
-                canEdit: false,
-                canDelete: false,
-                editPath: path_helper.edit_class_schedule_path(optional_schedule),
-                deletePath: path_helper.class_schedule_path(optional_schedule)
-              }
-          ],
-          pages: 1
+        classSchedules: [
+          {
+            id: optional_schedule.id,
+            subject: nil,
+            course: {
+              id: course.id,
+              title: course_title,
+              canView: false,
+              path: path_helper.course_path(course)
+            },
+            lector: nil,
+            academicGroups: [],
+            classroom: classroom_title,
+            time: result_time,
+            canEdit: false,
+            canDelete: false,
+            editPath: path_helper.edit_class_schedule_path(optional_schedule),
+            deletePath: path_helper.class_schedule_path(optional_schedule)
+          }
+        ],
+        pages: 1
       }
     end
 

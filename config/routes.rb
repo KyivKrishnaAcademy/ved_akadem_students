@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :people, path: '', controllers: { registrations: 'users/registrations' }, path_names: { sign_up: 'register' }
+  devise_for(
+    :people,
+    path: '',
+    controllers: { registrations: 'users/registrations' },
+    path_names: { sign_up: 'register' }
+  )
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
@@ -10,9 +15,9 @@ Rails.application.routes.draw do
   end
 
   resources :people, :courses, :academic_groups
-  resources :class_schedules   , only: [:new, :create, :edit, :update, :index, :destroy]
+  resources :class_schedules, only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
-  resources :answers           , only: [:update, :edit]
+  resources :answers, only: [:update, :edit]
   resources :certificate_templates, except: :show do
     member do
       get :markup
@@ -37,11 +42,11 @@ Rails.application.routes.draw do
 
   get 'locales/toggle'
 
-  get   'image/crop/:id'  , controller: :crops, action: :crop_image  , as: :crop_image
+  get   'image/crop/:id', controller: :crops, action: :crop_image, as: :crop_image
   patch 'image/update/:id', controller: :crops, action: :update_image, as: :update_image
 
-  get    'people/show_photo/:version/:id'    , controller: :people, action: :show_photo
-  get    'people/show_passport/:id'          , controller: :people, action: :show_passport
+  get    'people/show_photo/:version/:id', controller: :people, action: :show_photo
+  get    'people/show_passport/:id', controller: :people, action: :show_passport
 
   namespace :ui do
     resources :academic_groups,  only: :index
@@ -49,12 +54,12 @@ Rails.application.routes.draw do
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index
 
-    get 'group_admins'      , controller: :group_elders, action: :group_admins_index
-    get 'group_curators'    , controller: :group_elders, action: :group_curators_index
-    get 'group_praepostors' , controller: :group_elders, action: :group_praepostors_index
+    get 'group_admins', controller: :group_elders, action: :group_admins_index
+    get 'group_curators', controller: :group_elders, action: :group_curators_index
+    get 'group_praepostors', controller: :group_elders, action: :group_praepostors_index
 
-    get 'person_class_schedules'    , controller: :class_schedules, action: :person
-    get 'group_class_schedules/:id' , controller: :class_schedules, action: :academic_group, as: :group_class_schedules
+    get 'person_class_schedules', controller: :class_schedules, action: :person
+    get 'group_class_schedules/:id', controller: :class_schedules, action: :academic_group, as: :group_class_schedules
 
     patch 'people/:id/move_to_group/:group_id', controller: :people, action: :move_to_group
 

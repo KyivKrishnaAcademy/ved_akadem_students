@@ -18,6 +18,6 @@ class StudentProfile < ActiveRecord::Base
   end
 
   def remove_from_groups
-    group_participations.where(leave_date: nil).each(&:leave!)
+    group_participations.where(leave_date: nil).find_each(&:leave!)
   end
 end

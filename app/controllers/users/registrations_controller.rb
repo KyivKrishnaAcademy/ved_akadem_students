@@ -64,7 +64,7 @@ module Users
 
       params[:person].delete(:password)
       params[:person].delete(:password_confirmation)
-      params[:person].merge!(skip_password_validation: true)
+      params[:person][:skip_password_validation] = true
 
       devise_parameter_sanitizer.for(:account_update) << [:skip_password_validation]
     end

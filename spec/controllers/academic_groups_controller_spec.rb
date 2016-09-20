@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 describe AcademicGroupsController do
-  Given (:mod_params) do
-    { title:              'ШБ13-5',
+  Given(:mod_params) do
+    {
+      title:              'ШБ13-5',
       establ_date:        3600.days.ago.to_date.to_s,
-      group_description:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе' }
+      group_description:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе'
+    }
   end
 
   describe 'params' do
@@ -13,7 +15,7 @@ describe AcademicGroupsController do
 
   shared_examples :academic_groups_actions do |*activities|
     context 'signed in' do
-      When { sign_in(:person, @user) }
+      When { sign_in(:person, user) }
       When { action }
 
       describe 'should allow' do
@@ -21,13 +23,13 @@ describe AcademicGroupsController do
           Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
         end
 
-        Given { @user = create :person, roles: [create(:role, activities: activities.flatten)] }
+        Given(:user) { create :person, roles: [create(:role, activities: activities.flatten)] }
 
-        Then  { expectation }
+        Then { expectation }
       end
 
       describe 'should not allow with other activities' do
-        Given { @user = create :person, roles: [create(:role, activities: (all_activities - activities.flatten))] }
+        Given(:user) { create :person, roles: [create(:role, activities: (all_activities - activities.flatten))] }
 
         Then  { is_expected.to set_flash[:danger].to(I18n.t('not_authorized')) }
         And   { expect(response).to redirect_to(root_path) }
@@ -48,7 +50,7 @@ describe AcademicGroupsController do
         administrator_id: create(:person).id,
         title: 'ШБ00-1',
         group_description: 'aaaaaaaaaa',
-        establ_date: DateTime.now
+        establ_date: Time.zone.now
       }
     end
 
@@ -153,24 +155,24 @@ describe AcademicGroupsController do
   end
 
   context 'get: :edit with ["academic_group:edit"]' do
-    Given { @record = create :academic_group }
+    Given(:record) { create :academic_group }
 
-    Given(:action)      { get :edit, id: @record.id }
+    Given(:action)      { get :edit, id: record.id }
     Given(:expectation) do
       expect(response).to render_template(:edit)
-      expect(assigns(:academic_group)).to eq(@record)
+      expect(assigns(:academic_group)).to eq(record)
     end
 
     it_behaves_like :academic_groups_actions, 'academic_group:edit'
   end
 
   context 'patch: :update with ["academic_group:update"]' do
-    Given { @record = create :academic_group }
+    Given(:record) { create :academic_group }
+    Given(:action) { patch :update, id: record.id, academic_group: mod_params }
 
-    Given(:action)      { patch :update, { id: @record.id, academic_group: mod_params }  }
     Given(:expectation) do
-      expect(response).to redirect_to(@record)
-      expect(assigns(:academic_group)).to eq(@record)
+      expect(response).to redirect_to(record)
+      expect(assigns(:academic_group)).to eq(record)
       is_expected.to set_flash[:success]
     end
 
@@ -199,20 +201,20 @@ describe AcademicGroupsController do
   end
 
   context 'delete: :destroy with ["academic_group:destroy"]' do
-    Given { @record = create :academic_group }
+    Given!(:record) { create :academic_group }
 
-    Given(:action) { delete :destroy, id: @record.id }
+    Given(:action) { delete :destroy, id: record.id }
 
     context 'signed in' do
       Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
-      Given { @user = create :person, roles: [create(:role, activities: %w(academic_group:destroy))] }
+      Given(:user) { create :person, roles: [create(:role, activities: %w(academic_group:destroy))] }
 
-      When { sign_in(:person, @user) }
+      When { sign_in(:person, user) }
 
       context 'on success' do
-        Then { expect{action}.to change(AcademicGroup, :count).by(-1) }
-        And  { expect(action).to redirect_to(action: :index)  }
+        Then { expect { action }.to change(AcademicGroup, :count).by(-1) }
+        And  { expect(action).to redirect_to(action: :index) }
         And  { is_expected.to set_flash[:success] }
       end
 
@@ -220,7 +222,7 @@ describe AcademicGroupsController do
         Given { allow_any_instance_of(AcademicGroup).to receive_message_chain(:destroy, :destroyed?).and_return(false) }
         Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
 
-        Then { expect{action}.not_to change(AcademicGroup, :count) }
+        Then { expect { action }.not_to change(AcademicGroup, :count) }
         And  { expect(action).to redirect_to('where_i_came_from') }
         And  { is_expected.to set_flash[:danger] }
       end

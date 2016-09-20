@@ -12,7 +12,7 @@ class BaseInteraction
   def init
   end
 
-  def as_json(opts = {})
+  def as_json(_opts = {})
     {}
   end
 

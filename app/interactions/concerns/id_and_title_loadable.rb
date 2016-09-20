@@ -4,7 +4,7 @@ module IdAndTitleLoadable
       text: resource.title }
   end
 
-  def as_json(opts = {})
+  def as_json(_opts = {})
     { @json_root => @resource.map { |r| serialize_resource r } }
   end
 end

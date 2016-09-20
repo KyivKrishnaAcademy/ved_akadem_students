@@ -14,6 +14,7 @@ module StudyApplicationable
   end
 
   def programs(person)
+    # TODO: move to policy
     return if person.blank?
 
     if person.can_act?('study_application:create')

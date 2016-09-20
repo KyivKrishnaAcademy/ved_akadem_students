@@ -11,7 +11,7 @@ module Api
         birthday: p.birthday,
         photo: 'https://pp.vk.me/c10513/u136975712/-14/x_5142fe55.jpg',
         groups: p.groups,
-        telephones: p.telephones #.map { |t| t.phone }
+        telephones: p.telephones.map(&:phone)
       }
 
       result.merge(version: Digest::SHA1.hexdigest(result.to_s))

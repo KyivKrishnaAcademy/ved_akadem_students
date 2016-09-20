@@ -14,13 +14,27 @@ AllCops:
     - 'db/seeds.rb'
     - 'client/node_modules/**/*'
     - 'bin/**/*'
+    - 'bundler_stubs/**/*'
+    - 'config/locales/plurals.rb'
     - !ruby/regexp /old_and_unused\.rb$/
+
+Metrics/AbcSize:
+  Max: 30
 
 Metrics/LineLength:
   Max: 120
 
-# Style/StringLiterals:
-#   EnforcedStyle: double_quotes
+Metrics/MethodLength:
+  Max: 30
+
+Metrics/ClassLength:
+  Max: 300
+
+Metrics/ModuleLength:
+  Max: 300
+
+Metrics/ParameterLists:
+  Max: 10
 
 Style/Documentation:
   Enabled: false
@@ -28,3 +42,14 @@ Style/Documentation:
 Rails:
   Enabled: true
 
+Rails/HasAndBelongsToMany:
+  Enabled: false
+
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver
+
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Lint/EndAlignment:
+  AlignWith: variable

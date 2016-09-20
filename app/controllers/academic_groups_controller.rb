@@ -17,7 +17,7 @@ class AcademicGroupsController < ApplicationController
   end
 
   def new
-    @academic_group = AcademicGroup.new(establ_date: Time.now)
+    @academic_group = AcademicGroup.new(establ_date: Time.zone.now)
 
     authorize @academic_group
   end
@@ -30,7 +30,7 @@ class AcademicGroupsController < ApplicationController
 
     authorize @academic_group
 
-    #TODO DRY the controller with responders
+    # TODO: DRY the controller with responders
     if @academic_group.save
       flash[:success] = "#{view_context.link_to(@academic_group.title,
                                                 academic_group_path(@academic_group))} added."

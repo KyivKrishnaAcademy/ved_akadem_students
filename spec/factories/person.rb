@@ -1,20 +1,20 @@
 FactoryGirl.define do
   factory :person do
-    education                  { generate(:char_sequence)*20 }
-    gender                     { true }
-    middle_name                { "Y#{generate(:char_sequence)}" }
-    name                       { "V#{generate(:char_sequence)}" }
-    password                   { 'password' }
-    password_confirmation      { 'password' }
-    privacy_agreement          { 'yes' }
-    sequence(:birthday, 12000) { |n| n.days.ago.to_date }
-    sequence(:email)           { |n| "mail#{n}@ukr.net" }
-    spiritual_name             { "Ad#{generate(:char_sequence)} das" }
-    surname                    { "N#{generate(:char_sequence)}" }
-    telephones                 { [build(:telephone)] }
-    work                       { generate(:char_sequence)*20 }
-    marital_status             { 'single' }
-    diksha_guru                { 'Srila Prabhupada' }
+    education                   { generate(:char_sequence) * 20 }
+    gender                      { true }
+    middle_name                 { "Y#{generate(:char_sequence)}" }
+    name                        { "V#{generate(:char_sequence)}" }
+    password                    { 'password' }
+    password_confirmation       { 'password' }
+    privacy_agreement           { 'yes' }
+    sequence(:birthday, 12_000) { |n| n.days.ago.to_date }
+    sequence(:email)            { |n| "mail#{n}@ukr.net" }
+    spiritual_name              { "Ad#{generate(:char_sequence)} das" }
+    surname                     { "N#{generate(:char_sequence)}" }
+    telephones                  { [build(:telephone)] }
+    work                        { generate(:char_sequence) * 20 }
+    marital_status              { 'single' }
+    diksha_guru                 { 'Srila Prabhupada' }
   end
 
   trait :admin do

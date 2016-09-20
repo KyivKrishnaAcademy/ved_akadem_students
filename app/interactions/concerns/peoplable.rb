@@ -7,7 +7,7 @@ module Peoplable
     }
   end
 
-  def as_json(opts = {})
+  def as_json(_opts = {})
     {
       people: @people.map { |p| serialize_person p }
     }

@@ -5,7 +5,7 @@ module ClassSchedulesLoadable
   include ClassSchedulesHelper
   include Rails.application.routes.url_helpers
 
-  def as_json(opts = {})
+  def as_json(_opts = {})
     {
       classSchedules: @class_schedules.map { |cs| serialize_class_schedule cs },
       pages: @class_schedules.total_pages

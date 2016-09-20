@@ -58,7 +58,7 @@ class PeopleController < ApplicationController
       redirect_to :back, flash: { danger: 'Person deletion failed!' }
     end
 
-    #TODO DRY the controller with responders
+    # TODO: DRY the controller with responders
   end
 
   def update
@@ -73,22 +73,26 @@ class PeopleController < ApplicationController
 
   def show_photo
     path = if params[:version] == 'default'
-             @person.photo_url
-           else
-             @person.photo.versions[params[:version].to_sym].url
-           end
+      @person.photo_url
+    else
+      @person.photo.versions[params[:version].to_sym].url
+    end
 
-    send_file(path,
-              disposition: 'inline',
-              type: 'image/jpeg',
-              x_sendfile: true)
+    send_file(
+      path,
+      disposition: 'inline',
+      type: 'image/jpeg',
+      x_sendfile: true
+    )
   end
 
   def show_passport
-    send_file(@person.passport_url,
-              disposition: 'inline',
-              type: 'image/jpeg',
-              x_sendfile: true)
+    send_file(
+      @person.passport_url,
+      disposition: 'inline',
+      type: 'image/jpeg',
+      x_sendfile: true
+    )
   end
 
   class PersonParams

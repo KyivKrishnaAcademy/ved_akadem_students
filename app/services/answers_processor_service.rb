@@ -18,8 +18,8 @@ class AnswersProcessorService
   def compute_results!
     result  = {}
     answers = Answer
-              .includes(:question)
-              .where(person_id: @person.id, questions: { questionnaire_id: @questionnaire.id })
+                .includes(:question)
+                .where(person_id: @person.id, questions: { questionnaire_id: @questionnaire.id })
 
     return if answers.none?
 

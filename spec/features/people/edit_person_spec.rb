@@ -8,18 +8,18 @@ describe 'Edit person:' do
 
   context 'When values are valid:' do
     [
-      { field: 'phone'                    , value: '+380 50 111 2233' , test_field: 'Telephone 1: +380501112233' },
-      { field: 'phone'                    , value: '50 111 2233'      , test_field: 'Telephone 1: +380501112233' },
-      { field: 'phone'                    , value: '+7 495 739-22-22' , test_field: 'Telephone 1: +74957392222' },
-      { field: 'person[spiritual_name]'   , value: 'Adidasa Dasa'     , test_field: 'Adidasa Dasa' },
-      { field: 'person[name]'             , value: 'Алексей'          , test_field: 'Алексей' },
-      { field: 'person[middle_name]'      , value: 'Иванович'         , test_field: 'Иванович' },
-      { field: 'person[surname]'          , value: 'Евгеньев'         , test_field: 'Евгеньев' },
-      { field: 'person[email]'            , value: 'alex@PAMHO.net'   , test_field: 'Email: alex@pamho.net' },
-      { field: 'person[education]'        , value: 'some'             , test_field: 'Education: some' },
-      { field: 'person[work]'             , value: 'other'            , test_field: 'Work: other' },
-      { field: 'person[special_note]'     , value: 'some note'        , test_field: 'Special note: some note' },
-      { field: 'person[emergency_contact]', value: 'дядя Петя'        , test_field: 'Emergency contact: дядя Петя' }
+      { field: 'phone',                     value: '+380 50 111 2233',  test_field: 'Telephone 1: +380501112233' },
+      { field: 'phone',                     value: '50 111 2233',       test_field: 'Telephone 1: +380501112233' },
+      { field: 'phone',                     value: '+7 495 739-22-22',  test_field: 'Telephone 1: +74957392222' },
+      { field: 'person[name]',              value: 'Алексей',           test_field: 'Алексей' },
+      { field: 'person[work]',              value: 'other',             test_field: 'Work: other' },
+      { field: 'person[email]',             value: 'alex@PAMHO.net',    test_field: 'Email: alex@pamho.net' },
+      { field: 'person[surname]',           value: 'Евгеньев',          test_field: 'Евгеньев' },
+      { field: 'person[education]',         value: 'some',              test_field: 'Education: some' },
+      { field: 'person[middle_name]',       value: 'Иванович',          test_field: 'Иванович' },
+      { field: 'person[special_note]',      value: 'some note',         test_field: 'Special note: some note' },
+      { field: 'person[spiritual_name]',    value: 'Adidasa Dasa',      test_field: 'Adidasa Dasa' },
+      { field: 'person[emergency_contact]', value: 'дядя Петя',         test_field: 'Emergency contact: дядя Петя' }
     ].each do |h|
       it_behaves_like :valid_fill_in, h, 'Person'
     end
@@ -36,8 +36,8 @@ describe 'Edit person:' do
     end
 
     describe 'Gender' do
-      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Чоловіча' ,'Gender: Male'
-      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Жіноча'   ,'Gender: Female'
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Чоловіча',  'Gender: Male'
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Жіноча',    'Gender: Female'
     end
   end
 

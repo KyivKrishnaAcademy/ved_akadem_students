@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 describe 'academic_groups/show' do
-  GROUP_ELDERS = %w(administrator curator praepostor)
+  GROUP_ELDERS = %w(administrator curator praepostor).freeze
   OPTIONAL_GROUP_ELDERS = GROUP_ELDERS - %w(administrator)
 
   Given(:activities) { ['academic_group:show'] }
   Given(:ag_name) { 'ТВ99-1' }
   Given(:policy) { double(AcademicGroupPolicy) }
-  Given(:group) { create :academic_group, { title: ag_name } }
+  Given(:group) { create :academic_group, title: ag_name }
   Given(:admin) { group.administrator }
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
   Given(:page) { Capybara::Node::Simple.new(response.body) }
@@ -25,21 +25,30 @@ describe 'academic_groups/show' do
   Given(:pdf_attendance_link) { "a.glyphicon-print[href='#{attendance_template_pdf_path(group)}']" }
 
   describe 'common with restricted rights' do
-    Then  { expect(rendered).to have_selector('h1', text: ag_name) }
-    And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{I18n.l(group.establ_date)}") }
-    And   { expect(rendered).to have_text("#{I18n.t('activerecord.attributes.academic_group.group_description')}: #{group.group_description}") }
+    Then { expect(rendered).to have_selector('h1', text: ag_name) }
 
-    And   { expect(rendered).not_to have_link(I18n.t('links.edit')) }
-    And   { expect(rendered).not_to have_link(I18n.t('links.delete')) }
-    And   { expect(rendered).not_to have_link(I18n.t('links.graduate')) }
-    And   { expect(page).not_to have_css(pdf_photos_link) }
-    And   { expect(page).not_to have_css(pdf_attendance_link) }
+    And do
+      expect(rendered)
+        .to have_text("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{I18n.l(group.establ_date)}")
+    end
 
-    And   { expect(rendered).to have_text(I18n.t('academic_groups.show.group_servants')) }
-    And   { expect(rendered).to have_text(I18n.t('academic_groups.show.administrator')) }
-    And   { expect(rendered).to have_text(admin.email) }
+    And do
+      expect(rendered).to(
+        have_text("#{I18n.t('activerecord.attributes.academic_group.group_description')}: #{group.group_description}")
+      )
+    end
 
-    And   { expect(rendered).not_to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
+    And { expect(rendered).not_to have_link(I18n.t('links.edit')) }
+    And { expect(rendered).not_to have_link(I18n.t('links.delete')) }
+    And { expect(rendered).not_to have_link(I18n.t('links.graduate')) }
+    And { expect(page).not_to have_css(pdf_photos_link) }
+    And { expect(page).not_to have_css(pdf_attendance_link) }
+
+    And { expect(rendered).to have_text(I18n.t('academic_groups.show.group_servants')) }
+    And { expect(rendered).to have_text(I18n.t('academic_groups.show.administrator')) }
+    And { expect(rendered).to have_text(admin.email) }
+
+    And { expect(rendered).not_to have_text(I18n.t('activerecord.attributes.academic_group.graduated_at')) }
   end
 
   describe 'group schedule', :js do
@@ -47,14 +56,14 @@ describe 'academic_groups/show' do
 
     context 'no schedule' do
       Then { is_expected.to have_content(I18n.t('academic_groups.show.no_pending_schedules')) }
-      And  { is_expected.not_to have_content(I18n.t('class_schedules.table_headers.time'))}
+      And  { is_expected.not_to have_content(I18n.t('class_schedules.table_headers.time')) }
     end
 
     context 'some schedules' do
       Given { create :class_schedule, academic_groups: [group] }
 
       Then  { is_expected.to have_content(I18n.t('class_schedules.table_headers.time')) }
-      And   { is_expected.not_to have_content(I18n.t('academic_groups.show.no_pending_schedules'))}
+      And   { is_expected.not_to have_content(I18n.t('academic_groups.show.no_pending_schedules')) }
     end
   end
 
@@ -75,15 +84,15 @@ describe 'academic_groups/show' do
   describe 'with edit rights' do
     Given(:activities) { %w(academic_group:show academic_group:edit) }
 
-    Then  { expect(rendered).to have_link(I18n.t('links.edit'))}
-    And   { expect(rendered).not_to have_link(I18n.t('links.delete'))}
+    Then { expect(rendered).to have_link(I18n.t('links.edit')) }
+    And  { expect(rendered).not_to have_link(I18n.t('links.delete')) }
   end
 
   describe 'with destroy rights' do
     Given(:activities) { %w(academic_group:show academic_group:destroy) }
 
-    Then  { expect(rendered).to have_link(I18n.t('links.delete'))}
-    And   { expect(rendered).not_to have_link(I18n.t('links.edit'))}
+    Then { expect(rendered).to have_link(I18n.t('links.delete')) }
+    And  { expect(rendered).not_to have_link(I18n.t('links.edit')) }
   end
 
   describe 'has group elders' do
@@ -110,7 +119,7 @@ describe 'academic_groups/show' do
     end
 
     shared_examples_for :group_list_table do |table_headers, table_no_headers|
-      Then { is_expected.to have_selector('tbody tr', count: 1 ) }
+      Then { is_expected.to have_selector('tbody tr', count: 1) }
 
       table_headers.each do |header|
         And { is_expected.to have_selector('th', text: header) }

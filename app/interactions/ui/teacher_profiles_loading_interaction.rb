@@ -1,10 +1,11 @@
 module Ui
   class TeacherProfilesLoadingInteraction < BaseInteraction
     def init
-      #TODO replace this when ElasticSearch appears
-      @teacher_profiles = TeacherProfile.includes(:person)
-                                        .joins(:person)
-                                        .where('people.complex_name ILIKE ?', "%#{params[:q]}%") #injection is possible!
+      # TODO: replace this when ElasticSearch appears
+      @teacher_profiles = TeacherProfile
+                            .includes(:person)
+                            .joins(:person)
+                            .where('people.complex_name ILIKE ?', "%#{params[:q]}%") # TODO: injection is possible!
     end
 
     def serialize_profile(profile)
@@ -15,7 +16,7 @@ module Ui
       }
     end
 
-    def as_json(opts = {})
+    def as_json(_opts = {})
       {
         teacher_profiles: @teacher_profiles.map { |p| serialize_profile p }
       }

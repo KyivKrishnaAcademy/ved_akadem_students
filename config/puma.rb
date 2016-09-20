@@ -11,11 +11,15 @@ if rails_env == 'production'
 
   threads 4, 4
 
-  bind  'unix:///var/www/apps/ved_akadem_students/shared/tmp/puma/ved_akadem_students.sock'
+  bind 'unix:///var/www/apps/ved_akadem_students/shared/tmp/puma/ved_akadem_students.sock'
   pidfile '/var/www/apps/ved_akadem_students/current/tmp/puma/pid'
   state_path '/var/www/apps/ved_akadem_students/current/tmp/puma/state'
 
-  stdout_redirect '/var/www/apps/ved_akadem_students/current/log/puma.stdout.log', '/var/www/apps/ved_akadem_students/current/log/puma.stderr.log', true
+  stdout_redirect(
+    '/var/www/apps/ved_akadem_students/current/log/puma.stdout.log',
+    '/var/www/apps/ved_akadem_students/current/log/puma.stderr.log',
+    true
+  )
 
   activate_control_app
 else

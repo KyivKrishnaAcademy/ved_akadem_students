@@ -18,7 +18,10 @@ describe 'courses/show' do
     Given(:container) { page.find('.row', text: course_title) }
 
     Given(:no_edit_link) { expect(container).not_to have_link(I18n.t('links.edit'), href: edit_course_path(course)) }
-    Given(:no_destroy_link) { expect(container).not_to have_link(I18n.t('links.delete'), href: "/courses/#{course.id}") }
+
+    Given(:no_destroy_link) do
+      expect(container).not_to have_link(I18n.t('links.delete'), href: "/courses/#{course.id}")
+    end
 
     context 'without additional rights' do
       Then { no_edit_link }

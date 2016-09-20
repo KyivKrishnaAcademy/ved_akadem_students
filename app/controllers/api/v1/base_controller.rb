@@ -9,7 +9,7 @@ module Api
 
       skip_before_action :set_locale
 
-      alias_method :current_person, :current_api_v1_person
+      alias current_person current_api_v1_person
     end
   end
 end

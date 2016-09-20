@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Ui::PersonGroupUpdatingInteraction do
   Given(:title) { 'ШБ10-1' }
   Given(:group) { create :academic_group, title: title }
-  Given(:params) { ActionController::Parameters.new({ group_id: group.id }) }
+  Given(:params) { ActionController::Parameters.new(group_id: group.id) }
   Given(:student) { create :person }
   Given(:interaction) { described_class.new(params: params, resource: student) }
 

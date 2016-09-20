@@ -7,7 +7,7 @@ describe 'people/new.html.erb' do
 
   Given(:form) { 'form.new_person' }
 
-  When  { visit new_person_path }
+  When { visit new_person_path }
 
   describe 'have fields' do
     Then { is_expected.to have_title(full_title('Add New Person')) }

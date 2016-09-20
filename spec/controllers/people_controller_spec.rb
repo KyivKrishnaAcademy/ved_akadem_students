@@ -33,7 +33,10 @@ describe PeopleController do
     Given(:other_person) { double(Person, id: 2) }
     Given(:group) { double(AcademicGroup, id: 3) }
 
-    Given { allow(other_person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([group.id]) }
+    Given do
+      allow(other_person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids)
+        .and_return([group.id])
+    end
 
     Given { allow(other_person).to receive(:class).and_return(Person) }
     Given { allow(people).to receive(:find).with('2').and_return(other_person) }
@@ -64,9 +67,11 @@ describe PeopleController do
 
         context 'other person' do
           context 'stranger' do
-            Given { allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([]) }
+            Given do
+              allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([])
+            end
 
-            When  { get :show_photo, id: 2, version: 'default' }
+            When { get :show_photo, id: 2, version: 'default' }
 
             it_behaves_like :not_authorized
           end
@@ -74,7 +79,10 @@ describe PeopleController do
           context 'classmate' do
             Given(:group) { double(AcademicGroup, id: 3) }
 
-            Given { allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([group.id]) }
+            Given do
+              allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids)
+                .and_return([group.id])
+            end
 
             it_behaves_like :get_show_photo_successed, 2
           end
@@ -84,8 +92,12 @@ describe PeopleController do
             Given(:groups) { double(any?: true) }
 
             Given { allow(AcademicGroup).to receive(:joins).and_return(join) }
-            Given { allow(join).to receive(:where).with(field => other_person.id, :student_profiles => { :person_id => person.id })
-                                                  .and_return(groups) }
+
+            Given do
+              allow(join).to receive(:where)
+                .with(field => other_person.id, :student_profiles => { person_id: person.id })
+                .and_return(groups)
+            end
 
             context 'curator' do
               Given(:field) { :curator_id }
@@ -96,8 +108,16 @@ describe PeopleController do
             context 'administrator' do
               Given(:field) { :administrator_id }
 
-              Given { allow(join).to receive(:where).with(:curator_id => other_person.id, :student_profiles => { :person_id => person.id })
-                                                    .and_return([]) }
+              Given do
+                allow(join).to receive(:where)
+                  .with(
+                    curator_id: other_person.id,
+                    student_profiles: {
+                      person_id: person.id
+                    }
+                  )
+                  .and_return([])
+              end
 
               it_behaves_like :get_show_photo_successed, 2
             end
@@ -158,7 +178,9 @@ describe PeopleController do
     When { sign_in :person, create(:person, :admin) }
 
     describe "POST 'create'" do
-      When { post :create, person: build(:person).attributes.merge(telephones_attributes: [build(:telephone).attributes]) }
+      When do
+        post :create, person: build(:person).attributes.merge(telephones_attributes: [build(:telephone).attributes])
+      end
 
       context 'on success' do
         context 'redirect and flash' do
@@ -167,7 +189,7 @@ describe PeopleController do
         end
 
         context '@person' do
-          Then { expect(assigns(:person)).to be_a(Person)  }
+          Then { expect(assigns(:person)).to be_a(Person) }
           And  { expect(assigns(:person)).to be_persisted }
         end
       end
@@ -185,8 +207,8 @@ describe PeopleController do
       end
     end
 
-    it_behaves_like "GET", :person, Person, :new
-    it_behaves_like "GET", :person, Person, :edit
+    it_behaves_like 'GET', :person, Person, :new
+    it_behaves_like 'GET', :person, Person, :edit
     it_behaves_like "DELETE 'destroy'", Person
 
     describe "PATCH 'update'" do
@@ -197,20 +219,22 @@ describe PeopleController do
 
         attributes ||= person.attributes.merge(skip_password_validation: true)
 
-        patch :update, { id: person.id, person: attributes }
+        patch :update, id: person.id, person: attributes
       end
 
       Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
       context 'on success' do
         context 'field chenged' do
-          Then { expect{ update_model }.to change{ person[:emergency_contact] }.to('Какой-то текст') }
+          Then { expect { update_model }.to change { person[:emergency_contact] }.to('Какой-то текст') }
         end
 
         context 'receives .update_attributes' do
           Then do
-            expect_any_instance_of(Person).to receive(:update_attributes).with( 'emergency_contact' => 'params',
-                                                                                'skip_password_validation' => true)
+            expect_any_instance_of(Person).to receive(:update_attributes).with(
+              'emergency_contact' => 'params',
+              'skip_password_validation' => true
+            )
 
             update_model('emergency_contact' => 'params')
           end
@@ -245,8 +269,10 @@ describe PeopleController do
         education:          'Брахмачарьи ашрам',
         work:               'ББТ',
         emergency_contact:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе',
-        telephones_attributes:  [ id: nil,
-                                  phone: '+380 50 111 2233']
+        telephones_attributes: [
+          id: nil,
+          phone: '+380 50 111 2233'
+        ]
       }
     end
 
@@ -254,9 +280,15 @@ describe PeopleController do
 
     describe 'direct to crop path' do
       describe 'create' do
-        Given (:person_attributes) { build(:person).attributes.merge(password: 'password',
-                                                                     password_confirmation: 'password',
-                                                                     telephones_attributes: { '0' => { phone: '+380 50 111 2233'}}) }
+        Given(:person_attributes) do
+          build(:person)
+            .attributes
+            .merge(
+              password: 'password',
+              password_confirmation: 'password',
+              telephones_attributes: { '0' => { phone: '+380 50 111 2233' } }
+            )
+        end
 
         context 'has photo' do
           When { post :create, person: person_attributes.merge(photo: 'test.png') }
@@ -272,21 +304,27 @@ describe PeopleController do
       end
 
       describe 'update' do
-        Given { @person = create(:person) }
-        Given (:person_attributes) { @person.attributes.merge(password: 'password',
-                                                                      password_confirmation: 'password',
-                                                                      telephones_attributes: { '0' => { phone: '+380 50 111 2233'}}) }
+        Given(:person) { create :person }
+        Given(:person_attributes) do
+          person
+            .attributes
+            .merge(
+              password: 'password',
+              password_confirmation: 'password',
+              telephones_attributes: { '0' => { phone: '+380 50 111 2233' } }
+            )
+        end
 
         context 'has photo' do
-          When { patch :update, id: @person.id, person: person_attributes.merge(photo: 'test.png') }
+          When { patch :update, id: person.id, person: person_attributes.merge(photo: 'test.png') }
 
-          Then { expect(response.status).to redirect_to(crop_image_path(@person.id)) }
+          Then { expect(response.status).to redirect_to(crop_image_path(person.id)) }
         end
 
         context 'has no photo' do
-          When { patch :update, id: @person.id, person: person_attributes }
+          When { patch :update, id: person.id, person: person_attributes }
 
-          Then { expect(response.status).to redirect_to(person_path(@person.id)) }
+          Then { expect(response.status).to redirect_to(person_path(person.id)) }
         end
       end
     end

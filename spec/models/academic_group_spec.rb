@@ -10,8 +10,8 @@ describe AcademicGroup do
 
   describe 'validation' do
     context '#title' do
-      Given (:valid_names)   { %w(ШБ13-1 БШ12-4 ЗШБ11-1) }
-      Given (:invalid_names) { %w(12-2 ШБ-1 БШ112 ШБ11-) }
+      Given(:valid_names)   { %w(ШБ13-1 БШ12-4 ЗШБ11-1) }
+      Given(:invalid_names) { %w(12-2 ШБ-1 БШ112 ШБ11-) }
 
       Then { is_expected.to validate_uniqueness_of(:title) }
       Then { is_expected.to validate_presence_of(:title) }
@@ -31,14 +31,14 @@ describe AcademicGroup do
   end
 
   describe 'upcases :title before save' do
-    Then { expect(create(:academic_group, {title: 'шб13-1'}).title).to eq('ШБ13-1') }
+    Then { expect(create(:academic_group, title: 'шб13-1').title).to eq('ШБ13-1') }
   end
 
   describe '#active_students' do
     Given(:group) { create :academic_group }
-    Given(:person_c) { create(:person, spiritual_name: nil, surname: 'C' ) }
-    Given(:person_b) { create(:person, spiritual_name: 'Bhakta das' ) }
-    Given(:person_a) { create(:person, spiritual_name: nil, surname: 'A' ) }
+    Given(:person_c) { create(:person, spiritual_name: nil, surname: 'C') }
+    Given(:person_b) { create(:person, spiritual_name: 'Bhakta das') }
+    Given(:person_a) { create(:person, spiritual_name: nil, surname: 'A') }
     Given { person_a.create_student_profile.move_to_group(group) }
     Given { person_b.create_student_profile.move_to_group(group) }
     Given { person_c.create_student_profile.move_to_group(group) }
@@ -55,8 +55,8 @@ describe AcademicGroup do
       end
 
       context 'for graduated group' do
-        Given { group.update_column(:graduated_at, Time.now - 1.day) }
-        Given { person_a.student_profile.group_participations.first.update_column(:leave_date, Time.now - 2.day) }
+        Given { group.update_column(:graduated_at, Time.zone.now - 1.day) }
+        Given { person_a.student_profile.group_participations.first.update_column(:leave_date, Time.zone.now - 2.days) }
 
         Then  { expect(group.active_students).to eq([person_b, person_c]) }
       end
@@ -71,7 +71,7 @@ describe AcademicGroup do
     end
 
     context 'graduated' do
-      Given(:group) { create :academic_group, graduated_at: Time.now }
+      Given(:group) { create :academic_group, graduated_at: Time.zone.now }
 
       Then { expect(group.active?).to be(false) }
     end
@@ -80,6 +80,6 @@ describe AcademicGroup do
   describe '#graduate!' do
     Given(:group) { create :academic_group }
 
-    Then { expect{group.graduate!}.to change{group.graduated_at}.from(nil) }
+    Then { expect { group.graduate! }.to change { group.graduated_at }.from(nil) }
   end
 end

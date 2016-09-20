@@ -46,13 +46,16 @@ module ClassScheduleCustomValidations
   def academic_groups_availability
     return if academic_groups.none?
 
-    unavailable_groups = AcademicGroup.joins(:class_schedules)
-                             .where(academic_group_schedules: { academic_group_id: academic_groups.map(&:id) })
-                             .where.not(academic_group_schedules: { class_schedule_id: id })
-                             .where('(class_schedules.start_time, class_schedules.finish_time) '\
-                                               'OVERLAPS (:start, :finish)',
-                                    { start: start_time, finish: finish_time })
-                             .distinct
+    unavailable_groups = AcademicGroup
+                           .joins(:class_schedules)
+                           .where(academic_group_schedules: { academic_group_id: academic_groups.map(&:id) })
+                           .where.not(academic_group_schedules: { class_schedule_id: id })
+                           .where(
+                             '(class_schedules.start_time, class_schedules.finish_time) OVERLAPS (:start, :finish)',
+                             start: start_time,
+                             finish: finish_time
+                           )
+                           .distinct
 
     return if unavailable_groups.none?
 
@@ -62,11 +65,14 @@ module ClassScheduleCustomValidations
   end
 
   def obj_availability(params)
-    ClassSchedule.where(params)
-        .where.not(id: id)
-        .where('(start_time, finish_time) OVERLAPS (:start, :finish)',
-               { start: start_time, finish: finish_time })
-        .first
-        .blank?
+    ClassSchedule
+      .where(params)
+      .where.not(id: id)
+      .find_by(
+        '(start_time, finish_time) OVERLAPS (:start, :finish)',
+        start: start_time,
+        finish: finish_time
+      )
+      .blank?
   end
 end

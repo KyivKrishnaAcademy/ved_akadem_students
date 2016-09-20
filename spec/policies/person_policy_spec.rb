@@ -25,14 +25,14 @@ describe PersonPolicy do
           When  { record.student_profile.remove_from_groups }
 
           context 'user can see exclassmate photo of graduated group' do
-            Given { group.update_column(:graduated_at, Time.now) }
+            Given { group.update_column(:graduated_at, Time.zone.now) }
 
             Then  { is_expected.to permit(user, record) }
             And   { is_expected.to permit(record, user) }
           end
 
           context 'user can not see excluded exclassmate photo of graduated group' do
-            Given { group.update_column(:graduated_at, Time.now + 1.day) }
+            Given { group.update_column(:graduated_at, Time.zone.now + 1.day) }
 
             Then  { is_expected.not_to permit(user, record) }
             And   { is_expected.not_to permit(record, user) }

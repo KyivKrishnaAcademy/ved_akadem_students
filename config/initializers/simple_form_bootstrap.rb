@@ -160,7 +160,7 @@ SimpleForm.setup do |config|
   # to learn about the different styles for forms and inputs,
   # buttons and other elements.
 
-  #config.boolean_label_class      = nil
+  # config.boolean_label_class      = nil
   config.error_notification_class = 'alert alert-danger'
   config.button_class             = 'btn btn-primary'
   config.default_wrapper          = :vertical_form

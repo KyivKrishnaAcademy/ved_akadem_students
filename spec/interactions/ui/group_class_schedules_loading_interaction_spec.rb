@@ -8,7 +8,7 @@ describe Ui::GroupClassSchedulesLoadingInteraction do
     Given(:result) { ClassSchedule.none.page(nil).per(1) }
 
     Then { expect(ClassSchedule).to receive(:by_group).with(1, 1).and_return(result) }
-    And  { expect(interaction.as_json).to eq({ classSchedules: [], pages: 0 }) }
+    And  { expect(interaction.as_json).to eq(classSchedules: [], pages: 0) }
   end
 
   it_behaves_like :class_schedules_loadable

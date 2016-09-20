@@ -12,8 +12,12 @@ describe :home do
   end
 
   context 'person brief' do
-    Then { expect(find('.person-brief')).to have_content(person.name)}
-    And  { expect(find('.person-brief')).to have_link(I18n.t('links.edit_profile'), href: edit_person_registration_path(person)) }
+    Then { expect(find('.person-brief')).to have_content(person.name) }
+
+    And do
+      expect(find('.person-brief'))
+        .to have_link(I18n.t('links.edit_profile'), href: edit_person_registration_path(person))
+    end
   end
 
   describe 'schedules table' do
