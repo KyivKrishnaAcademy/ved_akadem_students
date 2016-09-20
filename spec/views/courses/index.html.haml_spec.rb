@@ -19,8 +19,14 @@ describe 'courses/index' do
 
     Given(:no_new_link) { expect(table_container).not_to have_link('New Course', href: new_course_path) }
     Given(:no_show_link) { expect(row).not_to have_link(course.title, href: course_path(course)) }
-    Given(:no_edit_link) { expect(table_container).not_to have_link(I18n.t('links.edit'), href: edit_course_path(course)) }
-    Given(:no_destroy_link) { expect(table_container).not_to have_link(I18n.t('links.delete'), href: "/courses/#{course.id}") }
+
+    Given(:no_edit_link) do
+      expect(table_container).not_to have_link(I18n.t('links.edit'), href: edit_course_path(course))
+    end
+
+    Given(:no_destroy_link) do
+      expect(table_container).not_to have_link(I18n.t('links.delete'), href: "/courses/#{course.id}")
+    end
 
     context 'without additional rights' do
       Then { no_show_link }

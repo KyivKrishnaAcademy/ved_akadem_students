@@ -4,18 +4,21 @@ describe 'people/edit.html.erb' do
   subject { page }
 
   Given do
-    @admin = create(:person, :admin,
-      telephones:     [build(:telephone, phone: '+380 50 111 2233')],
-      spiritual_name: 'Dasa Das'        ,
-      name:           'Ivan'            ,
-      middle_name:    'Petrovich'       ,
-      surname:        'Жук'             ,
-      email:          'juke@ulr.net'    ,
-      education:      'где-то когда-то' ,
-      work:           'никогда'         ,
-      gender:         true              ,
-      emergency_contact: 'дед Василий'  ,
-      birthday: '1975-01-30'.to_date)
+    @admin = create(
+      :person,
+      :admin,
+      name:               'Ivan',
+      work:               'никогда',
+      email:              'juke@ulr.net',
+      gender:             true,
+      surname:            'Жук',
+      birthday:           '1975-01-30'.to_date,
+      education:          'где-то когда-то',
+      telephones:         [build(:telephone, phone: '+380 50 111 2233')],
+      middle_name:        'Petrovich',
+      spiritual_name:     'Dasa Das',
+      emergency_contact:  'дед Василий'
+    )
   end
 
   Given { login_as(@admin) }

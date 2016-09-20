@@ -18,11 +18,11 @@ describe 'people/index' do
   When  { render }
 
   describe 'title and h1' do
-    Then { expect(page).to have_selector('h1', text: 'People')  }
+    Then { expect(page).to have_selector('h1', text: 'People') }
   end
 
   describe 'table' do
-    Then { expect(page.find('.table')).to have_selector('tbody tr', count: 2 ) }
+    Then { expect(page.find('.table')).to have_selector('tbody tr', count: 2) }
 
     ['#', 'Photo', 'Full Name', 'Group or Application'].each do |header|
       And { expect(page.find('.table')).to have_selector('th', text: header) }
@@ -31,15 +31,29 @@ describe 'people/index' do
 
   describe 'link to person' do
     context 'with show rights' do
-      Then { expect(page.find('tbody tr', text: user.complex_name)).to have_link(user.complex_name, href: person_path(user)) }
-      And  { expect(page.find('tbody tr', text: person.complex_name)).to have_link(person.complex_name, href: person_path(person)) }
+      Then do
+        expect(page.find('tbody tr', text: user.complex_name))
+          .to have_link(user.complex_name, href: person_path(user))
+      end
+
+      And do
+        expect(page.find('tbody tr', text: person.complex_name))
+          .to have_link(person.complex_name, href: person_path(person))
+      end
     end
 
     context 'without show rights' do
       Given(:activities) { %w(person:index) }
 
-      Then { expect(page.find('tbody tr', text: user.complex_name)).not_to have_link(user.complex_name, href: person_path(user)) }
-      And  { expect(page.find('tbody tr', text: person.complex_name)).not_to have_link(person.complex_name, href: person_path(person)) }
+      Then do
+        expect(page.find('tbody tr', text: user.complex_name))
+          .not_to have_link(user.complex_name, href: person_path(user))
+      end
+
+      And do
+        expect(page.find('tbody tr', text: person.complex_name))
+          .not_to have_link(person.complex_name, href: person_path(person))
+      end
     end
   end
 end

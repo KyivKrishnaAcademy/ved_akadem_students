@@ -6,7 +6,7 @@ describe 'certificate_templates/edit' do
 
   Given(:base_activity) { 'edit' }
 
-  Given { allow(view).to receive(:params).and_return({action: 'edit'}) }
+  Given { allow(view).to receive(:params).and_return(action: 'edit') }
   Given { assign(:certificate_template, template) }
 
   describe 'conditional links' do

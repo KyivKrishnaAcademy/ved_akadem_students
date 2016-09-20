@@ -1,7 +1,10 @@
 shared_context :certificate_templates_context do
   Given(:page) { Capybara::Node::Simple.new(response.body) }
   Given(:user) { create :person, roles: [role] }
-  Given(:role) { create :role, activities: ["certificate_template:#{base_activity}", "certificate_template:#{activity}"] }
+
+  Given(:role) do
+    create :role, activities: ["certificate_template:#{base_activity}", "certificate_template:#{activity}"]
+  end
 
   Given(:template) { create :certificate_template }
 
@@ -24,10 +27,13 @@ shared_context :certificate_templates_context do
   Given(:no_destroy_link) { is_expected.not_to have_selector(destroy_link_selector) }
 
   Given do
-    allow(view).to receive(:policy).with(CertificateTemplate)
-                                   .and_return(CertificateTemplatePolicy.new(user, CertificateTemplate))
-    allow(view).to receive(:policy).with(template)
-                                   .and_return(CertificateTemplatePolicy.new(user, template))
+    allow(view).to receive(:policy)
+      .with(CertificateTemplate)
+      .and_return(CertificateTemplatePolicy.new(user, CertificateTemplate))
+
+    allow(view).to receive(:policy)
+      .with(template)
+      .and_return(CertificateTemplatePolicy.new(user, template))
   end
 
   When  { sign_in(user) }

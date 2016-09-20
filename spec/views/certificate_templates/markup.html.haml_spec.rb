@@ -6,7 +6,7 @@ describe 'certificate_templates/markup' do
 
   Given(:base_activity) { 'markup' }
 
-  Given { allow(view).to receive(:params).and_return({action: 'markup'}) }
+  Given { allow(view).to receive(:params).and_return(action: 'markup') }
   Given { assign(:certificate_template, template) }
 
   describe 'conditional links' do

@@ -29,7 +29,7 @@ describe 'people/show.html.haml' do
     And  { expect(rendered).to have_text("Education: #{person.education}") }
     And  { expect(rendered).to have_text("Work: #{person.work}") }
     And  { expect(rendered).to have_text(/Gender: (Male|Female)/) }
-    And  { expect(rendered).to have_text("Birthday: #{person.birthday.to_s}") }
+    And  { expect(rendered).to have_text("Birthday: #{person.birthday}") }
   end
 
   describe 'study application' do
@@ -44,8 +44,14 @@ describe 'people/show.html.haml' do
     shared_examples :show_withdraw do
       Given(:study_application) { StudyApplication.create(program: program, person: person) }
 
-      Given { allow(view).to receive(:policy).with(study_application).and_return(StudyApplicationPolicy.new(user, study_application)) }
-      Given { allow(view).to receive(:policy).with(program.manager).and_return(PersonPolicy.new(user, program.manager)) }
+      Given do
+        allow(view)
+          .to receive(:policy).with(study_application).and_return(StudyApplicationPolicy.new(user, study_application))
+      end
+
+      Given do
+        allow(view).to receive(:policy).with(program.manager).and_return(PersonPolicy.new(user, program.manager))
+      end
 
       Then  { expect(rendered).to have_withdraw_button }
       And   { expect(rendered).not_to have_apply_button }
@@ -69,8 +75,12 @@ describe 'people/show.html.haml' do
 
     describe 'other person' do
       context 'no role' do
-        Then { expect(rendered).not_to have_selector("input[type='submit'][name='commit'][value='#{I18n.t('links.apply_to_program')}']") }
-        And  { expect(rendered).not_to have_link(I18n.t('links.withdraw')) }
+        Then do
+          expect(rendered)
+            .not_to have_selector("input[type='submit'][name='commit'][value='#{I18n.t('links.apply_to_program')}']")
+        end
+
+        And { expect(rendered).not_to have_link(I18n.t('links.withdraw')) }
       end
 
       describe 'submit with role' do
@@ -142,17 +152,23 @@ describe 'people/show.html.haml' do
       describe 'move to group link' do
         Given(:activities) { ['person:move_to_group'] }
 
-        Then { expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group') }
-        And  { expect(menu).to have_link(group.title, href: '#') }
-        And  { expect(menu).not_to have_link('Remove from group', href: '#') }
+        Then do
+          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group')
+        end
+
+        And { expect(menu).to have_link(group.title, href: '#') }
+        And { expect(menu).not_to have_link('Remove from group', href: '#') }
       end
 
       describe 'remove from groups link' do
         Given(:activities) { ['person:remove_from_groups'] }
 
-        Then { expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group') }
-        And  { expect(menu).not_to have_link(group.title, href: '#') }
-        And  { expect(menu).to have_link('Remove from group', href: '#') }
+        Then do
+          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group')
+        end
+
+        And { expect(menu).not_to have_link(group.title, href: '#') }
+        And { expect(menu).to have_link('Remove from group', href: '#') }
       end
     end
   end
