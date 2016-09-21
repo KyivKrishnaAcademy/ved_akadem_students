@@ -11,9 +11,15 @@ describe Ui::TeacherProfilesLoadingInteraction do
     Given!(:wrong_profile) { create :teacher_profile, person: wrong_user }
 
     Given(:expected) do
-      { teacher_profiles: [{ id: right_profile.id,
-                             text: right_user.complex_name,
-                             imageUrl: right_user.photo.thumb.url }] }
+      {
+        teacher_profiles: [
+          {
+            id: right_profile.id,
+            text: right_user.complex_name,
+            imageUrl: right_user.photo.thumb.url
+          }
+        ]
+      }
     end
 
     Then { expect(interaction.as_json).to eq(expected) }

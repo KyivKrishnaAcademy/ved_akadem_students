@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
@@ -30,7 +34,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: academic_group_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: academic_group_schedules; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE academic_group_schedules (
@@ -62,7 +66,7 @@ ALTER SEQUENCE academic_group_schedules_id_seq OWNED BY academic_group_schedules
 
 
 --
--- Name: academic_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: academic_groups; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE academic_groups (
@@ -101,7 +105,7 @@ ALTER SEQUENCE academic_groups_id_seq OWNED BY academic_groups.id;
 
 
 --
--- Name: answers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: answers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE answers (
@@ -134,7 +138,7 @@ ALTER SEQUENCE answers_id_seq OWNED BY answers.id;
 
 
 --
--- Name: attendances; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: attendances; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE attendances (
@@ -167,7 +171,7 @@ ALTER SEQUENCE attendances_id_seq OWNED BY attendances.id;
 
 
 --
--- Name: certificate_templates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: certificate_templates; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE certificate_templates (
@@ -203,7 +207,7 @@ ALTER SEQUENCE certificate_templates_id_seq OWNED BY certificate_templates.id;
 
 
 --
--- Name: class_schedules; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: class_schedules; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE class_schedules (
@@ -239,7 +243,7 @@ ALTER SEQUENCE class_schedules_id_seq OWNED BY class_schedules.id;
 
 
 --
--- Name: group_participations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: group_participations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE group_participations (
@@ -252,7 +256,7 @@ CREATE TABLE group_participations (
 
 
 --
--- Name: people; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: people; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE people (
@@ -268,7 +272,6 @@ CREATE TABLE people (
     birthday date,
     emergency_contact character varying(255),
     photo character varying(255),
-    profile_fullness boolean,
     encrypted_password character varying(255),
     reset_password_token character varying(255),
     reset_password_sent_at timestamp without time zone,
@@ -290,7 +293,7 @@ CREATE TABLE people (
 
 
 --
--- Name: student_profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: student_profiles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE student_profiles (
@@ -302,7 +305,7 @@ CREATE TABLE student_profiles (
 
 
 --
--- Name: teacher_profiles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: teacher_profiles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE teacher_profiles (
@@ -315,7 +318,7 @@ CREATE TABLE teacher_profiles (
 
 
 --
--- Name: class_schedules_with_people; Type: MATERIALIZED VIEW; Schema: public; Owner: -; Tablespace: 
+-- Name: class_schedules_with_people; Type: MATERIALIZED VIEW; Schema: public; Owner: -
 --
 
 CREATE MATERIALIZED VIEW class_schedules_with_people AS
@@ -335,7 +338,7 @@ CREATE MATERIALIZED VIEW class_schedules_with_people AS
              JOIN group_participations gp ON ((gp.student_profile_id = sp.id)))
              JOIN academic_groups ag ON ((ag.id = gp.academic_group_id)))
              JOIN academic_group_schedules ags ON ((ags.academic_group_id = ag.id)))
-          WHERE (((ags.class_schedule_id = cs.id) AND (gp.leave_date IS NULL)) AND (ag.graduated_at IS NULL))) AS people_ids
+          WHERE ((ags.class_schedule_id = cs.id) AND (gp.leave_date IS NULL) AND (ag.graduated_at IS NULL))) AS people_ids
    FROM class_schedules cs
   WHERE (cs.finish_time > now())
   ORDER BY cs.start_time, cs.finish_time
@@ -343,7 +346,7 @@ CREATE MATERIALIZED VIEW class_schedules_with_people AS
 
 
 --
--- Name: classrooms; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE classrooms (
@@ -377,7 +380,7 @@ ALTER SEQUENCE classrooms_id_seq OWNED BY classrooms.id;
 
 
 --
--- Name: courses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: courses; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE courses (
@@ -447,7 +450,7 @@ ALTER SEQUENCE people_id_seq OWNED BY people.id;
 
 
 --
--- Name: people_roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: people_roles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE people_roles (
@@ -477,7 +480,7 @@ ALTER SEQUENCE people_roles_id_seq OWNED BY people_roles.id;
 
 
 --
--- Name: programs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: programs; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE programs (
@@ -515,7 +518,7 @@ ALTER SEQUENCE programs_id_seq OWNED BY programs.id;
 
 
 --
--- Name: programs_questionnaires; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: programs_questionnaires; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE programs_questionnaires (
@@ -525,7 +528,7 @@ CREATE TABLE programs_questionnaires (
 
 
 --
--- Name: questionnaire_completenesses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: questionnaire_completenesses; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE questionnaire_completenesses (
@@ -559,7 +562,7 @@ ALTER SEQUENCE questionnaire_completenesses_id_seq OWNED BY questionnaire_comple
 
 
 --
--- Name: questionnaires; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: questionnaires; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE questionnaires (
@@ -595,7 +598,7 @@ ALTER SEQUENCE questionnaires_id_seq OWNED BY questionnaires.id;
 
 
 --
--- Name: questions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE questions (
@@ -629,7 +632,7 @@ ALTER SEQUENCE questions_id_seq OWNED BY questions.id;
 
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE roles (
@@ -661,7 +664,7 @@ ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -689,7 +692,7 @@ ALTER SEQUENCE student_profiles_id_seq OWNED BY student_profiles.id;
 
 
 --
--- Name: study_applications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: study_applications; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE study_applications (
@@ -740,7 +743,7 @@ ALTER SEQUENCE teacher_profiles_id_seq OWNED BY teacher_profiles.id;
 
 
 --
--- Name: teacher_specialities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: teacher_specialities; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE teacher_specialities (
@@ -748,8 +751,7 @@ CREATE TABLE teacher_specialities (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     teacher_profile_id integer,
-    course_id integer,
-    since date
+    course_id integer
 );
 
 
@@ -773,7 +775,7 @@ ALTER SEQUENCE teacher_specialities_id_seq OWNED BY teacher_specialities.id;
 
 
 --
--- Name: telephones; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: telephones; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE telephones (
@@ -805,7 +807,7 @@ ALTER SEQUENCE telephones_id_seq OWNED BY telephones.id;
 
 
 --
--- Name: versions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE versions (
@@ -993,7 +995,7 @@ ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq':
 
 
 --
--- Name: academic_group_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: academic_group_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY academic_group_schedules
@@ -1001,7 +1003,7 @@ ALTER TABLE ONLY academic_group_schedules
 
 
 --
--- Name: academic_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: academic_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY academic_groups
@@ -1009,7 +1011,7 @@ ALTER TABLE ONLY academic_groups
 
 
 --
--- Name: answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY answers
@@ -1017,7 +1019,7 @@ ALTER TABLE ONLY answers
 
 
 --
--- Name: attendances_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: attendances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY attendances
@@ -1025,7 +1027,7 @@ ALTER TABLE ONLY attendances
 
 
 --
--- Name: certificate_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: certificate_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY certificate_templates
@@ -1033,7 +1035,7 @@ ALTER TABLE ONLY certificate_templates
 
 
 --
--- Name: class_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: class_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY class_schedules
@@ -1041,7 +1043,7 @@ ALTER TABLE ONLY class_schedules
 
 
 --
--- Name: classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY classrooms
@@ -1049,7 +1051,7 @@ ALTER TABLE ONLY classrooms
 
 
 --
--- Name: courses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: courses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY courses
@@ -1057,7 +1059,7 @@ ALTER TABLE ONLY courses
 
 
 --
--- Name: group_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: group_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY group_participations
@@ -1065,7 +1067,7 @@ ALTER TABLE ONLY group_participations
 
 
 --
--- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people
@@ -1073,7 +1075,7 @@ ALTER TABLE ONLY people
 
 
 --
--- Name: people_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: people_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY people_roles
@@ -1081,7 +1083,7 @@ ALTER TABLE ONLY people_roles
 
 
 --
--- Name: programs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: programs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY programs
@@ -1089,7 +1091,7 @@ ALTER TABLE ONLY programs
 
 
 --
--- Name: questionnaire_completenesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: questionnaire_completenesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY questionnaire_completenesses
@@ -1097,7 +1099,7 @@ ALTER TABLE ONLY questionnaire_completenesses
 
 
 --
--- Name: questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY questionnaires
@@ -1105,7 +1107,7 @@ ALTER TABLE ONLY questionnaires
 
 
 --
--- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY questions
@@ -1113,7 +1115,7 @@ ALTER TABLE ONLY questions
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY roles
@@ -1121,7 +1123,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: student_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: student_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY student_profiles
@@ -1129,7 +1131,7 @@ ALTER TABLE ONLY student_profiles
 
 
 --
--- Name: study_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: study_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY study_applications
@@ -1137,7 +1139,7 @@ ALTER TABLE ONLY study_applications
 
 
 --
--- Name: teacher_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: teacher_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY teacher_profiles
@@ -1145,7 +1147,7 @@ ALTER TABLE ONLY teacher_profiles
 
 
 --
--- Name: teacher_specialities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: teacher_specialities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY teacher_specialities
@@ -1153,7 +1155,7 @@ ALTER TABLE ONLY teacher_specialities
 
 
 --
--- Name: telephones_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: telephones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY telephones
@@ -1161,7 +1163,7 @@ ALTER TABLE ONLY telephones
 
 
 --
--- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY versions
@@ -1169,63 +1171,63 @@ ALTER TABLE ONLY versions
 
 
 --
--- Name: class_schedules_with_people_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: class_schedules_with_people_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX class_schedules_with_people_id_idx ON class_schedules_with_people USING btree (id);
 
 
 --
--- Name: class_schedules_with_people_people_ids_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: class_schedules_with_people_people_ids_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX class_schedules_with_people_people_ids_idx ON class_schedules_with_people USING gin (people_ids) WITH (fastupdate=off);
 
 
 --
--- Name: class_schedules_with_people_teacher_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: class_schedules_with_people_teacher_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX class_schedules_with_people_teacher_id_idx ON class_schedules_with_people USING hash (teacher_id);
 
 
 --
--- Name: index_certificate_templates_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_certificate_templates_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_certificate_templates_on_status ON certificate_templates USING btree (status);
 
 
 --
--- Name: index_people_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_people_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_people_on_email ON people USING btree (email);
 
 
 --
--- Name: index_people_on_reset_password_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_people_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_people_on_reset_password_token ON people USING btree (reset_password_token);
 
 
 --
--- Name: index_people_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_people_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_people_on_uid_and_provider ON people USING btree (uid, provider);
 
 
 --
--- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -1235,7 +1237,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user",public;
+SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20131104153415');
 
@@ -1394,4 +1396,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160319204426');
 INSERT INTO schema_migrations (version) VALUES ('20160430185957');
 
 INSERT INTO schema_migrations (version) VALUES ('20160611125828');
+
+INSERT INTO schema_migrations (version) VALUES ('20160921113729');
+
+INSERT INTO schema_migrations (version) VALUES ('20160921113902');
 
