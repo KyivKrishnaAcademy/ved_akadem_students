@@ -59,6 +59,7 @@ class AcademicGroupsController < ApplicationController
 
   def graduate
     @academic_group.graduate!
+    @academic_group.group_participations.each(&:leave!)
 
     redirect_to academic_group_path(@academic_group), flash: { success: 'Academic group was successfully graduated.' }
   end
