@@ -43,18 +43,19 @@
     %h4.col-xs-12.text-center
       = t('academic_groups.show.group_servants')
     .col-xs-12
-      %table.table.table-condensed
-        %tbody
-          - %i[curator administrator praepostor].each do |servant_role|
-            - if academic_group.send(servant_role).present?
-              %tr
-                %td
-                  = t("academic_groups.show.#{servant_role.to_s}")
-                %td
-                  = thumb_with_pop(academic_group.send(servant_role))
-                %td
-                  = link_to_show_person_or_name(academic_group.send(servant_role), true)
-                %td
-                  = mail_to academic_group.send(servant_role).email
-                %td
-                  = academic_group.send(servant_role).telephones.pluck(:phone).join(', ')
+      .table-responsive
+        %table.table.table-condensed
+          %tbody
+            - %i[curator administrator praepostor].each do |servant_role|
+              - if academic_group.send(servant_role).present?
+                %tr
+                  %td
+                    = t("academic_groups.show.#{servant_role.to_s}")
+                  %td
+                    = thumb_with_pop(academic_group.send(servant_role))
+                  %td
+                    = link_to_show_person_or_name(academic_group.send(servant_role), true)
+                  %td
+                    = mail_to academic_group.send(servant_role).email
+                  %td
+                    = academic_group.send(servant_role).telephones.pluck(:phone).join(', ')
