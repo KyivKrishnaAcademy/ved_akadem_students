@@ -26,9 +26,11 @@ module ApplicationHelper
   end
 
   def show_admin_menu?
-    current_person.present? && (show_people_menu? || show_academic_groups_menu? ||
-                                show_courses_menu? || show_class_schedules_menu? ||
-                                show_certificate_templates_menu?)
+    current_person.present? && (
+      show_people_menu? || show_academic_groups_menu? ||
+      show_courses_menu? || show_class_schedules_menu? ||
+      show_certificate_templates_menu? || show_journal_link?
+    )
   end
 
   def show_people_menu?
@@ -49,6 +51,10 @@ module ApplicationHelper
 
   def show_class_schedules_menu?
     current_person.can_act?(%w(class_schedule:index class_schedule:new))
+  end
+
+  def show_journal_link?
+    current_person.can_act?('paper_trail/version:show')
   end
 
   def person_photo(person, version = :default, options = {})

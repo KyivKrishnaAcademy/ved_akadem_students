@@ -27,7 +27,7 @@
                       - if current_person.can_act?("#{singular}:index")
                         %li
                           = link_to(t("defaults.links.#{plural}_list"), send("#{plural}_path"))
-              - if current_person.can_act?('paper_trail/version:show')
+              - if show_journal_link?
                 %li
                   = link_to(t('defaults.links.journal'), journal_path)
         %li

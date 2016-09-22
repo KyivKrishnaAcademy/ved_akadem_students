@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+include Rails.application.routes.url_helpers
+
 describe 'RBAC links visibility' do
   shared_examples :nav_links do |locator, href, *activities|
     context "with activities #{activities.flatten.inspect}" do
@@ -44,4 +46,11 @@ describe 'RBAC links visibility' do
       "#{model}:index"
     )
   end
+
+  include_examples(
+    :nav_links,
+    I18n.t('defaults.links.journal'),
+    journal_path,
+    %W(paper_trail/version:show)
+  )
 end
