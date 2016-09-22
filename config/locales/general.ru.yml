@@ -24,6 +24,7 @@ ru:
       people:               'Люди'
       people_add:           'Добавить человека'
       people_list:          'Список всех'
+      journal:              'Журнал действий'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:
@@ -146,3 +147,12 @@ ru:
       classroom:  'Аудитория'
       time:       'Запланированное время'
       actions:    ''
+  journals:
+    show:
+      created_at: 'Время'
+      event:      'Событие'
+      item_id:    'Идентификатор'
+      item_type:  'Тип'
+      journal:    'Журнал'
+      object:     'Предидущая версия'
+      whodunnit:  'Автор'

@@ -27,6 +27,9 @@
                       - if current_person.can_act?("#{singular}:index")
                         %li
                           = link_to(t("defaults.links.#{plural}_list"), send("#{plural}_path"))
+              - if current_person.can_act?('paper_trail/version:show')
+                %li
+                  = link_to(t('defaults.links.journal'), journal_path)
         %li
           = link_to t(:locale_label), locales_toggle_path
         %li

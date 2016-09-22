@@ -1,0 +1,47 @@
+<%- provide(:title, t('.journal')) %>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h1><%= t '.journal' %></h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="table-responsive">
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th><%= t '.item_type' %></th>
+            <th><%= t '.item_id' %></th>
+            <th><%= t '.event' %></th>
+            <th><%= t '.whodunnit' %></th>
+            <th><%= t '.object' %></th>
+            <th><%= t '.created_at' %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%- @versions.each do |version| %>
+            <tr>
+              <td><%= version.id %></td>
+              <td><%= version.item_type %></td>
+              <td><%= version.item_id %></td>
+              <td><%= version.event %></td>
+              <td><%= link_to_show_person_or_name(@users[version.whodunnit]) if @users[version.whodunnit] %></td>
+              <td><%= simple_format version.object, {}, wrapper_tag: :pre %></td>
+              <td><%= I18n.l version.created_at, format: :long %></td>
+            </tr>
+          <%- end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <%= paginate @versions %>
+  </div>
+</div>
