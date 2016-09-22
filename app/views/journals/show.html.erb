@@ -9,7 +9,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="table-responsive">
-      <table class="table table-condensed table-striped">
+      <table class="table table-condensed">
         <thead>
           <tr>
             <th>#</th>
@@ -24,7 +24,7 @@
 
         <tbody>
           <%- @versions.each do |version| %>
-            <tr>
+            <tr class="<%= version.event %>-event">
               <td><%= version.id %></td>
               <td><%= version.item_type %></td>
               <td><%= version.item_id %></td>
