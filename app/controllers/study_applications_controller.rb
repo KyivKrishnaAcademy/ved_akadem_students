@@ -6,7 +6,8 @@ class StudyApplicationsController < ApplicationController
   after_action :verify_authorized
 
   def create
-    @study_application = StudyApplication.new(study_application_params)
+    @study_application = StudyApplication.find_or_initialize_by(person_id: permitted_params[:person_id])
+    @study_application.program_id = permitted_params[:program_id]
 
     common_handle(@study_application, :create) do |study_applicaiton|
       study_applicaiton.person.add_application_questionnaires
@@ -39,7 +40,7 @@ class StudyApplicationsController < ApplicationController
     end
   end
 
-  def study_application_params
+  def permitted_params
     params.require(:study_application).permit(:person_id, :program_id)
   end
 end

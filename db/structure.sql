@@ -1220,6 +1220,13 @@ CREATE UNIQUE INDEX index_people_on_uid_and_provider ON people USING btree (uid,
 
 
 --
+-- Name: index_study_applications_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_study_applications_on_person_id ON study_applications USING btree (person_id);
+
+
+--
 -- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1400,4 +1407,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160611125828');
 INSERT INTO schema_migrations (version) VALUES ('20160921113729');
 
 INSERT INTO schema_migrations (version) VALUES ('20160921113902');
+
+INSERT INTO schema_migrations (version) VALUES ('20160928042653');
 
