@@ -1,24 +1,34 @@
 language: ruby
+cache: bundler
+env:
+  global:
+  - CODECLIMATE_REPO_TOKEN=783e4ac8cc44be68f2be2932fb13e2805e1f21b4541d689c9c7fe12bfb2373fb
 script:
-  - bundle exec rake db:structure:load db:seed
+  - bundle exec rake db:structure:load
   - nvm install 5.5.0
   - npm install
   - cd client
   - npm run build:client
   - npm run build:server
   - cd ..
-  - export CODECLIMATE_REPO_TOKEN=783e4ac8cc44be68f2be2932fb13e2805e1f21b4541d689c9c7fe12bfb2373fb
-  - rake lint
-  - rspec
+  - bundle exec rake lint
+  - bundle exec rspec
 rvm:
-  - 2.1.5
+  - 2.3.1
 addons:
-  postgresql: '9.4'
+  apt:
+    sources:
+    - precise-pgdg-9.5
+    packages:
+    - postgresql-9.5
+    - postgresql-contrib-9.5
+  postgresql: '9.5'
 services:
   - redis-server
 before_script:
-  - psql -c 'create database va_db_tst;' -U postgres
   - cp config/database.yml.travis config/database.yml
+  - sudo cp /etc/postgresql/9.4/main/pg_hba.conf /etc/postgresql/9.5/main/pg_hba.conf
+  - sudo /etc/init.d/postgresql restart
 before_install:
   - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
   - wget https://s3.amazonaws.com/travis-phantomjs/phantomjs-2.0.0-ubuntu-12.04.tar.bz2

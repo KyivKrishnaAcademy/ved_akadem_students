@@ -1,4 +1,6 @@
 test:
   adapter: postgresql
-  database: va_db_tst
-  username: postgres
+  database: travis
+  username: travis
+  host: localhost
+  port: 5433
