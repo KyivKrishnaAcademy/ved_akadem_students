@@ -1,4 +1,4 @@
-class Program < ActiveRecord::Base
+class Program < ApplicationRecord
   serialize :courses_uk, Array
   serialize :courses_ru, Array
 

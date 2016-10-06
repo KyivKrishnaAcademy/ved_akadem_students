@@ -1,4 +1,4 @@
-class Questionnaire < ActiveRecord::Base
+class Questionnaire < ApplicationRecord
   serialize :rule, Hash
 
   has_and_belongs_to_many :programs

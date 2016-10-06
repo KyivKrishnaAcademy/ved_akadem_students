@@ -9,7 +9,7 @@ describe Ui::ClassSchedulesController do
     end
 
     context '#academic_group' do
-      When { get :academic_group, id: 1, format: :json }
+      When { get :academic_group, params: { id: 1 }, format: :json }
 
       include_examples :ui_not_authenticated
     end
@@ -66,7 +66,7 @@ describe Ui::ClassSchedulesController do
     end
 
     context '#academic_group' do
-      Given(:action) { get :academic_group, id: group.id, format: :json }
+      Given(:action) { get :academic_group, params: { id: group.id }, format: :json }
       Given(:group) { create :academic_group }
 
       shared_examples :valid_group_schedules_loading do

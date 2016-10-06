@@ -1,4 +1,4 @@
-class Classroom < ActiveRecord::Base
+class Classroom < ApplicationRecord
   has_many :class_schedules, dependent: :destroy
 
   validates :title, presence: true

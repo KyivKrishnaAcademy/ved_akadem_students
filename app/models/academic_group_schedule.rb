@@ -1,4 +1,4 @@
-class AcademicGroupSchedule < ActiveRecord::Base
+class AcademicGroupSchedule < ApplicationRecord
   belongs_to :academic_group
   belongs_to :class_schedule
 

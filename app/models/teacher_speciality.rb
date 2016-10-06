@@ -1,4 +1,4 @@
-class TeacherSpeciality < ActiveRecord::Base
+class TeacherSpeciality < ApplicationRecord
   belongs_to :course
   belongs_to :teacher_profile
 

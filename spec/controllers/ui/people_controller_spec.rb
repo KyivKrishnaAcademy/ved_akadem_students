@@ -5,13 +5,13 @@ describe Ui::PeopleController do
     Given { expect(ClassScheduleWithPeople).not_to receive(:refresh_later) }
 
     context '#move_to_group' do
-      When { patch :move_to_group, id: 1, group_id: 2, format: :json }
+      When { patch :move_to_group, params: { id: 1, group_id: 2 }, format: :json }
 
       it_behaves_like :ui_not_authenticated
     end
 
     context '#remove_from_groups' do
-      When  { delete :remove_from_groups, id: 1, format: :json }
+      When  { delete :remove_from_groups, params: { id: 1 }, format: :json }
 
       it_behaves_like :ui_not_authenticated
     end
@@ -23,10 +23,10 @@ describe Ui::PeopleController do
     Given(:activities) { ['person:show'] }
     Given(:other_person) { create :person }
     Given(:move_to_group_action) do
-      patch :move_to_group, id: other_person.id, group_id: group.id, format: :json
+      patch :move_to_group, params: { id: other_person.id, group_id: group.id }, format: :json
     end
     Given(:remove_from_groups_action) do
-      delete :remove_from_groups, id: other_person.id, format: :json
+      delete :remove_from_groups, params: { id: other_person.id }, format: :json
     end
 
     Given { sign_in person }

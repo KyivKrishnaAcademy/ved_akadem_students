@@ -1,4 +1,4 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
   serialize :data, Hash
 
   belongs_to :questionnaire

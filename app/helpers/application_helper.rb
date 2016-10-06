@@ -111,18 +111,18 @@ module ApplicationHelper
   end
 
   def link_to_action(condition, path, btn_color, tooltip, icon, params = {})
-    if condition
-      link_params = {
-        class: "btn btn-xs btn-#{btn_color}",
-        data: { toggle: :tooltip },
-        title: tooltip
-      }
+    return unless condition
 
-      link_params.deep_merge!(params)
+    link_params = {
+      class: "btn btn-xs btn-#{btn_color}",
+      data: { toggle: :tooltip },
+      title: tooltip
+    }
 
-      link_to path, link_params do
-        tag :span, class: "glyphicon glyphicon-#{icon}", aria: { hidden: true }
-      end
+    link_params.deep_merge!(params)
+
+    link_to path, link_params do
+      tag :span, class: "glyphicon glyphicon-#{icon}", aria: { hidden: true }
     end
   end
 end

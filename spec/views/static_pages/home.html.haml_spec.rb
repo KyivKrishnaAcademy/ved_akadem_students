@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+include ReactOnRailsHelper
+
 describe 'static_pages/home' do
   Given(:new_study_application) { StudyApplication.new(person_id: user.id) }
   Given(:ag_name) { 'ТВ99-1' }

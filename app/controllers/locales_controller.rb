@@ -10,6 +10,6 @@ class LocalesController < ApplicationController
       session[:locale] = locale
     end
 
-    redirect_to :back
+    redirect_back fallback_location: root_path
   end
 end

@@ -1,4 +1,4 @@
-class GroupParticipation < ActiveRecord::Base
+class GroupParticipation < ApplicationRecord
   belongs_to :student_profile
   belongs_to :academic_group
 

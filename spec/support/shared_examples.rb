@@ -70,7 +70,7 @@ shared_examples 'GET' do |variable, model, action|
     Given(:get_act) { get action }
   when :show, :edit
     Given(:m)       { create_model model }
-    Given(:get_act) { get action, id: m }
+    Given(:get_act) { get action, params: { id: m } }
   end
 
   When { get_act }
@@ -100,7 +100,7 @@ end
 shared_examples "DELETE 'destroy'" do |model|
   Given { create_model model }
 
-  Given(:del_person) { delete 'destroy', id: model.last.id }
+  Given(:del_person) { delete 'destroy', params: { id: model.last.id } }
 
   context 'on success' do
     describe 'model count and redirect' do
@@ -141,7 +141,7 @@ shared_examples :controller_params_subclass do |subclass, model|
             ActionController::Parameters
               .new(model => { foo: 'foo' }.merge(mod_params))
           )
-        ).to eq(mod_params.with_indifferent_access)
+        ).to eq(ActionController::Parameters.new(mod_params).permit!)
       end
     end
   end
@@ -338,7 +338,7 @@ shared_examples :failed_auth_crud do |sub_example|
     end
 
     context '#create' do
-      When { post :create, params }
+      When { post :create, params: params }
 
       it_behaves_like sub_example
     end
@@ -350,25 +350,25 @@ shared_examples :failed_auth_crud do |sub_example|
     end
 
     context '#edit' do
-      When { get :edit, id: 1 }
+      When { get :edit, params: { id: 1 } }
 
       it_behaves_like sub_example
     end
 
     context '#show' do
-      When { get :show, id: 1 }
+      When { get :show, params: { id: 1 } }
 
       it_behaves_like sub_example
     end
 
     context '#update' do
-      When { patch :update, id: 1 }
+      When { patch :update, params: { id: 1 } }
 
       it_behaves_like sub_example
     end
 
     context '#destroy' do
-      When { delete :destroy, id: 1 }
+      When { delete :destroy, params: { id: 1 } }
 
       it_behaves_like sub_example
     end

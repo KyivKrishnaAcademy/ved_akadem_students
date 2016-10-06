@@ -53,7 +53,7 @@ class AcademicGroupsController < ApplicationController
     if @academic_group.destroy.destroyed?
       redirect_to academic_groups_path, flash: { success: 'Academic Group record deleted!' }
     else
-      redirect_to :back, flash: { danger: 'Academic Group deletion failed!' }
+      redirect_back fallback_location: root_path, flash: { danger: 'Academic Group deletion failed!' }
     end
   end
 

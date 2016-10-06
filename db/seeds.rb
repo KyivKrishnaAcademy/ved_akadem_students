@@ -1,12 +1,14 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+include HelperMethods
 
 FactoryGirl.create(:person, :admin)
 
+2.times { FactoryGirl.create(:academic_group_schedule) }
+
+AcademicGroup.all.each { |g| 4.times { FactoryGirl.create(:group_participation, academic_group: g) } }
+
+init_schedules_mv
+
 Rake::Task['academic:create_programs'].invoke
 Rake::Task['academic:create_questionnaires'].invoke
+
+Program.ids.each { |p_id| 2.times { StudyApplication.create(program_id: p_id, person: FactoryGirl.create(:person)) } }

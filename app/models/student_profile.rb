@@ -1,4 +1,4 @@
-class StudentProfile < ActiveRecord::Base
+class StudentProfile < ApplicationRecord
   belongs_to :person
   has_many :group_participations, dependent: :destroy
   has_many :academic_groups, through: :group_participations

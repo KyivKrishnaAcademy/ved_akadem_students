@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '5.0.0.1'
 
 gem 'redis-session-store'
 
@@ -9,17 +9,17 @@ gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'pg'
-gem 'responders', '~> 2.0'
+gem 'responders'
 
 gem 'kaminari'
 
 gem 'devise'
-gem 'devise_token_auth'
+gem 'devise_token_auth', github: 'mpugach/devise_token_auth', branch: 'use_standart_AR_uniqueness_message'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'global_phone'
 
-gem 'simple_form', '3.1.0'
+gem 'simple_form'
 gem 'nested_form'
 
 gem 'carrierwave', '0.10.0'
@@ -31,8 +31,8 @@ gem 'prawn-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 
-gem 'momentjs-rails', '>= 2.8.1'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'
 
 gem 'react_on_rails', '~> 3.0'
 gem 'therubyracer', platforms: :ruby
@@ -40,14 +40,16 @@ gem 'fast_blank'
 
 gem 'sidekiq'
 
-gem 'airbrake'
+group :production do
+  gem 'airbrake'
+  gem 'newrelic_rpm'
+end
 
-gem 'paper_trail', '~> 4.0.0.rc'
+gem 'paper_trail'
 
 group :production, :development do
   gem 'puma'
   gem 'whenever', require: false
-  gem 'newrelic_rpm'
 end
 
 group :development do
@@ -59,12 +61,10 @@ group :development do
   gem 'capistrano-npm', require: false
   gem 'capistrano-puma', require: false
   gem 'airbrussh', require: false
-  gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'
   gem 'haml-rails'
-  gem 'web-console', '~> 2.0'
   gem 'meta_request'
   gem 'spring'
   gem 'spring-commands-rspec'
@@ -94,4 +94,5 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'rack_session_access'
+  gem 'rails-controller-testing'
 end

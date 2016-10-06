@@ -1,4 +1,4 @@
-class ClassSchedule < ActiveRecord::Base
+class ClassSchedule < ApplicationRecord
   include ClassScheduleCustomValidations
 
   belongs_to :classroom

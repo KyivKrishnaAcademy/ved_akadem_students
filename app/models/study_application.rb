@@ -1,4 +1,4 @@
-class StudyApplication < ActiveRecord::Base
+class StudyApplication < ApplicationRecord
   belongs_to :person
   belongs_to :program
 

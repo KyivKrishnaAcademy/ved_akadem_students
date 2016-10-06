@@ -57,10 +57,12 @@ describe Person do
     end
 
     context 'email' do
+      subject { build(:person, uid: 'ololo') }
+
       Given(:valid_addresses)   { %w(user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn) }
       Given(:invalid_addresses) { %w(user@foo,com user_at_foo.org example.user@foo.foo@bar_baz.com foo@bar+baz.com) }
 
-      Then { is_expected.to validate_uniqueness_of(:email) }
+      Then { is_expected.to validate_uniqueness_of(:email).case_insensitive }
       And { is_expected.not_to allow_value('').for(:email) }
       And do
         invalid_addresses.each do |invalid_address|
@@ -189,8 +191,8 @@ describe Person do
         Given { study_application }
 
         Then  { expect { person.add_application_questionnaires }.to change { person.questionnaires.count }.by(1) }
-        And   { expect(person.questionnaire_ids).to eq([questionnaire_1.id]) }
-        And   { expect { person.add_application_questionnaires } .not_to change { person.questionnaires.count } }
+        And   { expect(person.reload.questionnaire_ids).to eq([questionnaire_1.id]) }
+        And   { expect { person.add_application_questionnaires }.not_to change { person.questionnaires.count } }
       end
 
       describe '#remove_application_questionnaires' do

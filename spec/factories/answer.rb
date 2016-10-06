@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :answer do
     person
     question
-    data { [(1..100).to_a.sample.to_s, Faker::Lorem.sentence].sample }
+    data { [(1..100).to_a.sample.to_s, FFaker::Lorem.sentence].sample }
   end
 
   trait :single_select_answer do
@@ -10,6 +10,6 @@ FactoryGirl.define do
   end
 
   trait :freeform_answer do
-    data { Faker::Lorem.sentence }
+    data { FFaker::Lorem.sentence }
   end
 end

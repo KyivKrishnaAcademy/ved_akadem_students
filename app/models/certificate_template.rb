@@ -1,4 +1,4 @@
-class CertificateTemplate < ActiveRecord::Base
+class CertificateTemplate < ApplicationRecord
   GAP           = 30
   FIELDS        = %i(holder_name cert_id date).freeze
   DIMENSIONS    = %i(x y w h).freeze

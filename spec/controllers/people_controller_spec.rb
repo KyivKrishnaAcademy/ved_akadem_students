@@ -7,13 +7,13 @@ describe PeopleController do
     it_behaves_like :failed_auth_crud, :not_authenticated
 
     context '#show_photo' do
-      When { get :show, id: 1, version: 'default' }
+      When { get :show, params: { id: 1, version: 'default' } }
 
       it_behaves_like :not_authenticated
     end
 
     context '#show_passport' do
-      When { get :show, id: 1 }
+      When { get :show, params: { id: 1 } }
 
       it_behaves_like :not_authenticated
     end
@@ -47,9 +47,9 @@ describe PeopleController do
         expect(controller).to receive(:send_file).with('/photo_path',
                                                        disposition: 'inline',
                                                        type: 'image/jpeg',
-                                                       x_sendfile: true)
+                                                       x_sendfile: true) { controller.head :ok }
 
-        get :show_photo, id: id, version: 'default'
+        get :show_photo, params: { id: id, version: 'default' }
       end
     end
 
@@ -71,7 +71,7 @@ describe PeopleController do
               allow(person).to receive_message_chain(:student_profile, :academic_groups, :where, :ids).and_return([])
             end
 
-            When { get :show_photo, id: 2, version: 'default' }
+            When { get :show_photo, params: { id: 2, version: 'default' } }
 
             it_behaves_like :not_authorized
           end
@@ -155,7 +155,7 @@ describe PeopleController do
         Given { allow(AcademicGroup).to receive_message_chain(:where, :select, :order) { academic_groups } }
         Given { allow(Program).to receive(:all) { programs } }
 
-        When  { get :show, id: 1 }
+        When  { get :show, params: { id: 1 } }
 
         Then { expect(response).to render_template(:show) }
         And  { expect(assigns(:person)).to eq(person) }
@@ -175,12 +175,14 @@ describe PeopleController do
   end
 
   describe 'old specs to rewrite' do
-    When { sign_in :person, create(:person, :admin) }
+    When { sign_in create(:person, :admin) }
 
     describe "POST 'create'" do
-      When do
-        post :create, person: build(:person).attributes.merge(telephones_attributes: [build(:telephone).attributes])
+      Given(:params) do
+        { person: build(:person).attributes.merge(telephones_attributes: [build(:telephone).attributes]) }
       end
+
+      When { post :create, params: params }
 
       context 'on success' do
         context 'redirect and flash' do
@@ -219,7 +221,7 @@ describe PeopleController do
 
         attributes ||= person.attributes.merge(skip_password_validation: true)
 
-        patch :update, id: person.id, person: attributes
+        patch :update, params: { id: person.id, person: attributes }
       end
 
       Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
@@ -232,8 +234,10 @@ describe PeopleController do
         context 'receives .update_attributes' do
           Then do
             expect_any_instance_of(Person).to receive(:update_attributes).with(
-              'emergency_contact' => 'params',
-              'skip_password_validation' => true
+              ActionController::Parameters.new(
+                'emergency_contact' => 'params',
+                'skip_password_validation' => true
+              ).permit!
             )
 
             update_model('emergency_contact' => 'params')
@@ -291,13 +295,13 @@ describe PeopleController do
         end
 
         context 'has photo' do
-          When { post :create, person: person_attributes.merge(photo: 'test.png') }
+          When { post :create, params: { person: person_attributes.merge(photo: 'test.png') } }
 
           Then { expect(response.status).to redirect_to(crop_image_path(assigns(:person).id)) }
         end
 
         context 'has no photo' do
-          When { post :create, person: person_attributes }
+          When { post :create, params: { person: person_attributes } }
 
           Then { expect(response.status).to redirect_to(action: :new) }
         end
@@ -316,13 +320,13 @@ describe PeopleController do
         end
 
         context 'has photo' do
-          When { patch :update, id: person.id, person: person_attributes.merge(photo: 'test.png') }
+          When { patch :update, params: { id: person.id, person: person_attributes.merge(photo: 'test.png') } }
 
           Then { expect(response.status).to redirect_to(crop_image_path(person.id)) }
         end
 
         context 'has no photo' do
-          When { patch :update, id: person.id, person: person_attributes }
+          When { patch :update, params: { id: person.id, person: person_attributes } }
 
           Then { expect(response.status).to redirect_to(person_path(person.id)) }
         end

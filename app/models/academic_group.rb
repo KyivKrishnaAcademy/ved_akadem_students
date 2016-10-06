@@ -1,4 +1,4 @@
-class AcademicGroup < ActiveRecord::Base
+class AcademicGroup < ApplicationRecord
   VALID_TITLE_REGEX = /\A(з|)[а-я]{2}\d{2}-\d\z/i
 
   has_many :group_participations, dependent: :destroy
@@ -11,7 +11,7 @@ class AcademicGroup < ActiveRecord::Base
   belongs_to :praepostor, class_name: 'Person'
   belongs_to :curator, class_name: 'Person'
 
-  before_save { |p| p.title = title.mb_chars.upcase.to_s }
+  before_save { |p| p.title = title.mb_chars.upcase.to_s unless title.blank? }
 
   validates :title, format: { with: VALID_TITLE_REGEX }
   validates :title, presence: true, uniqueness: true

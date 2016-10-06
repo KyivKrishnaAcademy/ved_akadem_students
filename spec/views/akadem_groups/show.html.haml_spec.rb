@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+include ReactOnRailsHelper
+
 describe 'academic_groups/show' do
   GROUP_ELDERS = %w(administrator curator praepostor).freeze
   OPTIONAL_GROUP_ELDERS = GROUP_ELDERS - %w(administrator)
@@ -137,7 +139,7 @@ describe 'academic_groups/show' do
       it_behaves_like :not_conditional_values
 
       Then { is_expected.not_to have_content(user.telephones.first.phone) }
-      And  { is_expected.not_to have_link(user.complex_name, person_path(user)) }
+      And  { is_expected.not_to have_link(user.complex_name, href: person_path(user)) }
     end
 
     describe 'I am the group elder' do
@@ -149,7 +151,7 @@ describe 'academic_groups/show' do
           it_behaves_like :not_conditional_values
 
           Then { is_expected.to have_content(user.telephones.first.phone) }
-          And  { is_expected.not_to have_link(user.complex_name, person_path(user)) }
+          And  { is_expected.not_to have_link(user.complex_name, href: person_path(user)) }
         end
       end
     end
@@ -159,7 +161,7 @@ describe 'academic_groups/show' do
 
       it_behaves_like :not_conditional_values
 
-      Then { is_expected.to have_link(complex_name(user, true), person_path(user)) }
+      Then { is_expected.to have_link(complex_name(user, true), href: person_path(user)) }
     end
   end
 
