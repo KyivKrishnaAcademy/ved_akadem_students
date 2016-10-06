@@ -1,10 +1,10 @@
-lock '3.4.0'
+lock '3.6.1'
 
 set :application, 'ved_akadem_students'
 set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
 application = 'ved_akadem_students'
 set :rvm_type, :user
-set :rvm_ruby_version, '2.1.5'
+set :rvm_ruby_version, '2.3.1@ved_akadem_students'
 set :deploy_to, '/var/www/apps/ved_akadem_students'
 set :ssh_options, forward_agent: true
 set :pty, true
@@ -129,8 +129,6 @@ namespace :deploy do
   after :updating, 'deploy:symlink'
 
   after :updated, 'newrelic:notice_deployment'
-
-  after :finished, 'airbrake:deploy'
 
   before :setup, 'deploy:starting'
   before :setup, 'deploy:updating'
