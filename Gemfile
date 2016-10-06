@@ -40,14 +40,11 @@ gem 'fast_blank'
 
 gem 'sidekiq'
 
-group :production do
-  gem 'airbrake'
-  gem 'newrelic_rpm'
-end
-
 gem 'paper_trail'
 
 group :production, :development do
+  gem 'airbrake'
+  gem 'newrelic_rpm'
   gem 'puma'
   gem 'whenever', require: false
 end
