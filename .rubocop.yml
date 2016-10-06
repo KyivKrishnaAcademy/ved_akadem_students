@@ -56,3 +56,6 @@ Style/MultilineOperationIndentation:
 
 Lint/EndAlignment:
   AlignWith: variable
+
+Style/FrozenStringLiteralComment:
+  Enabled: false

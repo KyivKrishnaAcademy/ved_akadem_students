@@ -1,3 +1,4 @@
 ru:
   errors:
-    not_email: 'неверный формат'
+    messages:
+      not_email: 'неверный формат'

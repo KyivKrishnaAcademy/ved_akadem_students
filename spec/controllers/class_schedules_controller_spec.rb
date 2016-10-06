@@ -25,7 +25,7 @@ describe ClassSchedulesController do
       end
 
       context '#create' do
-        When { post :create, params }
+        When { post :create, params: params }
 
         it_behaves_like :not_authenticated
       end
@@ -37,19 +37,19 @@ describe ClassSchedulesController do
       end
 
       context '#edit' do
-        When { get :edit, id: 1 }
+        When { get :edit, params: { id: 1 } }
 
         it_behaves_like :not_authenticated
       end
 
       context '#update' do
-        When { patch :update, id: 1 }
+        When { patch :update, params: { id: 1 } }
 
         it_behaves_like :not_authenticated
       end
 
       context '#destroy' do
-        When { delete :destroy, id: 1 }
+        When { delete :destroy, params: { id: 1 } }
 
         it_behaves_like :not_authenticated
       end
@@ -75,7 +75,7 @@ describe ClassSchedulesController do
         end
 
         context '#create' do
-          When { post :create, params }
+          When { post :create, params: params }
 
           it_behaves_like :not_authorized
         end
@@ -87,19 +87,19 @@ describe ClassSchedulesController do
         end
 
         context '#edit' do
-          When { get :edit, id: 1 }
+          When { get :edit, params: { id: 1 } }
 
           it_behaves_like :not_authorized
         end
 
         context '#update' do
-          When { patch :update, id: 1 }
+          When { patch :update, params: { id: 1 } }
 
           it_behaves_like :not_authorized
         end
 
         context '#destroy' do
-          When { delete :destroy, id: 1 }
+          When { delete :destroy, params: { id: 1 } }
 
           it_behaves_like :not_authorized
         end
@@ -139,7 +139,7 @@ describe ClassSchedulesController do
         describe '#edit' do
           Given(:actions) { ['class_schedule:edit'] }
 
-          When  { get :edit, id: 1 }
+          When  { get :edit, params: { id: 1 } }
 
           Then  { expect(response).to render_template(:edit) }
           And   { expect(assigns(:class_schedule)).to eq(class_schedule) }
@@ -153,14 +153,16 @@ describe ClassSchedulesController do
           Given(:actions) { ['class_schedule:create'] }
 
           describe 'with success' do
-            Then { expect { post :create, params }.to change(ClassSchedule, :count).by(1) }
+            Then { expect { post :create, params: params }.to change(ClassSchedule, :count).by(1) }
             And  { expect(assigns(:class_schedule)).to be_a_kind_of(ClassSchedule) }
             And  { expect(response).to redirect_to(class_schedules_path) }
             And  { is_expected.to set_flash[:notice] }
           end
 
           describe 'failure' do
-            Then { expect { post :create, class_schedule: { course_id: nil } }.not_to change(ClassSchedule, :count) }
+            Given(:params) { { class_schedule: { course_id: nil } } }
+
+            Then { expect { post :create, params: params }.not_to change(ClassSchedule, :count) }
             And  { expect(response).to render_template(:new) }
           end
         end
@@ -169,7 +171,7 @@ describe ClassSchedulesController do
           Given(:actions) { ['class_schedule:update'] }
           Given(:class_schedule) { create :class_schedule }
 
-          When { patch :update, id: class_schedule.id, class_schedule: class_schedule_params }
+          When { patch :update, params: { id: class_schedule.id, class_schedule: class_schedule_params } }
 
           describe 'with success' do
             Given(:new_course) { create :course }
@@ -194,7 +196,9 @@ describe ClassSchedulesController do
           Given!(:class_schedule) { create :class_schedule }
 
           describe 'with success' do
-            Then { expect { delete :destroy, id: class_schedule.id }.to change(ClassSchedule, :count).by(-1) }
+            Given(:params) { { id: class_schedule.id } }
+
+            Then { expect { delete :destroy, params: params }.to change(ClassSchedule, :count).by(-1) }
             And  { expect(response).to redirect_to(class_schedules_path) }
             And  { is_expected.to set_flash[:notice] }
             And  { expect(assigns(:class_schedule)).to eq(class_schedule) }

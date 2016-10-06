@@ -5,7 +5,7 @@ describe PdfExportsController do
     describe 'not signed in' do
       describe 'not_authenticated' do
         context "##{described_action}" do
-          When { get described_action, id: 1, format: :pdf }
+          When { get described_action, params: { id: 1, format: :pdf } }
 
           Then { expect(response.status).to eq(401) }
           And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
@@ -26,7 +26,7 @@ describe PdfExportsController do
       describe 'as regular user' do
         describe 'not_authorized' do
           context "##{described_action}" do
-            When { get described_action, id: 1, format: :pdf }
+            When { get described_action, params: { id: 1, format: :pdf } }
 
             it_behaves_like :not_authorized
           end
@@ -42,7 +42,7 @@ describe PdfExportsController do
         describe "##{described_action}" do
           Given(:actions) { ["academic_group:#{described_action}_pdf", 'academic_group:show'] }
 
-          When { get described_action, id: 1, format: :pdf }
+          When { get described_action, params: { id: 1, format: :pdf } }
 
           Then { expect(response).to be_ok }
         end

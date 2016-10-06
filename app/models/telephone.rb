@@ -1,4 +1,4 @@
-class Telephone < ActiveRecord::Base
+class Telephone < ApplicationRecord
   belongs_to :person
 
   before_validation :normalize

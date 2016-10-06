@@ -2,40 +2,22 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     include CropDirectable
 
-    before_action :configure_permitted_parameters
-    before_action :remove_empty_password, only: :update
+    before_action :sanitize_sign_up, only: :create
+    before_action :sanitize_account_update, only: :update
+
+    PERMITTED_PARAMS = [
+      :name, :surname, :spiritual_name, :middle_name, :gender, :photo, :photo_cache, :diksha_guru,
+      :birthday, :education, :work, :emergency_contact, :passport, :passport_cache, :marital_status,
+      :friends_to_be_with, telephones_attributes: [:id, :phone, :_destroy]
+    ].freeze
 
     def new
-      build_resource({})
-
-      resource.telephones.build
-
-      @validatable = devise_mapping.validatable?
-
-      if @validatable
-        @minimum_password_length = resource_class.password_length.min
+      super do |resource|
+        resource.telephones.build
       end
-
-      respond_with resource
-    end
-
-    def destroy
-      hide_or_destroy(resource)
-
-      devise_sign_out(resource_name)
-
-      set_flash_message :notice, :destroyed if is_flashing_format?
-
-      yield resource if block_given?
-
-      respond_with_navigational(resource) { redirect_to after_sign_out_path_for(resource_name) }
     end
 
     private
-
-    def devise_sign_out(name)
-      Devise.sign_out_all_scopes ? sign_out : sign_out(name)
-    end
 
     def after_sign_up_path_for(resource)
       direct_to_crop(super(resource), resource)
@@ -49,39 +31,24 @@ module Users
       direct_to_crop(super(resource), resource)
     end
 
-    def configure_permitted_parameters
-      permitted_params = [:name, :surname, :spiritual_name, :middle_name, :gender, :photo, :diksha_guru,
-                          :birthday, :education, :work, :emergency_contact, :passport, :marital_status,
-                          :friends_to_be_with, telephones_attributes: [:id, :phone, :_destroy]]
-
-      devise_parameter_sanitizer.for(:sign_up) << permitted_params << [:photo_cache, :passport_cache,
-                                                                       :privacy_agreement]
-      devise_parameter_sanitizer.for(:account_update) << permitted_params << [:photo_cache, :passport_cache]
+    def sanitize_sign_up
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:privacy_agreement].concat(PERMITTED_PARAMS))
     end
 
-    def remove_empty_password
-      return if password_provided?
+    def sanitize_account_update
+      if password_provided?
+        devise_parameter_sanitizer.permit(:account_update, keys: PERMITTED_PARAMS)
+      else
+        params[:person].delete(:password)
+        params[:person].delete(:password_confirmation)
+        params[:person][:skip_password_validation] = true
 
-      params[:person].delete(:password)
-      params[:person].delete(:password_confirmation)
-      params[:person][:skip_password_validation] = true
-
-      devise_parameter_sanitizer.for(:account_update) << [:skip_password_validation]
+        devise_parameter_sanitizer.permit(:account_update, keys: [:skip_password_validation].concat(PERMITTED_PARAMS))
+      end
     end
 
     def password_provided?
       params[:person][:password].present? || params[:person][:password_confirmation].present?
-    end
-
-    def hide_or_destroy(person)
-      if person.student_profile.present? || person.teacher_profile.present?
-        new_email = "#{SecureRandom.hex(3)}.deleted.#{person.email}"
-        new_uid = person.uid == person.email ? new_email : person.uid
-
-        person.update_attributes(email: new_email, uid: new_uid, deleted: true)
-      else
-        person.destroy
-      end
     end
   end
 end

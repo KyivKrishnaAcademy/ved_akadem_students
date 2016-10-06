@@ -4,7 +4,7 @@ describe LocalesController do
   Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
 
   Given(:user) { create :person, locale: :ru }
-  When { sign_in :person, user }
+  When { sign_in user }
 
   When { get :toggle }
 

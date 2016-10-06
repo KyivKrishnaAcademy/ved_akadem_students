@@ -3,32 +3,29 @@ require 'rails_helper'
 describe Users::RegistrationsController do
   Given { request.env['devise.mapping'] = Devise.mappings[:person] }
 
-  shared_examples_for :hide_person do
-    When { delete :destroy }
-
-    Then { expect(person.reload.email).to match(/^\w{6}.deleted.some@example.com$/) }
-    And  { expect(person.reload.deleted?).to eq(true) }
+  shared_examples_for :delete_person do
+    Then { expect { delete :destroy }.to change(Person, :count).by(-1) }
   end
 
   describe 'destroy' do
-    When { sign_in :person, person }
+    When { sign_in person }
 
     context 'person is not a student or teacher' do
       Given(:person) { create :person }
 
-      Then { expect { delete :destroy }.to change(Person, :count).by(-1) }
+      include_examples :delete_person
     end
 
     context 'person is student' do
       Given(:person) { create :person, :student, email: 'some@example.com' }
 
-      it_behaves_like :hide_person
+      include_examples :delete_person
     end
 
-    context 'person is student' do
+    context 'person is teacher' do
       Given(:person) { create :person, :teacher, email: 'some@example.com' }
 
-      it_behaves_like :hide_person
+      include_examples :delete_person
     end
   end
 
@@ -45,13 +42,13 @@ describe Users::RegistrationsController do
       end
 
       context 'has photo' do
-        When { post :create, person: person_attributes.merge(photo: 'test.png') }
+        When { post :create, params: { person: person_attributes.merge(photo: 'test.png') } }
 
         Then { expect(response).to redirect_to(crop_image_path(assigns(:person).id)) }
       end
 
       context 'has no photo' do
-        When { post :create, person: person_attributes }
+        When { post :create, params: { person: person_attributes } }
 
         Then { expect(response).to redirect_to(root_path) }
       end
@@ -69,16 +66,16 @@ describe Users::RegistrationsController do
           )
       end
 
-      When { sign_in :person, person }
+      When { sign_in person }
 
       context 'has photo' do
-        When { post :update, id: person.id, person: person_attributes.merge(photo: 'test.png') }
+        When { post :update, params: { id: person.id, person: person_attributes.merge(photo: 'test.png') } }
 
         Then { expect(response).to redirect_to(crop_image_path(person.id)) }
       end
 
       context 'has no photo' do
-        When { post :update, id: person.id, person: person_attributes }
+        When { post :update, params: { id: person.id, person: person_attributes } }
 
         Then { expect(response).to redirect_to(root_path) }
       end

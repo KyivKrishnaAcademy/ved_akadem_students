@@ -4,7 +4,7 @@ describe StudyApplicationsController do
   describe 'no user' do
     context 'destroy' do
       Given(:study_application) { double(StudyApplication, person_id: 1, program_id: 1) }
-      Given(:action) { delete :destroy, id: 1, format: :js }
+      Given(:action) { delete :destroy, params: { id: 1, format: :js } }
 
       Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
       Given { allow(StudyApplication).to receive(:find).with('1').and_return(study_application) }
@@ -15,7 +15,7 @@ describe StudyApplicationsController do
     end
 
     context 'create' do
-      Given(:action) { post :create, study_application: { person_id: 1, program_id: 1 }, format: :js }
+      Given(:action) { post :create, params: { study_application: { person_id: 1, program_id: 1 }, format: :js } }
 
       Given { expect_any_instance_of(StudyApplication).not_to receive(:save) }
 
@@ -68,7 +68,7 @@ describe StudyApplicationsController do
       context 'destroy' do
         Given { allow(StudyApplication).to receive(:find).with('1').and_return(study_application) }
 
-        When  { delete :destroy, id: 1, format: :js }
+        When  { delete :destroy, params: { id: 1, format: :js } }
 
         context 'allow own' do
           Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1) }
@@ -88,19 +88,21 @@ describe StudyApplicationsController do
       end
 
       context 'create' do
-        context 'allow own' do
-          Given { allow(Person).to receive(:find).with(person.id).and_return(person) }
+        When  { post :create, params: params }
 
-          When  { post :create, study_application: { person_id: person.id, program_id: 1 }, format: :js }
+        context 'allow own' do
+          Given(:params) { { study_application: { person_id: person.id, program_id: 1 }, format: :js } }
+
+          Given { allow(Person).to receive(:find).with(person.id).and_return(person) }
 
           it_behaves_like :athorized_create
         end
 
         context 'disallow others' do
+          Given(:params) { { study_application: { person_id: person.id.next, program_id: 1 }, format: :js } }
+
           Given { expect_any_instance_of(StudyApplication).not_to receive(:save) }
           Given { expect(person).not_to receive(:add_application_questionnaires) }
-
-          When  { post :create, study_application: { person_id: person.id.next, program_id: 1 }, format: :js }
 
           it_behaves_like :not_athorized
         end
@@ -119,7 +121,7 @@ describe StudyApplicationsController do
           allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:destroy'] }
         end
 
-        When { delete :destroy, id: 1, format: :js }
+        When { delete :destroy, params: { id: 1, format: :js } }
 
         context 'allow own' do
           Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1) }
@@ -139,18 +141,20 @@ describe StudyApplicationsController do
           allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:create'] }
         end
 
-        context 'allow own' do
-          Given { allow(Person).to receive(:find).with(person.id).and_return(person) }
+        When { post :create, params: params, format: :js }
 
-          When  { post :create, study_application: { person_id: person.id, program_id: 1 }, format: :js }
+        context 'allow own' do
+          Given(:params) { { study_application: { person_id: person.id, program_id: 1 } } }
+
+          Given { allow(Person).to receive(:find).with(person.id).and_return(person) }
 
           it_behaves_like :athorized_create
         end
 
         context 'allow others' do
-          Given { allow(Person).to receive(:find).with(person.id.next).and_return(person) }
+          Given(:params) { { study_application: { person_id: person.id.next, program_id: 1 } } }
 
-          When  { post :create, study_application: { person_id: person.id.next, program_id: 1 }, format: :js }
+          Given { allow(Person).to receive(:find).with(person.id.next).and_return(person) }
 
           it_behaves_like :athorized_create
         end

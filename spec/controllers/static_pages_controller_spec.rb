@@ -9,7 +9,7 @@ describe StaticPagesController do
     end
 
     context 'signed in' do
-      Given { sign_in :person, create(:person) }
+      Given { sign_in create(:person) }
 
       Then  { expect(response).to be_success }
     end

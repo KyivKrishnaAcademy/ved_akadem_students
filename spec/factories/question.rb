@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :question do
     format  { %w(freeform single_select).sample }
-    data    { { text: { uk: Faker::Lorem.sentence, ru: Faker::Lorem.sentence } } }
+    data    { { text: { uk: FFaker::Lorem.sentence, ru: FFaker::Lorem.sentence } } }
   end
 
   trait :single_select do

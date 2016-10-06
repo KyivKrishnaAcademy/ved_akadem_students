@@ -1,4 +1,4 @@
-class QuestionnaireCompleteness < ActiveRecord::Base
+class QuestionnaireCompleteness < ApplicationRecord
   serialize :result, Hash
 
   belongs_to :person

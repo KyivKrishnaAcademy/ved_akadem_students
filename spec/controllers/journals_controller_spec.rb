@@ -14,7 +14,7 @@ describe JournalsController do
   describe 'signed in' do
     Given(:user) { create :person, roles: [create(:role, activities: activities)] }
 
-    Given { sign_in :person, user }
+    Given { sign_in user }
 
     describe 'with valid user' do
       describe 'GET #show' do

@@ -5,8 +5,8 @@ describe CropsController do
     Given(:person_with_photo) { create :person, :with_photo }
 
     context 'own' do
-      When { sign_in :person, person_with_photo }
-      When { get :crop_image, id: person_with_photo.id }
+      When { sign_in person_with_photo }
+      When { get :crop_image, params: { id: person_with_photo.id } }
 
       Then { expect(assigns(:person)).to eq(person_with_photo) }
       And  { expect(response.status).to eq(200) }
@@ -15,8 +15,8 @@ describe CropsController do
     context 'has_rights' do
       Given(:person_with_right) { create :person, roles: [create(:role, activities: %w(person:crop_image))] }
 
-      When { sign_in :person, person_with_right }
-      When { get :crop_image, id: person_with_photo.id }
+      When { sign_in person_with_right }
+      When { get :crop_image, params: { id: person_with_photo.id } }
 
       Then { expect(assigns(:person)).to eq(person_with_photo) }
       And  { expect(response.status).to eq(200) }
@@ -27,8 +27,8 @@ describe CropsController do
 
       Given { request.env['HTTP_REFERER'] = '/where_i_came_from' }
 
-      When { sign_in :person, person_without_right }
-      When { get :crop_image, id: person_with_photo.id }
+      When { sign_in person_without_right }
+      When { get :crop_image, params: { id: person_with_photo.id } }
 
       Then { expect(response.status).to redirect_to('/where_i_came_from') }
     end
@@ -39,8 +39,8 @@ describe CropsController do
 
     Given { allow(Person).to receive(:find).with('2').and_return(person) }
 
-    When { sign_in :person, create(:person, roles: [create(:role, activities: %w(person:crop_image))]) }
-    When { get :update_image, person: { crop_x: 0 }, id: 2 }
+    When { sign_in create(:person, roles: [create(:role, activities: %w(person:crop_image))]) }
+    When { get :update_image, params: { person: { crop_x: 0 }, id: 2 } }
 
     context 'cropped' do
       Given { allow(person).to receive(:crop_photo).and_return(true) }

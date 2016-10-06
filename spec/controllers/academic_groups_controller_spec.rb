@@ -15,7 +15,7 @@ describe AcademicGroupsController do
 
   shared_examples :academic_groups_actions do |*activities|
     context 'signed in' do
-      When { sign_in(:person, user) }
+      When { sign_in user }
       When { action }
 
       describe 'should allow' do
@@ -46,12 +46,17 @@ describe AcademicGroupsController do
 
   context 'post: :create with ["academic_group:create"]' do
     Given(:action) do
-      post :create, academic_group: {
-        administrator_id: create(:person).id,
-        title: 'ШБ00-1',
-        group_description: 'aaaaaaaaaa',
-        establ_date: Time.zone.now
-      }
+      post(
+        :create,
+        params: {
+          academic_group: {
+            administrator_id: create(:person).id,
+            title: 'ШБ00-1',
+            group_description: 'aaaaaaaaaa',
+            establ_date: Time.zone.now
+          }
+        }
+      )
     end
 
     Given(:expectation) do
@@ -66,7 +71,7 @@ describe AcademicGroupsController do
     describe 'on failure with valid rights' do
       Given { allow_any_instance_of(AcademicGroup).to receive(:save).and_return(false) }
 
-      When  { sign_in :person, create(:person, roles: [create(:role, activities: %w(academic_group:create))]) }
+      When  { sign_in create(:person, roles: [create(:role, activities: %w(academic_group:create))]) }
       When  { action }
 
       Then  { expect(response).to render_template(:new) }
@@ -97,7 +102,7 @@ describe AcademicGroupsController do
   end
 
   context 'get: :show with ["academic_group:show"]' do
-    Given(:action) { get :show, id: group.id }
+    Given(:action) { get :show, params: { id: group.id } }
     Given(:expectation) do
       expect(response).to render_template(:show)
       expect(assigns(:academic_group)).to eq(group)
@@ -157,7 +162,7 @@ describe AcademicGroupsController do
   context 'get: :edit with ["academic_group:edit"]' do
     Given(:record) { create :academic_group }
 
-    Given(:action)      { get :edit, id: record.id }
+    Given(:action)      { get :edit, params: { id: record.id } }
     Given(:expectation) do
       expect(response).to render_template(:edit)
       expect(assigns(:academic_group)).to eq(record)
@@ -168,7 +173,7 @@ describe AcademicGroupsController do
 
   context 'patch: :update with ["academic_group:update"]' do
     Given(:record) { create :academic_group }
-    Given(:action) { patch :update, id: record.id, academic_group: mod_params }
+    Given(:action) { patch :update, params: { id: record.id, academic_group: mod_params } }
 
     Given(:expectation) do
       expect(response).to redirect_to(record)
@@ -181,11 +186,12 @@ describe AcademicGroupsController do
     describe 'other' do
       Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
-      When { sign_in :person, create(:person, roles: [create(:role, activities: %w(academic_group:update))]) }
+      When { sign_in create(:person, roles: [create(:role, activities: %w(academic_group:update))]) }
 
       describe 'record receives update' do
         Then do
-          expect_any_instance_of(AcademicGroup).to receive(:update_attributes).with(mod_params.with_indifferent_access)
+          expect_any_instance_of(AcademicGroup)
+            .to receive(:update_attributes).with(ActionController::Parameters.new(mod_params).permit!)
           action
         end
       end
@@ -203,14 +209,14 @@ describe AcademicGroupsController do
   context 'delete: :destroy with ["academic_group:destroy"]' do
     Given!(:record) { create :academic_group }
 
-    Given(:action) { delete :destroy, id: record.id }
+    Given(:action) { delete :destroy, params: { id: record.id } }
 
     context 'signed in' do
       Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
       Given(:user) { create :person, roles: [create(:role, activities: %w(academic_group:destroy))] }
 
-      When { sign_in(:person, user) }
+      When { sign_in user }
 
       context 'on success' do
         Then { expect { action }.to change(AcademicGroup, :count).by(-1) }
@@ -237,7 +243,7 @@ describe AcademicGroupsController do
 
   context 'post: :graduate' do
     Given(:group) { create :academic_group }
-    Given(:action) { post :graduate, id: group.id }
+    Given(:action) { post :graduate, params: { id: group.id } }
 
     context 'not signed in' do
       When { action }
@@ -248,7 +254,7 @@ describe AcademicGroupsController do
     context 'signed in' do
       Given(:user) { create :person, roles: roles }
 
-      When { sign_in(:person, user) }
+      When { sign_in user }
 
       context 'no rights' do
         Given(:roles) { [] }

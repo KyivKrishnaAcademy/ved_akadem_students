@@ -8,8 +8,8 @@ FactoryGirl.define do
   initial_questions = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/initial_questions.yml'))
 
   factory :questionnaire do
-    title_uk  { Faker::Lorem.phrase }
-    title_ru  { Faker::Lorem.phrase }
+    title_uk  { FFaker::Lorem.phrase }
+    title_ru  { FFaker::Lorem.phrase }
     questions { [build(:question)] }
 
     trait :psycho_test do

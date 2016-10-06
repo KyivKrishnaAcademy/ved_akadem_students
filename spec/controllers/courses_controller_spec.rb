@@ -54,7 +54,7 @@ describe CoursesController do
         describe '#edit' do
           Given(:actions) { ['course:edit'] }
 
-          When  { get :edit, id: 1 }
+          When  { get :edit, params: { id: 1 } }
 
           Then  { expect(response).to render_template(:edit) }
           And   { expect(assigns(:course)).to eq(course) }
@@ -63,7 +63,7 @@ describe CoursesController do
         describe '#show' do
           Given(:actions) { ['course:show'] }
 
-          When  { get :show, id: 1 }
+          When  { get :show, params: { id: 1 } }
 
           Then  { expect(response).to render_template(:show) }
           And   { expect(assigns(:course)).to eq(course) }
@@ -75,14 +75,14 @@ describe CoursesController do
           Given(:actions) { ['course:create'] }
 
           describe 'with success' do
-            Then { expect { post :create, params }.to change(Course, :count).by(1) }
+            Then { expect { post :create, params: params }.to change(Course, :count).by(1) }
             And  { expect(assigns(:course)).to be_a_kind_of(Course) }
             And  { expect(response).to redirect_to(course_path(assigns(:course))) }
             And  { is_expected.to set_flash[:notice] }
           end
 
           describe 'failure' do
-            Then { expect { post :create, course: { title: 'John' } }.not_to change(Course, :count) }
+            Then { expect { post :create, params: { course: { title: 'John' } } }.not_to change(Course, :count) }
             And  { expect(response).to render_template(:new) }
           end
         end
@@ -93,7 +93,7 @@ describe CoursesController do
 
           Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
-          When  { patch :update, id: course.id, course: course_params }
+          When  { patch :update, params: { id: course.id, course: course_params } }
 
           describe 'with success' do
             Given(:course_params) { { title: 'Bhakti school', description: 'Awesome' } }
@@ -118,7 +118,7 @@ describe CoursesController do
           Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
           describe 'with success' do
-            Then { expect { delete :destroy, id: course.id }.to change(Course, :count).by(-1) }
+            Then { expect { delete :destroy, params: { id: course.id } }.to change(Course, :count).by(-1) }
             And  { expect(response).to redirect_to(courses_path) }
             And  { is_expected.to set_flash[:notice] }
             And  { expect(assigns(:course)).to eq(course) }

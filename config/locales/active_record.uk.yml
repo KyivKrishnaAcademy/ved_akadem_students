@@ -58,8 +58,7 @@ uk:
             email:
               blank:                'повинна бути заповнена'
               invalid:              'повинна відповідати формату «pryklad@example.com»'
-              already_in_use:       &taken 'зайнята. Можливо Ви вже зареєстровані, спробуйте <a href="/password/new">відновити пароль</a>'
-              taken:                *taken
+              taken:                'зайнята. Можливо Ви вже зареєстровані, спробуйте <a href="/password/new">відновити пароль</a>'
             gender:
               inclusion:            'повинна бути обрана'
             marital_status:

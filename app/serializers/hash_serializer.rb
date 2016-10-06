@@ -4,6 +4,6 @@ class HashSerializer
   end
 
   def self.load(hash)
-    (hash || {}).with_indifferent_access
+    ActiveSupport::HashWithIndifferentAccess.new(hash.is_a?(String) ? JSON.parse(hash) : hash)
   end
 end

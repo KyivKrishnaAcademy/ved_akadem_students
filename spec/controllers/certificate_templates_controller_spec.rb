@@ -11,7 +11,7 @@ describe CertificateTemplatesController do
     end
 
     context '#create' do
-      When { post :create, params }
+      When { post :create, params: params }
 
       it_behaves_like :not_authenticated
     end
@@ -23,37 +23,37 @@ describe CertificateTemplatesController do
     end
 
     context '#edit' do
-      When { get :edit, id: 1 }
+      When { get :edit, params: { id: 1 } }
 
       it_behaves_like :not_authenticated
     end
 
     context '#update' do
-      When { patch :update, id: 1 }
+      When { patch :update, params: { id: 1 } }
 
       it_behaves_like :not_authenticated
     end
 
     context '#destroy' do
-      When { delete :destroy, id: 1 }
+      When { delete :destroy, params: { id: 1 } }
 
       it_behaves_like :not_authenticated
     end
 
     context '#markup' do
-      When { get :markup, id: 1 }
+      When { get :markup, params: { id: 1 } }
 
       it_behaves_like :not_authenticated
     end
 
     context '#background' do
-      When { get :background, id: 1 }
+      When { get :background, params: { id: 1 } }
 
       it_behaves_like :not_authenticated
     end
 
     context '#finish' do
-      When { post :finish, id: 1 }
+      When { post :finish, params: { id: 1 } }
 
       it_behaves_like :not_authenticated
     end
@@ -63,15 +63,15 @@ describe CertificateTemplatesController do
     Given(:user) { create :person, roles: [create(:role, activities: activities)] }
     Given(:template) { create :certificate_template }
 
-    Given { sign_in :person, user }
+    Given { sign_in user }
 
     describe 'with valid user' do
       describe 'GET #background' do
         Given(:activities) { ['certificate_template:edit'] }
 
-        Given { expect(controller).to receive(:send_file) { controller.render nothing: true } }
+        Given { expect(controller).to receive(:send_file) { controller.head :ok } }
 
-        When  { get :background, id: template.id }
+        When  { get :background, params: { id: template.id } }
 
         Then  { expect(response.status).to eq(200) }
       end
@@ -93,13 +93,13 @@ describe CertificateTemplatesController do
       end
 
       describe 'GET #edit' do
-        When { get :edit, id: template.id }
+        When { get :edit, params: { id: template.id } }
 
         it_behaves_like :not_authorized
       end
 
       describe 'GET #markup' do
-        When { get :markup, id: template.id }
+        When { get :markup, params: { id: template.id } }
 
         it_behaves_like :not_authorized
       end
@@ -107,20 +107,26 @@ describe CertificateTemplatesController do
       describe 'GET #background' do
         Given { expect(controller).not_to receive(:send_file) }
 
-        When  { get :background, id: template.id }
+        When  { get :background, params: { id: template.id } }
 
         it_behaves_like :not_authorized
       end
 
       describe 'PATCH #finish' do
         Given(:action) do
-          patch :finish, id: template.id, certificate_template: {
-            fields: {
-              CertificateTemplate::FIELDS.first => {
-                CertificateTemplate::DIMENSIONS.first => 100
+          patch(
+            :finish,
+            params: {
+              id: template.id,
+              certificate_template: {
+                fields: {
+                  CertificateTemplate::FIELDS.first => {
+                    CertificateTemplate::DIMENSIONS.first => 100
+                  }
+                }
               }
             }
-          }
+          )
         end
 
         context 'should not update' do
@@ -136,10 +142,15 @@ describe CertificateTemplatesController do
 
       describe 'POST #create' do
         Given(:action) do
-          post :create, certificate_template: {
-            title: 'some',
-            background: Rails.root.join('spec/fixtures/150x200.png').open
-          }
+          post(
+            :create,
+            params: {
+              certificate_template: {
+                title: 'some',
+                background: Rails.root.join('spec/fixtures/150x200.png').open
+              }
+            }
+          )
         end
 
         context 'should not create' do
@@ -154,7 +165,7 @@ describe CertificateTemplatesController do
       end
 
       describe 'PUT #update' do
-        Given(:action) { put :update, id: template.id, certificate_template: { title: 'some' } }
+        Given(:action) { put :update, params: { id: template.id, certificate_template: { title: 'some' } } }
 
         context 'should not update' do
           Then { expect { action }.not_to change { template.reload.title } }
@@ -168,7 +179,7 @@ describe CertificateTemplatesController do
       end
 
       describe 'DELETE #destroy' do
-        Given(:action) { delete :destroy, id: template.id }
+        Given(:action) { delete :destroy, params: { id: template.id } }
 
         Given { template }
 

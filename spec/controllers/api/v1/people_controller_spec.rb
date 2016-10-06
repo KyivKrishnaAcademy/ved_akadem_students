@@ -15,7 +15,7 @@ describe Api::V1::PeopleController do
 
       Given { expect(Api::PeopleLoadingInteraction).to receive(:new) }
 
-      When  { get :index, person.create_new_auth_token.merge(format: :json) }
+      When  { get :index, params: person.create_new_auth_token, format: :json }
 
       Then  { expect(response.status).to be(200) }
     end

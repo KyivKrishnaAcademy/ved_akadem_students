@@ -1,4 +1,4 @@
-class RefreshClassSchedulesMvJob < ActiveJob::Base
+class RefreshClassSchedulesMvJob < ApplicationJob
   queue_as :default
 
   def perform

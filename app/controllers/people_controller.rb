@@ -55,7 +55,7 @@ class PeopleController < ApplicationController
     if @person.destroy.destroyed?
       redirect_to people_path, flash: { success: 'Person record deleted!' }
     else
-      redirect_to :back, flash: { danger: 'Person deletion failed!' }
+      redirect_back fallback_location: root_path, flash: { danger: 'Person deletion failed!' }
     end
 
     # TODO: DRY the controller with responders
