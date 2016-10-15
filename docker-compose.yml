@@ -1,0 +1,39 @@
+version: '2'
+services:
+  postgres:
+    image:          mpugach/postgres_ua:9.5
+    container_name: postgres
+    volumes:
+      - /home/docker/ved_akadem_students:/data
+    environment:
+      POSTGRES_DB:    va_db
+      POSTGRES_USER:  postgres
+  redis:
+    image:          redis:3.2.4-alpine
+    container_name: redis
+  web:
+    image:          mpugach/ruby_node_imagemagick
+    entrypoint:     /app/bin/start_rails_dev.sh
+    container_name: web
+    ports:
+      - '3000:3000'
+    volumes:
+      - /home/docker/ved_akadem_students:/app
+    depends_on:
+      - redis
+      - postgres
+  sidekiq:
+    image:          mpugach/ruby_node_imagemagick
+    entrypoint:     /app/bin/start_sidekiq_dev.sh
+    container_name: sidekiq
+    volumes:
+      - /home/docker/ved_akadem_students:/app
+    depends_on:
+      - redis
+      - postgres
+  webpack_client:
+    image:          mpugach/ruby_node_imagemagick
+    entrypoint:     /app/bin/start_dev_webpack_client.sh
+    container_name: webpack_client
+    volumes:
+      - /home/docker/ved_akadem_students:/app

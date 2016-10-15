@@ -35,12 +35,14 @@ gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
 
 gem 'react_on_rails', '~> 3.0'
-gem 'therubyracer', platforms: :ruby
 gem 'fast_blank'
 
 gem 'sidekiq'
+gem 'redis-namespace'
 
 gem 'paper_trail'
+
+gem 'tzinfo-data'
 
 group :production, :development do
   gem 'airbrake'

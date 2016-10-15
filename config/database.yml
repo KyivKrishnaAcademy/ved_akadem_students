@@ -1,0 +1,18 @@
+common: &common
+  host: postgres
+  pool: 20
+  adapter: postgresql
+  database: va_db
+  username: postgres
+  password: postgres
+  encoding: utf8
+
+development:
+  <<: *common
+
+test:
+  <<: *common
+  database: va_db_tst
+
+production:
+  <<: *common
