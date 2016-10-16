@@ -5,9 +5,8 @@ env
 bin/container_bundle_install.sh
 
 bundle exec rails db:create
-bundle exec rails db:migrate:status
 
-if $?; then
+if bundle exec rails db:migrate:status; then
   bundle exec rails db:migrate
   bundle exec rails db:schema:dump
 else
@@ -15,6 +14,8 @@ else
   bundle exec rails db:seed
 fi
 
-rm /usr/src/app/tmp/pids/server.pid
+pidfile=/app/tmp/pids/server.pid
 
-bundle exec rails s -b 0.0.0.0
+[ -e "$pidfile" ] && rm "$pidfile"
+
+foreman start -f Procfile.dev -t 10

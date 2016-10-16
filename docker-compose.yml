@@ -11,10 +11,10 @@ services:
   redis:
     image:          redis:3.2.4-alpine
     container_name: redis
-  web:
+  application:
     image:          mpugach/ruby_node_imagemagick
     entrypoint:     /app/bin/start_rails_dev.sh
-    container_name: web
+    container_name: application
     ports:
       - '3000:3000'
     volumes:
@@ -22,18 +22,3 @@ services:
     depends_on:
       - redis
       - postgres
-  sidekiq:
-    image:          mpugach/ruby_node_imagemagick
-    entrypoint:     /app/bin/start_sidekiq_dev.sh
-    container_name: sidekiq
-    volumes:
-      - /home/docker/ved_akadem_students:/app
-    depends_on:
-      - redis
-      - postgres
-  webpack_client:
-    image:          mpugach/ruby_node_imagemagick
-    entrypoint:     /app/bin/start_dev_webpack_client.sh
-    container_name: webpack_client
-    volumes:
-      - /home/docker/ved_akadem_students:/app

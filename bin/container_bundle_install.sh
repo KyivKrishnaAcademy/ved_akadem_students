@@ -1,8 +1,10 @@
 #!/usr/bin/env sh
 
-md5sum Gemfile* | diff /Gemfiles.md5 -
+echo "Checking gems cache"
 
-if $?; then
+file=/Gemfiles.md5
+
+if [ -e "$file" ] && md5sum Gemfile* | diff "$file" -; then
   echo "Installed gems considered up to date"
 else
   echo "Getting cache..."
@@ -13,5 +15,5 @@ else
   echo "Saving cache..."
   time rsync -art --delete /usr/local/bundle /app/tmp
 
-  md5sum Gemfile* > /Gemfiles.md5
+  md5sum Gemfile* > "$file"
 fi
