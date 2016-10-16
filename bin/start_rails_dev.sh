@@ -4,6 +4,12 @@ env
 
 bin/container_bundle_install.sh
 
+echo "Waiting for DB to get up"
+
+while true; do
+  nc -z postgres 5432 && echo "DB is up." && break
+done
+
 bundle exec rails db:create
 
 if bundle exec rails db:migrate:status; then
