@@ -2,7 +2,11 @@
 
 env
 
-bin/container_bundle_install.sh
+bundle install -j5 --retry 10 --without production
+bundle clean --force
+
+npm install
+npm prune
 
 echo "Waiting for DB to get up"
 

@@ -1,24 +1,44 @@
 version: '2'
+
+volumes:
+  redis-dev:
+    external: false
+  postgres-dev:
+    external: false
+  bundle-dev:
+    external: false
+  node-modules-dev:
+    external: false
+  client-node-modules-dev:
+    external: false
+
 services:
   postgres:
     image:          mpugach/postgres_ua:9.5
     container_name: postgres
     volumes:
-      - /home/docker/ved_akadem_students:/data
+      - postgres-dev:/var/lib/postgresql/data
     environment:
       POSTGRES_DB:    va_db
       POSTGRES_USER:  postgres
+
   redis:
     image:          redis:3.2.4-alpine
     container_name: redis
+    volumes:
+      - redis-dev:/data
+
   application:
-    image:          mpugach/akadem_students_base:201610160
+    image:          mpugach/akadem_students_dev:latest
     entrypoint:     /app/bin/start_rails_dev.sh
     container_name: application
     ports:
       - '3000:3000'
     volumes:
       - /home/docker/ved_akadem_students:/app
+      - bundle-dev:/usr/local/bundle
+      - node-modules-dev:/app/node_modules
+      - client-node-modules-dev:/app/client/node_modules
     depends_on:
       - redis
       - postgres
