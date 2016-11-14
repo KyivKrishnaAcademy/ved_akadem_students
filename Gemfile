@@ -44,10 +44,6 @@ gem 'paper_trail'
 
 gem 'tzinfo-data'
 
-group :production do
-  gem 'sqlite3'
-end
-
 group :production, :development do
   gem 'airbrake'
   gem 'newrelic_rpm'
