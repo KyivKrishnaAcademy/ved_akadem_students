@@ -7,6 +7,6 @@ RUN bundle config git.allow_insecure true
 
 RUN apk update && \
     apk upgrade && \
-    apk add postgresql postgresql-client nodejs-lts imagemagick
+    apk add postgresql-dev imagemagick
 
 WORKDIR /app

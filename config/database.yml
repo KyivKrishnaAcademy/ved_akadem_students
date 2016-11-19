@@ -16,3 +16,6 @@ test:
 
 production:
   <<: *common
+
+assets_builder:
+  <<: *common
