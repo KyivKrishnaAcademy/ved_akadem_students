@@ -1,9 +1,7 @@
 #!/usr/bin/env sh
 
-timestamp=$(date "+%Y%m%d%H%M")
+set -e
 
-docker build \
-       --no-cache \
-       -t mpugach/akadem_students \
-       -t "mpugach/akadem_students:$timestamp" \
-       docker/akadem_students_prod
+. ./bin/lib/build_by_tag_and_dir.sh
+
+build_by_tag_and_dir 'mpugach' 'akadem_students_prod' $(date "+%Y%m%d%H%M") '--no-cache'
