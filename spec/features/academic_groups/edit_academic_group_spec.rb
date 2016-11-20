@@ -101,8 +101,4 @@ describe 'Edit academic group:' do
       )
     end
   end
-
-  context 'When values are invalid:' do
-    it_behaves_like :invalid_fill_in, { field: 'Title', value: '12-2' }, 'Academic group'
-  end
 end

@@ -36,7 +36,7 @@ gem 'tzinfo-data'
 
 gem 'react_on_rails', '~> 3.0'
 
-group :assets_builder, :development do
+group :assets_builder, :development, :test do
   gem 'sass-rails'
   gem 'uglifier'
   gem 'coffee-rails'
