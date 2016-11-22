@@ -2,7 +2,7 @@
 
 WORKDIR=$(basename `pwd`)
 
-docker-machine ssh "$DOCKER_MACHINE_NAME" "mkdir $WORKDIR"
+docker-machine ssh "$DOCKER_MACHINE_NAME" "mkdir -p $WORKDIR"
 
 VOL_DIR=$(docker-machine ssh "$DOCKER_MACHINE_NAME" "cd \"$WORKDIR\" && pwd")
 

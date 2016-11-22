@@ -2,11 +2,6 @@
 
 set -e
 
-main_tag="mpugach/akadem_students_dev"
+. ./bin/lib/build_by_tag_and_dir.sh
 
-timestamp=$(date "+%Y%m%d%H%M")
-
-docker build -t "$main_tag" -t "$main_tag:$timestamp" docker/akadem_students_dev
-
-docker push "$main_tag:$timestamp"
-docker push "$main_tag:latest"
+build_by_tag_and_dir 'mpugach' 'akadem_students_dev' $(date "+%Y%m%d%H%M")

@@ -11,6 +11,8 @@ volumes:
     external: false
   client-node-modules-dev:
     external: false
+  assets-javascript-generated-dev:
+    external: false
 
 services:
   postgres:
@@ -39,6 +41,7 @@ services:
       - bundle-dev:/usr/local/bundle
       - node-modules-dev:/app/node_modules
       - client-node-modules-dev:/app/client/node_modules
+      - assets-javascript-generated-dev:/app/app/assets/javascript/generated
     depends_on:
       - redis
       - postgres
