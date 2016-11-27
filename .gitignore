@@ -22,7 +22,6 @@ erd?.dot
 recaptcha.rb
 
 /Procfile
-/config/deploy/
 /shared/
 /coverage
 /uploads

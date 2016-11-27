@@ -81,22 +81,7 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
-    capistrano-bundler (1.1.4)
-      capistrano (~> 3.1)
-      sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
-    capistrano-npm (1.0.2)
-      capistrano (>= 3.0.0)
-    capistrano-nvm (0.0.6)
-      capistrano (~> 3.1)
-    capistrano-puma (0.2.3)
-      capistrano (>= 3.0)
-    capistrano-rails (1.1.8)
-      capistrano (~> 3.1)
-      capistrano-bundler (~> 1.1)
-    capistrano-rvm (0.1.2)
-      capistrano (~> 3.0)
-      sshkit (~> 1.2)
     capybara (2.9.2)
       addressable
       mime-types (>= 1.16)
@@ -415,12 +400,6 @@ DEPENDENCIES
   bootstrap-sass
   bootstrap3-datetimepicker-rails
   capistrano
-  capistrano-bundler
-  capistrano-npm
-  capistrano-nvm
-  capistrano-puma
-  capistrano-rails
-  capistrano-rvm
   capybara
   carrierwave (= 0.10.0)
   codeclimate-test-reporter
@@ -478,4 +457,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.13.2
+   1.13.6

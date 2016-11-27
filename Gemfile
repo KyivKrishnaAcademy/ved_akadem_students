@@ -55,12 +55,6 @@ end
 
 group :development do
   gem 'capistrano'
-  gem 'capistrano-rails'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rvm'
-  gem 'capistrano-nvm', require: false
-  gem 'capistrano-npm', require: false
-  gem 'capistrano-puma', require: false
   gem 'airbrussh', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
