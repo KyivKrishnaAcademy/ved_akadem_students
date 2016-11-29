@@ -24,6 +24,8 @@ namespace :docker do
     Rake::Task[:'docker:builder_exec'].reenable
     invoke :'docker:builder_exec', 'bundle install -j5 --retry 10 --without development test'
     Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', 'bundle clean --force'
+    Rake::Task[:'docker:builder_exec'].reenable
     invoke :'docker:builder_exec', 'npm install npm@3.6.0 -g && npm install'
     Rake::Task[:'docker:builder_exec'].reenable
     invoke :'docker:builder_exec', 'bundle exec rake assets:precompile RAILS_ENV=assets_builder'
