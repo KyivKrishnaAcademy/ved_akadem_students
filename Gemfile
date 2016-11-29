@@ -50,7 +50,6 @@ group :production, :development do
   gem 'airbrake'
   gem 'newrelic_rpm'
   gem 'puma'
-  gem 'whenever', require: false
 end
 
 group :development do
