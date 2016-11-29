@@ -55,7 +55,6 @@ end
 
 group :development do
   gem 'capistrano'
-  gem 'airbrussh', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'

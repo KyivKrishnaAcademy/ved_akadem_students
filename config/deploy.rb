@@ -1,9 +1,5 @@
 lock '3.6.1'
 
-Airbrussh.configure do |config|
-  config.command_output = true
-end
-
 set :pty, true
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'

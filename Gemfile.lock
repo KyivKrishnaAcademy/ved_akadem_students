@@ -393,7 +393,6 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
-  airbrussh
   axlsx
   better_errors
   binding_of_caller
