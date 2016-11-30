@@ -1,15 +1,18 @@
 lock '3.6.1'
 
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+
 set :pty, true
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
 set :deploy_to, '/var/docker/apps/ved_akadem_students'
 set :linked_files, %w(.ruby-env)
 
+set :dbname, 'postgresql://postgres:postgres@postgres:5432/va_db'
 set :project, 'akademstudents'
-set :packages, %w(git build-base postgresql-client nodejs-lts python)
+set :packages, %w(git build-base postgresql postgresql-client nodejs-lts python)
 set :app_image, 'mpugach/akadem_students_prod:latest'
 set :compose_yml, 'docker-compose.prod.yml'
+set :backups_path, "#{fetch(:deploy_to)}/backups"
 set :builder_name, 'assets_builder'
 
 namespace :docker do
@@ -46,8 +49,6 @@ namespace :docker do
     Rake::Task[:'docker:stop_container'].reenable
     invoke :'docker:stop_container', fetch(:builder_name)
   end
-
-  after :'deploy:published', :'docker:deploy'
 
   desc 'Start builder'
   task :start_builder do
@@ -103,6 +104,7 @@ namespace :docker do
 
         sudo <<-SHELL
           docker create \
+            -v #{fetch(:backups_path)}:/backups \
             -v builder-cache-node_modules:/app/node_modules \
             -v builder-cache-client-node_modules:/app/client/node_modules \
             -v #{fetch(:project)}_public-prod:/app/public \
@@ -126,4 +128,74 @@ namespace :docker do
       end
     end
   end
+
+  desc 'Backup DB and files'
+  task :backup do
+    on roles(:all) do
+      last_release = capture(:ls, '-xt', releases_path).split.first
+
+      return unless last_release
+
+      release_backup_path = Pathname.new('/backups').join(last_release)
+
+      invoke :'docker:start_builder'
+      invoke :'docker:builder_exec', "mkdir -p #{release_backup_path}"
+
+      Rake::Task[:'docker:builder_exec'].reenable
+
+      invoke(
+        :'docker:builder_exec',
+        "pg_dump --dbname=#{fetch(:dbname)} -F d -j 20 -Z 1 -f #{release_backup_path.join('db')}"
+      )
+
+      Rake::Task[:'docker:builder_exec'].reenable
+
+      invoke(
+        :'docker:builder_exec',
+        "tar -czf #{release_backup_path.join('uploads.tar.gz')} -C /app uploads"
+      )
+
+      invoke :'docker:stop_container', fetch(:builder_name)
+    end
+  end
+
+  desc 'Restore DB and files'
+  task :restore do
+    on roles(:all) do
+      revisions = capture(:ls, '-x', fetch(:backups_path))
+
+      if revisions.strip.empty?
+        info 'Nothing to restore'
+
+        return
+      end
+
+      info revisions
+
+      ask :restore_release, revisions.split.last
+
+      release_backup_path = Pathname.new('/backups').join(fetch(:restore_release))
+
+      invoke :'docker:start_builder'
+      invoke :'docker:stop_container', 'nginx'
+
+      invoke(
+        :'docker:builder_exec',
+        "pg_restore --dbname=#{fetch(:dbname)} -O -j 20 -c #{release_backup_path.join('db')}"
+      )
+
+      Rake::Task[:'docker:builder_exec'].reenable
+      invoke(:'docker:builder_exec', "rm -rf /app/uploads/*")
+      Rake::Task[:'docker:builder_exec'].reenable
+      invoke(:'docker:builder_exec', "tar -xzf #{release_backup_path.join('uploads.tar.gz')} -C /app")
+
+      invoke :'docker:compose_up'
+
+      Rake::Task[:'docker:stop_container'].reenable
+      invoke :'docker:stop_container', fetch(:builder_name)
+    end
+  end
 end
+
+before :'deploy:started', :'docker:backup'
+after :'deploy:published', :'docker:deploy'
