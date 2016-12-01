@@ -14,6 +14,7 @@ set :app_image, 'mpugach/akadem_students_prod:latest'
 set :compose_yml, 'docker-compose.prod.yml'
 set :backups_path, "#{fetch(:deploy_to)}/backups"
 set :builder_name, 'assets_builder'
+set :keep_backups, 10
 set :docker_images, %w(mpugach/akadem_students_prod:latest mpugach/akadem_students_nginx:latest)
 
 namespace :docker do
@@ -179,6 +180,34 @@ namespace :docker do
     end
   end
 
+  desc 'Cleanup old backups'
+  task :cleanup_backups do
+    on roles(:all) do
+      revisions = capture(:ls, '-x', fetch(:backups_path)).split
+
+      if revisions.count >= fetch(:keep_backups)
+        info "Keeping #{fetch(:keep_backups)} of #{revisions.count} backups"
+
+        directories = (revisions - revisions.last(fetch(:keep_backups)))
+
+        if directories.any?
+          directories_str = directories.map { |revision| "/backups/#{revision}" }.join(' ')
+
+          Rake::Task[:'docker:start_builder'].reenable
+          invoke :'docker:start_builder'
+
+          Rake::Task[:'docker:builder_exec'].reenable
+          invoke :'docker:builder_exec', "rm -rf #{directories_str}"
+
+          Rake::Task[:'docker:stop_container'].reenable
+          invoke :'docker:stop_container', fetch(:builder_name)
+        else
+          info "No old revisions (keeping newest #{fetch(:keep_backups)})"
+        end
+      end
+    end
+  end
+
   desc 'Restore DB and files'
   task :restore do
     on roles(:all) do
@@ -220,3 +249,4 @@ end
 
 before :'deploy:started', :'docker:backup'
 after :'deploy:published', :'docker:deploy'
+after :'deploy:cleanup', :'docker:cleanup_backups'
