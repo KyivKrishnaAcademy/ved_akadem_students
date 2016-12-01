@@ -14,10 +14,12 @@ set :app_image, 'mpugach/akadem_students_prod:latest'
 set :compose_yml, 'docker-compose.prod.yml'
 set :backups_path, "#{fetch(:deploy_to)}/backups"
 set :builder_name, 'assets_builder'
+set :docker_images, %w(mpugach/akadem_students_prod:latest mpugach/akadem_students_nginx:latest)
 
 namespace :docker do
   desc 'Deploy containers'
   task :deploy do
+    invoke :'docker:pull'
     invoke :'docker:compose_up', '--no-recreate'
 
     Rake::Task[:'docker:stop_container'].reenable
@@ -26,6 +28,7 @@ namespace :docker do
     Rake::Task[:'docker:recreate_builder'].reenable
     invoke :'docker:recreate_builder'
 
+    Rake::Task[:'docker:start_builder'].reenable
     invoke :'docker:start_builder'
 
     Rake::Task[:'docker:builder_exec'].reenable
@@ -65,6 +68,17 @@ namespace :docker do
     end
   end
 
+  desc 'Pull'
+  task :pull do
+    on roles(:all) do
+      within release_path do
+        fetch(:docker_images).each do |image|
+          sudo "docker pull #{image}"
+        end
+      end
+    end
+  end
+
   desc 'Stop container'
   task :stop_container, %i(container) do |_t, args|
     on roles(:all) do
@@ -82,7 +96,7 @@ namespace :docker do
   task :builder_exec, %i(cmd) do |_t, args|
     on roles(:all) do
       within release_path do
-        sudo "docker exec -it \"#{fetch(:builder_name)}\" sh -lc '#{args[:cmd]}'"
+        sudo "docker exec \"#{fetch(:builder_name)}\" sh -lc '#{args[:cmd]}'"
       end
     end
   end
