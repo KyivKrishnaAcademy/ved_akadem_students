@@ -43,18 +43,21 @@ namespace :docker do
     Rake::Task[:'docker:builder_exec'].reenable
     invoke :'docker:builder_exec', 'bundle exec rake assets:precompile RAILS_ENV=assets_builder'
 
+    Rake::Task[:'docker:stop_container'].reenable
+    invoke :'docker:stop_container', 'nginx'
+
+    Rake::Task[:'docker:stop_container'].reenable
+    invoke :'docker:stop_container', 'sidekiq'
+
     # Initial setup
     # Rake::Task[:'docker:builder_exec'].reenable
     # invoke :'docker:builder_exec', 'bundle exec rake db:structure:load'
 
-    Rake::Task[:'docker:stop_container'].reenable
-    invoke :'docker:stop_container', 'nginx'
+    Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', 'bundle exec rake db:migrate'
 
     Rake::Task[:'docker:compose_up'].reenable
     invoke :'docker:compose_up'
-
-    Rake::Task[:'docker:builder_exec'].reenable
-    invoke :'docker:builder_exec', 'bundle exec rake db:migrate'
 
     Rake::Task[:'docker:stop_container'].reenable
     invoke :'docker:stop_container', fetch(:builder_name)
