@@ -15,4 +15,4 @@ test:
 
 production:
   <<: *default
-  :pidfile: ./tmp/pids/sidekiq.pid
+  :pidfile: ./tmp/sidekiq.pid

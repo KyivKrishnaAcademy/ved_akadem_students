@@ -19,10 +19,16 @@ namespace :docker do
   desc 'Deploy containers'
   task :deploy do
     invoke :'docker:compose_up', '--no-recreate'
+
+    Rake::Task[:'docker:stop_container'].reenable
     invoke :'docker:stop_container', fetch(:builder_name)
+
+    Rake::Task[:'docker:recreate_builder'].reenable
     invoke :'docker:recreate_builder'
+
     invoke :'docker:start_builder'
 
+    Rake::Task[:'docker:builder_exec'].reenable
     invoke :'docker:builder_exec', "apk add #{fetch(:packages).join(' ')}"
     Rake::Task[:'docker:builder_exec'].reenable
     invoke :'docker:builder_exec', 'bundle install -j5 --retry 10 --without development test'
@@ -178,6 +184,7 @@ namespace :docker do
 
       invoke :'docker:start_builder'
       invoke :'docker:stop_container', 'nginx'
+      invoke :'docker:stop_container', 'sidekiq'
 
       invoke(
         :'docker:builder_exec',
@@ -185,7 +192,7 @@ namespace :docker do
       )
 
       Rake::Task[:'docker:builder_exec'].reenable
-      invoke(:'docker:builder_exec', "rm -rf /app/uploads/*")
+      invoke(:'docker:builder_exec', 'rm -rf /app/uploads/*')
       Rake::Task[:'docker:builder_exec'].reenable
       invoke(:'docker:builder_exec', "tar -xzf #{release_backup_path.join('uploads.tar.gz')} -C /app")
 
