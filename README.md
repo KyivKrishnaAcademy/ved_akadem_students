@@ -7,20 +7,32 @@
 Developed specially for [Kyiv Spiritual Academy of Krishna Consciousness in Ukraine](http://veda-kiev.org.ua/) and [ISKCON](http://iskcon.com/).
 
 ## System dependencies
+
+There are two ways to setup the application, you can choose whatever suits you.
+
+If you have enough technical skill, then we advice you to install all the software to your host OS for development.
+
+If you not so pro or your hos OS is MS Windows, then please choose the Docker way.
+
+### Host OS way
+#### General dependencies
+
 * imagemagick >= 6.7.7-10
 * node >= 5.5.0
 * postgresql >= 9.4
 * redis >= 2.8.0
 * ruby >= 2.1.5
 
-### Develpment dependencies
+#### Develpment dependencies
+
 * phantomjs >= 2.0.0
 
-### Nice to have
+#### Nice to have
+
 * rvm
 * nvm
 
-## Project setup
+#### Project setup
 
 * Install system packages
 * Install gems
@@ -40,14 +52,37 @@ bundle exec rake db:structure:load
 bundle exec rake db:seed
 ```
 
-## Run the app locally
+#### Run the app locally
 
 * Start PostgreSQL
 * Start Redis
 * Start webserver `npm run rails-server`
-* Type `http://localhost:3000` in your browser
+* Type `http://localhost:3000` in your browser (default credentials are ```admin@example.com/password```)
 
-Default credentials are ```admin@example.com/password```
+### Docker way
+#### General dependencies
+
+* docker
+* docker-compose
+
+OR
+
+* Docker Toolbox
+* VirtualBox
+
+It depends whether your OS and hardware are capable to run native Docker
+
+#### Project setup & run the app locally
+##### Native Docker
+* Run `docker-compose up`
+* Wait for images are downloaded, containers are created and launched, all software is installed inside the containers and all services are started
+* Type `http://localhost:3000` in your browser (default credentials are ```admin@example.com/password```)
+
+##### Docker Toolbox
+* Run `bin/docker_toolbox_prepare.sh` in case of MS Windows you have to investigate the script and run similar commands in CLI
+* Run `docker-compose up`
+* Wait for images are downloaded, containers are created and launched, all software is installed inside the containers and all services are started
+* Type `http://your-docker-machine-ip:3000` in your browser (default credentials are ```admin@example.com/password```)
 
 ## Contribution guide
 
