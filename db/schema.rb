@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -62,9 +61,8 @@ ActiveRecord::Schema.define(version: 20160928042653) do
     t.jsonb    "fields",            default: {}, null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.index ["status"], name: "index_certificate_templates_on_status", using: :btree
   end
-
-  add_index "certificate_templates", ["status"], name: "index_certificate_templates_on_status", using: :btree
 
   create_table "class_schedules", force: :cascade do |t|
     t.datetime "created_at"
@@ -129,11 +127,10 @@ ActiveRecord::Schema.define(version: 20160928042653) do
     t.string   "locale",                 limit: 2,   default: "uk"
     t.boolean  "fake_email",                         default: false
     t.string   "diksha_guru"
+    t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid", "provider"], name: "index_people_on_uid_and_provider", unique: true, using: :btree
   end
-
-  add_index "people", ["email"], name: "index_people_on_email", unique: true, using: :btree
-  add_index "people", ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
-  add_index "people", ["uid", "provider"], name: "index_people_on_uid_and_provider", unique: true, using: :btree
 
   create_table "people_roles", force: :cascade do |t|
     t.integer "person_id"
@@ -205,9 +202,8 @@ ActiveRecord::Schema.define(version: 20160928042653) do
     t.integer  "program_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["person_id"], name: "index_study_applications_on_person_id", unique: true, using: :btree
   end
-
-  add_index "study_applications", ["person_id"], name: "index_study_applications_on_person_id", unique: true, using: :btree
 
   create_table "teacher_profiles", force: :cascade do |t|
     t.datetime "created_at"
@@ -237,8 +233,7 @@ ActiveRecord::Schema.define(version: 20160928042653) do
     t.string   "whodunnit"
     t.text     "object"
     t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
 end

@@ -1,4 +1,5 @@
 default: &default
+  :concurrency: 10
   :verbose: true
   :queues:
     - urgent
@@ -8,17 +9,10 @@ default: &default
 
 development:
   <<: *default
-  :concurrency: 5
-  :namespace: va_dev
 
 test:
   <<: *default
-  :namespace: va_tst
 
 production:
   <<: *default
-  :verbose: false
-  :concurrency: 20
-  :namespace: va_prod
-  :pidfile: /var/www/apps/ved_akadem_students/shared/pids/sidekiq.pid
-  :logfile: ./log/sidekiq.log
+  :pidfile: ./tmp/sidekiq.pid

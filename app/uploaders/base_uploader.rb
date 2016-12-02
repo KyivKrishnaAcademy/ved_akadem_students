@@ -2,8 +2,8 @@ class BaseUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   storage :file
-  permissions 0o0600
-  directory_permissions 0o0700
+  permissions 0o0604
+  directory_permissions 0o0701
 
   def store_dir
     subfolder = Rails.env.test? ? '/test' : ''

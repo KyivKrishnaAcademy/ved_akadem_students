@@ -1,6 +1,3 @@
 test:
   adapter: postgresql
   database: travis
-  username: travis
-  host: localhost
-  port: 5433

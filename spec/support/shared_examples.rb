@@ -200,18 +200,6 @@ shared_examples :valid_fill_in do |h, model_human|
   end
 end
 
-shared_examples :invalid_fill_in do |h, model_human|
-  describe h[:field] do
-    When do
-      fill_in h[:field], with: h[:value]
-      click_button "Зберегти #{model_human}"
-    end
-
-    Then { expect(find('.alert-danger')).to have_content(I18n.t('content.form_has_errors', count: 1)) }
-    And  { expect(find('.alert-danger')).to have_selector('ul li', text: /\A#{h[:field]}/) }
-  end
-end
-
 def underscore_humanize(str)
   str.underscore.humanize
 end

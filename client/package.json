@@ -30,6 +30,8 @@
     "build:server": "NODE_ENV=production webpack --config webpack.server.rails.config.js",
     "build:dev:client": "webpack -w --config webpack.client.rails.config.js",
     "build:dev:server": "webpack -w --config webpack.server.rails.config.js",
+    "build:dev:client:poll": "webpack -w --watch-poll --config webpack.client.rails.config.js",
+    "build:dev:server:poll": "webpack -w --watch-poll --config webpack.server.rails.config.js",
     "lint": "npm run eslint && npm run jscs",
     "eslint": "eslint --ext .js,.jsx .",
     "jscs": "jscs --verbose .",

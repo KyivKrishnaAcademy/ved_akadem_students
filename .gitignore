@@ -10,7 +10,6 @@
 /tmp
 
 # Ignore other unneeded files.
-database.yml
 doc/
 *.swp
 *~
@@ -23,7 +22,6 @@ erd?.dot
 recaptcha.rb
 
 /Procfile
-/config/deploy/
 /shared/
 /coverage
 /uploads
@@ -37,3 +35,5 @@ node_modules
 /app/assets/javascripts/generated/*
 
 client/app/bundles/HelloWorld
+
+.ruby-env

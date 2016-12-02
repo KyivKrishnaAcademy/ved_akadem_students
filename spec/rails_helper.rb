@@ -1,15 +1,15 @@
 ENV['RAILS_ENV'] ||= 'test'
 
-def present?(obj)
+def not_blank?(obj)
   # NOTE Rails is not loaded yet
   !obj.nil? && !obj.empty?
 end
 
-if present?(ENV['CODECLIMATE_REPO_TOKEN'])
+if not_blank?(ENV['CODECLIMATE_REPO_TOKEN'])
   require 'codeclimate-test-reporter'
 
   CodeClimate::TestReporter.start
-elsif present?(ENV['COVERAGE'])
+elsif not_blank?(ENV['COVERAGE'])
   require 'simplecov'
 
   SimpleCov.start 'rails'

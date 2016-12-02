@@ -1,240 +1,255 @@
 lock '3.6.1'
 
-set :application, 'ved_akadem_students'
-set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
-application = 'ved_akadem_students'
-set :rvm_type, :user
-set :rvm_ruby_version, '2.3.1@ved_akadem_students'
-set :deploy_to, '/var/www/apps/ved_akadem_students'
-set :ssh_options, forward_agent: true
-set :pty, true
-
-set :nvm_type, :user # or :system, depends on your nvm setup
-set :nvm_node, 'v5.5.0'
-set :nvm_map_bins, %w(node npm)
-
-Airbrussh.configure do |config|
-  config.command_output = true
-end
-
-# Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-# Default deploy_to directory is /var/www/my_app
-# set :deploy_to, '/var/www/my_app'
+set :pty, true
+set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
+set :deploy_to, '/var/docker/apps/ved_akadem_students'
+set :linked_files, %w(.ruby-env)
 
-# Default value for :scm is :git
-# set :scm, :git
+set :dbname, 'postgresql://postgres:postgres@postgres:5432/va_db'
+set :project, 'akademstudents'
+set :packages, %w(git build-base postgresql postgresql-client nodejs-lts python)
+set :app_image, 'mpugach/akadem_students_prod:latest'
+set :compose_yml, 'docker-compose.prod.yml'
+set :backups_path, "#{fetch(:deploy_to)}/backups"
+set :builder_name, 'assets_builder'
+set :keep_backups, 10
+set :docker_images, %w(mpugach/akadem_students_prod:latest mpugach/akadem_students_nginx:latest)
 
-# Default value for :format is :pretty
-# set :format, :pretty
+namespace :docker do
+  desc 'Deploy containers'
+  task :deploy do
+    invoke :'docker:pull'
+    invoke :'docker:compose_up', '--no-recreate'
 
-# Default value for :log_level is :debug
-# set :log_level, :debug
+    Rake::Task[:'docker:stop_container'].reenable
+    invoke :'docker:stop_container', fetch(:builder_name)
 
-# Default value for :pty is false
-# set :pty, true
+    Rake::Task[:'docker:recreate_builder'].reenable
+    invoke :'docker:recreate_builder'
 
-# Default value for :linked_files is []
-# set :linked_files, %w{config/database.yml}
+    Rake::Task[:'docker:start_builder'].reenable
+    invoke :'docker:start_builder'
 
-# Default value for linked_dirs is []
-set :linked_dirs, %w(node_modules client/node_modules)
+    Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', "apk add #{fetch(:packages).join(' ')}"
+    Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', 'bundle install -j5 --retry 10 --without development test'
+    Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', 'bundle clean --force'
+    Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', 'npm install npm@3.6.0 -g && npm install'
+    Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', 'bundle exec rake assets:precompile RAILS_ENV=assets_builder'
 
-# Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+    Rake::Task[:'docker:stop_container'].reenable
+    invoke :'docker:stop_container', 'nginx'
 
-# Default value for keep_releases is 5
-# set :keep_releases, 5
+    Rake::Task[:'docker:stop_container'].reenable
+    invoke :'docker:stop_container', 'sidekiq'
 
-namespace :deploy do
-  desc 'Copy shared'
-  task :copy_shared do
+    # Initial setup
+    # Rake::Task[:'docker:builder_exec'].reenable
+    # invoke :'docker:builder_exec', 'bundle exec rake db:structure:load'
+
+    Rake::Task[:'docker:builder_exec'].reenable
+    invoke :'docker:builder_exec', 'bundle exec rake db:migrate'
+
+    Rake::Task[:'docker:compose_up'].reenable
+    invoke :'docker:compose_up'
+
+    Rake::Task[:'docker:stop_container'].reenable
+    invoke :'docker:stop_container', fetch(:builder_name)
+  end
+
+  desc 'Start builder'
+  task :start_builder do
     on roles(:all) do
-      execute "mkdir -p #{shared_path}/config/Backup/models"
-      execute "mkdir -p /var/www/apps/#{application}/run/"
-      execute "mkdir -p /var/www/apps/#{application}/log/"
-      execute "mkdir -p /var/www/apps/#{application}/socket/"
-      execute "mkdir -p #{shared_path}/uploads/"
-      execute "mkdir -p #{shared_path}/system"
-      execute "mkdir -p #{shared_path}/pids"
-      execute "mkdir -p #{shared_path}/init"
-      execute 'mkdir -p /var/www/log'
-      sudo    'mkdir -p /usr/local/nginx/conf/sites-enabled'
-
-      upload!('shared/Backup/config.rb', "#{shared_path}/config/Backup/config.rb")
-      upload!('shared/Backup/models/daily.rb', "#{shared_path}/config/Backup/models/daily.rb")
-      upload!('shared/Backup/models/monthly.rb', "#{shared_path}/config/Backup/models/monthly.rb")
-      upload!('shared/Backup/models/weekly.rb', "#{shared_path}/config/Backup/models/weekly.rb")
-      upload!('shared/Backup/models/manual.rb', "#{shared_path}/config/Backup/models/manual.rb")
-      upload!('shared/database.yml', "#{shared_path}/config/database.yml")
-      upload!('shared/recaptcha.rb', "#{shared_path}/config/recaptcha.rb")
-      upload!('shared/mailer.yml', "#{shared_path}/config/mailer.yml")
-      upload!('shared/nginx.conf', "#{shared_path}/nginx.conf")
-      upload!('shared/ved_akadem_students.conf', "#{shared_path}/ved_akadem_students.conf")
-      upload!('shared/secrets.yml', "#{shared_path}/config/secrets.yml")
-      upload!('shared/init/sidekiq.conf', "#{shared_path}/init/sidekiq.conf")
-      upload!('shared/init/workers.conf', "#{shared_path}/init/workers.conf")
-
-      execute "chmod -R 700 #{shared_path}/config"
-
-      sudo 'rm -f /usr/local/nginx/conf/nginx.conf'
-      sudo 'rm -f /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf'
-      sudo "ln -sf #{shared_path}/nginx.conf /usr/local/nginx/conf/nginx.conf"
-      sudo "ln -sf #{shared_path}/ved_akadem_students.conf /usr/local/nginx/conf/sites-enabled/ved_akadem_students.conf"
-
-      sudo "cp #{shared_path}/init/* /etc/init"
+      within release_path do
+        sudo "docker start #{fetch(:builder_name)}"
+      end
     end
   end
 
-  desc 'Setup'
-  task :setup do
+  desc 'Pull'
+  task :pull do
     on roles(:all) do
-      sudo 'touch /etc/puma.conf'
-      sudo 'service puma add /var/www/apps/ved_akadem_students/current deployer'
-      sudo 'service nginx restart'
-
       within release_path do
-        with rails_env: fetch(:rails_env) do
-          execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-          execute :rake, 'db:reset'
+        fetch(:docker_images).each do |image|
+          sudo "docker pull #{image}"
         end
       end
     end
   end
 
-  desc 'Create symlink'
-  task :symlink do
+  desc 'Stop container'
+  task :stop_container, %i(container) do |_t, args|
     on roles(:all) do
-      execute "mkdir -p #{shared_path}/tmp/puma"
-      sudo    "rm -rf #{release_path}/tmp"
-      sudo    "rm -rf #{release_path}/log"
-      execute "ln -s #{shared_path}/tmp #{release_path}/tmp"
-      execute "ln -s #{shared_path}/log #{release_path}/log"
-      execute "ln -s #{shared_path}/uploads #{release_path}/uploads"
-      execute "ln -sf #{shared_path}/config/Backup ~/Backup"
-      execute "ln -sf #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-      execute "ln -sf #{shared_path}/config/recaptcha.rb #{release_path}/config/initializers/recaptcha.rb"
-      execute "ln -sf #{shared_path}/config/mailer.yml #{release_path}/config/mailer.yml"
-      execute "ln -sf #{shared_path}/config/secrets.yml #{release_path}/config/secrets.yml"
-      execute "ln -sf #{shared_path}/system #{release_path}/public/system"
-
-      execute "ln -sf #{release_path} #{current_path}"
+      within release_path do
+        execute <<-SHELL
+          if sudo docker ps | grep #{args[:container]}
+            then sudo docker stop #{args[:container]}
+          fi
+        SHELL
+      end
     end
   end
 
-  after :finishing, 'deploy:cleanup'
-  after :finishing, 'deploy:restart'
-
-  after :updating, 'deploy:symlink'
-
-  after :updated, 'newrelic:notice_deployment'
-
-  before :setup, 'deploy:starting'
-  before :setup, 'deploy:updating'
-  before :setup, 'bundler:install'
-  before :setup, 'deploy:copy_shared'
-end
-
-namespace :puma do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app) do
-      sudo "service puma restart #{application} && sleep 2"
-    end
-  end
-  after 'deploy:restart', 'puma:restart'
-
-  desc 'Start application'
-  task :start do
-    on roles(:app) do
-      sudo "service puma start #{application} && sleep 2"
+  desc 'Execute on builder'
+  task :builder_exec, %i(cmd) do |_t, args|
+    on roles(:all) do
+      within release_path do
+        sudo "docker exec \"#{fetch(:builder_name)}\" sh -lc '#{args[:cmd]}'"
+      end
     end
   end
 
-  desc 'Stop application'
-  task :stop do
-    on roles(:app) do
-      sudo "service puma stop #{application}"
-    end
-  end
-  before 'deploy:starting', 'puma:stop'
+  desc 'docker-compose up'
+  task :compose_up, %i(options) do |_t, args|
+    args.with_defaults(options: '')
 
-  desc 'Application status'
-  task :status do
-    on roles(:app) do
-      sudo "service puma status #{application}"
-    end
-  end
-end
-
-namespace :nginx do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app) do
-      sudo 'service nginx restart'
+    on roles(:all) do
+      within release_path do
+        sudo "docker-compose -p #{fetch(:project)} -f #{fetch(:compose_yml)} up -d #{args[:options]}"
+      end
     end
   end
 
-  desc 'Start application'
-  task :start do
-    on roles(:app) do
-      sudo 'service nginx start'
+  desc 'Recreate builder'
+  task :recreate_builder do
+    on roles(:all) do
+      within release_path do
+        execute <<-SHELL
+          if sudo docker ps -a | grep #{fetch(:builder_name)}
+            then sudo docker rm #{fetch(:builder_name)}
+          fi
+        SHELL
+
+        sudo <<-SHELL
+          docker create \
+            -v #{fetch(:backups_path)}:/backups \
+            -v builder-cache-node_modules:/app/node_modules \
+            -v builder-cache-client-node_modules:/app/client/node_modules \
+            -v #{fetch(:project)}_public-prod:/app/public \
+            -v #{fetch(:project)}_bundle-prod:/usr/local/bundle \
+            -v #{fetch(:project)}_uploads-prod:/app/uploads \
+            -e RAILS_ENV=production \
+            --name #{fetch(:builder_name)} \
+            --network #{fetch(:project)}_default \
+            #{fetch(:app_image)} \
+            top -b
+        SHELL
+      end
     end
   end
 
-  desc 'Stop application'
-  task :stop do
-    on roles(:app) do
-      sudo 'service nginx stop'
+  desc 'docker-compose logs -f'
+  task :logs do
+    on roles(:all) do
+      within current_path do
+        sudo "docker-compose -p #{fetch(:project)} -f #{fetch(:compose_yml)} logs -f"
+      end
     end
   end
 
-  desc 'Application status'
-  task :status do
-    on roles(:app) do
-      sudo 'service nginx status'
-    end
-  end
-end
-
-namespace :sidekiq do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app) do
-      sudo 'service workers restart'
-    end
-  end
-  after 'deploy:restart', 'sidekiq:restart'
-
-  desc 'Start application'
-  task :start do
-    on roles(:app) do
-      sudo 'service workers start'
-    end
-  end
-
-  desc 'Stop application'
-  task :stop do
-    on roles(:app) do
-      sudo 'service workers stop'
-    end
-  end
-
-  desc 'Application status'
-  task :status do
-    on roles(:app) do
-      sudo 'service workers status'
-    end
-  end
-end
-
-namespace :db do
-  desc 'Backup DB'
+  desc 'Backup DB and files'
   task :backup do
-    on roles(:app) do
-      execute "/bin/bash -l -c 'cd #{current_path}; backup perform -t manual; true'"
+    on roles(:all) do
+      last_release = capture(:ls, '-xt', releases_path).split.first
+
+      return unless last_release
+
+      release_backup_path = Pathname.new('/backups').join(last_release)
+
+      invoke :'docker:start_builder'
+      invoke :'docker:builder_exec', "mkdir -p #{release_backup_path}"
+
+      Rake::Task[:'docker:builder_exec'].reenable
+
+      invoke(
+        :'docker:builder_exec',
+        "pg_dump --dbname=#{fetch(:dbname)} -F d -j 20 -Z 1 -f #{release_backup_path.join('db')}"
+      )
+
+      Rake::Task[:'docker:builder_exec'].reenable
+
+      invoke(
+        :'docker:builder_exec',
+        "tar -czf #{release_backup_path.join('uploads.tar.gz')} -C /app uploads"
+      )
+
+      invoke :'docker:stop_container', fetch(:builder_name)
     end
   end
-  after 'deploy:starting', 'db:backup'
+
+  desc 'Cleanup old backups'
+  task :cleanup_backups do
+    on roles(:all) do
+      revisions = capture(:ls, '-x', fetch(:backups_path)).split
+
+      if revisions.count >= fetch(:keep_backups)
+        info "Keeping #{fetch(:keep_backups)} of #{revisions.count} backups"
+
+        directories = (revisions - revisions.last(fetch(:keep_backups)))
+
+        if directories.any?
+          directories_str = directories.map { |revision| "/backups/#{revision}" }.join(' ')
+
+          Rake::Task[:'docker:start_builder'].reenable
+          invoke :'docker:start_builder'
+
+          Rake::Task[:'docker:builder_exec'].reenable
+          invoke :'docker:builder_exec', "rm -rf #{directories_str}"
+
+          Rake::Task[:'docker:stop_container'].reenable
+          invoke :'docker:stop_container', fetch(:builder_name)
+        else
+          info "No old revisions (keeping newest #{fetch(:keep_backups)})"
+        end
+      end
+    end
+  end
+
+  desc 'Restore DB and files'
+  task :restore do
+    on roles(:all) do
+      revisions = capture(:ls, '-x', fetch(:backups_path))
+
+      if revisions.strip.empty?
+        info 'Nothing to restore'
+
+        return
+      end
+
+      info revisions
+
+      ask :restore_release, revisions.split.last
+
+      release_backup_path = Pathname.new('/backups').join(fetch(:restore_release))
+
+      invoke :'docker:start_builder'
+      invoke :'docker:stop_container', 'nginx'
+      invoke :'docker:stop_container', 'sidekiq'
+
+      invoke(
+        :'docker:builder_exec',
+        "pg_restore --dbname=#{fetch(:dbname)} -O -j 20 -c #{release_backup_path.join('db')}"
+      )
+
+      Rake::Task[:'docker:builder_exec'].reenable
+      invoke(:'docker:builder_exec', 'rm -rf /app/uploads/*')
+      Rake::Task[:'docker:builder_exec'].reenable
+      invoke(:'docker:builder_exec', "tar -xzf #{release_backup_path.join('uploads.tar.gz')} -C /app")
+
+      invoke :'docker:compose_up'
+
+      Rake::Task[:'docker:stop_container'].reenable
+      invoke :'docker:stop_container', fetch(:builder_name)
+    end
+  end
 end
+
+before :'deploy:started', :'docker:backup'
+after :'deploy:published', :'docker:deploy'
+after :'deploy:cleanup', :'docker:cleanup_backups'

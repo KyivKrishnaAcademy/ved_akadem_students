@@ -5,9 +5,6 @@ gem 'rails', '5.0.0.1'
 gem 'redis-session-store'
 
 gem 'haml'
-gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
 gem 'pg'
 gem 'responders'
 
@@ -28,36 +25,35 @@ gem 'mini_magick'
 gem 'axlsx'
 gem 'prawn-rails'
 
-gem 'jquery-ui-rails'
-gem 'bootstrap-sass'
-
-gem 'momentjs-rails'
-gem 'bootstrap3-datetimepicker-rails'
-
-gem 'react_on_rails', '~> 3.0'
-gem 'therubyracer', platforms: :ruby
 gem 'fast_blank'
 
 gem 'sidekiq'
+gem 'redis-namespace'
 
 gem 'paper_trail'
+
+gem 'tzinfo-data'
+
+gem 'react_on_rails', '~> 3.0'
+
+group :assets_builder, :development, :test do
+  gem 'sass-rails'
+  gem 'uglifier'
+  gem 'coffee-rails'
+  gem 'jquery-ui-rails'
+  gem 'bootstrap-sass'
+  gem 'momentjs-rails'
+  gem 'bootstrap3-datetimepicker-rails'
+end
 
 group :production, :development do
   gem 'airbrake'
   gem 'newrelic_rpm'
   gem 'puma'
-  gem 'whenever', require: false
 end
 
 group :development do
   gem 'capistrano'
-  gem 'capistrano-rails'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rvm'
-  gem 'capistrano-nvm', require: false
-  gem 'capistrano-npm', require: false
-  gem 'capistrano-puma', require: false
-  gem 'airbrussh', require: false
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'letter_opener'

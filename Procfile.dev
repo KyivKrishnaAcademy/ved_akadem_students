@@ -1,4 +1,4 @@
-web: rails s
-worker: sh -c 'sidekiq -C config/sidekiq.yml'
-client: sh -c 'cd client && npm run build:dev:client'
-server: sh -c 'cd client && npm run build:dev:server'
+web: bundle exec rails s -b 0.0.0.0 -p 3000
+# worker: sidekiq -C config/sidekiq.yml
+client: cd client && npm run build:dev:client:poll
+# server: cd client && npm run build:dev:server:poll
