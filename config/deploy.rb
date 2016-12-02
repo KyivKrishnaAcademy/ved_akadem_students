@@ -1,6 +1,6 @@
 lock '3.6.1'
 
-ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 set :pty, true
 set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
