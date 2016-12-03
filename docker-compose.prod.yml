@@ -15,6 +15,7 @@ volumes:
 services:
   postgres:
     image:          mpugach/postgres_ua:9.5
+    restart:        always
     container_name: postgres
     volumes:
       - postgres-prod:/var/lib/postgresql/data
@@ -24,6 +25,7 @@ services:
 
   redis:
     image:          redis:3.2.4-alpine
+    restart:        always
     container_name: redis
     volumes:
       - redis-prod:/data
@@ -31,6 +33,7 @@ services:
   application:
     image:          mpugach/akadem_students_prod:latest
     command:        bundle exec puma -C config/puma.rb
+    restart:        always
     env_file:       ./.ruby-env
     container_name: application
     expose:
@@ -50,6 +53,7 @@ services:
   sidekiq:
     image:          mpugach/akadem_students_prod:latest
     command:        bundle exec sidekiq -C config/sidekiq.yml
+    restart:        always
     env_file:       ./.ruby-env
     container_name: sidekiq
     volumes:
@@ -67,6 +71,7 @@ services:
   nginx:
     image:          mpugach/akadem_students_nginx:latest
     command:        nginx -g 'daemon off;'
+    restart:        always
     container_name: nginx
     ports:
       - '80:80'
