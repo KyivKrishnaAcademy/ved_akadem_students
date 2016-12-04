@@ -54,8 +54,6 @@ class Person < ApplicationRecord
   mount_uploader :photo, PhotoUploader
   mount_uploader :passport, PassportUploader
 
-  default_scope { where(deleted: false) }
-
   delegate :active?, to: :student_profile, prefix: :student, allow_nil: true
 
   has_paper_trail
