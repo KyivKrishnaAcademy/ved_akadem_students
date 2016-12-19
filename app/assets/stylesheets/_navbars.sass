@@ -22,6 +22,9 @@ $padding-bias: ceil(($grid-gutter-width / 2))
   margin-left: $padding-bias
   margin-top: 8px
 
+  .glyphicon
+    @include sidebar-transition
+
 .main-bar
   @include sidebar-transition
 
@@ -43,6 +46,10 @@ $padding-bias: ceil(($grid-gutter-width / 2))
 .sidebar-opened
   #sidebar
     width: $sidebar-width
+
+  #sidebar-toggler
+    .glyphicon
+      transform: rotate(-180deg)
 
   .main-bar
     padding-left: $sidebar-width + $padding-bias
