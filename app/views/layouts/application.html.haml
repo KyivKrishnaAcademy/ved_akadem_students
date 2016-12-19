@@ -73,8 +73,3 @@
                 = raw msg
 
       = yield
-
-      - if Rails.env.development? && DEBUG
-        .row
-          .col-xs-12
-            = debug(session[:locale])
