@@ -38,3 +38,4 @@
 //= require custom
 //= require stop_double_submit
 //= require change_academic_group
+//= require sidebar

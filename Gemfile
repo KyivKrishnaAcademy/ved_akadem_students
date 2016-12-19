@@ -41,6 +41,7 @@ group :assets_builder, :development, :test do
   gem 'uglifier'
   gem 'coffee-rails'
   gem 'jquery-ui-rails'
+  gem 'sprockets-svg'
   gem 'bootstrap-sass'
   gem 'momentjs-rails'
   gem 'bootstrap3-datetimepicker-rails'

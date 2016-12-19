@@ -16,24 +16,63 @@
     /[if lt IE 9]
       %script{ src: '//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' }
       %script{ src: '//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js' }
-  %body
+  %body.sidebar-opened
     = render 'layouts/header'
 
-    .container
+    #sidebar
+      %ul#sidebar-accordion
+        / %li.has-children
+        /   %input#group-1{ type: :checkbox, name: 'group-1' }
+        /   %label{ for: 'group-1' }
+        /     %span.sidebar-icon.glyphicon.glyphicon-music{ aria: { hidden: true } }
+        /     Group 1
+        /     %span.caret
+
+        /   %ul.level-1
+        /     %li.has-children
+        /       %input#sub-group-1{ type: :checkbox, name: 'sub-group-1' }
+        /       %label{ for: 'sub-group-1' }
+        /         Sub Group 1
+        /         %span.caret
+
+        /       %ul
+        /         %li
+        /           %a
+        /             Ololo 1
+        /         %li
+        /           %a
+        /             Ololo 2
+        /         %li
+        /           %a
+        /             Ololo 3
+
+        /     %li
+        /       %a
+        /         Ololo 4
+
+        %li
+          = link_to changelog_path, class: active_class(changelog_path) do
+            %span.sidebar-icon.glyphicon.glyphicon-road{ aria: { hidden: true } }
+            = t('defaults.links.changelog')
+        %li
+          = link_to privacy_agreement_path, class: active_class(privacy_agreement_path) do
+            %span.sidebar-icon.glyphicon.glyphicon-exclamation-sign{ aria: { hidden: true } }
+            = t('defaults.links.agreement')
+
+    .container-fluid.main-bar
       - if flash.any?
         .row
-          - flash.each do |name, msg|
-            .col-xs-12.alert.alert-dismissible{ class: "alert-#{name}" }
-              = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
-                %span{ aria: { hidden: true } }
-                  &times;
-                %span.sr-only
-                  Close
-              = raw msg
+          .col-xs-12
+            - flash.each do |name, msg|
+              .alert.alert-dismissible{ class: "alert-#{name}" }
+                = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
+                  %span{ aria: { hidden: true } }
+                    &times;
+                  %span.sr-only
+                    Close
+                = raw msg
 
       = yield
-
-      = render 'layouts/footer'
 
       - if Rails.env.development? && DEBUG
         .row

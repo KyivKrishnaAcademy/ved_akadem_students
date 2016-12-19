@@ -125,4 +125,8 @@ module ApplicationHelper
       tag :span, class: "glyphicon glyphicon-#{icon}", aria: { hidden: true }
     end
   end
+
+  def active_class(path)
+    current_page?(path) ? 'active' : ''
+  end
 end
