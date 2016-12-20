@@ -129,4 +129,8 @@ module ApplicationHelper
   def active_class(path)
     current_page?(path) ? 'active' : ''
   end
+
+  def sidebar_opened?
+    cookies[:sidebar_opened]
+  end
 end
