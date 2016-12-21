@@ -19,8 +19,8 @@
   %body{ class: sidebar_opened? ? 'sidebar-opened' : '' }
     = render 'layouts/header'
 
-    #sidebar
-      %ul#sidebar-accordion
+    .sidebar
+      %ul.sidebar-accordion
         / %li.has-children
         /   %input#group-1{ type: :checkbox, name: 'group-1' }
         /   %label{ for: 'group-1' }

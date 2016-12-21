@@ -31,7 +31,7 @@ $padding-bias: ceil(($grid-gutter-width / 2))
   height: 100%
   padding-left: $side-iconbar-width + $padding-bias
 
-#sidebar
+.sidebar
   @include sidebar-transition
 
   background-color: $navbar-inverse-bg
@@ -39,31 +39,14 @@ $padding-bias: ceil(($grid-gutter-width / 2))
   overflow: hidden
   position: fixed
   width: $side-iconbar-width
-
-.menu-title > a > .glyphicon
-  float: left
-
-.sidebar-opened
-  #sidebar
-    width: $sidebar-width
-
-  #sidebar-toggler
-    .glyphicon
-      transform: rotate(-180deg)
-
-  .main-bar
-    padding-left: $sidebar-width + $padding-bias
-
-  .navbar-brand
-    padding: $navbar-padding-vertical $navbar-padding-horizontal
-    width: $sidebar-width - $side-iconbar-width
+  z-index: 1000
 
 .sidebar-icon
   float: left
   font-size: 25px
   padding: $padding-bias
 
-#sidebar-accordion
+.sidebar-accordion
   list-style-type: none
   padding: 0
 
@@ -106,4 +89,41 @@ $padding-bias: ceil(($grid-gutter-width / 2))
 
   input[type=checkbox]:checked + label + ul,
   input[type=checkbox]:checked + label:nth-of-type(n) + ul
+  // use label:nth-of-type(n) to fix a bug on safari (<= 8.0.8) with multiple adjacent-sibling selectors
     max-height: fit-content
+
+@media (max-width: 384px)
+  #sidebar-toggler
+    margin-left: 8px
+
+.sidebar-opened
+  .sidebar
+    width: $sidebar-width
+
+  #sidebar-toggler
+    .glyphicon
+      transform: rotate(-180deg)
+
+  .navbar-brand
+    padding: $navbar-padding-vertical $navbar-padding-horizontal
+    width: $sidebar-width - $side-iconbar-width
+
+  @media (max-width: 337px)
+    .navbar-brand
+      width: 0
+      padding: $navbar-padding-vertical 0
+
+  @media (min-width: 338px) and (max-width: 383px)
+    .navbar-brand
+      width: 175px
+
+  @media (max-width: $screen-xs-max)
+    .main-bar
+      position: relative
+
+    .sidebar
+      opacity: .95
+
+  @media (min-width: $screen-sm-min)
+    .main-bar
+      padding-left: $sidebar-width + $padding-bias
