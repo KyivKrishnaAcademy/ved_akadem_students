@@ -90,6 +90,9 @@ $padding-bias: ceil(($grid-gutter-width / 2))
   input:checked ~ ul
     height: unset
 
+  input:not(:checked) ~ label .caret
+    transform: rotate(90deg)
+
 @media (max-width: 384px)
   #sidebar-toggler
     margin-left: 8px
