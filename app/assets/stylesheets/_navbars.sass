@@ -83,14 +83,12 @@ $padding-bias: ceil(($grid-gutter-width / 2))
 
   ul
     list-style-type: none
-    max-height: 0
+    height: 0
     overflow: hidden
     padding-left: 20px
 
-  input[type=checkbox]:checked + label + ul,
-  input[type=checkbox]:checked + label:nth-of-type(n) + ul
-  // use label:nth-of-type(n) to fix a bug on safari (<= 8.0.8) with multiple adjacent-sibling selectors
-    max-height: fit-content
+  input:checked ~ ul
+    height: unset
 
 @media (max-width: 384px)
   #sidebar-toggler
