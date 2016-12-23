@@ -5,11 +5,11 @@ Cookies.defaults =
 
 openedClass = 'sidebar-opened'
 
-swithMenu = (status, $body) ->
+switchMenu = (status, $body) ->
   expires = new Date
   openedKey = 'sidebar_opened'
 
-  expires.setYear(expires.getYear() + 1)
+  expires.setYear(expires.getFullYear() + 1)
 
   if status
     $body.addClass openedClass
@@ -24,7 +24,7 @@ $ ->
   $body = $('body')
 
   $('#sidebar-toggler').on 'click', (e) ->
-    swithMenu !$body.hasClass(openedClass), $body
+    switchMenu !$body.hasClass(openedClass), $body
 
   $('label .sidebar-icon').on 'click', (e) ->
-    swithMenu true, $body
+    switchMenu true, $body
