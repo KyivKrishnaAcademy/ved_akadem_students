@@ -36,7 +36,8 @@ $padding-bias: ceil(($grid-gutter-width / 2))
 
   background-color: $navbar-inverse-bg
   height: 100%
-  overflow: hidden
+  overflow-x: hidden
+  overflow-y: scroll
   position: fixed
   width: $side-iconbar-width
   z-index: 1000
@@ -89,6 +90,7 @@ $padding-bias: ceil(($grid-gutter-width / 2))
 
   input:checked ~ ul
     height: unset
+    overflow-y: scroll
 
   input:not(:checked) ~ label .caret
     transform: rotate(90deg)
