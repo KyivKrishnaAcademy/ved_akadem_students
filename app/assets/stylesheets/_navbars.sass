@@ -1,6 +1,7 @@
-$sidebar-width: 270px
-$side-iconbar-width: 55px
+$active-border-width: 5px
 $padding-bias: ceil(($grid-gutter-width / 2))
+$side-iconbar-width: 55px
+$sidebar-width: 270px
 
 @mixin sidebar-transition
   transition: all .5s ease
@@ -44,8 +45,11 @@ $padding-bias: ceil(($grid-gutter-width / 2))
 
 .sidebar-icon
   float: left
-  font-size: 25px
-  padding: $padding-bias
+  height: $side-iconbar-width
+  line-height: $side-iconbar-width
+  margin: 0 $active-border-width
+  text-align: center
+  width: $side-iconbar-width - $active-border-width * 2
 
 .sidebar-accordion
   list-style-type: none
@@ -76,8 +80,9 @@ $padding-bias: ceil(($grid-gutter-width / 2))
       background-color: darken($navbar-inverse-bg, 3%)
 
       .sidebar-icon
-        border-left: 5px solid
-        padding-left: $padding-bias - 5px
+        border-left: $active-border-width solid
+        margin-left: 0
+        width: $side-iconbar-width - $active-border-width
 
   > li > ul
     padding-left: $side-iconbar-width
@@ -130,3 +135,5 @@ $padding-bias: ceil(($grid-gutter-width / 2))
   @media (min-width: $screen-sm-min)
     .main-bar
       padding-left: $sidebar-width + $padding-bias
+
+// TODO fix firefox scroll blink

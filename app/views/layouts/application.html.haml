@@ -24,7 +24,7 @@
         / %li
         /   %input#group-1{ type: :checkbox, name: 'group-1' }
         /   %label.noselect{ for: 'group-1' }
-        /     %span.sidebar-icon.glyphicon.glyphicon-music{ aria: { hidden: true } }
+        /     %i.sidebar-icon.fa.fa-2x.fa-camera-retro{ aria: { hidden: :true } }
         /     Group 1
         /     %span.caret
 
@@ -52,11 +52,11 @@
 
         %li
           = link_to changelog_path, class: active_class(changelog_path) do
-            %span.sidebar-icon.glyphicon.glyphicon-road{ aria: { hidden: true } }
+            %i.sidebar-icon.fa.fa-2x.fa-road{ aria: { hidden: :true } }
             = t('defaults.links.changelog')
         %li
           = link_to privacy_agreement_path, class: active_class(privacy_agreement_path) do
-            %span.sidebar-icon.glyphicon.glyphicon-exclamation-sign{ aria: { hidden: true } }
+            %i.sidebar-icon.fa.fa-2x.fa-handshake-o{ aria: { hidden: :true } }
             = t('defaults.links.agreement')
 
     .container-fluid.main-bar
