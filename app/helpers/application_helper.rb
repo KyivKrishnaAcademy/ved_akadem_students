@@ -1,11 +1,11 @@
 module ApplicationHelper
-  MODELS_FOR_GENERIC_MENU = %w(
-    academic_group
-    person
-    course
-    class_schedule
-    certificate_template
-  ).map { |model| [model, model.pluralize] }
+  SIDEBAR_MENU = {
+    academic_group: { plural_name: :academic_groups,icon: :'fa-graduation-cap' },
+    person: { plural_name: :people,icon: :'fa-users' },
+    course: { plural_name: :courses,icon: :'fa-book' },
+    class_schedule: { plural_name: :class_schedules,icon: :'fa-calendar' },
+    certificate_template: { plural_name: :certificate_templates,icon: :'fa-certificate' }
+  }
 
   def complex_name(person, short = false)
     if person.nil?
@@ -23,14 +23,6 @@ module ApplicationHelper
     else
       "#{t(:application_title)} | #{page_title}"
     end
-  end
-
-  def show_admin_menu?
-    current_person.present? && (
-      show_people_menu? || show_academic_groups_menu? ||
-      show_courses_menu? || show_class_schedules_menu? ||
-      show_certificate_templates_menu? || show_journal_link?
-    )
   end
 
   def show_people_menu?
@@ -126,8 +118,8 @@ module ApplicationHelper
     end
   end
 
-  def active_class(path)
-    current_page?(path) ? 'active' : ''
+  def active_class(*pathes)
+    pathes.any? { |path| current_page?(path) } ? 'active' : ''
   end
 
   def sidebar_opened?

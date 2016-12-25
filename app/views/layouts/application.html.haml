@@ -50,6 +50,32 @@
         /       %a
         /         Ololo 4
 
+        - ApplicationHelper::SIDEBAR_MENU.each do |name, opts|
+          - if send "show_#{opts[:plural_name]}_menu?"
+            %li
+              %input{ type: :checkbox, name: name, id: name }
+              %label.noselect{ for: name,
+                               class: active_class(send("new_#{name}_path"), send("#{opts[:plural_name]}_path")) }
+                %i.sidebar-icon.fa.fa-2x{ class: opts[:icon], aria: { hidden: :true } }
+                = t("defaults.links.#{opts[:plural_name]}")
+                %span.caret
+
+              %ul
+                - if current_person.can_act?("#{name}:new")
+                  %li
+                    - path = send("new_#{name}_path")
+                    = link_to t("defaults.links.#{opts[:plural_name]}_add"), path, class: active_class(path)
+                - if current_person.can_act?("#{name}:index")
+                  %li
+                    - path = send("#{opts[:plural_name]}_path")
+                    = link_to t("defaults.links.#{opts[:plural_name]}_list"), path, class: active_class(path)
+
+        - if show_journal_link?
+          %li
+          = link_to journal_path, class: active_class(journal_path) do
+            %i.sidebar-icon.fa.fa-2x.fa-history{ aria: { hidden: :true } }
+            = t('defaults.links.journal')
+
         %li
           = link_to changelog_path, class: active_class(changelog_path) do
             %i.sidebar-icon.fa.fa-2x.fa-road{ aria: { hidden: :true } }
