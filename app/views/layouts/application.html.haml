@@ -53,9 +53,12 @@
         - ApplicationHelper::SIDEBAR_MENU.each do |name, opts|
           - if send "show_#{opts[:plural_name]}_menu?"
             %li
-              %input{ type: :checkbox, name: name, id: name }
-              %label.noselect{ for: name,
-                               class: active_class(send("new_#{name}_path"), send("#{opts[:plural_name]}_path")) }
+              = check_box_tag name, :checked, cookies["#{name}_submenu_opened"].present?, class: 'group-status'
+
+              - new_path = send("new_#{name}_path")
+              - list_path = send("#{opts[:plural_name]}_path")
+
+              %label.noselect{ for: name, class: active_class(new_path, list_path) }
                 %i.sidebar-icon.fa.fa-2x{ class: opts[:icon], aria: { hidden: :true } }
                 = t("defaults.links.#{opts[:plural_name]}")
                 %span.caret
@@ -63,12 +66,10 @@
               %ul
                 - if current_person.can_act?("#{name}:new")
                   %li
-                    - path = send("new_#{name}_path")
-                    = link_to t("defaults.links.#{opts[:plural_name]}_add"), path, class: active_class(path)
+                    = link_to t("defaults.links.#{opts[:plural_name]}_add"), new_path, class: active_class(new_path)
                 - if current_person.can_act?("#{name}:index")
                   %li
-                    - path = send("#{opts[:plural_name]}_path")
-                    = link_to t("defaults.links.#{opts[:plural_name]}_list"), path, class: active_class(path)
+                    = link_to t("defaults.links.#{opts[:plural_name]}_list"), list_path, class: active_class(list_path)
 
         - if show_journal_link?
           %li

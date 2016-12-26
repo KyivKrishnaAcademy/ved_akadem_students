@@ -2,19 +2,17 @@
 
 Cookies.defaults =
   path: '/'
+  expires: (new Date).setYear((new Date).getFullYear() + 1)
 
 openedClass = 'sidebar-opened'
 
 switchMenu = (status, $body) ->
-  expires = new Date
   openedKey = 'sidebar_opened'
-
-  expires.setYear(expires.getFullYear() + 1)
 
   if status
     $body.addClass openedClass
 
-    Cookies.set openedKey, true, { expires: expires }
+    Cookies.set openedKey, true
   else
     $body.removeClass openedClass
 
@@ -28,3 +26,11 @@ $ ->
 
   $('label .sidebar-icon').on 'click', (e) ->
     switchMenu true, $body
+
+  $('.sidebar-accordion').on 'change', '.group-status', (e) ->
+    openedKey = e.target.id + '_submenu_opened'
+
+    if e.target.checked
+      Cookies.set openedKey, true
+    else
+      Cookies.expire openedKey
