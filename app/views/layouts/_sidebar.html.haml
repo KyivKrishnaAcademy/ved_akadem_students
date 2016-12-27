@@ -37,26 +37,7 @@
                   %li
                     = link_to group.title, group, class: active_class(academic_group_path(group))
 
-    - ApplicationHelper::SIDEBAR_MENU.each do |name, opts|
-      - if send "show_#{opts[:plural_name]}_menu?"
-        %li
-          = check_box_tag name, :checked, cookies["#{name}_submenu_opened"].present?, class: 'group-status'
-
-          - new_path = send("new_#{name}_path")
-          - list_path = send("#{opts[:plural_name]}_path")
-
-          %label{ for: name, class: active_class(new_path, list_path) }
-            %i.sidebar-icon.fa.fa-2x{ class: opts[:icon], aria: { hidden: :true } }
-            = t("defaults.links.#{opts[:plural_name]}")
-            %span.caret
-
-          %ul
-            - if current_person.can_act?("#{name}:new")
-              %li
-                = link_to t("defaults.links.#{opts[:plural_name]}_add"), new_path, class: active_class(new_path)
-            - if current_person.can_act?("#{name}:index")
-              %li
-                = link_to t("defaults.links.#{opts[:plural_name]}_list"), list_path, class: active_class(list_path)
+    = generated_sidebar_menu
 
     - if show_journal_link?
       %li
