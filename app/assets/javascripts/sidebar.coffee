@@ -14,9 +14,14 @@ switchMenu = (status, $body) ->
 
     Cookies.set openedKey, true
   else
+    $checkboxes = $('.sidebar-accordion .group-status:checked')
+
     $body.removeClass openedClass
+    $checkboxes.prop 'checked', false
 
     Cookies.expire openedKey
+
+    $.each $checkboxes, (_, checkbox) -> Cookies.expire(checkbox.id + '_submenu_opened')
 
 $ ->
   $body = $('body')
