@@ -33,7 +33,7 @@
                 %span.caret
 
               %ul
-                - AcademicGroup.active.order(:title).each do |group|
+                - AcademicGroup.active.each do |group|
                   %li
                     = link_to group.title, group, class: active_class(academic_group_path(group))
 
