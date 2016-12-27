@@ -19,11 +19,11 @@
   %body{ class: sidebar_opened? ? 'sidebar-opened' : '' }
     = render 'layouts/header'
 
-    .sidebar
+    .sidebar{ class: :noselect }
       %ul.sidebar-accordion
         / %li
         /   %input#group-1{ type: :checkbox, name: 'group-1' }
-        /   %label.noselect{ for: 'group-1' }
+        /   %label{ for: 'group-1' }
         /     %i.sidebar-icon.fa.fa-2x.fa-camera-retro{ aria: { hidden: :true } }
         /     Group 1
         /     %span.caret
@@ -31,7 +31,7 @@
         /   %ul
         /     %li
         /       %input#sub-group-1{ type: :checkbox, name: 'sub-group-1' }
-        /       %label.noselect{ for: 'sub-group-1' }
+        /       %label{ for: 'sub-group-1' }
         /         Sub Group 1
         /         %span.caret
 
@@ -50,6 +50,43 @@
         /       %a
         /         Ololo 4
 
+        - if send 'show_academic_groups_menu?'
+          %li
+            = check_box_tag 'agroup', :checked, cookies['agroup_submenu_opened'].present?, class: 'group-status'
+
+            %label{ for: 'agroup', class: active_class(new_academic_group_path, academic_groups_path) }
+              %i.sidebar-icon.fa.fa-2x{ class: 'fa-graduation-cap', aria: { hidden: :true } }
+              = t('defaults.links.academic_groups')
+              %span.caret
+
+            %ul
+              - if current_person.can_act?('academic_group:new')
+                %li
+                  = link_to t('defaults.links.academic_groups_add'),
+                            new_academic_group_path,
+                            class: active_class(new_academic_group_path)
+
+              - if current_person.can_act?('academic_group:index')
+                %li
+                  = link_to t('defaults.links.academic_groups_list'),
+                            academic_groups_path,
+                            class: active_class(academic_groups_path)
+
+                %li
+                  = check_box_tag 'active-agroups',
+                                  :checked,
+                                  cookies['active-agroups_submenu_opened'].present?,
+                                  class: 'group-status'
+
+                  %label{ for: 'active-agroups' }
+                    = t('defaults.links.active_groups')
+                    %span.caret
+
+                  %ul
+                    - AcademicGroup.active.order(:title).each do |group|
+                      %li
+                        = link_to group.title, group, class: active_class(academic_group_path(group))
+
         - ApplicationHelper::SIDEBAR_MENU.each do |name, opts|
           - if send "show_#{opts[:plural_name]}_menu?"
             %li
@@ -58,7 +95,7 @@
               - new_path = send("new_#{name}_path")
               - list_path = send("#{opts[:plural_name]}_path")
 
-              %label.noselect{ for: name, class: active_class(new_path, list_path) }
+              %label{ for: name, class: active_class(new_path, list_path) }
                 %i.sidebar-icon.fa.fa-2x{ class: opts[:icon], aria: { hidden: :true } }
                 = t("defaults.links.#{opts[:plural_name]}")
                 %span.caret

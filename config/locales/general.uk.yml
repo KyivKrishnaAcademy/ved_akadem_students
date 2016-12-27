@@ -9,6 +9,7 @@ uk:
       academic_groups:      'Групи'
       academic_groups_add:  'Додати групу'
       academic_groups_list: 'Список груп'
+      active_groups:        'Активні'
       agreement:            'Згода'
       certificate_templates:      'Шаблони сертифікатів'
       certificate_templates_add:  'Додати'
@@ -20,11 +21,11 @@ uk:
       courses:              'Предмети'
       courses_add:          'Додати предмет'
       courses_list:         'Список предметів'
+      journal:              'Журнал дій'
       main_menu:            'Дії'
       people:               'Люди'
       people_add:           'Додати людину'
       people_list:          'Список усіх'
-      journal:              'Журнал дій'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:

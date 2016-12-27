@@ -1,10 +1,9 @@
 module ApplicationHelper
   SIDEBAR_MENU = {
-    academic_group: { plural_name: :academic_groups,icon: :'fa-graduation-cap' },
-    person: { plural_name: :people,icon: :'fa-users' },
-    course: { plural_name: :courses,icon: :'fa-book' },
-    class_schedule: { plural_name: :class_schedules,icon: :'fa-calendar' },
-    certificate_template: { plural_name: :certificate_templates,icon: :'fa-certificate' }
+    person: { plural_name: :people, icon: :'fa-users' },
+    course: { plural_name: :courses, icon: :'fa-book' },
+    class_schedule: { plural_name: :class_schedules, icon: :'fa-calendar' },
+    certificate_template: { plural_name: :certificate_templates, icon: :'fa-certificate' }
   }
 
   def complex_name(person, short = false)
