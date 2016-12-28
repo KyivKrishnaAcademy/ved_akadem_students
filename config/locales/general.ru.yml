@@ -11,6 +11,7 @@ ru:
       academic_groups_list: 'Список групп'
       active_groups:        'Активные'
       agreement:            'Соглашение'
+      all_people:           'Все люди'
       certificate_templates:      'Шаблоны сертификатов'
       certificate_templates_add:  'Добавить'
       certificate_templates_list: 'Список'
@@ -25,7 +26,9 @@ ru:
       main_menu:            'Действия'
       people:               'Люди'
       people_add:           'Добавить человека'
+      people_by_application:      'По заявлениям'
       people_list:          'Список всех'
+      people_without_applications:  'Без заявлений'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:

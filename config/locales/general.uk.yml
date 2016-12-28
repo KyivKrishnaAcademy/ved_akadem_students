@@ -11,6 +11,7 @@ uk:
       academic_groups_list: 'Список груп'
       active_groups:        'Активні'
       agreement:            'Згода'
+      all_people:           'Усі люди'
       certificate_templates:      'Шаблони сертифікатів'
       certificate_templates_add:  'Додати'
       certificate_templates_list: 'Список'
@@ -25,7 +26,9 @@ uk:
       main_menu:            'Дії'
       people:               'Люди'
       people_add:           'Додати людину'
+      people_by_application:      'По заявам'
       people_list:          'Список усіх'
+      people_without_applications:  'Без заяв'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:
