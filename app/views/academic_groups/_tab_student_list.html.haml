@@ -4,11 +4,13 @@
       - if current_person.can_act?('academic_group:group_list_pdf')
         = link_to t('academic_groups.show.group_list_pdf'),
                   group_list_pdf_path(academic_group),
+                  rel: 'noopener noreferrer',
                   target: '_blank',
                   class: 'btn btn-success btn-xs glyphicon glyphicon-print'
       - if current_person.can_act?('academic_group:attendance_template_pdf')
         = link_to t('academic_groups.show.attendance_template_pdf'),
                   attendance_template_pdf_path(academic_group),
+                  rel: 'noopener noreferrer',
                   target: '_blank',
                   class: 'btn btn-success btn-xs glyphicon glyphicon-print'
 .row.vert-offset-top-1
