@@ -22,6 +22,7 @@ uk:
       courses:              'Предмети'
       courses_add:          'Додати предмет'
       courses_list:         'Список предметів'
+      home:                 'Головна'
       journal:              'Журнал дій'
       main_menu:            'Дії'
       people:               'Люди'

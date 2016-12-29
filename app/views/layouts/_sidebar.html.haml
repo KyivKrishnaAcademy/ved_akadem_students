@@ -1,5 +1,10 @@
 .sidebar{ class: :noselect }
   %ul.sidebar-accordion
+    %li
+      = link_to root_path, class: active_class(root_path) do
+        %i.sidebar-icon.fa.fa-2x.fa-id-card-o{ aria: { hidden: :true } }
+        = t('defaults.links.home')
+
     = generate_menu_group(:academic_group, :academic_groups, :'fa-graduation-cap') do
       - capture_haml do
         - if current_person.can_act?('academic_group:index')
