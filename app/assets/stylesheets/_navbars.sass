@@ -77,7 +77,7 @@ $sidebar-width: 270px
 
       color: white
 
-    &.active
+    &.is-active
       background-color: darken($navbar-inverse-bg, 3%)
       border-left: $active-border-width solid
 
@@ -89,7 +89,7 @@ $sidebar-width: 270px
 
     a,
     label
-      &.active
+      &.is-active
         text-indent: $side-iconbar-width - $active-border-width
 
     ul
@@ -97,7 +97,7 @@ $sidebar-width: 270px
 
       a,
       label
-        &.active
+        &.is-active
           text-indent: $side-iconbar-width + $nesting-indent - $active-border-width
 
       ul
@@ -120,7 +120,7 @@ $sidebar-width: 270px
   #sidebar-toggler
     margin-left: 8px
 
-.sidebar-opened
+.sidebar-is-opened
   .sidebar
     width: $sidebar-width
 

@@ -11,7 +11,7 @@
           %li
             = check_box_tag 'active-agroups',
                             :checked,
-                            cookies['active-agroups_submenu_opened'].present?,
+                            cookies['active-agroups-submenu-is-opened'].present?,
                             class: 'group-status'
 
             %label{ for: 'active-agroups' }
@@ -34,7 +34,7 @@
           %li
             = check_box_tag 'people-by-application',
                             :checked,
-                            cookies['people-by-application_submenu_opened'].present?,
+                            cookies['people-by-application-submenu-is-opened'].present?,
                             class: 'group-status'
 
             %label{ for: 'people-by-application' }

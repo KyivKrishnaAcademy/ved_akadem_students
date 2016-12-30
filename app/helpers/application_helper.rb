@@ -50,6 +50,6 @@ module ApplicationHelper
   end
 
   def sidebar_opened?
-    cookies[:sidebar_opened]
+    cookies[:'sidebar-is-opened']
   end
 end
