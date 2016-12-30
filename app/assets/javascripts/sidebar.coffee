@@ -39,3 +39,5 @@ $ ->
       Cookies.set openedKey, true
     else
       Cookies.expire openedKey
+
+  $('li a.active').parents('.sidebar-accordion ul').siblings('label').addClass('active')

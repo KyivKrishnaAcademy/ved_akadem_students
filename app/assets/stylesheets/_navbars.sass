@@ -1,4 +1,5 @@
 $active-border-width: 5px
+$nesting-indent: 20px
 $padding-bias: ceil(($grid-gutter-width / 2))
 $side-iconbar-width: 55px
 $sidebar-width: 270px
@@ -14,9 +15,9 @@ $sidebar-width: 270px
 .navbar-brand
   @include sidebar-transition
 
-  width: 0
   overflow: hidden
   padding: $navbar-padding-vertical 0
+  width: 0
 
 #sidebar-toggler
   margin-bottom: 8px
@@ -78,20 +79,35 @@ $sidebar-width: 270px
 
     &.active
       background-color: darken($navbar-inverse-bg, 3%)
+      border-left: $active-border-width solid
 
       .sidebar-icon
-        border-left: $active-border-width solid
         margin-left: 0
-        width: $side-iconbar-width - $active-border-width
 
   > li > ul
-    padding-left: $side-iconbar-width
+    text-indent: $side-iconbar-width
+
+    a,
+    label
+      &.active
+        text-indent: $side-iconbar-width - $active-border-width
+
+    ul
+      text-indent: $side-iconbar-width + $nesting-indent
+
+      a,
+      label
+        &.active
+          text-indent: $side-iconbar-width + $nesting-indent - $active-border-width
+
+      ul
+        text-indent: $side-iconbar-width + $nesting-indent * 2
 
   ul
-    list-style-type: none
     height: 0
+    list-style-type: none
     overflow: hidden
-    padding-left: 20px
+    padding-left: 0
 
   input:checked ~ ul
     height: unset
@@ -118,8 +134,8 @@ $sidebar-width: 270px
 
   @media (max-width: 337px)
     .navbar-brand
-      width: 0
       padding: $navbar-padding-vertical 0
+      width: 0
 
   @media (min-width: 338px) and (max-width: 383px)
     .navbar-brand
