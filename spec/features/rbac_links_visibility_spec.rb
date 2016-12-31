@@ -11,27 +11,20 @@ describe 'RBAC links visibility' do
       describe "should see link '#{locator}' href: #{href}" do
         Given(:user) { create :person, roles: [create(:role, activities: activities.flatten)] }
 
-        Then { expect(find('header .navbar-nav')).to have_css("a[href=\"#{href}\"]", text: locator, visible: false) }
+        Then { expect(find('.sidebar')).to have_css("a[href=\"#{href}\"]", text: locator, visible: false) }
       end
 
       describe 'should not see it with all other activities' do
         Given(:user) { create :person, roles: [create(:role, activities: (all_activities - activities.flatten))] }
 
         Then do
-          expect(find('header .navbar-nav')).not_to have_css("a[href=\"#{href}\"]", text: locator, visible: false)
+          expect(find('.sidebar')).not_to have_css("a[href=\"#{href}\"]", text: locator, visible: false)
         end
       end
     end
   end
 
   %w(academic_group person course class_schedule certificate_template).each do |model|
-    include_examples(
-      :nav_links,
-      I18n.t("defaults.links.#{model.pluralize}"),
-      '#',
-      %W(#{model}:new #{model}:index)
-    )
-
     include_examples(
       :nav_links,
       I18n.t("defaults.links.#{model.pluralize}_add"),

@@ -1,6 +1,6 @@
 module CurrentPage
   # Allow the helper to accept "enforce_params" option
-  def current_page?(uri, options = {})
+  def current_path?(uri, options = {})
     unless request
       raise "You cannot use helpers that need to determine the current "                  "page unless your view context provides a Request object "                  "in a #request method"
     end

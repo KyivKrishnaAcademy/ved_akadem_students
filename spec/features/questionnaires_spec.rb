@@ -42,7 +42,7 @@ describe 'Questionnaires' do
     When { visit edit_answer_path(questionnaire) }
 
     describe 'should have fields' do
-      subject { find('body > .container') }
+      subject { find('body > .container-fluid') }
 
       Then { is_expected.to have_css('input[type="radio"]', count: 2) }
       And  { is_expected.to have_content('Чи ти в своєму розумі?') }
