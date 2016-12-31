@@ -1,3 +1,6 @@
+# rubocop:disable all
+# since it is modified version of Rails helper "current_page"
+
 module CurrentPage
   # Allow the helper to accept "enforce_params" option
   def current_path?(uri, options = {})
@@ -24,3 +27,4 @@ module CurrentPage
     end
   end
 end
+# rubocop:enable all
