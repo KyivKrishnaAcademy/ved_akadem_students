@@ -7,23 +7,6 @@
 
 .row
   .col-xs-12
-    .btn-group
-      %button.btn.btn-default.dropdown-toggle{ type: :button, data: { toggle: :dropdown },
-                                               aria: { haspopup: :true, expanded: :false } }
-        Filter by application
-        %span.caret
-      %ul.dropdown-menu
-        - Program.select(:id, :title_uk, :title_ru).each do |program|
-          %li
-            = link_to program["title_#{I18n.locale}"], people_path(with_application: program.id)
-        %li.divider{ role: :separator }
-        %li
-          = link_to 'Without application', people_path(without_application: true)
-        %li
-          = link_to 'No filter', people_path
-
-.row
-  .col-xs-12
     .table-responsive
       %table.table.table-condensed.table-striped
         %thead

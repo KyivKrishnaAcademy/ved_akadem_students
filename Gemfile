@@ -37,13 +37,15 @@ gem 'tzinfo-data'
 gem 'react_on_rails', '~> 3.0'
 
 group :assets_builder, :development, :test do
-  gem 'sass-rails'
-  gem 'uglifier'
-  gem 'coffee-rails'
-  gem 'jquery-ui-rails'
   gem 'bootstrap-sass'
-  gem 'momentjs-rails'
   gem 'bootstrap3-datetimepicker-rails'
+  gem 'coffee-rails'
+  gem 'font-awesome-sass'
+  gem 'jquery-ui-rails'
+  gem 'momentjs-rails'
+  gem 'sass-rails'
+  gem 'sprockets-svg'
+  gem 'uglifier'
 end
 
 group :production, :development do

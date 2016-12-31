@@ -11,7 +11,7 @@
 
  *= require jquery-ui/datepicker
  *= require bootstrap-3-vert-offset-shim
- *= require jquery.smartmenus.bootstrap
+ *= require noselect
 
  */
 // DO NOT REQUIRE TREE! It will interfere with load order!
@@ -32,6 +32,10 @@ $rails: true
 // (which has been added to the Rails asset pipeline search path in config/application.rb).
 @import 'bootstrap-custom'
 
+@import 'font-awesome-sprockets'
+@import 'font-awesome'
+@import 'navbars'
+@import 'buttons'
 @import 'bootstrap-datetimepicker'
 @import 'custom'
 @import 'vendor-overrides'

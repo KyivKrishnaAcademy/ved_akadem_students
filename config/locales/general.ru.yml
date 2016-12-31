@@ -9,6 +9,7 @@ ru:
       academic_groups:      'Группы'
       academic_groups_add:  'Добавить группу'
       academic_groups_list: 'Список групп'
+      active_groups:        'Активные'
       agreement:            'Соглашение'
       certificate_templates:      'Шаблоны сертификатов'
       certificate_templates_add:  'Добавить'
@@ -20,11 +21,14 @@ ru:
       courses:              'Предметы'
       courses_add:          'Добавить предмет'
       courses_list:         'Список предметов'
+      home:                 'Главная'
+      journal:              'Журнал действий'
       main_menu:            'Действия'
       people:               'Люди'
       people_add:           'Добавить человека'
-      people_list:          'Список всех'
-      journal:              'Журнал действий'
+      people_by_application:      'По заявлениям'
+      people_list:          'Все люди'
+      people_without_applications:  'Без заявлений'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:

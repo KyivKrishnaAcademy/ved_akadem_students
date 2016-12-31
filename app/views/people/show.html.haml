@@ -35,7 +35,7 @@
           .col-xs-12
             - if @person.passport.present?
               - if policy(@person).show_passport?
-                = link_to 'Show passport', "/people/show_passport/#{@person.id}", target: '_blank'
+                = link_to 'Show passport', "/people/show_passport/#{@person.id}", target: '_blank', rel: 'noopener noreferrer'
             - else
               There is no passport attached.
       .col-xs-12.col-sm-8

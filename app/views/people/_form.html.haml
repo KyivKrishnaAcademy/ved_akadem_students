@@ -7,7 +7,7 @@
       = f.input :photo, as: :file
       = f.input :photo_cache, as: :hidden
       - if f.object.passport.present?
-        = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank'
+        = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank', rel: 'noopener noreferrer'
       - else
         There is no passport attached.
       = f.input :passport, as: :file

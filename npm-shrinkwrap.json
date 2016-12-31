@@ -2,6 +2,11 @@
   "name": "kyiv-krishna-academy-students",
   "version": "1.1.1",
   "dependencies": {
+    "cookies-js": {
+      "version": "1.2.3",
+      "from": "cookies-js@*",
+      "resolved": "https://registry.npmjs.org/cookies-js/-/cookies-js-1.2.3.tgz"
+    },
     "intl-tel-input": {
       "version": "8.5.2",
       "from": "intl-tel-input@*",

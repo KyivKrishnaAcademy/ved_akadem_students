@@ -14,7 +14,6 @@ class CertTemplateMarkuper
       multiMax: $('.field-set').length
       () ->
         cropper.ratio = markupBox.data().width / markupBox.width()
-        window.jcr    = @ # DEBUG
 
         cropper.initSelections(@)
 

@@ -1,35 +1,25 @@
 %header.navbar.navbar-inverse.navbar-fixed-top{ role: 'navigation' }
-  .container
+  = link_to root_path do
+    = image_tag('academy_logo.svg', class: 'navbar-logo')
+
+  = link_to 'AcademyStudents', root_path, class: 'navbar-brand'
+
+  .container-fluid
     .navbar-header
+      %button.btn.btn-dark#sidebar-toggler
+        %span.sr-only
+          Toggle sidebar
+        %span.glyphicon.glyphicon-menu-right
+
       %button.navbar-toggle{ type: 'button', 'data-toggle' => 'collapse', 'data-target' => '.navbar-collapse' }
         %span.sr-only
           Toggle navigation
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      = link_to 'AcademyStudents', root_path, class: 'navbar-brand'
+
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
-        - if show_admin_menu?
-          %li.dropdown
-            %a.dropdown-toggle{ href: '#', :'data-toggle' => :dropdown }
-              = t('defaults.links.main_menu')
-            %ul.dropdown-menu{ role: :menu }
-              - ApplicationHelper::MODELS_FOR_GENERIC_MENU.each do |singular, plural|
-                - if send("show_#{plural}_menu?")
-                  %li.dropdown
-                    %a.dropdown-toggle{ href: '#', :'data-toggle' => :dropdown }
-                      = t("defaults.links.#{plural}")
-                    %ul.dropdown-menu{ role: :menu }
-                      - if current_person.can_act?("#{singular}:new")
-                        %li
-                          = link_to(t("defaults.links.#{plural}_add"), send("new_#{singular}_path"))
-                      - if current_person.can_act?("#{singular}:index")
-                        %li
-                          = link_to(t("defaults.links.#{plural}_list"), send("#{plural}_path"))
-              - if show_journal_link?
-                %li
-                  = link_to(t('defaults.links.journal'), journal_path)
         %li
           = link_to t(:locale_label), locales_toggle_path
         %li

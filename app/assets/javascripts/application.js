@@ -28,8 +28,6 @@
 //= require jquery-ui/datepicker-ru
 //= require jquery-ui/datepicker-uk
 //= require jquery-ui/autocomplete
-//= require jquery.smartmenus
-//= require jquery.smartmenus.bootstrap
 //= require select_2_initializers
 //= require moment
 //= require moment/ru
@@ -38,3 +36,4 @@
 //= require custom
 //= require stop_double_submit
 //= require change_academic_group
+//= require sidebar
