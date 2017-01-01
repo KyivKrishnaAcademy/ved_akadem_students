@@ -5,7 +5,8 @@ RUN mkdir /app
 RUN bundle config git.allow_insecure true
 RUN apk update && \
     apk upgrade && \
-    apk add imagemagick git build-base postgresql postgresql-dev postgresql-client nodejs-lts python && \
+    apk add imagemagick imagemagick-dev git build-base postgresql \
+            postgresql-dev postgresql-client nodejs-lts python && \
     rm -rf /var/cache/apk/*
 RUN npm install npm@3.6.0 -g
 
