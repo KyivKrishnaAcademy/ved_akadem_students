@@ -33,6 +33,7 @@
     "Jcrop": "git+https://github.com/tapmodo/Jcrop.git#v2.0.4",
     "cookies-js": "1.2.3",
     "intl-tel-input": "8.5.2",
-    "jquery-bigtext": "git+https://github.com/mpugach/jquery-bigtext.git"
+    "jquery-bigtext": "git+https://github.com/mpugach/jquery-bigtext.git",
+    "raven-js": "3.9.1"
   }
 }

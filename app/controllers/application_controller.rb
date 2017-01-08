@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception, unless: :api?
 
-  before_action :set_paper_trail_whodunnit
+  before_action :set_paper_trail_whodunnit, :set_raven_context
   before_action :set_locale, :authenticate_person!, unless: :devise_token_auth?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
@@ -38,5 +38,10 @@ class ApplicationController < ActionController::Base
 
   def devise_token_auth?
     self.class < DeviseTokenAuth::ApplicationController
+  end
+
+  def set_raven_context
+    Raven.user_context(id: user_for_paper_trail)
+    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end
