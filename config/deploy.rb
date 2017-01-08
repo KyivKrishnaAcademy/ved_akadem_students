@@ -134,9 +134,9 @@ namespace :docker do
             -v #{fetch(:project)}_public-prod:/app/public \
             -v #{fetch(:project)}_bundle-prod:/usr/local/bundle \
             -v #{fetch(:project)}_uploads-prod:/app/uploads \
-            -e RAILS_ENV=production \
             --name #{fetch(:builder_name)} \
             --network #{fetch(:project)}_default \
+            --env-file .ruby-env \
             #{fetch(:app_image)} \
             top -b
         SHELL
