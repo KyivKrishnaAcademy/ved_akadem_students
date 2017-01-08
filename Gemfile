@@ -36,6 +36,8 @@ gem 'tzinfo-data'
 
 gem 'react_on_rails', '~> 3.0'
 
+gem 'sentry-raven'
+
 group :assets_builder, :development, :test do
   gem 'bootstrap-sass'
   gem 'bootstrap3-datetimepicker-rails'
@@ -49,7 +51,6 @@ group :assets_builder, :development, :test do
 end
 
 group :production, :development do
-  gem 'airbrake'
   gem 'newrelic_rpm'
   gem 'puma'
 end

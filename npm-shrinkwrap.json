@@ -26,6 +26,16 @@
       "version": "1.3.0",
       "from": "git+https://github.com/mpugach/jquery-bigtext.git",
       "resolved": "git+https://github.com/mpugach/jquery-bigtext.git#fd5295d8e3c90bd03daddc4b604487e7d7158a5f"
+    },
+    "json-stringify-safe": {
+      "version": "5.0.1",
+      "from": "json-stringify-safe@>=5.0.1 <6.0.0",
+      "resolved": "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz"
+    },
+    "raven-js": {
+      "version": "3.9.1",
+      "from": "raven-js@*",
+      "resolved": "https://registry.npmjs.org/raven-js/-/raven-js-3.9.1.tgz"
     }
   }
 }
