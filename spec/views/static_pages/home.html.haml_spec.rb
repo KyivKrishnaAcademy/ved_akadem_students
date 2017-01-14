@@ -72,10 +72,6 @@ describe 'static_pages/home' do
 
         Then  { expect(rendered).to have_content(I18n.t('static_pages.home.schedules_title')) }
       end
-
-      context 'without schedule' do
-        Then { expect(rendered).not_to have_content(I18n.t('static_pages.home.schedules_title')) }
-      end
     end
 
     describe 'teacher' do
@@ -85,10 +81,6 @@ describe 'static_pages/home' do
         Given { schedule.update_column(:teacher_profile_id, teacher_profile.id) }
 
         Then  { expect(rendered).to have_content(I18n.t('static_pages.home.schedules_title')) }
-      end
-
-      context 'without schedule' do
-        Then { expect(rendered).not_to have_content(I18n.t('static_pages.home.schedules_title')) }
       end
     end
   end

@@ -8,7 +8,7 @@
       = render 'shared/study_application', person: @application_person,
                                            programs: @programs,
                                            study_application: @new_study_application
-  - if policy(ClassSchedule).ui_person? && ClassScheduleWithPeople.personal_schedule(current_person.id).any?
+  - if policy(ClassSchedule).ui_person?
     .col-xs-12
       %h3.text-center
         = t('.schedules_title')
@@ -19,4 +19,5 @@
 
       = react_component('ScheduleListApp',
         props: { url: ui_person_class_schedules_path,
-          headers: class_schedules_table_headers })
+          headers: class_schedules_table_headers,
+          noSchedules: t('academic_groups.show.no_pending_schedules') })

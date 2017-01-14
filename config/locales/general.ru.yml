@@ -133,7 +133,7 @@ ru:
       group_list_pdf:           ' PDF c фото'
       group_servants:           'Слуги группы'
       mataji_count:             'Матаджи'
-      no_pending_schedules:     'Нет грядущих событий'
+      no_pending_schedules:     'Нет событий для отображения'
       photo:                    'Фото'
       prabhu_count:             'Прабху'
       praepostor:               'Староста'

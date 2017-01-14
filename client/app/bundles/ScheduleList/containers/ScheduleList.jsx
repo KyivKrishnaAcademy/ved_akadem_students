@@ -1,21 +1,26 @@
 import $ from 'jquery'; // eslint-disable-line id-length
-import bindAll from '../../../lib/helpers/bind-all';
-import Paginator from '../components/Paginator';
 import React, { PropTypes } from 'react';
+
+import bindAll from '../../../lib/helpers/bind-all';
+
+import Paginator from '../components/Paginator';
+import CentralRow from './CentralRow';
 import ScheduleEntry from '../components/ScheduleEntry';
 
 export default class ScheduleList extends React.Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
     headers: PropTypes.array.isRequired,
+    noSchedules: PropTypes.string.isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      schedules: [],
       pages: 1,
+      loading: true,
+      schedules: [],
     };
 
     bindAll(this, '_onChangePage');
@@ -36,6 +41,8 @@ export default class ScheduleList extends React.Component {
   }
 
   _updateSchedules(url) {
+    this.setState({ loading: true });
+
     return $.ajax({
       url,
       dataType: 'json',
@@ -43,19 +50,24 @@ export default class ScheduleList extends React.Component {
       success: (data) => {
         if (this.mounted) {
           this.setState({
-            schedules: data.classSchedules,
             pages: data.pages,
+            loading: false,
+            schedules: data.classSchedules,
           });
         }
       },
 
       error: (xhr, status, err) => {
         console.error(this.props.url, status, err.toString()); // eslint-disable-line no-console
+
+        this.setState({ loading: false });
       },
     });
   }
 
   render() {
+    const showSchedules = !this.state.loading && this.state.schedules.length === 0;
+
     const schedules = this.state.schedules.map((schedule) =>
       <ScheduleEntry key={schedule.id} schedule={schedule} />
     );
@@ -65,7 +77,7 @@ export default class ScheduleList extends React.Component {
     );
 
     return (
-      <div className="row">
+      <div className="row classSchedule">
         <div className="col-xs-12">
           <div className="table-responsive">
             <table className="table table-condensed table-striped">
@@ -75,6 +87,16 @@ export default class ScheduleList extends React.Component {
                 </tr>
               </thead>
               <tbody>
+                <CentralRow visible={this.state.loading}>
+                  <i className="fa fa-refresh fa-spin fa-3x fa-fw" />
+
+                  <span className="sr-only">Loading...</span>
+                </CentralRow>
+
+                <CentralRow visible={showSchedules}>
+                  {this.props.noSchedules}
+                </CentralRow>
+
                 {schedules}
               </tbody>
             </table>
