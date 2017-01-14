@@ -11,7 +11,7 @@ describe 'Show ClassSchedule on AcademicGroup page', :js do
 
   context 'no schedule' do
     Then { is_expected.to have_content(I18n.t('academic_groups.show.no_pending_schedules')) }
-    And  { is_expected.not_to have_content(I18n.t('class_schedules.table_headers.time')) }
+    And  { is_expected.to have_content(I18n.t('class_schedules.table_headers.time')) }
   end
 
   context 'some schedules' do
