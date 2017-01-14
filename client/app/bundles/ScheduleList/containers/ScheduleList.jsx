@@ -11,7 +11,7 @@ export default class ScheduleList extends React.Component {
   static propTypes = {
     url: PropTypes.string.isRequired,
     headers: PropTypes.array.isRequired,
-    no_schedules: PropTypes.string.isRequired,
+    noSchedules: PropTypes.string.isRequired,
   };
 
   constructor(props, context) {
@@ -66,7 +66,7 @@ export default class ScheduleList extends React.Component {
   }
 
   render() {
-    const noSchedules = !this.state.loading && this.state.schedules.length === 0
+    const showSchedules = !this.state.loading && this.state.schedules.length === 0;
 
     const schedules = this.state.schedules.map((schedule) =>
       <ScheduleEntry key={schedule.id} schedule={schedule} />
@@ -93,8 +93,8 @@ export default class ScheduleList extends React.Component {
                   <span className="sr-only">Loading...</span>
                 </CentralRow>
 
-                <CentralRow visible={noSchedules}>
-                  {this.props.no_schedules}
+                <CentralRow visible={showSchedules}>
+                  {this.props.noSchedules}
                 </CentralRow>
 
                 {schedules}
