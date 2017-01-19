@@ -6,6 +6,7 @@ import bindAll from '../../../lib/helpers/bind-all';
 import Paginator from '../components/Paginator';
 import CentralRow from './CentralRow';
 import ScheduleEntry from '../components/ScheduleEntry';
+import TimesSelector from '../components/TimesSelector';
 
 export default class ScheduleList extends React.Component {
   static propTypes = {
@@ -20,49 +21,56 @@ export default class ScheduleList extends React.Component {
     this.state = {
       pages: 1,
       loading: true,
+      direction: 'future',
       schedules: [],
+      currentPage: 1,
     };
 
-    bindAll(this, '_onChangePage');
+    bindAll(this, '_updateSchedules');
   }
 
   componentDidMount() {
     this.mounted = true;
 
-    return this._updateSchedules(this.props.url);
+    return this._updateSchedules();
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
-  _onChangePage(page) {
-    return this._updateSchedules(`${this.props.url}?page=${page}`);
+  _computedUrl() {
+    return `${this.props.url}?page=${this.state.currentPage}&direction=${this.state.direction}`
   }
 
-  _updateSchedules(url) {
-    this.setState({ loading: true });
+  _updateSchedules(page, direction) {
+    this.setState(
+      (prevState, props) => ({
+        loading: true,
+        direction: direction || prevState.direction,
+        currentPage: page || prevState.currentPage,
+      }),
+      () => $.ajax({
+        url: this._computedUrl(),
+        dataType: 'json',
+        cache: false,
+        success: (data) => {
+          if (this.mounted) {
+            this.setState({
+              pages: data.pages,
+              loading: false,
+              schedules: data.classSchedules,
+            });
+          }
+        },
 
-    return $.ajax({
-      url,
-      dataType: 'json',
-      cache: false,
-      success: (data) => {
-        if (this.mounted) {
-          this.setState({
-            pages: data.pages,
-            loading: false,
-            schedules: data.classSchedules,
-          });
-        }
-      },
+        error: (xhr, status, err) => {
+          console.error(this._computedUrl(), status, err.toString()); // eslint-disable-line no-console
 
-      error: (xhr, status, err) => {
-        console.error(this.props.url, status, err.toString()); // eslint-disable-line no-console
-
-        this.setState({ loading: false });
-      },
-    });
+          this.setState({ loading: false });
+        },
+      })
+    );
   }
 
   render() {
@@ -78,6 +86,13 @@ export default class ScheduleList extends React.Component {
 
     return (
       <div className="row classSchedule">
+        <div className="col-xs-12">
+          <TimesSelector
+            onChange={direction => () => this._updateSchedules(1, direction)}
+            direction={this.state.direction}
+          />
+        </div>
+
         <div className="col-xs-12">
           <div className="table-responsive">
             <table className="table table-condensed table-striped">
@@ -103,7 +118,11 @@ export default class ScheduleList extends React.Component {
           </div>
         </div>
 
-        <Paginator maxPages={this.state.pages} onChangePage={this._onChangePage} />
+        <Paginator
+          maxPages={this.state.pages}
+          direction={this.state.direction}
+          onChangePage={this._updateSchedules}
+        />
       </div>
     );
   }

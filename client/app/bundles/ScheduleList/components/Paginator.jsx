@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import ReactPaginate from 'react-paginate-component';
+import ReactPaginate from '../containers/Paginate';
 
-const Paginator = ({ maxPages, onChangePage }) => {
+const Paginator = ({ maxPages, direction, onChangePage }) => {
   if (maxPages <= 1) { return <div />; }
 
   let maxVisible;
@@ -14,10 +14,12 @@ const Paginator = ({ maxPages, onChangePage }) => {
 
   return (
     <div className="col-xs-12 text-center">
-      <ReactPaginate max={maxPages}
-        maxVisible={maxVisible}
+      <ReactPaginate
+        max={maxPages}
         onChange={onChangePage}
         className="pagination-sm"
+        maxVisible={maxVisible}
+        versionedNullifier={direction}
       />
     </div>
   );
@@ -25,6 +27,7 @@ const Paginator = ({ maxPages, onChangePage }) => {
 
 Paginator.propTypes = {
   maxPages: PropTypes.number.isRequired,
+  direction: PropTypes.string.isRequired,
   onChangePage: PropTypes.func.isRequired,
 };
 
