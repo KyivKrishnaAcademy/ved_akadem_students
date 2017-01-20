@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 
 import bindAll from '../../../lib/helpers/bind-all';
 
+import Loader from '../components/Loader';
 import Paginator from '../components/Paginator';
 import CentralRow from './CentralRow';
 import ScheduleEntry from '../components/ScheduleEntry';
@@ -94,6 +95,8 @@ export default class ScheduleList extends React.Component {
         </div>
 
         <div className="col-xs-12">
+          <Loader visible={this.state.loading} />
+
           <div className="table-responsive">
             <table className="table table-condensed table-striped">
               <thead>
@@ -102,12 +105,6 @@ export default class ScheduleList extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                <CentralRow visible={this.state.loading}>
-                  <i className="fa fa-refresh fa-spin fa-3x fa-fw" />
-
-                  <span className="sr-only">Loading...</span>
-                </CentralRow>
-
                 <CentralRow visible={showSchedules}>
                   {this.props.noSchedules}
                 </CentralRow>
