@@ -5,9 +5,8 @@ import bindAll from '../../../lib/helpers/bind-all';
 
 import Loader from '../components/Loader';
 import Paginator from '../components/Paginator';
-import CentralRow from './CentralRow';
-import ScheduleEntry from '../components/ScheduleEntry';
 import TimesSelector from '../components/TimesSelector';
+import SchedulesTable from '../components/SchedulesTable';
 
 export default class ScheduleList extends React.Component {
   static propTypes = {
@@ -75,16 +74,6 @@ export default class ScheduleList extends React.Component {
   }
 
   render() {
-    const showSchedules = !this.state.loading && this.state.schedules.length === 0;
-
-    const schedules = this.state.schedules.map((schedule) =>
-      <ScheduleEntry key={schedule.id} schedule={schedule} />
-    );
-
-    const headers = this.props.headers.map((header) =>
-      <th key={header}>{header}</th>
-    );
-
     const onTimeSelect = direction => () => this._updateSchedules(1, direction);
 
     return (
@@ -99,22 +88,12 @@ export default class ScheduleList extends React.Component {
         <div className="col-xs-12">
           <Loader visible={this.state.loading} />
 
-          <div className="table-responsive">
-            <table className="table table-condensed table-striped">
-              <thead>
-                <tr>
-                  {headers}
-                </tr>
-              </thead>
-              <tbody>
-                <CentralRow visible={showSchedules}>
-                  {this.props.noSchedules}
-                </CentralRow>
-
-                {schedules}
-              </tbody>
-            </table>
-          </div>
+          <SchedulesTable
+            headers={this.props.headers}
+            loading={this.state.loading}
+            schedules={this.state.schedules}
+            noSchedules={this.props.noSchedules}
+          />
         </div>
 
         <Paginator
