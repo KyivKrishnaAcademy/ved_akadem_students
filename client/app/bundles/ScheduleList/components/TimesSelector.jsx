@@ -5,7 +5,7 @@ const TimesSelector = ({ onChange, direction }) => (
     <a
       type="button"
       onClick={onChange('past')}
-      className={'btn btn-sm btn-info' + (direction === 'past' ? ' active' : '')}
+      className={`btn btn-sm btn-info${direction === 'past' ? ' active' : ''}`}
     >
       <span className="glyphicon glyphicon-backward" aria-hidden="true"/>
       &nbsp;&nbsp;
@@ -15,7 +15,7 @@ const TimesSelector = ({ onChange, direction }) => (
     <a
       type="button"
       onClick={onChange('future')}
-      className={'btn btn-sm btn-info' + (direction === 'future' ? ' active' : '')}
+      className={`btn btn-sm btn-info${direction === 'future' ? ' active' : ''}`}
     >
       <span className="glyphicon glyphicon-hourglass" aria-hidden="true"/>
       &nbsp;&nbsp;

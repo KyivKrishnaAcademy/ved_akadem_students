@@ -41,7 +41,7 @@ export default class ScheduleList extends React.Component {
   }
 
   _computedUrl() {
-    return `${this.props.url}?page=${this.state.currentPage}&direction=${this.state.direction}`
+    return `${this.props.url}?page=${this.state.currentPage}&direction=${this.state.direction}`;
   }
 
   _updateSchedules(page, direction) {
@@ -85,11 +85,13 @@ export default class ScheduleList extends React.Component {
       <th key={header}>{header}</th>
     );
 
+    const onTimeSelect = direction => () => this._updateSchedules(1, direction);
+
     return (
       <div className="row classSchedule">
-        <div className="col-xs-12">
+        <div className="col-xs-12 vert-offset-bottom-1">
           <TimesSelector
-            onChange={direction => () => this._updateSchedules(1, direction)}
+            onChange={onTimeSelect}
             direction={this.state.direction}
           />
         </div>

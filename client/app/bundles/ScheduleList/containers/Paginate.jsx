@@ -1,17 +1,17 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ReactPaginate from 'react-paginate-component';
 
 export default class Paginate extends ReactPaginate {
   static propTypes = {
-    max: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-    maxVisible: PropTypes.number,
-    versionedNullifier: PropTypes.any,
+    max: React.PropTypes.number.isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    maxVisible: React.PropTypes.number,
+    versionedNullifier: React.PropTypes.any,
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.versionedNullifier !== this.props.versionedNullifier) {
-      this.setState({ currentPage: 1 })
+      this.setState({ currentPage: 1 });
     }
   }
 
