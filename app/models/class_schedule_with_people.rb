@@ -29,10 +29,9 @@ class ClassScheduleWithPeople < ClassSchedule
     RefreshClassSchedulesMvJob.set(wait: 5.minutes).perform_later
   end
 
-  def self.personal_schedule(person_id, page = nil)
-    where('finish_time > now()')
+  def self.personal_schedule(person_id, page, direction)
+    by_direction(direction)
       .where("teacher_id = ? OR '{?}'::int[] <@ people_ids", person_id, person_id)
-      .order(:start_time, :finish_time)
       .page(page)
       .per(10)
   end

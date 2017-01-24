@@ -3,9 +3,10 @@ import React, { PropTypes } from 'react';
 
 import bindAll from '../../../lib/helpers/bind-all';
 
+import Loader from '../components/Loader';
 import Paginator from '../components/Paginator';
-import CentralRow from './CentralRow';
-import ScheduleEntry from '../components/ScheduleEntry';
+import TimesSelector from '../components/TimesSelector';
+import SchedulesTable from '../components/SchedulesTable';
 
 export default class ScheduleList extends React.Component {
   static propTypes = {
@@ -20,90 +21,86 @@ export default class ScheduleList extends React.Component {
     this.state = {
       pages: 1,
       loading: true,
+      direction: 'future',
       schedules: [],
+      currentPage: 1,
     };
 
-    bindAll(this, '_onChangePage');
+    bindAll(this, '_updateSchedules');
   }
 
   componentDidMount() {
     this.mounted = true;
 
-    return this._updateSchedules(this.props.url);
+    return this._updateSchedules();
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
-  _onChangePage(page) {
-    return this._updateSchedules(`${this.props.url}?page=${page}`);
+  _computedUrl() {
+    return `${this.props.url}?page=${this.state.currentPage}&direction=${this.state.direction}`;
   }
 
-  _updateSchedules(url) {
-    this.setState({ loading: true });
+  _updateSchedules(page, direction) {
+    this.setState(
+      (prevState, props) => ({
+        loading: true,
+        direction: direction || prevState.direction,
+        currentPage: page || prevState.currentPage,
+      }),
+      () => $.ajax({
+        url: this._computedUrl(),
+        dataType: 'json',
+        cache: false,
+        success: (data) => {
+          if (this.mounted) {
+            this.setState({
+              pages: data.pages,
+              loading: false,
+              schedules: data.classSchedules,
+            });
+          }
+        },
 
-    return $.ajax({
-      url,
-      dataType: 'json',
-      cache: false,
-      success: (data) => {
-        if (this.mounted) {
-          this.setState({
-            pages: data.pages,
-            loading: false,
-            schedules: data.classSchedules,
-          });
-        }
-      },
+        error: (xhr, status, err) => {
+          console.error(this._computedUrl(), status, err.toString()); // eslint-disable-line no-console
 
-      error: (xhr, status, err) => {
-        console.error(this.props.url, status, err.toString()); // eslint-disable-line no-console
-
-        this.setState({ loading: false });
-      },
-    });
+          this.setState({ loading: false });
+        },
+      })
+    );
   }
 
   render() {
-    const showSchedules = !this.state.loading && this.state.schedules.length === 0;
-
-    const schedules = this.state.schedules.map((schedule) =>
-      <ScheduleEntry key={schedule.id} schedule={schedule} />
-    );
-
-    const headers = this.props.headers.map((header) =>
-      <th key={header}>{header}</th>
-    );
+    const onTimeSelect = direction => () => this._updateSchedules(1, direction);
 
     return (
       <div className="row classSchedule">
-        <div className="col-xs-12">
-          <div className="table-responsive">
-            <table className="table table-condensed table-striped">
-              <thead>
-                <tr>
-                  {headers}
-                </tr>
-              </thead>
-              <tbody>
-                <CentralRow visible={this.state.loading}>
-                  <i className="fa fa-refresh fa-spin fa-3x fa-fw" />
-
-                  <span className="sr-only">Loading...</span>
-                </CentralRow>
-
-                <CentralRow visible={showSchedules}>
-                  {this.props.noSchedules}
-                </CentralRow>
-
-                {schedules}
-              </tbody>
-            </table>
-          </div>
+        <div className="col-xs-12 vert-offset-bottom-1">
+          <TimesSelector
+            onChange={onTimeSelect}
+            direction={this.state.direction}
+          />
         </div>
 
-        <Paginator maxPages={this.state.pages} onChangePage={this._onChangePage} />
+        <div className="col-xs-12">
+          <Loader visible={this.state.loading} />
+
+          <SchedulesTable
+            headers={this.props.headers}
+            loading={this.state.loading}
+            schedules={this.state.schedules}
+            noSchedules={this.props.noSchedules}
+          />
+        </div>
+
+        <Paginator
+          maxPages={this.state.pages}
+          direction={this.state.direction}
+          onChangePage={this._updateSchedules}
+        />
       </div>
     );
   }

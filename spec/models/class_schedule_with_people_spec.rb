@@ -150,11 +150,37 @@ describe ClassScheduleWithPeople do
         )
       end
 
-      Given(:subject) { ClassScheduleWithPeople.personal_schedule(user.id) }
-      Given(:expected_schedules) { %w(teacher all_groups active_group) }
+      Given(:result) { ClassScheduleWithPeople.personal_schedule(user.id, nil, direction) }
+      Given(:past_subjects) { %w(active_group_past) }
+      Given(:future_subjects) { %w(teacher all_groups active_group) }
 
-      Then { expect(subject.pluck(:subject)).to eq(expected_schedules) }
-      And  { expect(subject.total_pages).to be(1) }
+      context 'direction "future"' do
+        Given(:direction) { 'future' }
+
+        Then { expect(result.pluck(:subject)).to eq(future_subjects) }
+        And  { expect(result.total_pages).to be(1) }
+      end
+
+      context 'direction "any"' do
+        Given(:direction) { 'any' }
+
+        Then { expect(result.pluck(:subject)).to eq(future_subjects) }
+        And  { expect(result.total_pages).to be(1) }
+      end
+
+      context 'no direction' do
+        Given(:direction) { nil }
+
+        Then { expect(result.pluck(:subject)).to eq(future_subjects) }
+        And  { expect(result.total_pages).to be(1) }
+      end
+
+      context 'direction "past"' do
+        Given(:direction) { 'past' }
+
+        Then { expect(result.pluck(:subject)).to eq(past_subjects) }
+        And  { expect(result.total_pages).to be(1) }
+      end
     end
   end
 end

@@ -268,14 +268,14 @@ describe ClassSchedule do
   end
 
   describe 'methods' do
-    Given!(:schedule) { create :class_schedule }
-
     describe '#real_class_schedule' do
+      Given(:schedule) { create :class_schedule }
+
       Then { expect(schedule.real_class_schedule.id).to eq(schedule.id) }
     end
 
     describe '.by_group' do
-      Given!(:schedule_3) do
+      Given(:schedule_3) do
         create(
           :class_schedule,
           academic_groups: [group],
@@ -284,7 +284,7 @@ describe ClassSchedule do
         )
       end
 
-      Given!(:schedule_1) do
+      Given(:schedule_1) do
         create(
           :class_schedule,
           academic_groups: [group],
@@ -293,7 +293,7 @@ describe ClassSchedule do
         )
       end
 
-      Given!(:schedule_2) do
+      Given(:schedule_2) do
         create(
           :class_schedule,
           academic_groups: [group],
@@ -302,7 +302,7 @@ describe ClassSchedule do
         )
       end
 
-      Given!(:past_schedule) do
+      Given(:past_schedule_1) do
         create(
           :class_schedule,
           academic_groups: [group],
@@ -311,7 +311,52 @@ describe ClassSchedule do
         )
       end
 
-      Then { expect(ClassSchedule.by_group(group.id).map(&:id)).to eq([schedule_1, schedule_2, schedule_3].map(&:id)) }
+      Given(:past_schedule_3) do
+        create(
+          :class_schedule,
+          academic_groups: [group],
+          start_time: '03.01.2015 14:00',
+          finish_time: '03.01.2015 15:00'
+        )
+      end
+
+      Given(:past_schedule_2) do
+        create(
+          :class_schedule,
+          academic_groups: [group],
+          start_time: '02.01.2015 14:00',
+          finish_time: '02.01.2015 15:00'
+        )
+      end
+
+      Given!(:past_ids) { [past_schedule_3, past_schedule_2, past_schedule_1].map(&:id) }
+      Given!(:future_ids) { [schedule_1, schedule_2, schedule_3].map(&:id) }
+
+      Given(:result) { ClassSchedule.by_group(group.id, nil, direction).map(&:id) }
+
+      context 'direction "future"' do
+        Given(:direction) { 'future' }
+
+        Then { expect(result).to eq(future_ids) }
+      end
+
+      context 'direction "any"' do
+        Given(:direction) { 'any' }
+
+        Then { expect(result).to eq(future_ids) }
+      end
+
+      context 'no direction' do
+        Given(:direction) { nil }
+
+        Then { expect(result).to eq(future_ids) }
+      end
+
+      context 'direction "past"' do
+        Given(:direction) { 'past' }
+
+        Then { expect(result).to eq(past_ids) }
+      end
     end
   end
 end
