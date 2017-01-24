@@ -14,16 +14,25 @@ class ClassSchedule < ApplicationRecord
 
   has_paper_trail
 
-  def self.by_group(id, page = nil)
-    joins(:academic_group_schedules)
-      .where('finish_time > now()')
-      .where(academic_group_schedules: { academic_group_id: id })
-      .order(:start_time)
-      .page(page)
-      .per(25)
-  end
-
   def real_class_schedule
     self
+  end
+
+  class << self
+    def by_group(id, page, direction)
+      joins(:academic_group_schedules)
+        .where(academic_group_schedules: { academic_group_id: id })
+        .by_direction(direction)
+        .page(page)
+        .per(25)
+    end
+
+    def by_direction(direction)
+      if direction == 'past'
+        where('finish_time <= now()').order(start_time: :desc, finish_time: :desc)
+      else
+        where('finish_time > now()').order(:start_time, :finish_time)
+      end
+    end
   end
 end

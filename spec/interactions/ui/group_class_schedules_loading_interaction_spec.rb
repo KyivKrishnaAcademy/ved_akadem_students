@@ -7,7 +7,7 @@ describe Ui::GroupClassSchedulesLoadingInteraction do
   describe 'calls ClassSchedule#personal_schedule' do
     Given(:result) { ClassSchedule.none.page(nil).per(1) }
 
-    Then { expect(ClassSchedule).to receive(:by_group).with(1, 1).and_return(result) }
+    Then { expect(ClassSchedule).to receive(:by_group).with(1, 1, nil).and_return(result) }
     And  { expect(interaction.as_json).to eq(classSchedules: [], pages: 0) }
   end
 
