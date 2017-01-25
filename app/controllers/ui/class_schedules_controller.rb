@@ -11,5 +11,11 @@ module Ui
 
       respond_with_interaction Ui::GroupClassSchedulesLoadingInteraction
     end
+
+    def index
+      authorize ClassSchedule
+
+      respond_with_interaction Ui::ClassSchedulesLoadingInteraction
+    end
   end
 end

@@ -13,6 +13,7 @@ export default class ScheduleList extends React.Component {
     url: PropTypes.string.isRequired,
     headers: PropTypes.array.isRequired,
     noSchedules: PropTypes.string.isRequired,
+    hideDirections: PropTypes.bool,
   };
 
   constructor(props, context) {
@@ -40,7 +41,9 @@ export default class ScheduleList extends React.Component {
   }
 
   _computedUrl() {
-    return `${this.props.url}?page=${this.state.currentPage}&direction=${this.state.direction}`;
+    const url = `${this.props.url}?page=${this.state.currentPage}`;
+
+    return this.props.hideDirections ? url : `${url}&direction=${this.state.direction}`;
   }
 
   _updateSchedules(page, direction) {
@@ -75,15 +78,18 @@ export default class ScheduleList extends React.Component {
 
   render() {
     const onTimeSelect = direction => () => this._updateSchedules(1, direction);
+    const timeSelector = (
+      <div className="col-xs-12 vert-offset-bottom-1">
+        <TimesSelector
+          onChange={onTimeSelect}
+          direction={this.state.direction}
+        />
+      </div>
+    );
 
     return (
       <div className="row classSchedule">
-        <div className="col-xs-12 vert-offset-bottom-1">
-          <TimesSelector
-            onChange={onTimeSelect}
-            direction={this.state.direction}
-          />
-        </div>
+        {this.props.hideDirections ? null : timeSelector}
 
         <div className="col-xs-12">
           <Loader visible={this.state.loading} />
