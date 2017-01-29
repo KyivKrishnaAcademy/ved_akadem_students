@@ -116,15 +116,11 @@ describe ClassSchedulesController do
         Given { allow(ClassSchedule).to receive(:find).with('1').and_return(class_schedule) }
 
         describe '#index' do
-          Given(:class_schedules) { double }
           Given(:actions) { ['class_schedule:index'] }
 
-          Given { allow(ClassSchedule).to receive(:order).and_return(class_schedules) }
-
-          When  { get :index }
+          When { get :index }
 
           Then { expect(response).to render_template(:index) }
-          And  { expect(assigns(:class_schedules)).to eq(class_schedules) }
         end
 
         describe '#new' do

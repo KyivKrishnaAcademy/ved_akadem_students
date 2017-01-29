@@ -5,11 +5,7 @@ class ClassSchedulesController < HtmlRespondableController
   after_action :refresh_class_schedules_mv, only: %i(create destroy update)
 
   def index
-    @class_schedules = ClassSchedule.order(:start_time)
-
     authorize ClassSchedule
-
-    respond_with(@class_schedules)
   end
 
   def new
