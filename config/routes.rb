@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for(
     :people,
@@ -5,6 +7,10 @@ Rails.application.routes.draw do
     controllers: { registrations: 'users/registrations' },
     path_names: { sign_up: 'register' }
   )
+
+  authenticate :person, ->(p) { p.can_act?('sidekiq:admin') } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
