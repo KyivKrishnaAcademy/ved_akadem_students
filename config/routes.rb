@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     path_names: { sign_up: 'register' }
   )
 
-  authenticate :person, lambda { |p| p.can_act?('sidekiq:admin') } do
+  authenticate :person, ->(p) { p.can_act?('sidekiq:admin') } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
