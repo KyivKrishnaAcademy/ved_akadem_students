@@ -39,7 +39,7 @@ $sidebar-width: 270px
   background-color: $navbar-inverse-bg
   height: 100%
   overflow-x: hidden
-  overflow-y: scroll
+  overflow-y: auto
   position: fixed
   width: $side-iconbar-width
   z-index: 1000
@@ -111,7 +111,7 @@ $sidebar-width: 270px
 
   input:checked ~ ul
     height: unset
-    overflow-y: scroll
+    overflow-y: auto
 
   input:not(:checked) ~ label .caret
     transform: rotate(90deg)
@@ -152,4 +152,11 @@ $sidebar-width: 270px
     .main-bar
       padding-left: $sidebar-width + $padding-bias
 
-// TODO fix firefox scroll blink
+  @media (min-width: 338px) and (max-width: 383px)
+    .sidebar
+      @include sidebar-transition
+      overflow-y: scroll
+
+  @media (min-width: 338px) and (max-width: 383px)
+    input:checked ~ ul
+      overflow-y: scroll   
