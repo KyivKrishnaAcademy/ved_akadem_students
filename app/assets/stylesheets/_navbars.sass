@@ -141,6 +141,13 @@ $sidebar-width: 270px
     .navbar-brand
       width: 175px
 
+    .sidebar
+      @include sidebar-transition
+      overflow-y: scroll
+
+    input:checked ~ ul
+      overflow-y: scroll
+
   @media (max-width: $screen-xs-max)
     .main-bar
       position: relative
@@ -151,12 +158,3 @@ $sidebar-width: 270px
   @media (min-width: $screen-sm-min)
     .main-bar
       padding-left: $sidebar-width + $padding-bias
-
-  @media (min-width: 338px) and (max-width: 383px)
-    .sidebar
-      @include sidebar-transition
-      overflow-y: scroll
-
-  @media (min-width: 338px) and (max-width: 383px)
-    input:checked ~ ul
-      overflow-y: scroll   
