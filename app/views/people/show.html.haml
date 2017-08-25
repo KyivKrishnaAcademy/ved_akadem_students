@@ -57,6 +57,13 @@
               = link_to @person.last_academic_group.title, academic_group_path(@person.last_academic_group)
         .row
           .col-xs-4.col-sm-3
+            Previous academic groups:
+          .col-xs-8.col-sm-9
+            - if @prev_academic_groups.present?
+              - @prev_academic_groups.each do |group|
+                = link_to group.title, academic_group_path(group.id)
+        .row
+          .col-xs-4.col-sm-3
             Gender:
           .col-xs-8.col-sm-9
             = @person.gender ? 'Male' : 'Female'
