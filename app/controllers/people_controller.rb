@@ -34,6 +34,16 @@ class PeopleController < ApplicationController
     preset_applications_variables(@person)
 
     @academic_groups = AcademicGroup.active.select(:id, :title)
+
+    student_profile = @person.student_profile
+
+    if student_profile.present? # rubocop:disable Style/GuardClause
+      @prev_academic_groups =
+        student_profile
+          .academic_groups
+          .where.not(group_participations: { leave_date: nil })
+          .select(:id, :title)
+    end
   end
 
   def edit
