@@ -9,12 +9,6 @@ describe Ui::PeopleController do
 
       it_behaves_like :ui_not_authenticated
     end
-
-    context '#remove_from_groups' do
-      When  { delete :remove_from_groups, params: { id: 1 }, format: :json }
-
-      it_behaves_like :ui_not_authenticated
-    end
   end
 
   describe 'with user' do
@@ -25,9 +19,6 @@ describe Ui::PeopleController do
     Given(:move_to_group_action) do
       patch :move_to_group, params: { id: other_person.id, group_id: group.id }, format: :json
     end
-    Given(:remove_from_groups_action) do
-      delete :remove_from_groups, params: { id: other_person.id }, format: :json
-    end
 
     Given { sign_in person }
 
@@ -36,12 +27,6 @@ describe Ui::PeopleController do
 
       describe '#move_to_group' do
         When { move_to_group_action }
-
-        it_behaves_like :ui_not_authorized
-      end
-
-      context '#remove_from_groups' do
-        When { remove_from_groups_action }
 
         it_behaves_like :ui_not_authorized
       end
@@ -65,14 +50,6 @@ describe Ui::PeopleController do
 
         Then  { expect(response.status).to eq(200) }
         And   { expect(parsed_response).to eq(expected_response) }
-      end
-
-      describe '#remove_from_groups' do
-        Given(:activities) { ['person:remove_from_groups'] }
-
-        When  { remove_from_groups_action }
-
-        Then  { expect(response.status).to eq(200) }
       end
     end
   end

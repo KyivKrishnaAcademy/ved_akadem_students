@@ -35,23 +35,8 @@ describe StudentProfile do
         end
 
         And do
-          expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).not_to be_nil
+          expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).to be_nil
         end
-      end
-    end
-
-    describe '#remove_from_groups' do
-      Given { student_profile.academic_groups << group_1 }
-      Given { student_profile.academic_groups << group_2 }
-
-      When  { student_profile.remove_from_groups }
-
-      Then do
-        expect(student_profile.group_participations.find_by(academic_group_id: group_1.id).leave_date).not_to be_nil
-      end
-
-      And do
-        expect(student_profile.group_participations.find_by(academic_group_id: group_2.id).leave_date).not_to be_nil
       end
     end
 

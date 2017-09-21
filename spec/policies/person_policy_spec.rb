@@ -22,7 +22,7 @@ describe PersonPolicy do
         end
 
         context 'exclassmate' do
-          When  { record.student_profile.remove_from_groups }
+          When  { record.student_profile.group_participations.each(&:leave!) }
 
           context 'user can see exclassmate photo of graduated group' do
             Given { group.update_column(:graduated_at, Time.zone.now) }

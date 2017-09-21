@@ -71,8 +71,6 @@ Rails.application.routes.draw do
     get 'group_class_schedules/:id', controller: :class_schedules, action: :academic_group, as: :group_class_schedules
 
     patch 'people/:id/move_to_group/:group_id', controller: :people, action: :move_to_group
-
-    delete 'people/:id/remove_from_groups', controller: :people, action: :remove_from_groups
   end
 
   format_pdf = { format: :pdf }

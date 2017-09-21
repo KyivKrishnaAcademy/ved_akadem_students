@@ -116,7 +116,7 @@ ru:
     home:
       message_for_group:          'Объявление для группы:'
       schedules_title:            'Ваше персональное расписание'
-      student_of_academic_group:  'Вы студент группы'
+      student_of_academic_groups: 'Вы студент групп:'
       title:                      'Домашняя'
   people:
     show:

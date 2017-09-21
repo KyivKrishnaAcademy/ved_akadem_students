@@ -272,7 +272,7 @@ describe Person do
 
       Given { GroupParticipation.create(student_profile: sp, academic_group: ag_2, join_date: DateTime.current) }
 
-      Then  { expect(person.last_academic_group.title).to eq(ag_2.title) }
+      Then  { expect(person.last_academic_groups.first.title).to eq(ag_2.title) }
     end
 
     describe '#by_complex_name' do
