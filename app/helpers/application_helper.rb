@@ -17,7 +17,7 @@ module ApplicationHelper
     if page_title.empty?
       t(:application_title)
     else
-      "#{t(:application_title)} | #{page_title}"
+      "#{page_title} | #{t(:application_title)}"
     end
   end
 

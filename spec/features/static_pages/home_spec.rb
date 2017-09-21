@@ -8,7 +8,7 @@ describe :home do
   When  { visit '/static_pages/home' }
 
   context 'should have the right title' do
-    Then { expect(page).to have_title("#{I18n.t :application_title} | #{I18n.t('static_pages.home.title')}") }
+    Then { expect(page).to have_title("#{I18n.t('static_pages.home.title')} | #{I18n.t :application_title}") }
   end
 
   context 'person brief' do
