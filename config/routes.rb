@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :people, :courses, :academic_groups
+  resources :group_participations, only: :destroy
   resources :class_schedules, only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
   resources :answers, only: [:update, :edit]
