@@ -30,7 +30,7 @@ describe AcademicGroup do
     end
 
     context 'there is inactive' do
-      Given { person_b.student_profile.remove_from_groups }
+      Given { person_b.student_profile.group_participations.each(&:leave!) }
 
       context 'for active group' do
         Then  { expect(group.active_students).to eq([person_a, person_c]) }

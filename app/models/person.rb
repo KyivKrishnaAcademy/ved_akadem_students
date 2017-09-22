@@ -126,8 +126,10 @@ class Person < ApplicationRecord
     activities.present? && roles.any? && (roles.pluck(:activities).flatten & activities.flatten).present?
   end
 
-  def last_academic_group
-    student_profile.academic_groups.find_by(group_participations: { leave_date: nil }) if student_profile.present?
+  def last_academic_groups
+    return AcademicGroup.none if student_profile.blank?
+
+    student_profile.academic_groups.where(group_participations: { leave_date: nil })
   end
 
   def pending_docs

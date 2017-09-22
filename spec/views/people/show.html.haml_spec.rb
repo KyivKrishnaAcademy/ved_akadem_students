@@ -143,7 +143,7 @@ describe 'people/show.html.haml' do
     Given { assign(:academic_groups, [group]) }
 
     context 'no role' do
-      Then { expect(rendered).not_to have_selector('button.dropdown-toggle', text: 'Change group') }
+      Then { expect(rendered).not_to have_selector('button.dropdown-toggle', text: 'Add to group') }
     end
 
     context 'with roles' do
@@ -153,22 +153,10 @@ describe 'people/show.html.haml' do
         Given(:activities) { ['person:move_to_group'] }
 
         Then do
-          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group')
+          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Add to group')
         end
 
         And { expect(menu).to have_link(group.title, href: '#') }
-        And { expect(menu).not_to have_link('Remove from group', href: '#') }
-      end
-
-      describe 'remove from groups link' do
-        Given(:activities) { ['person:remove_from_groups'] }
-
-        Then do
-          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Change group')
-        end
-
-        And { expect(menu).not_to have_link(group.title, href: '#') }
-        And { expect(menu).to have_link('Remove from group', href: '#') }
       end
     end
   end
@@ -220,6 +208,11 @@ describe 'people/show.html.haml' do
   describe 'link to group' do
     context 'person has group' do
       Given { person.create_student_profile.move_to_group(group) }
+
+      Given(:group_participation) { group.group_participations.first }
+      Given(:group_participation_policy) { GroupParticipationPolicy.new(user, group) }
+
+      Given { allow(view).to receive(:policy).with(group_participation).and_return(group_participation_policy) }
 
       Then  { expect(rendered).to have_link(group.title, href: academic_group_path(group)) }
     end

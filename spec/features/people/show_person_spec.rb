@@ -30,20 +30,10 @@ describe 'Show person:' do
         expect(find('#change-academic-group'))
           .not_to have_css('li.disabled', visible: false, text: academic_group_2.title)
       end
-
-      And do
-        expect(find('#change-academic-group'))
-          .not_to have_css('li.disabled', visible: false, text: 'Remove from group')
-      end
-
-      And do
-        expect(find('#change-academic-group'))
-          .to have_css('li', visible: false, text: 'Remove from group')
-      end
     end
 
     describe 'do change', :js do
-      When { click_button 'Change group' }
+      When { click_button 'Add to group' }
       When { find('#move-to-group', text: academic_group_2.title).click }
 
       Then { expect(find('#academic-group-link')).to have_link(academic_group_2.title) }
@@ -55,39 +45,7 @@ describe 'Show person:' do
 
       And do
         expect(find('#change-academic-group'))
-          .not_to have_css('li.disabled', visible: false, text: academic_group_1.title)
-      end
-
-      And do
-        expect(find('#change-academic-group'))
-          .not_to have_css('li.disabled', visible: false, text: 'Remove from group')
-      end
-
-      And do
-        expect(find('#change-academic-group'))
-          .to have_css('li', visible: false, text: 'Remove from group')
-      end
-    end
-
-    describe 'do remove', :js do
-      When { click_button 'Change group' }
-      When { click_link 'Remove from group' }
-
-      Then { expect(find('#academic-group-link')).not_to have_link(academic_group_1.title) }
-
-      And do
-        expect(find('#change-academic-group'))
-          .not_to have_css('li.disabled', visible: false, text: academic_group_1.title)
-      end
-
-      And do
-        expect(find('#change-academic-group'))
-          .not_to have_css('li.disabled', visible: false, text: academic_group_2.title)
-      end
-
-      And do
-        expect(find('#change-academic-group'))
-          .to have_css('li.disabled', visible: false, text: 'Remove from group')
+          .to have_css('li.disabled', visible: false, text: academic_group_1.title)
       end
     end
   end

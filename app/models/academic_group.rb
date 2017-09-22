@@ -39,6 +39,14 @@ class AcademicGroup < ApplicationRecord
       .distinct
   end
 
+  def active_for_person?(person)
+    person.student_profile && last_participation_by_person(person).present?
+  end
+
+  def last_participation_by_person(person)
+    group_participations.find_by(student_profile: person.student_profile, leave_date: nil)
+  end
+
   def active?
     !graduated_at
   end

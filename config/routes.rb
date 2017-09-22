@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   resources :people, :courses, :academic_groups
+  resources :group_participations, only: :destroy
   resources :class_schedules, only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
   resources :answers, only: [:update, :edit]
@@ -70,8 +71,6 @@ Rails.application.routes.draw do
     get 'group_class_schedules/:id', controller: :class_schedules, action: :academic_group, as: :group_class_schedules
 
     patch 'people/:id/move_to_group/:group_id', controller: :people, action: :move_to_group
-
-    delete 'people/:id/remove_from_groups', controller: :people, action: :remove_from_groups
   end
 
   format_pdf = { format: :pdf }

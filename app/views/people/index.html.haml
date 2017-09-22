@@ -25,8 +25,9 @@
               %td
                 = link_to_show_person_or_name(person)
               %td
-                - if person.last_academic_group.present? && person.last_academic_group.active?
-                  = link_to person.last_academic_group.title, academic_group_path(person.last_academic_group)
+                - if person.last_academic_groups.any?
+                  - person.last_academic_groups.each do |academic_group|
+                    = link_to academic_group.title, academic_group_path(academic_group)
                 - elsif person.study_application.present?
                   = person.study_application.program["title_#{locale}"]
                   = "(application time #{I18n.l(person.study_application.created_at, format: :long)})"

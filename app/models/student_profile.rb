@@ -12,12 +12,6 @@ class StudentProfile < ApplicationRecord
   end
 
   def move_to_group(academic_group)
-    remove_from_groups
-
     academic_groups << academic_group
-  end
-
-  def remove_from_groups
-    group_participations.where(leave_date: nil).find_each(&:leave!)
   end
 end
