@@ -4,7 +4,7 @@ class GroupParticipationsController < ApplicationController
   after_action :verify_authorized
 
   def destroy
-    @group_participation.destroy
+    params[:leave] ? @group_participation.leave! : @group_participation.destroy
 
     redirect_to @group_participation.student_profile.person
   end
