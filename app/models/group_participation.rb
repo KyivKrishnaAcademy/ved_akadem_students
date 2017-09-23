@@ -9,6 +9,8 @@ class GroupParticipation < ApplicationRecord
   has_paper_trail
 
   def leave!
+    return if leave_date.present?
+
     update(leave_date: DateTime.current)
 
     person = student_profile.person

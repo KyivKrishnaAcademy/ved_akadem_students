@@ -14,7 +14,7 @@
             - if policy(@person).move_to_group?
               - @academic_groups.each do |group|
                 %li{ class: group.active_for_person?(@person) ? 'disabled' : '' }
-                  = link_to group.title, '#', data: { group: group.id, confirmation: 'Are you sure you want change group?' }, id: 'move-to-group'
+                  = link_to group.title, '#', data: { group: group.id, confirmation: "Are you sure you want to add the person to group #{group.title}?" }, id: 'move-to-group'
       - if policy(@person).edit?
         = link_to t('links.edit'), edit_person_path(@person), class: 'btn btn-xs btn-primary'
       - if policy(@person).destroy?
@@ -47,26 +47,66 @@
             = I18n.l(@person.created_at, format: :long)
         .row
           .col-xs-4.col-sm-3
-            Academic Group:
-          .col-xs-8.col-sm-9#academic-group-link
-            - @person.last_academic_groups.each do |academic_group|
-              = link_to academic_group.title, academic_group_path(academic_group)
-
-              - last_participation = academic_group.last_participation_by_person(@person)
-              - if policy(last_participation).destroy?
-                (
-                = link_to 'leave',
-                  group_participation_path(last_participation),
-                  method: :delete,
-                  data: { confirm: "Are you sure you want to leave #{academic_group.title}?" }
-                )
+            Current groups:
+          .col-xs-8.col-sm-9
+            .table-responsive
+              %table.table.table-condensed.table-striped
+                %thead
+                  %tr
+                    %th #
+                    %th Group
+                    %th Join date
+                    %th Actions
+                %tbody
+                  - @person.last_academic_groups.each_with_index do |academic_group, index|
+                    - last_participation = academic_group.last_participation_by_person(@person)
+                    %tr
+                      %td
+                        = index.next
+                      %td
+                        = link_to academic_group.title, academic_group_path(academic_group)
+                      %td
+                        = l last_participation.join_date, format: :time_picker
+                      %td
+                        - if policy(last_participation).destroy?
+                          = link_to 'leave',
+                            group_participation_path(last_participation, leave: true),
+                            method: :delete,
+                            data: { confirm: "Are you sure you want to leave #{academic_group.title}?" }
         .row
           .col-xs-4.col-sm-3
             Previous academic groups:
           .col-xs-8.col-sm-9
-            - if @prev_academic_groups.present?
-              - @prev_academic_groups.each do |group|
-                = link_to group.title, academic_group_path(group.id)
+            .table-responsive
+              %table.table.table-condensed.table-striped
+                %thead
+                  %tr
+                    %th #
+                    %th Group
+                    %th Reason
+                    %th Join date
+                    %th Leave date
+                    %th Actions
+                %tbody
+                  - @prev_group_participations.each_with_index do |last_participation, index|
+                    %tr
+                      %td
+                        = index.next
+                      %td
+                        - academic_group = last_participation.academic_group
+                        = link_to academic_group.title, academic_group_path(academic_group)
+                      %td
+                        = leave_reason(last_participation)
+                      %td
+                        = l last_participation.join_date, format: :time_picker
+                      %td
+                        = l last_participation.leave_date, format: :time_picker
+                      %td
+                        - if policy(last_participation).destroy?
+                          = link_to 'destroy!',
+                            group_participation_path(last_participation),
+                            method: :delete,
+                            data: { confirm: "Destroy the history about #{academic_group.title}?" }
         .row
           .col-xs-4.col-sm-3
             Gender:

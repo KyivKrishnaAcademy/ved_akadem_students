@@ -37,12 +37,14 @@ class PeopleController < ApplicationController
 
     student_profile = @person.student_profile
 
-    if student_profile.present? # rubocop:disable Style/GuardClause
-      @prev_academic_groups =
-        student_profile
-          .academic_groups
-          .where.not(group_participations: { leave_date: nil })
-          .select(:id, :title)
+    @prev_group_participations = if student_profile.present?
+      student_profile
+        .group_participations
+        .includes(:academic_group)
+        .where.not(leave_date: nil)
+        .order(:join_date, :leave_date)
+    else
+      []
     end
   end
 

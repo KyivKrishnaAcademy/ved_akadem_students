@@ -18,13 +18,11 @@ $ ->
           type: 'PATCH',
           dataType: 'json'
         .done (resolved) ->
-          $ '#academic-group-link'
-          .append '<a href="' + resolved.url + '">' + resolved.title + '</a>'
-
           $ '#change-academic-group li a[data-group="' + resolved.id + '"]'
           .closest 'li'
           .addClass 'disabled'
 
+          location.reload()
           true
         .always () ->
           button.removeClass 'disabled'
