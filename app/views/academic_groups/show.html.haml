@@ -23,6 +23,8 @@
         = link_to t('.tab_schedules'), '#schedules', data: { toggle: 'tab' }
       %li
         = link_to t('.tab_group_list'), '#group_list', data: { toggle: 'tab' }
+      %li
+        = link_to t('.tab_group_attendance'), '#group_attendance', data: { toggle: 'tab' }
 
     .tab-content
       .tab-pane#general.active
@@ -31,3 +33,5 @@
         = render 'tab_schedules', academic_group_id: @academic_group.id
       .tab-pane#group_list
         = render 'tab_student_list', students: @academic_group.active_students, academic_group: @academic_group
+      .tab-pane#group_attendance
+        = render 'tab_attendance', academic_group_id: @academic_group.id
