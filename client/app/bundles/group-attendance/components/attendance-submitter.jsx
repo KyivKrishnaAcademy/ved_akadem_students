@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 export default class AttendanceSubmitter extends React.Component {
+  static propTypes = {
+    people: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      photoPath: PropTypes.string.isRequired,
+      studentProfileId: PropTypes.number.isRequired,
+    })).isRequired,
+    selectedPersonIndex: PropTypes.number.isRequired,
+  };
+
   render() {
+    const person = this.props.people[this.props.selectedPersonIndex];
+
     return (
       <div
         id="attendanceSubmitterModal"
@@ -22,37 +33,42 @@ export default class AttendanceSubmitter extends React.Component {
                 <span aria-hidden="true">&times;</span>
               </button>
 
-              <h4 className="modal-title" id="gridSystemModalLabel">Modal title</h4>
+              <h4 className="modal-title text-center">Бхакті Ваібхава, Пн. 2017-09-18</h4>
             </div>
-            <div className="modal-body">
+
+            <div className="modal-body bg-danger">
               <div className="row">
-                <div className="col-md-4">.col-md-4</div>
-                <div className="col-md-4 col-md-offset-4">.col-md-4 .col-md-offset-4</div>
+                <div className="col-sm-12 text-center">
+                  <img className="img-thumbnail" src={person.photoPath} alt={person.name} />
+                </div>
               </div>
+
               <div className="row">
-                <div className="col-md-3 col-md-offset-3">.col-md-3 .col-md-offset-3</div>
-                <div className="col-md-2 col-md-offset-4">.col-md-2 .col-md-offset-4</div>
-              </div>
-              <div className="row">
-                <div className="col-md-6 col-md-offset-3">.col-md-6 .col-md-offset-3</div>
-              </div>
-              <div className="row">
-                <div className="col-sm-9">
-                  Level 1: .col-sm-9
-                  <div className="row">
-                    <div className="col-xs-8 col-sm-6">
-                      Level 2: .col-xs-8 .col-sm-6
-                    </div>
-                    <div className="col-xs-4 col-sm-6">
-                      Level 2: .col-xs-4 .col-sm-6
-                    </div>
+                <div className="col-sm-12">
+                  <h4 className="text-center">
+                    {person.name}
+                  </h4>
+                </div>
+
+                <div className="col-sm-12 text-center">
+                  <div className="btn-group" role="group">
+                    <button type="button" className="btn btn-success active">Присутній</button>
+                    <button type="button" className="btn btn-danger">Відсутній</button>
+                    <button type="button" className="btn btn-default">Невідомо</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
+
+            <div className="modal-footer text-center">
+              <div className="row">
+                <div className="col-sm-12 text-center">
+                  <div className="btn-group" role="group">
+                    <button type="button" className="btn btn-default">Назад</button>
+                    <button type="button" className="btn btn-default">Вперед</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

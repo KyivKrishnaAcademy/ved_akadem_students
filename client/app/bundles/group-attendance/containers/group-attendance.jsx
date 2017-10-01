@@ -26,7 +26,7 @@ class GroupAttendance extends React.Component {
     const { dispatch, groupAttendanceStore } = this.props;
     const actions = bindActionCreators(groupAttendanceActionCreators, dispatch);
     const { openAttendanceSubmitter } = actions;
-    const { people } = groupAttendanceStore;
+    const { people, selectedPersonIndex } = groupAttendanceStore;
 
     // This uses the ES2015 spread operator to pass properties as it is more DRY
     // This is equivalent to:
@@ -35,7 +35,7 @@ class GroupAttendance extends React.Component {
       <div className="row groupAttendance">
         <div className="col-xs-12">
           <GroupAttendanceWidget {...{ people, openAttendanceSubmitter }} />
-          <AttendanceSubmitter />
+          <AttendanceSubmitter {...{ people, selectedPersonIndex }} />
         </div>
       </div>
     );

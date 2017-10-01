@@ -5,7 +5,6 @@ export default class GroupAttendanceWidget extends React.Component {
   static propTypes = {
     people: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
-      studentProfileId: PropTypes.number.isRequired,
     })).isRequired,
     openAttendanceSubmitter: PropTypes.func.isRequired,
   };

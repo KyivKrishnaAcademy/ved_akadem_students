@@ -2,6 +2,7 @@ import actionTypes from '../constants/group-attendance-constants';
 
 export const initialState = {
   selectedScheduleId: null,
+  selectedPersonIndex: 0,
   isAttendanceSubmitterShown: false,
 };
 

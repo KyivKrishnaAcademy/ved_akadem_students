@@ -18,8 +18,15 @@ class AcademicGroupsController < ApplicationController
                                .active_students
                                .includes(:student_profile)
                                .map do |p|
+                                 photo_path = if p.photo.present?
+                                   "/people/show_photo/standart/#{p.id}"
+                                 else
+                                   p.photo.versions[:standart].url
+                                 end
+
                                  {
                                    name: p.short_name,
+                                   photoPath: photo_path,
                                    studentProfileId: p.student_profile.id
                                  }
                                end
