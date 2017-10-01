@@ -20,7 +20,7 @@ class AcademicGroupsController < ApplicationController
                                .map do |p|
                                  {
                                    name: p.short_name,
-                                   student_profile_id: p.student_profile.id
+                                   studentProfileId: p.student_profile.id
                                  }
                                end
   end

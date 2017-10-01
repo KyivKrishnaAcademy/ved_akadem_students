@@ -21,7 +21,7 @@ export default class GroupAttendanceWidget extends React.Component {
     const { people } = this.props;
 
     const attendanceRows = people.map(person =>
-      <tr key={person.student_profile_id}>
+      <tr key={person.studentProfileId}>
         <td>{person.name}</td>
         <td></td>
         <td></td>
