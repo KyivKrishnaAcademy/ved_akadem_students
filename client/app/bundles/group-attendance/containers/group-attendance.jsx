@@ -6,21 +6,14 @@ import { bindActionCreators } from 'redux';
 import * as groupAttendanceActionCreators from '../actions/group-attendance-action-creators';
 
 function select(state) {
-  // Which part of the Redux global state does our component want to receive as props?
-  // Note the use of `` to prefix the property name because the value is of type Immutable.js
   return { groupAttendanceStore: state.groupAttendanceStore };
 }
 
-// Simple example of a React "smart" component
 class GroupAttendance extends React.Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     groupAttendanceStore: PropTypes.object.isRequired,
   };
-
-  constructor(props, context) {
-    super(props, context);
-  }
 
   render() {
     const { dispatch, groupAttendanceStore } = this.props;
@@ -28,9 +21,6 @@ class GroupAttendance extends React.Component {
     const { openAttendanceSubmitter } = actions;
     const { people, selectedPersonIndex } = groupAttendanceStore;
 
-    // This uses the ES2015 spread operator to pass properties as it is more DRY
-    // This is equivalent to:
-    // <GroupAttendanceWidget groupAttendanceStore={groupAttendanceStore} actions={actions} />
     return (
       <div className="row groupAttendance">
         <div className="col-xs-12">
