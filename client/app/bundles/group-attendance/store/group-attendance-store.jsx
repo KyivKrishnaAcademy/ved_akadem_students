@@ -10,20 +10,21 @@ import reducer, { initialStates } from '../reducers/root-reducer';
 
 export default props => {
   // This is how we get initial props Rails into redux.
-  const { name } = props;
+  const { people } = props;
   const { groupAttendanceState } = initialStates;
 
   const initialState = {
     groupAttendanceStore: {
       ...groupAttendanceState,
-      name,
+      people,
     },
   };
 
   const composedStore = compose(
     applyMiddleware(thunkMiddleware),
-    typeof window !== 'undefined' && window.devToolsExtension ? window.devToolsExtension() : f => f
+    typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
+
   const storeCreator = composedStore(createStore);
   const store = storeCreator(reducer, initialState);
 

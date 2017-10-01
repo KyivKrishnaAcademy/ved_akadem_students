@@ -14,6 +14,15 @@ class AcademicGroupsController < ApplicationController
   end
 
   def show
+    @people_for_attendance = @academic_group
+                               .active_students
+                               .includes(:student_profile)
+                               .map do |p|
+                                 {
+                                   name: p.short_name,
+                                   student_profile_id: p.student_profile.id
+                                 }
+                               end
   end
 
   def new

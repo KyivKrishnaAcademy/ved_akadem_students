@@ -1,7 +1,7 @@
 import mirrorCreator from 'mirror-creator';
 
 const actionTypes = mirrorCreator([
-  'TOGGLE_WRITEABLE',
+  'OPEN_ATTENDANCE_SUBMITTER',
 ]);
 
 export default actionTypes;

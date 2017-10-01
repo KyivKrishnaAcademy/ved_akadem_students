@@ -24,14 +24,18 @@ class GroupAttendance extends React.Component {
   render() {
     const { dispatch, groupAttendanceStore } = this.props;
     const actions = bindActionCreators(groupAttendanceActionCreators, dispatch);
-    const { updateName } = actions;
-    const name = groupAttendanceStore.name;
+    const { openAttendanceSubmitter } = actions;
+    const { people } = groupAttendanceStore;
 
     // This uses the ES2015 spread operator to pass properties as it is more DRY
     // This is equivalent to:
-    // <groupAttendanceWidget groupAttendanceStore={groupAttendanceStore} actions={actions} />
+    // <GroupAttendanceWidget groupAttendanceStore={groupAttendanceStore} actions={actions} />
     return (
-      <GroupAttendanceWidget {...{ updateName, name }} />
+      <div className="row groupAttendance">
+        <div className="col-xs-12">
+          <GroupAttendanceWidget {...{ people, openAttendanceSubmitter }} />
+        </div>
+      </div>
     );
   }
 }

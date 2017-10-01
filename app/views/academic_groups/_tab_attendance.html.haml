@@ -3,4 +3,4 @@
     - content_for(:js_and_css) do
       = javascript_include_tag 'generated/group-attendance-bundle', type: 'text/javascript'
 
-    = react_component('GroupAttendanceApp', props: {})
+    = react_component('GroupAttendanceApp', props: { people: people })

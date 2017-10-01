@@ -3,39 +3,109 @@ import bindAll from '../../../lib/helpers/bind-all';
 
 export default class GroupAttendanceWidget extends React.Component {
   static propTypes = {
-    // If you have lots of data or action properties, you should consider grouping them by
-    // passing two properties: "data" and "actions".
-    updateName: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
+    people: PropTypes.array.isRequired,
+    openAttendanceSubmitter: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
 
-    bindAll(this, 'handleChange');
+    bindAll(this, 'openAttendanceSubmitter');
   }
 
-  // React will automatically provide us with the event `e`
-  handleChange(e) {
-    const name = e.target.value;
-    this.props.updateName(name);
+  openAttendanceSubmitter() {
+    this.props.openAttendanceSubmitter(1);
   }
 
   render() {
-    const { name } = this.props;
+    const { people } = this.props;
+
+    const attendanceRows = people.map(person =>
+      <tr key={person.student_profile_id}>
+        <td>{person.name}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    );
+
     return (
-      <div className="container">
-        <h3>
-          Hello, {name}!
-        </h3>
-
-        <hr/>
-
-        <input
-          type="text"
-          value={name}
-          onChange={this.handleChange}
-        />
+      <div className="table-responsive">
+        <table className="table table-condensed table-bordered">
+          <colgroup>
+            <col className="col-md-4" />
+            <col className="col-md-7" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>23.09</button></th>
+              <th><button onClick={this.openAttendanceSubmitter}>30.09</button></th>
+            </tr>
+          </thead>
+          <tbody>
+            {attendanceRows}
+          </tbody>
+        </table>
       </div>
     );
   }

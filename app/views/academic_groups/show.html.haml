@@ -34,4 +34,4 @@
       .tab-pane#group_list
         = render 'tab_student_list', students: @academic_group.active_students, academic_group: @academic_group
       .tab-pane#group_attendance
-        = render 'tab_attendance', academic_group_id: @academic_group.id
+        = render 'tab_attendance', academic_group_id: @academic_group.id, people: @people_for_attendance

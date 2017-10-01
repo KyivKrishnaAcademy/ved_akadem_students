@@ -1,17 +1,19 @@
 import actionTypes from '../constants/group-attendance-constants';
 
 export const initialState = {
-  name: '', // this is the default state that would be used if one were not passed into the store
+  selectedScheduleId: null,
+  isAttendanceSubmitterShown: false,
 };
 
 export default function groupAttendanceReducer(state = initialState, action) {
-  const { type, name } = action;
+  const { type, selectedScheduleId } = action;
 
   switch (type) {
-    case actionTypes.TOGGLE_WRITEABLE:
+    case actionTypes.OPEN_ATTENDANCE_SUBMITTER:
       return {
         ...state,
-        name,
+        selectedScheduleId,
+        isAttendanceSubmitterShown: true,
       };
 
     default:
