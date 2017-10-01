@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import AttendanceSubmitter from '../components/attendance-submitter';
 import GroupAttendanceWidget from '../components/group-attendance-widget';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -34,6 +35,7 @@ class GroupAttendance extends React.Component {
       <div className="row groupAttendance">
         <div className="col-xs-12">
           <GroupAttendanceWidget {...{ people, openAttendanceSubmitter }} />
+          <AttendanceSubmitter />
         </div>
       </div>
     );
