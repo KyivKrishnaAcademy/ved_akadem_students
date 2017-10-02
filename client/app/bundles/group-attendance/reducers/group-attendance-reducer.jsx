@@ -11,8 +11,6 @@ export default function groupAttendanceReducer(state = initialState, action) {
 
   switch (type) {
     case actionTypes.OPEN_ATTENDANCE_SUBMITTER:
-      window.$('#attendanceSubmitterModal').modal('show');
-
       return {
         ...state,
         selectedScheduleId,
