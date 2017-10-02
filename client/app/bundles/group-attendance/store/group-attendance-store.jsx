@@ -22,7 +22,9 @@ export default props => {
 
   const composedStore = compose(
     applyMiddleware(thunkMiddleware),
-    typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : fn => fn
   );
 
   const storeCreator = composedStore(createStore);
