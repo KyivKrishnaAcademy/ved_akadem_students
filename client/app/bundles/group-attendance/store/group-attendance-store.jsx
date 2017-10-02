@@ -10,13 +10,14 @@ import reducer, { initialStates } from '../reducers/root-reducer';
 
 export default props => {
   // This is how we get initial props Rails into redux.
-  const { people } = props;
+  const { people, academicGroupId } = props;
   const { groupAttendanceState } = initialStates;
 
   const initialState = {
     groupAttendanceStore: {
       ...groupAttendanceState,
       people,
+      academicGroupId,
     },
   };
 

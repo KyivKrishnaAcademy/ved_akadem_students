@@ -15,15 +15,25 @@ class GroupAttendance extends React.Component {
     groupAttendanceStore: PropTypes.object.isRequired,
   };
 
+  componentDidMount() {
+    const actions = bindActionCreators(groupAttendanceActionCreators, this.props.dispatch);
+
+    actions.getAttendance();
+  }
+
   render() {
     const { dispatch, groupAttendanceStore } = this.props;
     const actions = bindActionCreators(groupAttendanceActionCreators, dispatch);
-    const { openAttendanceSubmitter } = actions;
+    const { getAttendance, openAttendanceSubmitter } = actions;
     const { people, selectedPersonIndex } = groupAttendanceStore;
 
     return (
       <div className="row groupAttendance">
         <div className="col-xs-12">
+          <button className="btn btn-primary" onClick={getAttendance}>Load more</button>
+        </div>
+
+        <div className="col-xs-12 vert-offset-top-1">
           <GroupAttendanceWidget {...{ people, openAttendanceSubmitter }} />
           <AttendanceSubmitter {...{ people, selectedPersonIndex }} />
         </div>
