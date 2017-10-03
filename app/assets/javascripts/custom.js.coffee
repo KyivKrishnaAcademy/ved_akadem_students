@@ -21,3 +21,6 @@ $ ->
     delay: { show: 600, hide: 0 },
     html: true
   })
+
+  $('a[href="#group_attendance"]').on 'shown.bs.tab', (e) ->
+    $('.people-header').height($('.attendance-header').height())

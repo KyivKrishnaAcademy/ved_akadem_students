@@ -28,15 +28,13 @@ class GroupAttendance extends React.Component {
     const { people, selectedPersonIndex } = groupAttendanceStore;
 
     return (
-      <div className="row groupAttendance">
+      <div className="row">
         <div className="col-xs-12">
           <button className="btn btn-primary" onClick={getAttendance}>Load more</button>
         </div>
 
-        <div className="col-xs-12 vert-offset-top-1">
-          <GroupAttendanceWidget {...{ people, openAttendanceSubmitter }} />
-          <AttendanceSubmitter {...{ people, selectedPersonIndex }} />
-        </div>
+        <GroupAttendanceWidget {...{ people, openAttendanceSubmitter }} />
+        <AttendanceSubmitter {...{ people, selectedPersonIndex }} />
       </div>
     );
   }
