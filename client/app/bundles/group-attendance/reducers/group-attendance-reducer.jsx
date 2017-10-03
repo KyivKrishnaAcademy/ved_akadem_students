@@ -3,7 +3,7 @@ import actionTypes from '../constants/group-attendance-constants';
 export const initialState = {
   page: 0,
   classSchedules: [],
-  selectedScheduleId: null,
+  selectedScheduleIndex: undefined,
   selectedPersonIndex: 0,
 };
 
@@ -12,7 +12,7 @@ export default function groupAttendanceReducer(state = initialState, action) {
     case actionTypes.OPEN_ATTENDANCE_SUBMITTER:
       return {
         ...state,
-        selectedScheduleId: action.selectedScheduleId,
+        selectedScheduleIndex: action.selectedScheduleIndex,
         selectedPersonIndex: 0,
       };
 

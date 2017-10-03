@@ -12,6 +12,7 @@ export default class AttendanceRow extends React.Component {
       courseTitle: PropTypes.string.isRequired,
       attendances: PropTypes.object.isRequired,
     }).isRequired,
+    scheduleIndex: PropTypes.number.isRequired,
     openAttendanceSubmitter: PropTypes.func.isRequired,
   };
 
@@ -22,7 +23,7 @@ export default class AttendanceRow extends React.Component {
   }
 
   openAttendanceSubmitter() {
-    this.props.openAttendanceSubmitter(this.props.classSchedule.id);
+    this.props.openAttendanceSubmitter(this.props.scheduleIndex);
   }
 
   render() {

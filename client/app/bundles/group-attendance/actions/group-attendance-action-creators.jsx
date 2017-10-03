@@ -1,11 +1,11 @@
 import $ from 'jquery'; // eslint-disable-line id-length
 import actionTypes from '../constants/group-attendance-constants';
 
-export function openAttendanceSubmitter(selectedScheduleId) {
+export function openAttendanceSubmitter(selectedScheduleIndex) {
   $('#attendanceSubmitterModal').modal('show');
 
   return {
-    selectedScheduleId,
+    selectedScheduleIndex,
     type: actionTypes.OPEN_ATTENDANCE_SUBMITTER,
   };
 }

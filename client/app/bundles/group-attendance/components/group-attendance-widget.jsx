@@ -29,10 +29,11 @@ export default class GroupAttendanceWidget extends React.Component {
       <div className="cell person-name" key={person.name}>{person.name}</div>
     );
 
-    const attendanceRows = classSchedules.map(classSchedule =>
+    const attendanceRows = classSchedules.map((classSchedule, index) =>
       <AttendanceRow
-        key={classSchedule.id}
+        key={index}
         peopleIds={peopleIds}
+        scheduleIndex={index}
         classSchedule={classSchedule}
         openAttendanceSubmitter={openAttendanceSubmitter}
       />
