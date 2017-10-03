@@ -24,7 +24,7 @@ class GroupAttendance extends React.Component {
   render() {
     const { dispatch, groupAttendanceStore } = this.props;
     const actions = bindActionCreators(groupAttendanceActionCreators, dispatch);
-    const { getAttendance, openAttendanceSubmitter } = actions;
+    const { nextPerson, previousPerson, getAttendance, openAttendanceSubmitter } = actions;
     const { people, selectedPersonIndex, classSchedules } = groupAttendanceStore;
 
     return (
@@ -34,7 +34,7 @@ class GroupAttendance extends React.Component {
         </div>
 
         <GroupAttendanceWidget {...{ people, classSchedules, openAttendanceSubmitter }} />
-        <AttendanceSubmitter {...{ people, selectedPersonIndex }} />
+        <AttendanceSubmitter {...{ people, selectedPersonIndex, nextPerson, previousPerson }} />
       </div>
     );
   }

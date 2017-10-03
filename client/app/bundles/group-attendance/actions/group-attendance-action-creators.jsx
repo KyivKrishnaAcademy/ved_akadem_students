@@ -18,6 +18,18 @@ export function updateClassSchedulesAndPage(classSchedules, page) {
   };
 }
 
+export function nextPerson() {
+  return {
+    type: actionTypes.NEXT_PERSON,
+  };
+}
+
+export function previousPerson() {
+  return {
+    type: actionTypes.PREVIOUS_PERSON,
+  };
+}
+
 export function getAttendance() {
   return (dispatch, getState) => {
     const { groupAttendanceStore: { page, academicGroupId } } = getState();

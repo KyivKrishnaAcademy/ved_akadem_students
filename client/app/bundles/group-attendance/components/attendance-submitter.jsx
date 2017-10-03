@@ -7,10 +7,14 @@ export default class AttendanceSubmitter extends React.Component {
       photoPath: PropTypes.string.isRequired,
       studentProfileId: PropTypes.number.isRequired,
     })).isRequired,
+    nextPerson: PropTypes.func.isRequired,
+    previousPerson: PropTypes.func.isRequired,
     selectedPersonIndex: PropTypes.number.isRequired,
   };
 
   render() {
+    const { nextPerson, previousPerson } = this.props;
+
     const person = this.props.people[this.props.selectedPersonIndex];
 
     return (
@@ -64,8 +68,21 @@ export default class AttendanceSubmitter extends React.Component {
               <div className="row">
                 <div className="col-sm-12 text-center">
                   <div className="btn-group" role="group">
-                    <button type="button" className="btn btn-default">Назад</button>
-                    <button type="button" className="btn btn-default">Вперед</button>
+                    <button
+                      type="button"
+                      onClick={previousPerson}
+                      className="btn btn-default"
+                    >
+                      Назад
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={nextPerson}
+                      className="btn btn-default"
+                    >
+                      Вперед
+                    </button>
                   </div>
                 </div>
               </div>

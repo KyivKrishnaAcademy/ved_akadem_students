@@ -5,7 +5,6 @@ export const initialState = {
   classSchedules: [],
   selectedScheduleId: null,
   selectedPersonIndex: 0,
-  isAttendanceSubmitterShown: false,
 };
 
 export default function groupAttendanceReducer(state = initialState, action) {
@@ -14,7 +13,21 @@ export default function groupAttendanceReducer(state = initialState, action) {
       return {
         ...state,
         selectedScheduleId: action.selectedScheduleId,
-        isAttendanceSubmitterShown: true,
+        selectedPersonIndex: 0,
+      };
+
+    case actionTypes.PREVIOUS_PERSON:
+      return {
+        ...state,
+        selectedPersonIndex: state.selectedPersonIndex > 0 ? state.selectedPersonIndex - 1 : 0,
+      };
+
+    case actionTypes.NEXT_PERSON:
+      return {
+        ...state,
+        selectedPersonIndex: state.selectedPersonIndex < (state.people.length - 1)
+          ? state.selectedPersonIndex + 1
+          : state.selectedPersonIndex,
       };
 
     case actionTypes.UPDATE_CLASS_SCHEDULES_AND_PAGE:
