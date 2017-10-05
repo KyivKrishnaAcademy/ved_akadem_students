@@ -7,6 +7,36 @@ export const initialState = {
   selectedPersonIndex: 0,
 };
 
+function markUnknown(state, { personId, scheduleId }) {
+  const classSchedules = state.classSchedules.map(schedule => {
+    const newSchedule = { ...schedule };
+
+    if (newSchedule.id === scheduleId) delete newSchedule.attendances[personId];
+
+    return newSchedule;
+  });
+
+  return {
+    ...state,
+    classSchedules,
+  };
+}
+
+function markPresence(state, { personId, scheduleId, attendance }) {
+  const classSchedules = state.classSchedules.map(schedule => {
+    const newSchedule = { ...schedule };
+
+    if (newSchedule.id === scheduleId) newSchedule.attendances[personId] = attendance;
+
+    return newSchedule;
+  });
+
+  return {
+    ...state,
+    classSchedules,
+  };
+}
+
 export default function groupAttendanceReducer(state = initialState, action) {
   switch (action.type) {
     case actionTypes.OPEN_ATTENDANCE_SUBMITTER:
@@ -29,6 +59,12 @@ export default function groupAttendanceReducer(state = initialState, action) {
           ? state.selectedPersonIndex + 1
           : state.selectedPersonIndex,
       };
+
+    case actionTypes.MARK_UNKNOWN:
+      return markUnknown(state, action);
+
+    case actionTypes.MARK_PRESENCE:
+      return markPresence(state, action);
 
     case actionTypes.UPDATE_CLASS_SCHEDULES_AND_PAGE:
       return {

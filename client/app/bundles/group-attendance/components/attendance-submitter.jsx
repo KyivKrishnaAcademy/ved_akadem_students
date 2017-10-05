@@ -1,30 +1,85 @@
 import React, { PropTypes } from 'react';
 
+import bindAll from '../../../lib/helpers/bind-all';
+
 export default class AttendanceSubmitter extends React.Component {
   static propTypes = {
-    people: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      photoPath: PropTypes.string.isRequired,
-      studentProfileId: PropTypes.number.isRequired,
-    })).isRequired,
-    classSchedules: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      date: PropTypes.string.isRequired,
-      courseTitle: PropTypes.string.isRequired,
-      attendances: PropTypes.object.isRequired,
-    })).isRequired,
-    nextPerson: PropTypes.func.isRequired,
-    previousPerson: PropTypes.func.isRequired,
-    selectedPersonIndex: PropTypes.number.isRequired,
-    selectedScheduleIndex: PropTypes.number,
+    data: PropTypes.shape({
+      people: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        photoPath: PropTypes.string.isRequired,
+        studentProfileId: PropTypes.number.isRequired,
+      })).isRequired,
+      classSchedules: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        date: PropTypes.string.isRequired,
+        courseTitle: PropTypes.string.isRequired,
+        attendances: PropTypes.object.isRequired,
+      })).isRequired,
+      selectedPersonIndex: PropTypes.number.isRequired,
+      selectedScheduleIndex: PropTypes.number,
+    }).isRequired,
+    actions: PropTypes.shape({
+      nextPerson: PropTypes.func.isRequired,
+      previousPerson: PropTypes.func.isRequired,
+      asyncMarkUnknown: PropTypes.func.isRequired,
+      asyncMarkPresence: PropTypes.func.isRequired,
+    }),
   };
 
-  render() {
-    const { nextPerson, previousPerson } = this.props;
+  constructor(props, context) {
+    super(props, context);
 
-    const person = this.props.people[this.props.selectedPersonIndex];
-    const classSchedule = this.props.classSchedules[this.props.selectedScheduleIndex] || {};
-    const attendance = (classSchedule.attendances || {})[person.studentProfileId] || {};
+    bindAll(
+      this,
+      'getPerson',
+      'getSchedule',
+      'markUnknown',
+      'markPresence',
+      'getAttendance',
+    );
+  }
+
+  getPerson() {
+    return this.props.data.people[this.props.data.selectedPersonIndex] || {};
+  }
+
+  getSchedule() {
+    return this.props.data.classSchedules[this.props.data.selectedScheduleIndex] || {};
+  }
+
+  getAttendance() {
+    return (this.getSchedule().attendances || {})[this.getPerson().studentProfileId] || {};
+  }
+
+  markUnknown() {
+    this.props.actions.asyncMarkUnknown(
+      this.getPerson().studentProfileId,
+      this.getSchedule().id,
+      this.getAttendance().id,
+    );
+  }
+
+  markPresence(neededPresence) {
+    return () => {
+      const attendance = this.getAttendance();
+
+      this.props.actions.asyncMarkPresence(
+        this.getPerson().studentProfileId,
+        this.getSchedule().id,
+        attendance.id,
+        attendance.presence,
+        neededPresence,
+      );
+    };
+  }
+
+  render() {
+    const { nextPerson, previousPerson } = this.props.actions;
+
+    const person = this.getPerson();
+    const attendance = this.getAttendance();
+    const classSchedule = this.getSchedule();
 
     let bodyClass = 'modal-body';
     let absentClass = 'btn btn-danger';
@@ -84,9 +139,29 @@ export default class AttendanceSubmitter extends React.Component {
 
                 <div className="col-sm-12 text-center">
                   <div className="btn-group" role="group">
-                    <button type="button" className={presentClass}>Присутній</button>
-                    <button type="button" className={absentClass}>Відсутній</button>
-                    <button type="button" className={unknownClass}>Невідомо</button>
+                    <button
+                      type="button"
+                      onClick={this.markPresence(true)}
+                      className={presentClass}
+                    >
+                      Присутній
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={this.markPresence(false)}
+                      className={absentClass}
+                    >
+                      Відсутній
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={this.markUnknown}
+                      className={unknownClass}
+                    >
+                      Невідомо
+                    </button>
                   </div>
                 </div>
               </div>

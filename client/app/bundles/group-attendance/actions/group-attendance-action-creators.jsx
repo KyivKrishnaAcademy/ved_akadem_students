@@ -30,6 +30,78 @@ export function previousPerson() {
   };
 }
 
+function deleteAttendance(attendanceId, success, error) {
+  $.ajax({
+    error,
+    success,
+    url: `/ui/schedule_attendances/${attendanceId}`,
+    cache: false,
+    method: 'DELETE',
+    dataType: 'json',
+  });
+}
+
+function updateAttendance(attendanceId, presence, success, error) {
+  $.ajax({
+    error,
+    success,
+    url: `/ui/schedule_attendances/${attendanceId}?presence=${presence}`,
+    cache: false,
+    method: 'PUT',
+    dataType: 'json',
+  });
+}
+
+function createAttendance(personId, scheduleId, presence, success, error) {
+  $.ajax({
+    error,
+    success,
+    url: `/ui/schedule_attendances?class_schedule_id=${scheduleId}&presence=${presence}&student_profile_id=${personId}`,
+    cache: false,
+    method: 'POST',
+    dataType: 'json',
+  });
+}
+
+export function markPresence(personId, scheduleId, id, presence) {
+  return {
+    personId,
+    scheduleId,
+    type: actionTypes.MARK_PRESENCE,
+    attendance: { id, presence },
+  };
+}
+
+export function markUnknown(personId, scheduleId) {
+  return {
+    personId,
+    scheduleId,
+    type: actionTypes.MARK_UNKNOWN,
+  };
+}
+
+export function asyncMarkPresence(personId, scheduleId, attendanceId, currentPresence, neededPresence) {
+  return (dispatch) => {
+    if (currentPresence === neededPresence) return;
+
+    const success = ({ attendance: { id, presence } }) => dispatch(markPresence(personId, scheduleId, id, presence));
+
+    if (attendanceId) {
+      updateAttendance(attendanceId, neededPresence, success);
+    } else {
+      createAttendance(personId, scheduleId, neededPresence, success);
+    }
+  };
+}
+
+export function asyncMarkUnknown(personId, scheduleId, attendanceId) {
+  return (dispatch) => {
+    if (!attendanceId) return;
+
+    deleteAttendance(attendanceId, () => dispatch(markUnknown(personId, scheduleId)));
+  };
+}
+
 export function getAttendance() {
   return (dispatch, getState) => {
     const { groupAttendanceStore: { page, academicGroupId } } = getState();

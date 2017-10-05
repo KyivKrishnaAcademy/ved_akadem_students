@@ -115,7 +115,7 @@ describe AcademicGroupsController do
     end
 
     describe 'DBless tests' do
-      Given(:person) { double(Person, id: 1, roles: [], locale: :uk) }
+      Given(:person) { double(Person, id: 1, roles: [], locale: :uk, short_name: 'Adi das') }
       Given(:groups) { double }
       Given(:group)  { double(AcademicGroup, id: 1) }
 
@@ -123,13 +123,18 @@ describe AcademicGroupsController do
       Given { allow(controller).to receive(:current_person) { person } }
 
       Given { allow(group).to receive(:class).and_return(AcademicGroup) }
+      Given { allow(group).to receive(:active_students).and_return(Person.none) }
       Given { allow_any_instance_of(AcademicGroupPolicy::Scope).to receive(:resolve).and_return(groups) }
       Given { allow(groups).to receive(:find).with('1').and_return(group) }
 
       context 'user is student of the group' do
+        Given(:people) { [person] }
         Given(:student_profile) { double(StudentProfile) }
 
-        Given { allow(group).to receive(:active_students).and_return([person]) }
+        Given { allow(group).to receive(:active_students).and_return(people) }
+        Given { allow(people).to receive(:includes).and_return(people) }
+        Given { allow(person).to receive_message_chain(:photo, :versions).and_return(nil) }
+        Given { allow(person).to receive_message_chain(:student_profile, :id).and_return(1) }
 
         When { action }
 
