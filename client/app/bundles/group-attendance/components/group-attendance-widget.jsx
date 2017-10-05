@@ -3,6 +3,7 @@ import React, { PropTypes } from 'react';
 
 import Loader from '../../../lib/components/loader';
 import AttendanceRow from './attendance-row';
+import FetchAttendanceButton from './fetch-attendance-button';
 
 export default class GroupAttendanceWidget extends React.Component {
   static propTypes = {
@@ -16,6 +17,7 @@ export default class GroupAttendanceWidget extends React.Component {
       courseTitle: PropTypes.string.isRequired,
       attendances: PropTypes.object.isRequired,
     })).isRequired,
+    getAttendance: PropTypes.func.isRequired,
     openAttendanceSubmitter: PropTypes.func.isRequired,
   };
 
@@ -24,7 +26,7 @@ export default class GroupAttendanceWidget extends React.Component {
   }
 
   render() {
-    const { people, loading, classSchedules, openAttendanceSubmitter } = this.props;
+    const { people, loading, classSchedules, getAttendance, openAttendanceSubmitter } = this.props;
 
     const peopleIds = people.map(person => person.studentProfileId);
     const peopleNames = people.map(person =>
@@ -46,7 +48,9 @@ export default class GroupAttendanceWidget extends React.Component {
         <Loader visible={loading} />
 
         <div className="people-row">
-          <div className="people-header" />
+          <div className="people-header">
+            <FetchAttendanceButton { ...{getAttendance} } />
+          </div>
 
           {peopleNames}
         </div>

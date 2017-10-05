@@ -37,11 +37,7 @@ class GroupAttendance extends React.Component {
 
     return (
       <div className="row">
-        <div className="col-xs-12">
-          <button className="btn btn-primary" onClick={getAttendance}>Load more</button>
-        </div>
-
-        <GroupAttendanceWidget {...{ people, loading, classSchedules, openAttendanceSubmitter }} />
+        <GroupAttendanceWidget {...{ people, loading, classSchedules, getAttendance, openAttendanceSubmitter }} />
 
         <AttendanceSubmitter
           {
