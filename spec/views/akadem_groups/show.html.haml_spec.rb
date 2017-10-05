@@ -19,6 +19,7 @@ describe 'academic_groups/show' do
   Given { allow(view).to receive(:policy).with(group).and_return(AcademicGroupPolicy.new(user, group)) }
   Given { allow(view).to receive(:policy).with(user).and_return(PersonPolicy.new(user, user)) }
   Given { allow(view).to receive(:policy).with(admin).and_return(PersonPolicy.new(user, admin)) }
+  Given { allow(view).to receive(:policy).with(Attendance).and_return(AttendancePolicy.new(user, Attendance)) }
   Given { allow(view).to receive(:current_person).and_return(user) }
 
   When  { render }
