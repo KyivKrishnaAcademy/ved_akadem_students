@@ -24,7 +24,14 @@ class GroupAttendance extends React.Component {
   render() {
     const { dispatch, groupAttendanceStore } = this.props;
     const actions = bindActionCreators(groupAttendanceActionCreators, dispatch);
-    const { people, loading, selectedPersonIndex, classSchedules, selectedScheduleIndex } = groupAttendanceStore;
+    const {
+      people,
+      loading,
+      canManage,
+      classSchedules,
+      selectedPersonIndex,
+      selectedScheduleIndex,
+    } = groupAttendanceStore;
 
     const {
       nextPerson,
@@ -37,27 +44,40 @@ class GroupAttendance extends React.Component {
 
     return (
       <div className="row">
-        <GroupAttendanceWidget {...{ people, loading, classSchedules, getAttendance, openAttendanceSubmitter }} />
-
-        <AttendanceSubmitter
-          {
-            ...{
-              data: {
-                people,
-                loading,
-                classSchedules,
-                selectedPersonIndex,
-                selectedScheduleIndex,
-              },
-              actions: {
-                nextPerson,
-                previousPerson,
-                asyncMarkUnknown,
-                asyncMarkPresence,
-              },
-            }
-          }
+        <GroupAttendanceWidget
+          {...{
+            people,
+            loading,
+            canManage,
+            getAttendance,
+            classSchedules,
+            openAttendanceSubmitter,
+          }}
         />
+
+        {canManage ?
+          <AttendanceSubmitter
+            {
+              ...{
+                data: {
+                  people,
+                  loading,
+                  classSchedules,
+                  selectedPersonIndex,
+                  selectedScheduleIndex,
+                },
+                actions: {
+                  nextPerson,
+                  previousPerson,
+                  asyncMarkUnknown,
+                  asyncMarkPresence,
+                },
+              }
+            }
+          />
+        :
+          null
+        }
       </div>
     );
   }

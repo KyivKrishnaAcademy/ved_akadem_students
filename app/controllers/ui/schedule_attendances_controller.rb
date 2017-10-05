@@ -11,16 +11,22 @@ module Ui
     def create
       attendance = Attendance.new(create_params)
 
+      authorize attendance, :ui_create?
+
       respond_with_interaction Ui::AttendanceUpdatingInteraction, attendance
     end
 
     def update
       @attendance.assign_attributes(update_params)
 
+      authorize @attendance, :ui_update?
+
       respond_with_interaction Ui::AttendanceUpdatingInteraction, @attendance
     end
 
     def destroy
+      authorize @attendance, :ui_destroy?
+
       respond_with_interaction Ui::AttendanceDestroyingInteraction, @attendance
     end
 

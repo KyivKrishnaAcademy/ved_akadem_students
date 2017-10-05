@@ -11,6 +11,7 @@ export default class GroupAttendanceWidget extends React.Component {
       name: PropTypes.string.isRequired,
     })).isRequired,
     loading: PropTypes.bool.isRequired,
+    canManage: PropTypes.bool.isRequired,
     classSchedules: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       date: PropTypes.string.isRequired,
@@ -26,7 +27,7 @@ export default class GroupAttendanceWidget extends React.Component {
   }
 
   render() {
-    const { people, loading, classSchedules, getAttendance, openAttendanceSubmitter } = this.props;
+    const { people, loading, canManage, classSchedules, getAttendance, openAttendanceSubmitter } = this.props;
 
     const peopleIds = people.map(person => person.studentProfileId);
     const peopleNames = people.map(person =>
@@ -36,6 +37,7 @@ export default class GroupAttendanceWidget extends React.Component {
     const attendanceRows = classSchedules.map((classSchedule, index) =>
       <AttendanceRow
         key={index}
+        canManage={canManage}
         peopleIds={peopleIds}
         scheduleIndex={index}
         classSchedule={classSchedule}
@@ -49,7 +51,7 @@ export default class GroupAttendanceWidget extends React.Component {
 
         <div className="people-row">
           <div className="people-header">
-            <FetchAttendanceButton { ...{getAttendance} } />
+            <FetchAttendanceButton {...{ getAttendance }} />
           </div>
 
           {peopleNames}

@@ -5,6 +5,7 @@ import AttendanceMarker from './attendance-marker';
 
 export default class AttendanceRow extends React.Component {
   static propTypes = {
+    canManage: PropTypes.bool.isRequired,
     peopleIds: PropTypes.arrayOf(PropTypes.number).isRequired,
     classSchedule: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -27,11 +28,18 @@ export default class AttendanceRow extends React.Component {
   }
 
   render() {
-    const { peopleIds, classSchedule: { date, courseTitle, attendances } } = this.props;
+    const { canManage, peopleIds, classSchedule: { date, courseTitle, attendances } } = this.props;
 
     const attendanceMarkers = peopleIds.map(personId =>
       <AttendanceMarker key={personId} status={attendances[personId] && attendances[personId].presence} />
     );
+
+    const editButton = canManage
+      ?
+        <button className="btn btn-sm btn-primary" onClick={this.openAttendanceSubmitter}>
+          <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
+        </button>
+      : null;
 
     return (
       <div className="attendance-row">
@@ -42,9 +50,7 @@ export default class AttendanceRow extends React.Component {
             {date}
           </div>
 
-          <button className="btn btn-sm btn-primary" onClick={this.openAttendanceSubmitter}>
-            <span className="glyphicon glyphicon-pencil" aria-hidden="true" />
-          </button>
+          {editButton}
         </div>
 
         {attendanceMarkers}
