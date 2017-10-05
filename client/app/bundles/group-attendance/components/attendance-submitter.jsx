@@ -75,11 +75,17 @@ export default class AttendanceSubmitter extends React.Component {
   }
 
   render() {
-    const { nextPerson, previousPerson } = this.props.actions;
+    const {
+      data: { people, selectedPersonIndex },
+      actions: { nextPerson, previousPerson },
+    } = this.props;
 
     const person = this.getPerson();
     const attendance = this.getAttendance();
     const classSchedule = this.getSchedule();
+
+    const nextPersonDisabled = selectedPersonIndex === people.length - 1;
+    const previousPersonDisabled = selectedPersonIndex === 0;
 
     let bodyClass = 'modal-body';
     let absentClass = 'btn btn-danger';
@@ -174,6 +180,7 @@ export default class AttendanceSubmitter extends React.Component {
                     <button
                       type="button"
                       onClick={previousPerson}
+                      disabled={previousPersonDisabled}
                       className="btn btn-default"
                     >
                       Назад
@@ -182,6 +189,7 @@ export default class AttendanceSubmitter extends React.Component {
                     <button
                       type="button"
                       onClick={nextPerson}
+                      disabled={nextPersonDisabled}
                       className="btn btn-default"
                     >
                       Вперед
