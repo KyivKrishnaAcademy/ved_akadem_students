@@ -9,4 +9,16 @@ module AcademicGroupsHelper
     current_person.can_act?('academic_group:group_list_pdf') ||
       current_person.can_act?('academic_group:attendance_template_pdf')
   end
+
+  def attendance_localization
+    %i(
+      absend
+      back
+      forth
+      present
+      unknown
+    ).map do |key|
+      [key, I18n.t("group_attendance.attendance_submitter.#{key}")]
+    end.to_h
+  end
 end

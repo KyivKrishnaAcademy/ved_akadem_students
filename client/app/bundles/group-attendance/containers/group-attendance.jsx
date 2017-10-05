@@ -28,6 +28,7 @@ class GroupAttendance extends React.Component {
       people,
       loading,
       canManage,
+      localization,
       classSchedules,
       selectedPersonIndex,
       selectedScheduleIndex,
@@ -62,6 +63,7 @@ class GroupAttendance extends React.Component {
                 data: {
                   people,
                   loading,
+                  localization,
                   classSchedules,
                   selectedPersonIndex,
                   selectedScheduleIndex,

@@ -12,6 +12,7 @@ export default class AttendanceSubmitter extends React.Component {
         studentProfileId: PropTypes.number.isRequired,
       })).isRequired,
       loading: PropTypes.bool.isRequired,
+      localization: PropTypes.object.isRequired,
       classSchedules: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         date: PropTypes.string.isRequired,
@@ -78,7 +79,7 @@ export default class AttendanceSubmitter extends React.Component {
 
   render() {
     const {
-      data: { people, loading, selectedPersonIndex },
+      data: { people, loading, localization, selectedPersonIndex },
       actions: { nextPerson, previousPerson },
     } = this.props;
 
@@ -154,7 +155,7 @@ export default class AttendanceSubmitter extends React.Component {
                       onClick={this.markPresence(true)}
                       className={presentClass}
                     >
-                      Присутній
+                      {localization.present}
                     </button>
 
                     <button
@@ -162,7 +163,7 @@ export default class AttendanceSubmitter extends React.Component {
                       onClick={this.markPresence(false)}
                       className={absentClass}
                     >
-                      Відсутній
+                     {localization.absend}
                     </button>
 
                     <button
@@ -170,7 +171,7 @@ export default class AttendanceSubmitter extends React.Component {
                       onClick={this.markUnknown}
                       className={unknownClass}
                     >
-                      Невідомо
+                      {localization.unknown}
                     </button>
                   </div>
                 </div>
@@ -187,7 +188,7 @@ export default class AttendanceSubmitter extends React.Component {
                       disabled={previousPersonDisabled}
                       className="btn btn-default"
                     >
-                      Назад
+                      {localization.back}
                     </button>
 
                     <button
@@ -196,7 +197,7 @@ export default class AttendanceSubmitter extends React.Component {
                       disabled={nextPersonDisabled}
                       className="btn btn-default"
                     >
-                      Вперед
+                      {localization.forth}
                     </button>
                   </div>
                 </div>
