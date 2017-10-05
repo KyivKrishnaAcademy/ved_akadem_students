@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import Loader from '../../../lib/components/loader';
 import bindAll from '../../../lib/helpers/bind-all';
 
 export default class AttendanceSubmitter extends React.Component {
@@ -10,6 +11,7 @@ export default class AttendanceSubmitter extends React.Component {
         photoPath: PropTypes.string.isRequired,
         studentProfileId: PropTypes.number.isRequired,
       })).isRequired,
+      loading: PropTypes.bool.isRequired,
       classSchedules: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         date: PropTypes.string.isRequired,
@@ -76,7 +78,7 @@ export default class AttendanceSubmitter extends React.Component {
 
   render() {
     const {
-      data: { people, selectedPersonIndex },
+      data: { people, loading, selectedPersonIndex },
       actions: { nextPerson, previousPerson },
     } = this.props;
 
@@ -112,6 +114,8 @@ export default class AttendanceSubmitter extends React.Component {
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
+            <Loader visible={loading} />
+
             <div className="modal-header">
               <button
                 type="button"

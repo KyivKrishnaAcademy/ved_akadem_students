@@ -1,6 +1,8 @@
 import mirrorCreator from 'mirror-creator';
 
 const actionTypes = mirrorCreator([
+  'SHOW_LOADER',
+  'HIDE_LOADER',
   'NEXT_PERSON',
   'MARK_UNKNOWN',
   'MARK_PRESENCE',

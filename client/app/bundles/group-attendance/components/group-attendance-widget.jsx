@@ -1,6 +1,7 @@
 import $ from 'jquery'; // eslint-disable-line id-length
 import React, { PropTypes } from 'react';
 
+import Loader from '../../../lib/components/loader';
 import AttendanceRow from './attendance-row';
 
 export default class GroupAttendanceWidget extends React.Component {
@@ -8,6 +9,7 @@ export default class GroupAttendanceWidget extends React.Component {
     people: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
     })).isRequired,
+    loading: PropTypes.bool.isRequired,
     classSchedules: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       date: PropTypes.string.isRequired,
@@ -22,7 +24,7 @@ export default class GroupAttendanceWidget extends React.Component {
   }
 
   render() {
-    const { people, classSchedules, openAttendanceSubmitter } = this.props;
+    const { people, loading, classSchedules, openAttendanceSubmitter } = this.props;
 
     const peopleIds = people.map(person => person.studentProfileId);
     const peopleNames = people.map(person =>
@@ -41,6 +43,8 @@ export default class GroupAttendanceWidget extends React.Component {
 
     return (
       <div className="groupAttendanceTable col-xs-12 vert-offset-top-1 vert-offset-bottom-3">
+        <Loader visible={loading} />
+
         <div className="people-row">
           <div className="people-header" />
 

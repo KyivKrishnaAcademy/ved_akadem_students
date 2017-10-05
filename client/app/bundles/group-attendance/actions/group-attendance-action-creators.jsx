@@ -18,6 +18,18 @@ export function updateClassSchedulesAndPage(classSchedules, page) {
   };
 }
 
+export function showLoader() {
+  return {
+    type: actionTypes.SHOW_LOADER,
+  };
+}
+
+export function hideLoader() {
+  return {
+    type: actionTypes.HIDE_LOADER,
+  };
+}
+
 export function nextPerson() {
   return {
     type: actionTypes.NEXT_PERSON,
@@ -84,12 +96,18 @@ export function asyncMarkPresence(personId, scheduleId, attendanceId, currentPre
   return (dispatch) => {
     if (currentPresence === neededPresence) return;
 
-    const success = ({ attendance: { id, presence } }) => dispatch(markPresence(personId, scheduleId, id, presence));
+    dispatch(showLoader());
+
+    const error = () => dispatch(hideLoader());
+    const success = ({ attendance: { id, presence } }) => {
+      dispatch(hideLoader());
+      dispatch(markPresence(personId, scheduleId, id, presence));
+    };
 
     if (attendanceId) {
-      updateAttendance(attendanceId, neededPresence, success);
+      updateAttendance(attendanceId, neededPresence, success, error);
     } else {
-      createAttendance(personId, scheduleId, neededPresence, success);
+      createAttendance(personId, scheduleId, neededPresence, success, error);
     }
   };
 }
@@ -98,7 +116,15 @@ export function asyncMarkUnknown(personId, scheduleId, attendanceId) {
   return (dispatch) => {
     if (!attendanceId) return;
 
-    deleteAttendance(attendanceId, () => dispatch(markUnknown(personId, scheduleId)));
+    dispatch(showLoader());
+
+    const error = () => dispatch(hideLoader());
+    const success = () => {
+      dispatch(hideLoader());
+      dispatch(markUnknown(personId, scheduleId));
+    };
+
+    deleteAttendance(attendanceId, success, error);
   };
 }
 
@@ -108,6 +134,8 @@ export function getAttendance() {
 
     const nextPage = page + 1;
 
+    dispatch(showLoader());
+
     $.ajax({
       url: `/ui/schedule_attendances?page=${nextPage}&academic_group_id=${academicGroupId}`,
       dataType: 'json',
@@ -116,10 +144,11 @@ export function getAttendance() {
         if (data.classSchedules && data.classSchedules.length) {
           dispatch(updateClassSchedulesAndPage(data.classSchedules, nextPage));
         }
+
+        dispatch(hideLoader());
       },
 
-      error: (xhr, status, err) => {
-      },
+      error: (xhr, status, err) => dispatch(hideLoader()),
     });
   };
 }

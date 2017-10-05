@@ -2,6 +2,7 @@ import actionTypes from '../constants/group-attendance-constants';
 
 export const initialState = {
   page: 0,
+  loading: false,
   classSchedules: [],
   selectedScheduleIndex: undefined,
   selectedPersonIndex: 0,
@@ -58,6 +59,18 @@ export default function groupAttendanceReducer(state = initialState, action) {
         selectedPersonIndex: state.selectedPersonIndex < (state.people.length - 1)
           ? state.selectedPersonIndex + 1
           : state.selectedPersonIndex,
+      };
+
+    case actionTypes.SHOW_LOADER:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case actionTypes.HIDE_LOADER:
+      return {
+        ...state,
+        loading: false,
       };
 
     case actionTypes.MARK_UNKNOWN:
