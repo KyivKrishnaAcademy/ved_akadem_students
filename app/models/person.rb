@@ -142,7 +142,14 @@ class Person < ApplicationRecord
   def short_name
     return spiritual_name if spiritual_name.present?
 
-    "#{name} #{surname}"
+    "#{surname} #{name}"
+  end
+
+  def respectful_name
+    return spiritual_name if spiritual_name.present?
+    return name if middle_name.blank?
+
+    "#{name} #{middle_name}"
   end
 
   private
