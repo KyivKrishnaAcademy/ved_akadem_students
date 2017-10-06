@@ -137,6 +137,7 @@ ru:
       photo:                    'Фото'
       prabhu_count:             'Прабху'
       praepostor:               'Староста'
+      tab_attendance:           'Посещаемость'
       tab_general:              'Осмотр'
       tab_group_list:           'Список группы'
       tab_schedules:            'Расписание'
@@ -151,6 +152,13 @@ ru:
       classroom:  'Аудитория'
       time:       'Запланированное время'
       actions:    ''
+  group_attendance:
+    attendance_submitter:
+      absend:   'Отсутствует'
+      back:     'Назад'
+      forth:    'Вперед'
+      present:  'Присутствует'
+      unknown:  'Не известно'
   journals:
     show:
       created_at: 'Время'

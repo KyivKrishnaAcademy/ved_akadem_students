@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react';
 
 const Loader = ({ visible }) => {
-  if (!visible) {
-    return null;
-  }
+  if (!visible) return <div />;
 
   return (
     <div className="loading-wrapper">

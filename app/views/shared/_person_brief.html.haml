@@ -6,7 +6,7 @@
           = person.complex_name
     .row
       .col-xs-12.col-sm-3
-        = person_photo(person, :standart, class: 'img-thumbnail')
+        = person_photo(person, :standart, class: 'img-thumbnail img-version-standart')
       .col-xs-12.col-sm-9
         = link_to t('links.edit_profile'), edit_person_registration_path(person)
       - if person.last_academic_groups.any?

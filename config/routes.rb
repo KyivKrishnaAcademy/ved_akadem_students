@@ -60,6 +60,7 @@ Rails.application.routes.draw do
     resources :classrooms,       only: :index
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index
+    resources :schedule_attendances, only: [:index, :create, :update, :destroy]
 
     get 'group_admins', controller: :group_elders, action: :group_admins_index
     get 'group_curators', controller: :group_elders, action: :group_curators_index

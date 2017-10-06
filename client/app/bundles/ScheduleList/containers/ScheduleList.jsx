@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 
 import bindAll from '../../../lib/helpers/bind-all';
 
-import Loader from '../components/Loader';
+import Loader from '../../../lib/components/loader';
 import Paginator from '../components/Paginator';
 import TimesSelector from '../components/TimesSelector';
 import SchedulesTable from '../components/SchedulesTable';

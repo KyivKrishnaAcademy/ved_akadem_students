@@ -137,6 +137,7 @@ uk:
       photo:                    'Фото'
       prabhu_count:             'Прабгу'
       praepostor:               'Староста'
+      tab_attendance:           'Bідвідуваність'
       tab_general:              'Огляд'
       tab_group_list:           'Список групи'
       tab_schedules:            'Розклад'
@@ -151,6 +152,13 @@ uk:
       classroom:  'Аудиторія'
       time:       'Запланований час'
       actions:    ''
+  group_attendance:
+    attendance_submitter:
+      absend:   'Відсутній'
+      back:     'Назад'
+      forth:    'Вперед'
+      present:  'Присутній'
+      unknown:  'Невідомо'
   journals:
     show:
       created_at: 'Час'

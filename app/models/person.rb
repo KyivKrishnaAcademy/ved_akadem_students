@@ -141,9 +141,8 @@ class Person < ApplicationRecord
 
   def short_name
     return spiritual_name if spiritual_name.present?
-    return name if middle_name.blank?
 
-    "#{name} #{middle_name}"
+    "#{name} #{surname}"
   end
 
   private

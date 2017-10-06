@@ -16,7 +16,15 @@ class BaseInteraction
     {}
   end
 
+  def status
+    @status || :ok
+  end
+
   private
+
+  def errors_json(resource)
+    { errors: resource.errors.full_messages }
+  end
 
   def photo_url(person)
     person.photo.present? ? "/people/show_photo/thumb/#{person.id}" : person.photo.thumb.url

@@ -384,13 +384,7 @@ describe Person do
         context 'middle_name present' do
           Given { person.update(spiritual_name: '') }
 
-          Then { expect(person.short_name).to eq 'Zinoviy Zakovich' }
-        end
-
-        context 'no middle_name' do
-          Given { person.update(spiritual_name: '', middle_name: '') }
-
-          Then { expect(person.short_name).to eq 'Zinoviy' }
+          Then { expect(person.short_name).to eq 'Zinoviy Zlenkno' }
         end
       end
     end
