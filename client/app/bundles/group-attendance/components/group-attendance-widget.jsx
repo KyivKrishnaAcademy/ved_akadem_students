@@ -23,7 +23,7 @@ export default class GroupAttendanceWidget extends React.Component {
   };
 
   componentDidUpdate() {
-    $('.people-header').height($('.attendance-header').height());
+    window.adjustAttendanceHeaders();
   }
 
   render() {

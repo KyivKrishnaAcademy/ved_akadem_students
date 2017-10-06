@@ -1,3 +1,13 @@
+window.adjustAttendanceHeaders = ->
+  $attendanceHeaders = $('.attendance-header')
+  height = $attendanceHeaders.toArray().map((el) -> el.offsetHeight).sort()[$attendanceHeaders.length - 1]
+
+  if !height
+    return
+
+  $('.people-header').height(height)
+  $attendanceHeaders.height(height)
+
 $ ->
   if $('input#datepicker').length
     locale  = $('input#datepicker').data('locale')
@@ -22,5 +32,5 @@ $ ->
     html: true
   })
 
-  $('a[href="#group_attendance"]').on 'shown.bs.tab', (e) ->
-    $('.people-header').height($('.attendance-header').height())
+  $('a[href="#group_attendance"]').on 'shown.bs.tab', () ->
+    window.adjustAttendanceHeaders()
