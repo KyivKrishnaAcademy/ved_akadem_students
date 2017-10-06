@@ -1,4 +1,3 @@
-import $ from 'jquery'; // eslint-disable-line id-length
 import React, { PropTypes } from 'react';
 
 import Loader from '../../../lib/components/loader';
