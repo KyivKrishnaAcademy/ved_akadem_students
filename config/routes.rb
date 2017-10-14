@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :people, :courses, :academic_groups
+  resources :people, :academic_groups
   resources :group_participations, only: :destroy
   resources :class_schedules, only: [:new, :create, :edit, :update, :index, :destroy]
   resources :study_applications, only: [:create, :destroy]
@@ -32,6 +32,10 @@ Rails.application.routes.draw do
 
       patch :finish
     end
+  end
+
+  resources :courses do
+    resources :examinations, only: [:new, :create, :edit, :update, :show, :destroy]
   end
 
   post '/academic_groups/:id/graduate', controller: :academic_groups, action: :graduate, as: :graduate_academic_group

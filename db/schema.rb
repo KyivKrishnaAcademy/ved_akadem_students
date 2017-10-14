@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123053701) do
+ActiveRecord::Schema.define(version: 20171008122007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,18 @@ ActiveRecord::Schema.define(version: 20170123053701) do
     t.datetime "updated_at"
     t.string   "title",       limit: 255
     t.string   "description", limit: 255
+  end
+
+  create_table "examinations", force: :cascade do |t|
+    t.string   "title",         default: ""
+    t.text     "description",   default: ""
+    t.integer  "passing_score", default: 1
+    t.integer  "min_result",    default: 0
+    t.integer  "max_result",    default: 1
+    t.integer  "course_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["course_id"], name: "index_examinations_on_course_id", using: :btree
   end
 
   create_table "group_participations", force: :cascade do |t|
@@ -235,4 +247,5 @@ ActiveRecord::Schema.define(version: 20170123053701) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "examinations", "courses"
 end
