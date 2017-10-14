@@ -1,34 +1,63 @@
-= render 'shared/under_construction'
 - provide(:title, @course.title)
 
 .row
-  .col-xs-12
+  .col-xs-12.text-center
     %h1
       = @course.title
 
-  .col-xs-12.clearfix
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.clearfix
+    = link_to_back(policy(Course).index?, courses_path)
+
     .pull-right
-      - if policy(@course).edit?
-        = link_to t('links.edit'), edit_course_path(@course), class: 'btn btn-xs btn-primary'
-      - if policy(@course).destroy?
-        = link_to t('links.delete'), course_path(@course), method: :delete,
-                  data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+      = link_to_edit(policy(@course).edit?, edit_course_path(@course))
+      = link_to_destroy(policy(@course).destroy?, course_path(@course))
 
-  .col-xs-12
-    .row
-      .col-xs-12
-        %strong
-          Description:
-      .col-xs-12.col-sm-6
-        = @course.description
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    = @course.description
 
-    - if @course.teacher_profiles.any?
-      .row.vert-offset-top-1
-        .col-xs-12
-          %strong
-            Associated teachers:
-        .col-xs-12
-          %ul
-            - @course.teacher_profiles.each do |profile|
-              %li
-                = profile.complex_name
+  - if @course.teacher_profiles.any?
+    .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+      %h5
+        = t('.associated_teachers')
+    .col-xs-12.col-sm-6.col-sm-offset-3
+      %ul
+        - @course.teacher_profiles.each do |profile|
+          %li
+            = link_to_show_person_or_name(profile.person)
+
+  - if policy(Examination).index?
+    .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+      %h5.clearfix
+        = t('.examinations')
+
+        .pull-right
+          = link_to_new(current_person.can_act?('examination:new'), new_course_examination_path(@course))
+
+    .col-xs-12.col-sm-6.col-sm-offset-3
+      .table-responsive
+        %table.table.table-condensed.table-striped
+          %thead
+            %tr
+              %th= t('.examination_title')
+              %th= t('.min_result')
+              %th= t('.max_result')
+              %th= t('.passing_score')
+
+              - if @examinations.any? { |e| policy(e).tap { |p| break p.edit? || p.destroy? } }
+                %th= t('.actions')
+
+          %tbody
+            - @examinations.each do |examination|
+              %tr
+                %td
+                  = link_to_if policy(examination).show?, examination.title, course_examination_path(examination.course_id, examination) do
+                    = examination.title
+
+                %td.col-xs-1= examination.min_result
+                %td.col-xs-1= examination.max_result
+                %td.col-xs-1= examination.passing_score
+
+                - if policy(examination).tap { |p| break p.edit? || p.destroy? }
+                  %td.col-xs-2.col-sm-3.col-md-2
+                    = link_to_edit(policy(examination).edit?, edit_course_examination_path(@course, examination))
+                    = link_to_destroy(policy(examination).destroy?, course_examination_path(@course, examination))

@@ -1,30 +1,31 @@
-= render 'shared/under_construction'
 - provide(:title, 'Courses')
 
 .row
   .col-xs-12
-    %h1 Listing courses
+    %h1.text-center=t('.title')
 
-    - if current_person.can_act?('course:new')
-      = link_to 'New Course', new_course_path, class: 'btn btn-xs btn-success'
+  - if current_person.can_act?('course:new')
+    .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.vert-offset-bottom-1.text-right
+      = link_to_new(true, new_course_path)
 
-  .col-xs-12.vert-offset-top-1
+  .col-xs-12.col-sm-6.col-sm-offset-3
     .table-responsive
       %table.table.table-condensed.table-striped
         %thead
           %tr
-            %th Course title
-            %th Actions
+            %th= t('.course_title')
+
+            - if @courses.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
+              %th= t('.actions')
 
         %tbody
           - @courses.each do |course|
             %tr
-              %td.col-xs-9
+              %td
                 = link_to_if policy(course).show?, course.title, course_path(course) do
                   = course.title
-              %td.col-xs-3
-                - if policy(course).edit?
-                  = link_to t('links.edit'), edit_course_path(course), class: 'btn btn-xs btn-primary'
-                - if policy(course).destroy?
-                  = link_to t('links.delete'), course, method: :delete,
-                            data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+
+              - if policy(course).tap { |p| break p.edit? || p.destroy? }
+                %td.col-xs-2.col-sm-3.col-md-2
+                  = link_to_edit(policy(course).edit?, edit_course_path(course))
+                  = link_to_destroy(policy(course).destroy?, course_path(course))
