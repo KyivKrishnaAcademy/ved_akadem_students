@@ -33,6 +33,7 @@ uk:
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:
     apply_to_program: 'Подати заяву'
+    back:             'Назад'
     crop_photo:       'Обрізати фотографію'
     delete:           'Видалити'
     edit:             'Редагувати'
@@ -40,7 +41,7 @@ uk:
     graduate:         'Випуск'
     list:             'Список'
     markup:           'Розмітити'
-    new:              'Новий'
+    new:              'Створити'
     show_passport:    'Показати паспорт'
     update:           'Зберегти'
     withdraw:         'Відкликати заяву'
@@ -79,6 +80,19 @@ uk:
     new:
       submit:   'Створити шаблон сертифікату'
       title:    'Створення шаблону сертифікату'
+  courses:
+    index:
+      actions:      'Дії'
+      course_title: 'Назва'
+      title:        'Предмети'
+    show:
+      actions:              'Дії'
+      associated_teachers:  'Викладачі предмету'
+      examination_title:    'Назва'
+      examinations:         'Залікові роботи'
+      max_result:           'Макс.'
+      min_result:           'Мін.'
+      passing_score:        'Прохідний'
   crops:
     crop_image:
       title:    'Кадрування зображення'
@@ -97,6 +111,13 @@ uk:
         new_password:           'Новий пароль'
         password_confirmation:  'Підтвердження нового паролю'
         change:                 'Змінити пароль'
+  examinations:
+    new:
+      form_title:     'Нова залікова робота'
+      submit_label:   'Створити залікову роботу'
+    edit:
+      form_title:     'Редагувати залікову роботу'
+      submit_label:   'Зберегти залікову роботу'
   users:
     emails:
       new:

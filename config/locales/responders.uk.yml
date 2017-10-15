@@ -8,3 +8,10 @@ uk:
       destroy:
         notice: "%{resource_name} був успішно видалений."
         alert: "%{resource_name} не вдалося видалити."
+    examinations:
+      create:
+        notice: "%{resource_name} була успішно створена."
+      update:
+        notice: "%{resource_name} була успішно оновлена."
+      destroy:
+        notice: "%{resource_name} була успішно видалена."

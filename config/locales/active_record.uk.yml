@@ -5,6 +5,12 @@ uk:
         establ_date:        'Дата створення'
         graduated_at:       'Дата закінчення'
         group_description:  'Опис групи'
+      examination:
+        description:    'Опис'
+        max_result:     'Максимальний бал'
+        min_result:     'Мінімальний бал'
+        passing_score:  'Прохідний бал'
+        title:          'Назва'
       person:
         birthday:               'День народження'
         current_password:       'Поточний пароль'
@@ -28,6 +34,7 @@ uk:
         data:             'Відповідь'
     models:
       certificate_template:   'Шаблон сертифікату'
+      examination:            'Залікова робота'
     errors:
       models:
         answer:
@@ -44,6 +51,12 @@ uk:
               availability: 'недоступна на цей час'
             teacher_profile:
               availability: 'недоступний на цей час'
+        examination:
+          attributes:
+            title:
+              blank:  'не може бути пуста'
+            passing_score:
+              inclusion:  'повинний бути між мінімальним та максимальним балами'
         person:
           blank:      'повинно бути заповнено'
           too_long:   'занадто довге (максимум %{count} символів)'
