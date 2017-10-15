@@ -89,7 +89,12 @@ describe 'academic_groups/show' do
 
         Then  { expect(rendered).to have_text(I18n.t('academic_groups.show.group_servants')) }
         And   { expect(rendered).to have_text(I18n.t("academic_groups.show.#{elder}")) }
-        And   { expect(rendered).to have_text(user.email) }
+
+        if elder == 'curator'
+          And { expect(rendered).not_to have_text(user.email) }
+        else
+          And { expect(rendered).to have_text(user.email) }
+        end
 
         (OPTIONAL_GROUP_ELDERS - [elder]).each do |missing_elder|
           And { expect(rendered).not_to have_text(I18n.t("academic_groups.show.#{missing_elder}")) }

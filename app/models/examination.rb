@@ -11,6 +11,6 @@ class Examination < ApplicationRecord
 
     return true if range.include?(passing_score)
 
-    errors.add(:passing_score, :inclusion, { value: range })
+    errors.add(:passing_score, :inclusion, value: range)
   end
 end

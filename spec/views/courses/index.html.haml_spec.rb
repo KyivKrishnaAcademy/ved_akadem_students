@@ -15,9 +15,9 @@ describe 'courses/index' do
 
   describe 'conditional links' do
     Given(:row) { page.find('tbody tr', text: course.title) }
-    Given(:table_container) { page.find('.row', text: 'Listing courses') }
+    Given(:table_container) { page.find('.row', text: I18n.t('courses.index.title')) }
 
-    Given(:no_new_link) { expect(table_container).not_to have_link('New Course', href: new_course_path) }
+    Given(:no_new_link) { expect(table_container).not_to have_link('', href: new_course_path) }
     Given(:no_show_link) { expect(row).not_to have_link(course.title, href: course_path(course)) }
 
     Given(:no_edit_link) do
@@ -47,7 +47,7 @@ describe 'courses/index' do
     context 'with :new rights' do
       Given(:activities) { %w(course:index course:new) }
 
-      Then { expect(table_container).to have_link('New Course', href: new_course_path) }
+      Then { expect(table_container).to have_link('', href: new_course_path) }
       And  { no_show_link }
       And  { no_edit_link }
       And  { no_destroy_link }

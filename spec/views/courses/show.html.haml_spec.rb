@@ -8,6 +8,8 @@ describe 'courses/show' do
   Given(:course_title) { 'Bhakta Program' }
 
   Given { allow(view).to receive(:policy).with(course).and_return(CoursePolicy.new(user, course)) }
+  Given { allow(view).to receive(:policy).with(Course).and_return(CoursePolicy.new(user, Course)) }
+  Given { allow(view).to receive(:policy).with(Examination).and_return(CoursePolicy.new(user, Examination)) }
 
   Given { assign(:course, course) }
   Given { sign_in(user) }
