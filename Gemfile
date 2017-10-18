@@ -40,6 +40,7 @@ gem 'sentry-raven'
 
 group :assets_builder, :development, :test do
   gem 'bootstrap-sass'
+  gem 'autoprefixer-rails'
   gem 'bootstrap3-datetimepicker-rails'
   gem 'coffee-rails'
   gem 'font-awesome-sass'
