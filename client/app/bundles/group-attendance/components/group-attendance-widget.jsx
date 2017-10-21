@@ -22,7 +22,7 @@ export default class GroupAttendanceWidget extends React.Component {
   };
 
   componentDidUpdate() {
-    window.adjustAttendanceHeaders();
+    window.adjustAttendanceHeaders('.scrollable-header');
   }
 
   render() {
@@ -45,18 +45,18 @@ export default class GroupAttendanceWidget extends React.Component {
     );
 
     return (
-      <div className="groupAttendanceTable col-xs-12 vert-offset-top-1 vert-offset-bottom-3">
+      <div className="groupScrollableTable col-xs-12 vert-offset-top-1 vert-offset-bottom-3">
         <Loader visible={loading} />
 
         <div className="people-row">
-          <div className="people-header">
+          <div className="scrollable-header">
             <FetchAttendanceButton {...{ getAttendance }} />
           </div>
 
           {peopleNames}
         </div>
 
-        <div className="attendance-rows">
+        <div className="scrollable-rows">
           {attendanceRows}
         </div>
       </div>

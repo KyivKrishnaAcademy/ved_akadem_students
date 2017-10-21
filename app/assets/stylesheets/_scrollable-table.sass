@@ -1,28 +1,27 @@
-.groupAttendanceTable
+.groupScrollableTable
   display: flex
 
-  .attendance-rows
+  .scrollable-rows
     display: flex
     overflow-x: scroll
     overflow-y: hidden
     padding-right: 1px
     padding-bottom: 1em
 
-  .attendance-row
+  .scrollable-row
     margin-right: -1px
 
     .cell
       text-align: center
 
-  .people-header,
-  .attendance-header
+  .scrollable-header
     display: flex
     align-items: center
     margin-bottom: .5em
     flex-direction: column
     justify-content: flex-end
 
-  .time-n-place
+  .pivoted-content
     transform: rotate(180deg)
     writing-mode: tb-rl
     white-space: nowrap
