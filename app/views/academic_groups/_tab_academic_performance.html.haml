@@ -1,0 +1,11 @@
+.row.vert-offset-top-1
+  .col-xs-12
+    - content_for(:js_and_css) do
+      = javascript_include_tag 'generated/group-performance-bundle', type: 'text/javascript'
+
+      %link{rel: "stylesheet", href: "https://unpkg.com/react-rangeslider/umd/rangeslider.min.css"}
+
+    = react_component('GroupPerformanceApp', props: { people: people,
+                                                      examinations: examinations,
+                                                      localization: attendance_localization,
+                                                      examinationResults: examination_results })

@@ -33,5 +33,5 @@ $ ->
     html: true
   })
 
-  $('a[href="#group_attendance"]').on 'shown.bs.tab', () ->
+  $('a[href="#group_attendance"], a[href="#academic_performance"]').on 'shown.bs.tab', () ->
     window.adjustAttendanceHeaders('.scrollable-header')

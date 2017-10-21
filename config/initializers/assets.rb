@@ -16,6 +16,7 @@ Rails.application.config.assets.precompile += %w(
   generated/react-bundle.js
   generated/schedule-list-bundle.js
   generated/group-attendance-bundle.js
+  generated/group-performance-bundle.js
 
   cert_template_markup.js
 
