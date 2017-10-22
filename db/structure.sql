@@ -448,7 +448,7 @@ CREATE TABLE courses_programs (
 CREATE TABLE examination_results (
     id integer NOT NULL,
     examination_id integer,
-    person_id integer,
+    student_profile_id integer,
     score integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1371,10 +1371,10 @@ CREATE INDEX index_examination_results_on_examination_id ON examination_results 
 
 
 --
--- Name: index_examination_results_on_person_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_examination_results_on_student_profile_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_examination_results_on_person_id ON examination_results USING btree (person_id);
+CREATE INDEX index_examination_results_on_student_profile_id ON examination_results USING btree (student_profile_id);
 
 
 --
@@ -1443,11 +1443,11 @@ ALTER TABLE ONLY examination_results
 
 
 --
--- Name: fk_rails_ea1de85ad3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_786b08cf9b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY examination_results
-    ADD CONSTRAINT fk_rails_ea1de85ad3 FOREIGN KEY (person_id) REFERENCES people(id);
+    ADD CONSTRAINT fk_rails_786b08cf9b FOREIGN KEY (student_profile_id) REFERENCES student_profiles(id);
 
 
 --

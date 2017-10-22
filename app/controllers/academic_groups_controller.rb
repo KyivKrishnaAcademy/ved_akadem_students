@@ -102,7 +102,6 @@ class AcademicGroupsController < ApplicationController
         end
 
         {
-          id: p.id,
           name: p.short_name,
           photoPath: photo_path,
           studentProfileId: p.student_profile.id
@@ -114,14 +113,14 @@ class AcademicGroupsController < ApplicationController
     ExaminationResult
       .where(
         examination_id: @examinations.map { |e| e[:id] },
-        person_id: @academic_group.active_students.map(&:id)
+        student_profile_id: @academic_group.active_students.joins(:student_profile).map { |p| p.student_profile.id }
       )
       .map do |er|
         {
           id: er.id,
           score: er.score,
-          personId: er.person_id,
-          examinationId: er.examination_id
+          examinationId: er.examination_id,
+          studentProfileId: er.student_profile_id
         }
       end
   end

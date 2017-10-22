@@ -9,18 +9,18 @@ function examinationResultsObj(people, examinations, examinationResults) {
 
   examinationResults.forEach(examinationResult => {
     const examId = examinationResult.examinationId;
-    const personId = examinationResult.personId;
+    const studentProfileId = examinationResult.studentProfileId;
 
     if (!result[examId]) result[examId] = {};
 
-    result[examId][personId] = examinationResult;
+    result[examId][studentProfileId] = examinationResult;
   });
 
   examinations.forEach(examination => {
     if (!result[examination.id]) result[examination.id] = {};
 
     people.forEach(person => {
-      if (!result[examination.id][person.id]) result[examination.id][person.id] = {};
+      if (!result[examination.id][person.studentProfileId]) result[examination.id][person.studentProfileId] = {};
     });
   });
 

@@ -7,8 +7,8 @@ export default class PerformanceEditor extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
       people: PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
+        studentProfileId: PropTypes.number.isRequired,
       })).isRequired,
       editPersonId: PropTypes.number.isRequired,
       examinations: PropTypes.array.isRequired,
@@ -74,7 +74,7 @@ export default class PerformanceEditor extends React.Component {
     } = this.props;
 
     const loading = false;
-    const person = people.find(psn => psn.id === editPersonId) || {};
+    const person = people.find(psn => psn.studentProfileId === editPersonId) || {};
     const examination = examinations.find(ex => ex.id === editExaminationId) || {};
 
     const { value } = this.state;
