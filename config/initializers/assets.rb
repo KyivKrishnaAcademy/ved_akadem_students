@@ -32,6 +32,8 @@ Rails.application.config.assets.precompile += %w(
   select2.min.js
   select2.min.css
 
+  range-slider
+
   sentry-raven.js
 )
 

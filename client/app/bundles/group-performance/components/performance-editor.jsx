@@ -79,6 +79,12 @@ export default class PerformanceEditor extends React.Component {
 
     const { value } = this.state;
 
+    const labels = {
+      [examination.minResult]: 'min',
+      [examination.passingScore]: 'passing',
+      [examination.maxResult]: 'max',
+    };
+
     return (
       <div
         id="examinationResultEditorModal"
@@ -116,17 +122,15 @@ export default class PerformanceEditor extends React.Component {
                   <h4 className="text-center">
                     <p>{examination.description}</p>
 
-                    <div className="slider">
-                    <div className="value"> Passing score: {examination.passingScore}</div>
-
+                    <div className="slider custom-labels">
                       <Slider
                         min={examination.minResult || 0}
                         max={examination.maxResult || 1}
                         value={value}
+                        labels={labels}
                         onChange={this.handleChange}
+                        handleLabel={value}
                       />
-
-                      <div className="value">{value}</div>
                     </div>
                   </h4>
                 </div>
