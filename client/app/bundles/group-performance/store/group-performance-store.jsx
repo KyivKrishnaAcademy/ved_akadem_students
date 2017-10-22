@@ -4,6 +4,29 @@ import thunkMiddleware from 'redux-thunk';
 
 import reducer, { initialStates } from '../reducers/root-reducer';
 
+function examinationResultsObj(people, examinations, examinationResults) {
+  const result = {};
+
+  examinationResults.forEach(examinationResult => {
+    const examId = examinationResult.examinationId;
+    const personId = examinationResult.personId;
+
+    if (!result[examId]) result[examId] = {};
+
+    result[examId][personId] = examinationResult;
+  });
+
+  examinations.forEach(examination => {
+    if (!result[examination.id]) result[examination.id] = {};
+
+    people.forEach(person => {
+      if (!result[examination.id][person.id]) result[examination.id][person.id] = {};
+    });
+  });
+
+  return result;
+}
+
 export default props => {
   const { people, examinations, localization, examinationResults } = props;
   const { groupPerformanceState } = initialStates;
@@ -14,7 +37,7 @@ export default props => {
       people,
       examinations,
       localization,
-      examinationResults,
+      examinationResults: examinationResultsObj(people, examinations, examinationResults),
     },
   };
 

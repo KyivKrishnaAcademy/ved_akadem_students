@@ -1,33 +1,36 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Slider from 'react-rangeslider';
 
 import Loader from '../../../lib/components/loader';
 
 export default class PerformanceEditor extends React.Component {
   static propTypes = {
-
+    data: PropTypes.shape({
+      people: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+      })).isRequired,
+      editPersonId: PropTypes.number.isRequired,
+      examinations: PropTypes.array.isRequired,
+      editExaminationId: PropTypes.number.isRequired,
+      examinationResults: PropTypes.object.isRequired,
+    }).isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
 
+    const { data: { editPersonId, editExaminationId, examinationResults } } = props;
+
     this.state = {
-      value: 10,
+      value: (examinationResults[editExaminationId] || {})[editPersonId] || 0,
     };
   }
-
-  handleChangeStart = () => {
-    console.log('Change event started');
-  };
 
   handleChange = value => {
     this.setState({
       value,
     });
-  };
-
-  handleChangeComplete = () => {
-    console.log('Change event completed');
   };
 
   // constructor(props, context) {
@@ -66,12 +69,13 @@ export default class PerformanceEditor extends React.Component {
   // }
 
   render() {
-    // const {
-    //   data: { people, loading, localization, selectedPersonIndex },
-    //   actions: { nextPerson, previousPerson },
-    // } = this.props;
+    const {
+      data: { people, editPersonId, examinations, editExaminationId },
+    } = this.props;
 
     const loading = false;
+    const person = people.find(psn => psn.id === editPersonId) || {};
+    const examination = examinations.find(ex => ex.id === editExaminationId) || {};
 
     const { value } = this.state;
 
@@ -98,9 +102,11 @@ export default class PerformanceEditor extends React.Component {
               </button>
 
               <h4 className="modal-title text-center">
-                <b>classSchedule.courseTitle</b>
+                <b>{person.name}</b>
                 <br/>
-                classSchedule.date
+                <b>{examination.title}</b>
+                <br/>
+                {examination.courseTitle}
               </h4>
             </div>
 
@@ -108,17 +114,18 @@ export default class PerformanceEditor extends React.Component {
               <div className="row">
                 <div className="col-sm-12">
                   <h4 className="text-center">
-                    person.name
+                    <p>{examination.description}</p>
 
                     <div className="slider">
+                    <div className="value"> Passing score: {examination.passingScore}</div>
+
                       <Slider
-                        min={0}
-                        max={100}
+                        min={examination.minResult || 0}
+                        max={examination.maxResult || 1}
                         value={value}
-                        onChangeStart={this.handleChangeStart}
                         onChange={this.handleChange}
-                        onChangeComplete={this.handleChangeComplete}
                       />
+
                       <div className="value">{value}</div>
                     </div>
                   </h4>

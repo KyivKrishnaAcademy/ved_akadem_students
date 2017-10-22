@@ -16,12 +16,7 @@ export default class PerformanceRow extends React.Component {
       description: PropTypes.string.isRequired,
       passingScore: PropTypes.number.isRequired,
     }).isRequired,
-    examinationResults: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      score: PropTypes.number.isRequired,
-      personId: PropTypes.number.isRequired,
-      examinationId: PropTypes.number.isRequired,
-    })).isRequired,
+    examinationResults: PropTypes.object.isRequired,
     toggleEditRow: PropTypes.func.isRequired,
     editRowExaminationId: PropTypes.number.isRequired,
     openExaminationResultEditor: PropTypes.func.isRequired,
@@ -53,7 +48,7 @@ export default class PerformanceRow extends React.Component {
     const performanceMarkers = peopleIds.map(personId =>
       <PerformanceMarker
         key={personId}
-        status={examinationResults[personId] && examinationResults[personId].presence}
+        status={examinationResults[personId] && examinationResults[personId].score}
         personId={personId}
         examinationId={examination.id}
         isEditExamination={editRowExaminationId === examination.id}

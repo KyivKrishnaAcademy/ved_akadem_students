@@ -102,6 +102,7 @@ class AcademicGroupsController < ApplicationController
         end
 
         {
+          id: p.id,
           name: p.short_name,
           photoPath: photo_path,
           studentProfileId: p.student_profile.id
@@ -118,6 +119,7 @@ class AcademicGroupsController < ApplicationController
       .map do |er|
         {
           id: er.id,
+          score: er.score,
           personId: er.person_id,
           examinationId: er.examination_id
         }

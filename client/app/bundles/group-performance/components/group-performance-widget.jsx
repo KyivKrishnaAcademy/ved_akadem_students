@@ -18,13 +18,8 @@ export default class GroupPerformanceWidget extends React.Component {
       description: PropTypes.string.isRequired,
       passingScore: PropTypes.number.isRequired,
     })).isRequired,
-    examinationResults: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      score: PropTypes.number.isRequired,
-      personId: PropTypes.number.isRequired,
-      examinationId: PropTypes.number.isRequired,
-    })).isRequired,
     toggleEditRow: PropTypes.func.isRequired,
+    examinationResults: PropTypes.object.isRequired,
     editRowExaminationId: PropTypes.number.isRequired,
     openExaminationResultEditor: PropTypes.func.isRequired,
   };
@@ -56,7 +51,7 @@ export default class GroupPerformanceWidget extends React.Component {
         peopleIds={peopleIds}
         examination={examination}
         toggleEditRow={toggleEditRow}
-        examinationResults={examinationResults}
+        examinationResults={examinationResults[examination.id]}
         editRowExaminationId={editRowExaminationId}
         openExaminationResultEditor={openExaminationResultEditor}
       />

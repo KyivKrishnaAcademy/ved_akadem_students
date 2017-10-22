@@ -23,7 +23,9 @@ class GroupPerformance extends React.Component {
     const {
       people,
       loading,
+      editPersonId,
       examinations,
+      editExaminationId,
       examinationResults,
       editRowExaminationId,
     } = groupPerformanceStore;
@@ -47,7 +49,17 @@ class GroupPerformance extends React.Component {
           }}
         />
 
-        <PerformanceEditor />
+        <PerformanceEditor
+          {...{
+            data: {
+              people,
+              editPersonId,
+              examinations,
+              editExaminationId,
+              examinationResults,
+            },
+          }}
+        />
       </div>
     );
   }

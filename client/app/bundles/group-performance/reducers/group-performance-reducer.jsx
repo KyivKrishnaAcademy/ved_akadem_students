@@ -2,6 +2,8 @@ import actionTypes from '../constants/group-performance-constants';
 
 export const initialState = {
   loading: false,
+  editPersonId: 0,
+  editExaminationId: 0,
   editRowExaminationId: 0,
 };
 
@@ -22,6 +24,8 @@ export default function groupPerformanceReducer(state = initialState, action) {
     case actionTypes.OPEN_EXAMINATION_RESULT_EDITOR:
       return {
         ...state,
+        editPersonId: action.personId,
+        editExaminationId: action.examinationId,
       };
 
     case actionTypes.TOGGLE_EDIT_ROW:
