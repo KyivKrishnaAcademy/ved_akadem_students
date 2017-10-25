@@ -10,22 +10,27 @@ export default class PerformanceEditor extends React.Component {
         name: PropTypes.string.isRequired,
         studentProfileId: PropTypes.number.isRequired,
       })).isRequired,
-      editPersonId: PropTypes.number.isRequired,
+      loading: PropTypes.bool.isRequired,
       examinations: PropTypes.array.isRequired,
       editExaminationId: PropTypes.number.isRequired,
       examinationResults: PropTypes.object.isRequired,
+      editStudentProfileId: PropTypes.number.isRequired,
+    }).isRequired,
+    actions: PropTypes.shape({
+      asyncSaveResult: PropTypes.func.isRequired,
+      asyncDeleteResult: PropTypes.func.isRequired,
     }).isRequired,
   };
 
   constructor(props, context) {
     super(props, context);
 
-    const { data: { editPersonId, editExaminationId, examinationResults } } = props;
-
-    this.state = {
-      value: (examinationResults[editExaminationId] || {})[editPersonId] || 0,
-    };
+    this.state = this.initialState(props.data);
   }
+
+  componentWillReceiveProps = nextProps => {
+    this.setState(this.initialState(nextProps.data));
+  };
 
   handleChange = value => {
     this.setState({
@@ -33,48 +38,41 @@ export default class PerformanceEditor extends React.Component {
     });
   };
 
-  // constructor(props, context) {
-  //   super(props, context);
+  initialState = ({ editStudentProfileId, editExaminationId, examinationResults }) => {
+    const examinationResult = (examinationResults[editExaminationId] || {})[editStudentProfileId] || {};
 
-  //   bindAll(
-  //     this,
-  //     'getPerson',
-  //     'getSchedule',
-  //     'markUnknown',
-  //     'markPresence',
-  //     'getAttendance',
-  //   );
-  // }
+    return {
+      value: examinationResult.score || 0,
+      examinationResultId: examinationResult.id,
+    };
+  };
 
-  // markUnknown() {
-  //   this.props.actions.asyncMarkUnknown(
-  //     this.getPerson().studentProfileId,
-  //     this.getSchedule().id,
-  //     this.getAttendance().id,
-  //   );
-  // }
+  deleteResult = () => {
+    const {
+      data: { editStudentProfileId, editExaminationId },
+      actions: { asyncDeleteResult },
+    } = this.props;
 
-  // markPresence(neededPresence) {
-  //   return () => {
-  //     const attendance = this.getAttendance();
+    asyncDeleteResult(this.state.examinationResultId, editExaminationId, editStudentProfileId);
+  };
 
-  //     this.props.actions.asyncMarkPresence(
-  //       this.getPerson().studentProfileId,
-  //       this.getSchedule().id,
-  //       attendance.id,
-  //       attendance.presence,
-  //       neededPresence,
-  //     );
-  //   };
-  // }
+  saveResult = () => {
+    const {
+      data: { editStudentProfileId, editExaminationId },
+      actions: { asyncSaveResult },
+    } = this.props;
+
+    const { value, examinationResultId } = this.state;
+
+    asyncSaveResult(examinationResultId, value, editExaminationId, editStudentProfileId);
+  };
 
   render() {
     const {
-      data: { people, editPersonId, examinations, editExaminationId },
+      data: { people, loading, editStudentProfileId, examinations, editExaminationId },
     } = this.props;
 
-    const loading = false;
-    const person = people.find(psn => psn.studentProfileId === editPersonId) || {};
+    const person = people.find(psn => psn.studentProfileId === editStudentProfileId) || {};
     const examination = examinations.find(ex => ex.id === editExaminationId) || {};
 
     const { value } = this.state;
@@ -93,7 +91,7 @@ export default class PerformanceEditor extends React.Component {
         className="modal fade"
         aria-labelledby="gridSystemModalLabel"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-sm" role="document">
           <div className="modal-content">
             <Loader visible={loading} />
 
@@ -140,7 +138,21 @@ export default class PerformanceEditor extends React.Component {
             <div className="modal-footer text-center">
               <div className="row">
                 <div className="col-sm-12 text-center">
-                  footer
+                  <button
+                    type="button"
+                    onClick={this.saveResult}
+                    className="btn btn-primary"
+                  >
+                    Save
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={this.deleteResult}
+                    className="btn btn-danger"
+                  >
+                    Destroy
+                  </button>
                 </div>
               </div>
             </div>

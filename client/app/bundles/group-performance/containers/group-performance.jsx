@@ -23,15 +23,17 @@ class GroupPerformance extends React.Component {
     const {
       people,
       loading,
-      editPersonId,
       examinations,
       editExaminationId,
       examinationResults,
+      editStudentProfileId,
       editRowExaminationId,
     } = groupPerformanceStore;
 
     const {
       toggleEditRow,
+      asyncSaveResult,
+      asyncDeleteResult,
       openExaminationResultEditor,
     } = actions;
 
@@ -53,10 +55,15 @@ class GroupPerformance extends React.Component {
           {...{
             data: {
               people,
-              editPersonId,
+              loading,
               examinations,
               editExaminationId,
               examinationResults,
+              editStudentProfileId,
+            },
+            actions: {
+              asyncSaveResult,
+              asyncDeleteResult,
             },
           }}
         />

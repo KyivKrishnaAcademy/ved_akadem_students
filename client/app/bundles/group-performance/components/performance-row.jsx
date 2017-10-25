@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 
-import bindAll from '../../../lib/helpers/bind-all';
 import Button from '../../../lib/components/bootstrap-button';
 import PerformanceMarker from './performance-marker';
 
@@ -22,15 +21,7 @@ export default class PerformanceRow extends React.Component {
     openExaminationResultEditor: PropTypes.func.isRequired,
   };
 
-  constructor(props, context) {
-    super(props, context);
-
-    bindAll(this, 'toggleEditRow');
-  }
-
-  toggleEditRow() {
-    this.props.toggleEditRow(this.props.examination.id);
-  }
+  toggleEditRow = () => this.props.toggleEditRow(this.props.examination.id);
 
   render() {
     const {
@@ -48,10 +39,11 @@ export default class PerformanceRow extends React.Component {
     const performanceMarkers = peopleIds.map(personId =>
       <PerformanceMarker
         key={personId}
-        status={examinationResults[personId] && examinationResults[personId].score}
+        score={examinationResults[personId] && examinationResults[personId].score}
         personId={personId}
         examinationId={examination.id}
         isEditExamination={editRowExaminationId === examination.id}
+        examinationPassingScore={examination.passingScore}
         openExaminationResultEditor={openExaminationResultEditor}
       />
     );
