@@ -9,6 +9,7 @@ export default class GroupPerformanceWidget extends React.Component {
       name: PropTypes.string.isRequired,
     })).isRequired,
     loading: PropTypes.bool.isRequired,
+    canManage: PropTypes.bool.isRequired,
     examinations: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
@@ -33,6 +34,7 @@ export default class GroupPerformanceWidget extends React.Component {
     const {
       people,
       loading,
+      canManage,
       examinations,
       toggleEditRow,
       examinationResults,
@@ -49,6 +51,7 @@ export default class GroupPerformanceWidget extends React.Component {
       <PerformanceRow
         key={index}
         peopleIds={peopleIds}
+        canManage={canManage}
         examination={examination}
         toggleEditRow={toggleEditRow}
         examinationResults={examinationResults[examination.id]}

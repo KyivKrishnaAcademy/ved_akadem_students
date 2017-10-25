@@ -23,6 +23,7 @@ class GroupPerformance extends React.Component {
     const {
       people,
       loading,
+      canManage,
       examinations,
       editExaminationId,
       examinationResults,
@@ -43,6 +44,7 @@ class GroupPerformance extends React.Component {
           {...{
             people,
             loading,
+            canManage,
             examinations,
             toggleEditRow,
             examinationResults,

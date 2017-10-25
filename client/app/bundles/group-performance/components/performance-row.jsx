@@ -5,6 +5,7 @@ import PerformanceMarker from './performance-marker';
 
 export default class PerformanceRow extends React.Component {
   static propTypes = {
+    canManage: PropTypes.bool.isRequired,
     peopleIds: PropTypes.arrayOf(PropTypes.number).isRequired,
     examination: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -25,6 +26,7 @@ export default class PerformanceRow extends React.Component {
 
   render() {
     const {
+      canManage,
       peopleIds,
       examination,
       examinationResults,
@@ -48,7 +50,7 @@ export default class PerformanceRow extends React.Component {
       />
     );
 
-    const editButton = true // canManage
+    const editButton = canManage
     ?
       <Button
         icon="pencil"

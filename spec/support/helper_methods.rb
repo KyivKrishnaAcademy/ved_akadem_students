@@ -84,4 +84,8 @@ module HelperMethods
   def examination_activities
     %w(new update index create edit destroy show).map { |action| 'examination:' << action }
   end
+
+  def examination_results
+    %w(ui_update ui_create ui_destroy).map { |action| 'examination_result:' << action }
+  end
 end

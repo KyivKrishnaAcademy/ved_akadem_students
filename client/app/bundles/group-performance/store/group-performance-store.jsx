@@ -28,13 +28,14 @@ function examinationResultsObj(people, examinations, examinationResults) {
 }
 
 export default props => {
-  const { people, examinations, localization, examinationResults } = props;
+  const { people, canManage, examinations, localization, examinationResults } = props;
   const { groupPerformanceState } = initialStates;
 
   const initialState = {
     groupPerformanceStore: {
       ...groupPerformanceState,
       people,
+      canManage,
       examinations,
       localization,
       examinationResults: examinationResultsObj(people, examinations, examinationResults),
