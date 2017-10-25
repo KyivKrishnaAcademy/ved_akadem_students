@@ -22,6 +22,12 @@ describe 'academic_groups/show' do
   Given { allow(view).to receive(:policy).with(Attendance).and_return(AttendancePolicy.new(user, Attendance)) }
   Given { allow(view).to receive(:current_person).and_return(user) }
 
+  Given do
+    allow(view).to(
+      receive(:policy).with(ExaminationResult).and_return(ExaminationResultPolicy.new(user, ExaminationResult))
+    )
+  end
+
   When  { render }
 
   Given(:pdf_photos_link) { "a.glyphicon-print[href='#{group_list_pdf_path(group)}']" }
