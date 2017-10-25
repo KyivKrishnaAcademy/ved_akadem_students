@@ -127,7 +127,7 @@ export default class PerformanceEditor extends React.Component {
                         value={value}
                         labels={labels}
                         onChange={this.handleChange}
-                        handleLabel={value}
+                        handleLabel={`${value}`}
                       />
                     </div>
                   </h4>
