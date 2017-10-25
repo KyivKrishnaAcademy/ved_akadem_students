@@ -181,6 +181,13 @@ uk:
       forth:    'Вперед'
       present:  'Присутній'
       unknown:  'Невідомо'
+  group_performance:
+    editor:
+      min:      'мін.'
+      max:      'макс.'
+      save:     'Зберегти'
+      delete:   'Видалити'
+      passing:  'прохідний'
   journals:
     show:
       created_at: 'Час'

@@ -181,6 +181,13 @@ ru:
       forth:    'Вперед'
       present:  'Присутствует'
       unknown:  'Не известно'
+  group_performance:
+    editor:
+      min:      'мин.'
+      max:      'макс.'
+      save:     'Сохранить'
+      delete:   'Удалить'
+      passing:  'проходной'
   journals:
     show:
       created_at: 'Время'

@@ -12,6 +12,13 @@ export default class PerformanceEditor extends React.Component {
       })).isRequired,
       loading: PropTypes.bool.isRequired,
       examinations: PropTypes.array.isRequired,
+      localization: PropTypes.shape({
+        min: PropTypes.string.isRequired,
+        max: PropTypes.string.isRequired,
+        save: PropTypes.string.isRequired,
+        delete: PropTypes.string.isRequired,
+        passing: PropTypes.string.isRequired,
+      }).isRequired,
       editExaminationId: PropTypes.number.isRequired,
       examinationResults: PropTypes.object.isRequired,
       editStudentProfileId: PropTypes.number.isRequired,
@@ -69,7 +76,7 @@ export default class PerformanceEditor extends React.Component {
 
   render() {
     const {
-      data: { people, loading, editStudentProfileId, examinations, editExaminationId },
+      data: { people, loading, editStudentProfileId, examinations, localization, editExaminationId },
     } = this.props;
 
     const person = people.find(psn => psn.studentProfileId === editStudentProfileId) || {};
@@ -78,9 +85,9 @@ export default class PerformanceEditor extends React.Component {
     const { value } = this.state;
 
     const labels = {
-      [examination.minResult]: 'min',
-      [examination.passingScore]: 'passing',
-      [examination.maxResult]: 'max',
+      [examination.minResult]: localization.min,
+      [examination.passingScore]: localization.passing,
+      [examination.maxResult]: localization.max,
     };
 
     return (
@@ -143,7 +150,7 @@ export default class PerformanceEditor extends React.Component {
                     onClick={this.saveResult}
                     className="btn btn-primary"
                   >
-                    Save
+                    {localization.save}
                   </button>
 
                   <button
@@ -151,7 +158,7 @@ export default class PerformanceEditor extends React.Component {
                     onClick={this.deleteResult}
                     className="btn btn-danger"
                   >
-                    Destroy
+                    {localization.delete}
                   </button>
                 </div>
               </div>
