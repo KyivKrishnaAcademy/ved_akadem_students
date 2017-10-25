@@ -5,3 +5,6 @@ uk:
         subject: "Вас відраховано з групи %{group_title}"
       join:
         subject: "Вас зараховано до групи %{group_title}"
+    programm_applications:
+      submitted:
+        subject: "Новий студент подав заяву: %{name}"

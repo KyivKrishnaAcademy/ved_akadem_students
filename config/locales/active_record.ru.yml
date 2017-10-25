@@ -5,6 +5,12 @@ ru:
         establ_date:        'Дата создания'
         graduated_at:       'Дата окончания'
         group_description:  'Описание группы'
+      examination:
+        description:    'Описание'
+        max_result:     'Максимальний бал'
+        min_result:     'Минимальний бал'
+        passing_score:  'Проходной бал'
+        title:          'Название'
       person:
         birthday:               'День рождения'
         current_password:       'Текущий пароль'
@@ -28,6 +34,7 @@ ru:
         data:             'Ответ'
     models:
       certificate_template:   'Шаблон сертификата'
+      examination:            'Зачетная работа'
     errors:
       models:
         answer:
@@ -44,6 +51,12 @@ ru:
               availability: 'не доступная на это время'
             teacher_profile:
               availability: 'не доступен на это время'
+        examination:
+          attributes:
+            title:
+              blank:  'не может быть пустым'
+            passing_score:
+              inclusion:  'должен быть между минимальным и максимальным балами'
         person:
           blank:      'должно быть заполнено'
           too_long:   'слишком длинное (максимум %{count} символов)'

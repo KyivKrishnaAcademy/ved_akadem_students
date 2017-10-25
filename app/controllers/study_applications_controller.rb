@@ -11,6 +11,8 @@ class StudyApplicationsController < ApplicationController
 
     common_handle(@study_application, :create) do |study_applicaiton|
       study_applicaiton.person.add_application_questionnaires
+
+      ProgrammApplicationsMailer.submitted(study_applicaiton.person, study_applicaiton.program).deliver_later
     end
   end
 

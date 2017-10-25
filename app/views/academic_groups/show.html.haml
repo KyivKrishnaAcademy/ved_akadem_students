@@ -25,6 +25,8 @@
         = link_to t('.tab_group_list'), '#group_list', data: { toggle: 'tab' }
       %li
         = link_to t('.tab_attendance'), '#group_attendance', data: { toggle: 'tab' }
+      %li
+        = link_to t('.tab_academic_performance'), '#academic_performance', data: { toggle: 'tab' }
 
     .tab-content
       .tab-pane#general.active
@@ -35,3 +37,8 @@
         = render 'tab_student_list', students: @academic_group.active_students, academic_group: @academic_group
       .tab-pane#group_attendance
         = render 'tab_attendance', academic_group_id: @academic_group.id, people: @people_for_attendance
+      .tab-pane#academic_performance
+        = render 'tab_academic_performance',
+                 people: @people_for_attendance,
+                 examinations: @examinations,
+                 examination_results: @examination_results

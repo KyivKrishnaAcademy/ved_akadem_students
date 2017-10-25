@@ -42,9 +42,9 @@ export default class AttendanceRow extends React.Component {
       : null;
 
     return (
-      <div className="attendance-row">
-        <div className="attendance-header">
-          <div className="time-n-place vert-offset-bottom-1">
+      <div className="scrollable-row">
+        <div className="scrollable-header">
+          <div className="pivoted-content vert-offset-bottom-1">
             <b>{courseTitle}</b>
             <br/>
             {date}

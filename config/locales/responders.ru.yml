@@ -8,3 +8,10 @@ ru:
       destroy:
         notice: "%{resource_name} был успешно удален."
         alert: "%{resource_name} не удалось удалить."
+    examinations:
+      create:
+        notice: "%{resource_name} была успешно создана."
+      update:
+        notice: "%{resource_name} была успешно обновлена."
+      destroy:
+        notice: "%{resource_name} была успешно удалена."

@@ -25,6 +25,7 @@ module.exports = {
 
     'schedule-list': './app/bundles/ScheduleList/startup/clientRegistration',
     'group-attendance': './app/bundles/group-attendance/startup/client-registration',
+    'group-performance': './app/bundles/group-performance/startup/client-registration',
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],

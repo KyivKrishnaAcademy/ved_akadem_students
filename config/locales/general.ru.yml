@@ -33,6 +33,7 @@ ru:
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:
     apply_to_program: 'Подать заявление'
+    back:             'Назад'
     crop_photo:       'Обрезать фотографию'
     delete:           'Удалить'
     edit:             'Редактировать'
@@ -40,7 +41,7 @@ ru:
     graduate:         'Выпуск'
     list:             'Список'
     markup:           'Разметить'
-    new:              'Новый'
+    new:              'Создать'
     show_passport:    'Показать паспорт'
     update:           'Сохранить'
     withdraw:         'Отозвать заявление'
@@ -79,6 +80,19 @@ ru:
     new:
       submit:   'Создать шаблон сертификата'
       title:    'Создание шаблона сертификата'
+  courses:
+    index:
+      actions:      'Действия'
+      course_title: 'Название'
+      title:        'Предметы'
+    show:
+      actions:              'Действия'
+      associated_teachers:  'Преподаватели предмета'
+      examination_title:    'Название'
+      examinations:         'Зачетные работы'
+      max_result:           'Макс.'
+      min_result:           'Мин.'
+      passing_score:        'Проходной'
   crops:
     crop_image:
       title:        'Кадрирование изображения'
@@ -97,6 +111,13 @@ ru:
         new_password:           'Новий пароль'
         password_confirmation:  'Подтверждение нового пароля'
         change:                 'Изменить пароль'
+  examinations:
+    new:
+      form_title:     'Новая зачетная работа'
+      submit_label:   'Создать зачетную работу'
+    edit:
+      form_title:     'Редактировать зачетную работу'
+      submit_label:   'Сохранить зачетную работу'
   users:
     emails:
       new:
@@ -137,6 +158,7 @@ ru:
       photo:                    'Фото'
       prabhu_count:             'Прабху'
       praepostor:               'Староста'
+      tab_academic_performance: 'Успеваемость'
       tab_attendance:           'Посещаемость'
       tab_general:              'Осмотр'
       tab_group_list:           'Список группы'
@@ -159,6 +181,13 @@ ru:
       forth:    'Вперед'
       present:  'Присутствует'
       unknown:  'Не известно'
+  group_performance:
+    editor:
+      min:      'мин.'
+      max:      'макс.'
+      save:     'Сохранить'
+      delete:   'Удалить'
+      passing:  'проходной'
   journals:
     show:
       created_at: 'Время'

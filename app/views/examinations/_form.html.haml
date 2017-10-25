@@ -1,0 +1,20 @@
+.row
+  .col-xs-12
+    %h1.text-center= form_title
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    = link_to_back(policy(examination.course).index?, course_path(examination.course))
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = simple_form_for [examination.course, examination] do |f|
+      = render 'shared/error_messages', object: f.object
+
+      = f.input :title
+      = f.input :description
+      = f.input :min_result
+      = f.input :max_result
+      = f.input :passing_score
+
+      = f.button :button, class: 'btn btn-submit col-xs-12' do
+        %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+        = submit_label

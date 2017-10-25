@@ -13,6 +13,8 @@ class CoursesController < HtmlRespondableController
   end
 
   def show
+    @examinations = Examination.where(course_id: params[:id])
+
     respond_with(@course)
   end
 

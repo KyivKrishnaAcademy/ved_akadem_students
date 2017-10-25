@@ -1,0 +1,2 @@
+class ExaminationPolicy < BasePolicy
+end

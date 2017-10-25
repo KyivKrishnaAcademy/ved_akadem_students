@@ -105,6 +105,16 @@ ALTER SEQUENCE academic_groups_id_seq OWNED BY academic_groups.id;
 
 
 --
+-- Name: academic_groups_programs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE academic_groups_programs (
+    academic_group_id integer NOT NULL,
+    program_id integer NOT NULL
+);
+
+
+--
 -- Name: answers; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -419,6 +429,85 @@ CREATE SEQUENCE courses_id_seq
 --
 
 ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
+
+
+--
+-- Name: courses_programs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE courses_programs (
+    course_id integer NOT NULL,
+    program_id integer NOT NULL
+);
+
+
+--
+-- Name: examination_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE examination_results (
+    id integer NOT NULL,
+    examination_id integer,
+    student_profile_id integer,
+    score integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: examination_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE examination_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: examination_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE examination_results_id_seq OWNED BY examination_results.id;
+
+
+--
+-- Name: examinations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE examinations (
+    id integer NOT NULL,
+    title character varying DEFAULT ''::character varying,
+    description text DEFAULT ''::text,
+    passing_score integer DEFAULT 1,
+    min_result integer DEFAULT 0,
+    max_result integer DEFAULT 1,
+    course_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: examinations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE examinations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: examinations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE examinations_id_seq OWNED BY examinations.id;
 
 
 --
@@ -910,6 +999,20 @@ ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY examination_results ALTER COLUMN id SET DEFAULT nextval('examination_results_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY examinations ALTER COLUMN id SET DEFAULT nextval('examinations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY group_participations ALTER COLUMN id SET DEFAULT nextval('group_participations_id_seq'::regclass);
 
 
@@ -1077,6 +1180,22 @@ ALTER TABLE ONLY courses
 
 
 --
+-- Name: examination_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY examination_results
+    ADD CONSTRAINT examination_results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: examinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY examinations
+    ADD CONSTRAINT examinations_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: group_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1210,10 +1329,59 @@ CREATE INDEX class_schedules_with_people_teacher_id_idx ON class_schedules_with_
 
 
 --
+-- Name: index_academic_groups_programs_on_group_id_and_program_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_academic_groups_programs_on_group_id_and_program_id ON academic_groups_programs USING btree (academic_group_id, program_id);
+
+
+--
+-- Name: index_academic_groups_programs_on_program_id_and_group_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_academic_groups_programs_on_program_id_and_group_id ON academic_groups_programs USING btree (program_id, academic_group_id);
+
+
+--
 -- Name: index_certificate_templates_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_certificate_templates_on_status ON certificate_templates USING btree (status);
+
+
+--
+-- Name: index_courses_programs_on_course_id_and_program_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_courses_programs_on_course_id_and_program_id ON courses_programs USING btree (course_id, program_id);
+
+
+--
+-- Name: index_courses_programs_on_program_id_and_course_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_courses_programs_on_program_id_and_course_id ON courses_programs USING btree (program_id, course_id);
+
+
+--
+-- Name: index_examination_results_on_examination_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_examination_results_on_examination_id ON examination_results USING btree (examination_id);
+
+
+--
+-- Name: index_examination_results_on_student_profile_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_examination_results_on_student_profile_id ON examination_results USING btree (student_profile_id);
+
+
+--
+-- Name: index_examinations_on_course_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_examinations_on_course_id ON examinations USING btree (course_id);
 
 
 --
@@ -1259,11 +1427,35 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_4c75de44a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY examinations
+    ADD CONSTRAINT fk_rails_4c75de44a7 FOREIGN KEY (course_id) REFERENCES courses(id);
+
+
+--
+-- Name: fk_rails_63838bf553; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY examination_results
+    ADD CONSTRAINT fk_rails_63838bf553 FOREIGN KEY (examination_id) REFERENCES examinations(id);
+
+
+--
+-- Name: fk_rails_786b08cf9b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY examination_results
+    ADD CONSTRAINT fk_rails_786b08cf9b FOREIGN KEY (student_profile_id) REFERENCES student_profiles(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20131104153415'), ('20131104155157'), ('20131106111439'), ('20131106111610'), ('20131107081926'), ('20131107082541'), ('20131107082931'), ('20131107083056'), ('20131108154327'), ('20131108154741'), ('20131108155311'), ('20131108155502'), ('20131108155847'), ('20131108160759'), ('20131108183224'), ('20131108183425'), ('20131108183524'), ('20131108183652'), ('20131108183825'), ('20131108183921'), ('20131109141935'), ('20131109142219'), ('20131109143231'), ('20131206142539'), ('20131224122713'), ('20140206161732'), ('20140211153102'), ('20140211154720'), ('20140805135413'), ('20140805150150'), ('20140807144123'), ('20140812184858'), ('20140817064104'), ('20140817070939'), ('20140819191836'), ('20140821192744'), ('20140824053737'), ('20140903122128'), ('20140903122216'), ('20140905191018'), ('20140905191211'), ('20140905191326'), ('20140906113626'), ('20140918091449'), ('20140920200640'), ('20140921162651'), ('20141001130412'), ('20141018192218'), ('20141101170505'), ('20141101170540'), ('20141102090630'), ('20141102185707'), ('20141105202042'), ('20150107152356'), ('20150107162032'), ('20150107162204'), ('20150112113434'), ('20150113111530'), ('20150118122903'), ('20150118130719'), ('20150213222112'), ('20150507103929'), ('20150519132845'), ('20150519133309'), ('20150521082032'), ('20150521082127'), ('20150524193448'), ('20150602100341'), ('20150602145846'), ('20150604104338'), ('20150614072444'), ('20150625201045'), ('20150709064042'), ('20150821112132'), ('20151102155321'), ('20160309211822'), ('20160319204426'), ('20160430185957'), ('20160611125828'), ('20160921113729'), ('20160921113902'), ('20160928042653'), ('20161204045002'), ('20170123053701');
+INSERT INTO schema_migrations (version) VALUES ('20131104153415'), ('20131104155157'), ('20131106111439'), ('20131106111610'), ('20131107081926'), ('20131107082541'), ('20131107082931'), ('20131107083056'), ('20131108154327'), ('20131108154741'), ('20131108155311'), ('20131108155502'), ('20131108155847'), ('20131108160759'), ('20131108183224'), ('20131108183425'), ('20131108183524'), ('20131108183652'), ('20131108183825'), ('20131108183921'), ('20131109141935'), ('20131109142219'), ('20131109143231'), ('20131206142539'), ('20131224122713'), ('20140206161732'), ('20140211153102'), ('20140211154720'), ('20140805135413'), ('20140805150150'), ('20140807144123'), ('20140812184858'), ('20140817064104'), ('20140817070939'), ('20140819191836'), ('20140821192744'), ('20140824053737'), ('20140903122128'), ('20140903122216'), ('20140905191018'), ('20140905191211'), ('20140905191326'), ('20140906113626'), ('20140918091449'), ('20140920200640'), ('20140921162651'), ('20141001130412'), ('20141018192218'), ('20141101170505'), ('20141101170540'), ('20141102090630'), ('20141102185707'), ('20141105202042'), ('20150107152356'), ('20150107162032'), ('20150107162204'), ('20150112113434'), ('20150113111530'), ('20150118122903'), ('20150118130719'), ('20150213222112'), ('20150507103929'), ('20150519132845'), ('20150519133309'), ('20150521082032'), ('20150521082127'), ('20150524193448'), ('20150602100341'), ('20150602145846'), ('20150604104338'), ('20150614072444'), ('20150625201045'), ('20150709064042'), ('20150821112132'), ('20151102155321'), ('20160309211822'), ('20160319204426'), ('20160430185957'), ('20160611125828'), ('20160921113729'), ('20160921113902'), ('20160928042653'), ('20161204045002'), ('20170123053701'), ('20171008122007'), ('20171016033728'), ('20171016034251'), ('20171021080023');
 
 

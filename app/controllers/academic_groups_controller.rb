@@ -14,22 +14,9 @@ class AcademicGroupsController < ApplicationController
   end
 
   def show
-    @people_for_attendance = @academic_group
-                               .active_students
-                               .includes(:student_profile)
-                               .map do |p|
-                                 photo_path = if p.photo.present?
-                                   "/people/show_photo/standart/#{p.id}"
-                                 else
-                                   p.photo.versions[:standart].url
-                                 end
-
-                                 {
-                                   name: p.short_name,
-                                   photoPath: photo_path,
-                                   studentProfileId: p.student_profile.id
-                                 }
-                               end
+    @examinations = examinations
+    @examination_results = examination_results
+    @people_for_attendance = people_for_attendance
   end
 
   def new
@@ -101,5 +88,58 @@ class AcademicGroupsController < ApplicationController
     @academic_group = policy_scope(AcademicGroup).find(params[:id])
 
     authorize @academic_group
+  end
+
+  def people_for_attendance
+    @academic_group
+      .active_students
+      .includes(:student_profile)
+      .map do |p|
+        photo_path = if p.photo.present?
+          "/people/show_photo/standart/#{p.id}"
+        else
+          p.photo.versions[:standart].url
+        end
+
+        {
+          name: p.short_name,
+          photoPath: photo_path,
+          studentProfileId: p.student_profile.id
+        }
+      end
+  end
+
+  def examination_results
+    ExaminationResult
+      .where(
+        examination_id: @examinations.map { |e| e[:id] },
+        student_profile_id: @academic_group.active_students.joins(:student_profile).map { |p| p.student_profile.id }
+      )
+      .map do |er|
+        {
+          id: er.id,
+          score: er.score,
+          examinationId: er.examination_id,
+          studentProfileId: er.student_profile_id
+        }
+      end
+  end
+
+  def examinations
+    @academic_group
+      .examinations
+      .includes(:course)
+      .order(:course_id, :title)
+      .map do |e|
+        {
+          id: e.id,
+          title: e.title,
+          maxResult: e.max_result,
+          minResult: e.min_result,
+          description: e.description,
+          courseTitle: e.course.title,
+          passingScore: e.passing_score
+        }
+      end
   end
 end

@@ -1,11 +1,12 @@
-window.adjustAttendanceHeaders = ->
-  $attendanceHeaders = $('.attendance-header')
-  height = $attendanceHeaders.toArray().map((el) -> el.offsetHeight).sort()[$attendanceHeaders.length - 1]
+window.adjustAttendanceHeaders = (className) ->
+  $attendanceHeaders = $(className)
+  mapper = (el) -> el.offsetHeight
+  sorter = (a, b) -> a - b
+  height = $attendanceHeaders.toArray().map(mapper).sort(sorter)[$attendanceHeaders.length - 1]
 
   if !height
     return
 
-  $('.people-header').height(height)
   $attendanceHeaders.height(height)
 
 $ ->
@@ -32,5 +33,5 @@ $ ->
     html: true
   })
 
-  $('a[href="#group_attendance"]').on 'shown.bs.tab', () ->
-    window.adjustAttendanceHeaders()
+  $('a[href="#group_attendance"], a[href="#academic_performance"]').on 'shown.bs.tab', () ->
+    window.adjustAttendanceHeaders('.scrollable-header')

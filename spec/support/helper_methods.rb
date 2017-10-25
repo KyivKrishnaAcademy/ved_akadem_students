@@ -10,7 +10,7 @@ module HelperMethods
   def all_activities
     @all_activities ||= (person_activities + academic_group_activities + study_application_activities +
       %w(questionnaire:update_all) + course_activities + class_schedule_activities +
-      certificate_template_activities + journal_activities).sort
+      certificate_template_activities + journal_activities + examination_activities).sort
   end
 
   def screenshot
@@ -79,5 +79,13 @@ module HelperMethods
 
   def journal_activities
     JournalsController.action_methods.map { |action| 'paper_trail/version:' << action }
+  end
+
+  def examination_activities
+    %w(new update index create edit destroy show).map { |action| 'examination:' << action }
+  end
+
+  def examination_results
+    %w(ui_update ui_create ui_destroy).map { |action| 'examination_result:' << action }
   end
 end

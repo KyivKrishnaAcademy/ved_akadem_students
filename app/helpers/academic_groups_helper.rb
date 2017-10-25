@@ -21,4 +21,16 @@ module AcademicGroupsHelper
       [key, I18n.t("group_attendance.attendance_submitter.#{key}")]
     end.to_h
   end
+
+  def examination_reults_localization
+    %i(
+      min
+      max
+      save
+      delete
+      passing
+    ).map do |key|
+      [key, I18n.t("group_performance.editor.#{key}")]
+    end.to_h
+  end
 end

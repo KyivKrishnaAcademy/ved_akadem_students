@@ -22,7 +22,13 @@ describe 'academic_groups/show' do
   Given { allow(view).to receive(:policy).with(Attendance).and_return(AttendancePolicy.new(user, Attendance)) }
   Given { allow(view).to receive(:current_person).and_return(user) }
 
-  When  { render }
+  Given do
+    allow(view).to(
+      receive(:policy).with(ExaminationResult).and_return(ExaminationResultPolicy.new(user, ExaminationResult))
+    )
+  end
+
+  When { render }
 
   Given(:pdf_photos_link) { "a.glyphicon-print[href='#{group_list_pdf_path(group)}']" }
   Given(:pdf_attendance_link) { "a.glyphicon-print[href='#{attendance_template_pdf_path(group)}']" }
@@ -89,7 +95,12 @@ describe 'academic_groups/show' do
 
         Then  { expect(rendered).to have_text(I18n.t('academic_groups.show.group_servants')) }
         And   { expect(rendered).to have_text(I18n.t("academic_groups.show.#{elder}")) }
-        And   { expect(rendered).to have_text(user.email) }
+
+        if elder == 'curator'
+          And { expect(rendered).not_to have_text(user.email) }
+        else
+          And { expect(rendered).to have_text(user.email) }
+        end
 
         (OPTIONAL_GROUP_ELDERS - [elder]).each do |missing_elder|
           And { expect(rendered).not_to have_text(I18n.t("academic_groups.show.#{missing_elder}")) }

@@ -9,6 +9,11 @@ class AcademicGroup < ApplicationRecord
   belongs_to :praepostor, class_name: 'Person'
   belongs_to :curator, class_name: 'Person'
 
+  has_and_belongs_to_many :programs
+
+  has_many :courses, through: :programs
+  has_many :examinations, through: :courses
+
   before_save { |p| p.title = title.mb_chars.upcase.to_s unless title.blank? }
 
   validates :title, presence: true, uniqueness: true
