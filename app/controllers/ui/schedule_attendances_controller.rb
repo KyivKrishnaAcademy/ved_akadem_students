@@ -32,12 +32,6 @@ module Ui
 
     private
 
-    def respond_with_interaction(klass, resource = nil)
-      interaction = klass.new(user: current_person, params: params, resource: resource)
-
-      render json: interaction, status: interaction.status
-    end
-
     def create_params
       params.permit(:presence, :class_schedule_id, :student_profile_id)
     end
