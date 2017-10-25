@@ -117,13 +117,17 @@ describe AcademicGroupsController do
     describe 'DBless tests' do
       Given(:person) { double(Person, id: 1, roles: [], locale: :uk, short_name: 'Adi das') }
       Given(:groups) { double }
+      Given(:people) { double }
       Given(:group)  { double(AcademicGroup, id: 1) }
 
       Given { allow(request.env['warden']).to receive(:authenticate!) { person } }
       Given { allow(controller).to receive(:current_person) { person } }
 
       Given { allow(group).to receive(:class).and_return(AcademicGroup) }
-      Given { allow(group).to receive(:active_students).and_return(Person.none) }
+      Given { allow(group).to receive(:examinations).and_return(Examination.none) }
+      Given { allow(group).to receive(:active_students).and_return(people) }
+      Given { allow(people).to receive(:joins).and_return(Person.none) }
+      Given { allow(people).to receive(:includes).and_return(Person.none) }
       Given { allow_any_instance_of(AcademicGroupPolicy::Scope).to receive(:resolve).and_return(groups) }
       Given { allow(groups).to receive(:find).with('1').and_return(group) }
 
