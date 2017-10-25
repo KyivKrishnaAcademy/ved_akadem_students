@@ -39,9 +39,13 @@ describe StudyApplicationsController do
     end
 
     shared_examples :athorized_create do
+      Given(:mailer) { double }
+
       Given { expect_any_instance_of(StudyApplication).to receive(:save).and_return(true) }
-      Given { expect_any_instance_of(StudyApplication).to receive(:person).twice.and_return(person) }
+      Given { expect_any_instance_of(StudyApplication).to receive(:person).exactly(3).and_return(person) }
       Given { expect(person).to receive(:add_application_questionnaires) }
+      Given { expect(ProgrammApplicationsMailer).to receive(:submitted).and_return(mailer) }
+      Given { expect(mailer).to receive(:deliver_later) }
 
       it_behaves_like :athorized
     end

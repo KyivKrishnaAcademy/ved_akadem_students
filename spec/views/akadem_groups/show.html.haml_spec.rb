@@ -28,7 +28,7 @@ describe 'academic_groups/show' do
     )
   end
 
-  When  { render }
+  When { render }
 
   Given(:pdf_photos_link) { "a.glyphicon-print[href='#{group_list_pdf_path(group)}']" }
   Given(:pdf_attendance_link) { "a.glyphicon-print[href='#{attendance_template_pdf_path(group)}']" }
