@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import Loader from '../../../lib/components/loader';
 import AttendanceRow from './attendance-row';
+import StatisticsRow from './statistics-row';
 import FetchAttendanceButton from './fetch-attendance-button';
 
 export default class GroupAttendanceWidget extends React.Component {
@@ -57,6 +58,8 @@ export default class GroupAttendanceWidget extends React.Component {
         </div>
 
         <div className="scrollable-rows">
+          <StatisticsRow {...{ peopleIds, classSchedules }} />
+
           {attendanceRows}
         </div>
       </div>
