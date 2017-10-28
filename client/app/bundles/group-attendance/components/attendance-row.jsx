@@ -30,9 +30,16 @@ export default class AttendanceRow extends React.Component {
   render() {
     const { canManage, peopleIds, classSchedule: { date, courseTitle, attendances } } = this.props;
 
-    const attendanceMarkers = peopleIds.map(personId =>
-      <AttendanceMarker key={personId} status={attendances[personId] && attendances[personId].presence} />
-    );
+    let presenceCount = 0;
+    const attendanceMarkers = [];
+
+    peopleIds.forEach(personId => {
+      const presence = attendances[personId] && attendances[personId].presence;
+
+      if (presence) presenceCount++;
+
+      attendanceMarkers.push(<AttendanceMarker key={personId} status={presence} />);
+    });
 
     const editButton = canManage
       ?
@@ -54,6 +61,8 @@ export default class AttendanceRow extends React.Component {
         </div>
 
         {attendanceMarkers}
+
+        <div className="cell">{presenceCount}</div>
       </div>
     );
   }
