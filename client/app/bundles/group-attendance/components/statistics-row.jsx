@@ -37,7 +37,7 @@ export default class StatisticsRow extends React.Component {
       const total = positiveCount + negativeCount;
 
       if (total) {
-        const percentage = positiveCount ? 100 / total * positiveCount : 0;
+        const percentage = positiveCount ? Math.round(100 / total * positiveCount) : 0;
         const className = `cell ${cellClass(percentage)}`;
 
         statsticsCells.push(<div className={className} key={personId}>{percentage}%</div>);
