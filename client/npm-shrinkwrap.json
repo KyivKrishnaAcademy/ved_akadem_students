@@ -1152,7 +1152,8 @@
       "dependencies": {
         "object-assign": {
           "version": "4.1.1",
-          "from": "object-assign@>=4.1.1 <5.0.0"
+          "from": "object-assign@4.1.1",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
         }
       }
     },
@@ -2425,15 +2426,18 @@
       "dependencies": {
         "balanced-match": {
           "version": "1.0.0",
-          "from": "balanced-match@>=1.0.0 <2.0.0"
+          "from": "balanced-match@1.0.0",
+          "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz"
         },
         "brace-expansion": {
           "version": "1.1.8",
-          "from": "brace-expansion@>=1.1.7 <2.0.0"
+          "from": "brace-expansion@1.1.8",
+          "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz"
         },
         "glob": {
           "version": "7.1.2",
-          "from": "glob@>=7.1.1 <7.2.0"
+          "from": "glob@7.1.2",
+          "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz"
         },
         "globule": {
           "version": "1.2.0",
@@ -2447,7 +2451,8 @@
         },
         "minimatch": {
           "version": "3.0.4",
-          "from": "minimatch@>=3.0.2 <3.1.0"
+          "from": "minimatch@3.0.4",
+          "resolved": "https://registry.npmjs.org/minimatch/-/minimatch-3.0.4.tgz"
         }
       }
     },
@@ -4989,6 +4994,11 @@
       "version": "0.1.1",
       "from": "websocket-extensions@>=0.1.1",
       "resolved": "https://registry.npmjs.org/websocket-extensions/-/websocket-extensions-0.1.1.tgz"
+    },
+    "webworkify-webpack": {
+      "version": "2.1.0",
+      "from": "webworkify-webpack@*",
+      "resolved": "https://registry.npmjs.org/webworkify-webpack/-/webworkify-webpack-2.1.0.tgz"
     },
     "whatwg-fetch": {
       "version": "2.0.3",

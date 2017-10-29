@@ -68,7 +68,8 @@
     "redux": "^3.3.1",
     "redux-promise": "^0.5.1",
     "redux-thunk": "^1.0.3",
-    "webpack": "^1.12.13"
+    "webpack": "^1.12.13",
+    "webworkify-webpack": "^2.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^5.0.0-beta8",

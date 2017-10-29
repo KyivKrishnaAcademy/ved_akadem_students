@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as groupAttendanceActionCreators from '../actions/group-attendance-action-creators';
 
+import work from 'webworkify-webpack';
+
+const AttendanceWorker = work(require.resolve('../workers/attendance-worker.js'));
+
 function select(state) {
   return { groupAttendanceStore: state.groupAttendanceStore };
 }
@@ -19,6 +23,14 @@ class GroupAttendance extends React.Component {
     const actions = bindActionCreators(groupAttendanceActionCreators, this.props.dispatch);
 
     actions.getAttendance();
+
+    AttendanceWorker.addEventListener('message', msg => {
+      console.log('reply', msg);
+    });
+  }
+
+  postToWorker(msg) {
+    AttendanceWorker.postMessage(msg);
   }
 
   render() {
@@ -75,6 +87,7 @@ class GroupAttendance extends React.Component {
                   previousPerson,
                   asyncMarkUnknown,
                   asyncMarkPresence,
+                  postToWorker: this.postToWorker,
                 },
               }
             }

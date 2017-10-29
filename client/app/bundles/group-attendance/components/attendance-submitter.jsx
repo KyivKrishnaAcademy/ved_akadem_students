@@ -26,6 +26,7 @@ export default class AttendanceSubmitter extends React.Component {
     }).isRequired,
     actions: PropTypes.shape({
       nextPerson: PropTypes.func.isRequired,
+      postToWorker: PropTypes.func.isRequired,
       previousPerson: PropTypes.func.isRequired,
       asyncMarkUnknown: PropTypes.func.isRequired,
       asyncMarkPresence: PropTypes.func.isRequired,
@@ -58,6 +59,8 @@ export default class AttendanceSubmitter extends React.Component {
   }
 
   markUnknown() {
+    this.props.actions.postToWorker('trololo'); // DEBUG
+
     this.props.actions.asyncMarkUnknown(
       this.getPerson().studentProfileId,
       this.getSchedule().id,
