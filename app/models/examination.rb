@@ -4,6 +4,8 @@ class Examination < ApplicationRecord
   validates :title, :course, presence: true
   validate :passing_score_in_range
 
+  has_paper_trail
+
   private
 
   def passing_score_in_range
