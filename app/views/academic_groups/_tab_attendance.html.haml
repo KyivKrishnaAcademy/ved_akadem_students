@@ -6,4 +6,5 @@
     = react_component('GroupAttendanceApp', props: { people: people,
                                                      canManage: policy(Attendance).ui_manage?,
                                                      localization: attendance_localization,
+                                                     defaultPhoto: image_url('fallback/person/standart_default.png'),
                                                      academicGroupId: academic_group_id })

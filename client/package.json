@@ -60,6 +60,7 @@
     "react": "^15.3.2",
     "react-bootstrap": "^0.28.5",
     "react-dom": "^15.3.2",
+    "react-image": "^1.0.1",
     "react-on-rails": "3.0.4",
     "react-paginate-component": "0.0.3",
     "react-rangeslider": "^2.2.0",

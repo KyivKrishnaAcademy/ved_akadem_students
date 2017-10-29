@@ -4070,6 +4070,11 @@
       "from": "react-dom@15.3.2",
       "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-15.3.2.tgz"
     },
+    "react-image": {
+      "version": "1.0.1",
+      "from": "react-image@*",
+      "resolved": "https://registry.npmjs.org/react-image/-/react-image-1.0.1.tgz"
+    },
     "react-on-rails": {
       "version": "3.0.4",
       "from": "react-on-rails@3.0.4",
