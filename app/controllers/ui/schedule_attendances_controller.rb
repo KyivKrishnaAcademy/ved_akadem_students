@@ -18,6 +18,7 @@ module Ui
 
     def update
       @attendance.assign_attributes(update_params)
+      @attendance.revision += 1
 
       authorize @attendance, :ui_update?
 
@@ -41,7 +42,7 @@ module Ui
     end
 
     def set_resource
-      @attendance = Attendance.find(params[:id])
+      @attendance = Attendance.find_by(id: params[:id], revision: params[:revision])
     end
   end
 end

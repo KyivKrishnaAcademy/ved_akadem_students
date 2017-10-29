@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016034251) do
+ActiveRecord::Schema.define(version: 20171029195342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20171016034251) do
     t.integer  "class_schedule_id"
     t.integer  "student_profile_id"
     t.boolean  "presence"
+    t.integer  "revision",           default: 0
+    t.index ["class_schedule_id", "student_profile_id"], name: "index_attendances_on_class_schedule_id_and_student_profile_id", unique: true, using: :btree
   end
 
   create_table "certificate_templates", force: :cascade do |t|
@@ -103,6 +105,16 @@ ActiveRecord::Schema.define(version: 20171016034251) do
     t.integer "program_id", null: false
     t.index ["course_id", "program_id"], name: "index_courses_programs_on_course_id_and_program_id", using: :btree
     t.index ["program_id", "course_id"], name: "index_courses_programs_on_program_id_and_course_id", using: :btree
+  end
+
+  create_table "examination_results", force: :cascade do |t|
+    t.integer  "examination_id"
+    t.integer  "student_profile_id"
+    t.integer  "score"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["examination_id"], name: "index_examination_results_on_examination_id", using: :btree
+    t.index ["student_profile_id"], name: "index_examination_results_on_student_profile_id", using: :btree
   end
 
   create_table "examinations", force: :cascade do |t|
@@ -261,5 +273,7 @@ ActiveRecord::Schema.define(version: 20171016034251) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "examination_results", "examinations"
+  add_foreign_key "examination_results", "student_profiles"
   add_foreign_key "examinations", "courses"
 end

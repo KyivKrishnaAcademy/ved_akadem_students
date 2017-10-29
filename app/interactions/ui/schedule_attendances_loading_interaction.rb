@@ -33,7 +33,11 @@ module Ui
     def serialize_attendance(attendance)
       [
         attendance.student_profile_id,
-        { id: attendance.id, presence: attendance.presence }
+        {
+          id: attendance.id,
+          revision: attendance.revision,
+          presence: attendance.presence
+        }
       ]
     end
   end
