@@ -1,3 +1,4 @@
+import Img from 'react-image';
 import React, { PropTypes } from 'react';
 
 import Loader from '../../../lib/components/loader';
@@ -12,6 +13,7 @@ export default class AttendanceSubmitter extends React.Component {
         studentProfileId: PropTypes.number.isRequired,
       })).isRequired,
       loading: PropTypes.bool.isRequired,
+      defaultPhoto: PropTypes.string.isRequired,
       localization: PropTypes.object.isRequired,
       classSchedules: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
@@ -79,7 +81,7 @@ export default class AttendanceSubmitter extends React.Component {
 
   render() {
     const {
-      data: { people, loading, localization, selectedPersonIndex },
+      data: { people, loading, defaultPhoto, localization, selectedPersonIndex },
       actions: { nextPerson, previousPerson },
     } = this.props;
 
@@ -89,6 +91,8 @@ export default class AttendanceSubmitter extends React.Component {
 
     const nextPersonDisabled = selectedPersonIndex === people.length - 1;
     const previousPersonDisabled = selectedPersonIndex === 0;
+
+    const defaultImage = <img className="img-thumbnail img-version-standart" src={defaultPhoto} alt={person.name} />;
 
     let bodyClass = 'modal-body';
     let absentClass = 'btn btn-danger';
@@ -137,7 +141,12 @@ export default class AttendanceSubmitter extends React.Component {
             <div className={bodyClass}>
               <div className="row">
                 <div className="col-sm-12 text-center">
-                  <img className="img-thumbnail img-version-standart" src={person.photoPath} alt={person.name} />
+                  <Img
+                    alt={person.name}
+                    src={person.photoPath}
+                    loader={defaultImage}
+                    className="img-thumbnail img-version-standart"
+                  />
                 </div>
               </div>
 
