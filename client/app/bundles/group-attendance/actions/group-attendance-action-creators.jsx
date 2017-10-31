@@ -2,6 +2,7 @@ import $ from 'jquery'; // eslint-disable-line id-length
 import actionTypes from '../constants/group-attendance-constants';
 
 import {
+  readObjectFromStorage,
   mergeLocalAttendances,
   writeAttendanceToStorage,
   deleteAttendanceFromStorage,
@@ -62,7 +63,23 @@ export function markUnknown(attendance) {
   };
 }
 
-export function workerReplyDispatcher(data) {
+export function syncNextAttendance(mesenger) {
+  return dispatch => {
+    const attendances = readObjectFromStorage('attendances');
+
+    const keys = Object.keys(attendances);
+
+    if (!keys.length) return;
+
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    const attendance = attendances[randomKey];
+    const type = attendance.toDelete ? 'deleteAttendance' : 'markAttendance';
+
+    mesenger({ type, attendance });
+  };
+}
+
+export function workerReplyDispatcher(data, mesenger) {
   return dispatch => {
     const { type, status, attendance } = data;
 
@@ -74,7 +91,10 @@ export function workerReplyDispatcher(data) {
       dispatch(markPresence(data.response.attendance));
     }
 
-    if (status === 200 || status === 204 || status === 404) deleteAttendanceFromStorage(attendance);
+    if (status === 200 || status === 204 || status === 404) {
+      deleteAttendanceFromStorage(attendance);
+      dispatch(syncNextAttendance(mesenger));
+    }
   };
 }
 

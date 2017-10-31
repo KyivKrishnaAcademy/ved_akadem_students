@@ -27,8 +27,10 @@ class GroupAttendance extends React.Component {
     actions.getAttendance();
 
     AttendanceWorker.addEventListener('message', msg => {
-      actions.workerReplyDispatcher(JSON.parse(msg.data));
+      actions.workerReplyDispatcher(JSON.parse(msg.data), this.postToWorker);
     });
+
+    actions.syncNextAttendance(this.postToWorker);
   }
 
   postToWorker(msg) {
