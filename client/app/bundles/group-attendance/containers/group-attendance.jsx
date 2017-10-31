@@ -37,12 +37,18 @@ class GroupAttendance extends React.Component {
     AttendanceWorker.postMessage(JSON.stringify(msg));
   }
 
-  asyncMarkUnknown = attendance => {
-    this.actions().asyncMarkUnknown(this.postToWorker, attendance);
+  markUnknownAndNext = attendance => {
+    const { nextPerson, asyncMarkUnknown } = this.actions();
+
+    asyncMarkUnknown(this.postToWorker, attendance);
+    nextPerson();
   };
 
-  asyncMarkPresence = (attendance, presence) => {
-    this.actions().asyncMarkPresence(this.postToWorker, attendance, presence);
+  markPresenceAndNext = (attendance, presence) => {
+    const { nextPerson, asyncMarkPresence } = this.actions();
+
+    asyncMarkPresence(this.postToWorker, attendance, presence);
+    nextPerson();
   };
 
   render() {
@@ -65,8 +71,8 @@ class GroupAttendance extends React.Component {
     } = this.actions();
 
     const {
-      asyncMarkUnknown,
-      asyncMarkPresence,
+      markUnknownAndNext,
+      markPresenceAndNext,
     } = this;
 
     return (
@@ -97,8 +103,8 @@ class GroupAttendance extends React.Component {
                 actions: {
                   nextPerson,
                   previousPerson,
-                  asyncMarkUnknown,
-                  asyncMarkPresence,
+                  markUnknownAndNext,
+                  markPresenceAndNext,
                 },
               }
             }

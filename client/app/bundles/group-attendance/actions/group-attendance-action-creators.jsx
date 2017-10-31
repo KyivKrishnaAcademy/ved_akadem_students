@@ -114,7 +114,7 @@ export function asyncMarkPresence(mesenger, attendance, presence) {
 
 export function asyncMarkUnknown(mesenger, attendance) {
   return dispatch => {
-    if (!attendance.id) return;
+    if (!attendance.id || attendance.toDelete) return;
 
     const newAttendance = { ...attendance, toDelete: true, inSync: true };
 
