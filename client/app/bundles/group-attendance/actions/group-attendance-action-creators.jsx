@@ -114,17 +114,22 @@ export function asyncMarkPresence(mesenger, attendance, presence) {
 
 export function asyncMarkUnknown(mesenger, attendance) {
   return dispatch => {
-    if (!attendance.id || attendance.toDelete) return;
+    if (attendance.id) {
+      if (attendance.toDelete) return;
 
-    const newAttendance = { ...attendance, toDelete: true, inSync: true };
+      const newAttendance = { ...attendance, toDelete: true, inSync: true };
 
-    delete newAttendance.presence;
+      delete newAttendance.presence;
 
-    writeAttendanceToStorage(newAttendance);
+      writeAttendanceToStorage(newAttendance);
 
-    dispatch(markUnknown(newAttendance));
+      dispatch(markUnknown(newAttendance));
 
-    mesenger({ type: 'deleteAttendance', attendance: newAttendance });
+      mesenger({ type: 'deleteAttendance', attendance: newAttendance });
+    } else {
+      deleteAttendanceFromStorage(attendance);
+      dispatch(markUnknown(attendance));
+    }
   };
 }
 
