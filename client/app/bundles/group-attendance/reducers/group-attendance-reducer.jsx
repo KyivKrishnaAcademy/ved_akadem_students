@@ -8,11 +8,13 @@ export const initialState = {
   selectedPersonIndex: 0,
 };
 
-function markUnknown(state, { personId, scheduleId }) {
+function markUnknown(state, attendance) {
+  const { scheduleId, studentProfileId } = attendance;
+
   const classSchedules = state.classSchedules.map(schedule => {
     const newSchedule = { ...schedule };
 
-    if (newSchedule.id === scheduleId) delete newSchedule.attendances[personId];
+    if (newSchedule.id === scheduleId) delete newSchedule.attendances[studentProfileId];
 
     return newSchedule;
   });
@@ -23,11 +25,13 @@ function markUnknown(state, { personId, scheduleId }) {
   };
 }
 
-function markPresence(state, { personId, scheduleId, attendance }) {
+function markPresence(state, attendance) {
+  const { scheduleId, studentProfileId } = attendance;
+
   const classSchedules = state.classSchedules.map(schedule => {
     const newSchedule = { ...schedule };
 
-    if (newSchedule.id === scheduleId) newSchedule.attendances[personId] = attendance;
+    if (newSchedule.id === scheduleId) newSchedule.attendances[studentProfileId] = attendance;
 
     return newSchedule;
   });
@@ -74,10 +78,12 @@ export default function groupAttendanceReducer(state = initialState, action) {
       };
 
     case actionTypes.MARK_UNKNOWN:
-      return markUnknown(state, action);
+      return action.attendance.toDelete
+        ? markPresence(state, action.attendance)
+        : markUnknown(state, action.attendance);
 
     case actionTypes.MARK_PRESENCE:
-      return markPresence(state, action);
+      return markPresence(state, action.attendance);
 
     case actionTypes.UPDATE_CLASS_SCHEDULES_AND_PAGE:
       return {

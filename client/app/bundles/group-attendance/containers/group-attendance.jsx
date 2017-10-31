@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as groupAttendanceActionCreators from '../actions/group-attendance-action-creators';
 
+import work from 'webworkify-webpack';
+
+const AttendanceWorker = work(require.resolve('../workers/attendance-worker.js'));
+
 function select(state) {
   return { groupAttendanceStore: state.groupAttendanceStore };
 }
@@ -15,15 +19,39 @@ class GroupAttendance extends React.Component {
     groupAttendanceStore: PropTypes.object.isRequired,
   };
 
+  actions = () => bindActionCreators(groupAttendanceActionCreators, this.props.dispatch);
+
   componentDidMount() {
-    const actions = bindActionCreators(groupAttendanceActionCreators, this.props.dispatch);
+    const actions = this.actions();
 
     actions.getAttendance();
+
+    AttendanceWorker.addEventListener('message', msg => {
+      actions.workerReplyDispatcher(JSON.parse(msg.data), this.postToWorker);
+    });
+
+    actions.syncNextAttendance(this.postToWorker);
   }
 
+  postToWorker(msg) {
+    AttendanceWorker.postMessage(JSON.stringify(msg));
+  }
+
+  markUnknownAndNext = attendance => {
+    const { nextPerson, asyncMarkUnknown } = this.actions();
+
+    asyncMarkUnknown(this.postToWorker, attendance);
+    nextPerson();
+  };
+
+  markPresenceAndNext = (attendance, presence) => {
+    const { nextPerson, asyncMarkPresence } = this.actions();
+
+    asyncMarkPresence(this.postToWorker, attendance, presence);
+    nextPerson();
+  };
+
   render() {
-    const { dispatch, groupAttendanceStore } = this.props;
-    const actions = bindActionCreators(groupAttendanceActionCreators, dispatch);
     const {
       people,
       loading,
@@ -33,16 +61,19 @@ class GroupAttendance extends React.Component {
       classSchedules,
       selectedPersonIndex,
       selectedScheduleIndex,
-    } = groupAttendanceStore;
+    } = this.props.groupAttendanceStore;
 
     const {
       nextPerson,
       getAttendance,
       previousPerson,
-      asyncMarkUnknown,
-      asyncMarkPresence,
       openAttendanceSubmitter,
-    } = actions;
+    } = this.actions();
+
+    const {
+      markUnknownAndNext,
+      markPresenceAndNext,
+    } = this;
 
     return (
       <div className="row">
@@ -63,7 +94,6 @@ class GroupAttendance extends React.Component {
               ...{
                 data: {
                   people,
-                  loading,
                   defaultPhoto,
                   localization,
                   classSchedules,
@@ -73,8 +103,8 @@ class GroupAttendance extends React.Component {
                 actions: {
                   nextPerson,
                   previousPerson,
-                  asyncMarkUnknown,
-                  asyncMarkPresence,
+                  markUnknownAndNext,
+                  markPresenceAndNext,
                 },
               }
             }

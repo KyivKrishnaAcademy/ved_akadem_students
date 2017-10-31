@@ -1,5 +1,7 @@
 module Ui
   class ScheduleAttendancesController < Ui::BaseController
+    skip_before_action :verify_authenticity_token
+
     before_action :set_resource, only: [:update, :destroy]
 
     def index
@@ -18,6 +20,7 @@ module Ui
 
     def update
       @attendance.assign_attributes(update_params)
+      @attendance.revision += 1
 
       authorize @attendance, :ui_update?
 
@@ -41,7 +44,7 @@ module Ui
     end
 
     def set_resource
-      @attendance = Attendance.find(params[:id])
+      @attendance = Attendance.find_by!(id: params[:id], revision: params[:revision])
     end
   end
 end

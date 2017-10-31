@@ -1,6 +1,13 @@
 import $ from 'jquery'; // eslint-disable-line id-length
 import actionTypes from '../constants/group-attendance-constants';
 
+import {
+  readObjectFromStorage,
+  mergeLocalAttendances,
+  writeAttendanceToStorage,
+  deleteAttendanceFromStorage,
+} from '../helpers/stored-attendances';
+
 export function openAttendanceSubmitter(selectedScheduleIndex) {
   $('#attendanceSubmitterModal').modal('show');
 
@@ -13,8 +20,8 @@ export function openAttendanceSubmitter(selectedScheduleIndex) {
 export function updateClassSchedulesAndPage(classSchedules, page) {
   return {
     page,
-    classSchedules,
     type: actionTypes.UPDATE_CLASS_SCHEDULES_AND_PAGE,
+    classSchedules: mergeLocalAttendances(classSchedules),
   };
 }
 
@@ -42,89 +49,82 @@ export function previousPerson() {
   };
 }
 
-function deleteAttendance(attendanceId, success, error) {
-  $.ajax({
-    error,
-    success,
-    url: `/ui/schedule_attendances/${attendanceId}`,
-    cache: false,
-    method: 'DELETE',
-    dataType: 'json',
-  });
-}
-
-function updateAttendance(attendanceId, presence, success, error) {
-  $.ajax({
-    error,
-    success,
-    url: `/ui/schedule_attendances/${attendanceId}?presence=${presence}`,
-    cache: false,
-    method: 'PUT',
-    dataType: 'json',
-  });
-}
-
-function createAttendance(personId, scheduleId, presence, success, error) {
-  $.ajax({
-    error,
-    success,
-    url: `/ui/schedule_attendances?class_schedule_id=${scheduleId}&presence=${presence}&student_profile_id=${personId}`,
-    cache: false,
-    method: 'POST',
-    dataType: 'json',
-  });
-}
-
-export function markPresence(personId, scheduleId, id, presence) {
+export function markPresence(attendance) {
   return {
-    personId,
-    scheduleId,
+    attendance,
     type: actionTypes.MARK_PRESENCE,
-    attendance: { id, presence },
   };
 }
 
-export function markUnknown(personId, scheduleId) {
+export function markUnknown(attendance) {
   return {
-    personId,
-    scheduleId,
+    attendance,
     type: actionTypes.MARK_UNKNOWN,
   };
 }
 
-export function asyncMarkPresence(personId, scheduleId, attendanceId, currentPresence, neededPresence) {
-  return (dispatch) => {
-    if (currentPresence === neededPresence) return;
+export function syncNextAttendance(mesenger) {
+  return dispatch => {
+    const attendances = readObjectFromStorage('attendances');
 
-    dispatch(showLoader());
+    const keys = Object.keys(attendances);
 
-    const error = () => dispatch(hideLoader());
-    const success = ({ attendance: { id, presence } }) => {
-      dispatch(hideLoader());
-      dispatch(markPresence(personId, scheduleId, id, presence));
-    };
+    if (!keys.length) return;
 
-    if (attendanceId) {
-      updateAttendance(attendanceId, neededPresence, success, error);
-    } else {
-      createAttendance(personId, scheduleId, neededPresence, success, error);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    const attendance = attendances[randomKey];
+    const type = attendance.toDelete ? 'deleteAttendance' : 'markAttendance';
+
+    mesenger({ type, attendance });
+  };
+}
+
+export function workerReplyDispatcher(data, mesenger) {
+  return dispatch => {
+    const { type, status, attendance } = data;
+
+    if (status === 204 && type === 'deleteAttendanceReply') {
+      const { scheduleId, studentProfileId } = attendance;
+
+      dispatch(markUnknown({ scheduleId, studentProfileId }));
+    } else if (status === 200 && (type === 'createAttendanceReply' || type === 'updateAttendanceReply')) {
+      dispatch(markPresence(data.response.attendance));
+    }
+
+    if (status === 200 || status === 204 || status === 404) {
+      deleteAttendanceFromStorage(attendance);
+      dispatch(syncNextAttendance(mesenger));
     }
   };
 }
 
-export function asyncMarkUnknown(personId, scheduleId, attendanceId) {
-  return (dispatch) => {
-    if (!attendanceId) return;
+export function asyncMarkPresence(mesenger, attendance, presence) {
+  return dispatch => {
+    if (attendance.presence === presence) return;
 
-    dispatch(showLoader());
+    const newAttendance = { ...attendance, presence, inSync: true };
 
-    const error = () => dispatch(hideLoader());
-    const success = () => {
-      dispatch(hideLoader());
-      dispatch(markUnknown(personId, scheduleId));
-    };
+    writeAttendanceToStorage(newAttendance);
 
-    deleteAttendance(attendanceId, success, error);
+    dispatch(markPresence(newAttendance));
+
+    mesenger({ type: 'markAttendance', attendance: newAttendance });
+  };
+}
+
+export function asyncMarkUnknown(mesenger, attendance) {
+  return dispatch => {
+    if (!attendance.id || attendance.toDelete) return;
+
+    const newAttendance = { ...attendance, toDelete: true, inSync: true };
+
+    delete newAttendance.presence;
+
+    writeAttendanceToStorage(newAttendance);
+
+    dispatch(markUnknown(newAttendance));
+
+    mesenger({ type: 'deleteAttendance', attendance: newAttendance });
   };
 }
 

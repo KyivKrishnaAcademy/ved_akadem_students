@@ -1,7 +1,6 @@
 import Img from 'react-image';
 import React, { PropTypes } from 'react';
 
-import Loader from '../../../lib/components/loader';
 import bindAll from '../../../lib/helpers/bind-all';
 
 export default class AttendanceSubmitter extends React.Component {
@@ -12,7 +11,6 @@ export default class AttendanceSubmitter extends React.Component {
         photoPath: PropTypes.string.isRequired,
         studentProfileId: PropTypes.number.isRequired,
       })).isRequired,
-      loading: PropTypes.bool.isRequired,
       defaultPhoto: PropTypes.string.isRequired,
       localization: PropTypes.object.isRequired,
       classSchedules: PropTypes.arrayOf(PropTypes.shape({
@@ -27,8 +25,8 @@ export default class AttendanceSubmitter extends React.Component {
     actions: PropTypes.shape({
       nextPerson: PropTypes.func.isRequired,
       previousPerson: PropTypes.func.isRequired,
-      asyncMarkUnknown: PropTypes.func.isRequired,
-      asyncMarkPresence: PropTypes.func.isRequired,
+      markUnknownAndNext: PropTypes.func.isRequired,
+      markPresenceAndNext: PropTypes.func.isRequired,
     }),
   };
 
@@ -54,34 +52,30 @@ export default class AttendanceSubmitter extends React.Component {
   }
 
   getAttendance() {
-    return (this.getSchedule().attendances || {})[this.getPerson().studentProfileId] || {};
+    const schedule = this.getSchedule();
+    const studentProfileId = this.getPerson().studentProfileId;
+    const attendance = (schedule.attendances || {})[studentProfileId] || {};
+
+    return {
+      ...attendance,
+      studentProfileId,
+      scheduleId: schedule.id,
+    };
   }
 
   markUnknown() {
-    this.props.actions.asyncMarkUnknown(
-      this.getPerson().studentProfileId,
-      this.getSchedule().id,
-      this.getAttendance().id,
-    );
+    this.props.actions.markUnknownAndNext(this.getAttendance());
   }
 
   markPresence(neededPresence) {
     return () => {
-      const attendance = this.getAttendance();
-
-      this.props.actions.asyncMarkPresence(
-        this.getPerson().studentProfileId,
-        this.getSchedule().id,
-        attendance.id,
-        attendance.presence,
-        neededPresence,
-      );
+      this.props.actions.markPresenceAndNext(this.getAttendance(), neededPresence);
     };
   }
 
   render() {
     const {
-      data: { people, loading, defaultPhoto, localization, selectedPersonIndex },
+      data: { people, defaultPhoto, localization, selectedPersonIndex },
       actions: { nextPerson, previousPerson },
     } = this.props;
 
@@ -119,8 +113,6 @@ export default class AttendanceSubmitter extends React.Component {
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
-            <Loader visible={loading} />
-
             <div className="modal-header">
               <button
                 type="button"
@@ -143,7 +135,7 @@ export default class AttendanceSubmitter extends React.Component {
                 <div className="col-sm-12 text-center">
                   <Img
                     alt={person.name}
-                    src={person.photoPath}
+                    src={[person.photoPath, defaultPhoto]}
                     loader={defaultImage}
                     className="img-thumbnail img-version-standart"
                   />

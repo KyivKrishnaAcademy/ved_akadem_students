@@ -34,11 +34,11 @@ export default class AttendanceRow extends React.Component {
     const attendanceMarkers = [];
 
     peopleIds.forEach(personId => {
-      const presence = attendances[personId] && attendances[personId].presence;
+      const { inSync, presence } = attendances[personId] || {};
 
       if (presence) presenceCount++;
 
-      attendanceMarkers.push(<AttendanceMarker key={personId} status={presence} />);
+      attendanceMarkers.push(<AttendanceMarker {...{ inSync, presence, key: personId }} />);
     });
 
     const editButton = canManage

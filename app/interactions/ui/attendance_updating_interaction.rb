@@ -9,7 +9,13 @@ module Ui
     def as_json(_opts = {})
       @_as_json ||= if resource.valid? && resource.persisted?
         {
-          attendance: { id: resource.id, presence: resource.presence }
+          attendance: {
+            id: resource.id,
+            revision: resource.revision,
+            presence: resource.presence,
+            scheduleId: resource.class_schedule_id,
+            studentProfileId: resource.student_profile_id
+          }
         }
       else
         errors_json(resource)
