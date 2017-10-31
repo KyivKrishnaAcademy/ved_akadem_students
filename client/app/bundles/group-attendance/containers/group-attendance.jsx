@@ -19,23 +19,31 @@ class GroupAttendance extends React.Component {
     groupAttendanceStore: PropTypes.object.isRequired,
   };
 
+  actions = () => bindActionCreators(groupAttendanceActionCreators, this.props.dispatch);
+
   componentDidMount() {
-    const actions = bindActionCreators(groupAttendanceActionCreators, this.props.dispatch);
+    const actions = this.actions();
 
     actions.getAttendance();
 
     AttendanceWorker.addEventListener('message', msg => {
-      console.log('reply', msg);
+      actions.workerReplyDispatcher(JSON.parse(msg.data));
     });
   }
 
   postToWorker(msg) {
-    AttendanceWorker.postMessage(msg);
+    AttendanceWorker.postMessage(JSON.stringify(msg));
   }
 
+  asyncMarkUnknown = attendance => {
+    this.actions().asyncMarkUnknown(this.postToWorker, attendance);
+  };
+
+  asyncMarkPresence = (attendance, presence) => {
+    this.actions().asyncMarkPresence(this.postToWorker, attendance, presence);
+  };
+
   render() {
-    const { dispatch, groupAttendanceStore } = this.props;
-    const actions = bindActionCreators(groupAttendanceActionCreators, dispatch);
     const {
       people,
       loading,
@@ -45,16 +53,19 @@ class GroupAttendance extends React.Component {
       classSchedules,
       selectedPersonIndex,
       selectedScheduleIndex,
-    } = groupAttendanceStore;
+    } = this.props.groupAttendanceStore;
 
     const {
       nextPerson,
       getAttendance,
       previousPerson,
+      openAttendanceSubmitter,
+    } = this.actions();
+
+    const {
       asyncMarkUnknown,
       asyncMarkPresence,
-      openAttendanceSubmitter,
-    } = actions;
+    } = this;
 
     return (
       <div className="row">
@@ -75,7 +86,6 @@ class GroupAttendance extends React.Component {
               ...{
                 data: {
                   people,
-                  loading,
                   defaultPhoto,
                   localization,
                   classSchedules,
@@ -87,7 +97,6 @@ class GroupAttendance extends React.Component {
                   previousPerson,
                   asyncMarkUnknown,
                   asyncMarkPresence,
-                  postToWorker: this.postToWorker,
                 },
               }
             }

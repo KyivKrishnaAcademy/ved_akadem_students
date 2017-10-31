@@ -11,8 +11,10 @@ module Ui
         {
           attendance: {
             id: resource.id,
-            revision: attendance.revision,
-            presence: resource.presence
+            revision: resource.revision,
+            presence: resource.presence,
+            scheduleId: resource.class_schedule_id,
+            studentProfileId: resource.student_profile_id
           }
         }
       else

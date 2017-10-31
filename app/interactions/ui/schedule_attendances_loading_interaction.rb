@@ -36,7 +36,9 @@ module Ui
         {
           id: attendance.id,
           revision: attendance.revision,
-          presence: attendance.presence
+          presence: attendance.presence,
+          scheduleId: attendance.class_schedule_id,
+          studentProfileId: attendance.student_profile_id
         }
       ]
     end
