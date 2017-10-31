@@ -1,6 +1,12 @@
 import $ from 'jquery'; // eslint-disable-line id-length
 import actionTypes from '../constants/group-attendance-constants';
 
+import {
+  mergeLocalAttendances,
+  writeAttendanceToStorage,
+  deleteAttendanceFromStorage,
+} from '../helpers/stored-attendances';
+
 export function openAttendanceSubmitter(selectedScheduleIndex) {
   $('#attendanceSubmitterModal').modal('show');
 
@@ -13,8 +19,8 @@ export function openAttendanceSubmitter(selectedScheduleIndex) {
 export function updateClassSchedulesAndPage(classSchedules, page) {
   return {
     page,
-    classSchedules,
     type: actionTypes.UPDATE_CLASS_SCHEDULES_AND_PAGE,
+    classSchedules: mergeLocalAttendances(classSchedules),
   };
 }
 
@@ -56,36 +62,6 @@ export function markUnknown(attendance) {
   };
 }
 
-function readObjectFromStorage(key) {
-  const fetched = localStorage.getItem(key);
-
-  return fetched ? JSON.parse(fetched) : {};
-}
-
-function writeObjectToStorage(key, object) {
-  localStorage.setItem(key, JSON.stringify(object));
-}
-
-function writeAttendanceToStorage(attendance) {
-  const attendances = readObjectFromStorage('attendances');
-  const { scheduleId, studentProfileId } = attendance;
-  const key = `${scheduleId}-${studentProfileId}`;
-
-  attendances[key] = attendance;
-
-  writeObjectToStorage('attendances', attendances);
-}
-
-function deleteAttendanceFromStorage(attendance) {
-  const attendances = readObjectFromStorage('attendances');
-  const { scheduleId, studentProfileId } = attendance;
-  const key = `${scheduleId}-${studentProfileId}`;
-
-  delete attendances[key];
-
-  writeObjectToStorage('attendances', attendances);
-}
-
 export function workerReplyDispatcher(data) {
   return dispatch => {
     const { type, status, attendance } = data;
@@ -106,11 +82,11 @@ export function asyncMarkPresence(mesenger, attendance, presence) {
   return dispatch => {
     if (attendance.presence === presence) return;
 
-    const newAttendance = { ...attendance, presence };
+    const newAttendance = { ...attendance, presence, inSync: true };
 
     writeAttendanceToStorage(newAttendance);
 
-    dispatch(markPresence({ ...newAttendance, inSync: true }));
+    dispatch(markPresence(newAttendance));
 
     mesenger({ type: 'markAttendance', attendance: newAttendance });
   };
@@ -120,13 +96,13 @@ export function asyncMarkUnknown(mesenger, attendance) {
   return dispatch => {
     if (!attendance.id) return;
 
-    const newAttendance = { ...attendance, toDelete: true };
+    const newAttendance = { ...attendance, toDelete: true, inSync: true };
 
     delete newAttendance.presence;
 
     writeAttendanceToStorage(newAttendance);
 
-    dispatch(markUnknown({ ...newAttendance, inSync: true }));
+    dispatch(markUnknown(newAttendance));
 
     mesenger({ type: 'deleteAttendance', attendance: newAttendance });
   };

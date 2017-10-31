@@ -170,7 +170,7 @@ CREATE TABLE attendances (
     class_schedule_id integer,
     student_profile_id integer,
     presence boolean,
-    revision integer DEFAULT 0
+    revision integer DEFAULT 1
 );
 
 

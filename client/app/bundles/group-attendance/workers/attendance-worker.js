@@ -32,7 +32,7 @@ const actions = {
         revision: attendance.revision,
       }));
     } catch (error) {
-      poster({ attendance, status: 'error', type: 'updateAttendanceReply' });
+      return poster({ attendance, status: 'error', type: 'updateAttendanceReply' });
     }
 
     poster({
