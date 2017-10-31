@@ -20,7 +20,10 @@ module.exports = {
 
     react: [
       'react',
+      'react-redux',
+      'redux-thunk',
       'react-on-rails',
+      'mirror-creator',
     ],
 
     'schedule-list': './app/bundles/ScheduleList/startup/clientRegistration',
