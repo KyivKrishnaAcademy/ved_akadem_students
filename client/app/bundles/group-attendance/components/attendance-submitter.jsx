@@ -135,7 +135,7 @@ export default class AttendanceSubmitter extends React.Component {
                 <div className="col-sm-12 text-center">
                   <Img
                     alt={person.name}
-                    src={person.photoPath}
+                    src={[person.photoPath, defaultPhoto]}
                     loader={defaultImage}
                     className="img-thumbnail img-version-standart"
                   />
