@@ -42,7 +42,9 @@ export function mergeLocalAttendances(classSchedules) {
   });
 
   Object.keys(attendances).forEach(key => {
-    const [scheduleId, studentProfileId] = key.split('-');
+    const splittedKey = key.split('-');
+    const scheduleId = splittedKey[0];
+    const studentProfileId = splittedKey[1];
 
     const classSchedule = classSchedulesObj[scheduleId];
 
