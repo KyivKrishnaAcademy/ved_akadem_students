@@ -63,9 +63,9 @@ export default class PerformanceRow extends React.Component {
       <div className="scrollable-row">
         <div className="scrollable-header">
           <div className="pivoted-content vert-offset-bottom-1">
-            <span>{title}</span>
+            <b>{title}</b>
             <br/>
-            <b>{courseTitle}</b>
+            <span>{courseTitle}</span>
           </div>
 
           {editButton}

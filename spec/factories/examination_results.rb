@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :examination_result do
-    examination nil
-    person nil
+    examination
+    student_profile
+
     score 1
   end
 end

@@ -13,7 +13,7 @@ class BasePolicy
   end
 
   def user_activities
-    if @user.present? && @user.roles.any?
+    @_user_activities ||= if @user.present? && @user.roles.any?
       @user.roles.select(:activities).distinct.map(&:activities).flatten
     else
       []
