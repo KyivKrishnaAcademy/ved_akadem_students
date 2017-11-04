@@ -84,6 +84,7 @@ ru:
     index:
       actions:      'Действия'
       course_title: 'Название'
+      course_variant: 'Вариант'
       title:        'Предметы'
     show:
       actions:              'Действия'

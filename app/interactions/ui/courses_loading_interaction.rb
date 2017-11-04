@@ -8,5 +8,12 @@ module Ui
       @resource  = Course.where('title ILIKE ?', "%#{params[:q]}%")
       # TODO: injection is possible!
     end
+
+    def serialize_resource(course)
+      {
+        id: course.id,
+        text: course.label_for_select
+      }
+    end
   end
 end

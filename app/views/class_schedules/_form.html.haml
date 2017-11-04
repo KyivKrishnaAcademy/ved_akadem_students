@@ -6,7 +6,7 @@
   = simple_form_for @class_schedule do |f|
     = render 'shared/error_messages', object: f.object
 
-    = f.association :course, label_method: :title, collection: [*f.object.course],
+    = f.association :course, label_method: :label_for_select, collection: [*f.object.course],
                     input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/courses' } }
     = f.input :subject
     = f.association :classroom, label_method: :title, collection: [*f.object.classroom],
