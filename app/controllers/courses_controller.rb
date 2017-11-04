@@ -61,6 +61,6 @@ class CoursesController < HtmlRespondableController
   end
 
   def course_params
-    params.require(:course).permit(:title, :description, teacher_profile_ids: [])
+    params.require(:course).permit(:title, :variant, :description, teacher_profile_ids: [])
   end
 end

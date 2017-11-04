@@ -14,6 +14,7 @@
         %thead
           %tr
             %th= t('.course_title')
+            %th= t('.course_variant')
 
             - if @courses.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
               %th= t('.actions')
@@ -24,6 +25,9 @@
               %td
                 = link_to_if policy(course).show?, course.title, course_path(course) do
                   = course.title
+
+              %td
+                = course.variant
 
               - if policy(course).tap { |p| break p.edit? || p.destroy? }
                 %td.col-xs-2.col-sm-3.col-md-2

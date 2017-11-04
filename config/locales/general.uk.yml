@@ -84,6 +84,7 @@ uk:
     index:
       actions:      'Дії'
       course_title: 'Назва'
+      course_variant: 'Варіант'
       title:        'Предмети'
     show:
       actions:              'Дії'

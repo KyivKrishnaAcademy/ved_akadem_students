@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029195342) do
+ActiveRecord::Schema.define(version: 20171104053938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20171029195342) do
     t.integer  "class_schedule_id"
     t.integer  "student_profile_id"
     t.boolean  "presence"
-    t.integer  "revision",           default: 0
+    t.integer  "revision",           default: 1
     t.index ["class_schedule_id", "student_profile_id"], name: "index_attendances_on_class_schedule_id_and_student_profile_id", unique: true, using: :btree
   end
 
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20171029195342) do
     t.datetime "updated_at"
     t.string   "title",       limit: 255
     t.string   "description", limit: 255
+    t.string   "variant"
   end
 
   create_table "courses_programs", id: false, force: :cascade do |t|
