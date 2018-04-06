@@ -10,7 +10,7 @@ env:
   - CODECLIMATE_REPO_TOKEN=783e4ac8cc44be68f2be2932fb13e2805e1f21b4541d689c9c7fe12bfb2373fb
 script:
   - bundle exec rake db:structure:load
-  - nvm install 5.5.0
+  - nvm install 9.11.0
   - npm install
   - cd client
   - npm run build:client
