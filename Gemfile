@@ -63,8 +63,6 @@ group :development do
   gem 'letter_opener'
   gem 'haml-rails'
   gem 'meta_request'
-  gem 'spring'
-  gem 'spring-commands-rspec'
 end
 
 group :development, :test do
