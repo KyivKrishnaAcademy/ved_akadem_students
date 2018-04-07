@@ -2,7 +2,7 @@ module Ui
   class ScheduleAttendancesController < Ui::BaseController
     skip_before_action :verify_authenticity_token
 
-    before_action :set_resource, only: [:update, :destroy]
+    before_action :set_resource, only: %i[update destroy]
 
     def index
       authorize Attendance, :ui_index?

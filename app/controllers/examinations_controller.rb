@@ -1,5 +1,5 @@
 class ExaminationsController < HtmlRespondableController
-  before_action :set_examination, only: [:show, :edit, :update, :destroy]
+  before_action :set_examination, only: %i[show edit update destroy]
 
   after_action :verify_authorized
 
@@ -15,8 +15,7 @@ class ExaminationsController < HtmlRespondableController
     respond_with(@examination)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @examination = Examination.new(examination_params.merge(course_id: params[:course_id]))

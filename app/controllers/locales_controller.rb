@@ -5,7 +5,7 @@ class LocalesController < ApplicationController
     locale = I18n.locale == :ru ? :uk : :ru
 
     if current_person.present?
-      current_person.update_column(:locale, locale)
+      current_person.update_column(:locale, locale) # rubocop:disable Rails/SkipsModelValidations
     else
       session[:locale] = locale
     end

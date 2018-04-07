@@ -3,11 +3,11 @@ namespace :academic do
   task update_programs: :environment do
     puts 'Reading data...'
 
-    programs = YAML.load_file(Rails.root.join('spec/fixtures/programs.yml'))
+    programs = YAML.load_file(Rails.root.join('spec', 'fixtures', 'programs.yml'))
 
     puts 'Populating...'
 
-    programs.each { |p| Program.find_by(title_ru: p[:title_ru]).update_column(:title_uk, p[:title_uk]) }
+    programs.each { |p| Program.find_by(title_ru: p[:title_ru]).update(title_uk: p[:title_uk]) }
 
     puts 'Done.'
   end

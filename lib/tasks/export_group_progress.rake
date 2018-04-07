@@ -25,12 +25,12 @@ namespace :academic do
     xlsx = Axlsx::Package.new
 
     xlsx.workbook.add_worksheet(name: group.title) do |sheet|
-      sheet.add_row(["ПІБ"] + examination_titles.values)
+      sheet.add_row(['ПІБ'] + examination_titles.values)
 
       group.active_students.each do |p|
         sp_id = p.student_profile.id
 
-        scores = examination_titles.keys.map { |e_id| (results[sp_id] || {})[e_id] || "" }
+        scores = examination_titles.keys.map { |e_id| (results[sp_id] || {})[e_id] || '' }
 
         sheet.add_row([p.complex_name] + scores)
       end

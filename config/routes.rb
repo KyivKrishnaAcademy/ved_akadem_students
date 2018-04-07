@@ -1,5 +1,6 @@
 require 'sidekiq/web'
 
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   devise_for(
     :people,
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      mount_devise_token_auth_for 'Person', at: 'auth', skip: [:passwords, :registrations]
+      mount_devise_token_auth_for 'Person', at: 'auth', skip: %i[passwords registrations]
 
       resources :people, only: :index
     end
@@ -22,9 +23,9 @@ Rails.application.routes.draw do
 
   resources :people, :academic_groups
   resources :group_participations, only: :destroy
-  resources :class_schedules, only: [:new, :create, :edit, :update, :index, :destroy]
-  resources :study_applications, only: [:create, :destroy]
-  resources :answers, only: [:update, :edit]
+  resources :class_schedules, only: %i[new create edit update index destroy]
+  resources :study_applications, only: %i[create destroy]
+  resources :answers, only: %i[update edit]
   resources :certificate_templates, except: :show do
     member do
       get :markup
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
   end
 
   resources :courses do
-    resources :examinations, only: [:new, :create, :edit, :update, :show, :destroy]
+    resources :examinations, only: %i[new create edit update show destroy]
   end
 
   post '/academic_groups/:id/graduate', controller: :academic_groups, action: :graduate, as: :graduate_academic_group
@@ -64,8 +65,8 @@ Rails.application.routes.draw do
     resources :classrooms,       only: :index
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index
-    resources :examination_results, only: [:create, :update, :destroy]
-    resources :schedule_attendances, only: [:index, :create, :update, :destroy]
+    resources :examination_results, only: %i[create update destroy]
+    resources :schedule_attendances, only: %i[index create update destroy]
 
     get 'group_admins', controller: :group_elders, action: :group_admins_index
     get 'group_curators', controller: :group_elders, action: :group_curators_index
@@ -89,3 +90,4 @@ Rails.application.routes.draw do
 
   resource :journal, only: :show
 end
+# rubocop:enable Metrics/BlockLength

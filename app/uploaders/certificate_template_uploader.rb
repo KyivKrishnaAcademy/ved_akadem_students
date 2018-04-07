@@ -7,7 +7,7 @@ class CertificateTemplateUploader < BaseUploader
   end
 
   def extension_white_list
-    %w(png)
+    %w[png]
   end
 
   private

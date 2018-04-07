@@ -3,7 +3,7 @@ class PdfExportsController < ApplicationController
 
   skip_before_action :set_locale
 
-  before_action :set_academic_group, only: %i(group_list attendance_template)
+  before_action :set_academic_group, only: %i[group_list attendance_template]
 
   after_action :verify_authorized
 

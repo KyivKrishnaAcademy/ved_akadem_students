@@ -5,18 +5,19 @@ lock '3.6.1'
 set :pty, true
 set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
 set :deploy_to, '/var/docker/apps/ved_akadem_students'
-set :linked_files, %w(.ruby-env)
+set :linked_files, %w[.ruby-env]
 
 set :dbname, 'postgresql://postgres:postgres@postgres:5432/va_db'
 set :project, 'akademstudents'
-set :packages, %w(git build-base postgresql postgresql-client nodejs-lts python)
+set :packages, %w[git build-base postgresql postgresql-client nodejs-lts python]
 set :app_image, 'mpugach/akadem_students_prod:latest'
 set :compose_yml, 'docker-compose.prod.yml'
 set :backups_path, "#{fetch(:deploy_to)}/backups"
 set :builder_name, 'assets_builder'
 set :keep_backups, 10
-set :docker_images, %w(mpugach/akadem_students_prod:latest mpugach/akadem_students_nginx:latest)
+set :docker_images, %w[mpugach/akadem_students_prod:latest mpugach/akadem_students_nginx:latest]
 
+# rubocop:disable Metrics/BlockLength
 namespace :docker do
   desc 'Deploy containers'
   task :deploy do
@@ -84,7 +85,7 @@ namespace :docker do
   end
 
   desc 'Stop container'
-  task :stop_container, %i(container) do |_t, args|
+  task :stop_container, %i[container] do |_t, args|
     on roles(:all) do
       within release_path do
         execute <<-SHELL
@@ -97,7 +98,7 @@ namespace :docker do
   end
 
   desc 'Execute on builder'
-  task :builder_exec, %i(cmd) do |_t, args|
+  task :builder_exec, %i[cmd] do |_t, args|
     on roles(:all) do
       within release_path do
         sudo "docker exec \"#{fetch(:builder_name)}\" sh -lc '#{args[:cmd]}'"
@@ -106,7 +107,7 @@ namespace :docker do
   end
 
   desc 'docker-compose up'
-  task :compose_up, %i(options) do |_t, args|
+  task :compose_up, %i[options] do |_t, args|
     args.with_defaults(options: '')
 
     on roles(:all) do
@@ -249,6 +250,7 @@ namespace :docker do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
 
 before :'deploy:started', :'docker:backup'
 after :'deploy:published', :'docker:deploy'

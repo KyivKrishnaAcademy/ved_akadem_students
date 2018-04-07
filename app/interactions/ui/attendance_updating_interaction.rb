@@ -7,7 +7,7 @@ module Ui
     end
 
     def as_json(_opts = {})
-      @_as_json ||= if resource.valid? && resource.persisted?
+      @as_json ||= if resource.valid? && resource.persisted?
         {
           attendance: {
             id: resource.id,

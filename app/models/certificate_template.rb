@@ -1,13 +1,13 @@
 class CertificateTemplate < ApplicationRecord
   GAP           = 30
-  FIELDS        = %i(holder_name cert_id date).freeze
-  DIMENSIONS    = %i(x y w h).freeze
-  ARRAY_FIELDS  = %i(teachers).freeze
+  FIELDS        = %i[holder_name cert_id date].freeze
+  DIMENSIONS    = %i[x y w h].freeze
+  ARRAY_FIELDS  = %i[teachers].freeze
   FIELDS_COUNT  = FIELDS.count + ARRAY_FIELDS.count * 2
 
   serialize :fields, HashSerializer
 
-  enum status: %i(draft ready)
+  enum status: %i[draft ready]
 
   mount_uploader :background, CertificateTemplateUploader
 

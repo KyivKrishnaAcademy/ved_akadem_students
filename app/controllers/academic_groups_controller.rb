@@ -1,11 +1,11 @@
 class AcademicGroupsController < ApplicationController
   include ClassSchedulesRefreshable
 
-  before_action :set_resource, only: [:show, :edit, :update, :destroy, :graduate]
+  before_action :set_resource, only: %i[show edit update destroy graduate]
 
   after_action :verify_authorized
-  after_action :verify_policy_scoped, only: %i(index show edit update destroy)
-  after_action :refresh_class_schedules_mv, only: %i(destroy update graduate)
+  after_action :verify_policy_scoped, only: %i[index show edit update destroy]
+  after_action :refresh_class_schedules_mv, only: %i[destroy update graduate]
 
   def index
     @academic_groups = policy_scope(AcademicGroup).by_active_title
@@ -25,8 +25,7 @@ class AcademicGroupsController < ApplicationController
     authorize @academic_group
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @academic_group = AcademicGroup.new(AcademicGroupParams.filter(params))
@@ -45,7 +44,7 @@ class AcademicGroupsController < ApplicationController
   end
 
   def update
-    if @academic_group.update_attributes(AcademicGroupParams.filter(params))
+    if @academic_group.update(AcademicGroupParams.filter(params))
       redirect_to @academic_group, flash: { success: 'Academic group was successfully updated.' }
     else
       render action: :edit

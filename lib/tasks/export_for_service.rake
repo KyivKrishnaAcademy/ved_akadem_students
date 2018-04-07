@@ -3,7 +3,7 @@ namespace :academic do
   task export_for_service: :environment do
     PROGRESS_ELEMENT = '.'
     BASE_DIR         = Rails.root.join 'tmp'
-    HEADER           = %w(ФИО группы телефоны работа образование)
+    HEADER           = %w[ФИО группы телефоны работа образование]
 
     def name_for_card(person)
       return person.spiritual_name if person.spiritual_name.present?

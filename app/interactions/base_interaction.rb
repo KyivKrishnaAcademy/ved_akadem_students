@@ -9,8 +9,7 @@ class BaseInteraction
     init
   end
 
-  def init
-  end
+  def init; end
 
   def as_json(_opts = {})
     {}

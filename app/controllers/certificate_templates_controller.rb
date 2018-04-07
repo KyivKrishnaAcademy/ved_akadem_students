@@ -1,5 +1,5 @@
 class CertificateTemplatesController < HtmlRespondableController
-  before_action :set_certificate_template, only: %i(edit update destroy markup finish background)
+  before_action :set_certificate_template, only: %i[edit update destroy markup finish background]
 
   after_action :verify_authorized
 
@@ -19,8 +19,7 @@ class CertificateTemplatesController < HtmlRespondableController
     respond_with(@certificate_template)
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @certificate_template = CertificateTemplate.new(certificate_template_params)

@@ -4,10 +4,10 @@ class PeopleController < ApplicationController
   include StudyApplicationable
   include ClassSchedulesRefreshable
 
-  before_action :set_person, only: %i(show edit update destroy show_photo show_passport)
+  before_action :set_person, only: %i[show edit update destroy show_photo show_passport]
 
   after_action :verify_authorized
-  after_action :verify_policy_scoped, except: %i(new create)
+  after_action :verify_policy_scoped, except: %i[new create]
   after_action :refresh_class_schedules_mv, only: :update
 
   def new
@@ -48,8 +48,7 @@ class PeopleController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def index
     authorize Person
@@ -74,7 +73,7 @@ class PeopleController < ApplicationController
   end
 
   def update
-    if @person.update_attributes(PersonParams.filter(params).merge(skip_password_validation: true))
+    if @person.update(PersonParams.filter(params).merge(skip_password_validation: true))
       flash[:success] = 'Person was successfully updated.'
 
       redirect_to direct_to_crop(person_path(@person), @person)
@@ -112,7 +111,7 @@ class PeopleController < ApplicationController
       params.require(:person).permit(
         :birthday, :education, :email, :emergency_contact, :friends_to_be_with, :gender, :marital_status,
         :middle_name, :name, :passport, :passport_cache, :photo, :photo_cache, :spiritual_name, :diksha_guru,
-        :surname, :work, :special_note, telephones_attributes: [:id, :phone, :_destroy]
+        :surname, :work, :special_note, telephones_attributes: %i[id phone _destroy]
       )
     end
   end

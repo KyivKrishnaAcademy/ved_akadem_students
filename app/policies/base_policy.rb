@@ -13,7 +13,7 @@ class BasePolicy
   end
 
   def user_activities
-    @_user_activities ||= if @user.present? && @user.roles.any?
+    @user_activities ||= if @user.present? && @user.roles.any?
       @user.roles.select(:activities).distinct.map(&:activities).flatten
     else
       []
@@ -36,6 +36,7 @@ class BasePolicy
       super
     end
   end
+  # rubocop:enable Style/MethodMissing
 
   def scope
     Pundit.policy_scope!(user, record.class)

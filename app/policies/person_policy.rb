@@ -30,7 +30,7 @@ class PersonPolicy < BasePolicy
   private
 
   def academic_group_writable
-    user.can_act?(%w(academic_group:edit academic_group:new))
+    user.can_act?(%w[academic_group:edit academic_group:new])
   end
 
   def owned?

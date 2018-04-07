@@ -4,7 +4,7 @@ class Program < ApplicationRecord
 
   has_many :study_applications, dependent: :destroy
 
-  belongs_to :manager, class_name: 'Person'
+  belongs_to :manager, class_name: 'Person' # rubocop:disable Rails/InverseOf
 
   has_and_belongs_to_many :courses
   has_and_belongs_to_many :questionnaires

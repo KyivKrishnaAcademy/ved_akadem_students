@@ -1,6 +1,6 @@
 module Ui
   class ExaminationResultsController < Ui::BaseController
-    before_action :set_resource, only: [:update, :destroy]
+    before_action :set_resource, only: %i[update destroy]
 
     def create
       resource = ExaminationResult.new(create_params)
