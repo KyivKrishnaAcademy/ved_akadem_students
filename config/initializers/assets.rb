@@ -7,9 +7,9 @@ Rails.application.config.assets.version = '1.1'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w[
   crops.js
-  Jcrop/css/Jcrop.css
-  Jcrop/js/Jcrop.js
-  Jcrop/css/Jcrop.gif
+  Jcrop.min.css
+  Jcrop.min.js
+  Jcrop.gif
 
   generated/app-bundle.js
   generated/server-bundle.js
