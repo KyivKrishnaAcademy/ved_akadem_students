@@ -27,7 +27,7 @@ export default class GroupPerformanceWidget extends React.Component {
 
   componentDidUpdate() {
     window.adjustAttendanceHeaders('.scrollable-header');
-    window.adjustAttendanceHeaders('.editable-cell');
+    window.adjustAttendanceHeaders('.editable-cell', -2);
   }
 
   render() {

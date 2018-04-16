@@ -1,4 +1,5 @@
 # Use this setup block to configure all options available in SimpleForm.
+# rubocop:disable Metrics/BlockLength
 SimpleForm.setup do |config|
   config.wrappers :bootstrap, tag: 'div', class: 'control-group', error_class: 'has-error' do |b|
     b.use :html5
@@ -165,3 +166,4 @@ SimpleForm.setup do |config|
   config.button_class             = 'btn btn-primary'
   config.default_wrapper          = :vertical_form
 end
+# rubocop:enable Metrics/BlockLength

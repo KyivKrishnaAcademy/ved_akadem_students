@@ -233,7 +233,7 @@ describe PeopleController do
 
         context 'receives .update_attributes' do
           Then do
-            expect_any_instance_of(Person).to receive(:update_attributes).with(
+            expect_any_instance_of(Person).to receive(:update).with(
               ActionController::Parameters.new(
                 'emergency_contact' => 'params',
                 'skip_password_validation' => true

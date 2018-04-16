@@ -1,21 +1,24 @@
+# rubocop:disable Metrics/BlockLength
 namespace :academic do
   desc 'Export data for students cards'
   task export_students_for_cards: :environment do
-    PROGRESS_ELEMENT = '.'
+    PROGRESS_ELEMENT = '.'.freeze
     BASE_DIR         = Rails.root.join 'tmp'
-    HEADER           = %w(ФИО_для_билета ФИО_для_QR Номер Группа Телефон Email Фото)
+    HEADER           = %w[ФИО_для_билета ФИО_для_QR Номер Группа Телефон Email Фото].freeze
 
     def name_for_card(student)
       return student.spiritual_name if student.spiritual_name.present?
 
-      "#{student.surname.mb_chars.upcase} #{student.name}#{student.middle_name.present? ? ' ' << student.middle_name : ''}"
+      middle_name = student.middle_name.present? ? ' ' << student.middle_name : ''
+
+      "#{student.surname.mb_chars.upcase} #{student.name}#{middle_name}"
     end
 
     def card_id(student)
       current_year = Date.current.year
-      student_id   = '%06d' % student.id
+      student_id   = format('%06d', student.id)
 
-      if (8..12).include?(Date.current.month)
+      if (8..12).cover?(Date.current.month)
         "#{current_year.to_s.last(2)}-#{current_year.next.to_s.last(2)}-#{student_id}"
       else
         "#{current_year.pred.to_s.last(2)}-#{current_year.to_s.last(2)}-#{student_id}"
@@ -28,10 +31,10 @@ namespace :academic do
 
     def copy_photo(student, card_number, photo_dir)
       new_file_path = if student.photo.standart.file.present?
-                        photo_dir.join "#{card_number}.#{student.photo.standart.file.extension}"
-                      end
+        photo_dir.join "#{card_number}.#{student.photo.standart.file.extension}"
+      end
 
-      return unless new_file_path.present?
+      return if new_file_path.blank?
 
       FileUtils.copy_file(Pathname.new(student.photo.standart.file.path), new_file_path)
 
@@ -81,3 +84,4 @@ namespace :academic do
     puts "\nDone!"
   end
 end
+# rubocop:enable Metrics/BlockLength

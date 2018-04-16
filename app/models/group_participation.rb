@@ -11,7 +11,7 @@ class GroupParticipation < ApplicationRecord
   def leave!
     return if leave_date.present?
 
-    update(leave_date: DateTime.current)
+    update(leave_date: Time.zone.now)
 
     person = student_profile.person
 
@@ -23,6 +23,6 @@ class GroupParticipation < ApplicationRecord
   private
 
   def set_join_date
-    self.join_date = DateTime.current if join_date.blank?
+    self.join_date = Time.zone.now if join_date.blank?
   end
 end

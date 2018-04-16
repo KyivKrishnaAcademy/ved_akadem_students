@@ -38,7 +38,7 @@ class StudyApplicationsController < ApplicationController
 
       render partial: 'common'
     else
-      render nothing: true, status: 501
+      render nothing: true, status: :not_implemented
     end
   end
 

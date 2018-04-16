@@ -2,7 +2,7 @@ class ClassSchedulesController < HtmlRespondableController
   include Crudable
   include ClassSchedulesRefreshable
 
-  after_action :refresh_class_schedules_mv, only: %i(create destroy update)
+  after_action :refresh_class_schedules_mv, only: %i[create destroy update]
 
   def index
     authorize ClassSchedule

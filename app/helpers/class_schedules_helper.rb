@@ -1,6 +1,6 @@
 module ClassSchedulesHelper
   def class_schedule_title(c_schedule)
-    @_class_schedule_title ||=
+    @class_schedule_title ||=
       "#{c_schedule.course.title}, #{l(c_schedule.start_time, format: :with_day)}, #{c_schedule.classroom.title}"
   end
 

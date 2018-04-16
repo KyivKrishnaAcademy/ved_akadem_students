@@ -7,7 +7,7 @@ module Ui
     private
 
     def user_not_authorized
-      render json: { error: :not_authorized }, status: 401
+      render json: { error: :not_authorized }, status: :unauthorized
     end
 
     def respond_with_interaction(klass, resource = nil)

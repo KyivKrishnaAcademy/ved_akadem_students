@@ -6,8 +6,10 @@ AllCops:
     - '**/Rakefile'
     - '**/config.ru'
   Exclude:
+    - 'Rakefile'
     - 'vendor/**/*'
-    - 'spec/fixtures/**/*'
+    - 'spec/**/*'
+    - 'lib/tasks/**/*'
     - 'node_modules/**/*'
     - 'db/**/*'
     - 'db/schema.rb'
@@ -48,14 +50,19 @@ Rails:
 Rails/HasAndBelongsToMany:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 
-Lint/EndAlignment:
-  AlignWith: variable
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
 
 Style/FrozenStringLiteralComment:
   Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - Capfile
+    - Gemfile

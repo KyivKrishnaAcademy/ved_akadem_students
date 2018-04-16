@@ -1,6 +1,6 @@
 class Person < ApplicationRecord
   # TODO: use enums here since we run rails 4.1
-  MARITAL_STATUSES = %i(single in_relationship married divorced widowed).freeze
+  MARITAL_STATUSES = %i[single in_relationship married divorced widowed].freeze
 
   class SymbolWrapper
     def self.load(string)
@@ -29,9 +29,22 @@ class Person < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
   has_many :questionnaires, through: :questionnaire_completenesses
-  has_many :administrated_groups, class_name: 'AcademicGroup', foreign_key: 'administrator_id'
-  has_many :praeposted_groups, class_name: 'AcademicGroup', foreign_key: 'praepostor_id'
-  has_many :curated_groups, class_name: 'AcademicGroup', foreign_key: 'curator_id'
+
+  has_many :administrated_groups,
+           class_name: 'AcademicGroup',
+           foreign_key: 'administrator_id',
+           dependent: :nullify,
+           inverse_of: 'administrator'
+  has_many :praeposted_groups,
+           class_name: 'AcademicGroup',
+           foreign_key: 'praepostor_id',
+           dependent: :nullify,
+           inverse_of: 'praepostor'
+  has_many :curated_groups,
+           class_name: 'AcademicGroup',
+           foreign_key: 'curator_id',
+           dependent: :nullify,
+           inverse_of: 'curator'
 
   before_save :set_password, :set_complex_name, :set_uid
 
@@ -161,7 +174,7 @@ class Person < ApplicationRecord
 
     result.delete(:questionnaires) if result[:questionnaires].zero?
 
-    [:photo, :passport].each do |person_field|
+    %i[photo passport].each do |person_field|
       result[person_field] = person_field if send(person_field).blank?
     end
 

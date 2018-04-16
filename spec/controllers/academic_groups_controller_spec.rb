@@ -200,7 +200,7 @@ describe AcademicGroupsController do
       describe 'record receives update' do
         Then do
           expect_any_instance_of(AcademicGroup)
-            .to receive(:update_attributes).with(ActionController::Parameters.new(mod_params).permit!)
+            .to receive(:update).with(ActionController::Parameters.new(mod_params).permit!)
           action
         end
       end

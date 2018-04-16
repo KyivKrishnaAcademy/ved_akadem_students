@@ -14,7 +14,7 @@ module Ui
     end
 
     def as_json(_opts = {})
-      @_as_json ||= {
+      @as_json ||= {
         classSchedules: @class_schedules.map(&method(:serialize_class_schedule)).reverse
       }
     end
