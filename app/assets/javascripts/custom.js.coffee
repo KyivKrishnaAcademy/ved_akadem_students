@@ -1,4 +1,4 @@
-window.adjustAttendanceHeaders = (className) ->
+window.adjustAttendanceHeaders = (className, correctionn = 0) ->
   $attendanceHeaders = $(className)
   mapper = (el) -> el.offsetHeight
   sorter = (a, b) -> a - b
@@ -7,7 +7,7 @@ window.adjustAttendanceHeaders = (className) ->
   if !height
     return
 
-  $attendanceHeaders.height(height)
+  $attendanceHeaders.height(height + correctionn)
 
 $ ->
   if $('input#datepicker').length
