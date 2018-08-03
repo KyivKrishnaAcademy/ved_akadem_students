@@ -44,6 +44,8 @@ uk:
     show_passport:    'Показати паспорт'
     update:           'Зберегти'
     withdraw:         'Відкликати заяву'
+  alerts:
+    delete_confirmation: 'Ви впевнені що хочете це ВИДАЛИТИ???'
   hints:
     no_passport: 'Немає закріпленого паспорту'
   content:

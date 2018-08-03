@@ -44,6 +44,8 @@ ru:
     show_passport:    'Показать паспорт'
     update:           'Сохранить'
     withdraw:         'Отозвать заявление'
+  alerts:
+    delete_confirmation: 'Вы уверены что хотите это УДАЛИТЬ???'
   hints:
     no_passport: 'Нет прикрепленного паспорта'
   content:
