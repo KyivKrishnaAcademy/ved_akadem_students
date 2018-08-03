@@ -73,9 +73,7 @@ module HelperMethods
   end
 
   def certificate_template_activities
-    (
-      CertificateTemplatesController.action_methods - %w(markup finish background)
-    ).map { |action| 'certificate_template:' << action }
+    CertificateTemplatesController.action_methods.map { |action| 'certificate_template:' << action }
   end
 
   def journal_activities

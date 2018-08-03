@@ -18,8 +18,6 @@ Rails.application.config.assets.precompile += %w[
   generated/group-attendance-bundle.js
   generated/group-performance-bundle.js
 
-  cert_template_markup.js
-
   forgot_email.js
 
   nested_form_custom_telephones.js

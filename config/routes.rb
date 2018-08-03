@@ -26,14 +26,7 @@ Rails.application.routes.draw do
   resources :class_schedules, only: %i[new create edit update index destroy]
   resources :study_applications, only: %i[create destroy]
   resources :answers, only: %i[update edit]
-  resources :certificate_templates, except: :show do
-    member do
-      get :markup
-      get :background
-
-      patch :finish
-    end
-  end
+  resources :certificate_templates, only: %i[new create edit update index destroy]
 
   resources :courses do
     resources :examinations, only: %i[new create edit update show destroy]

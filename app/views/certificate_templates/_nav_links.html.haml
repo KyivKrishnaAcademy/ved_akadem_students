@@ -1,6 +1,3 @@
-= link_to_markup params[:action] != 'markup'.freeze && policy(certificate_template).markup?,
-  markup_certificate_template_path(certificate_template)
-
 = link_to_edit params[:action] != 'edit'.freeze && policy(certificate_template).edit?,
   edit_certificate_template_path(certificate_template)
 

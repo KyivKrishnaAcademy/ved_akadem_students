@@ -1,5 +1,5 @@
 class CertificateTemplatesController < HtmlRespondableController
-  before_action :set_certificate_template, only: %i[edit update destroy markup finish background]
+  before_action :set_certificate_template, only: %i[edit update destroy]
 
   after_action :verify_authorized
 
@@ -30,27 +30,8 @@ class CertificateTemplatesController < HtmlRespondableController
 
     respond_with(
       @certificate_template,
-      location: -> { markup_certificate_template_path(@certificate_template) }
+      location: -> { certificate_templates_path }
     )
-  end
-
-  def markup
-    @certificate_template.init_fields
-  end
-
-  def finish
-    if @certificate_template.update(finish_params)
-      redirect_to certificate_templates_path
-    else
-      render :markup
-    end
-  end
-
-  def background
-    send_file(@certificate_template.background.preview.url,
-              disposition: 'inline',
-              type: @certificate_template.background.preview.content_type,
-              x_sendfile: true)
   end
 
   def update
