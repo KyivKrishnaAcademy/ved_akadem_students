@@ -16,14 +16,18 @@ const PerformanceMarker = ({
   let cellClass = 'cell editable-cell';
   let buttonClass = 'default';
 
-  if (score !== undefined && score >= examinationPassingScore) {
-    content = <span className="glyphicon glyphicon-ok" />;
-    cellClass = 'cell bg-success editable-cell';
-    buttonClass = 'success';
-  } else if (score !== undefined && score < examinationPassingScore) {
-    content = <span className="glyphicon glyphicon-remove" />;
-    cellClass = 'cell bg-danger editable-cell';
-    buttonClass = 'danger';
+  if (score !== undefined) {
+    if (score >= examinationPassingScore) {
+      content = <span className="glyphicon glyphicon-ok" />;
+      cellClass = 'cell bg-success editable-cell';
+      buttonClass = 'success';
+    } else {
+      content = <span className="glyphicon glyphicon-remove" />;
+      cellClass = 'cell bg-danger editable-cell';
+      buttonClass = 'danger';
+    }
+
+    if (examinationPassingScore !== 1) content = score;
   }
 
   const button = isEditExamination ?
