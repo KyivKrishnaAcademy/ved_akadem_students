@@ -3,7 +3,13 @@
 
 .row
   .col-xs-12
-    %h1 People
+    %h1.text-center People
+
+- if !params[:without_application] && !params[:with_application]
+  .row.vert-offset-top-2.vert-offset-bottom-2
+    .col-xs-12.col-md-6.col-md-offset-3.col-lg-4.col-lg-offset-4
+      = form_for :search, url: people_path, method: :get do |f|
+        = f.text_field :query, class: 'form-control', type: :search, placeholder: t('.search_placeholder'), value: @search_query
 
 .row
   .col-xs-12

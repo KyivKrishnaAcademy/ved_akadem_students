@@ -24,7 +24,7 @@ module LinkTos
   def link_to_destroy(condition, path)
     link_to_action(
       condition, path, 'danger', t('links.delete'), 'trash',
-      data: { confirm: 'Are you sure?' }, method: :delete
+      data: { confirm: t('alerts.delete_confirmation') }, method: :delete
     )
   end
 

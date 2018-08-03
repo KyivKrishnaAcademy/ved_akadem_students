@@ -40,11 +40,12 @@ uk:
     edit_profile:     'Редагувати профіль'
     graduate:         'Випуск'
     list:             'Список'
-    markup:           'Розмітити'
     new:              'Створити'
     show_passport:    'Показати паспорт'
     update:           'Зберегти'
     withdraw:         'Відкликати заяву'
+  alerts:
+    delete_confirmation: 'Ви впевнені що хочете це ВИДАЛИТИ???'
   hints:
     no_passport: 'Немає закріпленого паспорту'
   content:
@@ -74,9 +75,6 @@ uk:
       actions:        'Дії'
       template_title: 'Назва шаблону'
       title:          'Шаблони сертифікатів'
-    markup:
-      submit:   'Розмітити шаблон сертифікату'
-      title:    'Розмітка шаблону'
     new:
       submit:   'Створити шаблон сертифікату'
       title:    'Створення шаблону сертифікату'
@@ -144,6 +142,17 @@ uk:
     show:
       not_adult:            '(ще нема 18! треба дозвіл від батьків)'
       psycho_test_results:  'Результати психологічного тесту'
+      special_notes:        'Cпеціальні нотатки'
+      no_special_notes:     'поки що нотаток немає'
+    index:
+      search_placeholder: 'Кого Ви шукаєте?'
+  notes:
+    new:
+      title: 'Нова нотатка'
+      submit: 'Створити'
+    edit:
+      title: 'Редагувати нотатку'
+      submit: 'Зберегти'
   academic_groups:
     show:
       active_students_count:    'Активних студентів:'

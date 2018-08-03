@@ -39,24 +39,6 @@ describe CertificateTemplatesController do
 
       it_behaves_like :not_authenticated
     end
-
-    context '#markup' do
-      When { get :markup, params: { id: 1 } }
-
-      it_behaves_like :not_authenticated
-    end
-
-    context '#background' do
-      When { get :background, params: { id: 1 } }
-
-      it_behaves_like :not_authenticated
-    end
-
-    context '#finish' do
-      When { post :finish, params: { id: 1 } }
-
-      it_behaves_like :not_authenticated
-    end
   end
 
   describe 'signed in' do
@@ -64,18 +46,6 @@ describe CertificateTemplatesController do
     Given(:template) { create :certificate_template }
 
     Given { sign_in user }
-
-    describe 'with valid user' do
-      describe 'GET #background' do
-        Given(:activities) { ['certificate_template:edit'] }
-
-        Given { expect(controller).to receive(:send_file) { controller.head :ok } }
-
-        When  { get :background, params: { id: template.id } }
-
-        Then  { expect(response.status).to eq(200) }
-      end
-    end
 
     describe 'with invalid user' do
       Given(:activities) { ['some:some'] }
@@ -98,56 +68,13 @@ describe CertificateTemplatesController do
         it_behaves_like :not_authorized
       end
 
-      describe 'GET #markup' do
-        When { get :markup, params: { id: template.id } }
-
-        it_behaves_like :not_authorized
-      end
-
-      describe 'GET #background' do
-        Given { expect(controller).not_to receive(:send_file) }
-
-        When  { get :background, params: { id: template.id } }
-
-        it_behaves_like :not_authorized
-      end
-
-      describe 'PATCH #finish' do
-        Given(:action) do
-          patch(
-            :finish,
-            params: {
-              id: template.id,
-              certificate_template: {
-                fields: {
-                  CertificateTemplate::FIELDS.first => {
-                    CertificateTemplate::DIMENSIONS.first => 100
-                  }
-                }
-              }
-            }
-          )
-        end
-
-        context 'should not update' do
-          Then { expect { action }.not_to change { template.reload.fields } }
-        end
-
-        context 'redirects' do
-          When { action }
-
-          it_behaves_like :not_authorized
-        end
-      end
-
       describe 'POST #create' do
         Given(:action) do
           post(
             :create,
             params: {
               certificate_template: {
-                title: 'some',
-                background: Rails.root.join('spec/fixtures/150x200.png').open
+                title: 'some'
               }
             }
           )

@@ -53,10 +53,14 @@ class PeopleController < ApplicationController
   def index
     authorize Person
 
+    @search_query = params.dig(:search, :query)
+
     @people = if params[:with_application].present?
-      people_list.with_application(params[:with_application]).page(params[:page])
+      people_with_application
     elsif params[:without_application].present?
-      policy_scope(Person).order(created_at: :desc).without_application.page(params[:page])
+      people_without_application
+    elsif @search_query.present?
+      people_list.search(@search_query).page(params[:page])
     else
       people_list.page(params[:page])
     end
@@ -124,5 +128,13 @@ class PeopleController < ApplicationController
 
   def people_list
     policy_scope(Person).by_complex_name
+  end
+
+  def people_with_application
+    people_list.with_application(params[:with_application]).page(params[:page])
+  end
+
+  def people_without_application
+    policy_scope(Person).order(created_at: :desc).without_application.page(params[:page])
   end
 end

@@ -17,7 +17,6 @@ describe 'certificate_templates/index' do
 
       Then { no_new_link }
       And  { no_edit_link }
-      And  { no_markup_link }
       And  { no_destroy_link }
     end
 
@@ -26,7 +25,6 @@ describe 'certificate_templates/index' do
 
       Then { expect(page).to have_selector(new_link_selector) }
       And  { no_edit_link }
-      And  { no_markup_link }
       And  { no_destroy_link }
     end
 
@@ -35,7 +33,6 @@ describe 'certificate_templates/index' do
 
       Then { edit_link }
       And  { no_new_link }
-      And  { markup_link }
       And  { no_destroy_link }
     end
 
@@ -45,7 +42,6 @@ describe 'certificate_templates/index' do
       Then { destroy_link }
       And  { no_new_link }
       And  { no_edit_link }
-      And  { no_markup_link }
     end
   end
 end

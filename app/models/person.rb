@@ -26,6 +26,7 @@ class Person < ApplicationRecord
   has_one :study_application, dependent: :destroy
   has_and_belongs_to_many :roles
   has_many :telephones, dependent: :destroy
+  has_many :notes, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
   has_many :questionnaires, through: :questionnaire_completenesses
@@ -90,6 +91,14 @@ class Person < ApplicationRecord
       .where(study_applications: { id: nil })
       .where(student_profiles: { id: nil })
       .where(teacher_profiles: { id: nil })
+  end
+
+  def self.search(query)
+    query_array = query.strip.split(/\s+/).map { |term| "%#{term}%" }
+
+    return all if query_array.none?
+
+    where('complex_name ilike any ( array[?] )', query_array)
   end
 
   def crop_photo(params)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171104053938) do
+ActiveRecord::Schema.define(version: 20180803111634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,15 +62,9 @@ ActiveRecord::Schema.define(version: 20171104053938) do
   end
 
   create_table "certificate_templates", force: :cascade do |t|
-    t.integer  "status",            default: 0,  null: false
-    t.integer  "background_height", default: 0,  null: false
-    t.integer  "background_width",  default: 0,  null: false
-    t.string   "background"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "title"
-    t.jsonb    "fields",            default: {}, null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.index ["status"], name: "index_certificate_templates_on_status", using: :btree
   end
 
   create_table "class_schedules", force: :cascade do |t|
@@ -135,6 +129,15 @@ ActiveRecord::Schema.define(version: 20171104053938) do
     t.integer  "academic_group_id"
     t.datetime "join_date"
     t.datetime "leave_date"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "person_id"
+    t.date     "date"
+    t.text     "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_notes_on_person_id", using: :btree
   end
 
   create_table "people", force: :cascade do |t|

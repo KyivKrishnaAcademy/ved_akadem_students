@@ -1,0 +1,10 @@
+= simple_form_for [note.person, note] do |f|
+  = render 'shared/error_messages', object: f.object
+
+  = f.input :date, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" }, value: l(f.object.date) }
+  = f.input :message
+  = f.input :person_id, as: :hidden
+
+  = f.button :button, class: 'btn btn-submit col-xs-12' do
+    %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+    = submit_label

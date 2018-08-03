@@ -16,7 +16,6 @@ describe 'certificate_templates/edit' do
       Given(:activity) { 'none' }
 
       Then { no_new_link }
-      And  { markup_link }
       And  { no_edit_link }
       And  { no_index_link }
       And  { no_destroy_link }
@@ -26,7 +25,6 @@ describe 'certificate_templates/edit' do
       Given(:activity) { 'new' }
 
       Then { new_link }
-      And  { markup_link }
       And  { no_edit_link }
       And  { no_index_link }
       And  { no_destroy_link }
@@ -37,18 +35,7 @@ describe 'certificate_templates/edit' do
 
       Then { index_link }
       And  { no_new_link }
-      And  { markup_link }
       And  { no_edit_link }
-      And  { no_destroy_link }
-    end
-
-    context 'with :markup rights' do
-      Given(:activity) { 'markup' }
-
-      Then { markup_link }
-      And  { no_new_link }
-      And  { no_edit_link }
-      And  { no_index_link }
       And  { no_destroy_link }
     end
 
@@ -56,7 +43,6 @@ describe 'certificate_templates/edit' do
       Given(:activity) { 'destroy' }
 
       Then { destroy_link }
-      And  { markup_link }
       And  { no_new_link }
       And  { no_edit_link }
       And  { no_index_link }

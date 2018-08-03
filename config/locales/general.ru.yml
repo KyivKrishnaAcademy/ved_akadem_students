@@ -40,11 +40,12 @@ ru:
     edit_profile:     'Редактировать профиль'
     graduate:         'Выпуск'
     list:             'Список'
-    markup:           'Разметить'
     new:              'Создать'
     show_passport:    'Показать паспорт'
     update:           'Сохранить'
     withdraw:         'Отозвать заявление'
+  alerts:
+    delete_confirmation: 'Вы уверены что хотите это УДАЛИТЬ???'
   hints:
     no_passport: 'Нет прикрепленного паспорта'
   content:
@@ -74,9 +75,6 @@ ru:
       actions:        'Действия'
       template_title: 'Название шаблона'
       title:          'Шаблоны сертификатов'
-    markup:
-      submit:   'Разметить шаблон сертификата'
-      title:    'Разметка шаблона'
     new:
       submit:   'Создать шаблон сертификата'
       title:    'Создание шаблона сертификата'
@@ -144,6 +142,17 @@ ru:
     show:
       not_adult:            '(еще нет 18! нужно разрешение от родителей)'
       psycho_test_results:  'Результаты психологического теста'
+      special_notes:        'Cпециальные заметки'
+      no_special_notes:     'пока что заметок нет'
+    index:
+      search_placeholder: 'Кого Вы ищете?'
+  notes:
+    new:
+      title: 'Новая заметка'
+      submit: 'Создать'
+    edit:
+      title: 'Редактировать заметку'
+      submit: 'Сохранить'
   academic_groups:
     show:
       active_students_count:    'Активных студентов:'

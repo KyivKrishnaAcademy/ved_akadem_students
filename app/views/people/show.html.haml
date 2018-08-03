@@ -160,6 +160,30 @@
           .col-xs-8.col-sm-9
             = @person.special_note
 
+- if policy(Note).index?
+  .row
+    .col-xs-12
+      %h3.text-center=t('.special_notes')
+    .col-xs-12
+      .text-center
+        = link_to_new current_person.can_act?('note:new'), new_person_note_path(@person)
+
+      - if @person.notes.none?
+        .text-center.vert-offset-top-1=t('.no_special_notes')
+      - else
+        .table-responsive.vert-offset-top-1
+          %table.table.table-condensed.table-striped
+            %tbody
+              - @person.notes.order(:date).each do |note|
+                %tr
+                  %td.col-xs-2.col-md-1
+                    = l(note.date)
+                  %td
+                    = note.message
+                  %td.col-xs-2.col-md-1
+                    = link_to_edit policy(note).edit?, edit_person_note_path(@person, note)
+                    = link_to_destroy policy(note).destroy?, person_note_path(@person, note)
+
 - if @person.study_application.present? || policy(@new_study_application).create?
   .row
     .col-xs-12.vert-offset-top-1.stop_double_submit#study_application

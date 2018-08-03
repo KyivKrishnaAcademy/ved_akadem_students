@@ -13,6 +13,7 @@ describe Person do
     Then { is_expected.to have_one(:study_application).dependent(:destroy) }
     Then { is_expected.to have_and_belong_to_many(:roles) }
     Then { is_expected.to have_many(:telephones).dependent(:destroy) }
+    Then { is_expected.to have_many(:notes).dependent(:destroy) }
     Then { is_expected.to have_many(:answers).dependent(:destroy) }
     Then { is_expected.to have_many(:questionnaire_completenesses).dependent(:destroy) }
     Then { is_expected.to have_many(:questionnaires).through(:questionnaire_completenesses) }
