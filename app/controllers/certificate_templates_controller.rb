@@ -59,16 +59,4 @@ class CertificateTemplatesController < HtmlRespondableController
   def certificate_template_params
     params.require(:certificate_template).permit(:title, :background, :background_cache)
   end
-
-  def finish_params
-    fields = CertificateTemplate::FIELDS.map do |field|
-      [field, CertificateTemplate::DIMENSIONS]
-    end
-
-    array_fields = CertificateTemplate::ARRAY_FIELDS.map do |field|
-      [field, [CertificateTemplate::DIMENSIONS]]
-    end
-
-    params.require(:certificate_template).permit(fields: (fields + array_fields).to_h)
-  end
 end
