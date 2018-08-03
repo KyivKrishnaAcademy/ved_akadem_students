@@ -26,6 +26,7 @@ class Person < ApplicationRecord
   has_one :study_application, dependent: :destroy
   has_and_belongs_to_many :roles
   has_many :telephones, dependent: :destroy
+  has_many :notes, dependent: :destroy
   has_many :answers, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
   has_many :questionnaires, through: :questionnaire_completenesses

@@ -140,6 +140,15 @@ ru:
     show:
       not_adult:            '(еще нет 18! нужно разрешение от родителей)'
       psycho_test_results:  'Результаты психологического теста'
+      special_notes:        'Cпециальные заметки'
+      no_special_notes:     'пока что заметок нет'
+  notes:
+    new:
+      title: 'Новая заметка'
+      submit: 'Создать'
+    edit:
+      title: 'Редактировать заметку'
+      submit: 'Сохранить'
   academic_groups:
     show:
       active_students_count:    'Активных студентов:'

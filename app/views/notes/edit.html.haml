@@ -1,0 +1,12 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center= t('.title')
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_back(policy(@note.person).index?, person_path(@note.person))
+    = link_to_destroy policy(@note).destroy?, person_note_path(@note.person, @note)
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = render 'form', submit_label: t('.submit'), note: @note

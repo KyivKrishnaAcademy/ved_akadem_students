@@ -11,7 +11,7 @@ module HelperMethods
     @all_activities ||= (person_activities + academic_group_activities + study_application_activities +
       %w(questionnaire:update_all) + course_activities + class_schedule_activities +
       certificate_template_activities + journal_activities + examination_activities +
-      attendance_activities + examination_results).sort
+      attendance_activities + examination_results + note_activities).sort
   end
 
   def screenshot
@@ -78,6 +78,10 @@ module HelperMethods
 
   def journal_activities
     JournalsController.action_methods.map { |action| 'paper_trail/version:' << action }
+  end
+
+  def note_activities
+    NotesController.action_methods.map { |action| "note:#{action}" } + %w(index)
   end
 
   def examination_activities

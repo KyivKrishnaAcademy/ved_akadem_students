@@ -140,6 +140,15 @@ uk:
     show:
       not_adult:            '(ще нема 18! треба дозвіл від батьків)'
       psycho_test_results:  'Результати психологічного тесту'
+      special_notes:        'Cпеціальні нотатки'
+      no_special_notes:     'поки що нотаток немає'
+  notes:
+    new:
+      title: 'Нова нотатка'
+      submit: 'Створити'
+    edit:
+      title: 'Редагувати нотатку'
+      submit: 'Зберегти'
   academic_groups:
     show:
       active_students_count:    'Активних студентів:'
