@@ -144,6 +144,8 @@ ru:
       psycho_test_results:  'Результаты психологического теста'
       special_notes:        'Cпециальные заметки'
       no_special_notes:     'пока что заметок нет'
+    index:
+      search_placeholder: 'Кого Вы ищете?'
   notes:
     new:
       title: 'Новая заметка'

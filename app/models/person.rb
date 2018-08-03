@@ -93,6 +93,14 @@ class Person < ApplicationRecord
       .where(teacher_profiles: { id: nil })
   end
 
+  def self.search(query)
+    query_array = query.strip.split(/\s+/).map { |term| "%#{term}%" }
+
+    return all if query_array.none?
+
+    where('complex_name ilike any ( array[?] )', query_array)
+  end
+
   def crop_photo(params)
     assign_attributes(params)
 
