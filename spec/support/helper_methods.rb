@@ -9,8 +9,8 @@ module HelperMethods
 
   def all_activities
     @all_activities ||= (person_activities + academic_group_activities + study_application_activities +
-      %w(questionnaire:update_all) + course_activities + class_schedule_activities +
-      certificate_template_activities + journal_activities + examination_activities +
+      %w(questionnaire:update_all group_participation:destroy sidekiq:admin) + course_activities +
+      class_schedule_activities + certificate_template_activities + journal_activities + examination_activities +
       attendance_activities + examination_results + note_activities).sort
   end
 
