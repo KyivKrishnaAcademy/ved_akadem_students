@@ -115,7 +115,7 @@ class PeopleController < ApplicationController
       params.require(:person).permit(
         :birthday, :education, :email, :emergency_contact, :friends_to_be_with, :gender, :marital_status,
         :middle_name, :name, :passport, :passport_cache, :photo, :photo_cache, :spiritual_name, :diksha_guru,
-        :surname, :work, :special_note, telephones_attributes: %i[id phone _destroy]
+        :surname, :work, telephones_attributes: %i[id phone _destroy]
       )
     end
   end

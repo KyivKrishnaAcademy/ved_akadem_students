@@ -17,7 +17,6 @@ describe 'Edit person:' do
       { field: 'person[surname]',           value: 'Евгеньев',          test_field: 'Евгеньев' },
       { field: 'person[education]',         value: 'some',              test_field: 'Education: some' },
       { field: 'person[middle_name]',       value: 'Иванович',          test_field: 'Иванович' },
-      { field: 'person[special_note]',      value: 'some note',         test_field: 'Special note: some note' },
       { field: 'person[spiritual_name]',    value: 'Adidasa Dasa',      test_field: 'Adidasa Dasa' },
       { field: 'person[emergency_contact]', value: 'дядя Петя',         test_field: 'Emergency contact: дядя Петя' }
     ].each do |h|
