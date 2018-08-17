@@ -5,7 +5,7 @@
     = @person.complex_name
   .col-xs-12.col-sm-6.clearfix
     .pull-right
-      - if policy(@person).move_to_group? || policy(@person).remove_from_groups?
+      - if policy(@person).move_to_group?
         .btn-group#change-academic-group{ data: { person: @person.id } }
           %button{ type: 'button', class: 'btn btn-xs btn-primary dropdown-toggle', data: { toggle: 'dropdown' }, aria: { expanded: 'false' } }
             Add to group
