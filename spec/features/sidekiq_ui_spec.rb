@@ -18,7 +18,7 @@ describe 'Sidekiq UI' do
       Then { expect { visit ui_path }.to raise_error(ActionController::RoutingError) }
     end
 
-    describe 'unauthorized' do
+    describe 'authorized' do
       Given(:person) { create :person, roles: [create(:role, activities: ['sidekiq:admin'])] }
 
       When { visit ui_path }
