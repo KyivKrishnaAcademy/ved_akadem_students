@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /
-Allow: /privacy_agreement
-Sitemap: http://students.veda-kiev.org.ua/sitemap.txt
