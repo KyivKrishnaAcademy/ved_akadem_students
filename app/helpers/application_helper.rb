@@ -52,4 +52,10 @@ module ApplicationHelper
   def sidebar_opened?
     cookies[:'sidebar-is-opened']
   end
+
+  def verification_badge(verified)
+    subclass = verified ? 'glyphicon-ok-sign text-success' : 'glyphicon-remove-sign text-danger'
+
+    content_tag(:span, nil, class: "glyphicon fa-2x #{subclass}")
+  end
 end

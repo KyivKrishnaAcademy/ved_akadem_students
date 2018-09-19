@@ -37,6 +37,19 @@
       .col-xs-12.col-sm-8
         .row
           .col-xs-4.col-sm-3
+            Verification status:
+          .col-xs-8.col-sm-9
+            - if policy(@person).verify?
+              = form_for :person, url: person_verification_path(@person), method: :patch do |f|
+                .btn-group{ role: 'group' }
+                  = button_tag(type: 'submit', disabled: @person.verified?, class: @person.verified? ? 'btn btn-success active' : 'btn btn-default') do
+                    %span.glyphicon.glyphicon-ok
+                  = button_tag(type: 'submit', disabled: !@person.verified?, class: @person.verified? ? 'btn btn-default' : 'btn btn-danger active') do
+                    %span.glyphicon.glyphicon-ban-circle
+            - else
+              = verification_badge(@person.verified?)
+        .row
+          .col-xs-4.col-sm-3
             Diksha guru:
           .col-xs-8.col-sm-9
             = @person.diksha_guru

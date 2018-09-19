@@ -22,6 +22,7 @@
             %th #
             %th= t('academic_groups.show.photo')
             %th= t('academic_groups.show.full_name')
+            %th= t('academic_groups.show.verification')
             %th= t('academic_groups.show.birthday')
             - if am_i_group_elder?(academic_group)
               %th= t('academic_groups.show.telephones')
@@ -34,6 +35,8 @@
                 = thumb_with_pop(student)
               %td
                 = link_to_show_person_or_name(student, true)
+              %td
+                = verification_badge(student.verified?)
               %td
                 = l(student.birthday, format: :short)
               - if am_i_group_elder?(academic_group)
