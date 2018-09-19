@@ -174,6 +174,7 @@ uk:
       tab_group_list:           'Список групи'
       tab_schedules:            'Розклад'
       telephones:               'Телефони'
+      verification:             'Статус верифікації'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
     table_headers:
