@@ -157,6 +157,15 @@ class Person < ApplicationRecord
       .order('group_participations.join_date ASC')
   end
 
+  def previous_academic_groups
+    return AcademicGroup.none if student_profile.blank?
+
+    student_profile
+      .academic_groups
+      .where.not(group_participations: { leave_date: nil })
+      .order('group_participations.join_date ASC')
+  end
+
   def pending_docs
     @pending_docs ||= count_pending_docs
   end

@@ -134,6 +134,7 @@ uk:
         title:        'Реєстрація'
   static_pages:
     home:
+      ex_student_of_academic_groups: 'Ви були студентом груп:'
       message_for_group:          "Об'ява для групи:"
       schedules_title:            'Ваш персональний розклад'
       student_of_academic_groups: 'Ви студент груп:'
