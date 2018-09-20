@@ -31,10 +31,6 @@ FactoryGirl.define do
     photo { Rails.root.join('spec/fixtures/150x200.png').open }
   end
 
-  trait :with_passport do
-    passport { Rails.root.join('spec/fixtures/150x200.png').open }
-  end
-
   trait :student do
     student_profile { FactoryGirl.create(:student_profile) }
   end

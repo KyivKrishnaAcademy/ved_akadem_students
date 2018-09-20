@@ -7,7 +7,7 @@ module Users
 
     PERMITTED_PARAMS = [
       :name, :surname, :spiritual_name, :middle_name, :gender, :photo, :photo_cache, :diksha_guru,
-      :birthday, :education, :work, :emergency_contact, :passport, :passport_cache, :marital_status,
+      :birthday, :education, :work, :emergency_contact, :marital_status,
       :friends_to_be_with, telephones_attributes: %i[id phone _destroy]
     ].freeze
 

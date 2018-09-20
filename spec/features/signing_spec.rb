@@ -35,19 +35,12 @@ describe 'Signing' do
       find('#person_privacy_agreement').set(true)
     end
 
-    describe 'should signup without photo and passport' do
+    describe 'should signup without photo' do
       When { click_button I18n.t('devise.links.sign_up') }
 
       describe 'flash and home page' do
         Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up')) }
         And  { expect(page).to have_css('.person-brief') }
-      end
-
-      describe 'should show "no passport" warning' do
-        When { visit '/edit' }
-
-        Then { expect(find('p.text-warning')).to have_content(I18n.t('hints.no_passport')) }
-        And  { expect(find('.form-inputs')).not_to have_link(I18n.t('links.show_passport')) }
       end
     end
 
@@ -88,24 +81,6 @@ describe 'Signing' do
         describe 'should direct to crop path' do
           Then { expect(find('h1')).to have_content(I18n.t('crops.crop_image.title')) }
         end
-      end
-    end
-
-    describe 'should signup with passport' do
-      When do
-        attach_file 'person[passport]', "#{Rails.root}/spec/fixtures/150x200.png"
-        click_button I18n.t('devise.links.sign_up')
-      end
-
-      describe 'should show flash' do
-        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up')) }
-      end
-
-      describe 'should show passport image' do
-        When { visit '/edit' }
-
-        Then { expect(find('.form-inputs')).to have_link(I18n.t('links.show_passport')) }
-        And  { expect(find('.form-inputs')).not_to have_css('p.text-warning', text: I18n.t('hints.no_passport')) }
       end
     end
   end

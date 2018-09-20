@@ -163,28 +163,6 @@ describe 'people/show.html.haml' do
     end
   end
 
-  describe 'show passport link' do
-    Given(:person) { create :person, :with_passport }
-
-    context 'no role' do
-      context 'owned' do
-        Given(:user) { person }
-
-        Then { expect(rendered).to have_link('Show passport', href: "/people/show_passport/#{person.id}") }
-      end
-
-      context 'other person' do
-        Then { expect(rendered).not_to have_link('Show passport', href: "/people/show_passport/#{person.id}") }
-      end
-    end
-
-    context 'with role' do
-      Given(:activities) { ['person:show_passport'] }
-
-      Then { expect(rendered).to have_link('Show passport', href: "/people/show_passport/#{person.id}") }
-    end
-  end
-
   describe 'crop image link' do
     Given(:person) { create :person, :with_photo }
 

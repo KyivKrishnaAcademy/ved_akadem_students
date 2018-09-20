@@ -339,20 +339,14 @@ describe Person do
     end
 
     describe '#pending_docs' do
-      context 'no photo or passport, has no questionnaires' do
-        Then  { expect(person.pending_docs).to eq(photo: :photo, passport: :passport) }
-      end
-
-      context 'has passport' do
-        Given { allow(person).to receive_message_chain(:passport, :blank?).and_return(false) }
-
+      context 'no photo, has no questionnaires' do
         Then  { expect(person.pending_docs).to eq(photo: :photo) }
       end
 
       context 'has photo' do
         Given { allow(person).to receive_message_chain(:photo, :blank?).and_return(false) }
 
-        Then  { expect(person.pending_docs).to eq(passport: :passport) }
+        Then  { expect(person.pending_docs).to eq({}) }
       end
 
       context 'has completed questionnaire' do
@@ -360,13 +354,13 @@ describe Person do
           person.questionnaire_completenesses.create(completed: true, questionnaire_id: create(:questionnaire).id)
         end
 
-        Then  { expect(person.pending_docs).to eq(photo: :photo, passport: :passport) }
+        Then  { expect(person.pending_docs).to eq(photo: :photo) }
       end
 
       context 'has has two unanswered questionnaires' do
         Given { person.questionnaires << [create(:questionnaire), create(:questionnaire)] }
 
-        Then  { expect(person.pending_docs).to eq(questionnaires: 2, photo: :photo, passport: :passport) }
+        Then  { expect(person.pending_docs).to eq(questionnaires: 2, photo: :photo) }
       end
     end
 

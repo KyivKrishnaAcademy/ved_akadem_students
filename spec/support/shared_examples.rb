@@ -269,7 +269,6 @@ shared_examples :study_applications do |admin|
       And  { expect(find('#study_application')).to have_withdraw_button }
       And  { expect(find('#study_application')).to have_css('li', text: 'Заповнити Психо тест') }
       And  { expect(find('#study_application')).to have_css('li', text: 'Додати фотографію до профілю') }
-      And  { expect(find('#study_application')).to have_css('li', text: 'Додати паспорт до профілю') }
     end
 
     describe 'withdraw', :js do

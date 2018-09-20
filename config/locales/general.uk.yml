@@ -41,13 +41,10 @@ uk:
     graduate:         'Випуск'
     list:             'Список'
     new:              'Створити'
-    show_passport:    'Показати паспорт'
     update:           'Зберегти'
     withdraw:         'Відкликати заяву'
   alerts:
     delete_confirmation: 'Ви впевнені що хочете це ВИДАЛИТИ???'
-  hints:
-    no_passport: 'Немає закріпленого паспорту'
   content:
     ask_manager:              'По організаційним питанням, звертайтеся до адміністратора курсу:'
     courses:                  'Предмети що розглядаються на курсі:'
@@ -57,7 +54,6 @@ uk:
     application_requirements: 'Щоб Ваша заява була розглянута, НЕОБХІДНО виконати наступні умови:'
     fill_questionnaire:       'Заповнити'
     attach_photo:             'Додати фотографію'
-    attach_passport:          'Додати паспорт'
     in_profile:               'до профілю'
     form_has_errors:
       one:    'Виправте будьласка %{count} помилку:'

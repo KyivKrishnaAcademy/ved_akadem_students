@@ -66,7 +66,6 @@ class Person < ApplicationRecord
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }
 
   mount_uploader :photo, PhotoUploader
-  mount_uploader :passport, PassportUploader
 
   delegate :active?, to: :student_profile, prefix: :student, allow_nil: true
 
@@ -192,9 +191,7 @@ class Person < ApplicationRecord
 
     result.delete(:questionnaires) if result[:questionnaires].zero?
 
-    %i[photo passport].each do |person_field|
-      result[person_field] = person_field if send(person_field).blank?
-    end
+    result[:photo] = :photo if send(:photo).blank?
 
     result
   end

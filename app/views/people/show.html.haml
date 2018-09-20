@@ -28,12 +28,6 @@
           - if @person.photo.present? && policy(@person).crop_image?
             .col-xs-12
               = link_to t('links.crop_photo'), crop_image_path(@person.id), class: 'btn btn-default'
-          .col-xs-12
-            - if @person.passport.present?
-              - if policy(@person).show_passport?
-                = link_to 'Show passport', "/people/show_passport/#{@person.id}", target: '_blank', rel: 'noopener noreferrer'
-            - else
-              There is no passport attached.
       .col-xs-12.col-sm-8
         .row
           .col-xs-4.col-sm-3

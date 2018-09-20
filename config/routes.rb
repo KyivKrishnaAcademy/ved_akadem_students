@@ -55,8 +55,7 @@ Rails.application.routes.draw do
   get   'image/crop/:id', controller: :crops, action: :crop_image, as: :crop_image
   patch 'image/update/:id', controller: :crops, action: :update_image, as: :update_image
 
-  get    'people/show_photo/:version/:id', controller: :people, action: :show_photo
-  get    'people/show_passport/:id', controller: :people, action: :show_passport
+  get 'people/show_photo/:version/:id', controller: :people, action: :show_photo
 
   namespace :ui do
     resources :academic_groups,  only: :index

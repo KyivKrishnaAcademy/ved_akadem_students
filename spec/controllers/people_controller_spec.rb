@@ -11,12 +11,6 @@ describe PeopleController do
 
       it_behaves_like :not_authenticated
     end
-
-    context '#show_passport' do
-      When { get :show, params: { id: 1 } }
-
-      it_behaves_like :not_authenticated
-    end
   end
 
   describe 'with user' do
