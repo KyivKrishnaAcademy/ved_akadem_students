@@ -134,6 +134,7 @@ ru:
         title:        'Регистрация'
   static_pages:
     home:
+      ex_student_of_academic_groups: 'Вы были студентом групп:'
       message_for_group:          'Объявление для группы:'
       schedules_title:            'Ваше персональное расписание'
       student_of_academic_groups: 'Вы студент групп:'

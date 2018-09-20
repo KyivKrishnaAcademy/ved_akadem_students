@@ -15,3 +15,9 @@
 
           - person.last_academic_groups.each do |academic_group|
             = link_to academic_group.title, academic_group_path(academic_group)
+      - if person.previous_academic_groups.any?
+        .col-xs-12.col-sm-9.vert-offset-top-1
+          = t('static_pages.home.ex_student_of_academic_groups')
+
+          - person.previous_academic_groups.each do |academic_group|
+            = link_to academic_group.title, academic_group_path(academic_group)
