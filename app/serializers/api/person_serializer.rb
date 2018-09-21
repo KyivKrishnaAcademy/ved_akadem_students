@@ -3,7 +3,6 @@ module Api
     def self.as_json(person)
       result = {
         id: person.id,
-        spiritual_name: person.spiritual_name,
         name: person.name,
         middle_name: person.middle_name,
         surname: person.surname,

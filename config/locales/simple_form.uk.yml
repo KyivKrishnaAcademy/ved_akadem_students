@@ -23,29 +23,27 @@ uk:
         background: 'Базове зображення'
         title:      'Назва'
       person:
-        password:               'Пароль'
-        password_confirmation:  'Підтвердження паролю'
-        current_password:       'Поточний пароль'
-        email:                  'Електронна пошта'
-        photo:                  'Фотографія на студентський квиток'
-        spiritual_name:         "Духовне ім'я у вайшнавській традиції (залиште пустим, якщо нема)"
-        diksha_guru:            "Ім'я дікша гуру (якщо є)"
-        name:                   "Ім'я"
-        middle_name:            'По батькові'
-        surname:                'Прізвище'
-        phone:                  'Телефон'
-        gender:                 'Стать'
         birthday:               'День народження'
-        education:              'Освіта (спеціальність)'
-        work:                   'Робота (професія)'
+        current_password:       'Поточний пароль'
+        diploma_name:           "Ім'я друку на дипломах та сертифікатах (залиште пустим, якщо відповідає імені та призвищу)"
+        education:              'Спеціальність'
+        email:                  'Електронна пошта'
         emergency_contact:      'Контакт для надзвичайних випадків'
-        marital_status:         'Сімейний стан'
+        favorite_lectors:       'Імена лекторів, яких Вам подобається слухати найбільше'
         friends_to_be_with:     'Друзі в Академії'
+        gender:                 'Стать'
+        marital_status:         'Сімейний стан'
+        middle_name:            'По батькові'
+        name:                   "Ім'я"
+        password_confirmation:  'Підтвердження паролю'
+        password:               'Пароль'
+        phone:                  'Телефон'
+        photo:                  'Фотографія на студентський квиток'
+        surname:                'Прізвище'
+        work:                   'Професія'
     placeholders:
       person:
         email:                  'test@example.com'
-        spiritual_name:         'Аді Даса дас'
-        diksha_guru:            'Шріла Прабгупада'
         name:                   'Антон'
         middle_name:            'Іванович'
         surname:                'Петренко'

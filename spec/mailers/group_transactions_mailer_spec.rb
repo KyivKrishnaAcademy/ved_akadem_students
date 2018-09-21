@@ -3,15 +3,15 @@ require 'rails_helper'
 describe GroupTransactionsMailer do
   Given(:student) { create :person }
   Given(:group) { create :academic_group, administrator: admin }
-  Given(:admin) { create :person, spiritual_name: 'Sarvamahaguru das' }
+  Given(:admin) { create :person, diploma_name: 'Sarvamahaguru das' }
 
   shared_examples 'email general' do
-    context 'admin has spiritual name' do
+    context 'admin has diploma name' do
       Then { expect(mail.body.encoded).to match('Sarvamahaguru das') }
     end
 
-    context 'admin has no spiritual name' do
-      Given(:admin) { create :person, spiritual_name: '', name: 'Vasyl', surname: 'Pupkin' }
+    context 'admin has no diploma name' do
+      Given(:admin) { create :person, diploma_name: '', name: 'Vasyl', surname: 'Pupkin' }
 
       Then { expect(mail.body.encoded).to match('Vasyl Pupkin') }
     end

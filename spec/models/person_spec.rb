@@ -81,27 +81,14 @@ describe Person do
       Then { is_expected.to validate_presence_of(:marital_status) }
     end
 
-    context 'name, surname, middle_name, spiritual_name' do
-      context 'blank spiritual_name' do
-        Then { is_expected.to validate_presence_of(:name) }
-        And  { is_expected.to validate_length_of(:name).is_at_most(50) }
+    context 'name, surname, middle_name' do
+      Then { is_expected.to validate_presence_of(:name) }
+      And  { is_expected.to validate_length_of(:name).is_at_most(50) }
 
-        Then { is_expected.to validate_presence_of(:surname) }
-        And  { is_expected.to validate_length_of(:surname).is_at_most(50) }
+      Then { is_expected.to validate_presence_of(:surname) }
+      And  { is_expected.to validate_length_of(:surname).is_at_most(50) }
 
-        Then { is_expected.to validate_length_of(:middle_name).is_at_most(50) }
-        Then { is_expected.to validate_length_of(:spiritual_name).is_at_most(50) }
-
-        Then { is_expected.not_to validate_presence_of(:diksha_guru) }
-      end
-
-      context 'spiritual_name present' do
-        Given { subject.spiritual_name = 'Adi dasa' }
-
-        Then { is_expected.not_to validate_presence_of(:name) }
-        Then { is_expected.not_to validate_presence_of(:surname) }
-        Then { is_expected.to validate_presence_of(:diksha_guru) }
-      end
+      Then { is_expected.to validate_length_of(:middle_name).is_at_most(50) }
     end
 
     describe 'photo' do
@@ -127,10 +114,10 @@ describe Person do
     context 'sets complex_name' do
       Given(:subject) { create(:person, params).complex_name }
       Given(:generic_params) do
-        { spiritual_name: 'Adi das', name: 'Vasya', surname: 'Pupkin', middle_name: 'Petrovich' }
+        { diploma_name: 'Adi das', name: 'Vasya', surname: 'Pupkin', middle_name: 'Petrovich' }
       end
 
-      context 'spiritual_name is present' do
+      context 'diploma_name is present' do
         context 'with middle_name' do
           Given(:params) { generic_params }
 
@@ -142,23 +129,17 @@ describe Person do
 
           Then { is_expected.to eq('Adi das (Pupkin Vasya)') }
         end
-
-        context 'without name and surname' do
-          Given(:params) { generic_params.merge(name: nil, surname: nil, middle_name: nil) }
-
-          Then { is_expected.to eq('Adi das') }
-        end
       end
 
-      context 'spiritual_name is blank' do
+      context 'diploma_name is blank' do
         context 'with middle_name' do
-          Given(:params) { generic_params.merge(spiritual_name: nil) }
+          Given(:params) { generic_params.merge(diploma_name: nil) }
 
           Then { is_expected.to eq('Pupkin Vasya Petrovich') }
         end
 
         context 'without middle_name' do
-          Given(:params) { generic_params.merge(spiritual_name: nil, middle_name: nil) }
+          Given(:params) { generic_params.merge(diploma_name: nil, middle_name: nil) }
 
           Then { is_expected.to eq('Pupkin Vasya') }
         end
@@ -168,7 +149,7 @@ describe Person do
 
   describe 'methods' do
     Given(:person) do
-      create :person, spiritual_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy'
+      create :person, diploma_name: 'Adi das', surname: 'Zlenkno', middle_name: 'Zakovich', name: 'Zinoviy'
     end
 
     describe '#crop_photo' do
@@ -278,15 +259,15 @@ describe Person do
 
     describe '#by_complex_name' do
       Given(:person_2) do
-        create :person, spiritual_name: nil, surname: 'Aavramenko', middle_name: 'Zakovich', name: 'Zinoviy'
+        create :person, diploma_name: nil, surname: 'Aavramenko', middle_name: 'Zakovich', name: 'Zinoviy'
       end
 
       Given(:person_3) do
-        create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Borisovich', name: 'Artem'
+        create :person, diploma_name: nil, surname: 'Babenko', middle_name: 'Borisovich', name: 'Artem'
       end
 
       Given(:person_4) do
-        create :person, spiritual_name: nil, surname: 'Babenko', middle_name: 'Andreevich', name: 'Artem'
+        create :person, diploma_name: nil, surname: 'Babenko', middle_name: 'Andreevich', name: 'Artem'
       end
 
       Then { expect(Person.by_complex_name).to eq([person_2, person, person_4, person_3]) }
@@ -371,13 +352,13 @@ describe Person do
     end
 
     describe '#short_name' do
-      context 'spiritual_name present' do
+      context 'diploma_name present' do
         Then { expect(person.short_name).to eq 'Adi das' }
       end
 
-      context 'no spiritual_name' do
+      context 'no diploma_name' do
         context 'middle_name present' do
-          Given { person.update(spiritual_name: '') }
+          Given { person.update(diploma_name: '') }
 
           Then { expect(person.short_name).to eq 'Zlenkno Zinoviy' }
         end
@@ -385,19 +366,19 @@ describe Person do
     end
 
     describe '#respectful_name' do
-      context 'spiritual_name present' do
+      context 'diploma_name present' do
         Then { expect(person.respectful_name).to eq 'Adi das' }
       end
 
-      context 'no spiritual_name' do
+      context 'no diploma_name' do
         context 'middle_name present' do
-          Given { person.update(spiritual_name: '') }
+          Given { person.update(diploma_name: '') }
 
           Then { expect(person.respectful_name).to eq 'Zinoviy Zakovich' }
         end
 
         context 'no middle_name' do
-          Given { person.update(spiritual_name: '', middle_name: '') }
+          Given { person.update(diploma_name: '', middle_name: '') }
 
           Then { expect(person.respectful_name).to eq 'Zinoviy' }
         end

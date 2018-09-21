@@ -258,7 +258,6 @@ describe PeopleController do
     Given(:mod_params) do
       {
         name:               'Василий',
-        spiritual_name:     'Сарва Сатья дас',
         middle_name:        'Тигранович',
         surname:            'Киселев',
         email:              'ssd@pamho.yes',

@@ -7,7 +7,7 @@ module ApplicationHelper
     if person.nil?
       'No such person'
     elsif short
-      person.spiritual_name.presence || "#{person.surname} #{person.name}"
+      person.diploma_name.presence || "#{person.surname} #{person.name}"
     else
       person.complex_name
     end

@@ -65,17 +65,17 @@ describe 'Edit academic group:' do
 
       And do
         expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.curator')))
-          .to have_content(person.spiritual_name)
+          .to have_content("#{person.surname} #{person.name}")
       end
 
       And do
         expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.praepostor')))
-          .to have_content(person.spiritual_name)
+          .to have_content("#{person.surname} #{person.name}")
       end
 
       And do
         expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.administrator')))
-          .to have_content(person.spiritual_name)
+          .to have_content("#{person.surname} #{person.name}")
       end
     end
   end

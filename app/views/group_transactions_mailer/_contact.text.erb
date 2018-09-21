@@ -1,4 +1,4 @@
-<%= person.spiritual_name.present? ? person.spiritual_name : "#{person.name} #{person.surname}" %> <%= person.email %>
+<%= person.diploma_name.presence || "#{person.name} #{person.surname}" %> <%= person.email %>
 <% person.telephones.each do |t| %>
   <%= t.phone %>
 <% end %>

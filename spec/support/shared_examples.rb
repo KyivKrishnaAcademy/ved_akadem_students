@@ -507,7 +507,7 @@ shared_examples_for :class_schedules_loadable do
             id: teacher_profile.person.id,
             path: path_helper.person_path(teacher_profile.person),
             canView: lector_can_view,
-            complexName: teacher_profile.person.spiritual_name
+            complexName: "#{teacher_profile.person.surname} #{teacher_profile.person.name}"
           },
           academicGroups: [
             {

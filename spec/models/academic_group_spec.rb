@@ -18,9 +18,9 @@ describe AcademicGroup do
 
   describe '#active_students' do
     Given(:group) { create :academic_group }
-    Given(:person_c) { create(:person, spiritual_name: nil, surname: 'C') }
-    Given(:person_b) { create(:person, spiritual_name: 'Bhakta das') }
-    Given(:person_a) { create(:person, spiritual_name: nil, surname: 'A') }
+    Given(:person_c) { create(:person, diploma_name: nil, surname: 'C') }
+    Given(:person_b) { create(:person, diploma_name: 'Bhakta das') }
+    Given(:person_a) { create(:person, diploma_name: nil, surname: 'A') }
     Given { person_a.create_student_profile.move_to_group(group) }
     Given { person_b.create_student_profile.move_to_group(group) }
     Given { person_c.create_student_profile.move_to_group(group) }

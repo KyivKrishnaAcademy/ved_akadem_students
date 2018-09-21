@@ -56,7 +56,7 @@ describe 'Add academic group:', :js do
 
         And do
           expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.administrator'))).to have_content(
-            person.spiritual_name
+            "#{person.surname} #{person.name}"
           )
         end
       end
@@ -79,13 +79,13 @@ describe 'Add academic group:', :js do
 
         Then do
           expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.curator'))).to have_content(
-            person.spiritual_name
+            "#{person.surname} #{person.name}"
           )
         end
 
         And do
           expect(find('.tab-pane#general tr', text: I18n.t('academic_groups.show.administrator'))).to have_content(
-            person.spiritual_name
+            "#{person.surname} #{person.name}"
           )
         end
       end

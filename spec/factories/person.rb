@@ -9,12 +9,10 @@ FactoryGirl.define do
     privacy_agreement           { 'yes' }
     sequence(:birthday, 12_000) { |n| n.days.ago.to_date }
     sequence(:email)            { |n| "mail#{n}@ukr.net" }
-    spiritual_name              { "Ad#{generate(:char_sequence)} das" }
     surname                     { "N#{generate(:char_sequence)}" }
     telephones                  { [build(:telephone)] }
     work                        { generate(:char_sequence) * 20 }
     marital_status              { 'single' }
-    diksha_guru                 { 'Srila Prabhupada' }
   end
 
   trait :admin do
@@ -22,7 +20,6 @@ FactoryGirl.define do
     middle_name     { 'Adminovich' }
     name            { 'Admin' }
     roles           { [FactoryGirl.create(:role, :super_admin)] }
-    spiritual_name  { 'Admin Prabhu' }
     surname         { 'Adminov' }
     telephones      { [build(:telephone, phone: '+380 50 111 2233')] }
   end

@@ -20,8 +20,7 @@ describe 'Signing' do
       fill_in 'person_email', with: 'test@example.com'
       fill_in 'person_password', with: 'password'
       fill_in 'person_password_confirmation', with: 'password'
-      fill_in 'person_spiritual_name', with: 'Adi dasa das'
-      fill_in 'person_diksha_guru', with: 'Prabhupada'
+      fill_in 'person_diploma_name', with: 'Adi dasa das'
       fill_in 'person_name', with: 'Vasyl'
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'
@@ -109,7 +108,7 @@ describe 'Signing' do
         When do
           attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/150x200.png"
           fill_in 'person_email', with: 'test@example.com'
-          fill_in 'person_spiritual_name', with: 'Adi Dasa Das'
+          fill_in 'person_diploma_name', with: 'Adi Dasa Das'
           fill_in 'person_name', with: 'Vasyl'
           fill_in 'person_middle_name', with: 'Alexovich'
           fill_in 'person_surname', with: 'Mitrofanov'
@@ -137,7 +136,7 @@ describe 'Signing' do
 
           Then { expect(find('.form-inputs img')['src']).to have_content("/people/show_photo/standart/#{@person.id}") }
           And  { expect(find('#person_email')['value']).to have_content('test@example.com') }
-          And  { expect(find('#person_spiritual_name')['value']).to have_content('Adi Dasa Das') }
+          And  { expect(find('#person_diploma_name')['value']).to have_content('Adi Dasa Das') }
           And  { expect(find('#person_name')['value']).to have_content('Vasyl') }
           And  { expect(find('#person_middle_name')['value']).to have_content('Alexovich') }
           And  { expect(find('#person_surname')['value']).to have_content('Mitrofanov') }

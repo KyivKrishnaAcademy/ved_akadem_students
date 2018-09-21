@@ -61,7 +61,7 @@ describe 'ClassSchedule create and update:', :js do
         And  { is_expected.to have_selector('tr', count: 1) }
         And  { is_expected.to have_selector('td', text: course.title) }
         And  { is_expected.to have_selector('td', text: classroom.title) }
-        And  { is_expected.to have_selector('td', text: person.spiritual_name) }
+        And  { is_expected.to have_selector('td', text: person.complex_name) }
         And  { is_expected.to have_selector('td', text: group_1.title) }
         And  { is_expected.to have_selector('td', text: group_2.title) }
         And  { is_expected.to have_selector('td', text: 'Чт 01.01.15 12:00 - 13:00') }
@@ -149,7 +149,7 @@ describe 'ClassSchedule create and update:', :js do
       And  { is_expected.to have_selector('tr', count: 1) }
       And  { is_expected.to have_selector('td', text: course_2.title) }
       And  { is_expected.to have_selector('td', text: classroom_2.title) }
-      And  { is_expected.to have_selector('td', text: person_2.spiritual_name) }
+      And  { is_expected.to have_selector('td', text: person_2.complex_name) }
       And  { is_expected.not_to have_selector('td', text: group_1.title) }
       And  { is_expected.to have_selector('td', text: group_2.title) }
       And  { is_expected.to have_selector('td', text: group_3.title) }
