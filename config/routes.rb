@@ -21,7 +21,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :academic_groups
+  resources :academic_groups do
+    resources :statistics, only: :index
+  end
+
   resources :group_participations, only: :destroy
   resources :class_schedules, only: %i[new create edit update index destroy]
   resources :study_applications, only: %i[create destroy]
