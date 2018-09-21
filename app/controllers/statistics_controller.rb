@@ -12,7 +12,7 @@ class StatisticsController < ApplicationController
 
     @labels = schedule_dates.map { |d| d.strftime('%y.%m.%d') }
     @active_students = schedule_dates.map { |date| active_students_per_day(@academic_group.id, date) }
-    @attended_students = schedules.map { |schedule| attendance_per_day(@academic_group.id, schedule) }
+    @attended_students = schedules.map { |schedule| attendance_per_day(schedule) }
     @last_active_students = last_active_students(schedules)
   end
 
