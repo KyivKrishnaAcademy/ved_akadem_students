@@ -1,0 +1,43 @@
+- provide(:title, @academic_group.title )
+- content_for(:js_and_css) do
+  = stylesheet_link_tag '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css', media: 'all'
+  = javascript_include_tag '//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js', type: 'text/javascript'
+  = javascript_include_tag '//cdn.jsdelivr.net/npm/chartist-plugin-pointlabels@0.0.6/dist/chartist-plugin-pointlabels.min.js', type: 'text/javascript'
+
+.row
+  .col-xs-12
+    %h1
+      = "#{@academic_group.title} статистика"
+
+.row
+  .col-xs-12
+    Активных студентов (посетили последние 25% занятий):
+    = @last_active_students
+  .col-xs-12
+    Всего студентов:
+    = @academic_group.group_participations.count
+
+.row
+  .col-xs-12
+    #chart
+
+:javascript
+  $(function() {
+    new Chartist.Line('#chart',
+      {
+        labels: #{@labels},
+        series: [
+          #{@active_students},
+          #{@attended_students},
+        ],
+      },
+      {
+        fullWidth: true,
+        plugins: [
+          Chartist.plugins.ctPointLabels({
+            textAnchor: 'middle'
+          })
+        ]
+      }
+    );
+  });

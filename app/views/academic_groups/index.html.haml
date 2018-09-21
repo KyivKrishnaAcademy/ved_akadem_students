@@ -12,6 +12,7 @@
         %th Graduated
         %th Description
         %th Students
+        %th Statistics
     %tbody
       - @academic_groups.each do |academic_group|
         %tr{class: 'academic_group', id: academic_group.id}
@@ -20,3 +21,4 @@
           %td= l(academic_group.graduated_at, format: :with_day) unless academic_group.active?
           %td= academic_group.group_description
           %td= academic_group.active_students.count
+          %td= link_to 'view', academic_group_statistics_path(academic_group)
