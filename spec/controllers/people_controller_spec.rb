@@ -211,7 +211,7 @@ describe PeopleController do
       Given(:person) { create :person }
 
       def update_model(attributes = nil)
-        person.emergency_contact = 'Какой-то текст'
+        person.favorite_lectors = 'Какой-то текст'
 
         attributes ||= person.attributes.merge(skip_password_validation: true)
 
@@ -222,19 +222,19 @@ describe PeopleController do
 
       context 'on success' do
         context 'field chenged' do
-          Then { expect { update_model }.to change { person[:emergency_contact] }.to('Какой-то текст') }
+          Then { expect { update_model }.to change { person[:favorite_lectors] }.to('Какой-то текст') }
         end
 
         context 'receives .update_attributes' do
           Then do
             expect_any_instance_of(Person).to receive(:update).with(
               ActionController::Parameters.new(
-                'emergency_contact' => 'params',
+                'favorite_lectors' => 'params',
                 'skip_password_validation' => true
               ).permit!
             )
 
-            update_model('emergency_contact' => 'params')
+            update_model('favorite_lectors' => 'params')
           end
         end
 
@@ -265,7 +265,6 @@ describe PeopleController do
         birthday:           7200.days.ago.to_date,
         education:          'Брахмачарьи ашрам',
         work:               'ББТ',
-        emergency_contact:  'Харе Кришна Харе Кришна Кришна Кришна Харе Харе',
         telephones_attributes: [
           id: nil,
           phone: '+380 50 111 2233'

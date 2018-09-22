@@ -17,7 +17,6 @@ describe 'people/edit.html.erb' do
       telephones:         [build(:telephone, phone: '+380 50 111 2233')],
       middle_name:        'Petrovich',
       diploma_name:       'Dasa Das',
-      emergency_contact:  'дед Василий'
     )
   end
 
@@ -47,7 +46,6 @@ describe 'people/edit.html.erb' do
       And  { is_expected.to have_selector('#person_email[value="juke@ulr.net"]') }
       And  { is_expected.to have_css('#person_education', text: 'где-то когда-то') }
       And  { is_expected.to have_css('#person_work', text: 'никогда') }
-      And  { is_expected.to have_selector('#person_emergency_contact[value="дед Василий"]') }
       And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1975-01-30') }
     end
   end

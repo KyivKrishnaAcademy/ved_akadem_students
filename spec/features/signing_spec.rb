@@ -30,7 +30,6 @@ describe 'Signing' do
       fill_in 'person[birthday]', with: '20.05.1985'
       fill_in 'person_education', with: 'NTUU KPI'
       fill_in 'person_work', with: 'Kyivstar'
-      fill_in 'person_emergency_contact', with: 'Krishna'
       find('#person_privacy_agreement').set(true)
     end
 
@@ -118,7 +117,6 @@ describe 'Signing' do
           fill_in 'person[birthday]', with: '20.05.1982'
           fill_in 'person_education', with: 'NTUU KPI'
           fill_in 'person_work', with: 'Kyivstar'
-          fill_in 'person_emergency_contact', with: 'Krishna'
           fill_in 'person_current_password', with: 'password'
           click_button I18n.t('links.update')
         end
@@ -143,7 +141,6 @@ describe 'Signing' do
           And  { expect(find('#phone')['value']).to have_content('+380501112233') }
           And  { expect(find('#person_education')['value']).to have_content('NTUU KPI') }
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
-          And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
           And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Чоловіча') }
 
           And do

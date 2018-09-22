@@ -17,7 +17,6 @@ describe 'Edit person:' do
       { field: 'person[surname]',           value: 'Евгеньев',          test_field: 'Евгеньев' },
       { field: 'person[education]',         value: 'some',              test_field: 'Education: some' },
       { field: 'person[middle_name]',       value: 'Иванович',          test_field: 'Иванович' },
-      { field: 'person[emergency_contact]', value: 'дядя Петя',         test_field: 'Emergency contact: дядя Петя' }
     ].each do |h|
       it_behaves_like :valid_fill_in, h, 'Person'
     end

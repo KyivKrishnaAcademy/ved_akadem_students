@@ -104,7 +104,7 @@ class PeopleController < ApplicationController
   class PersonParams
     def self.filter(params)
       params.require(:person).permit(
-        :birthday, :education, :email, :emergency_contact, :friends_to_be_with, :gender, :marital_status,
+        :birthday, :education, :email, :friends_to_be_with, :gender, :marital_status,
         :middle_name, :name, :photo, :photo_cache, :diploma_name, :favorite_lectors,
         :surname, :work, telephones_attributes: %i[id phone _destroy]
       )

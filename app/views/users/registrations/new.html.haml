@@ -31,7 +31,6 @@
             .col-xs-12.col-sm-6
               = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-              = f.input :emergency_contact
               = f.input :password
               = f.input :password_confirmation
               = f.input :work
