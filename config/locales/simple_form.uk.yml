@@ -23,37 +23,32 @@ uk:
         background: 'Базове зображення'
         title:      'Назва'
       person:
-        password:               'Пароль'
-        password_confirmation:  'Підтвердження паролю'
-        current_password:       'Поточний пароль'
-        email:                  'Електронна пошта'
-        photo:                  'Фотографія на студентський квиток'
-        passport:               'Фотографія першої сторінки паспорту'
-        spiritual_name:         "Духовне ім'я у вайшнавській традиції (залиште пустим, якщо нема)"
-        diksha_guru:            "Ім'я дікша гуру (якщо є)"
-        name:                   "Ім'я"
-        middle_name:            'По батькові'
-        surname:                'Прізвище'
-        phone:                  'Телефон'
-        gender:                 'Стать'
         birthday:               'День народження'
-        education:              'Освіта (спеціальність)'
-        work:                   'Робота (професія)'
-        emergency_contact:      'Контакт для надзвичайних випадків'
-        marital_status:         'Сімейний стан'
+        current_password:       'Поточний пароль'
+        diploma_name:           "Ім'я для друку на дипломах та сертифікатах (залиште пустим, якщо відповідає імені та призвищу)"
+        education:              'Спеціальність'
+        email:                  'Електронна пошта'
+        favorite_lectors:       'Імена лекторів, яких Вам подобається слухати найбільше'
         friends_to_be_with:     'Друзі в Академії'
+        gender:                 'Стать'
+        marital_status:         'Сімейний стан'
+        middle_name:            'По батькові'
+        name:                   "Ім'я"
+        password_confirmation:  'Підтвердження паролю'
+        password:               'Пароль'
+        phone:                  'Телефон'
+        photo:                  'Фотографія на студентський квиток'
+        surname:                'Прізвище'
+        work:                   'Професія'
     placeholders:
       person:
         email:                  'test@example.com'
-        spiritual_name:         'Аді Даса дас'
-        diksha_guru:            'Шріла Прабгупада'
         name:                   'Антон'
         middle_name:            'Іванович'
         surname:                'Петренко'
         birthday:               '31.02.1980'
         education:              "Інженер з комп'ютерних систем, економіст"
         work:                   'Тестувальник, веб програміст, менеджер'
-        emergency_contact:      'Тато: +380 (50) 111-22-44'
         new:
           password:               '******'
           password_confirmation:  '******'

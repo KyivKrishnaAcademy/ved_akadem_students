@@ -14,25 +14,29 @@ describe ApplicationHelper do
   describe '#complex_name' do
     Given(:person) { create :person }
 
-    describe 'full with spiritual name should be "sp_name (name m_name surname)"' do
+    describe 'full with diploma name should be "sp_name (name m_name surname)"' do
+      Given { person.update(diploma_name: 'Ololo') }
+
       Then do
         expect(complex_name(person))
-          .to match(/\A#{person.spiritual_name} \(#{person.surname} #{person.name} #{person.middle_name}\)\z/)
+          .to match(/\AOlolo \(#{person.surname} #{person.name} #{person.middle_name}\)\z/)
       end
     end
 
-    describe "title with spiritual name should be 'sp_name'" do
-      Then { expect(complex_name(person, true)).to match(/\A#{person.spiritual_name}\z/) }
+    describe "title with diploma name should be 'diploma_name'" do
+      Given { person.update(diploma_name: 'Ololo') }
+
+      Then { expect(complex_name(person, true)).to match(/\AOlolo\z/) }
     end
 
-    describe "full  without spiritual name should be 'name m_name surname'" do
-      Given { person.update(spiritual_name: '') }
+    describe "full without diploma name should be 'name m_name surname'" do
+      Given { person.update(diploma_name: '') }
 
       Then { expect(complex_name(person)).to match(/\A#{person.surname} #{person.name} #{person.middle_name}\z/) }
     end
 
-    describe "title without spiritual name should be 'name surname'" do
-      Given { person.spiritual_name = '' }
+    describe "title without diploma name should be 'name surname'" do
+      Given { person.diploma_name = '' }
 
       Then { expect(complex_name(person, true)).to match(/\A#{person.surname} #{person.name}\z/) }
     end

@@ -14,15 +14,11 @@
             .col-xs-12.col-sm-6
               = f.input :photo, as: :file, wrapper: :vertical_file_input
               = f.input :photo_cache, as: :hidden
-              = f.input :passport, as: :file, wrapper: :vertical_file_input
-              = f.input :passport_cache, as: :hidden
             .col-xs-12.col-sm-6
               = f.input :email, autofocus: true, error: ''
-              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
           .row
             .col-xs-12.col-sm-6
-              = f.input :spiritual_name
-              = f.input :diksha_guru
+              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
               = f.input :name
               = f.input :middle_name
               = f.input :surname
@@ -31,9 +27,10 @@
                                  label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
+              = f.input :diploma_name
+              = f.input :favorite_lectors
               = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-              = f.input :emergency_contact
               = f.input :password
               = f.input :password_confirmation
               = f.input :work

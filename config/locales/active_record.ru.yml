@@ -14,18 +14,18 @@ ru:
       person:
         birthday:               'День рождения'
         current_password:       'Текущий пароль'
-        diksha_guru:            'Дикша гуру'
+        diploma_name:           'Имя для диплома'
         education:              'Образование'
         email:                  'Электронная почта'
+        favorite_lectors:       'Любимые лекторы'
         gender:                 'Пол'
         marital_status:         'Семейное положение'
         middle_name:            'Отчество'
         name:                   'Имя'
-        password:               'Пароль'
         password_confirmation:  'Подтверждение'
+        password:               'Пароль'
         photo:                  'Фотография'
         privacy_agreement:      'Соглашение на обработку персональных данных'
-        spiritual_name:         'Духовное имя'
         surname:                'Фамилия'
         work:                   'Работа'
       telephones:
@@ -68,7 +68,7 @@ ru:
             current_password:
               blank:                'должен быть заполнен'
               invalid:              'не правильный'
-            diksha_guru:
+            favorite_lectors:
               blank:                'укажите пожалуйста'
             gender:
               inclusion:            'должен быть выбран'

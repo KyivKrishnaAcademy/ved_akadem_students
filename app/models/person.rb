@@ -52,21 +52,19 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
   validates :gender, inclusion: { in: [true, false] }
-  validates :middle_name, :spiritual_name, :name, :surname, length: { maximum: 50 }
-  validates :name, :surname, presence: { if: :spiritual_name_blank? }
+  validates :middle_name, :name, :surname, :diploma_name, length: { maximum: 50 }
+  validates :name, :surname, presence: true
   validates :password, confirmation: true
   validates :password, length: { in: 6..128, unless: :skip_password_validation }, on: :create
   validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
   validates :telephones, :birthday, :marital_status, presence: true
-  validates :diksha_guru, presence: { unless: :spiritual_name_blank? }
 
   validate :check_photo_dimensions
 
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }
 
   mount_uploader :photo, PhotoUploader
-  mount_uploader :passport, PassportUploader
 
   delegate :active?, to: :student_profile, prefix: :student, allow_nil: true
 
@@ -76,9 +74,9 @@ class Person < ApplicationRecord
     order(
       <<-SQL.strip_heredoc
         CASE
-          WHEN (spiritual_name IS NULL OR spiritual_name = '')
+          WHEN (diploma_name IS NULL OR diploma_name = '')
           THEN (surname || name || middle_name)
-          ELSE spiritual_name
+          ELSE diploma_name
         END
       SQL
     )
@@ -171,13 +169,13 @@ class Person < ApplicationRecord
   end
 
   def short_name
-    return spiritual_name if spiritual_name.present?
+    return diploma_name if diploma_name.present?
 
     "#{surname} #{name}"
   end
 
   def respectful_name
-    return spiritual_name if spiritual_name.present?
+    return diploma_name if diploma_name.present?
     return name if middle_name.blank?
 
     "#{name} #{middle_name}"
@@ -192,9 +190,7 @@ class Person < ApplicationRecord
 
     result.delete(:questionnaires) if result[:questionnaires].zero?
 
-    %i[photo passport].each do |person_field|
-      result[person_field] = person_field if send(person_field).blank?
-    end
+    result[:photo] = :photo if send(:photo).blank?
 
     result
   end
@@ -210,11 +206,11 @@ class Person < ApplicationRecord
   def set_complex_name
     civil_name = "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
 
-    self.complex_name = if spiritual_name.present?
+    self.complex_name = if diploma_name.present?
       if surname.present? && name.present?
-        "#{spiritual_name} (#{civil_name})"
+        "#{diploma_name} (#{civil_name})"
       else
-        spiritual_name
+        diploma_name
       end
     else
       civil_name
@@ -226,10 +222,6 @@ class Person < ApplicationRecord
     dimensions_invalid = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
     errors.add(:photo, :size) if dimensions_invalid
-  end
-
-  def spiritual_name_blank?
-    spiritual_name.blank?
   end
 
   def set_uid

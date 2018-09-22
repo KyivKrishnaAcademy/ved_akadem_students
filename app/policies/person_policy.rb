@@ -3,10 +3,6 @@ class PersonPolicy < BasePolicy
     owned? || show? || elder_of_student?(:curator_id) || elder_of_student?(:administrator_id) || classmate?
   end
 
-  def show_passport?
-    owned? || super
-  end
-
   def crop_image?
     owned? || super
   end

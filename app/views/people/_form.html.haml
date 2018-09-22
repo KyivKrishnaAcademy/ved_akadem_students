@@ -6,15 +6,9 @@
       = person_photo(f.object, :standart)
       = f.input :photo, as: :file
       = f.input :photo_cache, as: :hidden
-      - if f.object.passport.present?
-        = link_to 'Show passport', "/people/show_passport/#{f.object.id}", target: '_blank', rel: 'noopener noreferrer'
-      - else
-        There is no passport attached.
-      = f.input :passport, as: :file
-      = f.input :passport_cache, as: :hidden
       = f.input :email, autofocus: true
-      = f.input :spiritual_name
-      = f.input :diksha_guru
+      = f.input :diploma_name
+      = f.input :favorite_lectors
       = f.input :name
       = f.input :middle_name
       = f.input :surname
@@ -27,7 +21,6 @@
       = f.input :friends_to_be_with
       = f.input :education
       = f.input :work
-      = f.input :emergency_contact
 
     .form-actions
       = f.button :submit

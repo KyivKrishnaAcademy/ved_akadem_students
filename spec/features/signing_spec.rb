@@ -20,8 +20,7 @@ describe 'Signing' do
       fill_in 'person_email', with: 'test@example.com'
       fill_in 'person_password', with: 'password'
       fill_in 'person_password_confirmation', with: 'password'
-      fill_in 'person_spiritual_name', with: 'Adi dasa das'
-      fill_in 'person_diksha_guru', with: 'Prabhupada'
+      fill_in 'person_diploma_name', with: 'Adi dasa das'
       fill_in 'person_name', with: 'Vasyl'
       fill_in 'person_middle_name', with: 'Alexovich'
       fill_in 'person_surname', with: 'Mitrofanov'
@@ -31,23 +30,15 @@ describe 'Signing' do
       fill_in 'person[birthday]', with: '20.05.1985'
       fill_in 'person_education', with: 'NTUU KPI'
       fill_in 'person_work', with: 'Kyivstar'
-      fill_in 'person_emergency_contact', with: 'Krishna'
       find('#person_privacy_agreement').set(true)
     end
 
-    describe 'should signup without photo and passport' do
+    describe 'should signup without photo' do
       When { click_button I18n.t('devise.links.sign_up') }
 
       describe 'flash and home page' do
         Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up')) }
         And  { expect(page).to have_css('.person-brief') }
-      end
-
-      describe 'should show "no passport" warning' do
-        When { visit '/edit' }
-
-        Then { expect(find('p.text-warning')).to have_content(I18n.t('hints.no_passport')) }
-        And  { expect(find('.form-inputs')).not_to have_link(I18n.t('links.show_passport')) }
       end
     end
 
@@ -90,24 +81,6 @@ describe 'Signing' do
         end
       end
     end
-
-    describe 'should signup with passport' do
-      When do
-        attach_file 'person[passport]', "#{Rails.root}/spec/fixtures/150x200.png"
-        click_button I18n.t('devise.links.sign_up')
-      end
-
-      describe 'should show flash' do
-        Then { expect(find('.alert-notice')).to have_content(I18n.t('devise.registrations.signed_up')) }
-      end
-
-      describe 'should show passport image' do
-        When { visit '/edit' }
-
-        Then { expect(find('.form-inputs')).to have_link(I18n.t('links.show_passport')) }
-        And  { expect(find('.form-inputs')).not_to have_css('p.text-warning', text: I18n.t('hints.no_passport')) }
-      end
-    end
   end
 
   describe 'Edit' do
@@ -134,7 +107,7 @@ describe 'Signing' do
         When do
           attach_file 'person[photo]', "#{Rails.root}/spec/fixtures/150x200.png"
           fill_in 'person_email', with: 'test@example.com'
-          fill_in 'person_spiritual_name', with: 'Adi Dasa Das'
+          fill_in 'person_diploma_name', with: 'Adi Dasa Das'
           fill_in 'person_name', with: 'Vasyl'
           fill_in 'person_middle_name', with: 'Alexovich'
           fill_in 'person_surname', with: 'Mitrofanov'
@@ -144,7 +117,6 @@ describe 'Signing' do
           fill_in 'person[birthday]', with: '20.05.1982'
           fill_in 'person_education', with: 'NTUU KPI'
           fill_in 'person_work', with: 'Kyivstar'
-          fill_in 'person_emergency_contact', with: 'Krishna'
           fill_in 'person_current_password', with: 'password'
           click_button I18n.t('links.update')
         end
@@ -162,14 +134,13 @@ describe 'Signing' do
 
           Then { expect(find('.form-inputs img')['src']).to have_content("/people/show_photo/standart/#{@person.id}") }
           And  { expect(find('#person_email')['value']).to have_content('test@example.com') }
-          And  { expect(find('#person_spiritual_name')['value']).to have_content('Adi Dasa Das') }
+          And  { expect(find('#person_diploma_name')['value']).to have_content('Adi Dasa Das') }
           And  { expect(find('#person_name')['value']).to have_content('Vasyl') }
           And  { expect(find('#person_middle_name')['value']).to have_content('Alexovich') }
           And  { expect(find('#person_surname')['value']).to have_content('Mitrofanov') }
           And  { expect(find('#phone')['value']).to have_content('+380501112233') }
           And  { expect(find('#person_education')['value']).to have_content('NTUU KPI') }
           And  { expect(find('#person_work')['value']).to have_content('Kyivstar') }
-          And  { expect(find('#person_emergency_contact')['value']).to have_content('Krishna') }
           And  { expect(find('#person_gender')).to have_css('option[selected="selected"]', text: 'Чоловіча') }
 
           And do

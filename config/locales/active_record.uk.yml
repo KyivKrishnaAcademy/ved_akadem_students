@@ -14,18 +14,18 @@ uk:
       person:
         birthday:               'День народження'
         current_password:       'Поточний пароль'
-        diksha_guru:            'Дікша гуру'
+        diploma_name:           "І'мя для диплому"
         education:              'Освіта'
         email:                  'Електронна пошта'
+        favorite_lectors:       'Улюблені лектори'
         gender:                 'Стать'
         marital_status:         'Сімейний стан'
         middle_name:            'По батькові'
         name:                   "Ім'я"
-        password:               'Пароль'
         password_confirmation:  'Підтвердження'
+        password:               'Пароль'
         photo:                  'Фотографія'
         privacy_agreement:      'Згода на обробку персональних даних'
-        spiritual_name:         "Духовне і'мя"
         surname:                'Прізвище'
         work:                   'Робота'
       telephones:
@@ -66,7 +66,7 @@ uk:
             current_password:
               blank:                'повинен бути заповненим'
               invalid:              'не вірний'
-            diksha_guru:
+            favorite_lectors:
               blank:                'вкажіть будь ласка'
             email:
               blank:                'повинна бути заповнена'

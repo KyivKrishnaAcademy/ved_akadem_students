@@ -4,7 +4,7 @@ class PeopleController < ApplicationController
   include StudyApplicationable
   include ClassSchedulesRefreshable
 
-  before_action :set_person, only: %i[show edit update destroy show_photo show_passport]
+  before_action :set_person, only: %i[show edit update destroy show_photo]
 
   after_action :verify_authorized
   after_action :verify_policy_scoped, except: %i[new create]
@@ -101,20 +101,11 @@ class PeopleController < ApplicationController
     )
   end
 
-  def show_passport
-    send_file(
-      @person.passport_url,
-      disposition: 'inline',
-      type: 'image/jpeg',
-      x_sendfile: true
-    )
-  end
-
   class PersonParams
     def self.filter(params)
       params.require(:person).permit(
-        :birthday, :education, :email, :emergency_contact, :friends_to_be_with, :gender, :marital_status,
-        :middle_name, :name, :passport, :passport_cache, :photo, :photo_cache, :spiritual_name, :diksha_guru,
+        :birthday, :education, :email, :friends_to_be_with, :gender, :marital_status,
+        :middle_name, :name, :photo, :photo_cache, :diploma_name, :favorite_lectors,
         :surname, :work, telephones_attributes: %i[id phone _destroy]
       )
     end

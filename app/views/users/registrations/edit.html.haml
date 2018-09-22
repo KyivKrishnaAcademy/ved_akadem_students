@@ -22,20 +22,13 @@
                 .col-sm-12
                   = f.input :photo, wrapper: :vertical_file_input, as: :file
                   = f.input :photo_cache, as: :hidden
-                  - if f.object.passport.present?
-                    = link_to t('links.show_passport'), "/people/show_passport/#{f.object.id}", target: :blank, class: 'btn btn-default'
-                  - else
-                    %p.text-warning
-                      = t('hints.no_passport')
-                  = f.input :passport, wrapper: :vertical_file_input, as: :file
-                  = f.input :passport_cache, as: :hidden
             .col-xs-12.col-sm-6
               = f.input :email, autofocus: true
               - if devise_mapping.confirmable? && resource.pending_reconfirmation?
                 %p
                   Currently waiting confirmation for: #{resource.unconfirmed_email}
-              = f.input :spiritual_name
-              = f.input :diksha_guru
+              = f.input :diploma_name
+              = f.input :favorite_lectors
               = f.input :name
               = f.input :middle_name
               = f.input :surname
@@ -47,7 +40,6 @@
               = f.input :marital_status, collection: Person::MARITAL_STATUSES,
                                  label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
               = f.input :friends_to_be_with
-              = f.input :emergency_contact
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
               = f.input :gender, collection: [[:male, true], [:female, false]],

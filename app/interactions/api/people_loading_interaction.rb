@@ -31,7 +31,6 @@ module Api
     def person_1
       {
         id: 1,
-        spiritual_name: 'Adidas das',
         name: 'Андрій',
         middle_name: nil,
         surname: 'Пума',
@@ -45,7 +44,6 @@ module Api
     def person_2
       {
         id: 2,
-        spiritual_name: nil,
         name: 'Василий',
         middle_name: 'Васильевич',
         surname: 'Васин',
@@ -59,7 +57,6 @@ module Api
     def person_3
       {
         id: 3,
-        spiritual_name: 'Mahasarvajagadguru das',
         name: 'Михайло',
         middle_name: 'Михайлович',
         surname: 'Михайлов',
@@ -74,7 +71,6 @@ module Api
       [
         {
           id: 1,
-          spiritual_name: 'Adidas das',
           name: 'Андрій',
           middle_name: nil,
           surname: 'Пума',
@@ -85,7 +81,6 @@ module Api
         },
         {
           id: 2,
-          spiritual_name: 'Starosta prabhu',
           name: 'Вася',
           middle_name: nil,
           surname: 'Васютин',

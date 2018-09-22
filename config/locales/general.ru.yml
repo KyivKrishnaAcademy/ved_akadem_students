@@ -41,13 +41,10 @@ ru:
     graduate:         'Выпуск'
     list:             'Список'
     new:              'Создать'
-    show_passport:    'Показать паспорт'
     update:           'Сохранить'
     withdraw:         'Отозвать заявление'
   alerts:
     delete_confirmation: 'Вы уверены что хотите это УДАЛИТЬ???'
-  hints:
-    no_passport: 'Нет прикрепленного паспорта'
   content:
     ask_manager:              'По организационным вопросам, обращайтесь к администратору курса:'
     courses:                  'Предметы рассматриваемые на курсе:'
@@ -57,7 +54,6 @@ ru:
     application_requirements: 'Чтобы Ваше заявление было рассмотрено, НЕОБХОДИМО выполнить следующие условия:'
     fill_questionnaire:       'Заполнить'
     attach_photo:             'Добавить фотографию'
-    attach_passport:          'Добавить паспорт'
     in_profile:               'в профиль'
     form_has_errors:
       one:    'Исправьте пожалуйста %{count} ошибку:'
@@ -141,7 +137,7 @@ ru:
       title:                      'Домашняя'
   people:
     show:
-      not_adult:            '(еще нет 18! нужно разрешение от родителей)'
+      not_adult:            '(еще нет 16!)'
       psycho_test_results:  'Результаты психологического теста'
       special_notes:        'Cпециальные заметки'
       no_special_notes:     'пока что заметок нет'

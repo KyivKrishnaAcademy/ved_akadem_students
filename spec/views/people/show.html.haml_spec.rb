@@ -27,7 +27,6 @@ describe 'people/show.html.haml' do
     Then { expect(rendered).to have_selector('h1', text: complex_name(person)) }
     And  { expect(rendered).to have_text("Telephone 1: #{person.telephones.first.phone}") }
     And  { expect(rendered).to have_text("Email: #{person.email}") }
-    And  { expect(rendered).to have_text("Emergency contact: #{person.emergency_contact}") }
     And  { expect(rendered).to have_text("Education: #{person.education}") }
     And  { expect(rendered).to have_text("Work: #{person.work}") }
     And  { expect(rendered).to have_text(/Gender: (Male|Female)/) }
@@ -160,28 +159,6 @@ describe 'people/show.html.haml' do
 
         And { expect(menu).to have_link(group.title, href: '#') }
       end
-    end
-  end
-
-  describe 'show passport link' do
-    Given(:person) { create :person, :with_passport }
-
-    context 'no role' do
-      context 'owned' do
-        Given(:user) { person }
-
-        Then { expect(rendered).to have_link('Show passport', href: "/people/show_passport/#{person.id}") }
-      end
-
-      context 'other person' do
-        Then { expect(rendered).not_to have_link('Show passport', href: "/people/show_passport/#{person.id}") }
-      end
-    end
-
-    context 'with role' do
-      Given(:activities) { ['person:show_passport'] }
-
-      Then { expect(rendered).to have_link('Show passport', href: "/people/show_passport/#{person.id}") }
     end
   end
 
