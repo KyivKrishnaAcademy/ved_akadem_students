@@ -137,7 +137,7 @@ uk:
       title:                      'Домашня'
   people:
     show:
-      not_adult:            '(ще нема 18! треба дозвіл від батьків)'
+      not_adult:            '(ще нема 16!)'
       psycho_test_results:  'Результати психологічного тесту'
       special_notes:        'Cпеціальні нотатки'
       no_special_notes:     'поки що нотаток немає'

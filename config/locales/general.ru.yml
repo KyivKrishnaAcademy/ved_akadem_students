@@ -137,7 +137,7 @@ ru:
       title:                      'Домашняя'
   people:
     show:
-      not_adult:            '(еще нет 18! нужно разрешение от родителей)'
+      not_adult:            '(еще нет 16!)'
       psycho_test_results:  'Результаты психологического теста'
       special_notes:        'Cпециальные заметки'
       no_special_notes:     'пока что заметок нет'
