@@ -16,11 +16,9 @@
               = f.input :photo_cache, as: :hidden
             .col-xs-12.col-sm-6
               = f.input :email, autofocus: true, error: ''
-              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
           .row
             .col-xs-12.col-sm-6
-              = f.input :diploma_name
-              = f.input :favorite_lectors
+              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
               = f.input :name
               = f.input :middle_name
               = f.input :surname
@@ -29,6 +27,8 @@
                                  label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
+              = f.input :diploma_name
+              = f.input :favorite_lectors
               = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
               = f.input :password
