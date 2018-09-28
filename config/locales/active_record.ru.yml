@@ -61,6 +61,8 @@ ru:
           blank:      'должно быть заполнено'
           too_long:   'слишком длинное (максимум %{count} символов)'
           attributes:
+            birthday:
+              over_16_years_old:    'извините, Вам должно исполниться 16 полных лет'
             email:
               blank:                'должна быть заполнена'
               invalid:              'должна иметь формат «primer@example.com»'

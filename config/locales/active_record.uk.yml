@@ -61,6 +61,8 @@ uk:
           blank:      'повинно бути заповнено'
           too_long:   'занадто довге (максимум %{count} символів)'
           attributes:
+            birthday:
+              over_16_years_old:    'вибачте Вам повинно виконатися 16 повних років'
             education:
               blank:                'повинна бути заповнена'
             current_password:

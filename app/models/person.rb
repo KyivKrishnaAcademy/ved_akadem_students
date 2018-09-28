@@ -61,6 +61,7 @@ class Person < ApplicationRecord
   validates :telephones, :birthday, :marital_status, presence: true
 
   validate :check_photo_dimensions
+  validate :validate_age
 
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }
 
@@ -222,6 +223,12 @@ class Person < ApplicationRecord
     dimensions_invalid = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
     errors.add(:photo, :size) if dimensions_invalid
+  end
+
+  def validate_age
+    return if birthday.blank? || birthday < 16.years.ago.to_date
+
+    errors.add(:birthday, :over_16_years_old)
   end
 
   def set_uid
