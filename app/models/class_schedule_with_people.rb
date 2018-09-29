@@ -1,6 +1,8 @@
 class ClassScheduleWithPeople < ClassSchedule
   self.table_name = 'class_schedules_with_people'
 
+  belongs_to :teacher, class_name: 'Person' # rubocop:disable Rails/InverseOf
+
   def readonly?
     true
   end
@@ -44,6 +46,14 @@ class ClassScheduleWithPeople < ClassSchedule
 
     def personal_schedule(person_id)
       teacher_schedule(person_id).or(student_schedule(person_id))
+    end
+
+    def next_day
+      tomorrow = Time.zone.tomorrow
+      beginning_of_day = tomorrow.beginning_of_day
+      end_of_day = tomorrow.end_of_day
+
+      where(start_time: beginning_of_day..end_of_day)
     end
 
     def personal_schedule_by_direction(person_id, page, direction)

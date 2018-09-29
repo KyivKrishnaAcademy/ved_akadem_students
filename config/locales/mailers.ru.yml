@@ -8,3 +8,15 @@ ru:
     programm_applications:
       submitted:
         subject: "Новый студент подал заявку: %{name}"
+  schedules_notifier_mailer:
+    next_day:
+      academic_groups: 'Группы'
+      check_your_schedule: 'Посмотрите свое расписание более детально'
+      class_subject: 'Тема'
+      classroom: 'Аудитория'
+      course: 'Предмет'
+      student_header: 'Вы учитесь на таких занятиях'
+      subject: 'Ваше расписание на завтра'
+      teacher_header: 'Вы преподаете такие занятия'
+      teacher: 'Лектор'
+      time: 'Время'
