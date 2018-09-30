@@ -28,7 +28,7 @@ gem 'prawn-rails'
 gem 'fast_blank'
 
 gem 'redis-namespace'
-gem 'sidekiq', '4.2.10'
+gem 'sidekiq'
 gem 'sidekiq-scheduler'
 
 gem 'paper_trail'
