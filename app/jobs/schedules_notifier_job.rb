@@ -2,7 +2,7 @@ class SchedulesNotifierJob < ApplicationJob
   queue_as :default
 
   def perform
-    people_ids_with_real_email.find_each { |id| SchedulesNotifierMailer.next_day(id).deliver_later }
+    people_ids_with_real_email.each { |id| SchedulesNotifierMailer.next_day(id).deliver_later }
   end
 
   private
