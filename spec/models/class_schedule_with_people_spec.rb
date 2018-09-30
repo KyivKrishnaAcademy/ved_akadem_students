@@ -67,7 +67,7 @@ describe ClassScheduleWithPeople do
       Then { expect(ClassScheduleWithPeople.find(class_schedule.id).real_class_schedule).to eq(class_schedule) }
     end
 
-    describe '.personal_schedule' do
+    describe '.personal_schedule_by_direction' do
       Given(:user) { create :person }
       Given(:time) { DateTime.current + 1.week }
       Given(:ex_group) { create :academic_group }
@@ -150,7 +150,7 @@ describe ClassScheduleWithPeople do
         )
       end
 
-      Given(:result) { ClassScheduleWithPeople.personal_schedule(user.id, nil, direction) }
+      Given(:result) { ClassScheduleWithPeople.personal_schedule_by_direction(user.id, nil, direction) }
       Given(:past_subjects) { %w(active_group_past) }
       Given(:future_subjects) { %w(teacher all_groups active_group) }
 

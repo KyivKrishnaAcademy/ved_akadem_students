@@ -29,6 +29,7 @@ gem 'fast_blank'
 
 gem 'redis-namespace'
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 
 gem 'paper_trail'
 

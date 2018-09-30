@@ -8,3 +8,17 @@ uk:
     programm_applications:
       submitted:
         subject: "Новий студент подав заяву: %{name}"
+    footer:
+      kdask: 'Київська духовна академія свідомості Крішни'
+  schedules_notifier_mailer:
+    next_day:
+      academic_groups: 'Групи'
+      check_your_schedule: 'Подивиться свій розклад більш детально'
+      class_subject: 'Тема'
+      classroom: 'Аудиторія'
+      course: 'Предмет'
+      student_header: 'Ви навчаєтесь на таких заняттях'
+      subject: 'Ваш розклад на завтра'
+      teacher_header: 'Ви викладеєте такі заняття'
+      teacher: 'Лектор'
+      time: 'Час'

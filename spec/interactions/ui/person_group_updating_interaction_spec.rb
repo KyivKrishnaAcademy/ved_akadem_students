@@ -7,7 +7,7 @@ describe Ui::PersonGroupUpdatingInteraction do
   Given(:student) { create :person }
   Given(:interaction) { described_class.new(params: params, resource: student) }
 
-  describe 'calls ClassSchedule#personal_schedule' do
+  describe 'calls ClassSchedule#personal_schedule_by_direction' do
     Given(:mail) { double }
     Given(:expected_json) do
       {

@@ -6,6 +6,10 @@ default: &default
     - default
     - low
     - mailers
+  :schedule:
+    SchedulesNotifierJob:
+      cron: '0 30 12 * * * Europe/Kiev'
+      queue: low
 
 development:
   <<: *default

@@ -531,7 +531,7 @@ shared_examples_for :class_schedules_loadable do
 
   Given(:paginated_array) { Kaminari.paginate_array(array_for_pagination).page(1).per(10) }
 
-  Given { allow(ClassScheduleWithPeople).to receive(:personal_schedule).and_return(paginated_array) }
+  Given { allow(ClassScheduleWithPeople).to receive(:personal_schedule_by_direction).and_return(paginated_array) }
   Given { allow(ClassSchedule).to receive(:by_group).and_return(paginated_array) }
 
   describe 'optional schedule' do
