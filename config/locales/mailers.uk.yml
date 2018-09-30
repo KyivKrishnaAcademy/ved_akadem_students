@@ -13,7 +13,7 @@ uk:
   schedules_notifier_mailer:
     next_day:
       academic_groups: 'Групи'
-      check_your_schedule: 'Подивиться свій розклад більш детально'
+      check_your_schedule: 'Подивіться свій розклад більш детально'
       class_subject: 'Тема'
       classroom: 'Аудиторія'
       course: 'Предмет'
