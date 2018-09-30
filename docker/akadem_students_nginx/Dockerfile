@@ -1,4 +1,4 @@
-FROM nginx:1.11.5-alpine
+FROM nginx:1.15.4-alpine
 
 MAINTAINER Maksym Pugach <pugach.m@gmail.com>
 
