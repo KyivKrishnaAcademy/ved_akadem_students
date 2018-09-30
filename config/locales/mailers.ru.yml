@@ -8,6 +8,8 @@ ru:
     programm_applications:
       submitted:
         subject: "Новый студент подал заявку: %{name}"
+    footer:
+      kdask: 'Киевская духовная академия сознания Кришны'
   schedules_notifier_mailer:
     next_day:
       academic_groups: 'Группы'

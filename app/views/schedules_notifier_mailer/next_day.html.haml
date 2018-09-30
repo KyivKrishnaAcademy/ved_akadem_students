@@ -1,3 +1,10 @@
+:css
+  @import url('http://fonts.googleapis.com/css?family=Open+Sans');
+
+  #emailContainer{
+    font-family:'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+
 %table{ border: 0, cellpadding: 0, cellspacing: 0, height: '100%', width: '100%', id: 'bodyTable' }
   %tr
     %td{ align: 'center', valign: 'top' }
@@ -10,13 +17,13 @@
                 %td{ align: 'center', valign: 'top' }
                   %h1= t('.subject')
 
-        - if @teacher_schedules.any?
-          - @teacher_schedules.each do |schedule|
-            %tr
-              %td{ align: 'center', valign: 'top' }
-                %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailBody' }
+        %tr
+          %td{ align: 'center', valign: 'top' }
+            %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailBody' }
+              - if @teacher_schedules.any?
+                - @teacher_schedules.each do |schedule|
                   %tr
-                    %td{ align: 'left', valign: 'top' }
+                    %td{ align: 'left', valign: 'bottom' }
                       %h3= t('.teacher_header')
 
                   %tr
@@ -47,16 +54,18 @@
 
                           %td{ align: 'center', valign: 'middle' }
                             - schedule.academic_groups.each do |g|
-                              = link_to g.title, academic_group_url(g)
+                              = link_to g.title,
+                                        academic_group_url( g,
+                                                            utm_medium: 'email',
+                                                            utm_source: 'next_day_schedule',
+                                                            utm_campaign: 'group_link',
+                                                            utm_content: 'teacher_schedule')
                               &thinsp;
 
-        - if @student_schedules.any?
-          - @student_schedules.each do |schedule|
-            %tr
-              %td{ align: 'center', valign: 'top' }
-                %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailBody' }
+              - if @student_schedules.any?
+                - @student_schedules.each do |schedule|
                   %tr
-                    %td{ align: 'left', valign: 'top' }
+                    %td{ align: 'left', valign: 'bottom' }
                       %h3= t('.student_header')
 
                   %tr
@@ -87,13 +96,30 @@
 
                           %td{ align: 'center', valign: 'middle' }
                             = schedule.subject
-
-        %tr
-          %td{ align: 'center', valign: 'top' }
-            %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailFooter' }
               %tr
                 %td{ align: 'center', valign: 'top' }
                   = link_to t('.check_your_schedule'),
                             root_url( utm_medium: 'email',
                                       utm_source: 'next_day_schedule',
-                                      utm_campaign: 'schedules_notification')
+                                      utm_campaign: 'schedules_notification',
+                                      utm_content: 'call_to_action')
+
+        %tr
+          %td{ align: 'center', valign: 'top' }
+            %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailFooter' }
+              %tr
+                %td{ align: 'center', valign: 'bottom' }
+                  = link_to root_url( utm_medium: 'email',
+                                      utm_source: 'next_day_schedule',
+                                      utm_campaign: 'schedules_notification',
+                                      utm_content: 'footer_logo') do
+                    %img{ src: 'https://res.cloudinary.com/dsd89mcu3/image/upload/v1538280388/Logo_Academy_2017_black_50px_ksnsco.png' }
+              %tr
+                %td{ align: 'center', valign: 'top' }
+                  = t 'mail.footer.kdask'
+                  %br
+                  +38 (067) 245-87-00
+                  %br
+                  +38 (063) 321-00-33
+                  %br
+                  +38 (044) 331-19-64
