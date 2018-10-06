@@ -7,8 +7,13 @@
     .row
       .col-xs-12.col-sm-3
         = person_photo(person, :standart, class: 'img-thumbnail img-version-standart')
+
       .col-xs-12.col-sm-9
         = link_to t('links.edit_profile'), edit_person_registration_path(person)
+
+      .col-xs-12.col-sm-9.vert-offset-top-1
+        = link_to t('.edit_subscriptions'), edit_subscriptions_path
+
       - if person.last_academic_groups.any?
         .col-xs-12.col-sm-9.vert-offset-top-1
           = t('static_pages.home.student_of_academic_groups')

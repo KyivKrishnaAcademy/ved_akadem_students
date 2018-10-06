@@ -34,6 +34,7 @@ uk:
         marital_status:         'Сімейний стан'
         middle_name:            'По батькові'
         name:                   "Ім'я"
+        notify_schedules:       'Мій розклад'
         password_confirmation:  'Підтвердження паролю'
         password:               'Пароль'
         phone:                  'Телефон'

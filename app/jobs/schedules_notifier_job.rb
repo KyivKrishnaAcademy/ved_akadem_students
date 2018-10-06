@@ -15,6 +15,6 @@ class SchedulesNotifierJob < ApplicationJob
   end
 
   def people_ids_with_real_email
-    Person.where(id: people_ids, fake_email: false).ids
+    Person.where(id: people_ids, fake_email: false, notify_schedules: true).ids
   end
 end

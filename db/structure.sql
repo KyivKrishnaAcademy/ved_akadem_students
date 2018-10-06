@@ -2,13 +2,14 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.5.12
+-- Dumped by pg_dump version 9.5.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
@@ -27,8 +28,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -37,7 +36,7 @@ SET default_with_oids = false;
 -- Name: academic_group_schedules; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE academic_group_schedules (
+CREATE TABLE public.academic_group_schedules (
     id integer NOT NULL,
     academic_group_id integer,
     class_schedule_id integer,
@@ -50,7 +49,7 @@ CREATE TABLE academic_group_schedules (
 -- Name: academic_group_schedules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE academic_group_schedules_id_seq
+CREATE SEQUENCE public.academic_group_schedules_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -62,14 +61,14 @@ CREATE SEQUENCE academic_group_schedules_id_seq
 -- Name: academic_group_schedules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE academic_group_schedules_id_seq OWNED BY academic_group_schedules.id;
+ALTER SEQUENCE public.academic_group_schedules_id_seq OWNED BY public.academic_group_schedules.id;
 
 
 --
 -- Name: academic_groups; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE academic_groups (
+CREATE TABLE public.academic_groups (
     id integer NOT NULL,
     title character varying(255),
     created_at timestamp without time zone,
@@ -89,7 +88,7 @@ CREATE TABLE academic_groups (
 -- Name: academic_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE academic_groups_id_seq
+CREATE SEQUENCE public.academic_groups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -101,14 +100,14 @@ CREATE SEQUENCE academic_groups_id_seq
 -- Name: academic_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE academic_groups_id_seq OWNED BY academic_groups.id;
+ALTER SEQUENCE public.academic_groups_id_seq OWNED BY public.academic_groups.id;
 
 
 --
 -- Name: academic_groups_programs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE academic_groups_programs (
+CREATE TABLE public.academic_groups_programs (
     academic_group_id integer NOT NULL,
     program_id integer NOT NULL
 );
@@ -118,7 +117,7 @@ CREATE TABLE academic_groups_programs (
 -- Name: answers; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE answers (
+CREATE TABLE public.answers (
     id integer NOT NULL,
     question_id integer,
     person_id integer,
@@ -132,7 +131,7 @@ CREATE TABLE answers (
 -- Name: answers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE answers_id_seq
+CREATE SEQUENCE public.answers_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -144,14 +143,14 @@ CREATE SEQUENCE answers_id_seq
 -- Name: answers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE answers_id_seq OWNED BY answers.id;
+ALTER SEQUENCE public.answers_id_seq OWNED BY public.answers.id;
 
 
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ar_internal_metadata (
+CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
@@ -163,7 +162,7 @@ CREATE TABLE ar_internal_metadata (
 -- Name: attendances; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE attendances (
+CREATE TABLE public.attendances (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -178,7 +177,7 @@ CREATE TABLE attendances (
 -- Name: attendances_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE attendances_id_seq
+CREATE SEQUENCE public.attendances_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -190,14 +189,14 @@ CREATE SEQUENCE attendances_id_seq
 -- Name: attendances_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE attendances_id_seq OWNED BY attendances.id;
+ALTER SEQUENCE public.attendances_id_seq OWNED BY public.attendances.id;
 
 
 --
 -- Name: certificate_templates; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE certificate_templates (
+CREATE TABLE public.certificate_templates (
     id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -209,7 +208,7 @@ CREATE TABLE certificate_templates (
 -- Name: certificate_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE certificate_templates_id_seq
+CREATE SEQUENCE public.certificate_templates_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -221,14 +220,14 @@ CREATE SEQUENCE certificate_templates_id_seq
 -- Name: certificate_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE certificate_templates_id_seq OWNED BY certificate_templates.id;
+ALTER SEQUENCE public.certificate_templates_id_seq OWNED BY public.certificate_templates.id;
 
 
 --
 -- Name: class_schedules; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE class_schedules (
+CREATE TABLE public.class_schedules (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -245,7 +244,7 @@ CREATE TABLE class_schedules (
 -- Name: class_schedules_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE class_schedules_id_seq
+CREATE SEQUENCE public.class_schedules_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -257,14 +256,14 @@ CREATE SEQUENCE class_schedules_id_seq
 -- Name: class_schedules_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE class_schedules_id_seq OWNED BY class_schedules.id;
+ALTER SEQUENCE public.class_schedules_id_seq OWNED BY public.class_schedules.id;
 
 
 --
 -- Name: group_participations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE group_participations (
+CREATE TABLE public.group_participations (
     id integer NOT NULL,
     student_profile_id integer,
     academic_group_id integer,
@@ -277,7 +276,7 @@ CREATE TABLE group_participations (
 -- Name: people; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE people (
+CREATE TABLE public.people (
     id integer NOT NULL,
     name character varying(255),
     created_at timestamp without time zone,
@@ -303,7 +302,8 @@ CREATE TABLE people (
     fake_email boolean DEFAULT false,
     verified boolean DEFAULT false,
     diploma_name character varying,
-    favorite_lectors character varying
+    favorite_lectors character varying,
+    notify_schedules boolean DEFAULT true
 );
 
 
@@ -311,7 +311,7 @@ CREATE TABLE people (
 -- Name: student_profiles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE student_profiles (
+CREATE TABLE public.student_profiles (
     id integer NOT NULL,
     person_id integer,
     created_at timestamp without time zone,
@@ -323,7 +323,7 @@ CREATE TABLE student_profiles (
 -- Name: teacher_profiles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE teacher_profiles (
+CREATE TABLE public.teacher_profiles (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -336,7 +336,7 @@ CREATE TABLE teacher_profiles (
 -- Name: class_schedules_with_people; Type: MATERIALIZED VIEW; Schema: public; Owner: -
 --
 
-CREATE MATERIALIZED VIEW class_schedules_with_people AS
+CREATE MATERIALIZED VIEW public.class_schedules_with_people AS
  SELECT cs.id,
     cs.course_id,
     cs.teacher_profile_id,
@@ -345,16 +345,16 @@ CREATE MATERIALIZED VIEW class_schedules_with_people AS
     cs.finish_time,
     cs.subject,
     ( SELECT tp.person_id
-           FROM teacher_profiles tp
+           FROM public.teacher_profiles tp
           WHERE (tp.id = cs.teacher_profile_id)) AS teacher_id,
     ARRAY( SELECT DISTINCT p.id
-           FROM ((((people p
-             JOIN student_profiles sp ON ((sp.person_id = p.id)))
-             JOIN group_participations gp ON ((gp.student_profile_id = sp.id)))
-             JOIN academic_groups ag ON ((ag.id = gp.academic_group_id)))
-             JOIN academic_group_schedules ags ON ((ags.academic_group_id = ag.id)))
+           FROM ((((public.people p
+             JOIN public.student_profiles sp ON ((sp.person_id = p.id)))
+             JOIN public.group_participations gp ON ((gp.student_profile_id = sp.id)))
+             JOIN public.academic_groups ag ON ((ag.id = gp.academic_group_id)))
+             JOIN public.academic_group_schedules ags ON ((ags.academic_group_id = ag.id)))
           WHERE ((ags.class_schedule_id = cs.id) AND (gp.leave_date IS NULL) AND (ag.graduated_at IS NULL))) AS people_ids
-   FROM class_schedules cs
+   FROM public.class_schedules cs
   ORDER BY cs.start_time, cs.finish_time
   WITH NO DATA;
 
@@ -363,7 +363,7 @@ CREATE MATERIALIZED VIEW class_schedules_with_people AS
 -- Name: classrooms; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE classrooms (
+CREATE TABLE public.classrooms (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -378,7 +378,7 @@ CREATE TABLE classrooms (
 -- Name: classrooms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE classrooms_id_seq
+CREATE SEQUENCE public.classrooms_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -390,14 +390,14 @@ CREATE SEQUENCE classrooms_id_seq
 -- Name: classrooms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE classrooms_id_seq OWNED BY classrooms.id;
+ALTER SEQUENCE public.classrooms_id_seq OWNED BY public.classrooms.id;
 
 
 --
 -- Name: courses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE courses (
+CREATE TABLE public.courses (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -411,7 +411,7 @@ CREATE TABLE courses (
 -- Name: courses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE courses_id_seq
+CREATE SEQUENCE public.courses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -423,14 +423,14 @@ CREATE SEQUENCE courses_id_seq
 -- Name: courses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE courses_id_seq OWNED BY courses.id;
+ALTER SEQUENCE public.courses_id_seq OWNED BY public.courses.id;
 
 
 --
 -- Name: courses_programs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE courses_programs (
+CREATE TABLE public.courses_programs (
     course_id integer NOT NULL,
     program_id integer NOT NULL
 );
@@ -440,7 +440,7 @@ CREATE TABLE courses_programs (
 -- Name: examination_results; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE examination_results (
+CREATE TABLE public.examination_results (
     id integer NOT NULL,
     examination_id integer,
     student_profile_id integer,
@@ -454,7 +454,7 @@ CREATE TABLE examination_results (
 -- Name: examination_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE examination_results_id_seq
+CREATE SEQUENCE public.examination_results_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -466,14 +466,14 @@ CREATE SEQUENCE examination_results_id_seq
 -- Name: examination_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE examination_results_id_seq OWNED BY examination_results.id;
+ALTER SEQUENCE public.examination_results_id_seq OWNED BY public.examination_results.id;
 
 
 --
 -- Name: examinations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE examinations (
+CREATE TABLE public.examinations (
     id integer NOT NULL,
     title character varying DEFAULT ''::character varying,
     description text DEFAULT ''::text,
@@ -490,7 +490,7 @@ CREATE TABLE examinations (
 -- Name: examinations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE examinations_id_seq
+CREATE SEQUENCE public.examinations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -502,14 +502,14 @@ CREATE SEQUENCE examinations_id_seq
 -- Name: examinations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE examinations_id_seq OWNED BY examinations.id;
+ALTER SEQUENCE public.examinations_id_seq OWNED BY public.examinations.id;
 
 
 --
 -- Name: group_participations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE group_participations_id_seq
+CREATE SEQUENCE public.group_participations_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -521,14 +521,14 @@ CREATE SEQUENCE group_participations_id_seq
 -- Name: group_participations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE group_participations_id_seq OWNED BY group_participations.id;
+ALTER SEQUENCE public.group_participations_id_seq OWNED BY public.group_participations.id;
 
 
 --
 -- Name: notes; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE notes (
+CREATE TABLE public.notes (
     id integer NOT NULL,
     person_id integer,
     date date,
@@ -542,7 +542,7 @@ CREATE TABLE notes (
 -- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE notes_id_seq
+CREATE SEQUENCE public.notes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -554,14 +554,14 @@ CREATE SEQUENCE notes_id_seq
 -- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
+ALTER SEQUENCE public.notes_id_seq OWNED BY public.notes.id;
 
 
 --
 -- Name: people_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE people_id_seq
+CREATE SEQUENCE public.people_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -573,14 +573,14 @@ CREATE SEQUENCE people_id_seq
 -- Name: people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE people_id_seq OWNED BY people.id;
+ALTER SEQUENCE public.people_id_seq OWNED BY public.people.id;
 
 
 --
 -- Name: people_roles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE people_roles (
+CREATE TABLE public.people_roles (
     id integer NOT NULL,
     person_id integer,
     role_id integer
@@ -591,7 +591,7 @@ CREATE TABLE people_roles (
 -- Name: people_roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE people_roles_id_seq
+CREATE SEQUENCE public.people_roles_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -603,14 +603,14 @@ CREATE SEQUENCE people_roles_id_seq
 -- Name: people_roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE people_roles_id_seq OWNED BY people_roles.id;
+ALTER SEQUENCE public.people_roles_id_seq OWNED BY public.people_roles.id;
 
 
 --
 -- Name: programs; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE programs (
+CREATE TABLE public.programs (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -629,7 +629,7 @@ CREATE TABLE programs (
 -- Name: programs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE programs_id_seq
+CREATE SEQUENCE public.programs_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -641,14 +641,14 @@ CREATE SEQUENCE programs_id_seq
 -- Name: programs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE programs_id_seq OWNED BY programs.id;
+ALTER SEQUENCE public.programs_id_seq OWNED BY public.programs.id;
 
 
 --
 -- Name: programs_questionnaires; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE programs_questionnaires (
+CREATE TABLE public.programs_questionnaires (
     questionnaire_id integer,
     program_id integer
 );
@@ -658,7 +658,7 @@ CREATE TABLE programs_questionnaires (
 -- Name: questionnaire_completenesses; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE questionnaire_completenesses (
+CREATE TABLE public.questionnaire_completenesses (
     id integer NOT NULL,
     questionnaire_id integer,
     person_id integer,
@@ -673,7 +673,7 @@ CREATE TABLE questionnaire_completenesses (
 -- Name: questionnaire_completenesses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE questionnaire_completenesses_id_seq
+CREATE SEQUENCE public.questionnaire_completenesses_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -685,14 +685,14 @@ CREATE SEQUENCE questionnaire_completenesses_id_seq
 -- Name: questionnaire_completenesses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE questionnaire_completenesses_id_seq OWNED BY questionnaire_completenesses.id;
+ALTER SEQUENCE public.questionnaire_completenesses_id_seq OWNED BY public.questionnaire_completenesses.id;
 
 
 --
 -- Name: questionnaires; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE questionnaires (
+CREATE TABLE public.questionnaires (
     id integer NOT NULL,
     description_uk text,
     title_uk character varying(255),
@@ -709,7 +709,7 @@ CREATE TABLE questionnaires (
 -- Name: questionnaires_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE questionnaires_id_seq
+CREATE SEQUENCE public.questionnaires_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -721,14 +721,14 @@ CREATE SEQUENCE questionnaires_id_seq
 -- Name: questionnaires_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE questionnaires_id_seq OWNED BY questionnaires.id;
+ALTER SEQUENCE public.questionnaires_id_seq OWNED BY public.questionnaires.id;
 
 
 --
 -- Name: questions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE questions (
+CREATE TABLE public.questions (
     id integer NOT NULL,
     questionnaire_id integer,
     format character varying(255),
@@ -743,7 +743,7 @@ CREATE TABLE questions (
 -- Name: questions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE questions_id_seq
+CREATE SEQUENCE public.questions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -755,14 +755,14 @@ CREATE SEQUENCE questions_id_seq
 -- Name: questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE questions_id_seq OWNED BY questions.id;
+ALTER SEQUENCE public.questions_id_seq OWNED BY public.questions.id;
 
 
 --
 -- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE roles (
+CREATE TABLE public.roles (
     id integer NOT NULL,
     activities character varying(255)[] DEFAULT '{}'::character varying[],
     name character varying(30),
@@ -775,7 +775,7 @@ CREATE TABLE roles (
 -- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE roles_id_seq
+CREATE SEQUENCE public.roles_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -787,14 +787,14 @@ CREATE SEQUENCE roles_id_seq
 -- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
+ALTER SEQUENCE public.roles_id_seq OWNED BY public.roles.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying(255) NOT NULL
 );
 
@@ -803,7 +803,7 @@ CREATE TABLE schema_migrations (
 -- Name: student_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE student_profiles_id_seq
+CREATE SEQUENCE public.student_profiles_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -815,14 +815,14 @@ CREATE SEQUENCE student_profiles_id_seq
 -- Name: student_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE student_profiles_id_seq OWNED BY student_profiles.id;
+ALTER SEQUENCE public.student_profiles_id_seq OWNED BY public.student_profiles.id;
 
 
 --
 -- Name: study_applications; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE study_applications (
+CREATE TABLE public.study_applications (
     id integer NOT NULL,
     person_id integer,
     program_id integer,
@@ -835,7 +835,7 @@ CREATE TABLE study_applications (
 -- Name: study_applications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE study_applications_id_seq
+CREATE SEQUENCE public.study_applications_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -847,14 +847,14 @@ CREATE SEQUENCE study_applications_id_seq
 -- Name: study_applications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE study_applications_id_seq OWNED BY study_applications.id;
+ALTER SEQUENCE public.study_applications_id_seq OWNED BY public.study_applications.id;
 
 
 --
 -- Name: teacher_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE teacher_profiles_id_seq
+CREATE SEQUENCE public.teacher_profiles_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -866,14 +866,14 @@ CREATE SEQUENCE teacher_profiles_id_seq
 -- Name: teacher_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE teacher_profiles_id_seq OWNED BY teacher_profiles.id;
+ALTER SEQUENCE public.teacher_profiles_id_seq OWNED BY public.teacher_profiles.id;
 
 
 --
 -- Name: teacher_specialities; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE teacher_specialities (
+CREATE TABLE public.teacher_specialities (
     id integer NOT NULL,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -886,7 +886,7 @@ CREATE TABLE teacher_specialities (
 -- Name: teacher_specialities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE teacher_specialities_id_seq
+CREATE SEQUENCE public.teacher_specialities_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -898,14 +898,14 @@ CREATE SEQUENCE teacher_specialities_id_seq
 -- Name: teacher_specialities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE teacher_specialities_id_seq OWNED BY teacher_specialities.id;
+ALTER SEQUENCE public.teacher_specialities_id_seq OWNED BY public.teacher_specialities.id;
 
 
 --
 -- Name: telephones; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE telephones (
+CREATE TABLE public.telephones (
     id integer NOT NULL,
     person_id integer,
     phone character varying(255),
@@ -918,7 +918,7 @@ CREATE TABLE telephones (
 -- Name: telephones_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE telephones_id_seq
+CREATE SEQUENCE public.telephones_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -930,14 +930,48 @@ CREATE SEQUENCE telephones_id_seq
 -- Name: telephones_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE telephones_id_seq OWNED BY telephones.id;
+ALTER SEQUENCE public.telephones_id_seq OWNED BY public.telephones.id;
+
+
+--
+-- Name: unsubscribes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.unsubscribes (
+    id integer NOT NULL,
+    email character varying,
+    code character varying,
+    kind character varying,
+    person_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: unsubscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.unsubscribes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.unsubscribes_id_seq OWNED BY public.unsubscribes.id;
 
 
 --
 -- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE versions (
+CREATE TABLE public.versions (
     id integer NOT NULL,
     item_type character varying NOT NULL,
     item_id integer NOT NULL,
@@ -952,7 +986,7 @@ CREATE TABLE versions (
 -- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE versions_id_seq
+CREATE SEQUENCE public.versions_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -964,189 +998,196 @@ CREATE SEQUENCE versions_id_seq
 -- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE versions_id_seq OWNED BY versions.id;
+ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY academic_group_schedules ALTER COLUMN id SET DEFAULT nextval('academic_group_schedules_id_seq'::regclass);
+ALTER TABLE ONLY public.academic_group_schedules ALTER COLUMN id SET DEFAULT nextval('public.academic_group_schedules_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY academic_groups ALTER COLUMN id SET DEFAULT nextval('academic_groups_id_seq'::regclass);
+ALTER TABLE ONLY public.academic_groups ALTER COLUMN id SET DEFAULT nextval('public.academic_groups_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY answers ALTER COLUMN id SET DEFAULT nextval('answers_id_seq'::regclass);
+ALTER TABLE ONLY public.answers ALTER COLUMN id SET DEFAULT nextval('public.answers_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY attendances ALTER COLUMN id SET DEFAULT nextval('attendances_id_seq'::regclass);
+ALTER TABLE ONLY public.attendances ALTER COLUMN id SET DEFAULT nextval('public.attendances_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY certificate_templates ALTER COLUMN id SET DEFAULT nextval('certificate_templates_id_seq'::regclass);
+ALTER TABLE ONLY public.certificate_templates ALTER COLUMN id SET DEFAULT nextval('public.certificate_templates_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY class_schedules ALTER COLUMN id SET DEFAULT nextval('class_schedules_id_seq'::regclass);
+ALTER TABLE ONLY public.class_schedules ALTER COLUMN id SET DEFAULT nextval('public.class_schedules_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY classrooms ALTER COLUMN id SET DEFAULT nextval('classrooms_id_seq'::regclass);
+ALTER TABLE ONLY public.classrooms ALTER COLUMN id SET DEFAULT nextval('public.classrooms_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY courses ALTER COLUMN id SET DEFAULT nextval('courses_id_seq'::regclass);
+ALTER TABLE ONLY public.courses ALTER COLUMN id SET DEFAULT nextval('public.courses_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY examination_results ALTER COLUMN id SET DEFAULT nextval('examination_results_id_seq'::regclass);
+ALTER TABLE ONLY public.examination_results ALTER COLUMN id SET DEFAULT nextval('public.examination_results_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY examinations ALTER COLUMN id SET DEFAULT nextval('examinations_id_seq'::regclass);
+ALTER TABLE ONLY public.examinations ALTER COLUMN id SET DEFAULT nextval('public.examinations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY group_participations ALTER COLUMN id SET DEFAULT nextval('group_participations_id_seq'::regclass);
+ALTER TABLE ONLY public.group_participations ALTER COLUMN id SET DEFAULT nextval('public.group_participations_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regclass);
+ALTER TABLE ONLY public.notes ALTER COLUMN id SET DEFAULT nextval('public.notes_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
+ALTER TABLE ONLY public.people ALTER COLUMN id SET DEFAULT nextval('public.people_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY people_roles ALTER COLUMN id SET DEFAULT nextval('people_roles_id_seq'::regclass);
+ALTER TABLE ONLY public.people_roles ALTER COLUMN id SET DEFAULT nextval('public.people_roles_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY programs ALTER COLUMN id SET DEFAULT nextval('programs_id_seq'::regclass);
+ALTER TABLE ONLY public.programs ALTER COLUMN id SET DEFAULT nextval('public.programs_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY questionnaire_completenesses ALTER COLUMN id SET DEFAULT nextval('questionnaire_completenesses_id_seq'::regclass);
+ALTER TABLE ONLY public.questionnaire_completenesses ALTER COLUMN id SET DEFAULT nextval('public.questionnaire_completenesses_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY questionnaires ALTER COLUMN id SET DEFAULT nextval('questionnaires_id_seq'::regclass);
+ALTER TABLE ONLY public.questionnaires ALTER COLUMN id SET DEFAULT nextval('public.questionnaires_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY questions ALTER COLUMN id SET DEFAULT nextval('questions_id_seq'::regclass);
+ALTER TABLE ONLY public.questions ALTER COLUMN id SET DEFAULT nextval('public.questions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY student_profiles ALTER COLUMN id SET DEFAULT nextval('student_profiles_id_seq'::regclass);
+ALTER TABLE ONLY public.student_profiles ALTER COLUMN id SET DEFAULT nextval('public.student_profiles_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY study_applications ALTER COLUMN id SET DEFAULT nextval('study_applications_id_seq'::regclass);
+ALTER TABLE ONLY public.study_applications ALTER COLUMN id SET DEFAULT nextval('public.study_applications_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY teacher_profiles ALTER COLUMN id SET DEFAULT nextval('teacher_profiles_id_seq'::regclass);
+ALTER TABLE ONLY public.teacher_profiles ALTER COLUMN id SET DEFAULT nextval('public.teacher_profiles_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY teacher_specialities ALTER COLUMN id SET DEFAULT nextval('teacher_specialities_id_seq'::regclass);
+ALTER TABLE ONLY public.teacher_specialities ALTER COLUMN id SET DEFAULT nextval('public.teacher_specialities_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY telephones ALTER COLUMN id SET DEFAULT nextval('telephones_id_seq'::regclass);
+ALTER TABLE ONLY public.telephones ALTER COLUMN id SET DEFAULT nextval('public.telephones_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY versions ALTER COLUMN id SET DEFAULT nextval('versions_id_seq'::regclass);
+ALTER TABLE ONLY public.unsubscribes ALTER COLUMN id SET DEFAULT nextval('public.unsubscribes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
 
 
 --
 -- Name: academic_group_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY academic_group_schedules
+ALTER TABLE ONLY public.academic_group_schedules
     ADD CONSTRAINT academic_group_schedules_pkey PRIMARY KEY (id);
 
 
@@ -1154,7 +1195,7 @@ ALTER TABLE ONLY academic_group_schedules
 -- Name: academic_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY academic_groups
+ALTER TABLE ONLY public.academic_groups
     ADD CONSTRAINT academic_groups_pkey PRIMARY KEY (id);
 
 
@@ -1162,7 +1203,7 @@ ALTER TABLE ONLY academic_groups
 -- Name: answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY answers
+ALTER TABLE ONLY public.answers
     ADD CONSTRAINT answers_pkey PRIMARY KEY (id);
 
 
@@ -1170,7 +1211,7 @@ ALTER TABLE ONLY answers
 -- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ar_internal_metadata
+ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
@@ -1178,7 +1219,7 @@ ALTER TABLE ONLY ar_internal_metadata
 -- Name: attendances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY attendances
+ALTER TABLE ONLY public.attendances
     ADD CONSTRAINT attendances_pkey PRIMARY KEY (id);
 
 
@@ -1186,7 +1227,7 @@ ALTER TABLE ONLY attendances
 -- Name: certificate_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY certificate_templates
+ALTER TABLE ONLY public.certificate_templates
     ADD CONSTRAINT certificate_templates_pkey PRIMARY KEY (id);
 
 
@@ -1194,7 +1235,7 @@ ALTER TABLE ONLY certificate_templates
 -- Name: class_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY class_schedules
+ALTER TABLE ONLY public.class_schedules
     ADD CONSTRAINT class_schedules_pkey PRIMARY KEY (id);
 
 
@@ -1202,7 +1243,7 @@ ALTER TABLE ONLY class_schedules
 -- Name: classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY classrooms
+ALTER TABLE ONLY public.classrooms
     ADD CONSTRAINT classrooms_pkey PRIMARY KEY (id);
 
 
@@ -1210,7 +1251,7 @@ ALTER TABLE ONLY classrooms
 -- Name: courses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY courses
+ALTER TABLE ONLY public.courses
     ADD CONSTRAINT courses_pkey PRIMARY KEY (id);
 
 
@@ -1218,7 +1259,7 @@ ALTER TABLE ONLY courses
 -- Name: examination_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY examination_results
+ALTER TABLE ONLY public.examination_results
     ADD CONSTRAINT examination_results_pkey PRIMARY KEY (id);
 
 
@@ -1226,7 +1267,7 @@ ALTER TABLE ONLY examination_results
 -- Name: examinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY examinations
+ALTER TABLE ONLY public.examinations
     ADD CONSTRAINT examinations_pkey PRIMARY KEY (id);
 
 
@@ -1234,7 +1275,7 @@ ALTER TABLE ONLY examinations
 -- Name: group_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY group_participations
+ALTER TABLE ONLY public.group_participations
     ADD CONSTRAINT group_participations_pkey PRIMARY KEY (id);
 
 
@@ -1242,7 +1283,7 @@ ALTER TABLE ONLY group_participations
 -- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY notes
+ALTER TABLE ONLY public.notes
     ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
 
 
@@ -1250,7 +1291,7 @@ ALTER TABLE ONLY notes
 -- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY people
+ALTER TABLE ONLY public.people
     ADD CONSTRAINT people_pkey PRIMARY KEY (id);
 
 
@@ -1258,7 +1299,7 @@ ALTER TABLE ONLY people
 -- Name: people_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY people_roles
+ALTER TABLE ONLY public.people_roles
     ADD CONSTRAINT people_roles_pkey PRIMARY KEY (id);
 
 
@@ -1266,7 +1307,7 @@ ALTER TABLE ONLY people_roles
 -- Name: programs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY programs
+ALTER TABLE ONLY public.programs
     ADD CONSTRAINT programs_pkey PRIMARY KEY (id);
 
 
@@ -1274,7 +1315,7 @@ ALTER TABLE ONLY programs
 -- Name: questionnaire_completenesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY questionnaire_completenesses
+ALTER TABLE ONLY public.questionnaire_completenesses
     ADD CONSTRAINT questionnaire_completenesses_pkey PRIMARY KEY (id);
 
 
@@ -1282,7 +1323,7 @@ ALTER TABLE ONLY questionnaire_completenesses
 -- Name: questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY questionnaires
+ALTER TABLE ONLY public.questionnaires
     ADD CONSTRAINT questionnaires_pkey PRIMARY KEY (id);
 
 
@@ -1290,7 +1331,7 @@ ALTER TABLE ONLY questionnaires
 -- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY questions
+ALTER TABLE ONLY public.questions
     ADD CONSTRAINT questions_pkey PRIMARY KEY (id);
 
 
@@ -1298,7 +1339,7 @@ ALTER TABLE ONLY questions
 -- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY roles
+ALTER TABLE ONLY public.roles
     ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
 
@@ -1306,7 +1347,7 @@ ALTER TABLE ONLY roles
 -- Name: student_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY student_profiles
+ALTER TABLE ONLY public.student_profiles
     ADD CONSTRAINT student_profiles_pkey PRIMARY KEY (id);
 
 
@@ -1314,7 +1355,7 @@ ALTER TABLE ONLY student_profiles
 -- Name: study_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY study_applications
+ALTER TABLE ONLY public.study_applications
     ADD CONSTRAINT study_applications_pkey PRIMARY KEY (id);
 
 
@@ -1322,7 +1363,7 @@ ALTER TABLE ONLY study_applications
 -- Name: teacher_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY teacher_profiles
+ALTER TABLE ONLY public.teacher_profiles
     ADD CONSTRAINT teacher_profiles_pkey PRIMARY KEY (id);
 
 
@@ -1330,7 +1371,7 @@ ALTER TABLE ONLY teacher_profiles
 -- Name: teacher_specialities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY teacher_specialities
+ALTER TABLE ONLY public.teacher_specialities
     ADD CONSTRAINT teacher_specialities_pkey PRIMARY KEY (id);
 
 
@@ -1338,15 +1379,23 @@ ALTER TABLE ONLY teacher_specialities
 -- Name: telephones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY telephones
+ALTER TABLE ONLY public.telephones
     ADD CONSTRAINT telephones_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unsubscribes
+    ADD CONSTRAINT unsubscribes_pkey PRIMARY KEY (id);
 
 
 --
 -- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY versions
+ALTER TABLE ONLY public.versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
 
 
@@ -1354,150 +1403,172 @@ ALTER TABLE ONLY versions
 -- Name: class_schedules_with_people_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX class_schedules_with_people_id_idx ON class_schedules_with_people USING btree (id);
+CREATE UNIQUE INDEX class_schedules_with_people_id_idx ON public.class_schedules_with_people USING btree (id);
 
 
 --
 -- Name: class_schedules_with_people_people_ids_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX class_schedules_with_people_people_ids_idx ON class_schedules_with_people USING gin (people_ids) WITH (fastupdate=off);
+CREATE INDEX class_schedules_with_people_people_ids_idx ON public.class_schedules_with_people USING gin (people_ids) WITH (fastupdate=off);
 
 
 --
 -- Name: class_schedules_with_people_teacher_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX class_schedules_with_people_teacher_id_idx ON class_schedules_with_people USING hash (teacher_id);
+CREATE INDEX class_schedules_with_people_teacher_id_idx ON public.class_schedules_with_people USING hash (teacher_id);
 
 
 --
 -- Name: index_academic_groups_programs_on_group_id_and_program_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_academic_groups_programs_on_group_id_and_program_id ON academic_groups_programs USING btree (academic_group_id, program_id);
+CREATE INDEX index_academic_groups_programs_on_group_id_and_program_id ON public.academic_groups_programs USING btree (academic_group_id, program_id);
 
 
 --
 -- Name: index_academic_groups_programs_on_program_id_and_group_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_academic_groups_programs_on_program_id_and_group_id ON academic_groups_programs USING btree (program_id, academic_group_id);
+CREATE INDEX index_academic_groups_programs_on_program_id_and_group_id ON public.academic_groups_programs USING btree (program_id, academic_group_id);
 
 
 --
 -- Name: index_attendances_on_class_schedule_id_and_student_profile_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_attendances_on_class_schedule_id_and_student_profile_id ON attendances USING btree (class_schedule_id, student_profile_id);
+CREATE UNIQUE INDEX index_attendances_on_class_schedule_id_and_student_profile_id ON public.attendances USING btree (class_schedule_id, student_profile_id);
 
 
 --
 -- Name: index_courses_programs_on_course_id_and_program_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_courses_programs_on_course_id_and_program_id ON courses_programs USING btree (course_id, program_id);
+CREATE INDEX index_courses_programs_on_course_id_and_program_id ON public.courses_programs USING btree (course_id, program_id);
 
 
 --
 -- Name: index_courses_programs_on_program_id_and_course_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_courses_programs_on_program_id_and_course_id ON courses_programs USING btree (program_id, course_id);
+CREATE INDEX index_courses_programs_on_program_id_and_course_id ON public.courses_programs USING btree (program_id, course_id);
 
 
 --
 -- Name: index_examination_results_on_examination_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_examination_results_on_examination_id ON examination_results USING btree (examination_id);
+CREATE INDEX index_examination_results_on_examination_id ON public.examination_results USING btree (examination_id);
 
 
 --
 -- Name: index_examination_results_on_student_profile_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_examination_results_on_student_profile_id ON examination_results USING btree (student_profile_id);
+CREATE INDEX index_examination_results_on_student_profile_id ON public.examination_results USING btree (student_profile_id);
 
 
 --
 -- Name: index_examinations_on_course_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_examinations_on_course_id ON examinations USING btree (course_id);
+CREATE INDEX index_examinations_on_course_id ON public.examinations USING btree (course_id);
 
 
 --
 -- Name: index_notes_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_notes_on_person_id ON notes USING btree (person_id);
+CREATE INDEX index_notes_on_person_id ON public.notes USING btree (person_id);
 
 
 --
 -- Name: index_people_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_people_on_email ON people USING btree (email);
+CREATE UNIQUE INDEX index_people_on_email ON public.people USING btree (email);
 
 
 --
 -- Name: index_people_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_people_on_reset_password_token ON people USING btree (reset_password_token);
+CREATE UNIQUE INDEX index_people_on_reset_password_token ON public.people USING btree (reset_password_token);
 
 
 --
 -- Name: index_people_on_uid_and_provider; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_people_on_uid_and_provider ON people USING btree (uid, provider);
+CREATE UNIQUE INDEX index_people_on_uid_and_provider ON public.people USING btree (uid, provider);
 
 
 --
 -- Name: index_study_applications_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_study_applications_on_person_id ON study_applications USING btree (person_id);
+CREATE UNIQUE INDEX index_study_applications_on_person_id ON public.study_applications USING btree (person_id);
+
+
+--
+-- Name: index_unsubscribes_on_email_and_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unsubscribes_on_email_and_code ON public.unsubscribes USING btree (email, code);
+
+
+--
+-- Name: index_unsubscribes_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unsubscribes_on_person_id ON public.unsubscribes USING btree (person_id);
 
 
 --
 -- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_versions_on_item_type_and_item_id ON versions USING btree (item_type, item_id);
+CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
 
 
 --
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING btree (version);
 
 
 --
 -- Name: fk_rails_4c75de44a7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY examinations
-    ADD CONSTRAINT fk_rails_4c75de44a7 FOREIGN KEY (course_id) REFERENCES courses(id);
+ALTER TABLE ONLY public.examinations
+    ADD CONSTRAINT fk_rails_4c75de44a7 FOREIGN KEY (course_id) REFERENCES public.courses(id);
 
 
 --
 -- Name: fk_rails_63838bf553; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY examination_results
-    ADD CONSTRAINT fk_rails_63838bf553 FOREIGN KEY (examination_id) REFERENCES examinations(id);
+ALTER TABLE ONLY public.examination_results
+    ADD CONSTRAINT fk_rails_63838bf553 FOREIGN KEY (examination_id) REFERENCES public.examinations(id);
 
 
 --
 -- Name: fk_rails_786b08cf9b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY examination_results
-    ADD CONSTRAINT fk_rails_786b08cf9b FOREIGN KEY (student_profile_id) REFERENCES student_profiles(id);
+ALTER TABLE ONLY public.examination_results
+    ADD CONSTRAINT fk_rails_786b08cf9b FOREIGN KEY (student_profile_id) REFERENCES public.student_profiles(id);
+
+
+--
+-- Name: fk_rails_fb18d345ca; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unsubscribes
+    ADD CONSTRAINT fk_rails_fb18d345ca FOREIGN KEY (person_id) REFERENCES public.people(id);
 
 
 --
@@ -1506,6 +1577,6 @@ ALTER TABLE ONLY examination_results
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20131104153415'), ('20131104155157'), ('20131106111439'), ('20131106111610'), ('20131107081926'), ('20131107082541'), ('20131107082931'), ('20131107083056'), ('20131108154327'), ('20131108154741'), ('20131108155311'), ('20131108155502'), ('20131108155847'), ('20131108160759'), ('20131108183224'), ('20131108183425'), ('20131108183524'), ('20131108183652'), ('20131108183825'), ('20131108183921'), ('20131109141935'), ('20131109142219'), ('20131109143231'), ('20131206142539'), ('20131224122713'), ('20140206161732'), ('20140211153102'), ('20140211154720'), ('20140805135413'), ('20140805150150'), ('20140807144123'), ('20140812184858'), ('20140817064104'), ('20140817070939'), ('20140819191836'), ('20140821192744'), ('20140824053737'), ('20140903122128'), ('20140903122216'), ('20140905191018'), ('20140905191211'), ('20140905191326'), ('20140906113626'), ('20140918091449'), ('20140920200640'), ('20140921162651'), ('20141001130412'), ('20141018192218'), ('20141101170505'), ('20141101170540'), ('20141102090630'), ('20141102185707'), ('20141105202042'), ('20150107152356'), ('20150107162032'), ('20150107162204'), ('20150112113434'), ('20150113111530'), ('20150118122903'), ('20150118130719'), ('20150213222112'), ('20150507103929'), ('20150519132845'), ('20150519133309'), ('20150521082032'), ('20150521082127'), ('20150524193448'), ('20150602100341'), ('20150602145846'), ('20150604104338'), ('20150614072444'), ('20150625201045'), ('20150709064042'), ('20150821112132'), ('20151102155321'), ('20160309211822'), ('20160319204426'), ('20160430185957'), ('20160611125828'), ('20160921113729'), ('20160921113902'), ('20160928042653'), ('20161204045002'), ('20170123053701'), ('20171008122007'), ('20171016033728'), ('20171016034251'), ('20171021080023'), ('20171029195342'), ('20171104053938'), ('20180803092524'), ('20180803111634'), ('20180817083213'), ('20180918034821'), ('20180920035801'), ('20180920193530'), ('20180922042307');
+INSERT INTO schema_migrations (version) VALUES ('20131104153415'), ('20131104155157'), ('20131106111439'), ('20131106111610'), ('20131107081926'), ('20131107082541'), ('20131107082931'), ('20131107083056'), ('20131108154327'), ('20131108154741'), ('20131108155311'), ('20131108155502'), ('20131108155847'), ('20131108160759'), ('20131108183224'), ('20131108183425'), ('20131108183524'), ('20131108183652'), ('20131108183825'), ('20131108183921'), ('20131109141935'), ('20131109142219'), ('20131109143231'), ('20131206142539'), ('20131224122713'), ('20140206161732'), ('20140211153102'), ('20140211154720'), ('20140805135413'), ('20140805150150'), ('20140807144123'), ('20140812184858'), ('20140817064104'), ('20140817070939'), ('20140819191836'), ('20140821192744'), ('20140824053737'), ('20140903122128'), ('20140903122216'), ('20140905191018'), ('20140905191211'), ('20140905191326'), ('20140906113626'), ('20140918091449'), ('20140920200640'), ('20140921162651'), ('20141001130412'), ('20141018192218'), ('20141101170505'), ('20141101170540'), ('20141102090630'), ('20141102185707'), ('20141105202042'), ('20150107152356'), ('20150107162032'), ('20150107162204'), ('20150112113434'), ('20150113111530'), ('20150118122903'), ('20150118130719'), ('20150213222112'), ('20150507103929'), ('20150519132845'), ('20150519133309'), ('20150521082032'), ('20150521082127'), ('20150524193448'), ('20150602100341'), ('20150602145846'), ('20150604104338'), ('20150614072444'), ('20150625201045'), ('20150709064042'), ('20150821112132'), ('20151102155321'), ('20160309211822'), ('20160319204426'), ('20160430185957'), ('20160611125828'), ('20160921113729'), ('20160921113902'), ('20160928042653'), ('20161204045002'), ('20170123053701'), ('20171008122007'), ('20171016033728'), ('20171016034251'), ('20171021080023'), ('20171029195342'), ('20171104053938'), ('20180803092524'), ('20180803111634'), ('20180817083213'), ('20180918034821'), ('20180920035801'), ('20180920193530'), ('20180922042307'), ('20181003033911'), ('20181006060751');
 
 

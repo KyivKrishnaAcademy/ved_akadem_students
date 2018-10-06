@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     resource :verification, only: :update
   end
 
+  resource :subscriptions, only: %i[edit update]
+
   resources :courses do
     resources :examinations, only: %i[new create edit update show destroy]
   end
@@ -46,6 +48,9 @@ Rails.application.routes.draw do
     get  '/remind_email' => 'emails#new'
     post '/show_emails'  => 'emails#create'
   end
+
+  get '/unsubscribe/:code/:email', controller: :unsubscribes, action: :edit, as: :unsubscribe
+  delete '/unsubscribe/:code/:email', controller: :unsubscribes, action: :destroy
 
   root 'static_pages#home'
 

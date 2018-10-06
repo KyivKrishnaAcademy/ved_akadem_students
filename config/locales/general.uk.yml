@@ -205,3 +205,30 @@ uk:
       journal:    'Журнал'
       object:     'Попередня версія'
       whodunnit:  'Автор'
+  unsubscribes:
+    edit:
+      cancel: Ні
+      edit_subscriptions: Увійти і редагувати мої підписки
+      expired: Посилання застаріло
+      notify_schedules: оновлень розкладу
+      submit: Так, відписатися
+      unsubscribe_from: Відписатися від
+      unsubscribe: Відписатися
+    destroy:
+      notify_schedules: оновлень розкладу
+      success: Ваша адреса відписана від
+      unsubscribe: Відписатися
+      errored: Сталася якась помилка
+      edit_subscriptions: Увійти і редагувати мої підписки
+  subscriptions:
+    form:
+      save: Зберегти
+      you_are_subscribed_to: 'Ви підписані на такі email розсилки:'
+    edit:
+      title: Редагувати підписки
+    update:
+      alert_html: 'Шось у Вашому профелю заважає зберегти підписки. <a href="%{edit_path}" target="_blank">Відрежагуйте профіль</a> і повертайтеся сюди.'
+      notice: Підписки збережено
+  shared:
+    person_brief:
+      edit_subscriptions: Редагувати підписки

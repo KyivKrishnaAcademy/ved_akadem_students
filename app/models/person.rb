@@ -28,6 +28,7 @@ class Person < ApplicationRecord
   has_many :telephones, dependent: :destroy
   has_many :notes, dependent: :destroy
   has_many :answers, dependent: :destroy
+  has_many :unsubscribes, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
   has_many :questionnaires, through: :questionnaire_completenesses
 

@@ -34,6 +34,7 @@ ru:
         marital_status:         'Семейное положение'
         middle_name:            'Отчество'
         name:                   'Имя'
+        notify_schedules:       'Мое расписание'
         password_confirmation:  'Подтверждение пароля'
         password:               'Пароль'
         phone:                  'Телефон'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180920193530) do
+ActiveRecord::Schema.define(version: 20181006060751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,7 +149,6 @@ ActiveRecord::Schema.define(version: 20180920193530) do
     t.string   "email",                  limit: 255
     t.boolean  "gender"
     t.date     "birthday"
-    t.string   "emergency_contact",      limit: 255
     t.string   "photo",                  limit: 255
     t.string   "encrypted_password",     limit: 255
     t.string   "reset_password_token",   limit: 255
@@ -167,6 +166,7 @@ ActiveRecord::Schema.define(version: 20180920193530) do
     t.boolean  "verified",                           default: false
     t.string   "diploma_name"
     t.string   "favorite_lectors"
+    t.boolean  "notify_schedules",                   default: true
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
     t.index ["uid", "provider"], name: "index_people_on_uid_and_provider", unique: true, using: :btree
@@ -266,6 +266,17 @@ ActiveRecord::Schema.define(version: 20180920193530) do
     t.datetime "updated_at"
   end
 
+  create_table "unsubscribes", force: :cascade do |t|
+    t.string   "email"
+    t.string   "code"
+    t.string   "kind"
+    t.integer  "person_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email", "code"], name: "index_unsubscribes_on_email_and_code", unique: true, using: :btree
+    t.index ["person_id"], name: "index_unsubscribes_on_person_id", using: :btree
+  end
+
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
@@ -279,4 +290,5 @@ ActiveRecord::Schema.define(version: 20180920193530) do
   add_foreign_key "examination_results", "examinations"
   add_foreign_key "examination_results", "student_profiles"
   add_foreign_key "examinations", "courses"
+  add_foreign_key "unsubscribes", "people"
 end
