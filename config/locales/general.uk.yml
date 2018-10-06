@@ -205,3 +205,16 @@ uk:
       journal:    'Журнал'
       object:     'Попередня версія'
       whodunnit:  'Автор'
+  unsubscribes:
+    edit:
+      cancel: Ні
+      expired: Посилання застаріло
+      notify_schedules: оновлень розкладу
+      submit: Так, відписатися
+      unsubscribe_from: Відписатися від
+      unsubscribe: Відписатися
+    destroy:
+      notify_schedules: оновлень розкладу
+      success: Ваша адреса відписана від
+      unsubscribe: Відписатися
+      errored: Сталася якась помилка

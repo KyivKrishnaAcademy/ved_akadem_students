@@ -1,0 +1,17 @@
+- provide(:title, full_title(t('.unsubscribe')))
+
+.row.vert-offset-top-12
+  - if @unsubscribe.present? && @unsubscribe.destroyed?
+    .col-xs-12.text-center.text-success
+      %span.glyphicon.glyphicon-ok-circle.fa-4x
+
+    .col-xs-12.vert-offset-top-1.text-center.text-success
+      = t '.success'
+      = t ".#{@unsubscribe.kind}"
+
+  - else
+    .col-xs-12.text-center.text-danger
+      %span.glyphicon.glyphicon-remove-circle.fa-4x
+
+    .col-xs-12.vert-offset-top-1.text-center.text-danger
+      = t('.errored')

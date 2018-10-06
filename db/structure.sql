@@ -302,7 +302,8 @@ CREATE TABLE public.people (
     fake_email boolean DEFAULT false,
     verified boolean DEFAULT false,
     diploma_name character varying,
-    favorite_lectors character varying
+    favorite_lectors character varying,
+    notify_schedules boolean DEFAULT true
 );
 
 
@@ -933,6 +934,40 @@ ALTER SEQUENCE public.telephones_id_seq OWNED BY public.telephones.id;
 
 
 --
+-- Name: unsubscribes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.unsubscribes (
+    id integer NOT NULL,
+    email character varying,
+    code character varying,
+    kind character varying,
+    person_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: unsubscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.unsubscribes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.unsubscribes_id_seq OWNED BY public.unsubscribes.id;
+
+
+--
 -- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1132,6 +1167,13 @@ ALTER TABLE ONLY public.teacher_specialities ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.telephones ALTER COLUMN id SET DEFAULT nextval('public.telephones_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unsubscribes ALTER COLUMN id SET DEFAULT nextval('public.unsubscribes_id_seq'::regclass);
 
 
 --
@@ -1342,6 +1384,14 @@ ALTER TABLE ONLY public.telephones
 
 
 --
+-- Name: unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unsubscribes
+    ADD CONSTRAINT unsubscribes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1462,6 +1512,20 @@ CREATE UNIQUE INDEX index_study_applications_on_person_id ON public.study_applic
 
 
 --
+-- Name: index_unsubscribes_on_email_and_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unsubscribes_on_email_and_code ON public.unsubscribes USING btree (email, code);
+
+
+--
+-- Name: index_unsubscribes_on_person_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_unsubscribes_on_person_id ON public.unsubscribes USING btree (person_id);
+
+
+--
 -- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1500,11 +1564,19 @@ ALTER TABLE ONLY public.examination_results
 
 
 --
+-- Name: fk_rails_fb18d345ca; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.unsubscribes
+    ADD CONSTRAINT fk_rails_fb18d345ca FOREIGN KEY (person_id) REFERENCES public.people(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20131104153415'), ('20131104155157'), ('20131106111439'), ('20131106111610'), ('20131107081926'), ('20131107082541'), ('20131107082931'), ('20131107083056'), ('20131108154327'), ('20131108154741'), ('20131108155311'), ('20131108155502'), ('20131108155847'), ('20131108160759'), ('20131108183224'), ('20131108183425'), ('20131108183524'), ('20131108183652'), ('20131108183825'), ('20131108183921'), ('20131109141935'), ('20131109142219'), ('20131109143231'), ('20131206142539'), ('20131224122713'), ('20140206161732'), ('20140211153102'), ('20140211154720'), ('20140805135413'), ('20140805150150'), ('20140807144123'), ('20140812184858'), ('20140817064104'), ('20140817070939'), ('20140819191836'), ('20140821192744'), ('20140824053737'), ('20140903122128'), ('20140903122216'), ('20140905191018'), ('20140905191211'), ('20140905191326'), ('20140906113626'), ('20140918091449'), ('20140920200640'), ('20140921162651'), ('20141001130412'), ('20141018192218'), ('20141101170505'), ('20141101170540'), ('20141102090630'), ('20141102185707'), ('20141105202042'), ('20150107152356'), ('20150107162032'), ('20150107162204'), ('20150112113434'), ('20150113111530'), ('20150118122903'), ('20150118130719'), ('20150213222112'), ('20150507103929'), ('20150519132845'), ('20150519133309'), ('20150521082032'), ('20150521082127'), ('20150524193448'), ('20150602100341'), ('20150602145846'), ('20150604104338'), ('20150614072444'), ('20150625201045'), ('20150709064042'), ('20150821112132'), ('20151102155321'), ('20160309211822'), ('20160319204426'), ('20160430185957'), ('20160611125828'), ('20160921113729'), ('20160921113902'), ('20160928042653'), ('20161204045002'), ('20170123053701'), ('20171008122007'), ('20171016033728'), ('20171016034251'), ('20171021080023'), ('20171029195342'), ('20171104053938'), ('20180803092524'), ('20180803111634'), ('20180817083213'), ('20180918034821'), ('20180920035801'), ('20180920193530'), ('20180922042307');
+INSERT INTO schema_migrations (version) VALUES ('20131104153415'), ('20131104155157'), ('20131106111439'), ('20131106111610'), ('20131107081926'), ('20131107082541'), ('20131107082931'), ('20131107083056'), ('20131108154327'), ('20131108154741'), ('20131108155311'), ('20131108155502'), ('20131108155847'), ('20131108160759'), ('20131108183224'), ('20131108183425'), ('20131108183524'), ('20131108183652'), ('20131108183825'), ('20131108183921'), ('20131109141935'), ('20131109142219'), ('20131109143231'), ('20131206142539'), ('20131224122713'), ('20140206161732'), ('20140211153102'), ('20140211154720'), ('20140805135413'), ('20140805150150'), ('20140807144123'), ('20140812184858'), ('20140817064104'), ('20140817070939'), ('20140819191836'), ('20140821192744'), ('20140824053737'), ('20140903122128'), ('20140903122216'), ('20140905191018'), ('20140905191211'), ('20140905191326'), ('20140906113626'), ('20140918091449'), ('20140920200640'), ('20140921162651'), ('20141001130412'), ('20141018192218'), ('20141101170505'), ('20141101170540'), ('20141102090630'), ('20141102185707'), ('20141105202042'), ('20150107152356'), ('20150107162032'), ('20150107162204'), ('20150112113434'), ('20150113111530'), ('20150118122903'), ('20150118130719'), ('20150213222112'), ('20150507103929'), ('20150519132845'), ('20150519133309'), ('20150521082032'), ('20150521082127'), ('20150524193448'), ('20150602100341'), ('20150602145846'), ('20150604104338'), ('20150614072444'), ('20150625201045'), ('20150709064042'), ('20150821112132'), ('20151102155321'), ('20160309211822'), ('20160319204426'), ('20160430185957'), ('20160611125828'), ('20160921113729'), ('20160921113902'), ('20160928042653'), ('20161204045002'), ('20170123053701'), ('20171008122007'), ('20171016033728'), ('20171016034251'), ('20171021080023'), ('20171029195342'), ('20171104053938'), ('20180803092524'), ('20180803111634'), ('20180817083213'), ('20180918034821'), ('20180920035801'), ('20180920193530'), ('20180922042307'), ('20181003033911'), ('20181006060751');
 
 

@@ -1,0 +1,19 @@
+- provide(:title, full_title(t('.unsubscribe')))
+
+.row.vert-offset-top-12
+  - if @unsubscribe.present?
+    .col-xs-12.text-center
+      = t '.unsubscribe_from'
+      = t ".#{@unsubscribe.kind}"
+      ?
+    .col-xs-12.vert-offset-top-1.text-center
+      = form_for  @unsubscribe,
+                  url: unsubscribe_path(params[:code], params[:email]),
+                  method: :delete do |f|
+        = f.submit t('.submit'), class: 'btn btn-danger'
+    .col-xs-12.vert-offset-top-1.text-center
+      = link_to t('.cancel'), root_path, class: 'btn btn-default'
+
+  - else
+    .col-xs-12.text-center
+      = t('.expired')

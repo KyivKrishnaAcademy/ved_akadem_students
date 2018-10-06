@@ -47,6 +47,9 @@ Rails.application.routes.draw do
     post '/show_emails'  => 'emails#create'
   end
 
+  get '/unsubscribe/:code/:email', controller: :unsubscribes, action: :edit, as: :unsubscribe
+  delete '/unsubscribe/:code/:email', controller: :unsubscribes, action: :destroy
+
   root 'static_pages#home'
 
   get 'static_pages/home'

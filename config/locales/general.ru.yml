@@ -205,3 +205,16 @@ ru:
       journal:    'Журнал'
       object:     'Предидущая версия'
       whodunnit:  'Автор'
+  unsubscribes:
+    edit:
+      cancel: Нет
+      expired: Ссылка устарела
+      notify_schedules: обновлений расписания
+      submit: Да, отписаться
+      unsubscribe_from: Отписаться от
+      unsubscribe: Отписаться
+    destroy:
+      notify_schedules: обновлений расписания
+      success: Ваш адресс отписан от
+      unsubscribe: Отписаться
+      errored: Случилась какая-то ошибка

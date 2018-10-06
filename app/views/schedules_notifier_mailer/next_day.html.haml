@@ -109,6 +109,18 @@
             %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailFooter' }
               %tr
                 %td{ align: 'center', valign: 'bottom' }
+                  = link_to t('.unsubscribe'),
+                            unsubscribe_url(@unsubscribe.code,
+                                            @unsubscribe.encoded_email,
+                                            utm_medium: 'email',
+                                            utm_source: 'next_day_schedule',
+                                            utm_campaign: 'unsubscribes',
+                                            utm_content: 'footer',
+                                            utm_term: @unsubscribe.kind),
+                            rel: 'noopener noreferrer',
+                            target: '_blank'
+              %tr
+                %td{ align: 'center', valign: 'bottom' }
                   = link_to root_url( utm_medium: 'email',
                                       utm_source: 'next_day_schedule',
                                       utm_campaign: 'schedules_notification',
