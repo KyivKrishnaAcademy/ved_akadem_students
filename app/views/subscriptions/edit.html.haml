@@ -1,0 +1,9 @@
+- title = "#{t '.title'} #{@person.complex_name}"
+- provide(:title, title)
+
+.row
+  .col-xs-12.text-center
+    %h1
+      = title
+
+  = render 'form'

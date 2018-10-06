@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     resource :verification, only: :update
   end
 
+  resource :subscriptions, only: %i[edit update]
+
   resources :courses do
     resources :examinations, only: %i[new create edit update show destroy]
   end

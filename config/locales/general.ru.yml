@@ -208,6 +208,7 @@ ru:
   unsubscribes:
     edit:
       cancel: Нет
+      edit_subscriptions: Войти и редактировать мои подписки
       expired: Ссылка устарела
       notify_schedules: обновлений расписания
       submit: Да, отписаться
@@ -218,3 +219,16 @@ ru:
       success: Ваш адресс отписан от
       unsubscribe: Отписаться
       errored: Случилась какая-то ошибка
+      edit_subscriptions: Войти и редактировать мои подписки
+  subscriptions:
+    form:
+      save: Сохранить
+      you_are_subscribed_to: 'Вы подписаны на такие email рассылки:'
+    edit:
+      title: Редактировать подписки
+    update:
+      alert_html: 'Что-то в Вашем профиле не дает сохранить подписки. <a href="%{edit_path}" target="_blank">Отредактируйте профиль</a> и возвращайтесь сюда.'
+      notice: Подписки сохранены
+  shared:
+    person_brief:
+      edit_subscriptions: Редактировать подписки

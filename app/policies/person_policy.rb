@@ -23,6 +23,14 @@ class PersonPolicy < BasePolicy
     academic_group_writable
   end
 
+  def subscriptions_edit?
+    owned? || super
+  end
+
+  def subscriptions_update?
+    owned? || super
+  end
+
   private
 
   def academic_group_writable
