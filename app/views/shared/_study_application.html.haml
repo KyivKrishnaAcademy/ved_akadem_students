@@ -10,6 +10,7 @@
               = link_to "#program-#{index}", data: { parent: '#accordion', toggle: 'collapse' } do
                 %span.caret
                 = program["title_#{locale}"]
+                = t '.click_to_learn_more'
               .pull-right
                 - if policy(study_application).create?
                   = simple_form_for study_application, remote: true, format: :js do |f|
