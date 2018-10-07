@@ -3,7 +3,7 @@ module StudyApplicationable
 
   def preset_applications_variables(person = current_person)
     @application_person    = application_person(person)
-    @programs              = programs(current_person)
+    @programs              = programs(current_person).order(visible: :desc, position: :asc)
     @new_study_application = StudyApplication.new(person_id: @application_person.id) if @application_person.present?
   end
 
@@ -15,7 +15,7 @@ module StudyApplicationable
 
   def programs(person)
     # TODO: move to policy
-    return if person.blank?
+    return Program.none if person.blank?
 
     if person.can_act?('study_application:create')
       Program.all
