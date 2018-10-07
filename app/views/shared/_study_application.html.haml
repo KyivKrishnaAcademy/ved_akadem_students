@@ -20,14 +20,14 @@
                       = t('links.apply_to_program')
           .panel-collapse.collapse{ id: "program-#{index}" }
             .panel-body
-              %p
-                = program["description_#{locale}"]
-              %p
-                = t('content.courses')
+              - program["description_#{locale}"].to_s.split("\n").each do |part|
+                %p= part
+
+              - if program["courses_#{locale}"].any?
+                %p= t('content.courses')
                 %ul
                   - program["courses_#{locale}"].each do |course_title|
-                    %li
-                      = course_title
+                    %li= course_title
 - else
   - if person.pending_docs.present?
     .pending-docs.alert.alert-danger

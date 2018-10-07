@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181006060751) do
+ActiveRecord::Schema.define(version: 20181007124205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,7 @@ ActiveRecord::Schema.define(version: 20181006060751) do
     t.text     "courses_ru"
     t.boolean  "visible",                    default: false
     t.integer  "manager_id"
+    t.integer  "position"
   end
 
   create_table "programs_questionnaires", id: false, force: :cascade do |t|
