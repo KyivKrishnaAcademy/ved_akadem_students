@@ -70,7 +70,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'pry'
-  gem 'pry-doc'
   gem 'pry-nav'
   gem 'pry-rails'
 
