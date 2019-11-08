@@ -1,4 +1,4 @@
-lock '3.6.1'
+lock '3.11.2'
 
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
@@ -21,47 +21,25 @@ set :docker_images, %w[mpugach/akadem_students_prod:latest mpugach/akadem_studen
 namespace :docker do
   desc 'Deploy containers'
   task :deploy do
-    invoke :'docker:pull'
-    invoke :'docker:compose_up', '--no-recreate'
-
-    Rake::Task[:'docker:stop_container'].reenable
-    invoke :'docker:stop_container', fetch(:builder_name)
-
-    Rake::Task[:'docker:recreate_builder'].reenable
-    invoke :'docker:recreate_builder'
-
-    Rake::Task[:'docker:start_builder'].reenable
-    invoke :'docker:start_builder'
-
-    Rake::Task[:'docker:builder_exec'].reenable
-    invoke :'docker:builder_exec', "apk add #{fetch(:packages).join(' ')}"
-    Rake::Task[:'docker:builder_exec'].reenable
-    invoke :'docker:builder_exec', 'bundle install -j5 --retry 10 --without development test'
-    Rake::Task[:'docker:builder_exec'].reenable
-    invoke :'docker:builder_exec', 'bundle clean --force'
-    Rake::Task[:'docker:builder_exec'].reenable
-    invoke :'docker:builder_exec', 'npm install npm@3.6.0 -g && npm install'
-    Rake::Task[:'docker:builder_exec'].reenable
-    invoke :'docker:builder_exec', 'bundle exec rake assets:precompile RAILS_ENV=assets_builder'
-
-    Rake::Task[:'docker:stop_container'].reenable
-    invoke :'docker:stop_container', 'nginx'
-
-    Rake::Task[:'docker:stop_container'].reenable
-    invoke :'docker:stop_container', 'sidekiq'
+    invoke! :'docker:pull'
+    invoke! :'docker:compose_up', '--no-recreate'
+    invoke! :'docker:stop_container', fetch(:builder_name)
+    invoke! :'docker:recreate_builder'
+    invoke! :'docker:start_builder'
+    invoke! :'docker:builder_exec', "apk add #{fetch(:packages).join(' ')}"
+    invoke! :'docker:builder_exec', 'bundle install -j5 --retry 10 --without development test'
+    invoke! :'docker:builder_exec', 'bundle clean --force'
+    invoke! :'docker:builder_exec', 'npm install npm@3.6.0 -g && npm install'
+    invoke! :'docker:builder_exec', 'bundle exec rake assets:precompile RAILS_ENV=assets_builder'
+    invoke! :'docker:stop_container', 'nginx'
+    invoke! :'docker:stop_container', 'sidekiq'
 
     # Initial setup
-    # Rake::Task[:'docker:builder_exec'].reenable
-    # invoke :'docker:builder_exec', 'bundle exec rake db:structure:load'
+    # invoke! :'docker:builder_exec', 'bundle exec rake db:structure:load'
 
-    Rake::Task[:'docker:builder_exec'].reenable
-    invoke :'docker:builder_exec', 'bundle exec rake db:migrate'
-
-    Rake::Task[:'docker:compose_up'].reenable
-    invoke :'docker:compose_up'
-
-    Rake::Task[:'docker:stop_container'].reenable
-    invoke :'docker:stop_container', fetch(:builder_name)
+    invoke! :'docker:builder_exec', 'bundle exec rake db:migrate'
+    invoke! :'docker:compose_up'
+    invoke! :'docker:stop_container', fetch(:builder_name)
   end
 
   desc 'Start builder'
@@ -163,24 +141,16 @@ namespace :docker do
 
       release_backup_path = Pathname.new('/backups').join(last_release)
 
-      invoke :'docker:start_builder'
-      invoke :'docker:builder_exec', "mkdir -p #{release_backup_path}"
+      invoke! :'docker:start_builder'
+      invoke! :'docker:builder_exec', "mkdir -p #{release_backup_path}"
 
-      Rake::Task[:'docker:builder_exec'].reenable
-
-      invoke(
+      invoke!(
         :'docker:builder_exec',
         "pg_dump --dbname=#{fetch(:dbname)} -F d -j 20 -Z 1 -f #{release_backup_path.join('db')}"
       )
 
-      Rake::Task[:'docker:builder_exec'].reenable
-
-      invoke(
-        :'docker:builder_exec',
-        "tar -czf #{release_backup_path.join('uploads.tar.gz')} -C /app uploads"
-      )
-
-      invoke :'docker:stop_container', fetch(:builder_name)
+      invoke! :'docker:builder_exec', "tar -czf #{release_backup_path.join('uploads.tar.gz')} -C /app uploads"
+      invoke! :'docker:stop_container', fetch(:builder_name)
     end
   end
 
@@ -197,14 +167,9 @@ namespace :docker do
         if directories.any?
           directories_str = directories.map { |revision| "/backups/#{revision}" }.join(' ')
 
-          Rake::Task[:'docker:start_builder'].reenable
-          invoke :'docker:start_builder'
-
-          Rake::Task[:'docker:builder_exec'].reenable
-          invoke :'docker:builder_exec', "rm -rf #{directories_str}"
-
-          Rake::Task[:'docker:stop_container'].reenable
-          invoke :'docker:stop_container', fetch(:builder_name)
+          invoke! :'docker:start_builder'
+          invoke! :'docker:builder_exec', "rm -rf #{directories_str}"
+          invoke! :'docker:stop_container', fetch(:builder_name)
         else
           info "No old revisions (keeping newest #{fetch(:keep_backups)})"
         end
@@ -229,24 +194,19 @@ namespace :docker do
 
       release_backup_path = Pathname.new('/backups').join(fetch(:restore_release))
 
-      invoke :'docker:start_builder'
-      invoke :'docker:stop_container', 'nginx'
-      invoke :'docker:stop_container', 'sidekiq'
+      invoke! :'docker:start_builder'
+      invoke! :'docker:stop_container', 'nginx'
+      invoke! :'docker:stop_container', 'sidekiq'
 
-      invoke(
+      invoke!(
         :'docker:builder_exec',
         "pg_restore --dbname=#{fetch(:dbname)} -O -j 20 -c #{release_backup_path.join('db')}"
       )
 
-      Rake::Task[:'docker:builder_exec'].reenable
-      invoke(:'docker:builder_exec', 'rm -rf /app/uploads/*')
-      Rake::Task[:'docker:builder_exec'].reenable
-      invoke(:'docker:builder_exec', "tar -xzf #{release_backup_path.join('uploads.tar.gz')} -C /app")
-
-      invoke :'docker:compose_up'
-
-      Rake::Task[:'docker:stop_container'].reenable
-      invoke :'docker:stop_container', fetch(:builder_name)
+      invoke! :'docker:builder_exec', 'rm -rf /app/uploads/*'
+      invoke! :'docker:builder_exec', "tar -xzf #{release_backup_path.join('uploads.tar.gz')} -C /app"
+      invoke! :'docker:compose_up'
+      invoke! :'docker:stop_container', fetch(:builder_name)
     end
   end
 end
