@@ -10,8 +10,11 @@ if rails_env == 'production'
   threads 4, 4
 
   bind 'tcp://0.0.0.0:3000'
-  pidfile '/app/tmp/puma.pid'
-  state_path '/app/tmp/puma.state'
+
+  project_home = ENV['PROJECT_HOME']
+
+  pidfile "#{project_home}/tmp/puma.pid"
+  state_path "#{project_home}/tmp/puma.state"
 else
   bind 'tcp://localhost:3000'
 

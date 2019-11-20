@@ -1,0 +1,119 @@
+FROM ruby:2.4.9-slim-buster as base
+
+LABEL maintainer="Maksym Pugach <pugach.m@gmail.com>"
+
+ENV APP_USER=app
+ENV APP_HOME=/home/${APP_USER}
+ENV PROJECT_HOME=${APP_HOME}/students_crm
+
+RUN echo "install: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
+RUN echo "update: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
+RUN gem update --system
+RUN bundle config git.allow_insecure true
+RUN mkdir -p $PROJECT_HOME
+
+RUN apt-get update \
+ && apt-get install -y \
+    curl \
+    gnupg \
+    imagemagick \
+    libpq-dev \
+    lsb-release \
+    netcat \
+ && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" \
+    > /etc/apt/sources.list.d/pgdg.list \
+ && curl -L https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+ && apt-get remove --purge -y \
+    curl \
+    gnupg \
+    lsb-release \
+ && apt autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR $PROJECT_HOME
+# ______________________________________________________________________________________________________________________
+
+FROM base as base_with_node
+
+ARG NODE_LTS_VERSION=10
+ARG NPM_VERSION=6.13.0
+ARG ANGULAR_CLI_VERSION=8.3.18
+
+ENV NG_CLI_ANALYTICS=false
+
+RUN apt-get update
+RUN apt-get install -y \
+    curl
+RUN curl -sL https://deb.nodesource.com/setup_${NODE_LTS_VERSION}.x | bash -
+RUN apt-get install -y \
+    nodejs
+RUN npm install -g npm@${NPM_VERSION}
+RUN npm install -g @angular/cli@${ANGULAR_CLI_VERSION}
+# ______________________________________________________________________________________________________________________
+
+FROM base_with_node as production_builder
+
+ARG GIT_BRANCH=master
+ARG GIT_REPO=https://github.com/KyivKrishnaAcademy/ved_akadem_students.git
+
+ENV RAILS_ENV=assets_builder
+
+RUN apt-get update
+RUN apt-get install -y \
+    build-essential \
+    git \
+    libmagickwand-dev \
+    libpq-dev
+RUN git clone -b ${GIT_BRANCH} ${GIT_REPO} .
+RUN bundle install -j5 --retry 10 --frozen --no-cache --without development test
+RUN npm install
+RUN cd client && npm install && cd ..
+
+COPY .ruby-env .ruby-env
+
+RUN export $(cat .ruby-env | xargs) && bundle exec rake assets:precompile
+
+RUN rm -rf .git app/assets node_modules client .ruby-env
+
+# ______________________________________________________________________________________________________________________
+
+FROM base
+
+ENV RAILS_ENV=production
+
+COPY --from=production_builder $PROJECT_HOME $PROJECT_HOME
+
+RUN apt-get update \
+ && apt-get install -y \
+    build-essential \
+    git \
+ && bundle install -j5 --retry 10 --frozen --no-cache --without assets_builder development test \
+ && apt-get remove --purge -y \
+    build-essential \
+    git \
+ && apt autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+# ARG IS_PRODUCTION=no
+
+# RUN apt-get update \
+#  && apt-get install -y \
+#     build-essential \
+#     curl \
+#     imagemagick \
+#     libmagickwand-dev \
+#     lsb-release \
+#     netcat \
+#  && apt-get update \
+#  && apt-get install -y \
+#     libpq-dev \
+#  && if [ "$IS_PRODUCTION" = "no" ] ; then apt-get install -y \
+#       git \
+#       postgresql-client-9.5 \
+#     ; fi \
+#  && apt-get remove --purge -y \
+#     curl \
+#     lsb-release \
