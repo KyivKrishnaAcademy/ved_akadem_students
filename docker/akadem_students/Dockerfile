@@ -55,6 +55,23 @@ RUN npm install -g npm@${NPM_VERSION}
 RUN npm install -g @angular/cli@${ANGULAR_CLI_VERSION}
 # ______________________________________________________________________________________________________________________
 
+FROM base_with_node as development
+
+RUN apt-get update
+RUN apt-get install -y \
+    build-essential \
+    git \
+    libmagickwand-dev
+
+RUN apt-get update \
+ && apt-get install -y \
+    build-essential \
+    git \
+    libmagickwand-dev \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# ______________________________________________________________________________________________________________________
+
 FROM base_with_node as production_builder
 
 ARG GIT_BRANCH=master
@@ -97,25 +114,3 @@ RUN apt-get update \
  && apt autoremove -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-
-# ARG IS_PRODUCTION=no
-
-# RUN apt-get update \
-#  && apt-get install -y \
-#     build-essential \
-#     curl \
-#     imagemagick \
-#     libmagickwand-dev \
-#     lsb-release \
-#     netcat \
-#  && apt-get update \
-#  && apt-get install -y \
-#     libpq-dev \
-#  && if [ "$IS_PRODUCTION" = "no" ] ; then apt-get install -y \
-#       git \
-#       postgresql-client-9.5 \
-#     ; fi \
-#  && apt-get remove --purge -y \
-#     curl \
-#     lsb-release \

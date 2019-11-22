@@ -1,49 +1,56 @@
-version: '2'
-
-volumes:
-  redis-dev:
-    external: false
-  postgres-dev:
-    external: false
-  bundle-dev:
-    external: false
-  node-modules-dev:
-    external: false
-  client-node-modules-dev:
-    external: false
-  assets-javascript-generated-dev:
-    external: false
+version: '3.7'
 
 services:
   postgres:
-    image:          mpugach/postgres_ua:9.5
-    container_name: postgres
+    image: mpugach/postgres_ua:9.5
     volumes:
-      - postgres-dev:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB:    va_db
-      POSTGRES_USER:  postgres
+      POSTGRES_DB: va_db
+      POSTGRES_USER: postgres
 
   redis:
-    image:          redis:3.2.4-alpine
-    container_name: redis
-    volumes:
-      - redis-dev:/data
+    image: redis:3.2.12-alpine
 
   application:
-    image:          mpugach/akadem_students_dev:latest
-    entrypoint:     /app/bin/start_rails_dev.sh
-    container_name: application
+    build:
+      context: '.'
+      dockerfile: docker/akadem_students/Dockerfile
+      target: development
     ports:
-      - '3000:3000'
+      - 3000:3000
     volumes:
-      - /home/docker/ved_akadem_students:/app
-      - bundle-dev:/usr/local/bundle
-      - node-modules-dev:/app/node_modules
-      - client-node-modules-dev:/app/client/node_modules
-      - assets-javascript-generated-dev:/app/app/assets/javascript/generated
+      - .:/home/app/students_crm
+      - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
+      - bundle:/usr/local/bundle
+      - client-node-modules:/home/app/students_crm/client/node_modules
+      - node-modules:/home/app/students_crm/node_modules
     depends_on:
       - redis
       - postgres
+      - react-builder
     environment:
-      REDIS_URL:  redis
+      REDIS_URL: redis
+      RAILS_ENV: development
+    entrypoint: /home/app/students_crm/bin/start_rails_dev.sh
+
+  react-builder:
+    build:
+      context: '.'
+      dockerfile: docker/akadem_students/Dockerfile
+      target: development
+    entrypoint: /home/app/students_crm/bin/start_react_dev.sh
+    volumes:
+      - .:/home/app/students_crm
+      - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
+      - bundle:/usr/local/bundle/
+      - client-node-modules:/home/app/students_crm/client/node_modules
+      - node-modules:/home/app/students_crm/node_modules
+    entrypoint: /home/app/students_crm/bin/start_react_dev.sh
+
+volumes:
+  assets-javascript-generated:
+  bundle:
+  client-node-modules:
+  node-modules:
+  postgres-data:

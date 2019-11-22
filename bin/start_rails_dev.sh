@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-env
+env | sort
 
 bundle install -j5 --retry 10 --without production
 bundle clean --force
@@ -24,8 +24,8 @@ else
   bundle exec rails db:seed
 fi
 
-pidfile=/app/tmp/pids/server.pid
+pidfile=${PROJECT_HOME}/tmp/pids/server.pid
 
 [ -e "$pidfile" ] && rm "$pidfile"
 
-foreman start -f Procfile.dev -t 10
+bundle exec rails s -b 0.0.0.0 -p 3000
