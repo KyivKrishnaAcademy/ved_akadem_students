@@ -5,8 +5,6 @@ volumes:
     external: false
   public-prod:
     external: false
-  bundle-prod:
-    external: false
   uploads-prod:
     external: false
   postgres-prod:
@@ -32,16 +30,15 @@ services:
 
   application:
     image:          mpugach/akadem_students_prod:latest
-    command:        bundle exec puma -C config/puma.rb
+    command:        bin/start_rails_prod.sh
     restart:        always
     env_file:       ./.ruby-env
     container_name: application
     expose:
       - '3000'
     volumes:
-      - public-prod:/app/public
-      - bundle-prod:/usr/local/bundle
-      - uploads-prod:/app/uploads
+      - public-prod:/home/app/students_crm/public_nginx
+      - uploads-prod:/home/app/students_crm/uploads
     depends_on:
       - redis
       - postgres
@@ -52,14 +49,13 @@ services:
 
   sidekiq:
     image:          mpugach/akadem_students_prod:latest
-    command:        bundle exec sidekiq -C config/sidekiq.yml
+    command:        bin/start_sidekiq_prod.sh
     restart:        always
     env_file:       ./.ruby-env
     container_name: sidekiq
     volumes:
-      - public-prod:/app/public
-      - bundle-prod:/usr/local/bundle
-      - uploads-prod:/app/uploads
+      - public-prod:/home/app/students_crm/public_nginx
+      - uploads-prod:/home/app/students_crm/uploads
     depends_on:
       - redis
       - postgres
@@ -77,7 +73,6 @@ services:
       - '80:80'
     volumes:
       - public-prod:/assets/public:ro
-      - bundle-prod:/usr/local/bundle:ro
       - uploads-prod:/assets/uploads:ro
     depends_on:
       - application

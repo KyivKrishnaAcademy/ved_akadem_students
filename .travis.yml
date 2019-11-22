@@ -10,16 +10,18 @@ env:
   - CODECLIMATE_REPO_TOKEN=783e4ac8cc44be68f2be2932fb13e2805e1f21b4541d689c9c7fe12bfb2373fb
 script:
   - bundle exec rake db:structure:load
-  - nvm install 5.5.0
+  - nvm install 10.17.0
   - npm install
   - cd client
+  - npm install
+  - npm prune
   - npm run build:client
   - npm run build:server
   - cd ..
   - bundle exec rake lint
   - bundle exec rspec
 rvm:
-  - 2.3.1
+  - 2.4
 addons:
   postgresql: '9.5'
 services:
@@ -27,7 +29,9 @@ services:
 before_script:
   - cp config/database.yml.travis config/database.yml
 before_install:
-  - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
+  - 'echo ''install: --no-rdoc --no-ri --no-document --suggestions'' >> ~/.gemrc'
+  - 'echo ''update: --no-rdoc --no-ri --no-document --suggestions'' >> ~/.gemrc'
+  - bundle config git.allow_insecure true
   - 'export PHANTOMJS_VERSION=2.1.1'
   - 'phantomjs --version'
   - 'export PATH=$PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH'
@@ -37,4 +41,4 @@ before_install:
   - 'if [ $(phantomjs --version) != $PHANTOMJS_VERSION ]; then tar -xvf $PWD/travis_phantomjs/phantomjs-$PHANTOMJS_VERSION-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi'
   - 'phantomjs --version'
 bundler_args:
-  --without development production
+  --without development production -j5 --retry 10

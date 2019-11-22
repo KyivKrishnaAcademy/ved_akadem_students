@@ -60,7 +60,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'capistrano'
+  gem 'capistrano', require: false
   gem 'haml-rails'
   gem 'letter_opener'
   gem 'meta_request'
@@ -70,7 +70,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'ffaker'
   gem 'pry'
-  gem 'pry-doc'
   gem 'pry-nav'
   gem 'pry-rails'
 

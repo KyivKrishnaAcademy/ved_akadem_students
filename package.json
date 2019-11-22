@@ -8,11 +8,8 @@
     "npm": "3.3.12"
   },
   "scripts": {
-    "postinstall": "cd client && npm install",
     "test": "bundle exec rspec && (cd client && npm run lint)",
-    "express-server": "echo 'visit http://localhost:4000' && cd client && npm start",
-    "rails-server": "foreman start -f Procfile.dev -t 10",
-    "webpack-server": "foreman start -f Procfile.dev-webpack -t 10"
+    "express-server": "echo 'visit http://localhost:4000' && cd client && npm start"
   },
   "repository": {
     "type": "git",

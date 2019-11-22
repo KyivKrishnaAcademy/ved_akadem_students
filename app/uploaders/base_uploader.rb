@@ -3,6 +3,8 @@ class BaseUploader < CarrierWave::Uploader::Base
 
   storage :file
   permissions 0o0604
+
+  # 0o0655 breaks Travis tests
   directory_permissions 0o0701
 
   def store_dir
