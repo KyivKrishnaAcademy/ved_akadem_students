@@ -17,12 +17,15 @@ RUN apt-get update \
     curl \
     gnupg \
     imagemagick \
-    libpq-dev \
     lsb-release \
     netcat \
  && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" \
     > /etc/apt/sources.list.d/pgdg.list \
  && curl -L https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+ && apt-get update \
+ && apt-get install -y \
+    libpq-dev \
+    postgresql-client-9.5 \
  && apt-get remove --purge -y \
     curl \
     gnupg \
@@ -63,8 +66,7 @@ RUN apt-get update
 RUN apt-get install -y \
     build-essential \
     git \
-    libmagickwand-dev \
-    libpq-dev
+    libmagickwand-dev
 RUN git clone -b ${GIT_BRANCH} ${GIT_REPO} .
 RUN bundle install -j5 --retry 10 --frozen --no-cache --without development test
 RUN npm install

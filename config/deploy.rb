@@ -9,46 +9,22 @@ set :linked_files, %w[.ruby-env]
 
 set :dbname, 'postgresql://postgres:postgres@postgres:5432/va_db'
 set :project, 'akademstudents'
-set :packages, %w[git build-base postgresql postgresql-client nodejs-lts python]
-set :app_image, 'mpugach/akadem_students_prod:latest'
 set :compose_yml, 'docker-compose.prod.yml'
 set :backups_path, "#{fetch(:deploy_to)}/backups"
-set :builder_name, 'assets_builder'
+set :builder_name, 'application'
 set :keep_backups, 10
 set :docker_images, %w[mpugach/akadem_students_prod:latest mpugach/akadem_students_nginx:latest]
+set :project_home, '/home/app/students_crm'
 
 # rubocop:disable Metrics/BlockLength
 namespace :docker do
   desc 'Deploy containers'
   task :deploy do
     invoke! :'docker:pull'
-    invoke! :'docker:compose_up', '--no-recreate'
-    invoke! :'docker:stop_container', fetch(:builder_name)
-    invoke! :'docker:recreate_builder'
-    invoke! :'docker:start_builder'
-    invoke! :'docker:builder_exec', "apk add #{fetch(:packages).join(' ')}"
-    invoke! :'docker:builder_exec', 'bundle install -j5 --retry 10 --without development test'
-    invoke! :'docker:builder_exec', 'bundle clean --force'
-    invoke! :'docker:builder_exec', 'npm install npm@3.6.0 -g && npm install'
-    invoke! :'docker:builder_exec', 'bundle exec rake assets:precompile RAILS_ENV=assets_builder'
-    invoke! :'docker:stop_container', 'nginx'
-    invoke! :'docker:stop_container', 'sidekiq'
+    invoke! :'docker:compose_up'
 
     # Initial setup
     # invoke! :'docker:builder_exec', 'bundle exec rake db:structure:load'
-
-    invoke! :'docker:builder_exec', 'bundle exec rake db:migrate'
-    invoke! :'docker:compose_up'
-    invoke! :'docker:stop_container', fetch(:builder_name)
-  end
-
-  desc 'Start builder'
-  task :start_builder do
-    on roles(:all) do
-      within release_path do
-        sudo "docker start #{fetch(:builder_name)}"
-      end
-    end
   end
 
   desc 'Pull'
@@ -95,34 +71,6 @@ namespace :docker do
     end
   end
 
-  desc 'Recreate builder'
-  task :recreate_builder do
-    on roles(:all) do
-      within release_path do
-        execute <<-SHELL
-          if sudo docker ps -a | grep #{fetch(:builder_name)}
-            then sudo docker rm #{fetch(:builder_name)}
-          fi
-        SHELL
-
-        sudo <<-SHELL
-          docker create \
-            -v #{fetch(:backups_path)}:/backups \
-            -v builder-cache-node_modules:/app/node_modules \
-            -v builder-cache-client-node_modules:/app/client/node_modules \
-            -v #{fetch(:project)}_public-prod:/app/public \
-            -v #{fetch(:project)}_bundle-prod:/usr/local/bundle \
-            -v #{fetch(:project)}_uploads-prod:/app/uploads \
-            --name #{fetch(:builder_name)} \
-            --network #{fetch(:project)}_default \
-            --env-file .ruby-env \
-            #{fetch(:app_image)} \
-            top -b
-        SHELL
-      end
-    end
-  end
-
   desc 'docker-compose logs -f'
   task :logs do
     on roles(:all) do
@@ -140,17 +88,22 @@ namespace :docker do
       return unless last_release
 
       release_backup_path = Pathname.new('/backups').join(last_release)
+      db_backup_cmd = "pg_dump --dbname=#{fetch(:dbname)} -F d -j 20 -Z 1 -f #{release_backup_path.join('db')}"
+      images_backup_cmd = "tar -czf #{release_backup_path.join('uploads.tar.gz')} -C #{fetch(:project_home)} uploads"
 
-      invoke! :'docker:start_builder'
+      invoke! :'docker:stop_container', 'nginx'
+      invoke! :'docker:stop_container', 'sidekiq'
+      invoke! :'docker:builder_exec', "rm -rf #{release_backup_path}"
       invoke! :'docker:builder_exec', "mkdir -p #{release_backup_path}"
+      invoke! :'docker:builder_exec', db_backup_cmd
+      invoke! :'docker:builder_exec', images_backup_cmd
+      invoke! :'docker:compose_up'
 
-      invoke!(
-        :'docker:builder_exec',
-        "pg_dump --dbname=#{fetch(:dbname)} -F d -j 20 -Z 1 -f #{release_backup_path.join('db')}"
-      )
-
-      invoke! :'docker:builder_exec', "tar -czf #{release_backup_path.join('uploads.tar.gz')} -C /app uploads"
-      invoke! :'docker:stop_container', fetch(:builder_name)
+      on roles(:all) do
+        within release_path do
+          sudo "docker cp #{fetch(:builder_name)}:#{release_backup_path} #{fetch(:backups_path)}"
+        end
+      end
     end
   end
 
@@ -165,11 +118,11 @@ namespace :docker do
         directories = (revisions - revisions.last(fetch(:keep_backups)))
 
         if directories.any?
-          directories_str = directories.map { |revision| "/backups/#{revision}" }.join(' ')
+          directories_str = directories.map { |revision| "#{fetch(:backups_path)}/#{revision}" }.join(' ')
 
-          invoke! :'docker:start_builder'
-          invoke! :'docker:builder_exec', "rm -rf #{directories_str}"
-          invoke! :'docker:stop_container', fetch(:builder_name)
+          within release_path do
+            sudo "rm -rf #{directories_str}"
+          end
         else
           info "No old revisions (keeping newest #{fetch(:keep_backups)})"
         end
@@ -193,20 +146,24 @@ namespace :docker do
       ask :restore_release, revisions.split.last
 
       release_backup_path = Pathname.new('/backups').join(fetch(:restore_release))
+      db_restore_cmd = "pg_restore --dbname=#{fetch(:dbname)} -O -j 20 -c #{release_backup_path.join('db')}"
+      images_restore_cmd = "tar -xzf #{release_backup_path.join('uploads.tar.gz')} -C #{fetch(:project_home)}"
 
-      invoke! :'docker:start_builder'
       invoke! :'docker:stop_container', 'nginx'
       invoke! :'docker:stop_container', 'sidekiq'
-
-      invoke!(
-        :'docker:builder_exec',
-        "pg_restore --dbname=#{fetch(:dbname)} -O -j 20 -c #{release_backup_path.join('db')}"
-      )
-
-      invoke! :'docker:builder_exec', 'rm -rf /app/uploads/*'
-      invoke! :'docker:builder_exec', "tar -xzf #{release_backup_path.join('uploads.tar.gz')} -C /app"
+      invoke! :'docker:builder_exec', db_restore_cmd
+      invoke! :'docker:builder_exec', "rm -rf #{fetch(:project_home)}/uploads/*"
+      invoke! :'docker:builder_exec', images_restore_cmd
       invoke! :'docker:compose_up'
-      invoke! :'docker:stop_container', fetch(:builder_name)
+    end
+  end
+
+  desc 'Cleanup old images'
+  task :cleanup_images do
+    on roles(:all) do
+      within release_path do
+        sudo "docker rmi $(docker images --filter 'dangling=true' -q --no-trunc)"
+      end
     end
   end
 end
@@ -215,3 +172,4 @@ end
 before :'deploy:started', :'docker:backup'
 after :'deploy:published', :'docker:deploy'
 after :'deploy:cleanup', :'docker:cleanup_backups'
+after :'deploy:cleanup', :'docker:cleanup_images'
