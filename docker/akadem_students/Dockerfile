@@ -93,7 +93,7 @@ COPY .ruby-env .ruby-env
 
 RUN export $(cat .ruby-env | xargs) && bundle exec rake assets:precompile
 
-RUN rm -rf .git app/assets node_modules client .ruby-env
+RUN rm -rf .git app/assets/javascript* app/assets/stylesheets node_modules client .ruby-env
 
 # ______________________________________________________________________________________________________________________
 

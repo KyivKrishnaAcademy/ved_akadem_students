@@ -162,7 +162,7 @@ namespace :docker do
   task :cleanup_images do
     on roles(:all) do
       within release_path do
-        sudo "docker rmi $(docker images --filter 'dangling=true' -q --no-trunc)"
+        sudo "docker rmi $(sudo docker images --filter 'dangling=true' -q --no-trunc)"
       end
     end
   end
