@@ -23,8 +23,6 @@ services:
       - .:/home/app/students_crm
       - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
       - bundle:/usr/local/bundle
-      - client-node-modules:/home/app/students_crm/client/node_modules
-      - node-modules:/home/app/students_crm/node_modules
     depends_on:
       - redis
       - postgres
@@ -44,8 +42,6 @@ services:
       - .:/home/app/students_crm
       - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
       - bundle:/usr/local/bundle/
-      - client-node-modules:/home/app/students_crm/client/node_modules
-      - node-modules:/home/app/students_crm/node_modules
     entrypoint: /home/app/students_crm/bin/start_react_dev.sh
 
   angular-server:
@@ -62,6 +58,4 @@ services:
 volumes:
   assets-javascript-generated:
   bundle:
-  client-node-modules:
-  node-modules:
   postgres-data:
