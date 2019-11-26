@@ -4,8 +4,8 @@
   "description": "Developed specially for Kyiv Spiritual Academy of Krishna Consciousness in Ukraine and ISKCON.",
   "main": "server.js",
   "engines": {
-    "node": "5.5.0",
-    "npm": "3.3.12"
+    "node": "10.17.0",
+    "npm": "6.13.0"
   },
   "scripts": {
     "test": "bundle exec rspec && (cd client && npm run lint)",
