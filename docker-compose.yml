@@ -37,11 +37,9 @@ services:
       context: '.'
       dockerfile: docker/akadem_students/Dockerfile
       target: development
-    entrypoint: /home/app/students_crm/bin/start_react_dev.sh
     volumes:
       - .:/home/app/students_crm
       - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
-      - bundle:/usr/local/bundle/
     entrypoint: /home/app/students_crm/bin/start_react_dev.sh
 
   angular-server:
