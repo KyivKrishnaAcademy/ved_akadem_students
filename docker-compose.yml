@@ -48,6 +48,17 @@ services:
       - node-modules:/home/app/students_crm/node_modules
     entrypoint: /home/app/students_crm/bin/start_react_dev.sh
 
+  angular-server:
+    build:
+      context: '.'
+      dockerfile: docker/akadem_students/Dockerfile
+      target: development
+    ports:
+      - 4200:4200
+    volumes:
+      - .:/home/app/students_crm
+    entrypoint: /home/app/students_crm/bin/start_angular_dev.sh
+
 volumes:
   assets-javascript-generated:
   bundle:
