@@ -41,7 +41,6 @@ FROM base as base_with_node
 
 ARG NODE_LTS_VERSION=10
 ARG NPM_VERSION=6.13.0
-ARG ANGULAR_CLI_VERSION=8.3.18
 
 ENV NG_CLI_ANALYTICS=false
 
@@ -52,7 +51,6 @@ RUN curl -sL https://deb.nodesource.com/setup_${NODE_LTS_VERSION}.x | bash -
 RUN apt-get install -y \
     nodejs
 RUN npm install -g npm@${NPM_VERSION}
-RUN npm install -g @angular/cli@${ANGULAR_CLI_VERSION}
 # ______________________________________________________________________________________________________________________
 
 FROM base_with_node as development
