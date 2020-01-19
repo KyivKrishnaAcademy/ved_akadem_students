@@ -64,7 +64,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'students.veda-kiev.org.ua', port: 80 }
   config.action_mailer.smtp_settings = {
-    port:                 26,
+    port:                 Rails.application.secrets.mailer_port,
     address:              Rails.application.secrets.mailer_address,
     password:             Rails.application.secrets.mailer_password,
     user_name:            Rails.application.secrets.mailer_user_name,
