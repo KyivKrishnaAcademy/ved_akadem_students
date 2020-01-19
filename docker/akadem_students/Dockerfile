@@ -9,6 +9,7 @@ ENV PROJECT_HOME=${APP_HOME}/students_crm
 RUN echo "install: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
 RUN echo "update: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
 RUN gem update --system
+RUN gem install bundler:1.17.3
 RUN bundle config git.allow_insecure true
 RUN mkdir -p $PROJECT_HOME
 
