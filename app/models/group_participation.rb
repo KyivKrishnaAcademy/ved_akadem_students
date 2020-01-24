@@ -15,7 +15,7 @@ class GroupParticipation < ApplicationRecord
 
     person = student_profile.person
 
-    return if person.fake_email? || !academic_group.active?
+    return if person.fake_email? || person.spam_complain? || !academic_group.active?
 
     GroupTransactionsMailer.leave_the_group(academic_group, person).deliver_later
   end
