@@ -66,5 +66,11 @@ describe GroupParticipation do
 
       include_examples :dont_send_email
     end
+
+    context 'spam complained' do
+      Given(:person) { create :person, spam_complain: true }
+
+      include_examples :dont_send_email
+    end
   end
 end

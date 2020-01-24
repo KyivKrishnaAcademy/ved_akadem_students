@@ -94,5 +94,10 @@ Rails.application.routes.draw do
                                         as: :attendance_template_pdf, defaults: format_pdf, constraints: format_pdf
 
   resource :journal, only: :show
+
+  namespace :webhooks do
+    post 'mailgun/complained', controller: :mailgun, action: :complained
+    post 'mailgun/failed', controller: :mailgun, action: :failed
+  end
 end
 # rubocop:enable Metrics/BlockLength
