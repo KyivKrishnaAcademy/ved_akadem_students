@@ -99,11 +99,7 @@ namespace :docker do
       invoke! :'docker:builder_exec', images_backup_cmd
       invoke! :'docker:compose_up'
 
-      on roles(:all) do
-        within release_path do
-          sudo "docker cp #{fetch(:builder_name)}:#{release_backup_path} #{fetch(:backups_path)}"
-        end
-      end
+      sudo "docker cp #{fetch(:builder_name)}:#{release_backup_path} #{fetch(:backups_path)}"
     end
   end
 
