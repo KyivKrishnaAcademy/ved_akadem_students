@@ -5,7 +5,7 @@ module Webhooks
     def failed
       set_known_statuses
 
-      return unless self.status == 200
+      return unless status == 200
 
       person&.update_column(:fake_email, true)
     end
@@ -13,7 +13,7 @@ module Webhooks
     def complained
       set_known_statuses
 
-      return unless self.status == 200
+      return unless status == 200
 
       person&.update_column(:spam_complain, true)
     end
