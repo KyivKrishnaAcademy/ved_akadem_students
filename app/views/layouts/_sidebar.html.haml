@@ -50,6 +50,12 @@
 
     = generated_sidebar_menu
 
+    - if show_statistics_yearly_link?
+      %li
+      = link_to statistics_yearly_path('2019', '2020'), class: active_class(statistics_yearly_path('2019', '2020')) do
+        %i.sidebar-icon.fa.fa-2x.fa-pie-chart{ aria: { hidden: :true } }
+        = t('defaults.links.statistics')
+
     - if show_journal_link?
       %li
       = link_to journal_path, class: active_class(journal_path) do

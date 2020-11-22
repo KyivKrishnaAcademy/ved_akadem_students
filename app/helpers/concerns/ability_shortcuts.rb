@@ -22,4 +22,8 @@ module AbilityShortcuts
   def show_journal_link?
     current_person&.can_act?('paper_trail/version:show')
   end
+
+  def show_statistics_yearly_link?
+    current_person&.can_act?('statistics_controller:yearly')
+  end
 end

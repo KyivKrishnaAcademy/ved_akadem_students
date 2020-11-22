@@ -99,5 +99,7 @@ Rails.application.routes.draw do
     post 'mailgun/complained', controller: :mailgun, action: :complained
     post 'mailgun/failed', controller: :mailgun, action: :failed
   end
+
+  get 'statistics/yearly/:start_year/:end_year', controller: :statistics, action: :yearly, as: :statistics_yearly
 end
 # rubocop:enable Metrics/BlockLength

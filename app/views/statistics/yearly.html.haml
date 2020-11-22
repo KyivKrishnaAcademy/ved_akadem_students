@@ -1,0 +1,32 @@
+.row
+  .col-xs-12
+    %h1.text-center
+      = "#{params[:start_year]} - #{params[:end_year]}"
+
+.row
+  .col-xs-12
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th
+
+            - @year_headers.each do |academic_year|
+              %th
+                = academic_year
+        %tbody
+          - @groups_yearly_data.each do |yearly_data|
+            %tr
+              %td
+                = link_to yearly_data[:group].title, yearly_data[:group]
+
+              - yearly_data[:yearly_counts].each do |count|
+                %td
+                  = count
+
+          %tr
+            %td
+              Кількість унікальних
+
+            - @total_uniq_counts.each do |total_count|
+              %td= total_count

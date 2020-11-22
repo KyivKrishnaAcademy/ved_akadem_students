@@ -1,6 +1,6 @@
 class StatisticsController < ApplicationController
   after_action :verify_authorized
-  after_action :verify_policy_scoped
+  after_action :verify_policy_scoped, only: %i[index]
 
   def index
     @academic_group = policy_scope(AcademicGroup).find(params[:academic_group_id])
@@ -14,6 +14,18 @@ class StatisticsController < ApplicationController
     @active_students = schedule_dates.map { |date| active_students_per_day(@academic_group.id, date) }
     @attended_students = schedules.map { |schedule| attendance_per_day(schedule) }
     @last_active_students = last_active_students(schedules)
+  end
+
+  def yearly
+    authorize StatisticsController
+
+    yearly_statistics_service = YearlyStatisticsService.new(params[:start_year], params[:end_year])
+
+    yearly_statistics_service.calculate
+
+    @groups_yearly_data = yearly_statistics_service.groups_yearly_data
+    @total_uniq_counts = yearly_statistics_service.total_uniq_counts
+    @year_headers = yearly_statistics_service.year_headers
   end
 
   private
