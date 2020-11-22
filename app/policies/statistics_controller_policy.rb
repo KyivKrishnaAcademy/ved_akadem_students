@@ -1,0 +1,2 @@
+class StatisticsControllerPolicy < BasePolicy
+end
