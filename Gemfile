@@ -19,7 +19,7 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'nested_form'
 gem 'simple_form'
 
-gem 'carrierwave', '0.10.0'
+gem 'carrierwave', '2.1.1'
 gem 'mini_magick'
 
 gem 'axlsx'
