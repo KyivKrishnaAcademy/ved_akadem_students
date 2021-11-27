@@ -13,8 +13,11 @@ services:
 
   redis:
     image: redis:3.2.12-alpine
+    volumes:
+      - redis-data:/data
     ports:
       - 6379:6379
+    command: redis-server --appendonly yes
 
   application:
     build:
@@ -43,7 +46,6 @@ services:
       context: '.'
       dockerfile: docker/akadem_students/Dockerfile
       target: development
-    entrypoint: /home/app/students_crm/bin/start_react_dev.sh
     volumes:
       - .:/home/app/students_crm
       - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
@@ -58,3 +60,4 @@ volumes:
   client-node-modules:
   node-modules:
   postgres-data:
+  redis-data:
