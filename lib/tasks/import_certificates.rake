@@ -43,6 +43,8 @@ namespace :academic do
 
         begin
           if Certificate.find_by(certificate_params)
+            puts "\n#{serial_id}: Already exists #{certificate_params}"
+
             existed_count += 1
           else
             Certificate.create!(certificate_params.merge({ issued_date: issued_date }))
