@@ -1,0 +1,49 @@
+name: Lints and tests
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get repo
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.17.0'
+
+      - name: Cache Node packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            client/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}-${{ hashFiles('client/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: Install JS dependencies
+        run: npm install && cd client && npm install && cd ..
+
+      - name: Run ESLint
+        run: cd client && npm run eslint && cd ..
+
+      - name: Run JSCS
+        run: cd client && npm run jscs && cd ..
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.4.9'
+          bundler-cache: true
+
+      - name: Run rubocop
+        run: bundle exec rubocop --parallel
+
+      - name: Run ruby-lint
+        run: bundle exec ruby-lint app config spec lib
+
+      # - name: Run haml-lint
+      #   run: bundle exec haml-lint app/views
