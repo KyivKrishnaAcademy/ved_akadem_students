@@ -8,7 +8,7 @@ prawn_document do |pdf|
     header     = [['№', 'Студент', { content: sub_header, colspan: empty_rows_count}]]
 
     data = @academic_group.active_students.each_with_index.map do |person, index|
-      [{ content: index.next.to_s, width: 25 }, { content: complex_name(person, true), width: 200 }] + empty_rows
+      [{ content: index.next.to_s, width: 25 }, { content: complex_name(person, short: true), width: 200 }] + empty_rows
     end
 
     pdf.text @academic_group.title

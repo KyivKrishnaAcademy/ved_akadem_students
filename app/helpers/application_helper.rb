@@ -3,7 +3,7 @@ module ApplicationHelper
   include CurrentPage
   include LinkTos
 
-  def complex_name(person, short = false)
+  def complex_name(person, short: false)
     if person.nil?
       'No such person'
     elsif short
@@ -30,17 +30,15 @@ module ApplicationHelper
   end
 
   def thumb_with_pop(person)
-    # rubocop:disable Style/UnneededInterpolation
     person_photo(
       person,
       :thumb,
       class: :'popover-photo',
       data: {
         toggle: :popover,
-        content: "#{person_photo(person, :standart)}"
+        content: person_photo(person, :standart).to_s
       }
     )
-    # rubocop:enable Style/UnneededInterpolation
   end
 
   def class_schedules_table_headers

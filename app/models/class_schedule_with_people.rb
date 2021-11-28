@@ -1,7 +1,7 @@
 class ClassScheduleWithPeople < ClassSchedule
   self.table_name = 'class_schedules_with_people'
 
-  belongs_to :teacher, class_name: 'Person' # rubocop:disable Rails/InverseOf
+  belongs_to :teacher, class_name: 'Person'
 
   def readonly?
     true

@@ -51,7 +51,7 @@ module ClassSchedulesLoadable
       id: lector.id,
       path: person_path(lector),
       canView: policy(lector).show?,
-      complexName: complex_name(lector, true)
+      complexName: complex_name(lector, short: true)
     }
   end
 

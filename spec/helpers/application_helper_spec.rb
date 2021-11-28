@@ -26,7 +26,7 @@ describe ApplicationHelper do
     describe "title with diploma name should be 'diploma_name'" do
       Given { person.update(diploma_name: 'Ololo') }
 
-      Then { expect(complex_name(person, true)).to match(/\AOlolo\z/) }
+      Then { expect(complex_name(person, short: true)).to match(/\AOlolo\z/) }
     end
 
     describe "full without diploma name should be 'name m_name surname'" do
@@ -38,7 +38,7 @@ describe ApplicationHelper do
     describe "title without diploma name should be 'name surname'" do
       Given { person.diploma_name = '' }
 
-      Then { expect(complex_name(person, true)).to match(/\A#{person.surname} #{person.name}\z/) }
+      Then { expect(complex_name(person, short: true)).to match(/\A#{person.surname} #{person.name}\z/) }
     end
 
     describe "with person=nil should be 'No such person'" do

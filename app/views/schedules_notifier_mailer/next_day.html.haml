@@ -92,7 +92,7 @@
                             = schedule.course.title
 
                           %td{ align: 'center', valign: 'middle' }
-                            = complex_name(schedule.teacher, true) if schedule.teacher.present?
+                            = complex_name(schedule.teacher, short: true) if schedule.teacher.present?
 
                           %td{ align: 'center', valign: 'middle' }
                             = schedule.subject

@@ -51,7 +51,7 @@ class YearlyStatisticsService
       .order("date_part('year', establ_date), title")
   end
 
-  def active_students_count(group: nil, start:, finish:)
+  def active_students_count(start:, finish:, group: nil)
     return if group && group.establ_date > finish
 
     relation = GroupParticipation

@@ -38,7 +38,7 @@ module Webhooks
       return false if signature.blank?
       return false if signature['timestamp'].blank? || signature['token'].blank? || signature['signature'].blank?
 
-      digest = OpenSSL::Digest::SHA256.new
+      digest = OpenSSL::Digest.new('SHA256')
       data = "#{signature['timestamp']}#{signature['token']}"
 
       signature['signature'] == OpenSSL::HMAC.hexdigest(digest, Rails.application.secrets.mailgun_signing_key, data)

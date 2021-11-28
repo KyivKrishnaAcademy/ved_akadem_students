@@ -1,9 +1,12 @@
 # This is the configuration used to check the rubocop source code.
 # Check out: https://github.com/bbatsov/rubocop
 
+require: rubocop-rails
+
 AllCops:
+  NewCops: enable
   Include:
-    - '**/Rakefile'
+    - '**/*.rb'
     - '**/config.ru'
   Exclude:
     - 'Rakefile'
@@ -18,13 +21,9 @@ AllCops:
     - 'bin/**/*'
     - 'bundler_stubs/**/*'
     - 'config/locales/plurals.rb'
-    - !ruby/regexp /old_and_unused\.rb$/
 
 Metrics/AbcSize:
   Max: 30
-
-Metrics/LineLength:
-  Max: 120
 
 Metrics/MethodLength:
   Max: 30
@@ -49,6 +48,15 @@ Rails:
 
 Rails/HasAndBelongsToMany:
   Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver

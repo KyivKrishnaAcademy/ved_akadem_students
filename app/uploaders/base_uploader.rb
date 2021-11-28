@@ -14,7 +14,7 @@ class BaseUploader < CarrierWave::Uploader::Base
   end
 
   def cache_dir
-    Rails.root.join 'tmp', 'uploads', 'cache'
+    Rails.root.join 'tmp/uploads/cache'
   end
 
   def filename
@@ -81,7 +81,7 @@ class BaseUploader < CarrierWave::Uploader::Base
   end
 
   def get_file_size(file)
-    path = file.is_a?(String) ? Rails.root.join('tmp', 'uploads', 'cache', file) : file.path
+    path = file.is_a?(String) ? Rails.root.join('tmp/uploads/cache', file) : file.path
 
     `identify -format "%wx %h" #{path}`.split(/x/).map(&:to_i)
   end

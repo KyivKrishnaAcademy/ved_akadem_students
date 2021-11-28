@@ -14,9 +14,8 @@ class Person < ApplicationRecord
 
   serialize :locale, SymbolWrapper
 
-  attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  attr_accessor :privacy_agreement
+  attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width, :crop_x, :crop_y, :crop_w,
+                :crop_h, :privacy_agreement
 
   devise :database_authenticatable, :registerable, :recoverable
   include DeviseTokenAuth::Concerns::User
@@ -74,7 +73,7 @@ class Person < ApplicationRecord
 
   def self.by_complex_name
     order(
-      <<-SQL.strip_heredoc
+      <<-SQL.squish
         CASE
           WHEN (diploma_name IS NULL OR diploma_name = '')
           THEN (surname || name || middle_name)

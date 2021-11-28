@@ -4,7 +4,7 @@ class VerificationsController < HtmlRespondableController
   def update
     authorize person, :verify?
 
-    person.toggle!(:verified) # rubocop:disable Rails/SkipsModelValidations
+    person.toggle!(:verified)
 
     respond_with(person)
   end
@@ -12,6 +12,6 @@ class VerificationsController < HtmlRespondableController
   private
 
   def person
-    @person ||= Person.find_by!(id: params[:person_id])
+    @person ||= Person.find(params[:person_id])
   end
 end

@@ -11,7 +11,6 @@ class AnswersProcessorService
 
   private
 
-  # rubocop:disable Rails/SkipsModelValidations
   def complete!
     questionnaire_completeness.update_column(:completed, true)
   end
@@ -28,7 +27,6 @@ class AnswersProcessorService
 
     questionnaire_completeness.update_column(:result, result)
   end
-  # rubocop:enable Rails/SkipsModelValidations
 
   def compute_psycho_result(questionnaire, answers)
     result = psycho_base_result(questionnaire, answers)

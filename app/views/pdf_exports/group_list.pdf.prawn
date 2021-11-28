@@ -11,7 +11,7 @@ prawn_document do |pdf|
                     Rails.root.join 'app/assets/images/fallback/person/standart_default.png'
                   end
 
-          [index.next, { image: image, image_width: 60, width: 70 }, complex_name(person, true)]
+          [index.next, { image: image, image_width: 60, width: 70 }, complex_name(person, short: true)]
         end
       )
     end
