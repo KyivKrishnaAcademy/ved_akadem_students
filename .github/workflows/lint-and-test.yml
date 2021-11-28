@@ -28,10 +28,12 @@ jobs:
         run: npm install && cd client && npm install && cd ..
 
       - name: Run ESLint
-        run: cd client && npm run eslint && cd ..
+        working-directory: client
+        run: npm run eslint
 
       - name: Run JSCS
-        run: cd client && npm run jscs && cd ..
+        working-directory: client
+        run: npm run jscs
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
