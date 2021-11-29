@@ -36,7 +36,7 @@ describe 'people/edit.html.erb' do
     end
 
     context 'admin' do
-      Then { is_expected.to have_title(full_title(complex_name(@admin, :t))) }
+      Then { is_expected.to have_title(full_title(complex_name(@admin, short: true))) }
       And  { is_expected.to have_selector('h1', text: complex_name(@admin)) }
       And  { is_expected.to have_selector('#phone[value="+380501112233"]') }
       And  { is_expected.to have_selector('#person_diploma_name[value="Dasa Das"]') }

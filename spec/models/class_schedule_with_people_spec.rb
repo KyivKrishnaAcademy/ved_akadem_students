@@ -76,8 +76,8 @@ describe ClassScheduleWithPeople do
       Given(:graduated_group) { create :academic_group }
 
       Given { user.create_student_profile(academic_groups: [ex_group, active_group, graduated_group]) }
-      Given { graduated_group.update_column(:graduated_at, '2015.01.01 01:00') }
-      Given { ex_group.group_participations.first.update_column(:leave_date, '2015.01.01 01:00') }
+      Given { graduated_group.update_column(:graduated_at, '2019.01.01 01:00') }
+      Given { ex_group.group_participations.first.update_column(:leave_date, '2019.01.01 01:00') }
 
       Given!(:class_for_graduated_group) do
         create(
@@ -94,8 +94,8 @@ describe ClassScheduleWithPeople do
           :class_schedule,
           subject: 'active_group_past',
           academic_groups: [active_group],
-          start_time: '2015.01.01 13:00',
-          finish_time: '2015.01.01 14:00'
+          start_time: '2019.01.01 13:00',
+          finish_time: '2019.01.01 14:00'
         )
       end
 

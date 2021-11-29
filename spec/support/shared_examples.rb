@@ -205,7 +205,7 @@ def underscore_humanize(str)
 end
 
 shared_examples :valid_select_date do |model_name, field_name, content|
-  Given(:year) { model_name == 'Person' ? '1985' : '2015' }
+  Given(:year) { model_name == 'Person' ? '1985' : '2019' }
 
   When do
     select_from = "#{model_name.underscore}[#{field_name}("
@@ -452,10 +452,10 @@ shared_examples_for :class_schedules_loadable do
   Given(:course) { create :course, title: course_title }
   Given(:subject) { 'Шудха Кришна бхакти' }
   Given(:classroom) { create :classroom, title: classroom_title }
-  Given(:start_time) { '01.01.2015 12:01' }
+  Given(:start_time) { '01.01.2019 12:01' }
   Given(:group_title) { 'ШБ11-9' }
-  Given(:finish_time) { '01.01.2015 13:02' }
-  Given(:result_time) { 'Чт 01.01.15 12:01 - 13:02' }
+  Given(:finish_time) { '01.01.2019 13:02' }
+  Given(:result_time) { 'Вт 01.01.19 12:01 - 13:02' }
   Given(:course_title) { 'Bhakti school' }
   Given(:classroom_title) { 'Antardwipa' }
   Given(:teacher_profile) { create :teacher_profile }
