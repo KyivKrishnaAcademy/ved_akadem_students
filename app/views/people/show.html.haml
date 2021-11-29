@@ -115,6 +115,26 @@
                             data: { confirm: "Destroy the history about #{academic_group.title}?" }
         .row
           .col-xs-4.col-sm-3
+            Certificates:
+          .col-xs-8.col-sm-9
+            .table-responsive
+              %table.table.table-condensed.table-striped
+                %thead
+                  %tr
+                    %th #
+                    %th Serial
+                    %th Template
+                %tbody
+                  - @certificates.each_with_index do |certificate, index|
+                    %tr
+                      %td
+                        = index.next
+                      %td
+                        = certificate.serial_id
+                      %td
+                        = certificate.certificate_template.title
+        .row
+          .col-xs-4.col-sm-3
             Gender:
           .col-xs-8.col-sm-9
             = @person.gender ? 'Male' : 'Female'
