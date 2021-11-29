@@ -6,7 +6,6 @@ class JournalsController < ApplicationController
 
     @users = Person
                .where(id: @versions.map(&:whodunnit).uniq.compact)
-               .map { |p| [p.id.to_s, p] }
-               .to_h
+               .index_by { |p| p.id.to_s }
   end
 end

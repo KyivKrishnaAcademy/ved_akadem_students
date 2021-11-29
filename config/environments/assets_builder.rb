@@ -64,11 +64,11 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'students.veda-kiev.org.ua', port: 80 }
   config.action_mailer.smtp_settings = {
-    port:                 26,
-    address:              Rails.application.secrets.mailer_address,
-    password:             Rails.application.secrets.mailer_password,
-    user_name:            Rails.application.secrets.mailer_user_name,
-    authentication:       :plain,
+    port: 26,
+    address: Rails.application.secrets.mailer_address,
+    password: Rails.application.secrets.mailer_password,
+    user_name: Rails.application.secrets.mailer_user_name,
+    authentication: :plain,
     enable_starttls_auto: false
   }
 
@@ -87,7 +87,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV['RAILS_LOG_TO_STDOUT'].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end

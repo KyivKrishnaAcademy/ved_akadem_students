@@ -111,7 +111,7 @@ class AcademicGroupsController < ApplicationController
   def examination_results
     ExaminationResult
       .where(
-        examination_id: @examinations.map { |e| e[:id] },
+        examination_id: @examinations.pluck(:id),
         student_profile_id: @academic_group.active_students.joins(:student_profile).map { |p| p.student_profile.id }
       )
       .map do |er|

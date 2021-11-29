@@ -103,8 +103,17 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 13. Send Pull Request at GitHub
 14. Goto 4
 
+## Deploy
+
+1. `docker-compose exec application bash`
+2. `eval "$(ssh-agent -s)"`
+3. `ssh-keygen -t rsa -b 4096 -C "deployer@docker.local"`
+4. `ssh-add ~/.ssh/id_rsa`
+5. `ssh-copy-id deployer@students.veda-kiev.org.ua`
+6. `bundle exec cap deploy`
+
 ## Links
 
 1. Deployed project http://students.veda-kiev.org.ua
-2. Issue tracker for contributors http://redmine.mpugach.net/projects/akadem_students
+2. Issue tracker for contributors https://github.com/KyivKrishnaAcademy/ved_akadem_students/issues
 3. Wiki https://github.com/KyivKrishnaAcademy/ved_akadem_students/wiki

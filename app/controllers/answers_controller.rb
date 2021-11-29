@@ -27,7 +27,7 @@ class AnswersController < ApplicationController
 
   def questionnaire_params
     params.require(:questionnaire).permit(
-      questions_attributes: [:id, answers_attributes: %i[id person_id data]]
+      questions_attributes: [:id, { answers_attributes: %i[id person_id data] }]
     )
   end
 end

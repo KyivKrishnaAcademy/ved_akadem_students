@@ -19,8 +19,6 @@ class UnsubscribesController < ApplicationController
   def unsubscribe_person!
     return if @unsubscribe.blank?
 
-    # rubocop:disable Rails/SkipsModelValidations
     @unsubscribe.destroy if @unsubscribe.person.update_column(@unsubscribe.kind, false)
-    # rubocop:enable Rails/SkipsModelValidations
   end
 end

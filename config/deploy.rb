@@ -3,7 +3,7 @@ lock '3.11.2'
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 set :pty, true
-set :repo_url, 'git@github.com:KyivKrishnaAcademy/ved_akadem_students.git'
+set :repo_url, 'https://github.com/KyivKrishnaAcademy/ved_akadem_students.git'
 set :deploy_to, '/var/docker/apps/ved_akadem_students'
 set :linked_files, %w[.ruby-env]
 

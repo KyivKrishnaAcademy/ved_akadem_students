@@ -41,13 +41,13 @@ describe 'ClassSchedule create and update:', :js do
 
       When do
         page.execute_script %{
-          $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2015 12:00')
+          $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2019 12:00')
         }
       end
 
       When do
         page.execute_script %{
-          $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 13:00')
+          $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2019 13:00')
         }
       end
       When { find('#class_schedule_subject').set('My special subject') }
@@ -77,8 +77,8 @@ describe 'ClassSchedule create and update:', :js do
         And  { expect(classroom_select).to have_selector(".select2-selection__rendered[title='#{classroom.title}']") }
         And  { expect(groups_select).to have_selector('li.select2-selection__choice', text: group_1.title) }
         And  { expect(groups_select).to have_selector('li.select2-selection__choice', text: group_2.title) }
-        And  { expect(find('.class_schedule_start_time #date-time-picker').value).to eq('08.01.2015 12:00') }
-        And  { expect(find('.class_schedule_finish_time #date-time-picker').value).to eq('08.01.2015 13:00') }
+        And  { expect(find('.class_schedule_start_time #date-time-picker').value).to eq('08.01.2019 12:00') }
+        And  { expect(find('.class_schedule_finish_time #date-time-picker').value).to eq('08.01.2019 13:00') }
         And  { expect(find('#class_schedule_subject').value).to eq('My special subject') }
       end
     end
@@ -92,8 +92,8 @@ describe 'ClassSchedule create and update:', :js do
         teacher_profile: teacher_profile,
         classroom: classroom,
         academic_groups: [group_1, group_2],
-        start_time: '01.01.2015 12:00',
-        finish_time: '01.01.2015 13:00'
+        start_time: '01.01.2019 12:00',
+        finish_time: '01.01.2019 13:00'
       )
     end
 
@@ -105,8 +105,8 @@ describe 'ClassSchedule create and update:', :js do
       And  { expect(classroom_select).to have_selector(".select2-selection__rendered[title='#{classroom.title}']") }
       And  { expect(groups_select).to have_selector('li.select2-selection__choice', text: group_1.title) }
       And  { expect(groups_select).to have_selector('li.select2-selection__choice', text: group_2.title) }
-      And  { expect(find('.class_schedule_start_time')).to have_selector('input[value="01.01.2015 12:00"]') }
-      And  { expect(find('.class_schedule_finish_time')).to have_selector('input[value="01.01.2015 13:00"]') }
+      And  { expect(find('.class_schedule_start_time')).to have_selector('input[value="01.01.2019 12:00"]') }
+      And  { expect(find('.class_schedule_finish_time')).to have_selector('input[value="01.01.2019 13:00"]') }
     end
 
     describe 'change' do
@@ -131,13 +131,13 @@ describe 'ClassSchedule create and update:', :js do
 
       When do
         page.execute_script %{
-          $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2015 14:00')
+          $('.class_schedule_start_time #date-time-picker').data('DateTimePicker').date('01.01.2019 14:00')
         }
       end
 
       When do
         page.execute_script %{
-          $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2015 15:00')
+          $('.class_schedule_finish_time #date-time-picker').data('DateTimePicker').date('01.01.2019 15:00')
         }
       end
 

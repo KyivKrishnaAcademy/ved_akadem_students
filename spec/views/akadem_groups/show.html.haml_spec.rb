@@ -157,7 +157,7 @@ describe 'academic_groups/show' do
 
       it_behaves_like :not_conditional_values
 
-      Then { is_expected.to have_link(complex_name(user, true), href: person_path(user)) }
+      Then { is_expected.to have_link(complex_name(user, short: true), href: person_path(user)) }
     end
   end
 

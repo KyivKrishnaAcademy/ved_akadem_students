@@ -1,0 +1,75 @@
+name: Lints and tests
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    services:
+      redis:
+        image: redis:3.2.12-alpine
+        ports:
+          - 6379:6379
+      postgres:
+        image: mpugach/postgres_ua:9.5
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: va_db_tst
+          POSTGRES_USER: postgres
+    steps:
+      - name: Get repo
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.17.0'
+
+      - name: Cache Node packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            client/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}-${{ hashFiles('client/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: Install JS dependencies
+        run: npm install && npm prune && cd client && npm install && npm prune && cd ..
+
+      - name: Run ESLint
+        working-directory: client
+        run: npm run eslint
+
+      - name: Run JSCS
+        working-directory: client
+        run: npm run jscs
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.4.9'
+          bundler-cache: true
+
+      - name: Run rubocop
+        run: bundle exec rubocop --parallel
+
+      - name: Run ruby-lint
+        run: bundle exec ruby-lint app config spec lib
+
+      # - name: Run haml-lint
+      #   run: bundle exec haml-lint app/views
+
+      - name: Run rspec
+        env:
+          RAILS_ENV: test
+        run: |
+          cp config/database.yml.github config/database.yml
+          bundle exec rake db:structure:load
+          cd client
+          npm run build:client
+          npm run build:server
+          cd ..
+          bundle exec rspec

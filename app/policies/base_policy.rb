@@ -28,7 +28,7 @@ class BasePolicy
     end
   end
 
-  # rubocop:disable Style/MethodMissing
+  # rubocop:disable Style/MissingRespondToMissing
   def method_missing(name, *args)
     if name.to_s.last == '?'
       user_activities.include?(inferred_activity(name.to_s.delete('?')))
@@ -36,7 +36,7 @@ class BasePolicy
       super
     end
   end
-  # rubocop:enable Style/MethodMissing
+  # rubocop:enable Style/MissingRespondToMissing
 
   def scope
     Pundit.policy_scope!(user, record.class)

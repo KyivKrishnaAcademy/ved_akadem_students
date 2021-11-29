@@ -55,7 +55,7 @@
                   %td
                     = thumb_with_pop(academic_group.send(servant_role))
                   %td
-                    = link_to_show_person_or_name(academic_group.send(servant_role), true)
+                    = link_to_show_person_or_name(academic_group.send(servant_role), short: true)
                   %td
                     = mail_to(academic_group.send(servant_role).email) unless is_curator
                   %td

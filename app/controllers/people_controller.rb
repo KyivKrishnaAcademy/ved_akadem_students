@@ -34,8 +34,16 @@ class PeopleController < ApplicationController
     preset_applications_variables(@person)
 
     @academic_groups = AcademicGroup.active.select(:id, :title)
-
     student_profile = @person.student_profile
+
+    @certificates = if student_profile.present?
+      Certificate
+        .where(student_profile_id: student_profile.id)
+        .order(:serial_id)
+        .preload(:certificate_template)
+    else
+      []
+    end
 
     @prev_group_participations = if student_profile.present?
       student_profile

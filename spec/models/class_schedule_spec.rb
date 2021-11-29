@@ -68,19 +68,19 @@ describe ClassSchedule do
           end
 
           context 'finish is behind start' do
-            Given(:schedule) { build :class_schedule, start_time: '01.01.2015 12:01', finish_time: '01.01.2015 12:00' }
+            Given(:schedule) { build :class_schedule, start_time: '01.01.2019 12:01', finish_time: '01.01.2019 12:00' }
 
             it_behaves_like :invalid
           end
 
           context 'duration is less then 10 minutes' do
-            Given(:schedule) { build :class_schedule, start_time: '01.01.2015 12:00', finish_time: '01.01.2015 12:09' }
+            Given(:schedule) { build :class_schedule, start_time: '01.01.2019 12:00', finish_time: '01.01.2019 12:09' }
 
             it_behaves_like :invalid
           end
 
           context 'duration is more then a day' do
-            Given(:schedule) { build :class_schedule, start_time: '01.01.2015 12:00', finish_time: '02.01.2015 12:00' }
+            Given(:schedule) { build :class_schedule, start_time: '01.01.2019 12:00', finish_time: '02.01.2019 12:00' }
 
             it_behaves_like :invalid
           end
@@ -99,8 +99,8 @@ describe ClassSchedule do
             create(
               :class_schedule,
               resource_name => resource,
-              start_time: '01.01.2015 12:00',
-              finish_time: '01.01.2015 12:20'
+              start_time: '01.01.2019 12:00',
+              finish_time: '01.01.2019 12:20'
             )
           end
 
@@ -109,8 +109,8 @@ describe ClassSchedule do
               build(
                 :class_schedule,
                 resource_name => resource,
-                start_time: '01.01.2015 11:00',
-                finish_time: '01.01.2015 12:01'
+                start_time: '01.01.2019 11:00',
+                finish_time: '01.01.2019 12:01'
               )
             end
 
@@ -122,8 +122,8 @@ describe ClassSchedule do
               build(
                 :class_schedule,
                 resource_name => resource,
-                start_time: '01.01.2015 12:19',
-                finish_time: '01.01.2015 12:40'
+                start_time: '01.01.2019 12:19',
+                finish_time: '01.01.2019 12:40'
               )
             end
 
@@ -135,8 +135,8 @@ describe ClassSchedule do
               build(
                 :class_schedule,
                 resource_name => resource,
-                start_time: '01.01.2015 12:01',
-                finish_time: '01.01.2015 12:19'
+                start_time: '01.01.2019 12:01',
+                finish_time: '01.01.2019 12:19'
               )
             end
 
@@ -148,8 +148,8 @@ describe ClassSchedule do
               build(
                 :class_schedule,
                 resource_name => resource,
-                start_time: '01.01.2015 11:00',
-                finish_time: '01.01.2015 13:00'
+                start_time: '01.01.2019 11:00',
+                finish_time: '01.01.2019 13:00'
               )
             end
 
@@ -171,8 +171,8 @@ describe ClassSchedule do
               create(
                 :class_schedule,
                 resource_name => resource,
-                start_time: '01.01.2015 11:00',
-                finish_time: '01.01.2015 13:00'
+                start_time: '01.01.2019 11:00',
+                finish_time: '01.01.2019 13:00'
               )
             end
 
@@ -181,8 +181,8 @@ describe ClassSchedule do
                 build(
                   :class_schedule,
                   resource_name => resource,
-                  start_time: '01.01.2015 14:00',
-                  finish_time: '01.01.2015 15:00'
+                  start_time: '01.01.2019 14:00',
+                  finish_time: '01.01.2019 15:00'
                 )
               end
 
@@ -194,8 +194,8 @@ describe ClassSchedule do
                 build(
                   :class_schedule,
                   resource_name => resource,
-                  start_time: '01.01.2015 09:00',
-                  finish_time: '01.01.2015 10:00'
+                  start_time: '01.01.2019 09:00',
+                  finish_time: '01.01.2019 10:00'
                 )
               end
 
@@ -306,8 +306,8 @@ describe ClassSchedule do
         create(
           :class_schedule,
           academic_groups: [group],
-          start_time: '01.01.2015 14:00',
-          finish_time: '01.01.2015 15:00'
+          start_time: '01.01.2019 14:00',
+          finish_time: '01.01.2019 15:00'
         )
       end
 
@@ -315,8 +315,8 @@ describe ClassSchedule do
         create(
           :class_schedule,
           academic_groups: [group],
-          start_time: '03.01.2015 14:00',
-          finish_time: '03.01.2015 15:00'
+          start_time: '03.01.2019 14:00',
+          finish_time: '03.01.2019 15:00'
         )
       end
 
@@ -324,8 +324,8 @@ describe ClassSchedule do
         create(
           :class_schedule,
           academic_groups: [group],
-          start_time: '02.01.2015 14:00',
-          finish_time: '02.01.2015 15:00'
+          start_time: '02.01.2019 14:00',
+          finish_time: '02.01.2019 15:00'
         )
       end
 

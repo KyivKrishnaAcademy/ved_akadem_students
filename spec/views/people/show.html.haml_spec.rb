@@ -18,6 +18,7 @@ describe 'people/show.html.haml' do
   Given { assign(:person, person) }
   Given { assign(:academic_groups, []) }
   Given { assign(:prev_group_participations, []) }
+  Given { assign(:certificates, []) }
 
   Given { login_as(user) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200124060236) do
+ActiveRecord::Schema.define(version: 20201214174233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,9 +62,22 @@ ActiveRecord::Schema.define(version: 20200124060236) do
   end
 
   create_table "certificate_templates", force: :cascade do |t|
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "title"
+  end
+
+  create_table "certificates", force: :cascade do |t|
+    t.integer  "academic_group_id"
+    t.integer  "certificate_template_id"
+    t.integer  "student_profile_id"
+    t.datetime "issued_date"
+    t.string   "serial_id"
+    t.integer  "final_score"
+    t.index ["academic_group_id"], name: "index_certificates_on_academic_group_id", using: :btree
+    t.index ["certificate_template_id"], name: "index_certificates_on_certificate_template_id", using: :btree
+    t.index ["serial_id"], name: "index_certificates_on_serial_id", unique: true, using: :btree
+    t.index ["student_profile_id"], name: "index_certificates_on_student_profile_id", using: :btree
   end
 
   create_table "class_schedules", force: :cascade do |t|
@@ -289,6 +302,9 @@ ActiveRecord::Schema.define(version: 20200124060236) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "certificates", "academic_groups"
+  add_foreign_key "certificates", "certificate_templates"
+  add_foreign_key "certificates", "student_profiles"
   add_foreign_key "examination_results", "examinations"
   add_foreign_key "examination_results", "student_profiles"
   add_foreign_key "examinations", "courses"

@@ -22,13 +22,13 @@ module Api
 
     def base_payload
       [
-        person_1,
-        person_2,
-        person_3
+        person1,
+        person2,
+        person3
       ]
     end
 
-    def person_1
+    def person1
       {
         id: 1,
         name: 'Андрій',
@@ -41,7 +41,7 @@ module Api
       }
     end
 
-    def person_2
+    def person2
       {
         id: 2,
         name: 'Василий',
@@ -54,7 +54,7 @@ module Api
       }
     end
 
-    def person_3
+    def person3
       {
         id: 3,
         name: 'Михайло',
@@ -86,7 +86,8 @@ module Api
           surname: 'Васютин',
           email: 'test12@example.com',
           birthday: Date.parse('1985/10/12'),
-          groups: ['Студенти', 'ШБ15-1', 'Старости'],
+          groups: %W[\u0421\u0442\u0443\u0434\u0435\u043D\u0442\u0438 \u0428\u041115-1
+                     \u0421\u0442\u0430\u0440\u043E\u0441\u0442\u0438],
           telephones: ['+380 50 111 22 34', '+380 50 111 22 38']
         }
       ]
