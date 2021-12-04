@@ -15,6 +15,10 @@
   .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
     = @course.description
 
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    = t('.class_schedules_count')
+    = @class_schedules_count
+
   - if @course.teacher_profiles.any?
     .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
       %h5

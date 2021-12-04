@@ -85,6 +85,7 @@ uk:
       actions:              'Дії'
       associated_academic_groups: "Пов'язані групи"
       associated_teachers:  'Викладачі предмету'
+      class_schedules_count: 'Кількість згадувань у розкладі:'
       examination_title:    'Назва'
       examinations:         'Залікові роботи'
       max_result:           'Макс.'

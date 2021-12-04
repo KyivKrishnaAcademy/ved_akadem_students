@@ -85,6 +85,7 @@ ru:
       actions:              'Действия'
       associated_academic_groups: 'Связанные группы'
       associated_teachers:  'Преподаватели предмета'
+      class_schedules_count: 'Количество упоминаний в расписании:'
       examination_title:    'Название'
       examinations:         'Зачетные работы'
       max_result:           'Макс.'
