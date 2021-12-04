@@ -124,15 +124,18 @@
                     %th #
                     %th Serial
                     %th Template
+                    %th Issued Date
                 %tbody
                   - @certificates.each_with_index do |certificate, index|
                     %tr
                       %td
                         = index.next
-                      %td
+                      %td.nowrap
                         = certificate.serial_id
                       %td
                         = certificate.certificate_template.title
+                      %td.nowrap
+                        = l certificate.issued_date, format: :date
         .row
           .col-xs-4.col-sm-3
             Gender:
