@@ -4,6 +4,8 @@ class Course < ApplicationRecord
   has_many :teacher_profiles, through: :teacher_specialities
   has_many :examinations, dependent: :destroy
 
+  has_and_belongs_to_many :academic_groups
+
   validates :title, :description, presence: true
 
   has_paper_trail

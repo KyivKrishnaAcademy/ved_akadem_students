@@ -81,7 +81,9 @@ ru:
       course_variant: 'Вариант'
       title:        'Предметы'
     show:
+      academic_group_title: 'Название'
       actions:              'Действия'
+      associated_academic_groups: 'Связанные группы'
       associated_teachers:  'Преподаватели предмета'
       examination_title:    'Название'
       examinations:         'Зачетные работы'

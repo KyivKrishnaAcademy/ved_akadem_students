@@ -14,6 +14,7 @@ class CoursesController < HtmlRespondableController
 
   def show
     @examinations = Examination.where(course_id: params[:id])
+    @academic_groups = @course.academic_groups.order(:title)
 
     respond_with(@course)
   end

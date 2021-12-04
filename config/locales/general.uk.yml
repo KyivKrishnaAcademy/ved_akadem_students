@@ -81,7 +81,9 @@ uk:
       course_variant: 'Варіант'
       title:        'Предмети'
     show:
+      academic_group_title: 'Назва'
       actions:              'Дії'
+      associated_academic_groups: "Пов'язані групи"
       associated_teachers:  'Викладачі предмету'
       examination_title:    'Назва'
       examinations:         'Залікові роботи'

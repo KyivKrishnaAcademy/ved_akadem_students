@@ -12,6 +12,7 @@ describe 'courses/show' do
   Given { allow(view).to receive(:policy).with(Examination).and_return(CoursePolicy.new(user, Examination)) }
 
   Given { assign(:course, course) }
+  Given { assign(:academic_groups, []) }
   Given { sign_in(user) }
 
   When  { render }
