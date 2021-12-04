@@ -9,9 +9,8 @@ class AcademicGroup < ApplicationRecord
   belongs_to :praepostor, class_name: 'Person', inverse_of: 'praeposted_groups'
   belongs_to :curator, class_name: 'Person', inverse_of: 'curated_groups'
 
-  has_and_belongs_to_many :programs
+  has_and_belongs_to_many :courses
 
-  has_many :courses, through: :programs
   has_many :examinations, through: :courses
 
   before_save { |p| p.title = title.mb_chars.upcase.to_s if title.present? }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201214174233) do
+ActiveRecord::Schema.define(version: 20211204081027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(version: 20201214174233) do
     t.datetime "graduated_at"
   end
 
-  create_table "academic_groups_programs", id: false, force: :cascade do |t|
+  create_table "academic_groups_courses", id: false, force: :cascade do |t|
     t.integer "academic_group_id", null: false
-    t.integer "program_id",        null: false
-    t.index ["academic_group_id", "program_id"], name: "index_academic_groups_programs_on_group_id_and_program_id", using: :btree
-    t.index ["program_id", "academic_group_id"], name: "index_academic_groups_programs_on_program_id_and_group_id", using: :btree
+    t.integer "course_id",         null: false
+    t.index ["academic_group_id", "course_id"], name: "index_academic_groups_courses_on_group_id_and_course_id", using: :btree
+    t.index ["course_id", "academic_group_id"], name: "index_academic_groups_courses_on_course_id_and_group_id", using: :btree
   end
 
   create_table "answers", force: :cascade do |t|
@@ -106,13 +106,6 @@ ActiveRecord::Schema.define(version: 20201214174233) do
     t.string   "title",       limit: 255
     t.string   "description", limit: 255
     t.string   "variant"
-  end
-
-  create_table "courses_programs", id: false, force: :cascade do |t|
-    t.integer "course_id",  null: false
-    t.integer "program_id", null: false
-    t.index ["course_id", "program_id"], name: "index_courses_programs_on_course_id_and_program_id", using: :btree
-    t.index ["program_id", "course_id"], name: "index_courses_programs_on_program_id_and_course_id", using: :btree
   end
 
   create_table "examination_results", force: :cascade do |t|

@@ -256,4 +256,5 @@ ru:
       short: ! '%d %b, %H:%M'
       with_day: ! '%a %d.%m.%y %H:%M'
       time_picker: ! '%d.%m.%Y %H:%M'
+      date: ! '%d.%m.%Y'
     pm: вечера

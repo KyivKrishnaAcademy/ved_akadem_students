@@ -1,5 +1,6 @@
 node_modules
 client/node_modules
+phantomjs
 tmp
 log
 .DS_Store

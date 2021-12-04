@@ -15,6 +15,10 @@
   .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
     = @course.description
 
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    = t('.class_schedules_count')
+    = @class_schedules_count
+
   - if @course.teacher_profiles.any?
     .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
       %h5
@@ -24,6 +28,22 @@
         - @course.teacher_profiles.each do |profile|
           %li
             = link_to_show_person_or_name(profile.person)
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    %h5
+      = t('.associated_academic_groups')
+  .col-xs-12.col-sm-6.col-sm-offset-3
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th= t('.academic_group_title')
+
+        %tbody
+          - @academic_groups.each do |group|
+            %tr
+              %td.nowrap
+                = group.title
 
   - if policy(Examination).index?
     .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1

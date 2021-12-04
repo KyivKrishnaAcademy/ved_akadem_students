@@ -105,6 +105,7 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 
 ## Deploy
 
+0. `bin/build_image_prod.sh`
 1. `docker-compose exec application bash`
 2. `eval "$(ssh-agent -s)"`
 3. `ssh-keygen -t rsa -b 4096 -C "deployer@docker.local"`
