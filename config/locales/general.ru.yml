@@ -174,7 +174,6 @@ ru:
       tab_group_list:           'Список группы'
       tab_schedules:            'Расписание'
       telephones:               'Телефоны'
-      verification:             'Статус верификации'
   class_schedules:
     create_and_clone: 'Создать и копировать'
     table_headers:

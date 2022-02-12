@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211204081027) do
+ActiveRecord::Schema.define(version: 20220212194355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -169,7 +169,6 @@ ActiveRecord::Schema.define(version: 20211204081027) do
     t.jsonb    "tokens",                             default: {},      null: false
     t.string   "locale",                 limit: 2,   default: "uk"
     t.boolean  "fake_email",                         default: false
-    t.boolean  "verified",                           default: false
     t.string   "diploma_name"
     t.string   "favorite_lectors"
     t.boolean  "notify_schedules",                   default: true

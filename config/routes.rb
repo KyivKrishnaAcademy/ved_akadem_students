@@ -35,7 +35,6 @@ Rails.application.routes.draw do
 
   resources :people do
     resources :notes, only: %i[new create edit update destroy]
-    resource :verification, only: :update
   end
 
   resource :subscriptions, only: %i[edit update]

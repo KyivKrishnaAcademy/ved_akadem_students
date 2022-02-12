@@ -335,7 +335,6 @@ CREATE TABLE public.people (
     tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
     locale character varying(2) DEFAULT 'uk'::character varying,
     fake_email boolean DEFAULT false,
-    verified boolean DEFAULT false,
     diploma_name character varying,
     favorite_lectors character varying,
     notify_schedules boolean DEFAULT true,
@@ -1760,6 +1759,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181007124205'),
 ('20200124060236'),
 ('20201214174233'),
-('20211204081027');
+('20211204081027'),
+('20220212194355');
 
 

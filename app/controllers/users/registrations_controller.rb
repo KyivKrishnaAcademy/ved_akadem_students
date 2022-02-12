@@ -24,15 +24,13 @@ module Users
     end
 
     def update
-      user_before_save = resource
-
       self.resource = resource_get
       prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
       resource_updated = update_resource(resource, account_update_params)
 
       if resource_updated
-        unverify_user(user_before_save)
+        NotifyVerificationExpiredJob.perform_later(resource.id)
 
         if is_flashing_format?
           flash_key = if update_needs_confirmation?(resource, prev_unconfirmed_email)
@@ -55,23 +53,6 @@ module Users
 
     def resource_get
       resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    end
-
-    def unverify_user(user_before_save)
-      return unless resource.verified?
-
-      new_params = account_update_params.dup
-
-      new_params.delete(:current_password)
-      new_params.delete(:telephones_attributes)
-
-      user_before_save.assign_attributes(new_params)
-
-      return if user_before_save.changed_attributes.keys.reject { |k| k =~ /password/ }.none?
-
-      resource.update(verified: false)
-
-      NotifyVerificationExpiredJob.perform_later(resource.id)
     end
 
     def after_sign_up_path_for(resource)
