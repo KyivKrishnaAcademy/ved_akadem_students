@@ -35,6 +35,7 @@ services:
     depends_on:
       - redis
       - postgres
+      - sidekiq
       - react-builder
     environment:
       REDIS_URL: redis
@@ -53,6 +54,22 @@ services:
       - client-node-modules:/home/app/students_crm/client/node_modules
       - node-modules:/home/app/students_crm/node_modules
     entrypoint: /home/app/students_crm/bin/start_react_dev.sh
+
+  sidekiq:
+    build:
+      context: '.'
+      dockerfile: docker/akadem_students/Dockerfile
+      target: development
+    volumes:
+      - .:/home/app/students_crm
+      - bundle:/usr/local/bundle
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      REDIS_URL: redis
+      RAILS_ENV: development
+    entrypoint: /home/app/students_crm/bin/start_sidekiq_dev.sh
 
 volumes:
   assets-javascript-generated:
