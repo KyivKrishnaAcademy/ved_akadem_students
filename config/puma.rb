@@ -20,3 +20,5 @@ else
 
   threads 0, 4
 end
+
+plugin :tmp_restart

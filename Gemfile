@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.0.7'
 
 gem 'redis-session-store'
 
@@ -62,7 +62,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'capistrano', require: false
   gem 'haml-rails'
-  gem 'letter_opener'
+  gem 'letter_opener_web', '~> 1.3'
   gem 'meta_request'
 end
 

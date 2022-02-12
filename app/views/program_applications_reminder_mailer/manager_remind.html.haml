@@ -1,0 +1,68 @@
+:css
+  @import url('http://fonts.googleapis.com/css?family=Open+Sans');
+
+  #emailContainer{
+    font-family:'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+  }
+
+%table{ border: 0, cellpadding: 0, cellspacing: 0, height: '100%', width: '100%', id: 'bodyTable' }
+  %tr
+    %td{ align: 'center', valign: 'top' }
+      %table{ border: 0, cellpadding: 10, cellspacing: 0, width: 600, id: 'emailContainer' }
+
+        %tr
+          %td{ align: 'center', valign: 'top' }
+            %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailHeader' }
+              %tr
+                %td{ align: 'center', valign: 'top' }
+                  %h1= t('.subject')
+
+        %tr
+          %td{ align: 'left', valign: 'baseline' }
+            %p= t(@manager.gender ? 'mail.dear_prabhu' : 'mail.dear_mataji', name: @manager.name)
+
+        %tr
+          %td{ align: 'left', valign: 'baseline' }
+            %p= t('.instructions')
+
+        %tr
+          %td{ align: 'center', valign: 'top' }
+            %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailBody' }
+              - @programs.each do |program|
+                %tr
+                  %td{ align: 'left', valign: 'baseline' }
+                    %h3= link_to program["title_#{@manager.locale}"], people_url(with_application: program.id, utm_medium: 'email', utm_source: 'manager_remind', utm_campaign: 'program_applications_reminder', utm_content: 'program_title')
+
+                %tr
+                  %td{ align: 'left', valign: 'top' }
+                    %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: "application-#{program.id}" }
+                      - program.study_applications.each do |application|
+                        %tr
+                          %td{ align: 'left', valign: 'baseline' }
+                            = application.person.complex_name
+
+        %tr
+          %td{ align: 'center', valign: 'top' }
+            %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailFooter' }
+              %tr
+                %td{ align: 'left', valign: 'baseline' }
+                  %p= t('mail.signature')
+              %tr
+                %td{ align: 'center', valign: 'bottom' }
+                  %hr
+              %tr
+                %td{ align: 'center', valign: 'bottom' }
+                  = link_to root_url( utm_medium: 'email',
+                                      utm_source: 'manager_remind',
+                                      utm_campaign: 'program_applications_reminder',
+                                      utm_content: 'footer_logo') do
+                    %img{ src: 'https://res.cloudinary.com/dsd89mcu3/image/upload/v1538280388/Logo_Academy_2017_black_50px_ksnsco.png' }
+              %tr
+                %td{ align: 'center', valign: 'top' }
+                  = t 'mail.footer.kdask'
+                  %br
+                  +38 (067) 245-87-00
+                  %br
+                  +38 (063) 321-00-33
+                  %br
+                  +38 (044) 331-19-64
