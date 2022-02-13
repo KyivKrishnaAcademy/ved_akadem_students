@@ -195,14 +195,22 @@
     .col-xs-12.vert-offset-top-1.stop_double_submit#study_application
       = render 'shared/study_application', person: @application_person, programs: @programs, study_application: @new_study_application
 
-- if @person.initial_answers.any?
+- initial_questionnaires = completed_initial_questionnaires(@person)
+- if initial_questionnaires.any?
   .row.vert-offset-top-1
-    - @person.initial_answers.each do |answer|
+    .col-xs-12
+      %h3.text-center=t('.completed_questionnaires')
+    - initial_questionnaires.each do |questionnaire, answers|
       .col-xs-12
-        %strong
-          #{answer.question.position}. #{answer.question.data[:text][locale]}
-        %p
-          = answer.data
+        %h4= questionnaire[locale][:title]
+      .col-xs-12
+        %p= questionnaire[locale][:description]
+      - answers.each do |answer|
+        .col-xs-12.col-sm-6
+          %strong
+            #{answer[:position]}. #{answer[:question_data][:text][locale]}
+          %p
+            = answer[:answer]
 
 - if @person.psycho_test_result.present? && policy(@person).view_psycho_test_result?
   .row.vert-offset-top-1

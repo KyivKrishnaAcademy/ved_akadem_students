@@ -295,30 +295,6 @@ describe Person do
       end
     end
 
-    describe '#initial_answers' do
-      Given(:person_2) { create :person }
-      Given(:question_1) { create :question, :freeform, position: 2 }
-      Given(:question_2) { create :question, :freeform, position: 1 }
-      Given(:question_3) { create :question, :single_select, position: 1 }
-      Given(:questionnaire_1) { create :questionnaire, kind: 'initial_questions', questions: [question_1, question_2] }
-      Given(:questionnaire_2) { create :questionnaire, kind: 'psycho_test', questions: [question_3] }
-
-      Given { person.questionnaire_completenesses.create(completed: true, questionnaire_id: questionnaire_1.id) }
-      Given { person.questionnaire_completenesses.create(completed: true, questionnaire_id: questionnaire_2.id) }
-      Given { person_2.questionnaire_completenesses.create(completed: false, questionnaire_id: questionnaire_1.id) }
-      Given { person_2.questionnaire_completenesses.create(completed: false, questionnaire_id: questionnaire_2.id) }
-
-      Given!(:answer_1_1) { create :answer, :freeform_answer, person: person, question: question_1 }
-      Given!(:answer_1_2) { create :answer, :freeform_answer, person: person, question: question_2 }
-      Given!(:answer_1_3) { create :answer, :single_select_answer, person: person, question: question_3 }
-      Given!(:answer_2_1) { create :answer, :freeform_answer, person: person_2, question: question_1 }
-      Given!(:answer_2_2) { create :answer, :freeform_answer, person: person_2, question: question_2 }
-      Given!(:answer_2_3) { create :answer, :single_select_answer, person: person_2, question: question_3 }
-
-      Then  { expect(person.initial_answers).to eq([answer_1_2, answer_1_1]) }
-      And   { expect(person_2.initial_answers).to be_empty }
-    end
-
     describe '#pending_docs' do
       context 'no photo, has no questionnaires' do
         Then  { expect(person.pending_docs).to eq(photo: :photo) }

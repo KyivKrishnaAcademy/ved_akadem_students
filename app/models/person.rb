@@ -128,15 +128,6 @@ class Person < ApplicationRecord
     questionnaires.includes(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
   end
 
-  def initial_answers
-    answers
-      .select('answers.*, questions.position')
-      .joins(question: [questionnaire: [:questionnaire_completenesses]])
-      .where(questionnaires: { kind: 'initial_questions' },
-             questionnaire_completenesses: { completed: true, person_id: id })
-      .distinct.order('questions.position')
-  end
-
   def psycho_test_result
     psycho_tests = questionnaire_completenesses.joins(:questionnaire).where(questionnaires: { kind: 'psycho_test' })
 
