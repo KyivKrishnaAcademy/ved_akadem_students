@@ -119,11 +119,6 @@ class Person < ApplicationRecord
                         .where.not(id: questionnaire_ids)
   end
 
-  def remove_application_questionnaires(application)
-    questionnaire_completenesses
-      .where(completed: false, questionnaire_id: application.program.questionnaire_ids).destroy_all
-  end
-
   def not_finished_questionnaires
     questionnaires.includes(:questionnaire_completenesses).where(questionnaire_completenesses: { completed: false })
   end

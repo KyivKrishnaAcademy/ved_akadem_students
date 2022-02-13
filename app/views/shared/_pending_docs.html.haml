@@ -1,0 +1,19 @@
+- if person.pending_docs.present?
+  .pending-docs.alert.alert-danger
+    = t('content.application_requirements')
+    %ul
+      - if person.pending_docs[:questionnaires].present?
+        - person.not_finished_questionnaires.each do |questionnaire|
+          %li
+            = t('content.fill_questionnaire')
+            - if is_links
+              = link_to questionnaire["title_#{locale}"], edit_answer_path(questionnaire)
+            - else
+              = questionnaire["title_#{locale}"]
+      - if person.pending_docs[:photo].present?
+        %li
+          = t('content.attach_photo')
+          - if is_links
+            = link_to t('content.in_profile'), edit_person_registration_path(person)
+          - else
+            = t('content.in_profile')

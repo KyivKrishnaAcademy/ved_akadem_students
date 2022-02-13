@@ -177,32 +177,6 @@ describe Person do
         And   { expect { person.add_application_questionnaires }.not_to change { person.questionnaires.count } }
       end
 
-      describe '#remove_application_questionnaires' do
-        context 'not completed' do
-          Given { person.questionnaires << [questionnaire_1, questionnaire_2] }
-
-          Then do
-            expect { person.remove_application_questionnaires(study_application) }
-              .to change { person.questionnaires.count }.by(-1)
-          end
-        end
-
-        context 'completed' do
-          Given do
-            QuestionnaireCompleteness.create(
-              person_id: person.id,
-              questionnaire_id: questionnaire_1.id,
-              completed: true
-            )
-          end
-
-          Then do
-            expect { person.remove_application_questionnaires(study_application) }
-              .not_to change { person.questionnaires.count }
-          end
-        end
-      end
-
       describe '#not_finished_questionnaires' do
         Given(:person_2) { create :person }
 

@@ -18,8 +18,12 @@
           headers: class_schedules_table_headers,
           noSchedules: t('academic_groups.show.no_pending_schedules') })
 
+  .col-xs-12.vert-offset-top-1#pending_docs
+    = render 'shared/pending_docs', person: @application_person, is_links: true
+
   .col-xs-12.vert-offset-top-1.stop_double_submit#study_application
     = render 'shared/study_application',
              person: @application_person,
              programs: @programs,
-             study_application: @new_study_application
+             study_application: @new_study_application,
+             is_links_in_pending_docs: true

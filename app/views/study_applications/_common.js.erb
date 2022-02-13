@@ -1,3 +1,6 @@
 $('#study_application').html('<%= j render 'shared/study_application', person: @application_person,
                                                                        programs: @programs,
-                                                                       study_application: @new_study_application %>');
+                                                                       study_application: @new_study_application,
+                                                                       is_links_in_pending_docs: @is_links_in_pending_docs %>');
+
+$('#pending_docs').html('<%= j render 'shared/pending_docs', person: @application_person, is_links: @is_links_in_pending_docs %>');

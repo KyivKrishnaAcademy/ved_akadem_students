@@ -14,6 +14,7 @@
               .pull-right
                 - if policy(study_application).create?
                   = simple_form_for study_application, remote: true, format: :js do |f|
+                    = f.input :is_links_in_pending_docs, as: :hidden, input_html: { value: is_links_in_pending_docs }
                     = f.input :person_id, as: :hidden, input_html: { value: person.id }
                     = f.input :program_id, as: :hidden, input_html: { value: program.id }
                     = f.button :button, class: 'btn btn-xs btn-success btn-submit' do
@@ -30,21 +31,10 @@
                   - program["courses_#{locale}"].each do |course_title|
                     %li= course_title
 - else
-  - if person.pending_docs.present?
-    .pending-docs.alert.alert-danger
-      = t('content.application_requirements')
-      %ul
-        - if person.pending_docs[:questionnaires].present?
-          - person.not_finished_questionnaires.each do |questionnaire|
-            %li
-              #{t('content.fill_questionnaire')} #{ link_to questionnaire["title_#{locale}"], edit_answer_path(questionnaire) }
-        - if person.pending_docs[:photo].present?
-          %li
-            #{t('content.attach_photo')} #{ link_to t('content.in_profile'), edit_person_registration_path(person) }
   .program.alert.alert-success.clearfix
     .pull-right
       - if policy(person.study_application).destroy?
-        = button_to person.study_application, { method: :delete, remote: true, data: { confirm: t('content.confirm_withdraw') }, class: 'btn btn-xs btn-danger btn-submit' } do
+        = button_to study_application_path(person.study_application, study_application: { is_links_in_pending_docs: is_links_in_pending_docs }), { method: :delete, remote: true, data: { confirm: t('content.confirm_withdraw') }, class: 'btn btn-xs btn-danger btn-submit' } do
           %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
           = t('links.withdraw')
     %p

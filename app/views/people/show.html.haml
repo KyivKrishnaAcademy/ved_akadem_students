@@ -190,10 +190,14 @@
                     = link_to_edit policy(note).edit?, edit_person_note_path(@person, note)
                     = link_to_destroy policy(note).destroy?, person_note_path(@person, note)
 
+.row
+  .col-xs-12.vert-offset-top-1#pending_docs
+    = render 'shared/pending_docs', person: @application_person, is_links: false
+
 - if @person.study_application.present? || policy(@new_study_application).create?
   .row
     .col-xs-12.vert-offset-top-1.stop_double_submit#study_application
-      = render 'shared/study_application', person: @application_person, programs: @programs, study_application: @new_study_application
+      = render 'shared/study_application', person: @application_person, programs: @programs, study_application: @new_study_application, is_links_in_pending_docs: false
 
 - initial_questionnaires = completed_initial_questionnaires(@person)
 - if initial_questionnaires.any?
