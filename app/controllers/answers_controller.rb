@@ -51,8 +51,14 @@ class AnswersController < ApplicationController
   end
 
   def questionnaire_params
-    params.require(:questionnaire).permit(
+    result = params.require(:questionnaire).permit(
       questions_attributes: [:id, { answers_attributes: %i[id person_id data] }]
     )
+
+    result[:questions_attributes].each do |_k, v|
+      v[:answers_attributes]['0'][:person_id] = current_person.id
+    end
+
+    result
   end
 end
