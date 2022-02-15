@@ -19,7 +19,7 @@ services:
       - 6379:6379
     command: redis-server --appendonly yes
 
-  application:
+  app:
     build:
       context: '.'
       dockerfile: docker/akadem_students/Dockerfile
@@ -35,41 +35,12 @@ services:
     depends_on:
       - redis
       - postgres
-      - sidekiq
-      - react-builder
+    env_file:
+      - .env
     environment:
       REDIS_URL: redis
       RAILS_ENV: development
-    entrypoint: /home/app/students_crm/bin/start_rails_dev.sh
-
-  react-builder:
-    build:
-      context: '.'
-      dockerfile: docker/akadem_students/Dockerfile
-      target: development
-    volumes:
-      - .:/home/app/students_crm
-      - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
-      - bundle:/usr/local/bundle/
-      - client-node-modules:/home/app/students_crm/client/node_modules
-      - node-modules:/home/app/students_crm/node_modules
-    entrypoint: /home/app/students_crm/bin/start_react_dev.sh
-
-  sidekiq:
-    build:
-      context: '.'
-      dockerfile: docker/akadem_students/Dockerfile
-      target: development
-    volumes:
-      - .:/home/app/students_crm
-      - bundle:/usr/local/bundle
-    depends_on:
-      - redis
-      - postgres
-    environment:
-      REDIS_URL: redis
-      RAILS_ENV: development
-    entrypoint: /home/app/students_crm/bin/start_sidekiq_dev.sh
+    entrypoint: /home/app/students_crm/bin/start_dev.sh
 
 volumes:
   assets-javascript-generated:

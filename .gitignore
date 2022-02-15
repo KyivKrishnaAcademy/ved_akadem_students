@@ -21,7 +21,6 @@ bundler_stubs/
 erd?.dot
 recaptcha.rb
 
-/Procfile
 /shared/
 /coverage
 /uploads
@@ -37,4 +36,4 @@ node_modules
 
 client/app/bundles/HelloWorld
 
-.ruby-env
+.env
