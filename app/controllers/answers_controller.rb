@@ -15,14 +15,17 @@ class AnswersController < ApplicationController
   def update
     authorize @questionnaire, :save_answers?
 
+    set_questions
+
     if @questionnaire.update(questionnaire_params)
       AnswersProcessorService.new(@questionnaire, current_person).process!
     else
-      set_questions
       set_answers_by_question_id
 
       questionnaire_params[:questions_attributes].each_value do |q_attributes|
-        @answers_by_question_id[q_attributes[:id].to_i].data = q_attributes[:answers_attributes].values.first[:data]
+        answer = @answers_by_question_id[q_attributes[:id].to_i]
+        answer.data = q_attributes[:answers_attributes].values.first[:data]
+        answer.validate unless answer.question.data[:optional]
       end
     end
 
@@ -57,6 +60,15 @@ class AnswersController < ApplicationController
 
     result[:questions_attributes].each do |_k, v|
       v[:answers_attributes]['0'][:person_id] = current_person.id
+    end
+
+    questions_by_id = @questions.index_by(&:id)
+
+    result[:questions_attributes].keep_if do |_k, v|
+      is_question_optional = questions_by_id[v[:id].to_i].data[:optional]
+      is_answer_blank = v[:answers_attributes]['0'][:data].blank?
+
+      !(is_answer_blank && is_question_optional)
     end
 
     result

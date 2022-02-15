@@ -29,7 +29,7 @@ module PeopleHelper
         {
           position: question.position,
           question_data: question.data,
-          answer: answers_by_question_id[question.id].data
+          answer: answers_by_question_id[question.id].try(:data)
         }
       end
 
