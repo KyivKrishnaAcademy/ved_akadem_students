@@ -144,6 +144,7 @@ uk:
       psycho_test_results:  'Результати психологічного тесту'
       special_notes:        'Cпеціальні нотатки'
       no_special_notes:     'поки що нотаток немає'
+      completed_questionnaires: 'Заповнені опитувальники'
     index:
       search_placeholder: 'Кого Ви шукаєте?'
   notes:
