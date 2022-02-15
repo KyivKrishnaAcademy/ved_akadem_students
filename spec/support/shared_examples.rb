@@ -267,8 +267,8 @@ shared_examples :study_applications do |admin|
       Then { expect(find('#study_application')).to have_content('Школа Бхакти') }
       And  { expect(find('#study_application')).not_to have_content('Бхакти Шастры') }
       And  { expect(find('#study_application')).to have_withdraw_button }
-      And  { expect(find('#study_application')).to have_css('li', text: 'Заповнити Психо тест') }
-      And  { expect(find('#study_application')).to have_css('li', text: 'Додати фотографію до профілю') }
+      And  { expect(find('#pending_docs')).to have_css('li', text: 'Заповнити Психо тест') }
+      And  { expect(find('#pending_docs')).to have_css('li', text: 'Додати фотографію до профілю') }
     end
 
     describe 'withdraw', :js do

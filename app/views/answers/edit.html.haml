@@ -15,8 +15,8 @@
         .col-xs-12
           = render 'shared/error_messages', object: f.object
       .row.vert-offset-top-2
-        = f.simple_fields_for :questions do |q|
-          = render "question_#{q.object.format}", q: q, person: current_person
+        = f.simple_fields_for :questions, @questions do |q|
+          = render "question_#{q.object.format}", q: q, person: current_person, answers_by_question_id: @answers_by_question_id
       .row.vert-offset-top-1
         .col-xs-12
           = f.button :submit, t('.update')

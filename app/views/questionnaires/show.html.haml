@@ -1,0 +1,57 @@
+- provide(:title, @questionnaire["title_#{locale}"])
+
+.row
+  .col-xs-12.text-center
+    %h1
+      = @questionnaire["title_#{locale}"]
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.clearfix
+    = link_to_back(policy(@questionnaire).index?, questionnaires_path)
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    = @questionnaire["description_#{locale}"]
+
+  - if @programs.any?
+    .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+      %h5
+        = t('.programs')
+    .col-xs-12.col-sm-6.col-sm-offset-3
+      .table-responsive
+        %table.table.table-condensed.table-striped
+          %thead
+            %tr
+              %th= t('.program_title')
+              %th= t('.program_visibility')
+
+          %tbody
+            - @programs.each do |program|
+              %tr
+                %td
+                  = program["title_#{locale}"]
+                %td.col-xs-1.text-center
+                  - if program.visible
+                    %i.fa.fa-check{ aria: { hidden: :true } }
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    %h5.clearfix
+      = t('.questions')
+
+  .col-xs-12.col-sm-6.col-sm-offset-3
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th= "#"
+            %th= t('.question_title')
+            %th= t('.question_format')
+            %th= t('.question_required')
+
+        %tbody
+          - @questions.each do |question|
+            %tr
+              %td= question.position
+              %td= question.data[:text][locale]
+              %td.col-xs-1= question.format
+              %td.col-xs-1.text-center
+                - unless question.data[:optional]
+                  %i.fa.fa-check{ aria: { hidden: :true } }

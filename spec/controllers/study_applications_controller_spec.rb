@@ -9,7 +9,6 @@ describe StudyApplicationsController do
       Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
       Given { allow(StudyApplication).to receive(:find).with('1').and_return(study_application) }
       Given { expect(study_application).not_to receive(:destroy) }
-      Given { expect_any_instance_of(Person).not_to receive(:remove_application_questionnaires) }
 
       it_behaves_like :not_authenticated_js
     end
@@ -33,7 +32,6 @@ describe StudyApplicationsController do
       Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
       Given { expect(study_application).to receive_message_chain(:destroy, :destroyed?).and_return(true) }
       Given { allow(study_application).to receive(:person).and_return(person) }
-      Given { expect(person).to receive(:remove_application_questionnaires) }
 
       it_behaves_like :athorized
     end
@@ -72,7 +70,7 @@ describe StudyApplicationsController do
       context 'destroy' do
         Given { allow(StudyApplication).to receive(:find).with('1').and_return(study_application) }
 
-        When  { delete :destroy, params: { id: 1, format: :js } }
+        When  { delete :destroy, params: { id: 1, format: :js, study_application: { is_links_in_pending_docs: true } } }
 
         context 'allow own' do
           Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1) }
@@ -85,7 +83,6 @@ describe StudyApplicationsController do
 
           Given { allow(study_application).to receive(:class).and_return(StudyApplication) }
           Given { expect(study_application).not_to receive(:destroy) }
-          Given { expect(person).not_to receive(:remove_application_questionnaires) }
 
           it_behaves_like :not_athorized
         end
@@ -125,7 +122,7 @@ describe StudyApplicationsController do
           allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:destroy'] }
         end
 
-        When { delete :destroy, params: { id: 1, format: :js } }
+        When { delete :destroy, params: { id: 1, format: :js, study_application: { is_links_in_pending_docs: true } } }
 
         context 'allow own' do
           Given(:study_application) { double(StudyApplication, person_id: person.id, program_id: 1) }

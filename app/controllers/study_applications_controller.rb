@@ -19,9 +19,7 @@ class StudyApplicationsController < ApplicationController
   def destroy
     @study_application = StudyApplication.find(params[:id])
 
-    common_handle(@study_application, :destroy) do |study_applicaiton|
-      study_applicaiton.person.remove_application_questionnaires(study_applicaiton)
-    end
+    common_handle(@study_application, :destroy)
   end
 
   private
@@ -32,9 +30,11 @@ class StudyApplicationsController < ApplicationController
     operation_result = method == :create ? study_application.save : study_application.destroy.destroyed?
 
     if operation_result
-      yield study_application
+      yield study_application if block_given?
 
       preset_applications_variables(study_application.person)
+
+      @is_links_in_pending_docs = ActiveModel::Type::Boolean.new.cast(permitted_params[:is_links_in_pending_docs])
 
       render partial: 'common'
     else
@@ -43,6 +43,6 @@ class StudyApplicationsController < ApplicationController
   end
 
   def permitted_params
-    params.require(:study_application).permit(:person_id, :program_id)
+    params.require(:study_application).permit(:person_id, :program_id, :is_links_in_pending_docs)
   end
 end

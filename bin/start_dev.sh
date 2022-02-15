@@ -5,6 +5,16 @@ env | sort
 bundle install -j5 --retry 10 --without production
 bundle clean --force
 
+gem install solargraph
+
+npm install
+npm prune
+
+cd client
+npm install
+npm prune
+cd ..
+
 echo "Waiting for DB to get up"
 
 while true; do
@@ -21,4 +31,8 @@ else
   bundle exec rails db:seed
 fi
 
-bundle exec sidekiq
+pidfile=${PROJECT_HOME}/tmp/pids/server.pid
+
+[ -e "$pidfile" ] && rm "$pidfile"
+
+foreman start

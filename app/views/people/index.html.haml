@@ -19,7 +19,6 @@
             %th #
             %th Photo
             %th Full Name
-            %th Verification
             %th Group or Application
         %tbody
           - @people.each_with_index do |person, index|
@@ -30,8 +29,6 @@
                 = thumb_with_pop(person)
               %td
                 = link_to_show_person_or_name(person)
-              %td
-                = verification_badge(person.verified?)
               %td
                 - if person.last_academic_groups.any?
                   - person.last_academic_groups.each do |academic_group|
