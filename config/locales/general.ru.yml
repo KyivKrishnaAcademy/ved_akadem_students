@@ -6,29 +6,31 @@ ru:
       recaptcha_unreachable:  'Невозможно связаться с сервисом проверки.'
   defaults:
     links:
-      academic_groups:      'Группы'
       academic_groups_add:  'Добавить группу'
       academic_groups_list: 'Список групп'
+      academic_groups:      'Группы'
       active_groups:        'Активные'
       agreement:            'Соглашение'
-      certificate_templates:      'Шаблоны сертификатов'
       certificate_templates_add:  'Добавить'
       certificate_templates_list: 'Список'
+      certificate_templates:      'Шаблоны сертификатов'
       changelog:            'Журнал изменений'
-      class_schedules:      'Расписание'
       class_schedules_add:  'Добавить'
       class_schedules_list: 'Список'
-      courses:              'Предметы'
+      class_schedules:      'Расписание'
       courses_add:          'Добавить предмет'
       courses_list:         'Список предметов'
+      courses:              'Предметы'
       home:                 'Главная'
       journal:              'Журнал действий'
       main_menu:            'Действия'
-      people:               'Люди'
       people_add:           'Добавить человека'
       people_by_application:      'По заявлениям'
       people_list:          'Все люди'
       people_without_applications:  'Без заявлений'
+      people:               'Люди'
+      questionnaires_list: 'Список опросников'
+      questionnaires: 'Опросники'
   locale_label: Русский (RUS)
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:
@@ -232,6 +234,19 @@ ru:
     update:
       alert_html: 'Что-то в Вашем профиле не дает сохранить подписки. <a href="%{edit_path}" target="_blank">Отредактируйте профиль</a> и возвращайтесь сюда.'
       notice: Подписки сохранены
+  questionnaires:
+    index:
+      title: 'Опросники'
+      questionnaire_title: 'Название'
+      questionnaire_kind: 'Тип'
+    show:
+      program_title: 'Название программы'
+      program_visibility: 'Активирована?'
+      programs: 'Связанные программы обучения'
+      question_format: 'Тип'
+      question_required: 'Обязательность'
+      question_title: 'Вопрос'
+      questions: 'Вопросы'
   shared:
     person_brief:
       edit_subscriptions: Редактировать подписки

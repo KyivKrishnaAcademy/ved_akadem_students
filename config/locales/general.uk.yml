@@ -6,29 +6,31 @@ uk:
       recaptcha_unreachable:  "Неможливо звя'язатися з сервісом перевірки."
   defaults:
     links:
-      academic_groups:      'Групи'
       academic_groups_add:  'Додати групу'
       academic_groups_list: 'Список груп'
+      academic_groups:      'Групи'
       active_groups:        'Активні'
       agreement:            'Згода'
-      certificate_templates:      'Шаблони сертифікатів'
       certificate_templates_add:  'Додати'
       certificate_templates_list: 'Список'
+      certificate_templates:      'Шаблони сертифікатів'
       changelog:            'Журнал змін'
-      class_schedules:      'Розклад'
       class_schedules_add:  'Додати'
       class_schedules_list: 'Список'
-      courses:              'Предмети'
+      class_schedules:      'Розклад'
       courses_add:          'Додати предмет'
       courses_list:         'Список предметів'
+      courses:              'Предмети'
       home:                 'Головна'
       journal:              'Журнал дій'
       main_menu:            'Дії'
-      people:               'Люди'
       people_add:           'Додати людину'
       people_by_application:      'По заявам'
       people_list:          'Усі люди'
       people_without_applications:  'Без заяв'
+      people:               'Люди'
+      questionnaires_list: 'Список опитувальників'
+      questionnaires: 'Опитувальники'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:
@@ -232,6 +234,19 @@ uk:
     update:
       alert_html: 'Шось у Вашому профелю заважає зберегти підписки. <a href="%{edit_path}" target="_blank">Відрежагуйте профіль</a> і повертайтеся сюди.'
       notice: Підписки збережено
+  questionnaires:
+    index:
+      title: 'Опитувальники'
+      questionnaire_title: 'Назва'
+      questionnaire_kind: 'Тип'
+    show:
+      program_title: 'Назва програми'
+      program_visibility: 'Активована?'
+      programs: "Пов'язані навчальні програми"
+      question_format: 'Тип'
+      question_required: "Обов'язковість"
+      question_title: 'Питання'
+      questions: 'Питання'
   shared:
     person_brief:
       edit_subscriptions: Редагувати підписки

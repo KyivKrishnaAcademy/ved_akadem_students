@@ -1,0 +1,24 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center=t('.title')
+
+  .col-xs-12.col-sm-6.col-sm-offset-3
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th= t('.questionnaire_title')
+            %th= t('.questionnaire_kind')
+
+        %tbody
+          - @questionnaires.each do |questionnaire|
+            %tr
+              %td
+                - questionnaire_title = questionnaire["title_#{locale}"]
+                = link_to_if policy(questionnaire).show?, questionnaire_title, questionnaire_path(questionnaire) do
+                  = questionnaire_title
+
+              %td
+                = questionnaire.kind

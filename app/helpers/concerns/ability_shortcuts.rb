@@ -19,6 +19,10 @@ module AbilityShortcuts
     current_person&.can_act?(%w[class_schedule:index class_schedule:new])
   end
 
+  def show_questionnaires_menu?
+    current_person&.can_act?(%w[questionnaire:index])
+  end
+
   def show_journal_link?
     current_person&.can_act?('paper_trail/version:show')
   end
