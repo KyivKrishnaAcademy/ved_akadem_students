@@ -5,6 +5,9 @@ ru:
         establ_date:        'Дата создания'
         graduated_at:       'Дата окончания'
         group_description:  'Описание группы'
+      certificate_template_font:
+        name: 'Имя'
+        file: 'Файл'
       examination:
         description:    'Описание'
         max_result:     'Максимальний бал'
@@ -33,6 +36,7 @@ ru:
       questions/answers:
         data:             'Ответ'
     models:
+      certificate_template_font: 'Шрифт шаблона сертификата'
       certificate_template:   'Шаблон сертификата'
       examination:            'Зачетная работа'
     errors:

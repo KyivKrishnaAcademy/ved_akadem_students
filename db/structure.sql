@@ -194,6 +194,38 @@ ALTER SEQUENCE public.attendances_id_seq OWNED BY public.attendances.id;
 
 
 --
+-- Name: certificate_template_fonts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.certificate_template_fonts (
+    id integer NOT NULL,
+    name character varying,
+    file character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: certificate_template_fonts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.certificate_template_fonts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: certificate_template_fonts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.certificate_template_fonts_id_seq OWNED BY public.certificate_template_fonts.id;
+
+
+--
 -- Name: certificate_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1059,6 +1091,13 @@ ALTER TABLE ONLY public.attendances ALTER COLUMN id SET DEFAULT nextval('public.
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.certificate_template_fonts ALTER COLUMN id SET DEFAULT nextval('public.certificate_template_fonts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.certificate_templates ALTER COLUMN id SET DEFAULT nextval('public.certificate_templates_id_seq'::regclass);
 
 
@@ -1254,6 +1293,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.attendances
     ADD CONSTRAINT attendances_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: certificate_template_fonts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.certificate_template_fonts
+    ADD CONSTRAINT certificate_template_fonts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1480,6 +1527,13 @@ CREATE INDEX index_academic_groups_courses_on_group_id_and_course_id ON public.a
 --
 
 CREATE UNIQUE INDEX index_attendances_on_class_schedule_id_and_student_profile_id ON public.attendances USING btree (class_schedule_id, student_profile_id);
+
+
+--
+-- Name: index_certificate_template_fonts_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_certificate_template_fonts_on_name ON public.certificate_template_fonts USING btree (name);
 
 
 --
@@ -1760,6 +1814,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200124060236'),
 ('20201214174233'),
 ('20211204081027'),
-('20220212194355');
+('20220212194355'),
+('20220701055504');
 
 

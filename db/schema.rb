@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220212194355) do
+ActiveRecord::Schema.define(version: 20220701055504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,14 @@ ActiveRecord::Schema.define(version: 20220212194355) do
     t.boolean  "presence"
     t.integer  "revision",           default: 1
     t.index ["class_schedule_id", "student_profile_id"], name: "index_attendances_on_class_schedule_id_and_student_profile_id", unique: true, using: :btree
+  end
+
+  create_table "certificate_template_fonts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_certificate_template_fonts_on_name", unique: true, using: :btree
   end
 
   create_table "certificate_templates", force: :cascade do |t|

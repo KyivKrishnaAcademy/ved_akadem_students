@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/mpugach/devise_token_auth.git
+  remote: https://github.com/mpugach/devise_token_auth.git
   revision: 173e4e45baefc405b026151f06350116e64c8e3e
   branch: use_standart_AR_uniqueness_message
   specs:

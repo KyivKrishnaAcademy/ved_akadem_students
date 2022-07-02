@@ -1,0 +1,11 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center= t('.title')
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = render 'nav_links', certificate_template_font: @certificate_template_font
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = render 'form', submit_label: t('.submit')

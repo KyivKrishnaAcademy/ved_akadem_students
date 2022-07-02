@@ -5,6 +5,9 @@ uk:
         establ_date:        'Дата створення'
         graduated_at:       'Дата закінчення'
         group_description:  'Опис групи'
+      certificate_template_font:
+        name: "Ім'я"
+        file: 'Файл'
       examination:
         description:    'Опис'
         max_result:     'Максимальний бал'
@@ -33,6 +36,7 @@ uk:
       questions/answers:
         data:             'Відповідь'
     models:
+      certificate_template_font: 'Шрифт шаблону сертифікату'
       certificate_template:   'Шаблон сертифікату'
       examination:            'Залікова робота'
     errors:

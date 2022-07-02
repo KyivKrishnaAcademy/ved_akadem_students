@@ -1,4 +1,4 @@
-class PhotoUploader < BaseUploader
+class PhotoUploader < BaseImageUploader
   before :cache, :capture_size
   before :retrieve_from_cache, :capture_size
 
@@ -21,6 +21,6 @@ class PhotoUploader < BaseUploader
   def capture_size(new_file)
     return unless new_file.present? && model.photo_upload_width.nil?
 
-    model.photo_upload_width, model.photo_upload_height = get_file_size(new_file)
+    model.photo_upload_width, model.photo_upload_height = get_image_size(new_file)
   end
 end

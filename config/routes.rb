@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :study_applications, only: %i[create destroy]
   resources :answers, only: %i[update edit]
   resources :certificate_templates, only: %i[new create edit update index destroy]
+  resources :certificate_template_fonts, only: %i[new create edit update index destroy]
 
   resources :people do
     resources :notes, only: %i[new create edit update destroy]
@@ -94,6 +95,9 @@ Rails.application.routes.draw do
 
   get 'export/attendance_template/:id', controller: :pdf_exports, action: :attendance_template,
                                         as: :attendance_template_pdf, defaults: format_pdf, constraints: format_pdf
+
+  get 'export/certificate/:id', controller: :pdf_exports, action: :certificate,
+                                as: :certificate_pdf, defaults: format_pdf, constraints: format_pdf
 
   resource :journal, only: :show
 

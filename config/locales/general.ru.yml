@@ -11,6 +11,7 @@ ru:
       academic_groups:      'Группы'
       active_groups:        'Активные'
       agreement:            'Соглашение'
+      certificate_template_fonts_list: 'Шрифты'
       certificate_templates_add:  'Добавить'
       certificate_templates_list: 'Список'
       certificate_templates:      'Шаблоны сертификатов'
@@ -65,6 +66,17 @@ ru:
   answers:
     edit:
       update: 'Отправить ответ'
+  certificate_template_fonts:
+    edit:
+      submit: 'Обновить шрифт'
+      title: 'Редактирование шрифта'
+    index:
+      actions: 'Действия'
+      template_title: 'Имя шрифта'
+      title: 'Шрифты сертификатов'
+    new:
+      submit: 'Создать шрифт'
+      title: 'Создание шрифта сертификата'
   certificate_templates:
     edit:
       submit:   'Обновить шаблон сертификата'
