@@ -57,6 +57,23 @@ class CertificateTemplatesController < HtmlRespondableController
   end
 
   def certificate_template_params
-    params.require(:certificate_template).permit(:title, :background, :background_cache)
+    params
+      .require(:certificate_template)
+      .permit(
+        :title,
+        :background,
+        :background_cache,
+        certificate_template_entries_attributes: %i[
+          id
+          align
+          certificate_template_font_id
+          character_spacing
+          font_size
+          template
+          x
+          y
+          _destroy
+        ]
+      )
   end
 end

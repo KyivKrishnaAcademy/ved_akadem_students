@@ -260,6 +260,8 @@ ru:
       question_title: 'Вопрос'
       questions: 'Вопросы'
   shared:
+    nested_certificate_template_entries:
+      template_entries_title: Элементы шаблона
     person_brief:
       edit_subscriptions: Редактировать подписки
     study_application:

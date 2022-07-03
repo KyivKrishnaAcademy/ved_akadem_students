@@ -194,6 +194,44 @@ ALTER SEQUENCE public.attendances_id_seq OWNED BY public.attendances.id;
 
 
 --
+-- Name: certificate_template_entries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.certificate_template_entries (
+    id integer NOT NULL,
+    template character varying,
+    certificate_template_id integer,
+    certificate_template_font_id integer,
+    character_spacing double precision DEFAULT 0.5,
+    x integer DEFAULT 0,
+    y integer DEFAULT 0,
+    font_size integer DEFAULT 16,
+    align integer DEFAULT 0,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: certificate_template_entries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.certificate_template_entries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: certificate_template_entries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.certificate_template_entries_id_seq OWNED BY public.certificate_template_entries.id;
+
+
+--
 -- Name: certificate_template_fonts; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1091,6 +1129,13 @@ ALTER TABLE ONLY public.attendances ALTER COLUMN id SET DEFAULT nextval('public.
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.certificate_template_entries ALTER COLUMN id SET DEFAULT nextval('public.certificate_template_entries_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.certificate_template_fonts ALTER COLUMN id SET DEFAULT nextval('public.certificate_template_fonts_id_seq'::regclass);
 
 
@@ -1293,6 +1338,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.attendances
     ADD CONSTRAINT attendances_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: certificate_template_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.certificate_template_entries
+    ADD CONSTRAINT certificate_template_entries_pkey PRIMARY KEY (id);
 
 
 --
@@ -1530,6 +1583,20 @@ CREATE UNIQUE INDEX index_attendances_on_class_schedule_id_and_student_profile_i
 
 
 --
+-- Name: index_certificate_template_entries_on_font_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_certificate_template_entries_on_font_id ON public.certificate_template_entries USING btree (certificate_template_font_id);
+
+
+--
+-- Name: index_certificate_template_entries_on_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_certificate_template_entries_on_template_id ON public.certificate_template_entries USING btree (certificate_template_id);
+
+
+--
 -- Name: index_certificate_template_fonts_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1697,6 +1764,22 @@ ALTER TABLE ONLY public.examination_results
 
 
 --
+-- Name: fk_rails_ba00c048b6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.certificate_template_entries
+    ADD CONSTRAINT fk_rails_ba00c048b6 FOREIGN KEY (certificate_template_id) REFERENCES public.certificate_templates(id);
+
+
+--
+-- Name: fk_rails_eb310ca5a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.certificate_template_entries
+    ADD CONSTRAINT fk_rails_eb310ca5a3 FOREIGN KEY (certificate_template_font_id) REFERENCES public.certificate_template_fonts(id);
+
+
+--
 -- Name: fk_rails_fb18d345ca; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1815,6 +1898,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20201214174233'),
 ('20211204081027'),
 ('20220212194355'),
-('20220701055504');
+('20220701055504'),
+('20220702070531');
 
 

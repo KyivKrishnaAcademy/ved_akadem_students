@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220701055504) do
+ActiveRecord::Schema.define(version: 20220702070531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,21 @@ ActiveRecord::Schema.define(version: 20220701055504) do
     t.boolean  "presence"
     t.integer  "revision",           default: 1
     t.index ["class_schedule_id", "student_profile_id"], name: "index_attendances_on_class_schedule_id_and_student_profile_id", unique: true, using: :btree
+  end
+
+  create_table "certificate_template_entries", force: :cascade do |t|
+    t.string   "template"
+    t.integer  "certificate_template_id"
+    t.integer  "certificate_template_font_id"
+    t.float    "character_spacing",            default: 0.5
+    t.integer  "x",                            default: 0
+    t.integer  "y",                            default: 0
+    t.integer  "font_size",                    default: 16
+    t.integer  "align",                        default: 0
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.index ["certificate_template_font_id"], name: "index_certificate_template_entries_on_font_id", using: :btree
+    t.index ["certificate_template_id"], name: "index_certificate_template_entries_on_template_id", using: :btree
   end
 
   create_table "certificate_template_fonts", force: :cascade do |t|
@@ -302,6 +317,8 @@ ActiveRecord::Schema.define(version: 20220701055504) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
+  add_foreign_key "certificate_template_entries", "certificate_template_fonts"
+  add_foreign_key "certificate_template_entries", "certificate_templates"
   add_foreign_key "certificates", "academic_groups"
   add_foreign_key "certificates", "certificate_templates"
   add_foreign_key "certificates", "student_profiles"

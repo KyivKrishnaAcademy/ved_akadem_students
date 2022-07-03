@@ -5,6 +5,22 @@ ru:
         establ_date:        'Дата создания'
         graduated_at:       'Дата окончания'
         group_description:  'Описание группы'
+      certificate_template:
+        title: 'Название'
+      certificate_template_entries:
+        align: 'Выравнивание элемента шаблона'
+        certificate_template_font: 'Шрифт элемента шаблона'
+        character_spacing: 'Межсимвольный интервал элемента шаблона'
+        font_size: 'Размер шрифта элемента шаблона'
+        template: 'Текст элемента шаблона'
+        x: 'X позиция элемента шаблона'
+        y: 'Y позиция шаблона'
+      certificate_template_entry:
+        align: 'Выравнивание'
+        certificate_template_font: 'Шрифт'
+        character_spacing: 'Межсимвольный интервал'
+        font_size: 'Размер шрифта'
+        template: 'Текст элемента'
       certificate_template_font:
         name: 'Имя'
         file: 'Файл'
@@ -36,6 +52,7 @@ ru:
       questions/answers:
         data:             'Ответ'
     models:
+      certificate_template_entry: 'Элемент шаблона сертификата'
       certificate_template_font: 'Шрифт шаблона сертификата'
       certificate_template:   'Шаблон сертификата'
       examination:            'Зачетная работа'
@@ -45,6 +62,12 @@ ru:
           attributes:
             data:
               blank:  'не может быть пустым'
+        certificate_template_entry:
+          attributes:
+            x:
+              blank: 'не может быть пустой'
+            y:
+              blank: 'не может быть пустой'
         class_schedule:
           wrong_times:   'длительность должна быть меньше суток и хотя бы 10 минут'
           attributes:

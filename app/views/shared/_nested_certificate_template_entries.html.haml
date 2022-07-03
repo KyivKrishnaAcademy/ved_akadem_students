@@ -1,0 +1,37 @@
+.row
+  .col-xs-12
+    .h4.text-center
+      = t('.template_entries_title')
+  .col-xs-12.vert-offset-bottom-1
+    = t('.template_hint')
+
+.row
+  .col-xs-12#nested-certificate-template-entries
+    = f.fields_for :certificate_template_entries do |e|
+      .row
+        .col-xs-12
+          = e.input :template
+        .col-xs-12
+          = e.association :certificate_template_font
+
+      .row
+        .col-xs-6
+          = e.input :font_size, as: :numeric
+        .col-xs-6
+          = e.input :character_spacing, as: :numeric
+
+      .row
+        .col-xs-4
+          = e.input :align, collection: CertificateTemplateEntry.aligns.keys
+        .col-xs-4
+          = e.input :x, as: :numeric
+        .col-xs-4
+          = e.input :y, as: :numeric
+
+      .row
+        .col-xs-12.vert-offset-bottom-1.text-right
+          = e.link_to_remove '', class: 'btn btn-danger btn-xs glyphicon glyphicon-minus-sign'
+
+.row.vert-offset-bottom-1
+  .col-xs-12
+    = f.link_to_add '', :certificate_template_entries, class: 'btn btn-success btn-xs glyphicon glyphicon-plus-sign', data: { target: '#nested-certificate-template-entries' }

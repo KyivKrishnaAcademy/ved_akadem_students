@@ -260,6 +260,8 @@ uk:
       question_title: 'Питання'
       questions: 'Питання'
   shared:
+    nested_certificate_template_entries:
+      template_entries_title: Елементи шаблону
     person_brief:
       edit_subscriptions: Редагувати підписки
     study_application:
