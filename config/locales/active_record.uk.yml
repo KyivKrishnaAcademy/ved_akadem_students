@@ -7,6 +7,7 @@ uk:
         group_description:  'Опис групи'
       certificate_template:
         title: 'Назва'
+        file: 'PDF шаблон'
       certificate_template_entries:
         align: 'Вирівнювання елементу шаблону'
         certificate_template_font: 'Шрифт елементу шаблону'

@@ -3,6 +3,12 @@
 
   .form-inputs
     = f.input :title
+    = f.input :file, wrapper: :vertical_file_input, as: :file
+
+    - if f.object.file.present?
+      = t(".file_present")
+    - else
+      = t(".file_not_present")
 
     = render 'shared/nested_certificate_template_entries', f: f
 

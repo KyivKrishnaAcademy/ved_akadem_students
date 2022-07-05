@@ -61,8 +61,7 @@ class CertificateTemplatesController < HtmlRespondableController
       .require(:certificate_template)
       .permit(
         :title,
-        :background,
-        :background_cache,
+        :file,
         certificate_template_entries_attributes: %i[
           id
           align

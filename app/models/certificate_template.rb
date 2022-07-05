@@ -4,4 +4,6 @@ class CertificateTemplate < ApplicationRecord
   has_many :certificate_template_entries, dependent: :destroy
 
   accepts_nested_attributes_for :certificate_template_entries, allow_destroy: true
+
+  mount_uploader :file, PDFUploader
 end
