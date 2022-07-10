@@ -1,0 +1,26 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center=t('.title')
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_new current_person.can_act?('certificate_template_font:new'), new_certificate_template_font_path
+
+  .col-xs-12.col-sm-6.col-sm-offset-3
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th=t('.template_title')
+            %th=t('.actions')
+
+        %tbody
+          - @certificate_template_fonts.each do |certificate_template_font|
+            %tr
+              %td
+                = certificate_template_font.name
+              %td.col-xs-2.col-sm-4.col-md-3
+                = link_to_edit policy(certificate_template_font).edit?,
+                  edit_certificate_template_font_path(certificate_template_font)
+                = link_to_destroy policy(certificate_template_font).destroy?, certificate_template_font

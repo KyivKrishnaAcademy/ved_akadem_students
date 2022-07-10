@@ -1,0 +1,29 @@
+.row
+  .col-xs-12.vert-offset-top-2
+    .h4.text-center
+      Елементи
+  .col-xs-12.vert-offset-bottom-1
+    %p
+      Текст елементу підтримує синтаксис <a href="//mustache.github.io/mustache.5.html">mustache шаблонів</a>
+
+    %p
+      Доступні змінні:
+
+      %ul
+        %li
+          {{serial}} - серійний номер сертифікату
+        %li
+          {{issued_date}} - дата видачі сертифікату
+        %li
+          {{name}} - Ім'я для друку на дипломах або призвище та ім'я
+
+    %p
+      Доступні модифікатори (приймають значення true або false):
+
+      %ul
+        %li
+          {{#male?}} - true якщо стать чоловіча
+        %li
+          {{#female?}} - true якщо стать жіноча
+        %li
+          {{#diploma_name_present?}} - true якщо ім'я для друку на дипломах не пусте

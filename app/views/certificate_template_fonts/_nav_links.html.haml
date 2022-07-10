@@ -1,0 +1,8 @@
+= link_to_edit params[:action] != 'edit'.freeze && policy(certificate_template_font).edit?,
+  edit_certificate_template_font_path(certificate_template_font)
+
+= link_to_new policy(certificate_template_font).new?, new_certificate_template_font_path
+
+= link_to_index policy(CertificateTemplateFont).index?, certificate_template_fonts_path
+
+= link_to_destroy policy(certificate_template_font).destroy?, certificate_template_font

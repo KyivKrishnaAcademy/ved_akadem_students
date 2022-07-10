@@ -44,8 +44,14 @@ class CertificateTemplatesController < HtmlRespondableController
   end
 
   def destroy
-    @certificate_template.destroy
-    respond_with(@certificate_template)
+    if @certificate_template.certificates.any?
+      redirect_back fallback_location: root_path,
+                    flash: { danger: t('cannot_destroy_template_with_issued_certificates') }
+    else
+      @certificate_template.destroy
+
+      respond_with(@certificate_template)
+    end
   end
 
   private
@@ -57,6 +63,22 @@ class CertificateTemplatesController < HtmlRespondableController
   end
 
   def certificate_template_params
-    params.require(:certificate_template).permit(:title, :background, :background_cache)
+    params
+      .require(:certificate_template)
+      .permit(
+        :title,
+        :file,
+        certificate_template_entries_attributes: %i[
+          id
+          align
+          certificate_template_font_id
+          character_spacing
+          font_size
+          template
+          x
+          y
+          _destroy
+        ]
+      )
   end
 end

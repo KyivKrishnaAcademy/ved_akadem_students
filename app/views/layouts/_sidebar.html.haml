@@ -50,6 +50,12 @@
 
     = generated_sidebar_menu
 
+    = generate_menu_group(:certificate_template, :certificate_templates, :'fa-certificate') do
+      - capture_haml do
+        - if current_person.can_act?('certificate_template_font:index')
+          %li
+            = link_to t('defaults.links.certificate_template_fonts_list'), certificate_template_fonts_path, class: active_class(certificate_template_fonts_path)
+
     - if show_statistics_yearly_link?
       %li
       = link_to statistics_yearly_path('2019', '2020'), class: active_class(statistics_yearly_path('2019', '2020')) do

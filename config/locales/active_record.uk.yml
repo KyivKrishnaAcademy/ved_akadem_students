@@ -5,6 +5,26 @@ uk:
         establ_date:        'Дата створення'
         graduated_at:       'Дата закінчення'
         group_description:  'Опис групи'
+      certificate_template:
+        title: 'Назва'
+        file: 'PDF шаблон'
+      certificate_template_entries:
+        align: 'Вирівнювання елементу шаблону'
+        certificate_template_font: 'Шрифт елементу шаблону'
+        character_spacing: 'Міжсимвольний інтервал елементу шаблону'
+        font_size: 'Розмір шрифту елементу шаблону'
+        template: 'Текст елементу шаблону'
+        x: 'X позиція елементу шаблону'
+        y: 'Y позиція шаблону'
+      certificate_template_entry:
+        align: 'Вирівнювання'
+        certificate_template_font: 'Шрифт'
+        character_spacing: 'Міжсимвольний інтервал'
+        font_size: 'Розмір шрифту'
+        template: 'Текст елементу'
+      certificate_template_font:
+        name: "Ім'я"
+        file: 'Файл'
       examination:
         description:    'Опис'
         max_result:     'Максимальний бал'
@@ -33,6 +53,8 @@ uk:
       questions/answers:
         data:             'Відповідь'
     models:
+      certificate_template_entry: 'Елемент шаблону сертифікату'
+      certificate_template_font: 'Шрифт шаблону сертифікату'
       certificate_template:   'Шаблон сертифікату'
       examination:            'Залікова робота'
     errors:
@@ -41,6 +63,16 @@ uk:
           attributes:
             data:
               blank:  'не може бути пустою'
+        certificate_template:
+          attributes:
+            title:
+              blank: 'не може бути пустою'
+        certificate_template_entry:
+          attributes:
+            x:
+              blank: 'не може бути пустою'
+            y:
+              blank: 'не може бути пустою'
         class_schedule:
           wrong_times:   'тривалість повинна бути менше доби і хоча б 10 хвилин'
           attributes:

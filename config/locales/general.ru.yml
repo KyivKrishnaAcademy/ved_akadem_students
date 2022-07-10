@@ -1,5 +1,6 @@
 ru:
   not_authorized: 'Не хватает прав, чтобы выполнить это действие.'
+  cannot_destroy_template_with_issued_certificates: 'Нельзя удалить шаблон, который имеет выданные сертификаты'
   recaptcha:
     errors:
       incorrect-captcha-sol:  'Проверка не пройдена.'
@@ -11,6 +12,7 @@ ru:
       academic_groups:      'Группы'
       active_groups:        'Активные'
       agreement:            'Соглашение'
+      certificate_template_fonts_list: 'Шрифты'
       certificate_templates_add:  'Добавить'
       certificate_templates_list: 'Список'
       certificate_templates:      'Шаблоны сертификатов'
@@ -65,6 +67,17 @@ ru:
   answers:
     edit:
       update: 'Отправить ответ'
+  certificate_template_fonts:
+    edit:
+      submit: 'Обновить шрифт'
+      title: 'Редактирование шрифта'
+    index:
+      actions: 'Действия'
+      template_title: 'Имя шрифта'
+      title: 'Шрифты сертификатов'
+    new:
+      submit: 'Создать шрифт'
+      title: 'Создание шрифта сертификата'
   certificate_templates:
     edit:
       submit:   'Обновить шаблон сертификата'
@@ -76,6 +89,9 @@ ru:
     new:
       submit:   'Создать шаблон сертификата'
       title:    'Создание шаблона сертификата'
+    form:
+      file_present: 'Шаблони уже присутствует. Выбрать новый?'
+      file_not_present: 'Шаблон еще не был загружен'
   courses:
     index:
       actions:      'Действия'
@@ -248,6 +264,8 @@ ru:
       question_title: 'Вопрос'
       questions: 'Вопросы'
   shared:
+    nested_certificate_template_entries:
+      template_entries_title: Элементы шаблона
     person_brief:
       edit_subscriptions: Редактировать подписки
     study_application:

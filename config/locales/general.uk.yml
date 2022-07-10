@@ -1,5 +1,6 @@
 uk:
   not_authorized: 'Не вистачає прав, щоб виконати цю дію.'
+  cannot_destroy_template_with_issued_certificates: 'Не можна видалити шаблон, який має видані сертифікати'
   recaptcha:
     errors:
       incorrect-captcha-sol:  'Перевірка невдала.'
@@ -11,6 +12,7 @@ uk:
       academic_groups:      'Групи'
       active_groups:        'Активні'
       agreement:            'Згода'
+      certificate_template_fonts_list: 'Шрифти'
       certificate_templates_add:  'Додати'
       certificate_templates_list: 'Список'
       certificate_templates:      'Шаблони сертифікатів'
@@ -65,6 +67,17 @@ uk:
   answers:
     edit:
       update: 'Надіслати відповідь'
+  certificate_template_fonts:
+    edit:
+      submit: 'Оновити шрифт'
+      title: 'Редагування шрифту'
+    index:
+      actions: 'Дії'
+      template_title: 'Назва шрифту'
+      title: 'Шрифти сертифікатів'
+    new:
+      submit: 'Створити шрифт'
+      title: 'Створення шрифту сертифікату'
   certificate_templates:
     edit:
       submit:   'Оновити шаблон сертифікату'
@@ -76,6 +89,9 @@ uk:
     new:
       submit:   'Створити шаблон сертифікату'
       title:    'Створення шаблону сертифікату'
+    form:
+      file_present: 'Шаблони вже присутній. Обрати новий?'
+      file_not_present: 'Шаблон ще не було завантажено'
   courses:
     index:
       actions:      'Дії'
@@ -248,6 +264,8 @@ uk:
       question_title: 'Питання'
       questions: 'Питання'
   shared:
+    nested_certificate_template_entries:
+      template_entries_title: Елементи шаблону
     person_brief:
       edit_subscriptions: Редагувати підписки
     study_application:

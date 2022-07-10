@@ -11,7 +11,7 @@ gem 'responders'
 gem 'kaminari'
 
 gem 'devise'
-gem 'devise_token_auth', github: 'mpugach/devise_token_auth', branch: 'use_standart_AR_uniqueness_message'
+gem 'devise_token_auth', git: 'https://github.com/mpugach/devise_token_auth.git', branch: 'use_standart_AR_uniqueness_message'
 gem 'global_phone'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
@@ -24,6 +24,8 @@ gem 'mini_magick'
 
 gem 'axlsx'
 gem 'prawn-rails'
+gem 'prawn-templates'
+gem 'mustache'
 
 gem 'fast_blank'
 

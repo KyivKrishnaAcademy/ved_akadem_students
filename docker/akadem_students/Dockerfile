@@ -90,11 +90,11 @@ RUN bundle install -j5 --retry 10 --frozen --no-cache --without development test
 RUN npm install
 RUN cd client && npm install && cd ..
 
-COPY .ruby-env .ruby-env
+COPY .env .env
 
-RUN export $(cat .ruby-env | xargs) && bundle exec rake assets:precompile
+RUN export $(cat .env | grep -v "# NOTE:" | xargs) && bundle exec rake assets:precompile
 
-RUN rm -rf .git app/assets/javascript* app/assets/stylesheets node_modules client .ruby-env
+RUN rm -rf .git app/assets/javascript* app/assets/stylesheets node_modules client .env
 
 # ______________________________________________________________________________________________________________________
 

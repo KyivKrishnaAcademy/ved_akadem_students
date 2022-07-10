@@ -12,7 +12,7 @@ module HelperMethods
       %w[questionnaire:update_all group_participation:destroy sidekiq:admin] + course_activities +
       class_schedule_activities + certificate_template_activities + journal_activities + examination_activities +
       attendance_activities + examination_results + note_activities + statistics_activities +
-      questionnaire_activities).sort
+      questionnaire_activities + certificate_template_font_activities + certificate_activities).sort
   end
 
   def screenshot
@@ -76,8 +76,16 @@ module HelperMethods
     QuestionnairesController.action_methods.map { |action| 'questionnaire:' << action }
   end
 
+  def certificate_activities
+    ['certificate:show']
+  end
+
   def certificate_template_activities
     CertificateTemplatesController.action_methods.map { |action| 'certificate_template:' << action }
+  end
+
+  def certificate_template_font_activities
+    CertificateTemplateFontsController.action_methods.map { |action| 'certificate_template_font:' << action }
   end
 
   def journal_activities
