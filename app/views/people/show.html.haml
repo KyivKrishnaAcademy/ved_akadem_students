@@ -118,7 +118,10 @@
                       %td
                         = index.next
                       %td.nowrap
-                        = certificate.serial_id
+                        - if certificate.certificate_template.file.present? && policy(certificate).show?
+                          = link_to certificate.serial_id, certificate_pdf_path(certificate.serial_id)
+                        - else
+                          = certificate.serial_id
                       %td
                         = certificate.certificate_template.title
                       %td.nowrap

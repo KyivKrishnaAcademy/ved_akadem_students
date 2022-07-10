@@ -1,13 +1,11 @@
-.row
-  .col-xs-12
-    .h4.text-center
-      = t('.template_entries_title')
-  .col-xs-12.vert-offset-bottom-1
-    = t('.template_hint')
+= render 'certificate_template_entries_header'
 
 .row
   .col-xs-12#nested-certificate-template-entries
     = f.fields_for :certificate_template_entries do |e|
+      .row
+        .col-xs-12
+          %hr
       .row
         .col-xs-12
           = e.input :template

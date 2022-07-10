@@ -24,6 +24,8 @@ gem 'mini_magick'
 
 gem 'axlsx'
 gem 'prawn-rails'
+gem 'prawn-templates'
+gem 'mustache'
 
 gem 'fast_blank'
 
