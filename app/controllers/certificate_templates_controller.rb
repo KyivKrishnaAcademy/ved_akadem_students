@@ -44,8 +44,14 @@ class CertificateTemplatesController < HtmlRespondableController
   end
 
   def destroy
-    @certificate_template.destroy
-    respond_with(@certificate_template)
+    if @certificate_template.certificates.any?
+      redirect_back fallback_location: root_path,
+                    flash: { danger: t('cannot_destroy_template_with_issued_certificates') }
+    else
+      @certificate_template.destroy
+
+      respond_with(@certificate_template)
+    end
   end
 
   private

@@ -1,5 +1,6 @@
 ru:
   not_authorized: 'Не хватает прав, чтобы выполнить это действие.'
+  cannot_destroy_template_with_issued_certificates: 'Нельзя удалить шаблон, который имеет выданные сертификаты'
   recaptcha:
     errors:
       incorrect-captcha-sol:  'Проверка не пройдена.'

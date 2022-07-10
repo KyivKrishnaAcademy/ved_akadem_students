@@ -1,5 +1,6 @@
 uk:
   not_authorized: 'Не вистачає прав, щоб виконати цю дію.'
+  cannot_destroy_template_with_issued_certificates: 'Не можна видалити шаблон, який має видані сертифікати'
   recaptcha:
     errors:
       incorrect-captcha-sol:  'Перевірка невдала.'
