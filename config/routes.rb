@@ -97,7 +97,7 @@ Rails.application.routes.draw do
                                         as: :attendance_template_pdf, defaults: format_pdf, constraints: format_pdf
 
   get 'export/certificate/:serial_id', controller: :pdf_exports, action: :certificate,
-                                as: :certificate_pdf, defaults: format_pdf, constraints: format_pdf
+                                       as: :certificate_pdf, defaults: format_pdf, constraints: format_pdf
 
   get 'certificate_templates/:id/preview', controller: :pdf_exports,
                                            action: :certificate_template_preview,
