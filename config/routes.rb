@@ -112,6 +112,12 @@ Rails.application.routes.draw do
     post 'mailgun/failed', controller: :mailgun, action: :failed
   end
 
-  get 'statistics/yearly/:start_year/:end_year', controller: :statistics, action: :yearly, as: :statistics_yearly
+  get 'statistics/yearly_active_students/:start_year/:end_year', controller: :statistics,
+                                                                 action: :yearly_active_students,
+                                                                 as: :statistics_yearly_active_students
+
+  get 'statistics/yearly_certificates/:start_year/:end_year', controller: :statistics,
+                                                              action: :yearly_certificates,
+                                                              as: :statistics_yearly_certificates
 end
 # rubocop:enable Metrics/BlockLength

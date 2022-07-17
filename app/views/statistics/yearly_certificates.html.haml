@@ -1,0 +1,29 @@
+.row
+  .col-xs-12
+    %h1.text-center
+      = "#{params[:start_year]} - #{params[:end_year]}"
+
+- @certificates_yearly_data.each do |(institution_name, institution_data)|
+  .row
+    .col-xs-12
+      %h2.text-center
+        = institution_name
+    .col-xs-12
+      .table-responsive
+        %table.table.table-condensed.table-striped
+          %thead
+            %tr
+              %th
+
+              - @year_headers.each do |academic_year|
+                %th
+                  = academic_year
+          %tbody
+            - institution_data.each do |(program_type, program_counts)|
+              %tr
+                %td
+                  = program_type
+
+                - program_counts.each do |count|
+                  %td
+                    = count

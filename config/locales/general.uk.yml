@@ -33,6 +33,9 @@ uk:
       people:               'Люди'
       questionnaires_list: 'Список опитувальників'
       questionnaires: 'Опитувальники'
+      statistics_yearly_active_students: 'Активні студенти по рокам'
+      statistics_yearly_certificates: 'Сертифікати по рокам'
+      statistics: 'Статистика'
   locale_label: Українська (UKR)
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:

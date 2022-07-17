@@ -6,8 +6,10 @@ ru:
         graduated_at:       'Дата окончания'
         group_description:  'Описание группы'
       certificate_template:
-        title: 'Название'
         file: 'PDF шаблон'
+        institution: 'Учебное заведение которое выдает'
+        program_type: 'Тип программы'
+        title: 'Название'
       certificate_template_entries:
         align: 'Выравнивание элемента шаблона'
         certificate_template_font: 'Шрифт элемента шаблона'

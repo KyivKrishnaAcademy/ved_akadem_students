@@ -272,7 +272,9 @@ CREATE TABLE public.certificate_templates (
     title character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    file character varying
+    file character varying,
+    institution_id integer,
+    program_type integer DEFAULT 0
 );
 
 
@@ -618,6 +620,37 @@ CREATE SEQUENCE public.group_participations_id_seq
 --
 
 ALTER SEQUENCE public.group_participations_id_seq OWNED BY public.group_participations.id;
+
+
+--
+-- Name: institutions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.institutions (
+    id integer NOT NULL,
+    name character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: institutions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.institutions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: institutions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.institutions_id_seq OWNED BY public.institutions.id;
 
 
 --
@@ -1200,6 +1233,13 @@ ALTER TABLE ONLY public.group_participations ALTER COLUMN id SET DEFAULT nextval
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.institutions ALTER COLUMN id SET DEFAULT nextval('public.institutions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.notes ALTER COLUMN id SET DEFAULT nextval('public.notes_id_seq'::regclass);
 
 
@@ -1422,6 +1462,14 @@ ALTER TABLE ONLY public.group_participations
 
 
 --
+-- Name: institutions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.institutions
+    ADD CONSTRAINT institutions_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1602,6 +1650,13 @@ CREATE INDEX index_certificate_template_entries_on_template_id ON public.certifi
 --
 
 CREATE UNIQUE INDEX index_certificate_template_fonts_on_name ON public.certificate_template_fonts USING btree (name);
+
+
+--
+-- Name: index_certificate_templates_on_institution_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_certificate_templates_on_institution_id ON public.certificate_templates USING btree (institution_id);
 
 
 --
@@ -1901,6 +1956,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220212194355'),
 ('20220701055504'),
 ('20220702070531'),
-('20220705194303');
+('20220705194303'),
+('20220717060619'),
+('20220717061020'),
+('20220717072150');
 
 

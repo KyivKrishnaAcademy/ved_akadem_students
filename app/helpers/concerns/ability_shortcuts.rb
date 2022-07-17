@@ -23,11 +23,19 @@ module AbilityShortcuts
     current_person&.can_act?(%w[questionnaire:index])
   end
 
+  def show_statistics_menu?
+    show_statistics_yearly_active_students_link? || show_statistics_yearly_certificates_link?
+  end
+
   def show_journal_link?
     current_person&.can_act?('paper_trail/version:show')
   end
 
-  def show_statistics_yearly_link?
-    current_person&.can_act?('statistics_controller:yearly')
+  def show_statistics_yearly_active_students_link?
+    current_person&.can_act?('statistics_controller:yearly_active_students')
+  end
+
+  def show_statistics_yearly_certificates_link?
+    current_person&.can_act?('statistics_controller:yearly_certificates')
   end
 end

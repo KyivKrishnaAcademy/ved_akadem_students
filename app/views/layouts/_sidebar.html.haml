@@ -56,11 +56,16 @@
           %li
             = link_to t('defaults.links.certificate_template_fonts_list'), certificate_template_fonts_path, class: active_class(certificate_template_fonts_path)
 
-    - if show_statistics_yearly_link?
-      %li
-      = link_to statistics_yearly_path('2019', '2020'), class: active_class(statistics_yearly_path('2019', '2020')) do
-        %i.sidebar-icon.fa.fa-2x.fa-pie-chart{ aria: { hidden: :true } }
-        = t('defaults.links.statistics')
+    = generate_menu_group(:statistic, :statistics, :'fa-pie-chart') do
+      - capture_haml do
+        - if show_statistics_yearly_active_students_link?
+          %li
+            - current_year = Date.today.year
+            = link_to t('defaults.links.statistics_yearly_active_students'), statistics_yearly_active_students_path('2013', current_year), class: active_class(statistics_yearly_active_students_path('2013', current_year))
+        - if show_statistics_yearly_certificates_link?
+          %li
+            - current_year = Date.today.year
+            = link_to t('defaults.links.statistics_yearly_certificates'), statistics_yearly_certificates_path('2013', current_year), class: active_class(statistics_yearly_certificates_path('2013', current_year))
 
     - if show_journal_link?
       %li

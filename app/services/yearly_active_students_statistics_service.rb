@@ -1,4 +1,4 @@
-class YearlyStatisticsService
+class YearlyActiveStudentsStatisticsService
   attr_reader :groups_yearly_data, :total_uniq_counts, :year_headers
 
   def initialize(from_year, to_year)
@@ -18,17 +18,7 @@ class YearlyStatisticsService
   private
 
   def calculate_academic_years
-    years = (@from_year.to_i..(@to_year.to_i)).to_a
-
-    @academic_years =
-      years[0..-2]
-        .zip(years[1..-1])
-        .map do |start_year, end_year|
-          {
-            start: Time.zone.local(start_year, 9),
-            finish: Time.zone.local(end_year, 8, 31).end_of_day
-          }
-        end
+    @academic_years = AcademicYearsService.calculate(@from_year, @to_year)
   end
 
   def gather_groups_yearly_data
