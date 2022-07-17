@@ -16,15 +16,26 @@ class StatisticsController < ApplicationController
     @last_active_students = last_active_students(schedules)
   end
 
-  def yearly
+  def yearly_active_students
     authorize StatisticsController
 
-    yearly_statistics_service = YearlyStatisticsService.new(params[:start_year], params[:end_year])
+    yearly_statistics_service = YearlyActiveStudentsStatisticsService.new(params[:start_year], params[:end_year])
 
     yearly_statistics_service.calculate
 
     @groups_yearly_data = yearly_statistics_service.groups_yearly_data
     @total_uniq_counts = yearly_statistics_service.total_uniq_counts
+    @year_headers = yearly_statistics_service.year_headers
+  end
+
+  def yearly_certificates
+    authorize StatisticsController
+
+    yearly_statistics_service = YearlyCertificatesStatisticsService.new(params[:start_year], params[:end_year])
+
+    yearly_statistics_service.calculate
+
+    @certificates_yearly_data = yearly_statistics_service.certificates_yearly_data
     @year_headers = yearly_statistics_service.year_headers
   end
 

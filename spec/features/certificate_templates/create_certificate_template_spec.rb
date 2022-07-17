@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Create Certificate Template' do
   Given(:subject) { page }
 
+  Given { create(:institution)}
   Given { login_as_admin }
   Given { visit new_certificate_template_path }
 

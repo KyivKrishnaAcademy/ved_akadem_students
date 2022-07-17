@@ -68,6 +68,8 @@ class CertificateTemplatesController < HtmlRespondableController
       .permit(
         :title,
         :file,
+        :institution_id,
+        :program_type,
         certificate_template_entries_attributes: %i[
           id
           align

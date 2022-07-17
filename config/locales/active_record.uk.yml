@@ -6,8 +6,10 @@ uk:
         graduated_at:       'Дата закінчення'
         group_description:  'Опис групи'
       certificate_template:
-        title: 'Назва'
         file: 'PDF шаблон'
+        institution: 'Учбовий заклад що видає'
+        program_type: 'Тип програми'
+        title: 'Назва'
       certificate_template_entries:
         align: 'Вирівнювання елементу шаблону'
         certificate_template_font: 'Шрифт елементу шаблону'
