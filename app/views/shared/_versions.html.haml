@@ -1,0 +1,31 @@
+.table-responsive
+  %table.table.table-condensed
+    %thead
+      %tr
+        %th #
+        %th= t '.item_type'
+        %th= t '.item_id'
+        %th= t '.event'
+        %th= t '.whodunnit'
+        %th= t '.changes'
+        %th= t '.created_at'
+
+    %tbody
+      - versions.each do |version|
+        %tr{class: "#{version.event}-event"}
+          %td= version.id
+          %td= version.item_type
+          %td= version.item_id
+          %td= version.event
+          %td= link_to_show_person_or_name(authors[version.whodunnit]) if authors[version.whodunnit]
+          - if policy(version).show?
+            %td
+              - prev_attributes, next_attributes = GetVersionChangesService.call(version)
+              = t '.prev_attributes'
+              = simple_format prev_attributes.pretty_inspect, {}, wrapper_tag: :pre
+              = t '.next_attributes'
+              = simple_format next_attributes.pretty_inspect, {}, wrapper_tag: :pre
+          - else
+            %td
+              = t '.not_enough_rights_to_display_changes'
+          %td= I18n.l version.created_at, format: :long

@@ -4,11 +4,13 @@ class PeopleController < ApplicationController
   include StudyApplicationable
   include ClassSchedulesRefreshable
 
-  before_action :set_person, only: %i[show edit update destroy show_photo]
+  before_action :set_person, only: %i[show edit update destroy show_photo journal]
 
   after_action :verify_authorized
   after_action :verify_policy_scoped, except: %i[new create]
   after_action :refresh_class_schedules_mv, only: :update
+
+  layout 'person_tabs', only: %i[show journal]
 
   def new
     @person = Person.new
@@ -54,6 +56,15 @@ class PeopleController < ApplicationController
     else
       []
     end
+  end
+
+  def journal
+    @versions = GetPersonVersionsService.call(@person)
+
+    @version_authors =
+      Person
+        .where(id: @versions.map(&:whodunnit).uniq.compact)
+        .index_by { |p| p.id.to_s }
   end
 
   def edit; end

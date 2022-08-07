@@ -1,0 +1,5 @@
+ru:
+  layouts:
+    person_tabs:
+      tab_general: 'Общая информация'
+      tab_journal: 'Журнал действий'
