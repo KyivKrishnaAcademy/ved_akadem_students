@@ -1,4 +1,4 @@
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV'] = 'test'
 
 def not_blank?(obj)
   # NOTE Rails is not loaded yet
@@ -23,6 +23,8 @@ require 'rack_session_access/capybara'
 ActiveRecord::Migration.maintain_test_schema!
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
+puts "\nDB configuration: #{Rails.configuration.database_configuration[Rails.env].pretty_inspect}"
 
 RSpec.configure do |config|
   config.filter_rails_from_backtrace!

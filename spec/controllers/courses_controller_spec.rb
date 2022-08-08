@@ -22,10 +22,10 @@ describe CoursesController do
     end
 
     describe 'as admin' do
-      Given(:roles) { double('roles', any?: true, title: 'Role') }
+      Given(:roles) { double('roles', title: 'Role') }
 
       Given { allow(person).to receive(:roles).and_return(roles) }
-      Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { actions } }
+      Given { allow(roles).to receive(:pluck).with(:activities).and_return(actions) }
 
       describe 'DBless tests' do
         Given { allow(Course).to receive(:find).with('1').and_return(course) }

@@ -121,14 +121,14 @@ describe PeopleController do
     end
 
     describe 'admin user' do
-      Given(:roles) { double('roles', any?: true, name: 'Role') }
+      Given(:roles) { double('roles', name: 'Role') }
 
       Given { allow(person).to receive(:roles).and_return(roles) }
 
       describe '#index' do
         Given(:ordered_people) { double }
 
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:index'] } }
+        Given { allow(roles).to receive(:pluck).with(:activities).and_return(['person:index']) }
         Given { allow(people).to receive_message_chain(:by_complex_name, :page).and_return(ordered_people) }
 
         When  { get :index }
@@ -141,7 +141,7 @@ describe PeopleController do
         Given(:academic_groups) { double }
         Given(:programs) { double }
 
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:show'] } }
+        Given { allow(roles).to receive(:pluck).with(:activities).and_return(['person:show']) }
         Given { allow(person).to receive(:can_act?).with('study_application:create') { true } }
         Given { allow(person).to receive(:is_a?).and_return(false) }
         Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
@@ -161,7 +161,7 @@ describe PeopleController do
 
       describe '#show_photo' do
         Given { allow(controller).to receive(:render) }
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['person:show'] } }
+        Given { allow(roles).to receive(:pluck).with(:activities).and_return(['person:show']) }
 
         it_behaves_like :get_show_photo_successed, 2
       end

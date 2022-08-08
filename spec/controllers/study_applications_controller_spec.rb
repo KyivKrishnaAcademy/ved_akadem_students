@@ -50,6 +50,7 @@ describe StudyApplicationsController do
 
     Given(:person) { double(Person, id: 1, roles: roles, locale: :uk) }
 
+    Given { allow(person).to receive(:role_activities).and_return([]) }
     Given { allow(person).to receive(:is_a?).and_return(false) }
     Given { allow(person).to receive(:is_a?).with(Person).and_return(true) }
     Given { allow(person).to receive(:reload).and_return(person) }
@@ -117,10 +118,7 @@ describe StudyApplicationsController do
 
       context 'destroy' do
         Given { allow(StudyApplication).to receive(:find).with('1').and_return(study_application) }
-
-        Given do
-          allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:destroy'] }
-        end
+        Given { allow(person).to receive(:role_activities).and_return(['study_application:destroy']) }
 
         When { delete :destroy, params: { id: 1, format: :js, study_application: { is_links_in_pending_docs: true } } }
 
@@ -138,9 +136,7 @@ describe StudyApplicationsController do
       end
 
       context 'create' do
-        Given do
-          allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { ['study_application:create'] }
-        end
+        Given { allow(person).to receive(:role_activities).and_return(['study_application:create']) }
 
         When { post :create, params: params, format: :js }
 
