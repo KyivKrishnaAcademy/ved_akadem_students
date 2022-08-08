@@ -1,8 +1,5 @@
-- provide(:title, complex_name(@person, short: true))
 .row
-  %h1.col-xs-12.col-sm-6
-    = @person.complex_name
-  .col-xs-12.col-sm-6.clearfix
+  .col-xs-12.clearfix
     .pull-right
       - if policy(@person).move_to_group?
         .btn-group#change-academic-group{ data: { person: @person.id } }
@@ -18,9 +15,11 @@
         = link_to t('links.edit'), edit_person_path(@person), class: 'btn btn-xs btn-primary'
       - if policy(@person).destroy?
         = link_to t('links.delete'), person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
+
+.row
   .col-xs-12
     .row
-      .col-xs-12.col-sm-4
+      .col-xs-12.col-sm-4.vert-offset-bottom-1
         .row
           .col-xs-12
             = person_photo(@person, :standart, class: 'img-thumbnail img-version-standart')
@@ -233,4 +232,3 @@
                             aria: { valuenow: data[:current], valuemin: 0, valuemax: data[:max] } }
               %span
                 #{data[:current]}/#{data[:max]}
-

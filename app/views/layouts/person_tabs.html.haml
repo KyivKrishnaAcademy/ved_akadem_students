@@ -1,0 +1,21 @@
+- provide(:title, complex_name(@person, short: true))
+
+- content_for :content do
+  .row
+    .col-xs-12
+      %h1
+        = @person.complex_name
+
+  .row
+    .col-xs-12
+      %ul.nav.nav-tabs
+        - general_path = person_path(@person)
+        %li{ class: current_path?(general_path) ? 'active' : '' }
+          = link_to t('.tab_general'), general_path
+        - journal_path = person_journal_path(@person)
+        %li{ class: current_path?(journal_path) ? 'active' : '' }
+          = link_to t('.tab_journal'), journal_path
+
+  = yield
+
+= render template: "layouts/application"

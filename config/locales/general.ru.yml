@@ -222,13 +222,7 @@ ru:
       passing:  'проходной'
   journals:
     show:
-      created_at: 'Время'
-      event:      'Событие'
-      item_id:    'Идентификатор'
-      item_type:  'Тип'
-      journal:    'Журнал'
-      object:     'Предидущая версия'
-      whodunnit:  'Автор'
+      journal: 'Журнал'
   unsubscribes:
     edit:
       cancel: Нет
@@ -273,3 +267,13 @@ ru:
       edit_subscriptions: Редактировать подписки
     study_application:
       click_to_learn_more: (нажмите чтобы узнать больше)
+    versions:
+      created_at: 'Время'
+      event: 'Событие'
+      item_id: 'Идентификатор'
+      item_type: 'Тип'
+      changes: 'Изменения'
+      whodunnit: 'Автор'
+      prev_attributes: 'Было:'
+      next_attributes: 'Стало:'
+      not_enough_rights_to_display_changes: 'Не хватает прав чтобы отобразить изменения'

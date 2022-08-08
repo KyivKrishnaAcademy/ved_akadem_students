@@ -222,13 +222,7 @@ uk:
       passing:  'прохідний'
   journals:
     show:
-      created_at: 'Час'
-      event:      'Подія'
-      item_id:    'Ідентифікатор'
-      item_type:  'Тип'
-      journal:    'Журнал'
-      object:     'Попередня версія'
-      whodunnit:  'Автор'
+      journal: 'Журнал'
   unsubscribes:
     edit:
       cancel: Ні
@@ -273,3 +267,13 @@ uk:
       edit_subscriptions: Редагувати підписки
     study_application:
       click_to_learn_more: (натисніть щоб дізнатися більше)
+    versions:
+      created_at: 'Час'
+      event: 'Подія'
+      item_id: 'Ідентифікатор'
+      item_type: 'Тип'
+      changes: 'Зміни'
+      whodunnit: 'Автор'
+      prev_attributes: 'Було:'
+      next_attributes: 'Стало:'
+      not_enough_rights_to_display_changes: 'Не вистачає прав щоб відобразити зміни'

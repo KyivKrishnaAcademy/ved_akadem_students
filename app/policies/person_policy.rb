@@ -31,6 +31,10 @@ class PersonPolicy < BasePolicy
     owned? || super
   end
 
+  def journal?
+    show?
+  end
+
   private
 
   def academic_group_writable

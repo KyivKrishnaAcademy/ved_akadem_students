@@ -1,11 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 env | sort
 
 bundle install -j5 --retry 10 --without production
 bundle clean --force
-
-gem install solargraph
 
 npm install
 npm prune

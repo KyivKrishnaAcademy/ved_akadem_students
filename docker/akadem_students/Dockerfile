@@ -58,16 +58,11 @@ RUN npm install -g @angular/cli@${ANGULAR_CLI_VERSION}
 
 FROM base_with_node as development
 
-RUN apt-get update
-RUN apt-get install -y \
-    build-essential \
-    git \
-    libmagickwand-dev
-
 RUN apt-get update \
  && apt-get install -y \
     build-essential \
     git \
+    wget \
     libmagickwand-dev \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

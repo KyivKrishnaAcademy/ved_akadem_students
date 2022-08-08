@@ -115,7 +115,7 @@ describe AcademicGroupsController do
     end
 
     describe 'DBless tests' do
-      Given(:person) { double(Person, id: 1, roles: [], locale: :uk, short_name: 'Adi das') }
+      Given(:person) { double(Person, id: 1, locale: :uk, short_name: 'Adi das') }
       Given(:groups) { double }
       Given(:people) { double }
       Given(:group)  { double(AcademicGroup, id: 1) }
@@ -130,6 +130,7 @@ describe AcademicGroupsController do
       Given { allow(people).to receive(:includes).and_return(Person.none) }
       Given { allow_any_instance_of(AcademicGroupPolicy::Scope).to receive(:resolve).and_return(groups) }
       Given { allow(groups).to receive(:find).with('1').and_return(group) }
+      Given { allow(person).to receive(:role_activities).and_return([]) }
 
       context 'user is student of the group' do
         Given(:people) { [person] }

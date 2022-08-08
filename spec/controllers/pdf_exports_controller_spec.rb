@@ -34,10 +34,10 @@ describe PdfExportsController do
       end
 
       describe 'as admin' do
-        Given(:roles) { double('roles', any?: true, title: 'Role') }
+        Given(:roles) { double('roles', title: 'Role') }
 
         Given { allow(person).to receive(:roles).and_return(roles) }
-        Given { allow(roles).to receive_message_chain(:select, :distinct, :map, :flatten) { actions } }
+        Given { allow(roles).to receive(:pluck).with(:activities).and_return(actions) }
 
         describe "##{described_action}" do
           Given(:actions) { ["academic_group:#{described_action}_pdf", 'academic_group:show'] }

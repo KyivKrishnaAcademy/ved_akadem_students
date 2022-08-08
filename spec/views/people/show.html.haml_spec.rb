@@ -22,7 +22,7 @@ describe 'people/show.html.haml' do
 
   Given { login_as(user) }
 
-  When  { render }
+  When { render file: 'people/show.html.haml', layout: 'layouts/person_tabs' }
 
   describe 'general' do
     Then { expect(rendered).to have_selector('h1', text: complex_name(person)) }
@@ -107,13 +107,13 @@ describe 'people/show.html.haml' do
     Given { AnswersProcessorService.new(psycho_test, person).process! }
 
     context 'no role' do
-      Then { expect(rendered).not_to have_selector('h3', text: I18n.t('people.show.psycho_test_results')) }
+      Then { expect(rendered).not_to have_selector('h3', text: 'Psycho Test Results') }
     end
 
     context 'with role' do
       Given(:activities) { ['person:view_psycho_test_result'] }
 
-      Then { expect(rendered).to have_selector('h3', text: I18n.t('people.show.psycho_test_results')) }
+      Then { expect(rendered).to have_selector('h3', text: 'Psycho Test Results') }
     end
   end
 

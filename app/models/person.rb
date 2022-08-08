@@ -129,8 +129,12 @@ class Person < ApplicationRecord
     psycho_tests.first.result if psycho_tests.any?
   end
 
+  def role_activities
+    @role_activities ||= roles.pluck(:activities).flatten.uniq
+  end
+
   def can_act?(*activities)
-    activities.present? && roles.any? && (roles.pluck(:activities).flatten & activities.flatten).present?
+    activities.present? && (role_activities & activities.flatten).present?
   end
 
   def last_academic_groups

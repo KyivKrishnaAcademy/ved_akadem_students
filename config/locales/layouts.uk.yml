@@ -1,0 +1,5 @@
+uk:
+  layouts:
+    person_tabs:
+      tab_general: 'Загальна інформація'
+      tab_journal: 'Журнал дій'

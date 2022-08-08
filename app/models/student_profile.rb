@@ -4,6 +4,8 @@ class StudentProfile < ApplicationRecord
   has_many :academic_groups, through: :group_participations
   has_many :attendances, dependent: :destroy
   has_many :class_schedules, through: :attendances
+  has_many :certificates, dependent: :destroy
+  has_many :examination_results, dependent: :destroy
 
   has_paper_trail
 

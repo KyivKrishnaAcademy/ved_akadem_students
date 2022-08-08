@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   resources :certificate_template_fonts, only: %i[new create edit update index destroy]
 
   resources :people do
+    get '/journal', action: :journal
+
     resources :notes, only: %i[new create edit update destroy]
   end
 

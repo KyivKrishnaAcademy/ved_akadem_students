@@ -1,0 +1,52 @@
+class GetVersionChangesService
+  def self.call(version)
+    prev_version_attributes = prev_attributes(version)
+    next_version_attributes = next_attributes(version)
+
+    if prev_version_attributes.empty? || next_version_attributes.empty?
+      [prev_version_attributes, next_version_attributes]
+    else
+      keys = prev_version_attributes.keys.concat(next_version_attributes.keys).uniq
+
+      keys.each_with_object([{}, {}]) do |key, (prev_diff, next_diff)|
+        prev_value = prev_version_attributes[key]
+        next_value = next_version_attributes[key]
+
+        unless prev_value == next_value
+          prev_diff[key] = prev_value
+          next_diff[key] = next_value
+        end
+
+        [prev_diff, next_diff]
+      end
+    end
+  end
+
+  private_class_method def self.prev_attributes(version)
+    case version.event
+    when 'create'
+      {}
+    when 'update', 'destroy'
+      version.reify.attributes
+    else
+      { unknown_event: version.event }
+    end
+  end
+
+  private_class_method def self.next_attributes(version)
+    case version.event
+    when 'create'
+      (next_reify(version) || version.item).attributes
+    when 'update'
+      (next_reify(version) || version.item.reload).attributes
+    when 'destroy'
+      {}
+    else
+      { unknown_event: version.event }
+    end
+  end
+
+  private_class_method def self.next_reify(version)
+    version.next&.reify
+  end
+end

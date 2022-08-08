@@ -28,12 +28,13 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 6. Check issue tracker for assigned tickets
 7. ```git checkout -b my_important_feature_or_bugfix```
 8. Work on your feature
-9. Run tests ```npm run test```
-10. ```git add .```
-11. ```git commit -m '[issue_number_here] My commit detailed message'```
-12. ```git push origin my-important-feature```
-13. Send Pull Request at GitHub
-14. Goto 4
+9. Setup PhantomJS ```source bin/setup_phantomjs.sh```
+10. Run tests ```npm run test```
+11. ```git add .```
+12. ```git commit -m '[issue_number_here] My commit detailed message'```
+13. ```git push origin my-important-feature```
+14. Send Pull Request at GitHub
+15. Goto 4
 
 ## Deploy
 
