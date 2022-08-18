@@ -71,33 +71,35 @@ class Person < ApplicationRecord
 
   has_paper_trail
 
-  def self.by_complex_name
-    order(
-      <<-SQL.squish
-        CASE
-          WHEN (diploma_name IS NULL OR diploma_name = '')
-          THEN (surname || name || middle_name)
-          ELSE diploma_name
-        END
-      SQL
-    )
-  end
+  class << self
+    def by_complex_name
+      order(
+        <<-SQL.squish
+          CASE
+            WHEN (diploma_name IS NULL OR diploma_name = '')
+            THEN (surname || name || middle_name)
+            ELSE diploma_name
+          END
+        SQL
+      )
+    end
 
-  def self.without_application
-    joins('LEFT OUTER JOIN "study_applications" ON "study_applications"."person_id" = "people"."id"')
-      .joins('LEFT OUTER JOIN "student_profiles" ON "student_profiles"."person_id" = "people"."id"')
-      .joins('LEFT OUTER JOIN "teacher_profiles" ON "teacher_profiles"."person_id" = "people"."id"')
-      .where(study_applications: { id: nil })
-      .where(student_profiles: { id: nil })
-      .where(teacher_profiles: { id: nil })
-  end
+    def without_application
+      joins('LEFT OUTER JOIN "study_applications" ON "study_applications"."person_id" = "people"."id"')
+        .joins('LEFT OUTER JOIN "student_profiles" ON "student_profiles"."person_id" = "people"."id"')
+        .joins('LEFT OUTER JOIN "teacher_profiles" ON "teacher_profiles"."person_id" = "people"."id"')
+        .where(study_applications: { id: nil })
+        .where(student_profiles: { id: nil })
+        .where(teacher_profiles: { id: nil })
+    end
 
-  def self.search(query)
-    query_array = query.strip.split(/\s+/).map { |term| "%#{term}%" }
+    def search(query)
+      query_array = query.strip.split(/\s+/).map { |term| "%#{term}%" }
 
-    return all if query_array.none?
+      return all if query_array.none?
 
-    where('complex_name ilike any ( array[?] )', query_array)
+      where('complex_name ilike any ( array[?] )', query_array)
+    end
   end
 
   def crop_photo(params)
