@@ -59,7 +59,7 @@ class PeopleController < ApplicationController
   end
 
   def journal
-    @versions = GetPersonVersionsService.call(@person)
+    @versions = GetPersonVersionsService.call(@person).page(params[:page])
 
     @version_authors =
       Person
