@@ -24,6 +24,7 @@ ru:
       courses_list:         'Список предметов'
       courses:              'Предметы'
       home:                 'Главная'
+      import_certificates: 'Импорт сертификатов'
       journal:              'Журнал действий'
       main_menu:            'Действия'
       people_add:           'Добавить человека'
@@ -70,6 +71,18 @@ ru:
   answers:
     edit:
       update: 'Отправить ответ'
+  certificate_imports:
+    new:
+      submit: 'Импортировать'
+      title: 'Импорт сертификатов'
+      file_is_not_present_alert: 'Выберите файл'
+    create:
+      title: 'Результати импортирования сертификатов'
+      serial_column: 'Серийный номер'
+      person_column: 'Студент'
+      template_column: 'Шаблон сертификата'
+      final_score_column: 'Результирующий бал по курсу'
+      certificate_creation_details_column: 'Результат созданич сертификата'
   certificate_template_fonts:
     edit:
       submit: 'Обновить шрифт'

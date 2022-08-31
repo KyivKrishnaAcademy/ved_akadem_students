@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :questionnaires, only: %i[index show new]
   resources :study_applications, only: %i[create destroy]
   resources :answers, only: %i[update edit]
+  resources :certificate_imports, only: %i[new create]
   resources :certificate_templates, only: %i[new create edit update index destroy]
   resources :certificate_template_fonts, only: %i[new create edit update index destroy]
 

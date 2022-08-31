@@ -1,0 +1,2 @@
+class CertificateImportsControllerPolicy < BasePolicy
+end
