@@ -1,0 +1,19 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center
+      = t('.title')
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    = render 'instructions'
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = simple_form_for 'certificate_import', as: 'certificate_import', url: certificate_imports_path, html: { method: :post } do |f|
+      .form-inputs
+        = f.input :file, wrapper: :vertical_file_input, as: :file, input_html: { accept: 'text/csv' }
+
+      .form-actions
+        = f.button :button, class: 'btn btn-submit col-xs-12' do
+          %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+          = t('.submit')

@@ -1,0 +1,26 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center
+      = t('.title')
+
+  .col-xs-12.vert-offset-top-1
+    .table-responsive
+      %table.table.table-condensed
+        %thead
+          %tr
+            %th= t '.serial_column'
+            %th= t '.person_column'
+            %th= t '.template_column'
+            %th= t '.final_score_column'
+            %th= t '.certificate_creation_details_column'
+
+        %tbody
+          - @result.each do |row|
+            %tr{class: row[:certificate_persisted?] ? 'success' : 'danger' }
+              %td= row[:serial_error] || row[:serial]
+              %td= row[:person_error] || link_to_show_person_or_name(row[:person])
+              %td= row[:template_error] || row[:template].title
+              %td= row[:final_score_error] || row[:final_score]
+              %td= row[:certificate_creation_details]

@@ -24,6 +24,7 @@ uk:
       courses_list:         'Список предметів'
       courses:              'Предмети'
       home:                 'Головна'
+      import_certificates: 'Імпорт сертифікатів'
       journal:              'Журнал дій'
       main_menu:            'Дії'
       people_add:           'Додати людину'
@@ -70,6 +71,18 @@ uk:
   answers:
     edit:
       update: 'Надіслати відповідь'
+  certificate_imports:
+    new:
+      submit: 'Імпортувати'
+      title: 'Імпорт сертифікатів'
+      file_is_not_present_alert: 'Оберіть файл'
+    create:
+      title: 'Результати імпортування сертифікатів'
+      serial_column: 'Серійний номер'
+      person_column: 'Студент'
+      template_column: 'Шаблон сертифікату'
+      final_score_column: 'Результуючий бал по курсу'
+      certificate_creation_details_column: 'Результат створення сертифікату'
   certificate_template_fonts:
     edit:
       submit: 'Оновити шрифт'
