@@ -12,6 +12,7 @@
       %table.table.table-condensed.table-striped
         %thead
           %tr
+            %th=t('.id')
             %th=t('.template_title')
 
             - if @certificate_templates.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
@@ -20,6 +21,8 @@
         %tbody
           - @certificate_templates.each do |certificate_template|
             %tr
+              %td
+                = certificate_template.id
               %td
                 = certificate_template.title
 
