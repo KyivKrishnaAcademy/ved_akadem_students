@@ -28,7 +28,7 @@ describe :home do
     Given { person.create_student_profile.academic_groups << group }
     Given { init_schedules_mv }
 
-    Then  { expect(find('h3.text-center')).to have_content(I18n.t('static_pages.home.schedules_title')) }
+    Then { expect(page).to have_selector('h3.text-center', text: I18n.t('static_pages.home.schedules_title')) }
   end
 
   describe 'study applications' do

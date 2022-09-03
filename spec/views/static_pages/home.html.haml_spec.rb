@@ -10,6 +10,7 @@ describe 'static_pages/home' do
 
   Given { assign(:application_person, user) }
   Given { assign(:programs, []) }
+  Given { assign(:certificates, []) }
   Given { assign(:new_study_application, new_study_application) }
   Given { allow(view).to receive(:current_person).and_return(user) }
   Given { allow(view).to receive(:policy).with(ClassSchedule).and_return(Pundit.policy(user, ClassSchedule)) }

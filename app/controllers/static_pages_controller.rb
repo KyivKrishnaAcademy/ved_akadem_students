@@ -9,6 +9,6 @@ class StaticPagesController < ApplicationController
   def home
     redirect_to new_person_session_path if current_person.blank?
 
-    preset_certificates(current_person.student_profile)
+    preset_certificates(current_person&.student_profile)
   end
 end
