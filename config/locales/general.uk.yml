@@ -175,6 +175,7 @@ uk:
       student_of_academic_groups: 'Ви студент груп:'
       title:                      'Домашня'
       study_applications: 'Заяви на навчання'
+      certificates: 'Сертифікати'
   people:
     show:
       not_adult:            '(ще нема 16!)'
@@ -278,6 +279,11 @@ uk:
       question_title: 'Питання'
       questions: 'Питання'
   shared:
+    certificates_table:
+      serial: 'Серійний номер'
+      template: 'Шаблон'
+      issued_date: 'Дата видачі'
+      no_certificates_yet: 'Покищо немає сертифікатів'
     nested_certificate_template_entries:
       template_entries_title: Елементи шаблону
     person_brief:

@@ -30,3 +30,9 @@
              programs: @programs,
              study_application: @new_study_application,
              is_links_in_pending_docs: true
+
+  .col-xs-12.vert-offset-top-1
+    %h3.text-center
+      = t('.certificates')
+  .col-xs-12
+    = render 'shared/certificates_table', certificates: @certificates

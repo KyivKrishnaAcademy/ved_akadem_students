@@ -175,6 +175,7 @@ ru:
       student_of_academic_groups: 'Вы студент групп:'
       title:                      'Домашняя'
       study_applications: 'Заявления на обучение'
+      certificates: 'Сертификаты'
   people:
     show:
       not_adult:            '(еще нет 16!)'
@@ -278,6 +279,11 @@ ru:
       question_title: 'Вопрос'
       questions: 'Вопросы'
   shared:
+    certificates_table:
+      serial: 'Серийный номер'
+      template: 'Шаблон'
+      issued_date: 'Дата видачи'
+      no_certificates_yet: 'Пока что нет сертификатов'
     nested_certificate_template_entries:
       template_entries_title: Элементы шаблона
     person_brief:
