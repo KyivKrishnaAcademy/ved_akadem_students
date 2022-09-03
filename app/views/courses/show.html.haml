@@ -64,7 +64,7 @@
               %th= t('.passing_score')
 
               - if @examinations.any? { |e| policy(e).tap { |p| break p.edit? || p.destroy? } }
-                %th= t('.actions')
+                %th.text-right= t('.actions')
 
           %tbody
             - @examinations.each do |examination|
@@ -78,6 +78,6 @@
                 %td.col-xs-1= examination.passing_score
 
                 - if policy(examination).tap { |p| break p.edit? || p.destroy? }
-                  %td.col-xs-2.col-sm-3.col-md-2
+                  %td.col-xs-2.col-sm-3.col-md-2.text-right
                     = link_to_edit(policy(examination).edit?, edit_course_examination_path(@course, examination))
                     = link_to_destroy(policy(examination).destroy?, course_examination_path(@course, examination))

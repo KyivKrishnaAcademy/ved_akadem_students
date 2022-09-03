@@ -99,9 +99,11 @@ uk:
       submit:   'Оновити шаблон сертифікату'
       title:    'Редагування шаблону сертифікату'
     index:
-      actions:        'Дії'
+      actions: 'Дії'
       template_title: 'Назва шаблону'
-      title:          'Шаблони сертифікатів'
+      title: 'Шаблони сертифікатів'
+      certificates_count: 'Сертифікатів видано'
+      id: 'ID'
     new:
       submit:   'Створити шаблон сертифікату'
       title:    'Створення шаблону сертифікату'
@@ -172,6 +174,8 @@ uk:
       schedules_title:            'Ваш персональний розклад'
       student_of_academic_groups: 'Ви студент груп:'
       title:                      'Домашня'
+      study_applications: 'Заяви на навчання'
+      certificates: 'Сертифікати'
   people:
     show:
       not_adult:            '(ще нема 16!)'
@@ -179,6 +183,7 @@ uk:
       special_notes:        'Cпеціальні нотатки'
       no_special_notes:     'поки що нотаток немає'
       completed_questionnaires: 'Заповнені опитувальники'
+      study_applications: 'Заяви на навчання'
     index:
       search_placeholder: 'Кого Ви шукаєте?'
   notes:
@@ -274,6 +279,11 @@ uk:
       question_title: 'Питання'
       questions: 'Питання'
   shared:
+    certificates_table:
+      serial: 'Серійний номер'
+      template: 'Шаблон'
+      issued_date: 'Дата видачі'
+      no_certificates_yet: 'Покищо немає сертифікатів'
     nested_certificate_template_entries:
       template_entries_title: Елементи шаблону
     person_brief:

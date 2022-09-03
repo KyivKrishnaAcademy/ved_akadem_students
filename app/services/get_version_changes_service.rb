@@ -1,4 +1,6 @@
 class GetVersionChangesService
+  SCREENED_KEYS = %w[encrypted_password reset_password_token].freeze
+
   def self.call(version)
     prev_version_attributes = prev_attributes(version)
     next_version_attributes = next_attributes(version)
@@ -13,12 +15,20 @@ class GetVersionChangesService
         next_value = next_version_attributes[key]
 
         unless prev_value == next_value
-          prev_diff[key] = prev_value
-          next_diff[key] = next_value
+          prev_diff[key] = screened_value(prev_value, key)
+          next_diff[key] = screened_value(next_value, key)
         end
 
         [prev_diff, next_diff]
       end
+    end
+  end
+
+  private_class_method def self.screened_value(value, key)
+    if SCREENED_KEYS.include?(key)
+      '********'
+    else
+      value
     end
   end
 

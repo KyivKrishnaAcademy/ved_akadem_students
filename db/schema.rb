@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220717072150) do
+ActiveRecord::Schema.define(version: 20220903054050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,11 +86,12 @@ ActiveRecord::Schema.define(version: 20220717072150) do
 
   create_table "certificate_templates", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "file"
     t.integer  "institution_id"
-    t.integer  "program_type",   default: 0
+    t.integer  "program_type",       default: 0
+    t.integer  "certificates_count", default: 0
     t.index ["institution_id"], name: "index_certificate_templates_on_institution_id", using: :btree
   end
 

@@ -1,0 +1,27 @@
+.table-responsive
+  %table.table.table-condensed.table-striped
+    %thead
+      %tr
+        %th #
+        %th=t('.serial')
+        %th=t('.template')
+        %th=t('.issued_date')
+    %tbody
+      - if certificates.any?
+        - certificates.each_with_index do |certificate, index|
+          %tr
+            %td
+              = index.next
+            %td.nowrap
+              - if certificate.certificate_template.file.present? && policy(certificate).show?
+                = link_to certificate.serial_id, certificate_pdf_path(certificate.serial_id)
+              - else
+                = certificate.serial_id
+            %td
+              = certificate.certificate_template.title
+            %td.nowrap
+              = l certificate.issued_date, format: :date
+      - else
+        %tr
+          %td.central-row{colspan: 4}
+            = t('.no_certificates_yet')

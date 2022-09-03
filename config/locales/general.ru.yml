@@ -99,9 +99,11 @@ ru:
       submit:   'Обновить шаблон сертификата'
       title:    'Редактирование шаблона сертификата'
     index:
-      actions:        'Действия'
+      actions: 'Действия'
       template_title: 'Название шаблона'
-      title:          'Шаблоны сертификатов'
+      title: 'Шаблоны сертификатов'
+      certificates_count: 'Сертификатов выдано'
+      id: 'ID'
     new:
       submit:   'Создать шаблон сертификата'
       title:    'Создание шаблона сертификата'
@@ -172,6 +174,8 @@ ru:
       schedules_title:            'Ваше персональное расписание'
       student_of_academic_groups: 'Вы студент групп:'
       title:                      'Домашняя'
+      study_applications: 'Заявления на обучение'
+      certificates: 'Сертификаты'
   people:
     show:
       not_adult:            '(еще нет 16!)'
@@ -179,6 +183,7 @@ ru:
       special_notes:        'Cпециальные заметки'
       no_special_notes:     'пока что заметок нет'
       completed_questionnaires: 'Заполненные опросники'
+      study_applications: 'Заявления на обучение'
     index:
       search_placeholder: 'Кого Вы ищете?'
   notes:
@@ -274,6 +279,11 @@ ru:
       question_title: 'Вопрос'
       questions: 'Вопросы'
   shared:
+    certificates_table:
+      serial: 'Серийный номер'
+      template: 'Шаблон'
+      issued_date: 'Дата видачи'
+      no_certificates_yet: 'Пока что нет сертификатов'
     nested_certificate_template_entries:
       template_entries_title: Элементы шаблона
     person_brief:

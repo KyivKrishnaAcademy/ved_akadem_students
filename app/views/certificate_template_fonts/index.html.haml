@@ -13,14 +13,18 @@
         %thead
           %tr
             %th=t('.template_title')
-            %th=t('.actions')
+
+            - if @certificate_template_fonts.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
+              %th.text-right=t('.actions')
 
         %tbody
           - @certificate_template_fonts.each do |certificate_template_font|
             %tr
               %td
                 = certificate_template_font.name
-              %td.col-xs-2.col-sm-4.col-md-3
-                = link_to_edit policy(certificate_template_font).edit?,
-                  edit_certificate_template_font_path(certificate_template_font)
-                = link_to_destroy policy(certificate_template_font).destroy?, certificate_template_font
+
+              - if policy(certificate_template_font).tap { |p| break p.edit? || p.destroy? }
+                %td.col-xs-2.col-sm-4.col-md-3.text-right
+                  = link_to_edit policy(certificate_template_font).edit?,
+                    edit_certificate_template_font_path(certificate_template_font)
+                  = link_to_destroy policy(certificate_template_font).destroy?, certificate_template_font

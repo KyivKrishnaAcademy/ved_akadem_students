@@ -12,4 +12,6 @@ class CertificateTemplateEntry < ApplicationRecord
             :x,
             :y,
             presence: true
+
+  has_paper_trail
 end

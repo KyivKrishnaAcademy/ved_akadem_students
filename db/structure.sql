@@ -274,7 +274,8 @@ CREATE TABLE public.certificate_templates (
     updated_at timestamp without time zone NOT NULL,
     file character varying,
     institution_id integer,
-    program_type integer DEFAULT 0
+    program_type integer DEFAULT 0,
+    certificates_count integer DEFAULT 0
 );
 
 
@@ -1959,6 +1960,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220705194303'),
 ('20220717060619'),
 ('20220717061020'),
-('20220717072150');
+('20220717072150'),
+('20220903054050');
 
 

@@ -3,6 +3,7 @@ class PeopleController < ApplicationController
   include CropDirectable
   include StudyApplicationable
   include ClassSchedulesRefreshable
+  include CertificatesListable
 
   before_action :set_person, only: %i[show edit update destroy show_photo journal]
 
@@ -38,14 +39,7 @@ class PeopleController < ApplicationController
     @academic_groups = AcademicGroup.active.select(:id, :title)
     student_profile = @person.student_profile
 
-    @certificates = if student_profile.present?
-      Certificate
-        .where(student_profile_id: student_profile.id)
-        .order(:serial_id)
-        .preload(:certificate_template)
-    else
-      []
-    end
+    preset_certificates(student_profile)
 
     @prev_group_participations = if student_profile.present?
       student_profile

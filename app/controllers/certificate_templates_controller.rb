@@ -4,7 +4,7 @@ class CertificateTemplatesController < HtmlRespondableController
   after_action :verify_authorized
 
   def index
-    @certificate_templates = CertificateTemplate.all
+    @certificate_templates = CertificateTemplate.order(:id)
 
     authorize CertificateTemplate
 

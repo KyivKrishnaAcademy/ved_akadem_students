@@ -103,28 +103,7 @@
           .col-xs-4.col-sm-3
             Certificates:
           .col-xs-8.col-sm-9
-            .table-responsive
-              %table.table.table-condensed.table-striped
-                %thead
-                  %tr
-                    %th #
-                    %th Serial
-                    %th Template
-                    %th Issued Date
-                %tbody
-                  - @certificates.each_with_index do |certificate, index|
-                    %tr
-                      %td
-                        = index.next
-                      %td.nowrap
-                        - if certificate.certificate_template.file.present? && policy(certificate).show?
-                          = link_to certificate.serial_id, certificate_pdf_path(certificate.serial_id)
-                        - else
-                          = certificate.serial_id
-                      %td
-                        = certificate.certificate_template.title
-                      %td.nowrap
-                        = l certificate.issued_date, format: :date
+            = render 'shared/certificates_table', certificates: @certificates
         .row
           .col-xs-4.col-sm-3
             Gender:
@@ -168,6 +147,10 @@
           .col-xs-8.col-sm-9
             = @person.work
 
+.row
+  .col-xs-12.vert-offset-top-1#pending_docs
+    = render 'shared/pending_docs', person: @application_person, is_links: false
+
 - if policy(Note).index?
   .row
     .col-xs-12
@@ -188,17 +171,16 @@
                     = l(note.date)
                   %td
                     = note.message
-                  %td.col-xs-2.col-md-1
+                  %td.col-xs-2.col-md-1.text-right
                     = link_to_edit policy(note).edit?, edit_person_note_path(@person, note)
                     = link_to_destroy policy(note).destroy?, person_note_path(@person, note)
 
-.row
-  .col-xs-12.vert-offset-top-1#pending_docs
-    = render 'shared/pending_docs', person: @application_person, is_links: false
-
 - if @person.study_application.present? || policy(@new_study_application).create?
   .row
-    .col-xs-12.vert-offset-top-1.stop_double_submit#study_application
+    .col-xs-12.vert-offset-top-1
+      %h3.text-center
+        = t('.study_applications')
+    .col-xs-12.stop_double_submit#study_application
       = render 'shared/study_application', person: @application_person, programs: @programs, study_application: @new_study_application, is_links_in_pending_docs: false
 
 - initial_questionnaires = completed_initial_questionnaires(@person)
@@ -221,7 +203,7 @@
 - if @person.psycho_test_result.present? && policy(@person).view_psycho_test_result?
   .row.vert-offset-top-1
     .col-xs-12
-      %h3
+      %h3.text-center
         = t('.psycho_test_results')
     - @person.psycho_test_result.each do |key, data|
       .col-xs-12.col-sm-6

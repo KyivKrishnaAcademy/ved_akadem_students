@@ -4,6 +4,9 @@
   .col-xs-12
     = render 'shared/person_brief', person: current_person
 
+  .col-xs-12.vert-offset-top-1#pending_docs
+    = render 'shared/pending_docs', person: @application_person, is_links: true
+
   - if policy(ClassSchedule).ui_person?
     .col-xs-12
       %h3.text-center
@@ -18,12 +21,18 @@
           headers: class_schedules_table_headers,
           noSchedules: t('academic_groups.show.no_pending_schedules') })
 
-  .col-xs-12.vert-offset-top-1#pending_docs
-    = render 'shared/pending_docs', person: @application_person, is_links: true
-
-  .col-xs-12.vert-offset-top-1.stop_double_submit#study_application
+  .col-xs-12.vert-offset-top-1
+    %h3.text-center
+      = t('.study_applications')
+  .col-xs-12.stop_double_submit#study_application
     = render 'shared/study_application',
              person: @application_person,
              programs: @programs,
              study_application: @new_study_application,
              is_links_in_pending_docs: true
+
+  .col-xs-12.vert-offset-top-1
+    %h3.text-center
+      = t('.certificates')
+  .col-xs-12
+    = render 'shared/certificates_table', certificates: @certificates
