@@ -174,6 +174,7 @@ uk:
       schedules_title:            'Ваш персональний розклад'
       student_of_academic_groups: 'Ви студент груп:'
       title:                      'Домашня'
+      study_applications: 'Заяви на навчання'
   people:
     show:
       not_adult:            '(ще нема 16!)'
@@ -181,6 +182,7 @@ uk:
       special_notes:        'Cпеціальні нотатки'
       no_special_notes:     'поки що нотаток немає'
       completed_questionnaires: 'Заповнені опитувальники'
+      study_applications: 'Заяви на навчання'
     index:
       search_placeholder: 'Кого Ви шукаєте?'
   notes:

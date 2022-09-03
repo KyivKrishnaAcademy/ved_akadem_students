@@ -174,6 +174,7 @@ ru:
       schedules_title:            'Ваше персональное расписание'
       student_of_academic_groups: 'Вы студент групп:'
       title:                      'Домашняя'
+      study_applications: 'Заявления на обучение'
   people:
     show:
       not_adult:            '(еще нет 16!)'
@@ -181,6 +182,7 @@ ru:
       special_notes:        'Cпециальные заметки'
       no_special_notes:     'пока что заметок нет'
       completed_questionnaires: 'Заполненные опросники'
+      study_applications: 'Заявления на обучение'
     index:
       search_placeholder: 'Кого Вы ищете?'
   notes:

@@ -168,6 +168,10 @@
           .col-xs-8.col-sm-9
             = @person.work
 
+.row
+  .col-xs-12.vert-offset-top-1#pending_docs
+    = render 'shared/pending_docs', person: @application_person, is_links: false
+
 - if policy(Note).index?
   .row
     .col-xs-12
@@ -192,13 +196,12 @@
                     = link_to_edit policy(note).edit?, edit_person_note_path(@person, note)
                     = link_to_destroy policy(note).destroy?, person_note_path(@person, note)
 
-.row
-  .col-xs-12.vert-offset-top-1#pending_docs
-    = render 'shared/pending_docs', person: @application_person, is_links: false
-
 - if @person.study_application.present? || policy(@new_study_application).create?
   .row
-    .col-xs-12.vert-offset-top-1.stop_double_submit#study_application
+    .col-xs-12.vert-offset-top-1
+      %h3.text-center
+        = t('.study_applications')
+    .col-xs-12.stop_double_submit#study_application
       = render 'shared/study_application', person: @application_person, programs: @programs, study_application: @new_study_application, is_links_in_pending_docs: false
 
 - initial_questionnaires = completed_initial_questionnaires(@person)
@@ -221,7 +224,7 @@
 - if @person.psycho_test_result.present? && policy(@person).view_psycho_test_result?
   .row.vert-offset-top-1
     .col-xs-12
-      %h3
+      %h3.text-center
         = t('.psycho_test_results')
     - @person.psycho_test_result.each do |key, data|
       .col-xs-12.col-sm-6
