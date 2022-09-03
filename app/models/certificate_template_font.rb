@@ -4,4 +4,6 @@ class CertificateTemplateFont < ApplicationRecord
   has_many :certificate_template_entries, dependent: :restrict_with_exception
 
   mount_uploader :file, TTFUploader
+
+  has_paper_trail
 end

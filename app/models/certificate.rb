@@ -4,4 +4,6 @@ class Certificate < ApplicationRecord
   belongs_to :student_profile
 
   validates :serial_id, :issued_date, :academic_group_id, :certificate_template_id, :student_profile_id, presence: true
+
+  has_paper_trail
 end

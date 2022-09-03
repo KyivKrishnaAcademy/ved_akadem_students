@@ -13,4 +13,6 @@ class CertificateTemplate < ApplicationRecord
   validates :institution, :program_type, presence: true
 
   mount_uploader :file, PDFUploader
+
+  has_paper_trail
 end
