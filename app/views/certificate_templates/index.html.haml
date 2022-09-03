@@ -13,14 +13,18 @@
         %thead
           %tr
             %th=t('.template_title')
-            %th=t('.actions')
+
+            - if @certificate_templates.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
+              %th.text-right=t('.actions')
 
         %tbody
           - @certificate_templates.each do |certificate_template|
             %tr
               %td
                 = certificate_template.title
-              %td.col-xs-2.col-sm-4.col-md-3
-                = link_to_edit policy(certificate_template).edit?,
-                  edit_certificate_template_path(certificate_template)
-                = link_to_destroy policy(certificate_template).destroy?, certificate_template
+
+              - if policy(certificate_template).tap { |p| break p.edit? || p.destroy? }
+                %td.col-xs-2.col-sm-4.col-md-3.text-right
+                  = link_to_edit policy(certificate_template).edit?,
+                    edit_certificate_template_path(certificate_template)
+                  = link_to_destroy policy(certificate_template).destroy?, certificate_template

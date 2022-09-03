@@ -188,7 +188,7 @@
                     = l(note.date)
                   %td
                     = note.message
-                  %td.col-xs-2.col-md-1
+                  %td.col-xs-2.col-md-1.text-right
                     = link_to_edit policy(note).edit?, edit_person_note_path(@person, note)
                     = link_to_destroy policy(note).destroy?, person_note_path(@person, note)
 
