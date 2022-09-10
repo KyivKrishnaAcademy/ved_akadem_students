@@ -157,6 +157,19 @@ class Person < ApplicationRecord
       .order('group_participations.join_date ASC')
   end
 
+  def current_curated_academic_groups
+    AcademicGroup
+      .where(curator_id: id, graduated_at: nil)
+      .order(:created_at)
+  end
+
+  def previous_curated_academic_groups
+    AcademicGroup
+      .where(curator_id: id)
+      .where.not(graduated_at: nil)
+      .order(:created_at)
+  end
+
   def pending_docs
     @pending_docs ||= count_pending_docs
   end

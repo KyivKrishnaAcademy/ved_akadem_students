@@ -15,6 +15,15 @@ describe 'static_pages/home' do
   Given { allow(view).to receive(:current_person).and_return(user) }
   Given { allow(view).to receive(:policy).with(ClassSchedule).and_return(Pundit.policy(user, ClassSchedule)) }
 
+  When do
+    assign(:person_academic_groups, [
+      [user.last_academic_groups, '.student_of_academic_groups'],
+      [user.previous_academic_groups, '.ex_student_of_academic_groups'],
+      [user.current_curated_academic_groups, '.current_curated_academic_groups'],
+      [user.previous_curated_academic_groups, '.previous_curated_academic_groups']
+    ])
+  end
+
   When  { init_schedules_mv }
   When  { render }
 
