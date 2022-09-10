@@ -83,7 +83,7 @@ ru:
       person_column: 'Студент'
       template_column: 'Шаблон сертификата'
       final_score_column: 'Результирующий бал по курсу'
-      certificate_creation_details_column: 'Результат созданич сертификата'
+      certificate_creation_details_column: 'Результат создания сертификата'
   certificate_template_fonts:
     edit:
       submit: 'Обновить шрифт'
