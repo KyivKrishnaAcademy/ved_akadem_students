@@ -80,7 +80,7 @@ describe AcademicGroupsController do
   end
 
   context 'get: :index with ["academic_group:index"]' do
-    Given { allow(AcademicGroup).to receive_message_chain(:all, :by_active_title).and_return('some records') }
+    Given { allow(AcademicGroup).to receive_message_chain(:all, :by_active_title, :page).and_return('some records') }
 
     Given(:action)      { get :index }
     Given(:expectation) do

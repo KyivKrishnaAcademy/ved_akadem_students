@@ -40,3 +40,5 @@
                     edit_academic_group_path(academic_group)
                   = link_to_destroy policy(academic_group).destroy?, academic_group
 
+  .col-xs-12.text-center
+    = paginate @academic_groups
