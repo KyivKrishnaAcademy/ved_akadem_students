@@ -41,16 +41,17 @@ ru:
   application_title: Студенты Киевской Духовной Академии Сознания Кришны
   links:
     apply_to_program: 'Подать заявление'
-    back:             'Назад'
-    crop_photo:       'Обрезать фотографию'
-    delete:           'Удалить'
-    edit:             'Редактировать'
-    edit_profile:     'Редактировать профиль'
-    graduate:         'Выпуск'
-    list:             'Список'
-    new:              'Создать'
-    update:           'Сохранить'
-    withdraw:         'Отозвать заявление'
+    back: 'Назад'
+    crop_photo: 'Обрезать фотографию'
+    delete: 'Удалить'
+    edit_profile: 'Редактировать профиль'
+    edit: 'Редактировать'
+    graduate: 'Выпуск'
+    list: 'Список'
+    new: 'Создать'
+    statistics: 'Статистика'
+    update: 'Сохранить'
+    withdraw: 'Отозвать заявление'
   alerts:
     delete_confirmation: 'Вы уверены что хотите это УДАЛИТЬ???'
   content:
@@ -216,6 +217,14 @@ ru:
       tab_group_list:           'Список группы'
       tab_schedules:            'Расписание'
       telephones:               'Телефоны'
+    index:
+      title: 'Академические группы'
+      table_title_name: 'Название'
+      table_title_established: 'Дата создания'
+      table_title_graduated: 'Дата окончания'
+      table_title_description: 'Описание'
+      table_title_students: 'Количество студентов'
+      table_title_actions: 'Действия'
   class_schedules:
     create_and_clone: 'Создать и копировать'
     table_headers:

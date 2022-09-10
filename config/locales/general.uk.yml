@@ -41,16 +41,17 @@ uk:
   application_title: Студенти Київської Духовної Академії Свідомості Кришни
   links:
     apply_to_program: 'Подати заяву'
-    back:             'Назад'
-    crop_photo:       'Обрізати фотографію'
-    delete:           'Видалити'
-    edit:             'Редагувати'
-    edit_profile:     'Редагувати профіль'
-    graduate:         'Випуск'
-    list:             'Список'
-    new:              'Створити'
-    update:           'Зберегти'
-    withdraw:         'Відкликати заяву'
+    back: 'Назад'
+    crop_photo: 'Обрізати фотографію'
+    delete: 'Видалити'
+    edit_profile: 'Редагувати профіль'
+    edit: 'Редагувати'
+    graduate: 'Випуск'
+    list: 'Список'
+    new: 'Створити'
+    statistics: 'Статистика'
+    update: 'Зберегти'
+    withdraw: 'Відкликати заяву'
   alerts:
     delete_confirmation: 'Ви впевнені що хочете це ВИДАЛИТИ???'
   content:
@@ -216,6 +217,14 @@ uk:
       tab_group_list:           'Список групи'
       tab_schedules:            'Розклад'
       telephones:               'Телефони'
+    index:
+      title: 'Академічні групи'
+      table_title_name: 'Назва'
+      table_title_established: 'Дата створення'
+      table_title_graduated: 'Дата закінчення'
+      table_title_description: 'Опис'
+      table_title_students: 'Кількість студентів'
+      table_title_actions: 'Дії'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
     table_headers:

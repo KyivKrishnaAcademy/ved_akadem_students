@@ -1,23 +1,42 @@
-- provide(:title, 'All Academic Groups')
+- provide(:title, t('.title'))
 
-%h1 Academic Groups
+.row
+  .col-xs-12
+    %h1.text-center
+      = t('.title')
 
-.table-responsive
-  %table.table.table-condensed.table-striped
-    %thead
-      %tr
-        %th Name
-        %th Established
-        %th Graduated
-        %th Description
-        %th Students
-        %th Statistics
-    %tbody
-      - @academic_groups.each do |academic_group|
-        %tr{class: 'academic_group', id: academic_group.id}
-          %td= link_to academic_group.title, academic_group
-          %td= l(academic_group.establ_date) if academic_group.establ_date.present?
-          %td= l(academic_group.graduated_at, format: :with_day) unless academic_group.active?
-          %td= academic_group.group_description
-          %td= academic_group.active_students.count
-          %td= link_to 'view', academic_group_statistics_path(academic_group)
+.row
+  .col-xs-12
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th.text-top=t('.table_title_name')
+            %th.text-top.text-center=t('.table_title_established')
+            %th.text-top.text-center=t('.table_title_graduated')
+            %th.text-top=t('.table_title_description')
+            %th.text-top.text-center=t('.table_title_students')
+
+            - if @academic_groups.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? || p.statistics? } }
+              %th.text-top.text-right=t('.table_title_actions')
+
+        %tbody
+          - @academic_groups.each do |academic_group|
+            %tr{class: 'academic_group', id: academic_group.id}
+              %td= link_to academic_group.title, academic_group
+              %td.text-center= l(academic_group.establ_date) if academic_group.establ_date.present?
+              %td.text-center= l(academic_group.graduated_at, format: :with_day) unless academic_group.active?
+              %td= academic_group.group_description
+              %td.text-center= academic_group.active_students.count
+
+              - if policy(academic_group).tap { |p| break p.edit? || p.destroy? || p.statistics? }
+                %td.col-xs-2.col-sm-4.col-md-3.text-right.text-middle
+                  = link_to_action policy(academic_group).statistics?,
+                    academic_group_statistics_path(academic_group),
+                    'info',
+                    t('links.statistics'),
+                    'stats'
+                  = link_to_edit policy(academic_group).edit?,
+                    edit_academic_group_path(academic_group)
+                  = link_to_destroy policy(academic_group).destroy?, academic_group
+
