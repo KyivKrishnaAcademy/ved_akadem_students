@@ -5,34 +5,34 @@
     %h1
       = @course.title
 
-  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.clearfix
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1.clearfix
     = link_to_back(policy(Course).index?, courses_path)
 
     .pull-right
       = link_to_edit(policy(@course).edit?, edit_course_path(@course))
       = link_to_destroy(policy(@course).destroy?, course_path(@course))
 
-  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
     = @course.description
 
-  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
     = t('.class_schedules_count')
     = @class_schedules_count
 
   - if @course.teacher_profiles.any?
-    .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
       %h5
         = t('.associated_teachers')
-    .col-xs-12.col-sm-6.col-sm-offset-3
+    .col-xs-12.col-sm-8.col-sm-offset-2
       %ul
         - @course.teacher_profiles.each do |profile|
           %li
             = link_to_show_person_or_name(profile.person)
 
-  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
     %h5
       = t('.associated_academic_groups')
-  .col-xs-12.col-sm-6.col-sm-offset-3
+  .col-xs-12.col-sm-8.col-sm-offset-2
     .table-responsive
       %table.table.table-condensed.table-striped
         %thead
@@ -46,14 +46,14 @@
                 = group.title
 
   - if policy(Examination).index?
-    .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1
+    .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
       %h5.clearfix
         = t('.examinations')
 
         .pull-right
           = link_to_new(current_person.can_act?('examination:new'), new_course_examination_path(@course))
 
-    .col-xs-12.col-sm-6.col-sm-offset-3
+    .col-xs-12.col-sm-8.col-sm-offset-2
       .table-responsive
         %table.table.table-condensed.table-striped
           %thead

@@ -45,10 +45,10 @@
               %table.table.table-condensed.table-striped
                 %thead
                   %tr
-                    %th #
-                    %th Group
-                    %th Join date
-                    %th Actions
+                    %th.text-top #
+                    %th.text-top Group
+                    %th.text-top Join date
+                    %th.text-top Actions
                 %tbody
                   - @person.last_academic_groups.each_with_index do |academic_group, index|
                     - last_participation = academic_group.last_participation_by_person(@person)
@@ -73,12 +73,12 @@
               %table.table.table-condensed.table-striped
                 %thead
                   %tr
-                    %th #
-                    %th Group
-                    %th Reason
-                    %th Join date
-                    %th Leave date
-                    %th Actions
+                    %th.text-top #
+                    %th.text-top Group
+                    %th.text-top Reason
+                    %th.text-top Join date
+                    %th.text-top Leave date
+                    %th.text-top Actions
                 %tbody
                   - @prev_group_participations.each_with_index do |last_participation, index|
                     %tr

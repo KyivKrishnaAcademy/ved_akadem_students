@@ -4,20 +4,20 @@
   .col-xs-12
     %h1.text-center=t('.title')
 
-  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1.text-right
     = link_to_new current_person.can_act?('certificate_template:new'), new_certificate_template_path
 
-  .col-xs-12.col-sm-6.col-sm-offset-3
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
     .table-responsive
       %table.table.table-condensed.table-striped
         %thead
           %tr
-            %th=t('.id')
-            %th=t('.template_title')
-            %th=t('.certificates_count')
+            %th.text-top=t('.id')
+            %th.text-top=t('.template_title')
+            %th.text-top=t('.certificates_count')
 
             - if @certificate_templates.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
-              %th.text-right=t('.actions')
+              %th.text-top.text-right=t('.actions')
 
         %tbody
           - @certificate_templates.each do |certificate_template|

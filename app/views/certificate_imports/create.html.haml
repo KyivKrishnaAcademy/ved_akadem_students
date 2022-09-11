@@ -10,11 +10,11 @@
       %table.table.table-condensed
         %thead
           %tr
-            %th= t '.serial_column'
-            %th= t '.person_column'
-            %th= t '.template_column'
-            %th= t '.final_score_column'
-            %th= t '.certificate_creation_details_column'
+            %th.text-top= t '.serial_column'
+            %th.text-top= t '.person_column'
+            %th.text-top= t '.template_column'
+            %th.text-top= t '.final_score_column'
+            %th.text-top= t '.certificate_creation_details_column'
 
         %tbody
           - @result.each do |row|
