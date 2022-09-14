@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  include Ilikable
+
   # TODO: use enums here since we run rails 4.1
   MARITAL_STATUSES = %i[single in_relationship married divorced widowed].freeze
 

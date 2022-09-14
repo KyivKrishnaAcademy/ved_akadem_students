@@ -7,14 +7,14 @@
     = render 'shared/error_messages', object: f.object
 
     = f.association :course, label_method: :label_for_select, collection: [*f.object.course],
-                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/courses' } }
+                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_courses_path } }
     = f.input :subject
     = f.association :classroom, label_method: :title, collection: [*f.object.classroom],
-                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/classrooms' } }
+                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_classrooms_path } }
     = f.association :teacher_profile, label_method: :complex_name, collection: [*f.object.teacher_profile],
-                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/teacher_profiles' } }
+                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_teacher_profiles_path } }
     = f.association :academic_groups, label_method: :title, collection: f.object.academic_groups,
-                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/academic_groups' } }
+                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_academic_groups_path } }
 
     .row
       .col-xs-12.col-sm-6

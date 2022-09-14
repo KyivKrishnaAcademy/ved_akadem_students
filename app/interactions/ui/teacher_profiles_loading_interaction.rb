@@ -1,11 +1,10 @@
 module Ui
   class TeacherProfilesLoadingInteraction < BaseInteraction
     def init
-      # TODO: replace this when ElasticSearch appears
       @teacher_profiles = TeacherProfile
                             .includes(:person)
                             .joins(:person)
-                            .where('people.complex_name ILIKE ?', "%#{params[:q]}%") # TODO: injection is possible!
+                            .ilike('people.complex_name', params[:q])
     end
 
     def serialize_profile(profile)
