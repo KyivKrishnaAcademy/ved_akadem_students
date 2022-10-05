@@ -17,17 +17,17 @@
             %th.text-top=t('.table_title_description')
             %th.text-top.text-center=t('.table_title_students')
 
-            - if @academic_groups.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? || p.statistics? } }
+            - if @groups_page.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? || p.statistics? } }
               %th.text-top.text-right=t('.table_title_actions')
 
         %tbody
-          - @academic_groups.each do |academic_group|
+          - @groups_page.each do |academic_group|
             %tr{class: 'academic_group', id: academic_group.id}
               %td= link_to academic_group.title, academic_group
               %td.text-center= l(academic_group.establ_date) if academic_group.establ_date.present?
               %td.text-center= l(academic_group.graduated_at, format: :with_day) unless academic_group.active?
               %td= academic_group.group_description
-              %td.text-center= academic_group.active_students.count
+              %td.text-center= @active_students_count[academic_group.id] || 0
 
               - if policy(academic_group).tap { |p| break p.edit? || p.destroy? || p.statistics? }
                 %td.col-xs-2.col-sm-4.col-md-3.text-right.text-middle
@@ -41,4 +41,4 @@
                   = link_to_destroy policy(academic_group).destroy?, academic_group
 
   .col-xs-12.text-center
-    = paginate @academic_groups
+    = paginate @groups_page
