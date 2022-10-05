@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import Button from '../../../lib/components/bootstrap-button';
+import IconButton from '../../../lib/components/bootstrap-icon-button';
 
 const PerformanceMarker = ({
   score,
@@ -31,10 +31,11 @@ const PerformanceMarker = ({
   }
 
   const button = isEditExamination ?
-    <Button
+    <IconButton
+      size="sm"
       icon="pencil"
       onClick={openEditor}
-      subClass={buttonClass}
+      color={buttonClass}
     />
   :
     null;

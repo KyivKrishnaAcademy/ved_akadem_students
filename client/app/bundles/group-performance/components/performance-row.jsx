@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import Button from '../../../lib/components/bootstrap-button';
+import IconButton from '../../../lib/components/bootstrap-icon-button';
 import PerformanceMarker from './performance-marker';
 
 export default class PerformanceRow extends React.Component {
@@ -52,9 +52,10 @@ export default class PerformanceRow extends React.Component {
 
     const editButton = canManage
     ?
-      <Button
+      <IconButton
+        size="sm"
         icon="pencil"
-        subClass="primary"
+        color="primary"
         onClick={this.toggleEditRow}
       />
     : null;
