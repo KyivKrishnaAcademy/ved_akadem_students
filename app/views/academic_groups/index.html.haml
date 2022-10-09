@@ -5,7 +5,52 @@
     %h1.text-center
       = t('.title')
 
-.row
+.row.vert-offset-top-1
+  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-sm-offset-3
+    :ruby
+      props = {
+        filters: {
+          'general_search' => {
+            type: 'general-search',
+            title: t('.general_search_placeholder'),
+            isMultiple: false,
+            isRemovable: false,
+            isRenderOnStart: true
+          },
+          'title' => {
+            type: 'text',
+            title: t('.table_title_name'),
+            isMultiple: true,
+            isRemovable: true,
+            isRenderOnStart: false
+          },
+          'establ_date' => {
+            type: 'date',
+            title: t('.table_title_established'),
+            isMultiple: true,
+            isRemovable: true,
+            isRenderOnStart: false
+          },
+          'graduated_at' => {
+            type: 'datetime-local',
+            title: t('.table_title_graduated'),
+            isMultiple: true,
+            isRemovable: true,
+            isRenderOnStart: false
+          },
+          'group_description' => {
+            type: 'text',
+            title: t('.table_title_description'),
+            isMultiple: true,
+            isRemovable: true,
+            isRenderOnStart: false
+          }
+        }
+      }
+
+    = render 'shared/advanced_search', props: props
+
+.row.vert-offset-top-1
   .col-xs-12
     .table-responsive
       %table.table.table-condensed.table-striped
@@ -15,7 +60,7 @@
             %th.text-top.text-center=t('.table_title_established')
             %th.text-top.text-center=t('.table_title_graduated')
             %th.text-top=t('.table_title_description')
-            %th.text-top.text-center=t('.table_title_students')
+            %th.text-top.text-center=t('.table_title_active_students_count')
 
             - if @groups_page.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? || p.statistics? } }
               %th.text-top.text-right=t('.table_title_actions')

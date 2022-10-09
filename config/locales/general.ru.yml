@@ -223,8 +223,9 @@ ru:
       table_title_established: 'Дата создания'
       table_title_graduated: 'Дата окончания'
       table_title_description: 'Описание'
-      table_title_students: 'Количество студентов'
+      table_title_active_students_count: 'Количество активных студентов'
       table_title_actions: 'Действия'
+      general_search_placeholder: 'Название группы или описание'
   class_schedules:
     create_and_clone: 'Создать и копировать'
     table_headers:
@@ -290,6 +291,10 @@ ru:
       question_title: 'Вопрос'
       questions: 'Вопросы'
   shared:
+    advanced_search:
+      button_text_submit: 'Искать'
+      button_tooltip_clear: 'Очистить'
+      button_tooltip_remove: 'Убрать'
     certificates_table:
       serial: 'Серийный номер'
       template: 'Шаблон'

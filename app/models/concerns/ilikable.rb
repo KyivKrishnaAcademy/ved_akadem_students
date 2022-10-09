@@ -2,8 +2,10 @@ module Ilikable
   extend ActiveSupport::Concern
 
   class_methods do
-    def ilike(field, query)
-      where("#{field} ILIKE ?", "%#{sanitize_sql_like(query || '')}%")
+    def ilike(*fields, query)
+      query_fields = fields.flatten.map { |field| "#{field} ILIKE :query" }.join(' OR ')
+
+      where(query_fields, query: "%#{sanitize_sql_like(query || '')}%")
     end
   end
 end

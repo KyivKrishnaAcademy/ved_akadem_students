@@ -223,8 +223,9 @@ uk:
       table_title_established: 'Дата створення'
       table_title_graduated: 'Дата закінчення'
       table_title_description: 'Опис'
-      table_title_students: 'Кількість студентів'
+      table_title_active_students_count: 'Кількість активних студентів'
       table_title_actions: 'Дії'
+      general_search_placeholder: 'Назва групи або опис'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
     table_headers:
@@ -290,6 +291,10 @@ uk:
       question_title: 'Питання'
       questions: 'Питання'
   shared:
+    advanced_search:
+      button_text_submit: 'Шукати'
+      button_tooltip_clear: 'Очистити'
+      button_tooltip_remove: 'Прибрати'
     certificates_table:
       serial: 'Серійний номер'
       template: 'Шаблон'

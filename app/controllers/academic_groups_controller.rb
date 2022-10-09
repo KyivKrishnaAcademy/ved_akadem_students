@@ -1,4 +1,5 @@
 class AcademicGroupsController < ApplicationController
+  include AdvancedSearchable
   include ClassSchedulesRefreshable
 
   before_action :set_resource, only: %i[show edit update destroy graduate]
@@ -10,8 +11,20 @@ class AcademicGroupsController < ApplicationController
   def index
     authorize AcademicGroup
 
-    @groups = policy_scope(AcademicGroup).by_active_title
-    @groups_page = @groups.page(params[:page])
+    @resource = policy_scope(AcademicGroup).by_active_title
+
+    advanced_search(
+      params[:search]&.values || [],
+      %w[title group_description],
+      {
+        'title' => 'title',
+        'establ_date' => 'establ_date',
+        'graduated_at' => "date_trunc('minute', graduated_at)",
+        'group_description' => 'group_description'
+      }
+    )
+
+    @groups_page = @resource.page(params[:page])
     @active_students_count = active_students_count(@groups_page.ids)
   end
 
