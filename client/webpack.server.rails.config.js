@@ -12,7 +12,6 @@ module.exports = {
   context: __dirname,
   entry: [
     'babel-polyfill',
-    './app/bundles/advanced-search/startup/client-registration',
     './app/bundles/ScheduleList/startup/clientRegistration',
   ],
   output: {
