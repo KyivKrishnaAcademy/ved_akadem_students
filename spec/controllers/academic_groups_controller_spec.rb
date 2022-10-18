@@ -80,12 +80,9 @@ describe AcademicGroupsController do
   end
 
   context 'get: :index with ["academic_group:index"]' do
-    Given { allow(AcademicGroup).to receive_message_chain(:all, :by_active_title, :page).and_return('some records') }
-
     Given(:action)      { get :index }
     Given(:expectation) do
       expect(response).to render_template(:index)
-      expect(assigns(:academic_groups)).to eq('some records')
     end
 
     it_behaves_like :academic_groups_actions, 'academic_group:index'

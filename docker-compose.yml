@@ -28,7 +28,7 @@ services:
       - 3000:3000
     volumes:
       - .:/home/app/students_crm
-      - assets-javascript-generated:/home/app/students_crm/app/assets/javascript/generated
+      - assets-javascript-generated:/home/app/students_crm/app/assets/javascripts/generated
       - bundle:/usr/local/bundle
       - client-node-modules:/home/app/students_crm/client/node_modules
       - node-modules:/home/app/students_crm/node_modules
