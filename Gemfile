@@ -41,6 +41,8 @@ gem 'react_on_rails', '~> 3.0'
 
 gem 'sentry-raven'
 
+gem 'uglifier'
+
 group :assets_builder, :development, :test do
   gem 'autoprefixer-rails'
   gem 'bootstrap-sass'
@@ -51,7 +53,6 @@ group :assets_builder, :development, :test do
   gem 'momentjs-rails'
   gem 'sass-rails'
   gem 'sprockets-svg'
-  gem 'uglifier'
 end
 
 group :production, :development do
