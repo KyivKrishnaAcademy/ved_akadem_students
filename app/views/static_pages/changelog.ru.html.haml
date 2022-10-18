@@ -1,5 +1,42 @@
 .row
   .col-xs-12.col-sm-8.col-sm-offset-2
+    %h4 2022.10.18
+    %ul.changelog
+      %li.addition
+        = link_to_commit('214a14661d6a13c472276fd30584ca4d8d4e8905')
+        Для домашней страницы, список групп, где пользователь является куратором
+      %li.modification
+        = link_to_commit('6f467290b50aa106f9c1ac09d71a0293b5e2df1e')
+        Обновление вида страницы в списке групп. Локализация и ссылки на доступные действия в виде иконок
+      %li.addition
+        = link_to_commit('ff1697d3dbb6c7677347f8a5d5ef7fd58da3a328')
+        Поддержка нумерации страниц для страницы списка групп. Локализация кнопок нумерации страниц
+      %li.modification
+        = link_to_commit('bea3bf4ff52cee1cfc1d62167820cfd6a9058a33')
+        Изменение цвета всех иконок редактирования на желтый
+      %li.modification
+        = link_to_commit('355748b98ae16fdadf551fa2201c2d009c733726')
+        Устранение ошибок в текстах локализации
+      %li.addition
+        = link_to_commit('f431c1ddfc5f0bc5dd6133818ba4f7a37365da27')
+        Санитизация поисковых запросов во избежание SQL инъекций
+      %li.modification
+        = link_to_commit('6f4dec40fd675983b83d9c2d06eb9af941a3beb1')
+        Убрано N+1 запросы при подсчете количества активных студентов на странице списка групп
+      %li.modification
+        = link_to_commit('6c5c9d7c04830e7e774087836407c799519cc5a1')
+        Рефакторинг общего компонента кнопки для поддержания размера и подсказки
+      %li.addition
+        = link_to_commit('dbdd699a528db4c404d23a6d646f3d2ddbca735d')
+        Выравнивание кнопок действий для списка учебного расписания
+      %li.addition
+        = link_to_commit('dece7627ef87479c6667e0eeaa5141bb93de6637')
+        Расширенный поиск для списка групп
+      %li.addition
+        = link_to_commit('33be1c1e81e462a62b89c430265e66debfc4fa1e')
+        Ссылка на комит для журнала изменений
+
+  .col-xs-12.col-sm-8.col-sm-offset-2
     %h4 2022.09.03
     %ul.changelog
       %li.deletion Удаление скриптов устаревших
