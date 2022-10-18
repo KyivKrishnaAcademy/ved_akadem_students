@@ -9,12 +9,12 @@
     = f.input :establ_date
     = f.input :group_description
     = f.association :curator, label_method: :complex_name, collection: [f.object.curator].compact,
-                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/group_curators' } }
+                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_group_curators_path } }
     = f.association :administrator, label_method: :complex_name, collection: [f.object.administrator].compact,
-                    input_html: { data: { :placeholder => 'Select an option', :'ajax--url' => '/ui/group_admins' } }
+                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_group_admins_path } }
     = f.association :praepostor, label_method: :complex_name, collection: [f.object.praepostor].compact,
-                    input_html: { data: { :placeholder => 'Select an option',
-                                          :'ajax--url' => "/ui/group_praepostors?group_id=#{f.object.id}" },
+                    input_html: { data: { placeholder: 'Select an option',
+                                          'ajax--url': ui_group_praepostors_path(group_id: f.object.id) },
                                   disabled: !f.object.persisted? }
     = f.input :message_ru
     = f.input :message_uk

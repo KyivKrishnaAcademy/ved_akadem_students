@@ -19,7 +19,7 @@ const ScheduleEntry = ({ schedule }) => (
     <GroupsLinks groups={schedule.academicGroups}/>
     <td>{schedule.classroom}</td>
     <td>{schedule.time}</td>
-    <td>
+    <td className="text-right text-middle">
       <EditLink
         condition={schedule.canEdit}
         path={schedule.editPath}

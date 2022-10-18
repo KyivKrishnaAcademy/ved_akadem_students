@@ -2,7 +2,29 @@
 
 .row
   .col-xs-12
-    = render 'shared/person_brief', person: current_person
+    .row.person-brief
+      .col-xs-12
+        .row
+          .col-xs-12
+            %h2
+              = current_person.complex_name
+        .row
+          .col-xs-12.col-sm-3
+            = person_photo(current_person, :standart, class: 'img-thumbnail img-version-standart')
+
+          .col-xs-12.col-sm-9
+            = link_to t('links.edit_profile'), edit_person_registration_path(current_person)
+
+          .col-xs-12.col-sm-9.vert-offset-top-1
+            = link_to t('.edit_subscriptions'), edit_subscriptions_path
+
+          - @person_academic_groups.each do |groups, localization_key|
+            - if groups.any?
+              .col-xs-12.col-sm-9.vert-offset-top-1
+                = t(localization_key)
+
+                - groups.each do |academic_group|
+                  = link_to academic_group.title, academic_group_path(academic_group)
 
   .col-xs-12.vert-offset-top-1#pending_docs
     = render 'shared/pending_docs', person: @application_person, is_links: true

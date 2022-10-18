@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  include Ilikable
+
   # TODO: use enums here since we run rails 4.1
   MARITAL_STATUSES = %i[single in_relationship married divorced widowed].freeze
 
@@ -155,6 +157,19 @@ class Person < ApplicationRecord
       .academic_groups
       .where.not(group_participations: { leave_date: nil })
       .order('group_participations.join_date ASC')
+  end
+
+  def current_curated_academic_groups
+    AcademicGroup
+      .where(curator_id: id, graduated_at: nil)
+      .order(:created_at)
+  end
+
+  def previous_curated_academic_groups
+    AcademicGroup
+      .where(curator_id: id)
+      .where.not(graduated_at: nil)
+      .order(:created_at)
   end
 
   def pending_docs

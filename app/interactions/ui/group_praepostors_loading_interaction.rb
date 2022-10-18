@@ -3,9 +3,7 @@ module Ui
     include Peoplable
 
     def init
-      # TODO: replace this when ElasticSearch appears
-      @people = AcademicGroup.find(params[:group_id]).active_students.where('complex_name ILIKE ?', "%#{params[:q]}%")
-      # TODO: injection is possible!
+      @people = AcademicGroup.find(params[:group_id]).active_students.ilike('complex_name', params[:q])
     end
   end
 end

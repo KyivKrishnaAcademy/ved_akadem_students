@@ -10,7 +10,7 @@ module LinkTos
   end
 
   def link_to_edit(condition, path)
-    link_to_action(condition, path, 'primary', t('links.edit'), 'pencil')
+    link_to_action(condition, path, 'warning', t('links.edit'), 'pencil')
   end
 
   def link_to_index(condition, path)

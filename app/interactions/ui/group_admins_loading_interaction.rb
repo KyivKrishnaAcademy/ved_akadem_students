@@ -3,9 +3,7 @@ module Ui
     include Peoplable
 
     def init
-      # TODO: replace this when ElasticSearch appears
-      @people = Person.where('complex_name ILIKE ?', "%#{params[:q]}%")
-      # TODO: injection is possible!
+      @people = Person.ilike('complex_name', params[:q])
     end
   end
 end

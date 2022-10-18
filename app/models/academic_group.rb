@@ -1,4 +1,7 @@
 class AcademicGroup < ApplicationRecord
+  include ConditionQueryable
+  include Ilikable
+
   has_many :group_participations, dependent: :destroy
   has_many :student_profiles, through: :group_participations
 

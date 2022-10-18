@@ -2,10 +2,10 @@
   %table.table.table-condensed.table-striped
     %thead
       %tr
-        %th #
-        %th=t('.serial')
-        %th=t('.template')
-        %th=t('.issued_date')
+        %th.text-top #
+        %th.text-top=t('.serial')
+        %th.text-top=t('.template')
+        %th.text-top=t('.issued_date')
     %tbody
       - if certificates.any?
         - certificates.each_with_index do |certificate, index|

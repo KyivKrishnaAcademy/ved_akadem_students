@@ -14,6 +14,7 @@ Rails.application.config.assets.precompile += %w[
   generated/app-bundle.js
   generated/server-bundle.js
   generated/react-bundle.js
+  generated/advanced-search-bundle.js
   generated/schedule-list-bundle.js
   generated/group-attendance-bundle.js
   generated/group-performance-bundle.js

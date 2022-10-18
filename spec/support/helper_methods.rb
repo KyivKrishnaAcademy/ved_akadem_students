@@ -58,7 +58,7 @@ module HelperMethods
       AcademicGroupsController.action_methods -
         %w(autocomplete_person get_prefix get_autocomplete_order
            get_autocomplete_items autocomplete_person_complex_name) +
-        %w(group_list_pdf attendance_template_pdf)
+        %w(group_list_pdf attendance_template_pdf statistics)
     ).map { |action| 'academic_group:' << action }
   end
 

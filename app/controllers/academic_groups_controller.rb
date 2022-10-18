@@ -1,4 +1,5 @@
 class AcademicGroupsController < ApplicationController
+  include AdvancedSearchable
   include ClassSchedulesRefreshable
 
   before_action :set_resource, only: %i[show edit update destroy graduate]
@@ -8,9 +9,23 @@ class AcademicGroupsController < ApplicationController
   after_action :refresh_class_schedules_mv, only: %i[destroy update graduate]
 
   def index
-    @academic_groups = policy_scope(AcademicGroup).by_active_title
-
     authorize AcademicGroup
+
+    @resource = policy_scope(AcademicGroup).by_active_title
+
+    advanced_search(
+      params[:search]&.values || [],
+      %w[title group_description],
+      {
+        'title' => 'title',
+        'establ_date' => 'establ_date',
+        'graduated_at' => "date_trunc('minute', graduated_at)",
+        'group_description' => 'group_description'
+      }
+    )
+
+    @groups_page = @resource.page(params[:page])
+    @active_students_count = active_students_count(@groups_page.ids)
   end
 
   def show
@@ -140,5 +155,27 @@ class AcademicGroupsController < ApplicationController
           passingScore: e.passing_score
         }
       end
+  end
+
+  def active_students_count(group_ids)
+    base =
+      GroupParticipation
+        .joins(:academic_group)
+        .where(academic_group_id: group_ids)
+
+    current_groups =
+      base
+        .where(academic_groups: { graduated_at: nil })
+        .where(leave_date: nil)
+
+    finished_groups =
+      base
+        .where.not(academic_groups: { graduated_at: nil })
+        .where('leave_date >= academic_groups.graduated_at')
+
+    current_groups
+      .or(finished_groups)
+      .group(:academic_group_id)
+      .count
   end
 end

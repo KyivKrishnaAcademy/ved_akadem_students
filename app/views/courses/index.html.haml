@@ -5,10 +5,10 @@
     %h1.text-center=t('.title')
 
   - if current_person.can_act?('course:new')
-    .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.vert-offset-bottom-1.text-right
+    .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1.vert-offset-bottom-1.text-right
       = link_to_new(true, new_course_path)
 
-  .col-xs-12.col-sm-6.col-sm-offset-3
+  .col-xs-12.col-sm-8.col-sm-offset-2
     .table-responsive
       %table.table.table-condensed.table-striped
         %thead

@@ -5,7 +5,7 @@ class StatisticsController < ApplicationController
   def index
     @academic_group = policy_scope(AcademicGroup).find(params[:academic_group_id])
 
-    authorize @academic_group
+    authorize @academic_group, :statistics?
 
     schedules = @academic_group.class_schedules.where('start_time < ?', Time.zone.now).order(:start_time)
     schedule_dates = schedules.pluck(:start_time).map(&:to_date)
