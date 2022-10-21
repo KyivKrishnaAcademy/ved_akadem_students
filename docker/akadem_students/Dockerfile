@@ -42,18 +42,21 @@ FROM base as base_with_node
 
 ARG NODE_LTS_VERSION=10
 ARG NPM_VERSION=6.13.0
-ARG ANGULAR_CLI_VERSION=8.3.18
 
 ENV NG_CLI_ANALYTICS=false
 
-RUN apt-get update
-RUN apt-get install -y \
-    curl
-RUN curl -sL https://deb.nodesource.com/setup_${NODE_LTS_VERSION}.x | bash -
-RUN apt-get install -y \
-    nodejs
-RUN npm install -g npm@${NPM_VERSION}
-RUN npm install -g @angular/cli@${ANGULAR_CLI_VERSION}
+RUN apt-get update \
+ && apt-get install -y \
+    curl \
+ && curl -sL https://deb.nodesource.com/setup_${NODE_LTS_VERSION}.x | bash - \
+ && apt-get install -y \
+    nodejs \
+ && npm install -g npm@${NPM_VERSION} \
+ && apt-get remove --purge -y \
+    curl \
+ && apt autoremove -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # ______________________________________________________________________________________________________________________
 
 FROM base_with_node as development
@@ -93,7 +96,7 @@ RUN rm -rf .git app/assets/javascript* app/assets/stylesheets node_modules clien
 
 # ______________________________________________________________________________________________________________________
 
-FROM base
+FROM base_with_node
 
 ENV RAILS_ENV=production
 

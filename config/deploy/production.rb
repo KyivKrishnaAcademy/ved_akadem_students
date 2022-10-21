@@ -1,1 +1,1 @@
-server 'students.ovh', user: 'deployer'
+server 'students.veda-kiev.org.ua', user: 'deployer'
