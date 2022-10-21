@@ -11,7 +11,7 @@ class AcademicGroupsController < ApplicationController
   def index
     authorize AcademicGroup
 
-    @resource = policy_scope(AcademicGroup).by_active_title
+    @resource = policy_scope(AcademicGroup)
 
     advanced_search(
       params[:search]&.values || [],
@@ -24,7 +24,7 @@ class AcademicGroupsController < ApplicationController
       }
     )
 
-    @groups_page = @resource.page(params[:page])
+    @groups_page = @resource.by_active_title.page(params[:page])
     @active_students_count = active_students_count(@groups_page.ids)
   end
 
