@@ -1,4 +1,4 @@
-FROM postgres:9.5
+FROM postgres:9.5.25
 
 LABEL maintainer="Maksym Pugach <pugach.m@gmail.com>"
 

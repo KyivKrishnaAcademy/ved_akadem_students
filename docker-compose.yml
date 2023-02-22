@@ -10,6 +10,7 @@ services:
     environment:
       POSTGRES_DB: va_db
       POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
 
   redis:
     image: redis:3.2.12-alpine

@@ -17,6 +17,7 @@ jobs:
         env:
           POSTGRES_DB: va_db_tst
           POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
     steps:
       - name: Get repo
         uses: actions/checkout@v2
