@@ -41,6 +41,26 @@ module ApplicationHelper
     )
   end
 
+  def inline_info(text)
+    return unless text
+
+    tag(
+      :i,
+      class: %w[fa fa-info-circle popover-info text-info inline-info],
+      aria: { hidden: 'true' },
+      data: { toggle: :popover, content: text }
+    )
+  end
+
+  def link_to_person_with_photo(person)
+    return unless person
+
+    content_tag(:div, class: 'link-to-person-with-photo') do
+      concat(thumb_with_pop(person))
+      concat(link_to_show_person_or_name(person, short: true))
+    end
+  end
+
   def class_schedules_table_headers
     %w[course teacher subject groups classroom time actions].map do |key|
       I18n.t("class_schedules.table_headers.#{key}")

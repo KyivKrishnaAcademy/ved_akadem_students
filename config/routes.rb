@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     resources :examinations, only: %i[new create edit update show destroy]
   end
 
+  resources :programs, only: %i[index]
+
   post '/academic_groups/:id/graduate', controller: :academic_groups, action: :graduate, as: :graduate_academic_group
 
   scope module: :users do

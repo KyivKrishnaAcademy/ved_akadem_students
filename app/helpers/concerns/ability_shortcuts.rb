@@ -11,6 +11,10 @@ module AbilityShortcuts
     current_person&.can_act?(%w[certificate_template:index certificate_template:new])
   end
 
+  def show_programs_menu?
+    current_person&.can_act?(%w[program:index program:new])
+  end
+
   def show_courses_menu?
     current_person&.can_act?(%w[course:index course:new])
   end

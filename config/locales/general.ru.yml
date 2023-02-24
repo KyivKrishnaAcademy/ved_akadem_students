@@ -32,6 +32,9 @@ ru:
       people_list:          'Все люди'
       people_without_applications:  'Без заявлений'
       people:               'Люди'
+      programs_add:  'Добавить курс'
+      programs_list: 'Список курсов'
+      programs:      'Учебные курсы'
       questionnaires_list: 'Список опросников'
       questionnaires: 'Опросники'
       statistics_yearly_active_students: 'Активные студенты по годам'
@@ -189,6 +192,20 @@ ru:
       study_applications: 'Заявления на обучение'
     index:
       search_placeholder: 'Кого Вы ищете?'
+  programs:
+    index:
+      title: 'Учебные курсы'
+      program_title: 'Название курса'
+      program_manager: 'Администратор курса'
+      program_manager_help: 'Его контакты видят студенты подавшие заявление курс и получает письма на почту когда подают новое заявление'
+      program_study_applications_count: 'Количество необработанных заявлений от студентов'
+      program_position: 'Позиция сортировки'
+      program_position_help: 'Чем меньше число, тем выше этот курс будет в списке, который видят студенты'
+      program_visibility: 'Видимость'
+      program_visibility_help: 'Не видимый курс видят администраторы, но он не предлагается студентам, чтобы подать на него заявление'
+      program_visibility_true: 'Да'
+      program_visibility_false: 'Не видим курс'
+      actions: 'Действия'
   notes:
     new:
       title: 'Новая заметка'

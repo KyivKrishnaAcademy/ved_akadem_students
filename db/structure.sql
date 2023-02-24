@@ -752,7 +752,8 @@ CREATE TABLE public.programs (
     courses_ru text,
     visible boolean DEFAULT false,
     manager_id integer,
-    "position" integer
+    "position" integer,
+    study_applications_count integer DEFAULT 0
 );
 
 
@@ -1961,6 +1962,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220717060619'),
 ('20220717061020'),
 ('20220717072150'),
-('20220903054050');
+('20220903054050'),
+('20230222180223');
 
 

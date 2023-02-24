@@ -32,6 +32,9 @@ uk:
       people_list:          'Усі люди'
       people_without_applications:  'Без заяв'
       people:               'Люди'
+      programs_add:  'Додати курс'
+      programs_list: 'Список курсів'
+      programs:      'Учбові курси'
       questionnaires_list: 'Список опитувальників'
       questionnaires: 'Опитувальники'
       statistics_yearly_active_students: 'Активні студенти по рокам'
@@ -189,6 +192,20 @@ uk:
       study_applications: 'Заяви на навчання'
     index:
       search_placeholder: 'Кого Ви шукаєте?'
+  programs:
+    index:
+      title: 'Учбові курси'
+      program_title: 'Назва курсу'
+      program_manager: 'Адміністратор курсу'
+      program_manager_help: 'Його контакти бачать студенти що подали заяву курс і він отрумує лісти на пошту коли подають нову заяву'
+      program_study_applications_count: 'Кількість неопрацьованих заявок від студентів'
+      program_position: 'Позиція для сортування'
+      program_position_help: 'Чим менше число, тим вище цей курс буде у списку, який бачать студенти'
+      program_visibility: 'Видимість'
+      program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується стунтам, щоб подати на нього заяву'
+      program_visibility_true: 'Так'
+      program_visibility_false: 'Не видимий курс'
+      actions: 'Дії'
   notes:
     new:
       title: 'Нова нотатка'
