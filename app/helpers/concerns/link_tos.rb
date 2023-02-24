@@ -1,7 +1,9 @@
 module LinkTos
   def link_to_show_person_or_name(person, short: false)
-    link_to_if policy(person).show?, complex_name(person, short: short), person_path(person) do
-      complex_name(person, short: short)
+    name = complex_name(person, short: short)
+
+    link_to_if policy(person).show?, name, person_path(person) do
+      name
     end
   end
 
