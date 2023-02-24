@@ -32,21 +32,6 @@
           %li
             - path = people_path(without_application: true)
             = link_to t('defaults.links.people_without_applications'), path, class: active_class(path)
-          %li
-            = check_box_tag 'people-by-application',
-                            :checked,
-                            cookies['people-by-application-submenu-is-opened'].present?,
-                            class: 'group-status'
-
-            %label{ for: 'people-by-application' }
-              = t('defaults.links.people_by_application')
-              %span.caret
-
-            %ul
-              - Program.select(:id, :title_uk, :title_ru).each do |program|
-                %li
-                  - path = people_path(with_application: program.id)
-                  = link_to program["title_#{I18n.locale}"], path, class: active_class(path)
 
     = generated_sidebar_menu
 

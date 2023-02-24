@@ -42,7 +42,7 @@
                 = link_to_person_with_photo(manager)
 
               %td.text-center
-                = program.study_applications_count
+                = link_to program.study_applications_count, people_path(with_application: program.id)
 
               %td.text-center
                 = program.position

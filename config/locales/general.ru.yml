@@ -28,7 +28,6 @@ ru:
       journal:              'Журнал действий'
       main_menu:            'Действия'
       people_add:           'Добавить человека'
-      people_by_application:      'По заявлениям'
       people_list:          'Все люди'
       people_without_applications:  'Без заявлений'
       people:               'Люди'
