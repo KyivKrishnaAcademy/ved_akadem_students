@@ -50,6 +50,14 @@ ru:
         privacy_agreement:      'Соглашение на обработку персональных данных'
         surname:                'Фамилия'
         work:                   'Работа'
+      program:
+        title_uk: 'Название на украинском'
+        title_ru: 'Название на русском'
+        description_uk: 'Описание на украинском'
+        description_ru: 'Описание на русском'
+        visible: 'Видимость студентам'
+        position: 'Позиция сортировки'
+        manager: 'Администратор курса'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:
@@ -59,6 +67,7 @@ ru:
       certificate_template_font: 'Шрифт шаблона сертификата'
       certificate_template:   'Шаблон сертификата'
       examination:            'Зачетная работа'
+      program: 'Учебный курс'
     errors:
       models:
         answer:
@@ -120,5 +129,9 @@ ru:
               too_long:             'слишком длинная (максимум %{count} символов)'
             work:
               blank:                'должна быть заполнена'
+        program:
+          attributes:
+            manager:
+              blank: 'должен быть выбран'
         telephone:
           invalid:  'должен быть верный'

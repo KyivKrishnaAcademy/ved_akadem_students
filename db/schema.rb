@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230222180223) do
+ActiveRecord::Schema.define(version: 20230225063808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,8 +224,6 @@ ActiveRecord::Schema.define(version: 20230222180223) do
     t.string   "title_ru",                 limit: 255
     t.text     "description_uk"
     t.text     "description_ru"
-    t.text     "courses_uk"
-    t.text     "courses_ru"
     t.boolean  "visible",                              default: false
     t.integer  "manager_id"
     t.integer  "position"

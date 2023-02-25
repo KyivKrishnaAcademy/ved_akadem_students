@@ -18,6 +18,10 @@ ru:
           married:          'женат/замужем'
           divorced:         'разведен/разведена'
           widowed:          'вдовец/вдова'
+      program:
+        visible:
+          visible: 'Да'
+          invisible: 'Не видимый'
     labels:
       certificate_template:
         background: 'Базовое изображение'

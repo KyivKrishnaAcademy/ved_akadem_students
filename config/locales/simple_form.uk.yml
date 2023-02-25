@@ -18,6 +18,10 @@ uk:
           married:          'одружений/заміжня'
           divorced:         'розлучений/розлучена'
           widowed:          'вдівець/вдова'
+      program:
+        visible:
+          visible: 'Так'
+          invisible: 'Невидимий'
     labels:
       certificate_template:
         background: 'Базове зображення'

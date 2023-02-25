@@ -1,7 +1,4 @@
 class Program < ApplicationRecord
-  serialize :courses_uk, Array
-  serialize :courses_ru, Array
-
   has_many :study_applications, dependent: :destroy
 
   belongs_to :manager, class_name: 'Person'

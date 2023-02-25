@@ -58,7 +58,6 @@ uk:
     delete_confirmation: 'Ви впевнені що хочете це ВИДАЛИТИ???'
   content:
     ask_manager:              'По організаційним питанням, звертайтеся до адміністратора курсу:'
-    courses:                  'Предмети що розглядаються на курсі:'
     apply_to_programs:        'У Вас є можливість поступити на такі курси:'
     confirm_withdraw:         'Ви впевнені, що хочете відкликати заяву на навчання?'
     you_applied:              'Ви подали заяву на курс'
@@ -203,8 +202,16 @@ uk:
       program_visibility: 'Видимість'
       program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується стунтам, щоб подати на нього заяву'
       program_visibility_true: 'Так'
-      program_visibility_false: 'Не видимий курс'
+      program_visibility_false: 'Невидимий курс'
       actions: 'Дії'
+    new:
+      title: 'Створення нового учбового курсу'
+      submit: 'Створити'
+    form:
+      select_manager_placeholder: 'Оберіть адміністратора курсу'
+    edit:
+      title: 'Редагування учбового курсу'
+      submit: 'Зберегти'
   notes:
     new:
       title: 'Нова нотатка'

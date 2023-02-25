@@ -35,7 +35,7 @@
 
             %tr
               %td
-                = link_to_if policy(program).show?, title, program_path(program) do
+                = link_to_if policy(program).edit?, title, edit_program_path(program) do
                   = title
 
               %td

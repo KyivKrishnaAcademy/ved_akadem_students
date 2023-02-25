@@ -748,8 +748,6 @@ CREATE TABLE public.programs (
     title_ru character varying(255),
     description_uk text,
     description_ru text,
-    courses_uk text,
-    courses_ru text,
     visible boolean DEFAULT false,
     manager_id integer,
     "position" integer,
@@ -1963,6 +1961,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220717061020'),
 ('20220717072150'),
 ('20220903054050'),
-('20230222180223');
+('20230222180223'),
+('20230225063808');
 
 

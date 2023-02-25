@@ -58,7 +58,6 @@ ru:
     delete_confirmation: 'Вы уверены что хотите это УДАЛИТЬ???'
   content:
     ask_manager:              'По организационным вопросам, обращайтесь к администратору курса:'
-    courses:                  'Предметы рассматриваемые на курсе:'
     apply_to_programs:        'У Вас есть возможность поступить на такие курсы:'
     confirm_withdraw:         'Вы уверены, что хотите отозвать заявление на обучение?'
     you_applied:              'Вы подали заявление на курс'
@@ -203,8 +202,16 @@ ru:
       program_visibility: 'Видимость'
       program_visibility_help: 'Не видимый курс видят администраторы, но он не предлагается студентам, чтобы подать на него заявление'
       program_visibility_true: 'Да'
-      program_visibility_false: 'Не видим курс'
+      program_visibility_false: 'Не видимый курс'
       actions: 'Действия'
+    new:
+      title: 'Создание нового учебного курса'
+      submit: 'Создать'
+    form:
+      select_manager_placeholder: 'Выберите администратора курса'
+    edit:
+      title: 'Редактирование учебного курса'
+      submit: 'Сохранить'
   notes:
     new:
       title: 'Новая заметка'

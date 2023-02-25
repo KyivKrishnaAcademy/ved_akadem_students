@@ -25,11 +25,6 @@
               - program["description_#{locale}"].to_s.split("\n").each do |part|
                 %p= part
 
-              - if program["courses_#{locale}"].any?
-                %p= t('content.courses')
-                %ul
-                  - program["courses_#{locale}"].each do |course_title|
-                    %li= course_title
 - else
   .program.alert.alert-success.clearfix
     .pull-right
