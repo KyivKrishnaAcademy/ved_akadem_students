@@ -58,6 +58,7 @@ uk:
         visible: 'Видимість студентам'
         position: 'Позиція для сортування'
         manager: 'Адміністратор курсу'
+        questionnaires: 'Опитувальники'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:

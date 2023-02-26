@@ -25,6 +25,8 @@
               = t('.program_visibility')
               = inline_info(t('.program_visibility_help'))
 
+            %th.text-top.text-center= t('.program_questionnaires_count')
+
             - if @programs.any? { |program| policy(program).tap { |p| break p.edit? || p.destroy? } }
               %th.text-top.text-right= t('.actions')
 
@@ -45,6 +47,8 @@
 
               %td.text-center
                 = t(".program_visibility_#{program.visible}")
+
+              %td.text-center= program.questionnaires_count
 
               - if policy(program).tap { |p| break p.edit? || p.destroy? }
                 %td.col-xs-2.col-sm-3.col-md-2.text-right

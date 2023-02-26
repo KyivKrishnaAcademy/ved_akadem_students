@@ -58,6 +58,7 @@ ru:
         visible: 'Видимость студентам'
         position: 'Позиция сортировки'
         manager: 'Администратор курса'
+        questionnaires: 'Опросники'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:

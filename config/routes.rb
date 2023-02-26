@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     resources :classrooms,       only: :index
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index
+    resources :questionnaires,   only: :index
     resources :examination_results, only: %i[create update destroy]
     resources :schedule_attendances, only: %i[index create update destroy]
 

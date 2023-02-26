@@ -203,12 +203,15 @@ ru:
       program_visibility_help: 'Не видимый курс видят администраторы, но он не предлагается студентам, чтобы подать на него заявление'
       program_visibility_true: 'Да'
       program_visibility_false: 'Не видимый курс'
+      program_questionnaires_count: 'Количество опросников'
       actions: 'Действия'
     new:
       title: 'Создание нового учебного курса'
       submit: 'Создать'
     form:
       select_manager_placeholder: 'Выберите администратора курса'
+      select_questionnaires_placeholder: 'Добавьте опросники'
+      questionnaires_hint: 'Эти опросники автоматически назначаются студенту после того, как он подает заявление на этот курс'
     edit:
       title: 'Редактирование учебного курса'
       submit: 'Сохранить'

@@ -17,6 +17,10 @@ class QuestionnairePolicy < BasePolicy
     owned? || update_all?
   end
 
+  def ui_index?
+    (user_activities & ['program:update', 'program:create']).any?
+  end
+
   private
 
   def owned?

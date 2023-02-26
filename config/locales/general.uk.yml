@@ -203,12 +203,15 @@ uk:
       program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується стунтам, щоб подати на нього заяву'
       program_visibility_true: 'Так'
       program_visibility_false: 'Невидимий курс'
+      program_questionnaires_count: 'Кількість опитувальників'
       actions: 'Дії'
     new:
       title: 'Створення нового учбового курсу'
       submit: 'Створити'
     form:
       select_manager_placeholder: 'Оберіть адміністратора курсу'
+      select_questionnaires_placeholder: 'Додайте опитувальники'
+      questionnaires_hint: 'Ці опитувальники автоматично назначаються студенту, після того як він подає заяву на цей курс'
     edit:
       title: 'Редагування учбового курсу'
       submit: 'Зберегти'

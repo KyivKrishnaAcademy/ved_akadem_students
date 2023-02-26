@@ -1,9 +1,12 @@
 class Questionnaire < ApplicationRecord
+  include Ilikable
+
   serialize :rule, Hash
 
-  has_and_belongs_to_many :programs
+  has_many :programs_questionnaires, dependent: :destroy, class_name: 'ProgramsQuestionnaire'
   has_many :questions, dependent: :destroy
   has_many :questionnaire_completenesses, dependent: :destroy
+  has_many :programs, through: :programs_questionnaires
   has_many :people, through: :questionnaire_completenesses
 
   accepts_nested_attributes_for :questions

@@ -27,14 +27,15 @@ class ProgramsController < HtmlRespondableController
     @program = Program.new(program_params)
 
     authorize @program
-
     @program.save
+    reset_questionnaires_count
 
     respond_with(@program, location: programs_path)
   end
 
   def update
     @program.update(program_params)
+    reset_questionnaires_count
 
     respond_with(@program, location: programs_path)
   end
@@ -75,7 +76,8 @@ class ProgramsController < HtmlRespondableController
                     :description_ru,
                     :visible,
                     :position,
-                    :manager_id
+                    :manager_id,
+                    questionnaire_ids: []
                   )
 
     permitted[:title_uk].strip!
@@ -84,5 +86,9 @@ class ProgramsController < HtmlRespondableController
     permitted[:description_ru].strip!
 
     permitted
+  end
+
+  def reset_questionnaires_count
+    Program.reset_counters(@program.id, :questionnaires_count) if @program.persisted?
   end
 end
