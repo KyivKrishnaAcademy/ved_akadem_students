@@ -33,7 +33,7 @@ module ApplicationHelper
     person_photo(
       person,
       :thumb,
-      class: :'popover-photo',
+      class: 'popover-photo popover-enable',
       data: {
         toggle: :popover,
         content: person_photo(person, :standart).to_s
@@ -46,7 +46,7 @@ module ApplicationHelper
 
     tag(
       :i,
-      class: %w[fa fa-info-circle popover-info text-info inline-info],
+      class: %w[fa fa-info-circle popover-enable text-info inline-info],
       aria: { hidden: 'true' },
       data: { toggle: :popover, content: text }
     )

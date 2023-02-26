@@ -30,16 +30,12 @@
 
         %tbody
           - @programs.each do |program|
-            - manager = program.manager
-            - title = program["title_#{locale}"]
-
             %tr
               %td
-                = link_to_if policy(program).edit?, title, edit_program_path(program) do
-                  = title
+                = program["title_#{locale}"]
 
               %td
-                = link_to_person_with_photo(manager)
+                = link_to_person_with_photo(program.manager)
 
               %td.text-center
                 = link_to program.study_applications_count, people_path(with_application: program.id)
@@ -53,4 +49,4 @@
               - if policy(program).tap { |p| break p.edit? || p.destroy? }
                 %td.col-xs-2.col-sm-3.col-md-2.text-right
                   = link_to_edit(policy(program).edit?, edit_program_path(program))
-                  = link_to_destroy(policy(program).destroy?, program_path(program))
+                  = link_to_destroy_program(program)

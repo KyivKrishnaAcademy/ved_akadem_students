@@ -212,6 +212,8 @@ uk:
     edit:
       title: 'Редагування учбового курсу'
       submit: 'Зберегти'
+    destroy:
+      process_study_applications_first: 'Неможливо видалити учбовий курс бо він має %{study_applications_count} неопрацьованих заяв на навчання. Опрацюйте їх спочатку.'
   notes:
     new:
       title: 'Нова нотатка'

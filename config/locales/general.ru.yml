@@ -212,6 +212,8 @@ ru:
     edit:
       title: 'Редактирование учебного курса'
       submit: 'Сохранить'
+    destroy:
+      process_study_applications_first: 'Невозможно удалить учебный курс, поскольку он имеет %{study_applications_count} необработанных заявлений на обучение. Обработайте их сначала.'
   notes:
     new:
       title: 'Новая заметка'

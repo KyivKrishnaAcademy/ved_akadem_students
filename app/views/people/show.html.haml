@@ -207,7 +207,7 @@
         = t('.psycho_test_results')
     - @person.psycho_test_result.each do |key, data|
       .col-xs-12.col-sm-6
-        %div{ class: 'popover-description', data: { toggle: 'popover', content: data[locale][:description] } }
+        %div{ class: 'popover-enable', data: { toggle: 'popover', content: data[locale][:description] } }
           %p= data[locale][:title]
           .progress
             .progress-bar{  class: "progress-bar-#{data[:color]}", role: :progressbar, style: "width: #{data[:percentage]}%;",

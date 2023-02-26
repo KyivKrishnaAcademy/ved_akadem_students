@@ -30,6 +30,19 @@ module LinkTos
     )
   end
 
+  def link_to_disabled_destroy(visibility_condition, disability_condition, path, disability_tooltip)
+    return unless visibility_condition
+    return link_to_destroy(true, path) unless disability_condition
+
+    content_tag(
+      :span,
+      class: 'popover-enable disabled-button-with-popover',
+      data: { toggle: :popover, content: disability_tooltip }
+    ) do
+      link_to_action(true, '', 'danger', '', 'trash', class: 'btn btn-xs btn-danger disabled', disabled: true)
+    end
+  end
+
   def link_to_action(condition, path, btn_color, tooltip, icon, params = {})
     return unless condition
 

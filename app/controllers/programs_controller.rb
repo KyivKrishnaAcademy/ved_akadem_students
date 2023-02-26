@@ -1,7 +1,7 @@
 class ProgramsController < HtmlRespondableController
   include Crudable
 
-  after_action :verify_policy_scoped, only: %i[index edit update]
+  after_action :verify_policy_scoped, only: %i[index edit update destroy]
 
   def index
     @programs = policy_scope(Program).order(visible: :desc, position: :asc).includes(:manager)
@@ -37,6 +37,24 @@ class ProgramsController < HtmlRespondableController
     @program.update(program_params)
 
     respond_with(@program, location: programs_path)
+  end
+
+  def destroy
+    if @program.study_applications.any?
+      redirect_back(
+        fallback_location: programs_path,
+        flash: {
+          danger: t(
+            'programs.destroy.process_study_applications_first',
+            study_applications_count: @program.study_applications_count
+          )
+        }
+      )
+    else
+      @program.destroy
+
+      respond_with(@program)
+    end
   end
 
   private
