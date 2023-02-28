@@ -25,7 +25,6 @@ services:
       context: '.'
       dockerfile: docker/akadem_students/Dockerfile
       target: development
-    platform: 'linux/amd64'
     ports:
       - 3000:3000
     volumes:
