@@ -1,0 +1,56 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center=t('.title')
+
+  - if current_person.can_act?('program:new')
+    .col-xs-12.col-sm-10.col-sm-offset-1.vert-offset-top-1.vert-offset-bottom-1.text-right
+      = link_to_new(true, new_program_path)
+
+  .col-xs-12.col-sm-10.col-sm-offset-1
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th.text-top= t('.program_title')
+            %th.text-top
+              = t('.program_manager')
+              = inline_info(t('.program_manager_help'))
+            %th.text-top.text-center= t('.program_study_applications_count')
+            %th.text-top.text-center
+              = t('.program_position')
+              = inline_info(t('.program_position_help'))
+            %th.text-top.text-center
+              = t('.program_visibility')
+              = inline_info(t('.program_visibility_help'))
+
+            %th.text-top.text-center= t('.program_questionnaires_count')
+
+            - if @programs.any? { |program| policy(program).tap { |p| break p.edit? || p.destroy? } }
+              %th.text-top.text-right= t('.actions')
+
+        %tbody
+          - @programs.each do |program|
+            %tr
+              %td
+                = program["title_#{locale}"]
+
+              %td
+                = link_to_person_with_photo(program.manager)
+
+              %td.text-center
+                = link_to program.study_applications_count, people_path(with_application: program.id)
+
+              %td.text-center
+                = program.position
+
+              %td.text-center
+                = t(".program_visibility_#{program.visible}")
+
+              %td.text-center= program.questionnaires_count
+
+              - if policy(program).tap { |p| break p.edit? || p.destroy? }
+                %td.col-xs-2.col-sm-3.col-md-2.text-right
+                  = link_to_edit(policy(program).edit?, edit_program_path(program))
+                  = link_to_destroy_program(program)

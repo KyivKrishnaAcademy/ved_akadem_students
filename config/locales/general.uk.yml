@@ -28,10 +28,12 @@ uk:
       journal:              'Журнал дій'
       main_menu:            'Дії'
       people_add:           'Додати людину'
-      people_by_application:      'По заявам'
       people_list:          'Усі люди'
       people_without_applications:  'Без заяв'
       people:               'Люди'
+      programs_add:  'Додати курс'
+      programs_list: 'Список курсів'
+      programs:      'Учбові курси'
       questionnaires_list: 'Список опитувальників'
       questionnaires: 'Опитувальники'
       statistics_yearly_active_students: 'Активні студенти по рокам'
@@ -56,7 +58,6 @@ uk:
     delete_confirmation: 'Ви впевнені що хочете це ВИДАЛИТИ???'
   content:
     ask_manager:              'По організаційним питанням, звертайтеся до адміністратора курсу:'
-    courses:                  'Предмети що розглядаються на курсі:'
     apply_to_programs:        'У Вас є можливість поступити на такі курси:'
     confirm_withdraw:         'Ви впевнені, що хочете відкликати заяву на навчання?'
     you_applied:              'Ви подали заяву на курс'
@@ -189,6 +190,33 @@ uk:
       study_applications: 'Заяви на навчання'
     index:
       search_placeholder: 'Кого Ви шукаєте?'
+  programs:
+    index:
+      title: 'Учбові курси'
+      program_title: 'Назва курсу'
+      program_manager: 'Адміністратор курсу'
+      program_manager_help: 'Його контакти бачать студенти що подали заяву курс і він отрумує лісти на пошту коли подають нову заяву'
+      program_study_applications_count: 'Кількість неопрацьованих заявок від студентів'
+      program_position: 'Позиція для сортування'
+      program_position_help: 'Чим менше число, тим вище цей курс буде у списку, який бачать студенти'
+      program_visibility: 'Видимість'
+      program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується стунтам, щоб подати на нього заяву'
+      program_visibility_true: 'Так'
+      program_visibility_false: 'Невидимий курс'
+      program_questionnaires_count: 'Кількість опитувальників'
+      actions: 'Дії'
+    new:
+      title: 'Створення нового учбового курсу'
+      submit: 'Створити'
+    form:
+      select_manager_placeholder: 'Оберіть адміністратора курсу'
+      select_questionnaires_placeholder: 'Додайте опитувальники'
+      questionnaires_hint: 'Ці опитувальники автоматично назначаються студенту, після того як він подає заяву на цей курс'
+    edit:
+      title: 'Редагування учбового курсу'
+      submit: 'Зберегти'
+    destroy:
+      process_study_applications_first: 'Неможливо видалити учбовий курс бо він має %{study_applications_count} неопрацьованих заяв на навчання. Опрацюйте їх спочатку.'
   notes:
     new:
       title: 'Нова нотатка'

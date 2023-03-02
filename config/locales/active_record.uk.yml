@@ -50,6 +50,15 @@ uk:
         privacy_agreement:      'Згода на обробку персональних даних'
         surname:                'Прізвище'
         work:                   'Робота'
+      program:
+        title_uk: 'Назва українською'
+        title_ru: 'Назва російською'
+        description_uk: 'Опис українською'
+        description_ru: 'Опис російською'
+        visible: 'Видимість студентам'
+        position: 'Позиція для сортування'
+        manager: 'Адміністратор курсу'
+        questionnaires: 'Опитувальники'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:
@@ -59,6 +68,7 @@ uk:
       certificate_template_font: 'Шрифт шаблону сертифікату'
       certificate_template:   'Шаблон сертифікату'
       examination:            'Залікова робота'
+      program: 'Учбовий курс'
     errors:
       models:
         answer:
@@ -123,5 +133,13 @@ uk:
               accepted:             'повинна бути прийнята'
             work:
               blank:                'повинна бути заповнена'
+        program:
+          attributes:
+            title_uk:
+              blank: 'не може бути пустою'
+            title_ru:
+              blank: 'не може бути пустою'
+            manager:
+              blank: 'повинен бути обраний'
         telephone:
           invalid:  'повинен бути вірний'

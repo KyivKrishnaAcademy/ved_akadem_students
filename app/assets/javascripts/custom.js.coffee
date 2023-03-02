@@ -26,7 +26,7 @@ $ ->
         horizontal: 'left'
       stepping: 5
 
-  $('.popover-description, .popover-photo').popover({
+  $('.popover-enable').popover({
     trigger: 'hover',
     placement: 'auto top',
     delay: { show: 600, hide: 0 },

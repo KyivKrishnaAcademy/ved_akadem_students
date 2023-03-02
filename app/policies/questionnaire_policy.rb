@@ -17,6 +17,15 @@ class QuestionnairePolicy < BasePolicy
     owned? || update_all?
   end
 
+  def ui_index?
+    user.can_act?(
+      %w[
+        program:edit
+        program:new
+      ]
+    )
+  end
+
   private
 
   def owned?

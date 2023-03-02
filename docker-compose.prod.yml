@@ -9,30 +9,34 @@ volumes:
     external: false
   postgres-prod:
     external: false
+  letsencrypt-prod:
+    external: false
+  certbot-prod:
+    external: false
 
 services:
   postgres:
-    image:          mpugach/postgres_ua:9.5
-    restart:        always
+    image: mpugach/postgres_ua:9.5
+    restart: always
     container_name: postgres
     volumes:
       - postgres-prod:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB:    va_db
-      POSTGRES_USER:  postgres
+      POSTGRES_DB: va_db
+      POSTGRES_USER: postgres
 
   redis:
-    image:          redis:3.2.4-alpine
-    restart:        always
+    image: redis:3.2.4-alpine
+    restart: always
     container_name: redis
     volumes:
       - redis-prod:/data
 
   application:
-    image:          mpugach/akadem_students_prod:latest
-    command:        bin/start_rails_prod.sh
-    restart:        always
-    env_file:       ./.ruby-env
+    image: mpugach/akadem_students_prod:latest
+    command: bin/start_rails_prod.sh
+    restart: always
+    env_file: ./.ruby-env
     container_name: application
     expose:
       - '3000'
@@ -43,15 +47,15 @@ services:
       - redis
       - postgres
     environment:
-      RAILS_ENV:            production
-      REDIS_URL:            redis
-      RAILS_LOG_TO_STDOUT:  1
+      RAILS_ENV: production
+      REDIS_URL: redis
+      RAILS_LOG_TO_STDOUT: 1
 
   sidekiq:
-    image:          mpugach/akadem_students_prod:latest
-    command:        bin/start_sidekiq_prod.sh
-    restart:        always
-    env_file:       ./.ruby-env
+    image: mpugach/akadem_students_prod:latest
+    command: bin/start_sidekiq_prod.sh
+    restart: always
+    env_file: ./.ruby-env
     container_name: sidekiq
     volumes:
       - public-prod:/home/app/students_crm/public_nginx
@@ -60,20 +64,37 @@ services:
       - redis
       - postgres
     environment:
-      RAILS_ENV:            production
-      REDIS_URL:            redis
-      RAILS_LOG_TO_STDOUT:  1
+      RAILS_ENV: production
+      REDIS_URL: redis
+      RAILS_LOG_TO_STDOUT: 1
 
   nginx:
-    image:          mpugach/akadem_students_nginx:latest
-    command:        nginx -g 'daemon off;'
-    restart:        always
+    image: nginx:1.23.3-alpine
+    restart: always
     container_name: nginx
     ports:
       - '80:80'
+      - '443:443'
     volumes:
       - public-prod:/assets/public:ro
       - uploads-prod:/assets/uploads:ro
+      - letsencrypt-prod:/etc/letsencrypt:ro
+      - certbot-prod:/var/www/certbot:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - application
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
+  # https://github.com/wmnnd/nginx-certbot
+  # First time certificate initialization
+  # certbot certonly --webroot -w /var/www/certbot --email "YOUR_EMAIL_HERE+students_letsencrypt@gmail.com" -d YOUR_DOMAIN_HERE --rsa-key-size 4096 --agree-tos --force-renewal
+  # cd /etc/letsencrypt
+  # wget https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf
+  # wget https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem
+  certbot:
+    image: certbot/certbot
+    restart: always
+    volumes:
+      - letsencrypt-prod:/etc/letsencrypt
+      - certbot-prod:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

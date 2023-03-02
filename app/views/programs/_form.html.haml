@@ -1,0 +1,37 @@
+- content_for(:js_and_css) do
+  = javascript_include_tag 'select2.min', type: 'text/javascript'
+  = stylesheet_link_tag 'select2.min', media: 'all'
+
+= simple_form_for @program do |f|
+  = render 'shared/error_messages', object: f.object
+
+  .form-inputs
+    = f.input :title_uk
+    = f.input :title_ru
+    ~ f.input :description_uk, input_html: { rows: 10 }
+    ~ f.input :description_ru, input_html: { rows: 10 }
+
+    .row
+      .col-xs-6
+        = f.input :visible,
+                  collection: [[:visible, true], [:invisible, false]],
+                  include_blank: false,
+                  label_method: lambda { |element| t("simple_form.options.program.visible.#{element.first}") }
+      .col-xs-6
+        = f.input :position
+
+    = f.association :manager,
+                    label_method: :complex_name,
+                    collection: [f.object.manager].compact,
+                    input_html: { data: { placeholder: t('.select_manager_placeholder'), 'ajax--url': ui_group_admins_path } }
+
+    = f.association :questionnaires,
+                    label_method: :"title_#{locale}",
+                    collection: f.object.questionnaires,
+                    hint: t('.questionnaires_hint'),
+                    input_html: { data: { placeholder: t('.select_questionnaires_placeholder'), 'ajax--url': ui_questionnaires_path } }
+
+  .form-actions
+    = f.button :button, class: 'btn btn-submit col-xs-12' do
+      %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+      = submit_label

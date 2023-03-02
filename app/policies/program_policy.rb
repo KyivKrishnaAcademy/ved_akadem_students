@@ -1,0 +1,2 @@
+class ProgramPolicy < BasePolicy
+end

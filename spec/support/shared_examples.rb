@@ -251,9 +251,9 @@ shared_examples :allow_with_activities do |activites|
 end
 
 shared_examples :study_applications do |admin|
-  Given!(:program) { create(:program, title_uk: 'Школа Бхакти', description_uk: 'Описание 1') }
-  Given { create(:program, title_uk: 'Бхакти Шастры', description_uk: 'Описание 2') }
-  Given { create(:program, title_uk: 'Invisible Program', visible: false) }
+  Given!(:program) { create(:program, title_uk: 'Школа Бхакти', description_uk: 'Описание 1', position: 0) }
+  Given { create(:program, title_uk: 'Бхакти Шастры', description_uk: 'Описание 2', position: 1) }
+  Given { create(:program, title_uk: 'Invisible Program', visible: false, position: 2) }
   Given { StudyApplication.create(person_id: user.id, program_id: program.id) } if admin
 
   Given(:have_apply_button) { have_selector('button.btn-submit', text: I18n.t('links.apply_to_program')) }

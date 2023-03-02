@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     resources :examinations, only: %i[new create edit update show destroy]
   end
 
+  resources :programs, only: %i[new create edit update index destroy]
+
   post '/academic_groups/:id/graduate', controller: :academic_groups, action: :graduate, as: :graduate_academic_group
 
   scope module: :users do
@@ -76,6 +78,7 @@ Rails.application.routes.draw do
     resources :classrooms,       only: :index
     resources :courses,          only: :index
     resources :teacher_profiles, only: :index
+    resources :questionnaires,   only: :index
     resources :examination_results, only: %i[create update destroy]
     resources :schedule_attendances, only: %i[index create update destroy]
 

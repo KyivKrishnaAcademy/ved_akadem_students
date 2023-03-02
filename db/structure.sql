@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
+-- Dumped from database version 9.5.25
 -- Dumped by pg_dump version 9.5.25
 
 SET statement_timeout = 0;
@@ -748,11 +748,11 @@ CREATE TABLE public.programs (
     title_ru character varying(255),
     description_uk text,
     description_ru text,
-    courses_uk text,
-    courses_ru text,
     visible boolean DEFAULT false,
     manager_id integer,
-    "position" integer
+    "position" integer,
+    study_applications_count integer DEFAULT 0,
+    questionnaires_count integer DEFAULT 0
 );
 
 
@@ -781,8 +781,28 @@ ALTER SEQUENCE public.programs_id_seq OWNED BY public.programs.id;
 
 CREATE TABLE public.programs_questionnaires (
     questionnaire_id integer,
-    program_id integer
+    program_id integer,
+    id integer NOT NULL
 );
+
+
+--
+-- Name: programs_questionnaires_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.programs_questionnaires_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: programs_questionnaires_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.programs_questionnaires_id_seq OWNED BY public.programs_questionnaires.id;
 
 
 --
@@ -1269,6 +1289,13 @@ ALTER TABLE ONLY public.programs ALTER COLUMN id SET DEFAULT nextval('public.pro
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.programs_questionnaires ALTER COLUMN id SET DEFAULT nextval('public.programs_questionnaires_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.questionnaire_completenesses ALTER COLUMN id SET DEFAULT nextval('public.questionnaire_completenesses_id_seq'::regclass);
 
 
@@ -1500,6 +1527,14 @@ ALTER TABLE ONLY public.people_roles
 
 ALTER TABLE ONLY public.programs
     ADD CONSTRAINT programs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: programs_questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.programs_questionnaires
+    ADD CONSTRAINT programs_questionnaires_pkey PRIMARY KEY (id);
 
 
 --
@@ -1738,6 +1773,13 @@ CREATE UNIQUE INDEX index_people_on_uid_and_provider ON public.people USING btre
 
 
 --
+-- Name: index_programs_questionnaires_on_p_and_q; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_programs_questionnaires_on_p_and_q ON public.programs_questionnaires USING btree (program_id, questionnaire_id);
+
+
+--
 -- Name: index_study_applications_on_person_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1961,6 +2003,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220717060619'),
 ('20220717061020'),
 ('20220717072150'),
-('20220903054050');
+('20220903054050'),
+('20230222180223'),
+('20230225063808'),
+('20230226200547'),
+('20230226201309');
 
 

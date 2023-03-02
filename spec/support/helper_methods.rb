@@ -13,16 +13,17 @@ module HelperMethods
       class_schedule_activities + certificate_template_activities + journal_activities + examination_activities +
       attendance_activities + examination_results + note_activities + statistics_activities +
       questionnaire_activities + certificate_template_font_activities + certificate_activities +
-      certificate_import_activities
+      certificate_import_activities + program_activities
     ).sort
   end
 
   def screenshot
     sleep 10
 
-    # rubocop:disable Lint/Debugger
-    save_screenshot(Rails.root.join('tmp/capybara', 'Screenshot' << Time.zone.now.strftime('%Y%m%d%H%M%S%L') << '.png'))
-    # rubocop:enable Lint/Debugger
+    file_path = Rails.root.join('tmp/capybara', 'Screenshot' << Time.zone.now.strftime('%Y%m%d%H%M%S%L')).to_s
+
+    save_screenshot(file_path + '.png')
+    save_page(file_path + '.html')
   end
 
   def select2_single(klass, option)
@@ -88,6 +89,10 @@ module HelperMethods
 
   def certificate_template_font_activities
     CertificateTemplateFontsController.action_methods.map { |action| 'certificate_template_font:' << action }
+  end
+
+  def program_activities
+    ProgramsController.action_methods.map { |action| 'program:' << action }
   end
 
   def journal_activities

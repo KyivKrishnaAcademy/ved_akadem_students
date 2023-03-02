@@ -15,8 +15,6 @@ namespace :academic do
         title_uk: p[:title_uk],
         title_ru: p[:title_ru],
         manager_id: manager_id,
-        courses_uk: p[:courses_uk],
-        courses_ru: p[:courses_ru],
         description_uk: p[:description_uk],
         description_ru: p[:description_ru]
       )

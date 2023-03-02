@@ -33,12 +33,32 @@ module ApplicationHelper
     person_photo(
       person,
       :thumb,
-      class: :'popover-photo',
+      class: 'popover-photo popover-enable',
       data: {
         toggle: :popover,
         content: person_photo(person, :standart).to_s
       }
     )
+  end
+
+  def inline_info(text)
+    return unless text
+
+    tag(
+      :i,
+      class: %w[fa fa-info-circle popover-enable text-info inline-info],
+      aria: { hidden: 'true' },
+      data: { toggle: :popover, content: text }
+    )
+  end
+
+  def link_to_person_with_photo(person)
+    return unless person
+
+    content_tag(:div, class: 'link-to-person-with-photo') do
+      concat(thumb_with_pop(person))
+      concat(link_to_show_person_or_name(person, short: true))
+    end
   end
 
   def class_schedules_table_headers

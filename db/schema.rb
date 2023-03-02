@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220903054050) do
+ActiveRecord::Schema.define(version: 20230226201309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,20 +220,21 @@ ActiveRecord::Schema.define(version: 20220903054050) do
   create_table "programs", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title_uk",       limit: 255
-    t.string   "title_ru",       limit: 255
+    t.string   "title_uk",                 limit: 255
+    t.string   "title_ru",                 limit: 255
     t.text     "description_uk"
     t.text     "description_ru"
-    t.text     "courses_uk"
-    t.text     "courses_ru"
-    t.boolean  "visible",                    default: false
+    t.boolean  "visible",                              default: false
     t.integer  "manager_id"
     t.integer  "position"
+    t.integer  "study_applications_count",             default: 0
+    t.integer  "questionnaires_count",                 default: 0
   end
 
-  create_table "programs_questionnaires", id: false, force: :cascade do |t|
+  create_table "programs_questionnaires", force: :cascade do |t|
     t.integer "questionnaire_id"
     t.integer "program_id"
+    t.index ["program_id", "questionnaire_id"], name: "index_programs_questionnaires_on_p_and_q", unique: true, using: :btree
   end
 
   create_table "questionnaire_completenesses", force: :cascade do |t|
