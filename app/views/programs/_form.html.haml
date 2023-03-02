@@ -20,7 +20,9 @@
       .col-xs-6
         = f.input :position
 
-    = f.association :manager, label_method: :complex_name, collection: [f.object.manager].compact,
+    = f.association :manager,
+                    label_method: :complex_name,
+                    collection: [f.object.manager].compact,
                     input_html: { data: { placeholder: t('.select_manager_placeholder'), 'ajax--url': ui_group_admins_path } }
 
     = f.association :questionnaires,

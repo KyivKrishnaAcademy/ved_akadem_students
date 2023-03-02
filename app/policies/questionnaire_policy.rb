@@ -18,7 +18,12 @@ class QuestionnairePolicy < BasePolicy
   end
 
   def ui_index?
-    (user_activities & ['program:update', 'program:create']).any?
+    user.can_act?(
+      %w[
+        program:edit
+        program:new
+      ]
+    )
   end
 
   private

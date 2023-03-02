@@ -12,7 +12,14 @@ class PersonPolicy < BasePolicy
   end
 
   def group_admins_index?
-    academic_group_writable
+    user.can_act?(
+      %w[
+        academic_group:edit
+        academic_group:new
+        program:edit
+        program:new
+      ]
+    )
   end
 
   def group_curators_index?
