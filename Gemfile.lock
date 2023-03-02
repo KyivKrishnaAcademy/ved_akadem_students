@@ -420,7 +420,7 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     ttfunk (1.6.2.1)
-    tzinfo (1.2.9)
+    tzinfo (1.2.11)
       thread_safe (~> 0.1)
     tzinfo-data (1.2016.7)
       tzinfo (>= 1.0.0)
