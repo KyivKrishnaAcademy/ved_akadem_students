@@ -200,7 +200,7 @@ uk:
       program_position: 'Позиція для сортування'
       program_position_help: 'Чим менше число, тим вище цей курс буде у списку, який бачать студенти'
       program_visibility: 'Видимість'
-      program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується стунтам, щоб подати на нього заяву'
+      program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується студентам, щоб подати на нього заяву'
       program_visibility_true: 'Так'
       program_visibility_false: 'Невидимий курс'
       program_questionnaires_count: 'Кількість опитувальників'
