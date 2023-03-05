@@ -1,4 +1,10 @@
 module LinkTos
+  def link_to_show_academic_group_or_tile(academic_group)
+    link_to_if policy(academic_group).show?, academic_group.title, academic_group do
+      academic_group.title
+    end
+  end
+
   def link_to_show_person_or_name(person, short: false)
     name = complex_name(person, short: short)
 

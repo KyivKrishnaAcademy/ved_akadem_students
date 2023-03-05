@@ -68,7 +68,7 @@
         %tbody
           - @groups_page.each do |academic_group|
             %tr{class: 'academic_group', id: academic_group.id}
-              %td= link_to academic_group.title, academic_group
+              %td= link_to_show_academic_group_or_tile(academic_group)
               %td.text-center= l(academic_group.establ_date) if academic_group.establ_date.present?
               %td.text-center= l(academic_group.graduated_at, format: :with_day) unless academic_group.active?
               %td= academic_group.group_description
