@@ -129,6 +129,8 @@ uk:
       max_result:           'Макс.'
       min_result:           'Мін.'
       passing_score:        'Прохідний'
+      course_description: 'Опис'
+      course_variant: 'Варіант'
   crops:
     crop_image:
       title:    'Кадрування зображення'

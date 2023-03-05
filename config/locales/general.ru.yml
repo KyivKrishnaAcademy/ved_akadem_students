@@ -129,6 +129,8 @@ ru:
       max_result:           'Макс.'
       min_result:           'Мин.'
       passing_score:        'Проходной'
+      course_description: 'Описание'
+      course_variant: 'Вариант'
   crops:
     crop_image:
       title:        'Кадрирование изображения'

@@ -13,10 +13,21 @@
       = link_to_destroy(policy(@course).destroy?, course_path(@course))
 
   .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    %h5
+      = t('.course_description')
+  .col-xs-12.col-sm-8.col-sm-offset-2
     = @course.description
 
   .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
-    = t('.class_schedules_count')
+    %h5
+      = t('.course_variant')
+  .col-xs-12.col-sm-8.col-sm-offset-2
+    = @course.variant
+
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    %h5
+      = t('.class_schedules_count')
+  .col-xs-12.col-sm-8.col-sm-offset-2
     = @class_schedules_count
 
   - if @course.teacher_profiles.any?
