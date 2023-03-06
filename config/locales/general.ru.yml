@@ -135,6 +135,8 @@ ru:
       course_variant: 'Вариант'
       total_examination_results_count: 'Общее количество сданных зачетных работ'
       results_per_examination: 'Количество сданных зачетных работ'
+      course_description_help: 'Может отображаться студентам'
+      course_variant_help: 'Отображается только администраторам, чтобы отличать очень похожие предметы'
   crops:
     crop_image:
       title:        'Кадрирование изображения'

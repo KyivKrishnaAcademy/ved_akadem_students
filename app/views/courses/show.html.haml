@@ -15,12 +15,14 @@
   .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
     %h5
       = t('.course_description')
+      = inline_info(t('.course_description_help'))
   .col-xs-12.col-sm-8.col-sm-offset-2
     = @course.description
 
   .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
     %h5
       = t('.course_variant')
+      = inline_info(t('.course_variant_help'))
   .col-xs-12.col-sm-8.col-sm-offset-2
     = @course.variant
 

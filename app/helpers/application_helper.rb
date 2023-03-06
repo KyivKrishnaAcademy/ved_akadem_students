@@ -44,8 +44,9 @@ module ApplicationHelper
   def inline_info(text)
     return unless text
 
-    tag(
+    content_tag(
       :i,
+      '',
       class: %w[fa fa-info-circle popover-enable text-info inline-info],
       aria: { hidden: 'true' },
       data: { toggle: :popover, content: text }
