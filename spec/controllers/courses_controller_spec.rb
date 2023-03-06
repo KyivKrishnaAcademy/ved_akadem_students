@@ -113,15 +113,66 @@ describe CoursesController do
 
         describe '#destroy' do
           Given(:actions) { ['course:destroy'] }
-          Given!(:course) { create :course }
 
           Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
           describe 'with success' do
+            Given!(:course) { create :course }
+
             Then { expect { delete :destroy, params: { id: course.id } }.to change(Course, :count).by(-1) }
             And  { expect(response).to redirect_to(courses_path) }
             And  { is_expected.to set_flash[:notice] }
             And  { expect(assigns(:course)).to eq(course) }
+          end
+
+          shared_examples :courses_destroy_prerequisites_are_not_met do
+            Then { expect { delete :destroy, params: { id: course.id } }.not_to change(Course, :count) }
+            And  { expect(response).to redirect_to(courses_path) }
+            And  { is_expected.to set_flash[:danger].to(expected_flash_message) }
+            And  { expect(assigns(:course)).to eq(course) }
+          end
+
+          describe 'class_schedules_count is not zero' do
+            Given!(:course) { create :course, class_schedules_count: 1 }
+            Given(:expected_flash_message) do
+              I18n.t('courses.destroy.unable_to_destroy') + ' ' + I18n.t(
+                'courses.destroy.remove_class_schedules_first',
+                class_schedules_count: 1
+              )
+            end
+
+            it_behaves_like :courses_destroy_prerequisites_are_not_met
+          end
+
+          describe 'examination_results_count is not zero' do
+            Given!(:course) { create :course, examination_results_count: 2 }
+            Given(:expected_flash_message) do
+              I18n.t('courses.destroy.unable_to_destroy') + ' ' + I18n.t(
+                'courses.destroy.remove_examination_results_first',
+                examination_results_count: 2
+              )
+            end
+
+            it_behaves_like :courses_destroy_prerequisites_are_not_met
+          end
+
+          describe 'both class_schedules_count and examination_results_count are not zero' do
+            Given!(:course) { create :course, class_schedules_count: 1, examination_results_count: 2 }
+            Given(:expected_flash_message) do
+              I18n.t('courses.destroy.unable_to_destroy') +
+                ' ' +
+                I18n.t(
+                  'courses.destroy.remove_class_schedules_first',
+                  class_schedules_count: 1
+                ) +
+                ', ' +
+                I18n.t(
+                  'courses.destroy.remove_examination_results_first',
+                  examination_results_count: 2
+                )
+            end
+
+            it_behaves_like :courses_destroy_prerequisites_are_not_met
           end
         end
       end

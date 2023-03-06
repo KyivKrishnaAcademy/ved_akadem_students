@@ -35,4 +35,4 @@
               - if policy(course).tap { |p| break p.edit? || p.destroy? }
                 %td.col-xs-2.col-sm-3.col-md-2.text-right
                   = link_to_edit(policy(course).edit?, edit_course_path(course))
-                  = link_to_destroy(policy(course).destroy?, course_path(course))
+                  = link_to_destroy_course(course)

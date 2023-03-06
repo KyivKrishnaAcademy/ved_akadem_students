@@ -137,6 +137,11 @@ ru:
       results_per_examination: 'Количество сданных зачетных работ'
       course_description_help: 'Может отображаться студентам'
       course_variant_help: 'Отображается только администраторам, чтобы отличать очень похожие предметы'
+    destroy:
+      unable_to_destroy: 'Невозможно удалить предмет так как'
+      remove_class_schedules_first: "с ним связаны %{class_schedules_count} расписаний занятий"
+      remove_examination_results_first: 'он имеет %{examination_results_count} сданных зачетных работ'
+      prerequisites_are_not_met: "С этим предметом связаны расписания занятий и сданы зачетные работы. Сначала уберите эти связи"
   crops:
     crop_image:
       title:        'Кадрирование изображения'

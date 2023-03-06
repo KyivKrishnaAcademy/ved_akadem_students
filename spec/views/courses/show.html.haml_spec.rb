@@ -5,13 +5,15 @@ describe 'courses/show' do
   Given(:user) { create :person, roles: [create(:role, activities: activities)] }
   Given(:course) { create :course, title: course_title }
   Given(:academic_group) { create :academic_group }
-  Given(:activities) { %w(course:show) }
+  Given(:activities) { %w[course:show] }
   Given(:course_title) { 'Bhakta Program' }
 
   Given { allow(view).to receive(:policy).with(course).and_return(CoursePolicy.new(user, course)) }
   Given { allow(view).to receive(:policy).with(Course).and_return(CoursePolicy.new(user, Course)) }
   Given { allow(view).to receive(:policy).with(Examination).and_return(CoursePolicy.new(user, Examination)) }
-  Given { allow(view).to receive(:policy).with(academic_group).and_return(AcademicGroupPolicy.new(user, academic_group)) }
+  Given do
+    allow(view).to receive(:policy).with(academic_group).and_return(AcademicGroupPolicy.new(user, academic_group))
+  end
 
   Given { assign(:course, course) }
   Given { assign(:academic_groups, [academic_group]) }
@@ -36,7 +38,7 @@ describe 'courses/show' do
     end
 
     context 'with course:edit rights' do
-      Given(:activities) { %w(course:edit) }
+      Given(:activities) { %w[course:edit] }
 
       Then { expect(container).to(have_edit_course_link) }
       And  { expect_no_destroy_link }
@@ -44,15 +46,47 @@ describe 'courses/show' do
     end
 
     context 'with course:destroy rights' do
-      Given(:activities) { %w(course:destroy) }
+      Given(:activities) { %w[course:destroy] }
 
-      Then { expect(container).to(have_destroy_course_link) }
-      And  { expect_no_edit_link }
-      And  { expect_no_academic_group_link }
+      describe 'with enabled "destroy" link' do
+        Then { expect(container).to(have_destroy_course_link) }
+        And  { expect_no_edit_link }
+        And  { expect_no_academic_group_link }
+      end
+
+      describe 'with disabled "destroy" link' do
+        shared_examples :courses_destroy_is_disabled do
+          Then { expect(container).not_to(have_destroy_course_link) }
+
+          And do
+            expect(container).to(
+              have_selector('.col-xs-12:nth-child(2) .disabled-button-with-popover a.btn-danger.disabled')
+            )
+          end
+        end
+
+        describe 'course has ClassSchedules' do
+          Given(:course) { create :course, title: course_title, class_schedules_count: 1 }
+
+          it_behaves_like :courses_destroy_is_disabled
+        end
+
+        describe 'course has ExaminationResults' do
+          Given(:course) { create :course, title: course_title, examination_results_count: 2 }
+
+          it_behaves_like :courses_destroy_is_disabled
+        end
+
+        describe 'course has both ClassSchedules and ExaminationResults' do
+          Given(:course) { create :course, title: course_title, class_schedules_count: 1, examination_results_count: 2 }
+
+          it_behaves_like :courses_destroy_is_disabled
+        end
+      end
     end
 
     context 'with academic_group:show rights' do
-      Given(:activities) { %w(academic_group:show) }
+      Given(:activities) { %w[academic_group:show] }
 
       Then { expect(container).to(have_academic_group_link) }
       And  { expect_no_destroy_link }
