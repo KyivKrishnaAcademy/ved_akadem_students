@@ -5,19 +5,37 @@
     %h1
       = @course.title
 
-  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1.clearfix
-    = link_to_back(policy(Course).index?, courses_path)
-
-    .pull-right
-      = link_to_edit(policy(@course).edit?, edit_course_path(@course))
-      = link_to_destroy(policy(@course).destroy?, course_path(@course))
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1.text-right
+    = link_to_new policy(Course).new?, new_course_path
+    = link_to_index policy(Course).index?, courses_path
+    = link_to_edit(policy(@course).edit?, edit_course_path(@course))
+    = link_to_destroy_course(@course)
 
   .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    %h5
+      = t('.course_description')
+      = inline_info(t('.course_description_help'))
+  .col-xs-12.col-sm-8.col-sm-offset-2
     = @course.description
 
   .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
-    = t('.class_schedules_count')
+    %h5
+      = t('.course_variant')
+      = inline_info(t('.course_variant_help'))
+  .col-xs-12.col-sm-8.col-sm-offset-2
+    = @course.variant
+
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    %h5
+      = t('.class_schedules_count')
+  .col-xs-12.col-sm-8.col-sm-offset-2
     = @class_schedules_count
+
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    %h5
+      = t('.total_examination_results_count')
+  .col-xs-12.col-sm-8.col-sm-offset-2
+    = @course.examination_results_count
 
   - if @course.teacher_profiles.any?
     .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
@@ -43,7 +61,7 @@
           - @academic_groups.each do |group|
             %tr
               %td.nowrap
-                = group.title
+                = link_to_show_academic_group_or_title(group)
 
   - if policy(Examination).index?
     .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
@@ -58,26 +76,25 @@
         %table.table.table-condensed.table-striped
           %thead
             %tr
-              %th= t('.examination_title')
-              %th= t('.min_result')
-              %th= t('.max_result')
-              %th= t('.passing_score')
+              %th.text-top= t('.examination_title')
+              %th.text-top= t('.min_result')
+              %th.text-top= t('.max_result')
+              %th.text-top= t('.passing_score')
+              %th.text-top= t('.results_per_examination')
 
               - if @examinations.any? { |e| policy(e).tap { |p| break p.edit? || p.destroy? } }
-                %th.text-right= t('.actions')
+                %th.text-top.text-right= t('.actions')
 
           %tbody
             - @examinations.each do |examination|
               %tr
-                %td
-                  = link_to_if policy(examination).show?, examination.title, course_examination_path(examination.course_id, examination) do
-                    = examination.title
-
+                %td= examination.title
                 %td.col-xs-1= examination.min_result
                 %td.col-xs-1= examination.max_result
                 %td.col-xs-1= examination.passing_score
+                %td= examination.examination_results_count
 
                 - if policy(examination).tap { |p| break p.edit? || p.destroy? }
                   %td.col-xs-2.col-sm-3.col-md-2.text-right
                     = link_to_edit(policy(examination).edit?, edit_course_examination_path(@course, examination))
-                    = link_to_destroy(policy(examination).destroy?, course_examination_path(@course, examination))
+                    = link_to_destroy_examination(examination)

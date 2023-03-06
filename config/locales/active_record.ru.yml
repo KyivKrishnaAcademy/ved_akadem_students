@@ -27,6 +27,11 @@ ru:
       certificate_template_font:
         name: 'Имя'
         file: 'Файл'
+      course:
+        title: 'Название'
+        description: 'Описание'
+        variant: 'Вариант'
+        teacher_profiles: 'Преподаватели'
       examination:
         description:    'Описание'
         max_result:     'Максимальний бал'
@@ -66,8 +71,9 @@ ru:
     models:
       certificate_template_entry: 'Элемент шаблона сертификата'
       certificate_template_font: 'Шрифт шаблона сертификата'
-      certificate_template:   'Шаблон сертификата'
-      examination:            'Зачетная работа'
+      certificate_template: 'Шаблон сертификата'
+      course: 'Предмет'
+      examination: 'Зачетная работа'
       program: 'Учебный курс'
     errors:
       models:

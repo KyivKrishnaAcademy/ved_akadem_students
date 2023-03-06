@@ -512,7 +512,9 @@ CREATE TABLE public.courses (
     updated_at timestamp without time zone,
     title character varying(255),
     description character varying(255),
-    variant character varying
+    variant character varying,
+    examination_results_count integer DEFAULT 0,
+    class_schedules_count integer DEFAULT 0
 );
 
 
@@ -581,7 +583,8 @@ CREATE TABLE public.examinations (
     max_result integer DEFAULT 1,
     course_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    examination_results_count integer DEFAULT 0
 );
 
 
@@ -2007,6 +2010,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230222180223'),
 ('20230225063808'),
 ('20230226200547'),
-('20230226201309');
+('20230226201309'),
+('20230305211926'),
+('20230306054610');
 
 

@@ -1,8 +1,11 @@
-- provide(:title, 'Add New Course')
+- provide(:title, t('.title'))
 
 .row
   .col-xs-12
-    %h1
-      Add Course
+    %h1.text-center= t('.title')
 
-  = render 'form'
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_index policy(Course).index?, courses_path
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = render 'form', submit_label: t('.submit')

@@ -15,7 +15,7 @@ class CoursesController < HtmlRespondableController
   def show
     @examinations = Examination.where(course_id: params[:id]).order(:title)
     @academic_groups = @course.academic_groups.order(:title)
-    @class_schedules_count = @course.class_schedules.count
+    @class_schedules_count = @course.class_schedules_count
 
     respond_with(@course)
   end
@@ -49,9 +49,36 @@ class CoursesController < HtmlRespondableController
   end
 
   def destroy
-    @course.destroy.destroyed?
+    errors = []
 
-    respond_with(@course)
+    if @course.class_schedules_count.positive?
+      errors << t(
+        'courses.destroy.remove_class_schedules_first',
+        class_schedules_count: @course.class_schedules_count
+      )
+    end
+
+    if @course.examination_results_count.positive?
+      errors << t(
+        'courses.destroy.remove_examination_results_first',
+        examination_results_count: @course.examination_results_count
+      )
+    end
+
+    if errors.any?
+      joined_errors = "#{t('courses.destroy.unable_to_destroy')} #{errors.join(', ')}"
+
+      redirect_back(
+        fallback_location: courses_path,
+        flash: {
+          danger: joined_errors
+        }
+      )
+    else
+      @course.destroy
+
+      respond_with(@course)
+    end
   end
 
   private

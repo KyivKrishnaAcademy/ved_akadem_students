@@ -52,6 +52,7 @@ ru:
     list: 'Список'
     new: 'Создать'
     statistics: 'Статистика'
+    show: 'Просмотр'
     update: 'Сохранить'
     withdraw: 'Отозвать заявление'
   alerts:
@@ -113,11 +114,19 @@ ru:
       file_present: 'Шаблони уже присутствует. Выбрать новый?'
       file_not_present: 'Шаблон еще не был загружен'
   courses:
+    new:
+      title: 'Создание нового предмета'
+      submit: 'Создать'
+    edit:
+      title: 'Редактирование предмета'
+      submit: 'Сохранить'
     index:
       actions:      'Действия'
       course_title: 'Название'
       course_variant: 'Вариант'
       title:        'Предметы'
+      course_examination_results_count: 'Количество сданных зачетных работ'
+      course_class_schedules_count: 'Создано расписаний'
     show:
       academic_group_title: 'Название'
       actions:              'Действия'
@@ -129,6 +138,17 @@ ru:
       max_result:           'Макс.'
       min_result:           'Мин.'
       passing_score:        'Проходной'
+      course_description: 'Описание'
+      course_variant: 'Вариант'
+      total_examination_results_count: 'Общее количество сданных зачетных работ'
+      results_per_examination: 'Количество сданных зачетных работ'
+      course_description_help: 'Может отображаться студентам'
+      course_variant_help: 'Отображается только администраторам, чтобы отличать очень похожие предметы'
+    destroy:
+      unable_to_destroy: 'Невозможно удалить предмет так как'
+      remove_class_schedules_first: "с ним связаны %{class_schedules_count} расписаний занятий"
+      remove_examination_results_first: 'он имеет %{examination_results_count} сданных зачетных работ'
+      prerequisites_are_not_met: "С этим предметом связаны расписания занятий и сданы зачетные работы. Сначала уберите эти связи"
   crops:
     crop_image:
       title:        'Кадрирование изображения'
@@ -154,6 +174,8 @@ ru:
     edit:
       form_title:     'Редактировать зачетную работу'
       submit_label:   'Сохранить зачетную работу'
+    destroy:
+      remove_examination_results_first: 'Невозможно удалить зачетную работу, так как студенты уже ее сдавали %{examination_results_count} раз, удалите эти оценки сначала'
   users:
     emails:
       new:
@@ -180,6 +202,7 @@ ru:
       student_of_academic_groups: 'Вы студент групп:'
       study_applications: 'Заявления на обучение'
       title: 'Домашняя'
+      edit_subscriptions: Редактировать подписки
   people:
     show:
       not_adult:            '(еще нет 16!)'

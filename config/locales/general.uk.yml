@@ -52,6 +52,7 @@ uk:
     list: 'Список'
     new: 'Створити'
     statistics: 'Статистика'
+    show: 'Перегляд'
     update: 'Зберегти'
     withdraw: 'Відкликати заяву'
   alerts:
@@ -66,10 +67,10 @@ uk:
     attach_photo:             'Додати фотографію'
     in_profile:               'до профілю'
     form_has_errors:
-      one:    'Виправте будьласка %{count} помилку:'
-      few:    'Виправте будьласка %{count} помилки:'
-      many:   'Виправте будьласка %{count} помилок:'
-      other:  'Виправте будьласка %{count} помилки:'
+      one:    'Виправте будь ласка %{count} помилку:'
+      few:    'Виправте будь ласка %{count} помилки:'
+      many:   'Виправте будь ласка %{count} помилок:'
+      other:  'Виправте будь ласка %{count} помилки:'
   answers:
     edit:
       update: 'Надіслати відповідь'
@@ -113,11 +114,19 @@ uk:
       file_present: 'Шаблони вже присутній. Обрати новий?'
       file_not_present: 'Шаблон ще не було завантажено'
   courses:
+    new:
+      title: 'Створення нового предмету'
+      submit: 'Створити'
+    edit:
+      title: 'Редагування предмету'
+      submit: 'Зберегти'
     index:
       actions:      'Дії'
       course_title: 'Назва'
       course_variant: 'Варіант'
       title:        'Предмети'
+      course_examination_results_count: 'Кількість зданих залікових робіт'
+      course_class_schedules_count: 'Створено розкладів'
     show:
       academic_group_title: 'Назва'
       actions:              'Дії'
@@ -129,6 +138,17 @@ uk:
       max_result:           'Макс.'
       min_result:           'Мін.'
       passing_score:        'Прохідний'
+      course_description: 'Опис'
+      course_variant: 'Варіант'
+      total_examination_results_count: 'Загальна кількість зданих залікових робіт'
+      results_per_examination: 'Кількість зданих залікових робіт'
+      course_description_help: 'Може відображатися студентам'
+      course_variant_help: 'Відображається тільки адміністраторам, щоб відрізняти дуже схожі предмети'
+    destroy:
+      unable_to_destroy: 'Неможливо видалити предмет бо'
+      remove_class_schedules_first: "з ним пов'язано %{class_schedules_count} розкладів занять"
+      remove_examination_results_first: 'він має %{examination_results_count} зданих залікових робіт'
+      prerequisites_are_not_met: "З цим предметом пов`язані розклади занять та здані залікові роботи. Спочатку приберіть ці зв'язки"
   crops:
     crop_image:
       title:    'Кадрування зображення'
@@ -154,6 +174,8 @@ uk:
     edit:
       form_title:     'Редагувати залікову роботу'
       submit_label:   'Зберегти залікову роботу'
+    destroy:
+      remove_examination_results_first: 'Неможливо видалити залікову роботу бо студенти вже її здавали %{examination_results_count} разів, видаліть ці оцінки спочатку'
   users:
     emails:
       new:
@@ -180,6 +202,7 @@ uk:
       student_of_academic_groups: 'Ви студент груп:'
       study_applications: 'Заяви на навчання'
       title: 'Домашня'
+      edit_subscriptions: 'Редагувати підписки'
   people:
     show:
       not_adult:            '(ще нема 16!)'
@@ -200,7 +223,7 @@ uk:
       program_position: 'Позиція для сортування'
       program_position_help: 'Чим менше число, тим вище цей курс буде у списку, який бачать студенти'
       program_visibility: 'Видимість'
-      program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується стунтам, щоб подати на нього заяву'
+      program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується студентам, щоб подати на нього заяву'
       program_visibility_true: 'Так'
       program_visibility_false: 'Невидимий курс'
       program_questionnaires_count: 'Кількість опитувальників'

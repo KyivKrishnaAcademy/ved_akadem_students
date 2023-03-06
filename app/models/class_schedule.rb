@@ -2,7 +2,7 @@ class ClassSchedule < ApplicationRecord
   include ClassScheduleCustomValidations
 
   belongs_to :classroom
-  belongs_to :course
+  belongs_to :course, counter_cache: true
   belongs_to :teacher_profile
 
   has_many :academic_group_schedules, dependent: :destroy

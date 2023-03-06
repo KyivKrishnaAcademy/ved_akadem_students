@@ -4,6 +4,7 @@ module Ui
       @status = resource.valid? ? :ok : :unprocessable_entity
 
       resource.save
+      increment_indirect_counters
     end
 
     def as_json(_opts = {})
@@ -19,6 +20,12 @@ module Ui
       else
         errors_json(resource)
       end
+    end
+
+    def increment_indirect_counters
+      return unless resource.id_previously_changed?
+
+      Course.update_counters(resource.course.id, examination_results_count: 1)
     end
   end
 end

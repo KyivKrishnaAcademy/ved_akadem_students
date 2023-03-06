@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   resource :subscriptions, only: %i[edit update]
 
   resources :courses do
-    resources :examinations, only: %i[new create edit update show destroy]
+    resources :examinations, only: %i[new create edit update destroy]
   end
 
   resources :programs, only: %i[new create edit update index destroy]

@@ -1,8 +1,14 @@
-- provide(:title, @course.title)
+- provide(:title, t('.title'))
 
 .row
   .col-xs-12
-    %h1
-      = @course.title
+    %h1.text-center= t('.title')
 
-  = render 'form'
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_show policy(@course).show?, course_path(@course)
+    = link_to_new policy(Course).new?, new_course_path
+    = link_to_index policy(Course).index?, courses_path
+    = link_to_destroy_course(@course)
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = render 'form', submit_label: t('.submit')

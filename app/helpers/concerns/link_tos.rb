@@ -1,4 +1,10 @@
 module LinkTos
+  def link_to_show_academic_group_or_title(academic_group)
+    link_to_if policy(academic_group).show?, academic_group.title, academic_group do
+      academic_group.title
+    end
+  end
+
   def link_to_show_person_or_name(person, short: false)
     name = complex_name(person, short: short)
 
@@ -21,6 +27,10 @@ module LinkTos
 
   def link_to_back(condition, path)
     link_to_action(condition, path, 'primary', t('links.back'), 'arrow-left')
+  end
+
+  def link_to_show(condition, path)
+    link_to_action(condition, path, 'primary', t('links.show'), 'eye-open')
   end
 
   def link_to_destroy(condition, path)

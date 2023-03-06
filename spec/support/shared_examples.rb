@@ -316,49 +316,52 @@ shared_examples :not_authenticated_js do
   And  { expect(response.body).to eq(I18n.t('devise.failure.unauthenticated')) }
 end
 
-shared_examples :failed_auth_crud do |sub_example|
+shared_examples :failed_auth_crud do |sub_example, skipped_actions = []|
   describe sub_example.to_s do
+    Given(:additional_params) { respond_to?(:nested_route_params) ? nested_route_params : {} }
+    Given(:default_id_param) { { id: respond_to?(:default_id) ? default_id : 1 } }
+
     context '#index' do
-      When { get :index }
+      When { get :index, params: additional_params }
 
       it_behaves_like sub_example
-    end
+    end unless skipped_actions.include?(:index)
 
     context '#create' do
-      When { post :create, params: params }
+      When { post :create, params: additional_params.deep_merge(params) }
 
       it_behaves_like sub_example
-    end
+    end unless skipped_actions.include?(:create)
 
     context '#new' do
-      When { get :new }
+      When { get :new, params: additional_params }
 
       it_behaves_like sub_example
-    end
+    end unless skipped_actions.include?(:new)
 
     context '#edit' do
-      When { get :edit, params: { id: 1 } }
+      When { get :edit, params: additional_params.deep_merge(default_id_param) }
 
       it_behaves_like sub_example
-    end
+    end unless skipped_actions.include?(:edit)
 
     context '#show' do
-      When { get :show, params: { id: 1 } }
+      When { get :show, params: additional_params.deep_merge(default_id_param) }
 
       it_behaves_like sub_example
-    end
+    end unless skipped_actions.include?(:show)
 
     context '#update' do
-      When { patch :update, params: { id: 1 } }
+      When { patch :update, params: additional_params.deep_merge(default_id_param) }
 
       it_behaves_like sub_example
-    end
+    end unless skipped_actions.include?(:update)
 
     context '#destroy' do
-      When { delete :destroy, params: { id: 1 } }
+      When { delete :destroy, params: additional_params.deep_merge(default_id_param) }
 
       it_behaves_like sub_example
-    end
+    end unless skipped_actions.include?(:destroy)
   end
 end
 
