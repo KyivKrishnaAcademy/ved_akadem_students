@@ -1,5 +1,6 @@
 class Examination < ApplicationRecord
   belongs_to :course
+  has_many :examination_results, dependent: :restrict_with_error
 
   validates :title, :course, presence: true
   validate :passing_score_in_range

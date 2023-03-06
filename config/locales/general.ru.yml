@@ -118,6 +118,7 @@ ru:
       course_title: 'Название'
       course_variant: 'Вариант'
       title:        'Предметы'
+      course_examination_results_count: 'Количество сданных зачетных работ'
     show:
       academic_group_title: 'Название'
       actions:              'Действия'
@@ -131,6 +132,8 @@ ru:
       passing_score:        'Проходной'
       course_description: 'Описание'
       course_variant: 'Вариант'
+      total_examination_results_count: 'Общее количество сданных зачетных работ'
+      results_per_examination: 'Количество сданных зачетных работ'
   crops:
     crop_image:
       title:        'Кадрирование изображения'

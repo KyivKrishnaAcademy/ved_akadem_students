@@ -118,6 +118,7 @@ uk:
       course_title: 'Назва'
       course_variant: 'Варіант'
       title:        'Предмети'
+      course_examination_results_count: 'Кількість зданих залікових робіт'
     show:
       academic_group_title: 'Назва'
       actions:              'Дії'
@@ -131,6 +132,8 @@ uk:
       passing_score:        'Прохідний'
       course_description: 'Опис'
       course_variant: 'Варіант'
+      total_examination_results_count: 'Загальна кількість зданих залікових робіт'
+      results_per_examination: 'Кількість зданих залікових робіт'
   crops:
     crop_image:
       title:    'Кадрування зображення'

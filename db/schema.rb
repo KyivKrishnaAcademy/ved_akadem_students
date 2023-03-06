@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230226201309) do
+ActiveRecord::Schema.define(version: 20230305211926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,9 +131,10 @@ ActiveRecord::Schema.define(version: 20230226201309) do
   create_table "courses", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",       limit: 255
-    t.string   "description", limit: 255
+    t.string   "title",                     limit: 255
+    t.string   "description",               limit: 255
     t.string   "variant"
+    t.integer  "examination_results_count",             default: 0
   end
 
   create_table "examination_results", force: :cascade do |t|
@@ -147,14 +148,15 @@ ActiveRecord::Schema.define(version: 20230226201309) do
   end
 
   create_table "examinations", force: :cascade do |t|
-    t.string   "title",         default: ""
-    t.text     "description",   default: ""
-    t.integer  "passing_score", default: 1
-    t.integer  "min_result",    default: 0
-    t.integer  "max_result",    default: 1
+    t.string   "title",                     default: ""
+    t.text     "description",               default: ""
+    t.integer  "passing_score",             default: 1
+    t.integer  "min_result",                default: 0
+    t.integer  "max_result",                default: 1
     t.integer  "course_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "examination_results_count", default: 0
     t.index ["course_id"], name: "index_examinations_on_course_id", using: :btree
   end
 

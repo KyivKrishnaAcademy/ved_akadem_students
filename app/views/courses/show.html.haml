@@ -30,6 +30,12 @@
   .col-xs-12.col-sm-8.col-sm-offset-2
     = @class_schedules_count
 
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    %h5
+      = t('.total_examination_results_count')
+  .col-xs-12.col-sm-8.col-sm-offset-2
+    = @course.examination_results_count
+
   - if @course.teacher_profiles.any?
     .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
       %h5
@@ -69,13 +75,14 @@
         %table.table.table-condensed.table-striped
           %thead
             %tr
-              %th= t('.examination_title')
-              %th= t('.min_result')
-              %th= t('.max_result')
-              %th= t('.passing_score')
+              %th.text-top= t('.examination_title')
+              %th.text-top= t('.min_result')
+              %th.text-top= t('.max_result')
+              %th.text-top= t('.passing_score')
+              %th.text-top= t('.results_per_examination')
 
               - if @examinations.any? { |e| policy(e).tap { |p| break p.edit? || p.destroy? } }
-                %th.text-right= t('.actions')
+                %th.text-top.text-right= t('.actions')
 
           %tbody
             - @examinations.each do |examination|
@@ -87,6 +94,7 @@
                 %td.col-xs-1= examination.min_result
                 %td.col-xs-1= examination.max_result
                 %td.col-xs-1= examination.passing_score
+                %td= examination.examination_results_count
 
                 - if policy(examination).tap { |p| break p.edit? || p.destroy? }
                   %td.col-xs-2.col-sm-3.col-md-2.text-right
