@@ -113,6 +113,12 @@ ru:
       file_present: 'Шаблони уже присутствует. Выбрать новый?'
       file_not_present: 'Шаблон еще не был загружен'
   courses:
+    new:
+      title: 'Создание нового предмета'
+      submit: 'Создать'
+    edit:
+      title: 'Редактирование предмета'
+      submit: 'Сохранить'
     index:
       actions:      'Действия'
       course_title: 'Название'

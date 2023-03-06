@@ -11,7 +11,7 @@ describe 'Teacher multi select for courses:', :js do
 
   Given(:common_assertions) do
     select2_multi('course_teacher_profiles', person_2.complex_name)
-    find('input[type="submit"]').click
+    find('button[type="submit"]').click
     expect(page).to have_selector('.alert-dismissible.alert-notice')
   end
 
@@ -57,7 +57,7 @@ describe 'Teacher multi select for courses:', :js do
       end
 
       And { expect(select_container).not_to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
-      And { find('input[type="submit"]').click }
+      And { find('button[type="submit"]').click }
       And { visit edit_course_path(course) }
       And { expect(select_container).not_to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
       And { expect(select_container).to have_selector('li.select2-selection__choice', text: person_2.complex_name) }

@@ -5,12 +5,11 @@
     %h1
       = @course.title
 
-  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1.clearfix
-    = link_to_back(policy(Course).index?, courses_path)
-
-    .pull-right
-      = link_to_edit(policy(@course).edit?, edit_course_path(@course))
-      = link_to_destroy_course(@course)
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1.text-right
+    = link_to_new policy(Course).new?, new_course_path
+    = link_to_index policy(Course).index?, courses_path
+    = link_to_edit(policy(@course).edit?, edit_course_path(@course))
+    = link_to_destroy_course(@course)
 
   .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
     %h5

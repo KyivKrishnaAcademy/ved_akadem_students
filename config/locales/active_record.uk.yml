@@ -27,6 +27,11 @@ uk:
       certificate_template_font:
         name: "Ім'я"
         file: 'Файл'
+      course:
+        title: 'Назва'
+        description: 'Опис'
+        variant: 'Варіант'
+        teacher_profiles: 'Викладачі'
       examination:
         description:    'Опис'
         max_result:     'Максимальний бал'
@@ -66,8 +71,9 @@ uk:
     models:
       certificate_template_entry: 'Елемент шаблону сертифікату'
       certificate_template_font: 'Шрифт шаблону сертифікату'
-      certificate_template:   'Шаблон сертифікату'
-      examination:            'Залікова робота'
+      certificate_template: 'Шаблон сертифікату'
+      course: 'Предмет'
+      examination: 'Залікова робота'
       program: 'Учбовий курс'
     errors:
       models:
@@ -95,6 +101,10 @@ uk:
               availability: 'недоступна на цей час'
             teacher_profile:
               availability: 'недоступний на цей час'
+        course:
+          attributes:
+            title:
+              blank: 'не може бути пустою'
         examination:
           attributes:
             title:

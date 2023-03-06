@@ -113,6 +113,12 @@ uk:
       file_present: 'Шаблони вже присутній. Обрати новий?'
       file_not_present: 'Шаблон ще не було завантажено'
   courses:
+    new:
+      title: 'Створення нового предмету'
+      submit: 'Створити'
+    edit:
+      title: 'Редагування предмету'
+      submit: 'Зберегти'
     index:
       actions:      'Дії'
       course_title: 'Назва'
