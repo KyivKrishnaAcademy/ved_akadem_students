@@ -61,7 +61,7 @@
           - @academic_groups.each do |group|
             %tr
               %td.nowrap
-                = link_to_show_academic_group_or_tile(group)
+                = link_to_show_academic_group_or_title(group)
 
   - if policy(Examination).index?
     .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1

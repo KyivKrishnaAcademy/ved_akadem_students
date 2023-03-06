@@ -1,5 +1,5 @@
 module LinkTos
-  def link_to_show_academic_group_or_tile(academic_group)
+  def link_to_show_academic_group_or_title(academic_group)
     link_to_if policy(academic_group).show?, academic_group.title, academic_group do
       academic_group.title
     end
