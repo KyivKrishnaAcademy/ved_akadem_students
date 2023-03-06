@@ -34,9 +34,23 @@ class ExaminationsController < HtmlRespondableController
   end
 
   def destroy
-    @examination.destroy
+    location = course_path(params[:course_id])
 
-    respond_with(@examination, location: -> { course_path(params[:course_id]) })
+    if @examination.examination_results_count.positive?
+      redirect_back(
+        fallback_location: location,
+        flash: {
+          danger: t(
+            'examinations.destroy.remove_examination_results_first',
+            examination_results_count: @examination.examination_results_count
+          )
+        }
+      )
+    else
+      @examination.destroy
+
+      respond_with(@examination, location: -> { location })
+    end
   end
 
   private

@@ -167,6 +167,8 @@ ru:
     edit:
       form_title:     'Редактировать зачетную работу'
       submit_label:   'Сохранить зачетную работу'
+    destroy:
+      remove_examination_results_first: 'Невозможно удалить зачетную работу, так как студенты уже ее сдавали %{examination_results_count} раз, удалите эти оценки сначала'
   users:
     emails:
       new:
@@ -193,6 +195,7 @@ ru:
       student_of_academic_groups: 'Вы студент групп:'
       study_applications: 'Заявления на обучение'
       title: 'Домашняя'
+      edit_subscriptions: Редактировать подписки
   people:
     show:
       not_adult:            '(еще нет 16!)'

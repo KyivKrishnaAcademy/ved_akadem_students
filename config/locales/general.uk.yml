@@ -167,6 +167,8 @@ uk:
     edit:
       form_title:     'Редагувати залікову роботу'
       submit_label:   'Зберегти залікову роботу'
+    destroy:
+      remove_examination_results_first: 'Неможливо видалити залікову роботу бо студенти вже її здавали %{examination_results_count} разів, видаліть ці оцінки спочатку'
   users:
     emails:
       new:
@@ -193,6 +195,7 @@ uk:
       student_of_academic_groups: 'Ви студент груп:'
       study_applications: 'Заяви на навчання'
       title: 'Домашня'
+      edit_subscriptions: 'Редагувати підписки'
   people:
     show:
       not_adult:            '(ще нема 16!)'
