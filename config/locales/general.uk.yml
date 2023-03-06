@@ -52,6 +52,7 @@ uk:
     list: 'Список'
     new: 'Створити'
     statistics: 'Статистика'
+    show: 'Перегляд'
     update: 'Зберегти'
     withdraw: 'Відкликати заяву'
   alerts:

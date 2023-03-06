@@ -29,6 +29,10 @@ module LinkTos
     link_to_action(condition, path, 'primary', t('links.back'), 'arrow-left')
   end
 
+  def link_to_show(condition, path)
+    link_to_action(condition, path, 'primary', t('links.show'), 'eye-open')
+  end
+
   def link_to_destroy(condition, path)
     link_to_action(
       condition, path, 'danger', t('links.delete'), 'trash',

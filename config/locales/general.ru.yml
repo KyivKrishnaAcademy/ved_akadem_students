@@ -52,6 +52,7 @@ ru:
     list: 'Список'
     new: 'Создать'
     statistics: 'Статистика'
+    show: 'Просмотр'
     update: 'Сохранить'
     withdraw: 'Отозвать заявление'
   alerts:

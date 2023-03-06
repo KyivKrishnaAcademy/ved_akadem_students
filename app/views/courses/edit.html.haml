@@ -5,6 +5,7 @@
     %h1.text-center= t('.title')
 
   .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_show policy(@course).show?, course_path(@course)
     = link_to_new policy(Course).new?, new_course_path
     = link_to_index policy(Course).index?, courses_path
     = link_to_destroy_course(@course)
