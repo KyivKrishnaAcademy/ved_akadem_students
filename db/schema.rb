@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230305211926) do
+ActiveRecord::Schema.define(version: 20230306054610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20230305211926) do
     t.string   "description",               limit: 255
     t.string   "variant"
     t.integer  "examination_results_count",             default: 0
+    t.integer  "class_schedules_count",                 default: 0
   end
 
   create_table "examination_results", force: :cascade do |t|

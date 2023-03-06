@@ -16,6 +16,7 @@
             %th.text-top= t('.course_title')
             %th.text-top= t('.course_variant')
             %th.text-top= t('.course_examination_results_count')
+            %th.text-top= t('.course_class_schedules_count')
 
             - if @courses.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
               %th.text-top.text-right= t('.actions')
@@ -27,11 +28,9 @@
                 = link_to_if policy(course).show?, course.title, course_path(course) do
                   = course.title
 
-              %td
-                = course.variant
-
-              %td
-                = course.examination_results_count
+              %td= course.variant
+              %td= course.examination_results_count
+              %td= course.class_schedules_count
 
               - if policy(course).tap { |p| break p.edit? || p.destroy? }
                 %td.col-xs-2.col-sm-3.col-md-2.text-right

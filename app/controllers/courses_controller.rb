@@ -15,7 +15,7 @@ class CoursesController < HtmlRespondableController
   def show
     @examinations = Examination.where(course_id: params[:id]).order(:title)
     @academic_groups = @course.academic_groups.order(:title)
-    @class_schedules_count = @course.class_schedules.count
+    @class_schedules_count = @course.class_schedules_count
 
     respond_with(@course)
   end

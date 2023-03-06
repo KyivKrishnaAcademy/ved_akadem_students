@@ -119,6 +119,7 @@ uk:
       course_variant: 'Варіант'
       title:        'Предмети'
       course_examination_results_count: 'Кількість зданих залікових робіт'
+      course_class_schedules_count: 'Створено розкладів'
     show:
       academic_group_title: 'Назва'
       actions:              'Дії'

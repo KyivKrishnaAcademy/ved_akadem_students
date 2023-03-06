@@ -119,6 +119,7 @@ ru:
       course_variant: 'Вариант'
       title:        'Предметы'
       course_examination_results_count: 'Количество сданных зачетных работ'
+      course_class_schedules_count: 'Создано расписаний'
     show:
       academic_group_title: 'Название'
       actions:              'Действия'

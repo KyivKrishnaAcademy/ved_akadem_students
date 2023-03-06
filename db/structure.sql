@@ -513,7 +513,8 @@ CREATE TABLE public.courses (
     title character varying(255),
     description character varying(255),
     variant character varying,
-    examination_results_count integer DEFAULT 0
+    examination_results_count integer DEFAULT 0,
+    class_schedules_count integer DEFAULT 0
 );
 
 
@@ -2010,6 +2011,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230225063808'),
 ('20230226200547'),
 ('20230226201309'),
-('20230305211926');
+('20230305211926'),
+('20230306054610');
 
 
