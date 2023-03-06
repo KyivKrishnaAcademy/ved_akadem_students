@@ -6,7 +6,7 @@ describe ExaminationsController do
   Given(:nested_route_params) { { course_id: course.id } }
 
   describe 'not signed in' do
-    it_behaves_like :failed_auth_crud, :not_authenticated, %i[index]
+    it_behaves_like :failed_auth_crud, :not_authenticated, %i[index show]
   end
 
   describe 'signed in' do
@@ -20,7 +20,7 @@ describe ExaminationsController do
     describe 'as regular user' do
       Given(:default_id) { examination.id }
 
-      it_behaves_like :failed_auth_crud, :not_authorized, %i[index]
+      it_behaves_like :failed_auth_crud, :not_authorized, %i[index show]
     end
 
     describe 'as admin' do

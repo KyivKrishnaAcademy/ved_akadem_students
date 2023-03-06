@@ -88,10 +88,7 @@
           %tbody
             - @examinations.each do |examination|
               %tr
-                %td
-                  = link_to_if policy(examination).show?, examination.title, course_examination_path(examination.course_id, examination) do
-                    = examination.title
-
+                %td= examination.title
                 %td.col-xs-1= examination.min_result
                 %td.col-xs-1= examination.max_result
                 %td.col-xs-1= examination.passing_score

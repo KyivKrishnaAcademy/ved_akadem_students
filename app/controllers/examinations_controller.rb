@@ -1,11 +1,7 @@
 class ExaminationsController < HtmlRespondableController
-  before_action :set_examination, only: %i[show edit update destroy]
+  before_action :set_examination, only: %i[edit update destroy]
 
   after_action :verify_authorized
-
-  def show
-    respond_with(@examination)
-  end
 
   def new
     @examination = Examination.new(passing_score: 1, min_result: 0, max_result: 1, course_id: params[:course_id])
@@ -24,13 +20,13 @@ class ExaminationsController < HtmlRespondableController
 
     @examination.save
 
-    respond_with(@examination, location: -> { course_examination_path(params[:course_id], @examination.id) })
+    respond_with(@examination, location: -> { course_path(@examination.course_id) })
   end
 
   def update
     @examination.update(examination_params)
 
-    respond_with(@examination, location: -> { course_examination_path(params[:course_id], @examination.id) })
+    respond_with(@examination, location: -> { course_path(@examination.course_id) })
   end
 
   def destroy
