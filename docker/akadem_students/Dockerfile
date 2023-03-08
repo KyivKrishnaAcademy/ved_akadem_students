@@ -20,6 +20,7 @@ RUN apt-get update \
     imagemagick \
     lsb-release \
     netcat \
+    locales \
  && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" \
     > /etc/apt/sources.list.d/pgdg.list \
  && curl -L https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
@@ -34,6 +35,10 @@ RUN apt-get update \
  && apt autoremove -y \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN localedef -i uk_UA -c -f UTF-8 -A /usr/share/locale/locale.alias uk_UA.UTF-8
+
+ENV LANG=uk_UA.utf8
 
 WORKDIR $PROJECT_HOME
 # ______________________________________________________________________________________________________________________
