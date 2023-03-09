@@ -15,3 +15,10 @@ uk:
         notice: "%{resource_name} була успішно оновлена."
       destroy:
         notice: "%{resource_name} була успішно видалена."
+    academic_groups:
+      create:
+        notice: "%{resource_name} була успішно створена."
+      update:
+        notice: "%{resource_name} була успішно оновлена."
+      destroy:
+        notice: "%{resource_name} була успішно видалена."

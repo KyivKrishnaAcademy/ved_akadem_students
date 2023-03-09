@@ -69,6 +69,7 @@ uk:
       questions/answers:
         data:             'Відповідь'
     models:
+      academic_group: 'Група'
       certificate_template_entry: 'Елемент шаблону сертифікату'
       certificate_template_font: 'Шрифт шаблону сертифікату'
       certificate_template: 'Шаблон сертифікату'

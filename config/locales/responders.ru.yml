@@ -15,3 +15,10 @@ ru:
         notice: "%{resource_name} была успешно обновлена."
       destroy:
         notice: "%{resource_name} была успешно удалена."
+    academic_groups:
+      create:
+        notice: "%{resource_name} была успешно создана."
+      update:
+        notice: "%{resource_name} была успешно обновлена."
+      destroy:
+        notice: "%{resource_name} была успешно удалена."

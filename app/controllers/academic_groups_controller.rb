@@ -1,4 +1,4 @@
-class AcademicGroupsController < ApplicationController
+class AcademicGroupsController < HtmlRespondableController
   include AdvancedSearchable
   include ClassSchedulesRefreshable
 
@@ -47,31 +47,21 @@ class AcademicGroupsController < ApplicationController
 
     authorize @academic_group
 
-    # TODO: DRY the controller with responders
-    if @academic_group.save
-      flash[:success] = "#{view_context.link_to(@academic_group.title,
-                                                academic_group_path(@academic_group))} added."
+    @academic_group.save
 
-      redirect_to action: :new
-    else
-      render action: :new
-    end
+    respond_with(@academic_group, location: new_academic_group_path)
   end
 
   def update
-    if @academic_group.update(AcademicGroupParams.filter(params))
-      redirect_to @academic_group, flash: { success: 'Academic group was successfully updated.' }
-    else
-      render action: :edit
-    end
+    @academic_group.update(AcademicGroupParams.filter(params))
+
+    respond_with(@academic_group)
   end
 
   def destroy
-    if @academic_group.destroy.destroyed?
-      redirect_to academic_groups_path, flash: { success: 'Academic Group record deleted!' }
-    else
-      redirect_back fallback_location: root_path, flash: { danger: 'Academic Group deletion failed!' }
-    end
+    @academic_group.destroy
+
+    respond_with(@academic_group)
   end
 
   def graduate

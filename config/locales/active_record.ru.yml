@@ -69,6 +69,7 @@ ru:
       questions/answers:
         data:             'Ответ'
     models:
+      academic_group: 'Группа'
       certificate_template_entry: 'Элемент шаблона сертификата'
       certificate_template_font: 'Шрифт шаблона сертификата'
       certificate_template: 'Шаблон сертификата'
