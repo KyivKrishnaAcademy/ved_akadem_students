@@ -31,6 +31,7 @@ module VedicAcademyStudents
     config.autoload_paths += %w[helpers interactions].map { |type| Rails.root.join('app', type, 'concerns') }
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
+    config.responders.flash_keys = %i[success alert]
 
     ActiveSupport.halt_callback_chains_on_return_false = false
   end

@@ -11,7 +11,7 @@ describe 'Add academic group:', :js do
   When { filled_right }
 
   describe 'does not create the group' do
-    When { click_button 'Створити Academic group' }
+    When { click_button 'Створити Група' }
 
     Then { expect(page).to have_selector('.alert-danger ul li') }
   end
@@ -37,7 +37,7 @@ describe 'Add academic group:', :js do
     end
 
     context 'create is clicked' do
-      When { click_button 'Створити Academic group' }
+      When { click_button 'Створити Група' }
 
       describe 'has right flash' do
         Then do
@@ -74,7 +74,7 @@ describe 'Add academic group:', :js do
       end
 
       context 'create is clicked' do
-        When { click_button 'Створити Academic group' }
+        When { click_button 'Створити Група' }
         When { visit academic_group_path(AcademicGroup.last) }
 
         Then do

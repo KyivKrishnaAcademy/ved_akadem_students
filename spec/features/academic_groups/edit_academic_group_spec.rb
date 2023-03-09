@@ -60,7 +60,7 @@ describe 'Edit academic group:' do
       Then  { expect(curator_container).to have_selector(selected_person) }
       And   { expect(praepostor_container).to have_selector(selected_person) }
       And   { expect(administrator_container).to have_selector(selected_person) }
-      And   { click_button 'Зберегти Academic group' }
+      And   { click_button 'Зберегти Група' }
       And   { expect(page).to have_selector('.alert-success') }
 
       And do

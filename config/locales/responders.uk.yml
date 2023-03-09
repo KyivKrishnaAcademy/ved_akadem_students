@@ -2,23 +2,23 @@ uk:
   flash:
     actions:
       create:
-        notice: "%{resource_name} був успішно створений."
+        success: "%{resource_name} був успішно створений."
       update:
-        notice: "%{resource_name} був успішно оновлений."
+        success: "%{resource_name} був успішно оновлений."
       destroy:
-        notice: "%{resource_name} був успішно видалений."
+        success: "%{resource_name} був успішно видалений."
         alert: "%{resource_name} не вдалося видалити."
     examinations:
       create:
-        notice: "%{resource_name} була успішно створена."
+        success: "%{resource_name} була успішно створена."
       update:
-        notice: "%{resource_name} була успішно оновлена."
+        success: "%{resource_name} була успішно оновлена."
       destroy:
-        notice: "%{resource_name} була успішно видалена."
+        success: "%{resource_name} була успішно видалена."
     academic_groups:
       create:
-        notice: "%{resource_name} була успішно створена."
+        success: "%{resource_name} була успішно створена."
       update:
-        notice: "%{resource_name} була успішно оновлена."
+        success: "%{resource_name} була успішно оновлена."
       destroy:
-        notice: "%{resource_name} була успішно видалена."
+        success: "%{resource_name} була успішно видалена."
