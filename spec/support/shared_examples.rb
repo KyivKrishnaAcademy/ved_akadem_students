@@ -204,24 +204,6 @@ def underscore_humanize(str)
   str.underscore.humanize
 end
 
-shared_examples :valid_select_date do |model_name, field_name, content|
-  Given(:year) { model_name == 'Person' ? '1985' : '2019' }
-
-  When do
-    select_from = "#{model_name.underscore}[#{field_name}("
-
-    select(year, from: "#{select_from}1i)]")
-    select('Травня', from: "#{select_from}2i)]")
-    select('27', from: "#{select_from}3i)]")
-
-    click_button "Зберегти #{underscore_humanize(model_name)}"
-  end
-
-  Then { expect(find('body')).to have_content("#{content}27.05.#{year}") }
-
-  it_behaves_like :alert_success_updated, underscore_humanize(model_name)
-end
-
 shared_examples :valid_select do |model_name, field_name, value, content|
   When do
     select value, from: field_name

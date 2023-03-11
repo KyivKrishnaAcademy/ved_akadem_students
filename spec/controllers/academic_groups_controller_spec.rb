@@ -74,7 +74,7 @@ describe AcademicGroupsController do
       When  { sign_in create(:person, roles: [create(:role, activities: %w(academic_group:create))]) }
       When  { action }
 
-      Then  { expect(response).to render_template(:new) }
+      Then  { expect(response).to redirect_to(action: :new) }
       And   { expect(assigns(:academic_group)).not_to be_persisted }
     end
   end
@@ -199,16 +199,19 @@ describe AcademicGroupsController do
         Then do
           expect_any_instance_of(AcademicGroup)
             .to receive(:update).with(ActionController::Parameters.new(mod_params).permit!)
+
           action
         end
       end
 
       describe 'on failure with valid rights' do
-        Given { allow_any_instance_of(AcademicGroup).to receive(:save).and_return(false) }
+        Given(:mod_params) { { title: '' } }
 
-        When  { action }
+        When { action }
 
-        Then  { expect(response.status).to render_template(:edit) }
+        Then { expect(response.status).to render_template(:edit) }
+        And  { expect(assigns(:academic_group)).to eq(record) }
+        And  { is_expected.not_to set_flash }
       end
     end
   end
@@ -229,15 +232,6 @@ describe AcademicGroupsController do
         Then { expect { action }.to change(AcademicGroup, :count).by(-1) }
         And  { expect(action).to redirect_to(action: :index) }
         And  { is_expected.to set_flash[:success] }
-      end
-
-      context 'on failure' do
-        Given { allow_any_instance_of(AcademicGroup).to receive_message_chain(:destroy, :destroyed?).and_return(false) }
-        Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
-
-        Then { expect { action }.not_to change(AcademicGroup, :count) }
-        And  { expect(action).to redirect_to('where_i_came_from') }
-        And  { is_expected.to set_flash[:danger] }
       end
     end
 

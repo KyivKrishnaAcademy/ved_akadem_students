@@ -168,4 +168,24 @@ class AcademicGroupsController < HtmlRespondableController
       .group(:academic_group_id)
       .count
   end
+
+  def flash_interpolation_options
+    {
+      link_or_name: link_or_name
+    }
+  end
+
+  def link_or_name
+    return unless @academic_group.persisted?
+
+    title = @academic_group.title
+
+    view_context.link_to_if(
+      policy(@academic_group).show?,
+      title,
+      academic_group_path(@academic_group)
+    ) do
+      title
+    end
+  end
 end

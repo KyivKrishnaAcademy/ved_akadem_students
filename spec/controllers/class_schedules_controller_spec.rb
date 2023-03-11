@@ -152,7 +152,7 @@ describe ClassSchedulesController do
             Then { expect { post :create, params: params }.to change(ClassSchedule, :count).by(1) }
             And  { expect(assigns(:class_schedule)).to be_a_kind_of(ClassSchedule) }
             And  { expect(response).to redirect_to(class_schedules_path) }
-            And  { is_expected.to set_flash[:notice] }
+            And  { is_expected.to set_flash[:success] }
           end
 
           describe 'failure' do
@@ -174,7 +174,7 @@ describe ClassSchedulesController do
             Given(:class_schedule_params) { { course_id: new_course.id } }
 
             Then { expect(response).to redirect_to(class_schedules_path) }
-            And  { is_expected.to set_flash[:notice] }
+            And  { is_expected.to set_flash[:success] }
             And  { expect(assigns(:class_schedule)).to eq(class_schedule) }
             And  { expect(class_schedule.reload.course_id).to eq(new_course.id) }
           end
@@ -196,7 +196,7 @@ describe ClassSchedulesController do
 
             Then { expect { delete :destroy, params: params }.to change(ClassSchedule, :count).by(-1) }
             And  { expect(response).to redirect_to(class_schedules_path) }
-            And  { is_expected.to set_flash[:notice] }
+            And  { is_expected.to set_flash[:success] }
             And  { expect(assigns(:class_schedule)).to eq(class_schedule) }
           end
         end

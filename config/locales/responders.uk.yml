@@ -15,10 +15,12 @@ uk:
         success: "%{resource_name} була успішно оновлена."
       destroy:
         success: "%{resource_name} була успішно видалена."
+        alert: "%{resource_name} не була видалена"
     academic_groups:
       create:
-        success: "%{resource_name} була успішно створена."
+        success_html: "%{resource_name} %{link_or_name} була успішно створена."
       update:
         success: "%{resource_name} була успішно оновлена."
       destroy:
         success: "%{resource_name} була успішно видалена."
+        alert: "%{resource_name} не була видалена"

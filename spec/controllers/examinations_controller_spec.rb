@@ -41,7 +41,7 @@ describe ExaminationsController do
             end.to change(Examination, :count).by(-1)
           end
           And  { expect(response).to redirect_to(course_path(course)) }
-          And  { is_expected.to set_flash[:notice] }
+          And  { is_expected.to set_flash[:success] }
         end
 
         describe 'examination_results_count is not zero' do

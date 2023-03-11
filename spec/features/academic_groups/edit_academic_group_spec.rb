@@ -81,6 +81,14 @@ describe 'Edit academic group:' do
   end
 
   describe 'When values are valid:' do
+    Given(:model_name_locale) { I18n.t('activerecord.models.academic_group') }
+
+    Given(:expect_to_flash_success) do
+      expect(find('body')).to have_selector('.alert-success',
+                                            text: I18n.t('flash.academic_groups.update.success',
+                                                         resource_name: model_name_locale))
+    end
+
     [
       { field: 'Title', value: 'БШ99-9', test_field: 'БШ99-9' },
       {
@@ -89,16 +97,35 @@ describe 'Edit academic group:' do
         test_field: "#{I18n.t('activerecord.attributes.academic_group.group_description')}: Зис из э test"
       }
     ].each do |h|
-      it_behaves_like :valid_fill_in, h, 'Academic group'
+      describe "valid fill in #{h[:field]}" do
+        When do
+          fill_in h[:field], with: h[:value]
+          click_button "Зберегти #{model_name_locale}"
+        end
+
+        Then { expect(find('body')).to have_content(h[:test_field]) }
+        And  { expect_to_flash_success }
+      end
     end
 
     describe 'Establishment date' do
-      it_behaves_like(
-        :valid_select_date,
-        'AcademicGroup',
-        'establ_date',
-        "#{I18n.t('activerecord.attributes.academic_group.establ_date')}: "
-      )
+      Given(:year) { '2019' }
+
+      When do
+        select_from = 'academic_group[establ_date('
+
+        select(year, from: "#{select_from}1i)]")
+        select('Травня', from: "#{select_from}2i)]")
+        select('27', from: "#{select_from}3i)]")
+
+        click_button "Зберегти #{model_name_locale}"
+      end
+
+      Then do
+        expect(find('body')).to have_content("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: 27.05.#{year}")
+      end
+
+      And { expect_to_flash_success }
     end
   end
 end
