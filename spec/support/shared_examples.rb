@@ -1,22 +1,26 @@
 # views
 
-shared_examples 'academic group new and edit' do
+shared_examples 'academic group new and edit' do |action|
+  let(:title) { I18n.t("academic_groups.#{action}.title") }
+
   it { is_expected.to have_title(full_title(title)) }
-  it { is_expected.to have_selector('h1', text: h1) }
+  it { is_expected.to have_selector('h1', text: title) }
 
   describe 'form' do
     let(:form) { 'form.' << action << '_academic_group' }
 
     it { is_expected.to have_selector(form) }
-    it { is_expected.to have_selector("#{form} label", text: 'Title') }
+    it { is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.title')) }
     it { is_expected.to have_selector("#{form} input#academic_group_title") }
-    it { is_expected.to have_selector("#{form} select#academic_group_establ_date_1i") }
-    it { is_expected.to have_selector("#{form} select#academic_group_establ_date_2i") }
-    it { is_expected.to have_selector("#{form} select#academic_group_establ_date_3i") }
-    it { is_expected.to have_selector("#{form} label", text: 'Message uk') }
-    it { is_expected.to have_selector("#{form} label", text: 'Message ru') }
+    it { is_expected.to have_selector("#{form} input#academic_group_establ_date") }
+    it {
+      is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.message_uk'))
+    }
+    it {
+      is_expected.to have_selector("#{form} label", text: I18n.t('activerecord.attributes.academic_group.message_ru'))
+    }
     it { is_expected.to have_selector("#{form} input#academic_group_group_description") }
-    it { is_expected.to have_selector("#{form} input.btn") }
+    it { is_expected.to have_selector("#{form} button[type=\"submit\"]"), text: I18n.t("academic_groups.#{action}.submit") }
     it do
       is_expected.to have_selector("#{form} label",
                                    text: I18n.t('activerecord.attributes.academic_group.group_description'))
@@ -303,47 +307,61 @@ shared_examples :failed_auth_crud do |sub_example, skipped_actions = []|
     Given(:additional_params) { respond_to?(:nested_route_params) ? nested_route_params : {} }
     Given(:default_id_param) { { id: respond_to?(:default_id) ? default_id : 1 } }
 
-    context '#index' do
-      When { get :index, params: additional_params }
+    unless skipped_actions.include?(:index)
+      context '#index' do
+        When { get :index, params: additional_params }
 
-      it_behaves_like sub_example
-    end unless skipped_actions.include?(:index)
+        it_behaves_like sub_example
+      end
+    end
 
-    context '#create' do
-      When { post :create, params: additional_params.deep_merge(params) }
+    unless skipped_actions.include?(:create)
+      context '#create' do
+        When { post :create, params: additional_params.deep_merge(params) }
 
-      it_behaves_like sub_example
-    end unless skipped_actions.include?(:create)
+        it_behaves_like sub_example
+      end
+    end
 
-    context '#new' do
-      When { get :new, params: additional_params }
+    unless skipped_actions.include?(:new)
+      context '#new' do
+        When { get :new, params: additional_params }
 
-      it_behaves_like sub_example
-    end unless skipped_actions.include?(:new)
+        it_behaves_like sub_example
+      end
+    end
 
-    context '#edit' do
-      When { get :edit, params: additional_params.deep_merge(default_id_param) }
+    unless skipped_actions.include?(:edit)
+      context '#edit' do
+        When { get :edit, params: additional_params.deep_merge(default_id_param) }
 
-      it_behaves_like sub_example
-    end unless skipped_actions.include?(:edit)
+        it_behaves_like sub_example
+      end
+    end
 
-    context '#show' do
-      When { get :show, params: additional_params.deep_merge(default_id_param) }
+    unless skipped_actions.include?(:show)
+      context '#show' do
+        When { get :show, params: additional_params.deep_merge(default_id_param) }
 
-      it_behaves_like sub_example
-    end unless skipped_actions.include?(:show)
+        it_behaves_like sub_example
+      end
+    end
 
-    context '#update' do
-      When { patch :update, params: additional_params.deep_merge(default_id_param) }
+    unless skipped_actions.include?(:update)
+      context '#update' do
+        When { patch :update, params: additional_params.deep_merge(default_id_param) }
 
-      it_behaves_like sub_example
-    end unless skipped_actions.include?(:update)
+        it_behaves_like sub_example
+      end
+    end
 
-    context '#destroy' do
-      When { delete :destroy, params: additional_params.deep_merge(default_id_param) }
+    unless skipped_actions.include?(:destroy)
+      context '#destroy' do
+        When { delete :destroy, params: additional_params.deep_merge(default_id_param) }
 
-      it_behaves_like sub_example
-    end unless skipped_actions.include?(:destroy)
+        it_behaves_like sub_example
+      end
+    end
   end
 end
 
@@ -369,13 +387,13 @@ end
 shared_examples_for :class_schedule_ui_index do
   permissions :ui_index? do
     context 'permit with class_schedule:edit' do
-      Given { user.roles << [create(:role, activities: %w(class_schedule:edit))] }
+      Given { user.roles << [create(:role, activities: %w[class_schedule:edit])] }
 
       Then  { is_expected.to permit(user, Course) }
     end
 
     context 'permit with class_schedule:new' do
-      Given { user.roles << [create(:role, activities: %w(class_schedule:new))] }
+      Given { user.roles << [create(:role, activities: %w[class_schedule:new])] }
 
       Then  { is_expected.to permit(user, Course) }
     end
@@ -385,7 +403,7 @@ shared_examples_for :class_schedule_ui_index do
     end
 
     context 'not permit with all other' do
-      Given(:permitted_activities) { %w(class_schedule:edit class_schedule:new) }
+      Given(:permitted_activities) { %w[class_schedule:edit class_schedule:new] }
 
       Given { user.roles << [create(:role, activities: all_activities - permitted_activities)] }
 

@@ -1,5 +1,11 @@
-- provide(:title, 'Add New Academic Group')
+- provide(:title, t('.title'))
 
-%h1 Add Academic Group
+.row
+  .col-xs-12
+    %h1.text-center= t('.title')
 
-= render 'form'
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_index policy(AcademicGroup).index?, academic_groups_path
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.stop_double_submit
+    = render 'form', submit_label: t('.submit')

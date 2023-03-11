@@ -2,9 +2,15 @@ uk:
   activerecord:
     attributes:
       academic_group:
-        establ_date:        'Дата створення'
-        graduated_at:       'Дата закінчення'
-        group_description:  'Опис групи'
+        administrator: 'Координатор'
+        curator: 'Куратор'
+        establ_date: 'Дата створення'
+        graduated_at: 'Дата закінчення'
+        group_description: 'Опис групи'
+        message_ru: "Об'ява для групи (російською)"
+        message_uk: "Об'ява для групи (українською)"
+        praepostor: 'Староста'
+        title: 'Назва'
       certificate_template:
         file: 'PDF шаблон'
         institution: 'Учбовий заклад що видає'
@@ -78,6 +84,10 @@ uk:
       program: 'Учбовий курс'
     errors:
       models:
+        academic_group:
+          attributes:
+            title:
+              blank: 'не може бути пустою'
         answer:
           attributes:
             data:

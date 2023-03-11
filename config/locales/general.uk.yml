@@ -277,6 +277,18 @@ uk:
       table_title_active_students_count: 'Кількість активних студентів'
       table_title_actions: 'Дії'
       general_search_placeholder: 'Назва групи або опис'
+    form:
+      curator_placeholder: 'Оберіть куратора'
+      administrator_placeholder: 'Оберіть координатора'
+      praepostor_placeholder: 'Оберіть старосту'
+      message_hint: 'Показується на сторінці групи'
+      disabled_praepostor_hint: "Старосту можна обрати коли у групі з'являться студенти"
+    edit:
+      title: 'Редагування групи'
+      submit: 'Зберегти'
+    new:
+      title: 'Створення групи'
+      submit: 'Створити'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
     table_headers:

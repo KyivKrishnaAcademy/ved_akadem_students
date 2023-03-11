@@ -2,20 +2,39 @@
   = javascript_include_tag 'select2.min', type: 'text/javascript'
   = stylesheet_link_tag 'select2.min', media: 'all'
 
-.col-xs-12.col-sm-6.vert-offset-top-1
-  = simple_form_for @academic_group do |f|
-    = render 'shared/error_messages', object: f.object
+= simple_form_for @academic_group do |f|
+  = render 'shared/error_messages', object: f.object
+
+  .form-inputs
     = f.input :title
-    = f.input :establ_date
+    = f.input :establ_date, as: :string, input_html: { type: 'date', value: date_value(f.object.establ_date) }
     = f.input :group_description
-    = f.association :curator, label_method: :complex_name, collection: [f.object.curator].compact,
-                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_group_curators_path } }
-    = f.association :administrator, label_method: :complex_name, collection: [f.object.administrator].compact,
-                    input_html: { data: { placeholder: 'Select an option', 'ajax--url': ui_group_admins_path } }
-    = f.association :praepostor, label_method: :complex_name, collection: [f.object.praepostor].compact,
-                    input_html: { data: { placeholder: 'Select an option',
+
+    = f.association :curator,
+                    label_method: :complex_name,
+                    collection: [f.object.curator].compact,
+                    input_html: { data: { placeholder: t('.curator_placeholder'),
+                                          'ajax--url': ui_group_curators_path } }
+
+    = f.association :administrator,
+                    label_method: :complex_name,
+                    collection: [f.object.administrator].compact,
+                    input_html: { data: { placeholder: t('.administrator_placeholder'),
+                                          'ajax--url': ui_group_admins_path } }
+
+    - is_group_not_persisted = !f.object.persisted?
+    = f.association :praepostor,
+                    label_method: :complex_name,
+                    hint: is_group_not_persisted && t('.disabled_praepostor_hint'),
+                    collection: [f.object.praepostor].compact,
+                    input_html: { data: { placeholder: t('.praepostor_placeholder'),
                                           'ajax--url': ui_group_praepostors_path(group_id: f.object.id) },
-                                  disabled: !f.object.persisted? }
-    = f.input :message_ru
-    = f.input :message_uk
-    = f.button :submit
+                                  disabled: is_group_not_persisted }
+
+    ~ f.input :message_ru, input_html: { rows: 5 }, hint: t('.message_hint')
+    ~ f.input :message_uk, input_html: { rows: 5 }, hint: t('.message_hint')
+
+  .form-actions
+    = f.button :button, class: 'btn btn-submit col-xs-12' do
+      %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+      = submit_label

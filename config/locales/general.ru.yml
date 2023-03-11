@@ -277,6 +277,18 @@ ru:
       table_title_active_students_count: 'Количество активных студентов'
       table_title_actions: 'Действия'
       general_search_placeholder: 'Название группы или описание'
+    form:
+      curator_placeholder: 'Выберите куратора'
+      administrator_placeholder: 'Выберите координатора'
+      praepostor_placeholder: 'Выберите старосту'
+      message_hint: 'Отображается на странице группы'
+      disabled_praepostor_hint: 'Старосту можно выбрать, когда в группе появятся студенты'
+    edit:
+       title: 'Редактирование группы'
+       submit: 'Сохранить'
+    new:
+      title: 'Создание группы'
+      submit: 'Создать'
   class_schedules:
     create_and_clone: 'Создать и копировать'
     table_headers:

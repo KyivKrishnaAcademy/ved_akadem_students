@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Add academic group:', :js do
   Given(:filled_right) { fill_academic_group_data }
   Given(:person) { create :person }
+  Given(:click_save) { click_button I18n.t('academic_groups.new.submit') }
 
   Given { person.create_teacher_profile }
 
@@ -11,7 +12,7 @@ describe 'Add academic group:', :js do
   When { filled_right }
 
   describe 'does not create the group' do
-    When { click_button 'Створити Група' }
+    When { click_save }
 
     Then { expect(page).to have_selector('.alert-danger ul li') }
   end
@@ -37,7 +38,7 @@ describe 'Add academic group:', :js do
     end
 
     context 'create is clicked' do
-      When { click_button 'Створити Група' }
+      When { click_save }
 
       describe 'has right flash' do
         Then do
@@ -74,7 +75,7 @@ describe 'Add academic group:', :js do
       end
 
       context 'create is clicked' do
-        When { click_button 'Створити Група' }
+        When { click_save }
         When { visit academic_group_path(AcademicGroup.last) }
 
         Then do
@@ -94,13 +95,11 @@ describe 'Add academic group:', :js do
 
   def fill_academic_group_data(ag = {})
     agf = build(:academic_group, ag)
+    date = ag[:establ_date]
 
     fill_in 'academic_group_title', with: agf.title
     fill_in 'academic_group_group_description', with: agf.group_description
-
-    select (ag[:establ_date_1i] || '2019').to_s, from: 'academic_group_establ_date_1i'
-    select (ag[:establ_date_2i] || 'Вересня').to_s, from: 'academic_group_establ_date_2i'
-    select (ag[:establ_date_3i] || '29').to_s, from: 'academic_group_establ_date_3i'
+    fill_in 'academic_group_establ_date', with: date.present? ? I18n.l(date, format: :date_picker) : '29.09.2019'
 
     agf
   end

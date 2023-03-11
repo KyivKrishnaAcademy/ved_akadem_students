@@ -8,22 +8,11 @@ describe 'academic_groups/new' do
 
   subject { page }
 
-  let(:title)   { 'Add New Academic Group' }
-  let(:h1)      { 'Add Academic Group' }
-  let(:action)  { 'new' }
-
-  it_behaves_like 'academic group new and edit'
+  it_behaves_like 'academic group new and edit', 'new'
 
   describe 'Establishment date = Time#now by default' do
     Given(:today) { Time.zone.today }
 
-    Then { is_expected.to have_selector('#academic_group_establ_date_1i option[selected]', text: today.year) }
-    And  { is_expected.to have_selector('#academic_group_establ_date_3i option[selected]', text: today.day) }
-
-    And do
-      is_expected.to(
-        have_selector('#academic_group_establ_date_2i option[selected]', text: I18n.t('date.month_names')[today.mon])
-      )
-    end
+    Then { expect(find('input#academic_group_establ_date').value).to eq(I18n.l(today, format: :date_picker)) }
   end
 end
