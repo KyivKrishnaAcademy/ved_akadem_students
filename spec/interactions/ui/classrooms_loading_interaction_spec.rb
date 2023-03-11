@@ -9,8 +9,12 @@ describe Ui::ClassroomsLoadingInteraction do
     Given { create :classroom, title: 'Наймишаранья' }
 
     Given(:expected) do
-      { classrooms: [{ id: right_classroom.id,
-                       text: right_classroom.title }] }
+      {
+        classrooms: [
+          { id: right_classroom.id, text: right_classroom.title }
+        ],
+        more: false
+      }
     end
 
     Then { expect(interaction.as_json).to eq(expected) }

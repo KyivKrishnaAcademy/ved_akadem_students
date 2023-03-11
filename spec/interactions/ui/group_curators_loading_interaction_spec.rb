@@ -10,9 +10,16 @@ describe Ui::GroupCuratorsLoadingInteraction do
     Given { right_user.create_teacher_profile }
 
     Given(:expected) do
-      { people: [{ id: right_user.id,
-                   text: right_user.complex_name,
-                   imageUrl: right_user.photo.thumb.url }] }
+      {
+        people: [
+          {
+            id: right_user.id,
+            text: right_user.complex_name,
+            imageUrl: right_user.photo.thumb.url
+          }
+        ],
+        more: false
+      }
     end
 
     Then { expect(interaction.as_json).to eq(expected) }

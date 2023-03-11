@@ -13,9 +13,16 @@ describe Ui::GroupPraepostorsLoadingInteraction do
     Given { wrong_user_1.create_student_profile }
 
     Given(:expected) do
-      { people: [{ id: right_user.id,
-                   text: right_user.complex_name,
-                   imageUrl: right_user.photo.thumb.url }] }
+      {
+        people: [
+          {
+            id: right_user.id,
+            text: right_user.complex_name,
+            imageUrl: right_user.photo.thumb.url
+          }
+        ],
+        more: false
+      }
     end
 
     Then { expect(interaction.as_json).to eq(expected) }

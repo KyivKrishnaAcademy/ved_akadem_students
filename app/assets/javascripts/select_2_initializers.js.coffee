@@ -23,7 +23,12 @@ personSelect = (domObj, jsonRoot) ->
             page: params.page
           }
         processResults: (data, page) ->
-          { results: data[jsonRoot] }
+          {
+            results: data[jsonRoot],
+            pagination: {
+              more: data.more
+            }
+          }
         cache: true
       escapeMarkup: (markup) ->
         markup
@@ -38,11 +43,16 @@ simpleSelect = (domObj, jsonRoot) ->
         delay: 250
         data: (params) ->
           {
-          q: params.term
-          page: params.page
+            q: params.term
+            page: params.page
           }
         processResults: (data, page) ->
-          { results: data[jsonRoot] }
+          {
+            results: data[jsonRoot],
+            pagination: {
+              more: data.more
+            }
+          }
         cache: true
 
 $ ->

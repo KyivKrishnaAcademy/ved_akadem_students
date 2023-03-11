@@ -18,7 +18,8 @@ describe Ui::TeacherProfilesLoadingInteraction do
             text: right_user.complex_name,
             imageUrl: right_user.photo.thumb.url
           }
-        ]
+        ],
+        more: false
       }
     end
 

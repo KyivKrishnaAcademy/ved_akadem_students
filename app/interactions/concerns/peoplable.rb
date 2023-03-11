@@ -8,8 +8,11 @@ module Peoplable
   end
 
   def as_json(_opts = {})
+    page = @people.page(params[:page]).per(20)
+
     {
-      people: @people.map { |p| serialize_person p }
+      people: page.map { |p| serialize_person p },
+      more: !page.last_page?
     }
   end
 end
