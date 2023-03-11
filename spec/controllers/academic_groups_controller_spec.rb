@@ -225,6 +225,7 @@ describe AcademicGroupsController do
       Given { expect(ClassScheduleWithPeople).to receive(:refresh_later) }
 
       Given(:user) { create :person, roles: [create(:role, activities: %w(academic_group:destroy))] }
+      Given!(:certificate) { create :certificate, academic_group: record }
 
       When { sign_in user }
 
@@ -232,6 +233,7 @@ describe AcademicGroupsController do
         Then { expect { action }.to change(AcademicGroup, :count).by(-1) }
         And  { expect(action).to redirect_to(action: :index) }
         And  { is_expected.to set_flash[:success] }
+        And  { expect(certificate.reload.academic_group_id).to be_nil }
       end
     end
 
