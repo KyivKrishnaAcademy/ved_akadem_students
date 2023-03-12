@@ -5,23 +5,26 @@
     %h1
       = @questionnaire["title_#{locale}"]
 
-  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.vert-offset-top-1.clearfix
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2.vert-offset-top-1.clearfix
     = link_to_back(policy(@questionnaire).index?, questionnaires_path)
 
-  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.vert-offset-top-1
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2.vert-offset-top-1
     = @questionnaire["description_#{locale}"]
 
   - if @programs.any?
-    .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.vert-offset-top-1
+    .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2.vert-offset-top-1
       %h5
         = t('.programs')
-    .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+    .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
       .table-responsive
         %table.table.table-condensed.table-striped
           %thead
             %tr
-              %th= t('.program_title')
-              %th= t('.program_visibility')
+              %th.text-top
+                = t('.program_title')
+              %th.text-top.text-center
+                = t('programs.index.program_visibility')
+                = inline_info(t('programs.index.program_visibility_help'))
 
           %tbody
             - @programs.each do |program|
@@ -32,11 +35,11 @@
                   - if program.visible
                     %i.fa.fa-check{ aria: { hidden: :true } }
 
-  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.vert-offset-top-1
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2.vert-offset-top-1
     %h5.clearfix
       = t('.questions')
 
-  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
+  .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
     .table-responsive
       %table.table.table-condensed.table-striped
         %thead

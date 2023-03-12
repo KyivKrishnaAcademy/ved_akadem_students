@@ -224,8 +224,6 @@ ru:
       program_position_help: 'Чем меньше число, тем выше этот курс будет в списке, который видят студенты'
       program_visibility: 'Видимость'
       program_visibility_help: 'Не видимый курс видят администраторы, но он не предлагается студентам, чтобы подать на него заявление'
-      program_visibility_true: 'Да'
-      program_visibility_false: 'Не видимый курс'
       program_questionnaires_count: 'Количество опросников'
       actions: 'Действия'
     new:
@@ -348,9 +346,8 @@ ru:
       questionnaire_title: 'Название'
       questionnaire_kind: 'Тип'
     show:
-      program_title: 'Название программы'
-      program_visibility: 'Активирована?'
-      programs: 'Связанные программы обучения'
+      program_title: 'Название учебного курса'
+      programs: 'Связанные учебные курсы'
       question_format: 'Тип'
       question_required: 'Обязательность'
       question_title: 'Вопрос'
