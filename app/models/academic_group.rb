@@ -17,7 +17,7 @@ class AcademicGroup < ApplicationRecord
 
   has_many :examinations, through: :courses
 
-  before_save { |p| p.title = title.mb_chars.upcase.to_s if title.present? }
+  before_save { |p| p.title = title.mb_chars.upcase.to_s.strip if title.present? }
 
   validates :title, presence: true, uniqueness: true
   validates :administrator, presence: true

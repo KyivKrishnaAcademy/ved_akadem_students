@@ -95,7 +95,7 @@ describe 'Edit academic group:' do
     [
       {
         field: I18n.t('activerecord.attributes.academic_group.title'),
-        value: 'БШ99-9',
+        value: ' бш99-9 ',
         test_field: 'БШ99-9'
       },
       {
