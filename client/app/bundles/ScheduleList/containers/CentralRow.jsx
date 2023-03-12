@@ -10,7 +10,7 @@ export default class CentralRow extends React.Component {
   };
 
   render() {
-    if (!this.props.visible) { return <tr/>; }
+    if (!this.props.visible) { return null; }
 
     return (
       <tr>

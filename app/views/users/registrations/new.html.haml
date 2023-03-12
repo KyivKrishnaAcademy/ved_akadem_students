@@ -18,7 +18,7 @@
               = f.input :email, autofocus: true, error: ''
           .row
             .col-xs-12.col-sm-6
-              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
+              = f.input :birthday, as: :string, input_html: { type: 'date', value: date_value(f.object.birthday) }
               = f.input :name
               = f.input :middle_name
               = f.input :surname

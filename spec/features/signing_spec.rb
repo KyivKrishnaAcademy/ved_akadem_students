@@ -148,7 +148,7 @@ describe 'Signing' do
               .to have_css('option[selected="selected"]', text: 'одружений/заміжня')
           end
 
-          And { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1982-05-20') }
+          And { expect(find('input[name="person[birthday]"]').value).to eq('1982-05-20') }
         end
       end
 

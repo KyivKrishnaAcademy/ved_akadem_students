@@ -24,15 +24,11 @@
 // bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
 //= require bootstrap-sprockets
 
-//= require jquery-ui/datepicker
-//= require jquery-ui/datepicker-ru
-//= require jquery-ui/datepicker-uk
 //= require jquery-ui/autocomplete
 //= require select_2_initializers
 //= require moment
 //= require moment/ru
 //= require moment/uk
-//= require bootstrap-datetimepicker
 //= require custom
 //= require stop_double_submit
 //= require change_academic_group

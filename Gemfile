@@ -46,7 +46,6 @@ gem 'uglifier'
 group :assets_builder, :development, :test do
   gem 'autoprefixer-rails'
   gem 'bootstrap-sass'
-  gem 'bootstrap3-datetimepicker-rails'
   gem 'coffee-rails'
   gem 'font-awesome-sass'
   gem 'jquery-ui-rails'

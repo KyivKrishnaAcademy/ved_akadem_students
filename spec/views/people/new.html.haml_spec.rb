@@ -20,7 +20,7 @@ describe 'people/new.html.erb' do
     And  { is_expected.to have_selector("#{form} input#phone") }
     And  { is_expected.to have_selector("#{form} input#person_email") }
     And  { is_expected.to have_selector("#{form} select#person_gender") }
-    And  { is_expected.to have_selector("#{form} #datepicker[name='person[birthday]']") }
+    And  { is_expected.to have_selector("#{form} input[name='person[birthday]']") }
     And  { is_expected.to have_selector("#{form} textarea#person_education") }
     And  { is_expected.to have_selector("#{form} textarea#person_work") }
     And  { is_expected.to have_selector("#{form} input#person_photo") }
