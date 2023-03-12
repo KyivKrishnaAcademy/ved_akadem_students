@@ -34,6 +34,7 @@ ru:
       default: ! '%d.%m.%Y'
       long: ! '%-d %B %Y'
       short: ! '%-d %b'
+      date_picker: ! '%Y-%m-%d'
     month_names:
     -
     - января
@@ -255,6 +256,6 @@ ru:
       just_time: ! '%H:%M'
       short: ! '%d %b, %H:%M'
       with_day: ! '%a %d.%m.%y %H:%M'
-      time_picker: ! '%d.%m.%Y %H:%M'
+      time_picker: ! '%Y-%m-%dT%H:%M'
       date: ! '%d.%m.%Y'
     pm: вечера

@@ -18,6 +18,6 @@ describe 'Create Certificate Template' do
     When { fill_in 'certificate_template[title]', with: 'some certificate title' }
     When { find('button[type="submit"]').click }
 
-    Then { is_expected.to have_selector('.alert-notice') }
+    Then { is_expected.to have_selector('.alert-success') }
   end
 end

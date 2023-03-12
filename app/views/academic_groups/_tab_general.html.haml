@@ -37,7 +37,9 @@
         .col-xs-3.col-sm-2
           = t('static_pages.home.message_for_group')
         .col-xs-9.col-sm-10
-          = academic_group["message_#{locale}"]
+          - academic_group["message_#{locale}"].split("\n").each do |message_part|
+            = message_part
+            %br
 
   - if [academic_group.curator, academic_group.administrator, academic_group.praepostor].any?
     %h4.col-xs-12.text-center

@@ -2,9 +2,16 @@ ru:
   activerecord:
     attributes:
       academic_group:
-        establ_date:        'Дата создания'
-        graduated_at:       'Дата окончания'
-        group_description:  'Описание группы'
+        administrator: 'Координатор'
+        courses: 'Предметы'
+        curator: 'Куратор'
+        establ_date: 'Дата создания'
+        graduated_at: 'Дата окончания'
+        group_description: 'Описание группы'
+        message_ru: 'Объявление для группы (на русском)'
+        message_uk: 'Объявление для группы (на украинском)'
+        praepostor: 'Староста'
+        title: 'Название'
       certificate_template:
         file: 'PDF шаблон'
         institution: 'Учебное заведение которое выдает'
@@ -69,6 +76,7 @@ ru:
       questions/answers:
         data:             'Ответ'
     models:
+      academic_group: 'Группа'
       certificate_template_entry: 'Элемент шаблона сертификата'
       certificate_template_font: 'Шрифт шаблона сертификата'
       certificate_template: 'Шаблон сертификата'

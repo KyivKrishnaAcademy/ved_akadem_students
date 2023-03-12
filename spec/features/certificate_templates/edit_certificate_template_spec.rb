@@ -21,7 +21,7 @@ describe 'Edit Certificate Template' do
     When { fill_in 'certificate_template[title]', with: new_title }
     When { find('button[type="submit"]').click }
 
-    Then { is_expected.to have_selector('.alert-notice') }
+    Then { is_expected.to have_selector('.alert-success') }
     And  { is_expected.to have_selector('h1', text: I18n.t('certificate_templates.edit.title')) }
     And  { expect(find('#certificate_template_title').value).to eq(new_title) }
   end

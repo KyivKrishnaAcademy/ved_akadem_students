@@ -28,8 +28,11 @@ Rails.application.config.assets.precompile += %w[
   intl-tel-input/build/js/intlTelInput
   intl-tel-input/build/js/utils
 
-  select2.min.js
-  select2.min.css
+  select2/dist/js/select2.min.js
+  select2/dist/js/i18n/uk.js
+  select2/dist/js/i18n/ru.js
+  select2/dist/css/select2.min.css
+  select2-bootstrap-theme/dist/select2-bootstrap.min.css
 
   range-slider
 

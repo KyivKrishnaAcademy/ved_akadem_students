@@ -78,7 +78,7 @@ describe CoursesController do
             Then { expect { post :create, params: params }.to change(Course, :count).by(1) }
             And  { expect(assigns(:course)).to be_a_kind_of(Course) }
             And  { expect(response).to redirect_to(course_path(assigns(:course))) }
-            And  { is_expected.to set_flash[:notice] }
+            And  { is_expected.to set_flash[:success] }
           end
 
           describe 'failure' do
@@ -99,7 +99,7 @@ describe CoursesController do
             Given(:course_params) { { title: 'Bhakti school', description: 'Awesome' } }
 
             Then { expect(response).to redirect_to(course_path(course)) }
-            And  { is_expected.to set_flash[:notice] }
+            And  { is_expected.to set_flash[:success] }
             And  { expect(assigns(:course)).to eq(course) }
           end
 
@@ -121,7 +121,7 @@ describe CoursesController do
 
             Then { expect { delete :destroy, params: { id: course.id } }.to change(Course, :count).by(-1) }
             And  { expect(response).to redirect_to(courses_path) }
-            And  { is_expected.to set_flash[:notice] }
+            And  { is_expected.to set_flash[:success] }
             And  { expect(assigns(:course)).to eq(course) }
           end
 

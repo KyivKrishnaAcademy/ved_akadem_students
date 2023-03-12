@@ -1,6 +1,5 @@
 - content_for(:js_and_css) do
-  = javascript_include_tag 'select2.min', type: 'text/javascript'
-  = stylesheet_link_tag 'select2.min', media: 'all'
+  = select2_scripts_and_stylesheets
 
 .col-xs-12.col-sm-6.vert-offset-top-1
   = simple_form_for @class_schedule do |f|
@@ -18,13 +17,14 @@
 
     .row
       .col-xs-12.col-sm-6
-        = f.input :start_time, as: :string, input_html: { id: 'date-time-picker',
-                                                          data: { locale: "#{locale}" },
-                                                          value: time_value(f.object.start_time)  }
+        = f.input :start_time,
+                  as: :string,
+                  input_html: { type: 'datetime-local', value: time_value(f.object.start_time) }
+
       .col-xs-12.col-sm-6
-        = f.input :finish_time, as: :string, input_html: { id: 'date-time-picker',
-                                                           data: { locale: "#{locale}" },
-                                                           value: time_value(f.object.finish_time) }
+        = f.input :finish_time,
+                  as: :string,
+                  input_html: { type: 'datetime-local', value: time_value(f.object.finish_time) }
 
     .row
       .col-xs-12.col-sm-6

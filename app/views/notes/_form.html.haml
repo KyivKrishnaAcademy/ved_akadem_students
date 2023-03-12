@@ -1,7 +1,7 @@
 = simple_form_for [note.person, note] do |f|
   = render 'shared/error_messages', object: f.object
 
-  = f.input :date, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" }, value: l(f.object.date) }
+  = f.input :date, as: :string, input_html: { type: 'date', value: date_value(f.object.date) }
   = f.input :message
   = f.input :person_id, as: :hidden
 

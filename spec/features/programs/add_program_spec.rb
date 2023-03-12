@@ -50,7 +50,7 @@ describe 'Add program:', :js do
       When { click_button I18n.t('programs.new.submit') }
 
       Then { expect(current_path).to eq(programs_path) }
-      And  { expect(page).to have_selector('.alert-notice') }
+      And  { expect(page).to have_selector('.alert-success') }
     end
   end
 

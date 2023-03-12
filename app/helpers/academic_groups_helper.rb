@@ -33,4 +33,8 @@ module AcademicGroupsHelper
       [key, I18n.t("group_performance.editor.#{key}")]
     end.to_h
   end
+
+  def date_value(date)
+    date.present? ? l(date, format: :date_picker) : ''
+  end
 end

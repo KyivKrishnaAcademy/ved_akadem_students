@@ -20,6 +20,6 @@ describe ClassSchedulesHelper do
 
   describe '#time_value' do
     Then { expect(time_value(nil)).to eq('') }
-    Then { expect(time_value(Time.zone.parse('Ср 03.06.2019 12:30'))).to eq('03.06.2019 12:30') }
+    Then { expect(time_value(Time.zone.parse('Ср 03.06.2019 12:30'))).to eq('2019-06-03T12:30') }
   end
 end

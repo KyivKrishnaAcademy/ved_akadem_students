@@ -12,7 +12,7 @@ describe 'Teacher multi select for courses:', :js do
   Given(:common_assertions) do
     select2_multi('course_teacher_profiles', person_2.complex_name)
     find('button[type="submit"]').click
-    expect(page).to have_selector('.alert-dismissible.alert-notice')
+    expect(page).to have_selector('.alert-dismissible.alert-success')
   end
 
   When { login_as_admin }

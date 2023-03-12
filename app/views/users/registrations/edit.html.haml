@@ -35,7 +35,7 @@
         .col-xs-12
           .row
             .col-xs-12.col-sm-6
-              = f.input :birthday, as: :string, input_html: { id: 'datepicker', data: { locale: "#{locale}" } }
+              = f.input :birthday, as: :string, input_html: { type: 'date', value: date_value(f.object.birthday) }
               = f.input :education
               = f.input :marital_status, collection: Person::MARITAL_STATUSES,
                                  label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }

@@ -7,6 +7,7 @@ class AcademicGroup < ApplicationRecord
 
   has_many :academic_group_schedules, dependent: :destroy
   has_many :class_schedules, through: :academic_group_schedules
+  has_many :certificates, dependent: :nullify
 
   belongs_to :administrator, class_name: 'Person', inverse_of: 'administrated_groups'
   belongs_to :praepostor, class_name: 'Person', inverse_of: 'praeposted_groups'
@@ -16,7 +17,7 @@ class AcademicGroup < ApplicationRecord
 
   has_many :examinations, through: :courses
 
-  before_save { |p| p.title = title.mb_chars.upcase.to_s if title.present? }
+  before_save { |p| p.title = title.mb_chars.upcase.to_s.strip if title.present? }
 
   validates :title, presence: true, uniqueness: true
   validates :administrator, presence: true

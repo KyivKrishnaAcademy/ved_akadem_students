@@ -224,8 +224,6 @@ uk:
       program_position_help: 'Чим менше число, тим вище цей курс буде у списку, який бачать студенти'
       program_visibility: 'Видимість'
       program_visibility_help: 'Не видимий курс бачать адміністратори, але він не пропонується студентам, щоб подати на нього заяву'
-      program_visibility_true: 'Так'
-      program_visibility_false: 'Невидимий курс'
       program_questionnaires_count: 'Кількість опитувальників'
       actions: 'Дії'
     new:
@@ -277,6 +275,20 @@ uk:
       table_title_active_students_count: 'Кількість активних студентів'
       table_title_actions: 'Дії'
       general_search_placeholder: 'Назва групи або опис'
+    form:
+      curator_placeholder: 'Оберіть куратора'
+      administrator_placeholder: 'Оберіть координатора'
+      praepostor_placeholder: 'Оберіть старосту'
+      message_hint: 'Показується на сторінці групи'
+      disabled_praepostor_hint: "Старосту можна обрати коли у групі з'являться студенти"
+      courses_hint: 'Залікові роботи з цих предметів будуть присутні на сторінці відмічання успішності групи'
+      courses_placeholder: "Оберіть пов'язні предмети"
+    edit:
+      title: 'Редагування групи'
+      submit: 'Зберегти'
+    new:
+      title: 'Створення групи'
+      submit: 'Створити'
   class_schedules:
     create_and_clone: 'Створити і копіювати'
     table_headers:
@@ -334,9 +346,8 @@ uk:
       questionnaire_title: 'Назва'
       questionnaire_kind: 'Тип'
     show:
-      program_title: 'Назва програми'
-      program_visibility: 'Активована?'
-      programs: "Пов'язані навчальні програми"
+      program_title: 'Назва учбового курсу'
+      programs: "Пов'язані учбові курси"
       question_format: 'Тип'
       question_required: "Обов'язковість"
       question_title: 'Питання'

@@ -10,8 +10,12 @@ describe Ui::AcademicGroupsLoadingInteraction do
     Given { create :academic_group, title: 'УЧ14-1' }
 
     Given(:expected) do
-      { academic_groups: [{ id: right_group.id,
-                            text: right_group.title }] }
+      {
+        academic_groups: [
+          { id: right_group.id, text: right_group.title }
+        ],
+        more: false
+      }
     end
 
     Then { expect(interaction.as_json).to eq(expected) }

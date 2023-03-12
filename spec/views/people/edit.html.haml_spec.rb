@@ -46,7 +46,7 @@ describe 'people/edit.html.erb' do
       And  { is_expected.to have_selector('#person_email[value="juke@ulr.net"]') }
       And  { is_expected.to have_css('#person_education', text: 'где-то когда-то') }
       And  { is_expected.to have_css('#person_work', text: 'никогда') }
-      And  { expect(find('#datepicker[name="person[birthday]"]').value).to eq('1975-01-30') }
+      And  { expect(find('input[name="person[birthday]"]').value).to eq('1975-01-30') }
     end
   end
 end

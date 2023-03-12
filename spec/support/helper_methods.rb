@@ -38,6 +38,13 @@ module HelperMethods
     find(".#{klass} li.select2-selection__choice", text: option)
   end
 
+  def select2_remove_multi(select2_id, option_title)
+    page.execute_script %{
+      $('li.select2-selection__choice[title="#{option_title}"]').find('.select2-selection__choice__remove').click();
+      $('select##{select2_id}').select2('close');
+    }
+  end
+
   def init_schedules_mv
     ClassScheduleWithPeople.connection.execute("REFRESH MATERIALIZED VIEW #{ClassScheduleWithPeople.table_name}")
   end

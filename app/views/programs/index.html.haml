@@ -46,7 +46,8 @@
                 = program.position
 
               %td.text-center
-                = t(".program_visibility_#{program.visible}")
+                - if program.visible
+                  %i.fa.fa-check{ aria: { hidden: :true } }
 
               %td.text-center= program.questionnaires_count
 

@@ -14,6 +14,7 @@ personOption = (person) ->
 personSelect = (domObj, jsonRoot) ->
   if domObj.length
     domObj.select2
+      theme: 'bootstrap'
       ajax:
         dataType: 'json'
         delay: 250
@@ -23,7 +24,12 @@ personSelect = (domObj, jsonRoot) ->
             page: params.page
           }
         processResults: (data, page) ->
-          { results: data[jsonRoot] }
+          {
+            results: data[jsonRoot],
+            pagination: {
+              more: data.more
+            }
+          }
         cache: true
       escapeMarkup: (markup) ->
         markup
@@ -33,16 +39,22 @@ personSelect = (domObj, jsonRoot) ->
 simpleSelect = (domObj, jsonRoot) ->
   if domObj.length
     domObj.select2
+      theme: 'bootstrap'
       ajax:
         dataType: 'json'
         delay: 250
         data: (params) ->
           {
-          q: params.term
-          page: params.page
+            q: params.term
+            page: params.page
           }
         processResults: (data, page) ->
-          { results: data[jsonRoot] }
+          {
+            results: data[jsonRoot],
+            pagination: {
+              more: data.more
+            }
+          }
         cache: true
 
 $ ->
@@ -59,4 +71,5 @@ $ ->
   simpleSelect($('select#class_schedule_academic_group_ids'), 'academic_groups')
   simpleSelect($('select#class_schedule_classroom_id'), 'classrooms')
   simpleSelect($('select#class_schedule_course_id'), 'courses')
+  simpleSelect($('select#academic_group_course_ids'), 'courses')
   simpleSelect($('select#program_questionnaire_ids'), 'questionnaires')

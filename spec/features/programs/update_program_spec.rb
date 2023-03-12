@@ -66,8 +66,8 @@ describe 'Update program:', :js do
       When { click_button I18n.t('programs.edit.submit') }
 
       Then { expect(current_path).to eq(programs_path) }
-      And  { expect(page).to have_selector('.alert-notice') }
-      Then { expect(find('tbody tr:nth-child(1) td:nth-child(1)')).to have_content(new_title_value) }
+      And  { expect(page).to have_selector('.alert-success') }
+      And  { expect(find('tbody tr:nth-child(1) td:nth-child(1)')).to have_content(new_title_value) }
       And  { expect(find('tbody tr:nth-child(1) td:nth-child(6)')).to have_content('2') }
     end
   end
