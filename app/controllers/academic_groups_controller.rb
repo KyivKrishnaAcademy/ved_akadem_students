@@ -81,7 +81,8 @@ class AcademicGroupsController < HtmlRespondableController
         :administrator_id,
         :praepostor_id,
         :curator_id,
-        :establ_date
+        :establ_date,
+        course_ids: []
       )
     end
   end

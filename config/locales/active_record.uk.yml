@@ -3,6 +3,7 @@ uk:
     attributes:
       academic_group:
         administrator: 'Координатор'
+        courses: 'Предмети'
         curator: 'Куратор'
         establ_date: 'Дата створення'
         graduated_at: 'Дата закінчення'

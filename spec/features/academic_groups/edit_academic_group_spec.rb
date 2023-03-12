@@ -2,7 +2,17 @@ require 'rails_helper'
 
 describe 'Edit academic group:' do
   Given(:academic_group) { create :academic_group }
+  Given(:model_name_locale) { I18n.t('activerecord.models.academic_group') }
   Given(:click_save) { click_button I18n.t('academic_groups.edit.submit') }
+
+  Given(:expect_to_flash_success) do
+    expect(find('body')).to(
+      have_selector(
+        '.alert-success',
+        text: I18n.t('flash.academic_groups.update.success', resource_name: model_name_locale)
+      )
+    )
+  end
 
   When { login_as_admin }
   When { visit edit_academic_group_path(academic_group) }
@@ -82,14 +92,6 @@ describe 'Edit academic group:' do
   end
 
   describe 'When values are valid:' do
-    Given(:model_name_locale) { I18n.t('activerecord.models.academic_group') }
-
-    Given(:expect_to_flash_success) do
-      expect(find('body')).to have_selector('.alert-success',
-                                            text: I18n.t('flash.academic_groups.update.success',
-                                                         resource_name: model_name_locale))
-    end
-
     [
       {
         field: I18n.t('activerecord.attributes.academic_group.title'),
@@ -123,5 +125,15 @@ describe 'Edit academic group:' do
 
       And { expect_to_flash_success }
     end
+  end
+
+  describe 'add courses', :js do
+    Given(:course) { create :course }
+
+    When { select2_multi('academic_group_courses', course.title) }
+    When { click_save }
+
+    Then { expect_to_flash_success }
+    And  { expect(academic_group.reload.course_ids).to eq([course.id]) }
   end
 end

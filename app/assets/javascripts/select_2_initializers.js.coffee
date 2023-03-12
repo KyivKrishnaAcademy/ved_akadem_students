@@ -69,4 +69,5 @@ $ ->
   simpleSelect($('select#class_schedule_academic_group_ids'), 'academic_groups')
   simpleSelect($('select#class_schedule_classroom_id'), 'classrooms')
   simpleSelect($('select#class_schedule_course_id'), 'courses')
+  simpleSelect($('select#academic_group_course_ids'), 'courses')
   simpleSelect($('select#program_questionnaire_ids'), 'questionnaires')

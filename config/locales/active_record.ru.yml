@@ -3,6 +3,7 @@ ru:
     attributes:
       academic_group:
         administrator: 'Координатор'
+        courses: 'Предметы'
         curator: 'Куратор'
         establ_date: 'Дата создания'
         graduated_at: 'Дата окончания'

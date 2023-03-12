@@ -31,6 +31,11 @@
                                           'ajax--url': ui_group_praepostors_path(group_id: f.object.id) },
                                   disabled: is_group_not_persisted }
 
+    = f.association :courses, label_method: :label_for_select, collection: f.object.courses,
+                    hint: t('.courses_hint'),
+                    input_html: { data: { placeholder: t('.courses_placeholder'),
+                                          'ajax--url': ui_courses_path } }
+
     ~ f.input :message_ru, input_html: { rows: 5 }, hint: t('.message_hint')
     ~ f.input :message_uk, input_html: { rows: 5 }, hint: t('.message_hint')
 

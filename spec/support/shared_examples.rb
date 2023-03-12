@@ -403,7 +403,14 @@ shared_examples_for :class_schedule_ui_index do
     end
 
     context 'not permit with all other' do
-      Given(:permitted_activities) { %w[class_schedule:edit class_schedule:new] }
+      Given(:permitted_activities) do
+        %w[
+          class_schedule:edit
+          class_schedule:new
+          academic_group:edit
+          academic_group:new
+        ]
+      end
 
       Given { user.roles << [create(:role, activities: all_activities - permitted_activities)] }
 
