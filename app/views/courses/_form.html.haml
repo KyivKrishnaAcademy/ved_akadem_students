@@ -1,6 +1,5 @@
 - content_for(:js_and_css) do
-  = javascript_include_tag 'select2.min', type: 'text/javascript'
-  = stylesheet_link_tag 'select2.min', media: 'all'
+  = select2_scripts_and_stylesheets
 
 = simple_form_for @course do |f|
   = render 'shared/error_messages', object: f.object

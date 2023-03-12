@@ -14,6 +14,7 @@ personOption = (person) ->
 personSelect = (domObj, jsonRoot) ->
   if domObj.length
     domObj.select2
+      theme: 'bootstrap'
       ajax:
         dataType: 'json'
         delay: 250
@@ -38,6 +39,7 @@ personSelect = (domObj, jsonRoot) ->
 simpleSelect = (domObj, jsonRoot) ->
   if domObj.length
     domObj.select2
+      theme: 'bootstrap'
       ajax:
         dataType: 'json'
         delay: 250
