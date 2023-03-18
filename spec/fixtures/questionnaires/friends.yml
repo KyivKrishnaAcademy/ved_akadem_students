@@ -1,0 +1,14 @@
+:questionnaire:
+  :title_uk: "Друзі"
+  :title_ru: "Друзья"
+  :description_uk: ""
+  :description_ru: ""
+  :kind: "initial_questions"
+:questions:
+  :friends:
+    :position: 1
+    :format: "freeform"
+    :data:
+      :text:
+        :uk: "Якщо Ви прийшли на навчання разом з друзями, вкажіть іх імена, щоб бути з ними у одній групі"
+        :ru: "Если вы пришли на обучение вместе с друзьями, укажите их имена, чтобы быть с ними в одной группе"

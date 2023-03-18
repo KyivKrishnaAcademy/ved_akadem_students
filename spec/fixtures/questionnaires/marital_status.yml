@@ -1,0 +1,27 @@
+:questionnaire:
+  :title_uk: "Сімейний стан"
+  :title_ru: "Семейное положение"
+  :description_uk: ""
+  :description_ru: ""
+  :kind: "initial_questions"
+:questions:
+  :marital_status:
+    :position: 1
+    :format: "single_select"
+    :data:
+      :text:
+        :uk: "Вкажіть Ваш сімейний стан будь ласка"
+        :ru: "Укажите Ваше семейное положение пожалуйста"
+      :options:
+        :uk:
+          - ["немає відносин", "single"]
+          - ["у відносинах/цивільному шлюбі", "in_relationship"]
+          - ["одружений/заміжня", "married"]
+          - ["розлучений/розлучена", "divorced"]
+          - ["вдівець/вдова", "widowed"]
+        :ru:
+          - ["нет отношений", "single"]
+          - ["в отношениях/гражданском браке", "in_relationship"]
+          - ["женат/замужем", "married"]
+          - ["разведен/разведена", "divorced"]
+          - ["вдовец/вдова", "widowed"]
