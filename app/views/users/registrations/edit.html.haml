@@ -28,7 +28,6 @@
                 %p
                   Currently waiting confirmation for: #{resource.unconfirmed_email}
               = f.input :diploma_name
-              = f.input :favorite_lectors
               = f.input :name
               = f.input :middle_name
               = f.input :surname
@@ -36,15 +35,10 @@
           .row
             .col-xs-12.col-sm-6
               = f.input :birthday, as: :string, input_html: { type: 'date', value: date_value(f.object.birthday) }
-              = f.input :education
-              = f.input :marital_status, collection: Person::MARITAL_STATUSES,
-                                 label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
-              = f.input :friends_to_be_with
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
               = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-              = f.input :work
               = f.input :password, autocomplete: 'off'
               = f.input :password_confirmation
               = f.input :current_password

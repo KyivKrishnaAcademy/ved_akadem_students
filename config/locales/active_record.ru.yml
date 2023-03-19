@@ -49,11 +49,8 @@ ru:
         birthday:               'День рождения'
         current_password:       'Текущий пароль'
         diploma_name:           'Имя для диплома'
-        education:              'Образование'
         email:                  'Электронная почта'
-        favorite_lectors:       'Любимые лекторы'
         gender:                 'Пол'
-        marital_status:         'Семейное положение'
         middle_name:            'Отчество'
         name:                   'Имя'
         password_confirmation:  'Подтверждение'
@@ -61,7 +58,6 @@ ru:
         photo:                  'Фотография'
         privacy_agreement:      'Соглашение на обработку персональных данных'
         surname:                'Фамилия'
-        work:                   'Работа'
       program:
         title_uk: 'Название на украинском'
         title_ru: 'Название на русском'
@@ -124,12 +120,8 @@ ru:
             current_password:
               blank:                'должен быть заполнен'
               invalid:              'не правильный'
-            favorite_lectors:
-              blank:                'укажите пожалуйста'
             gender:
               inclusion:            'должен быть выбран'
-            marital_status:
-              blank:                'должно быть выбрано'
             password:
               too_long:             'слишком длинный (максимум %{count} символов)'
               too_short:            'слишком короткий (минимум %{count} символов)'
@@ -142,8 +134,6 @@ ru:
             surname:
               blank:                'должна быть заполнена'
               too_long:             'слишком длинная (максимум %{count} символов)'
-            work:
-              blank:                'должна быть заполнена'
         program:
           attributes:
             manager:

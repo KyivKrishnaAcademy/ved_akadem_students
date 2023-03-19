@@ -49,11 +49,8 @@ uk:
         birthday:               'День народження'
         current_password:       'Поточний пароль'
         diploma_name:           "І'мя для диплому"
-        education:              'Освіта'
         email:                  'Електронна пошта'
-        favorite_lectors:       'Улюблені лектори'
         gender:                 'Стать'
-        marital_status:         'Сімейний стан'
         middle_name:            'По батькові'
         name:                   "Ім'я"
         password_confirmation:  'Підтвердження'
@@ -61,7 +58,6 @@ uk:
         photo:                  'Фотографія'
         privacy_agreement:      'Згода на обробку персональних даних'
         surname:                'Прізвище'
-        work:                   'Робота'
       program:
         title_uk: 'Назва українською'
         title_ru: 'Назва російською'
@@ -129,21 +125,15 @@ uk:
           attributes:
             birthday:
               over_16_years_old:    'вибачте Вам повинно виконатися 16 повних років'
-            education:
-              blank:                'повинна бути заповнена'
             current_password:
               blank:                'повинен бути заповненим'
               invalid:              'не вірний'
-            favorite_lectors:
-              blank:                'вкажіть будь ласка'
             email:
               blank:                'повинна бути заповнена'
               invalid:              'повинна відповідати формату «pryklad@example.com»'
               taken:                'зайнята. Можливо Ви вже зареєстровані, спробуйте <a href="/password/new">відновити пароль</a>'
             gender:
               inclusion:            'повинна бути обрана'
-            marital_status:
-              blank:                'повинен бути обраний'
             password:
               too_long:             'занадто довигий (максимум %{count} символів)'
               too_short:            'занадто короткий (мінімум %{count} символів)'
@@ -153,8 +143,6 @@ uk:
               size:                 'повинна бути не меньше 150*200 пікселів'
             privacy_agreement:
               accepted:             'повинна бути прийнята'
-            work:
-              blank:                'повинна бути заповнена'
         program:
           attributes:
             title_uk:

@@ -1,12 +1,6 @@
 require 'rails_helper'
 
 describe Person do
-  describe 'fields' do
-    Then { is_expected.to have_db_column(:education).of_type(:text) }
-    Then { is_expected.to have_db_column(:work).of_type(:text) }
-    Then { is_expected.not_to have_db_column(:edu_and_work) }
-  end
-
   describe 'association' do
     Then { is_expected.to have_one(:student_profile).dependent(:destroy) }
     Then { is_expected.to have_one(:teacher_profile).dependent(:destroy) }
@@ -75,10 +69,6 @@ describe Person do
           is_expected.to allow_value(valid_address).for(:email)
         end
       end
-    end
-
-    context 'marital_status' do
-      Then { is_expected.to validate_presence_of(:marital_status) }
     end
 
     context 'name, surname, middle_name' do

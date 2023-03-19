@@ -12,10 +12,8 @@ describe 'Edit person:' do
       { field: 'phone',                     value: '50 111 2233',       test_field: 'Telephone 1: +380501112233' },
       { field: 'phone',                     value: '+7 495 739-22-22',  test_field: 'Telephone 1: +74957392222' },
       { field: 'person[name]',              value: 'Алексей',           test_field: 'Алексей' },
-      { field: 'person[work]',              value: 'other',             test_field: 'Work: other' },
       { field: 'person[email]',             value: 'alex@PAMHO.net',    test_field: 'Email: alex@pamho.net' },
       { field: 'person[surname]',           value: 'Евгеньев',          test_field: 'Евгеньев' },
-      { field: 'person[education]',         value: 'some',              test_field: 'Education: some' },
       { field: 'person[middle_name]',       value: 'Иванович',          test_field: 'Иванович' },
     ].each do |h|
       it_behaves_like :valid_fill_in, h, 'Person'
