@@ -131,7 +131,7 @@ uk:
             email:
               blank:                'повинна бути заповнена'
               invalid:              'повинна відповідати формату «pryklad@example.com»'
-              taken:                'зайнята. Можливо Ви вже зареєстровані, спробуйте <a href="/password/new">відновити пароль</a>'
+              taken:                'зайнята. Можливо Ви вже зареєстровані, спробуйте <a class="alert-link" href="/password/new">відновити пароль</a>'
             gender:
               inclusion:            'повинна бути обрана'
             password:

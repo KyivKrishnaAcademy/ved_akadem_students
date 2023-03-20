@@ -20,7 +20,7 @@ ru:
       create:
         success_html: "%{resource_name} %{link_or_name} была успешно создана."
       update:
-        success: "%{resource_name} была успешно обновлена."
+        success_html: "%{resource_name} %{link_or_name} была успешно обновлена."
       destroy:
         success: "%{resource_name} была успешно удалена."
         alert: "%{resource_name} не была удалена."

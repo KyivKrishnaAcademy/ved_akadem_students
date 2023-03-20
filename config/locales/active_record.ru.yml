@@ -116,7 +116,7 @@ ru:
             email:
               blank:                'должна быть заполнена'
               invalid:              'должна иметь формат «primer@example.com»'
-              taken:                'занята. Возможно Вы уже зарегистрированы, попробуйте <a href="/password/new">восстановить пароль</a>'
+              taken:                'занята. Возможно Вы уже зарегистрированы, попробуйте <a class="alert-link" href="/password/new">восстановить пароль</a>'
             current_password:
               blank:                'должен быть заполнен'
               invalid:              'не правильный'
