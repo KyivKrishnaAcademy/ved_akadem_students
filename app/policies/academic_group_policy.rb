@@ -18,6 +18,6 @@ class AcademicGroupPolicy < BasePolicy
   private
 
   def student_of_the_group?
-    record.active_students.map(&:id).include?(user.id)
+    record.active_students.where(id: user.id).any?
   end
 end
