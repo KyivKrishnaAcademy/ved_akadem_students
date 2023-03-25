@@ -50,17 +50,10 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :gender, inclusion: { in: [true, false] }
   validates :middle_name, :name, :surname, :diploma_name, length: { maximum: 50 }
-  validates :name, :surname, presence: true
-  validates :password, confirmation: true
-  validates :password, length: { in: 6..128, unless: :skip_password_validation }, on: :create
-  validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
-  validates :telephones, :birthday, presence: true
 
   validate :check_photo_dimensions
-  validate :validate_age
 
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }
 
@@ -227,12 +220,6 @@ class Person < ApplicationRecord
     dimensions_invalid = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
     errors.add(:photo, :size) if dimensions_invalid
-  end
-
-  def validate_age
-    return if birthday.blank? || birthday < 16.years.ago.to_date
-
-    errors.add(:birthday, :over_16_years_old)
   end
 
   def set_uid

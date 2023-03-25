@@ -43,6 +43,8 @@ gem 'sentry-raven'
 
 gem 'uglifier'
 
+gem 'active_interaction'
+
 group :assets_builder, :development, :test do
   gem 'autoprefixer-rails'
   gem 'bootstrap-sass'

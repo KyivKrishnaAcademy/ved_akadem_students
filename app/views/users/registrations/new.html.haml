@@ -1,39 +1,27 @@
-- provide(:title, t('.title'))
+- provide(:title, t('registration_wizard.title'))
 
-%h2
-  = t('.title')
+.row
+  .col-xs-12
+    %h1.text-center
+      = t('registration_wizard.title')
 
-.row.vert-offset-top-2
-  .col-xs-12.stop_double_submit
-    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false } ) do |f|
+.row.vert-offset-top-1
+  .col-xs-12.col-sm-8.com-sm-offset-2.col-md-6.col-md-offset-3
+    .progress
+      .progress-bar.progress-bar-warning{ role: 'progressbar', aria: { valuenow: '1', valuemin: '0', valuemax: '5' }, style: 'width: 20%' }
+        = t('registration_wizard.step_1.progress_bar_label')
+.row
+  .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.vert-offset-top-1.stop_double_submit
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false } ) do |f|
       = render 'shared/error_messages', object: f.object
 
-      .row.form-inputs
-        .col-xs-12
-          .row
-            .col-xs-12.col-sm-6
-              = f.input :photo, as: :file, wrapper: :vertical_file_input
-              = f.input :photo_cache, as: :hidden
-            .col-xs-12.col-sm-6
-              = f.input :email, autofocus: true, error: ''
-          .row
-            .col-xs-12.col-sm-6
-              = f.input :birthday, as: :string, input_html: { type: 'date', value: date_value(f.object.birthday) }
-              = f.input :name
-              = f.input :middle_name
-              = f.input :surname
-              = render 'shared/nested_telephones', f: f
-            .col-xs-12.col-sm-6
-              = f.input :diploma_name
-              = f.input :gender, collection: [[:male, true], [:female, false]],
-                                 label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-              = f.input :password
-              = f.input :password_confirmation
+      .form-inputs
+        = f.input :email, autofocus: true, error: ''
+        = f.input :birthday, as: :string, input_html: { type: 'date', value: date_value(f.object.birthday) }
+        = f.input :password
+        = f.input :password_confirmation
 
-      .row.form-actions
-        .col-xs-12.text-center
-          = f.input :privacy_agreement, as: :boolean, checked_value: 'yes', unchecked_value: 'no',
-                    wrapper: :inline_checkbox, label: t('.i_agree_html')
-          = f.button :button, class: 'btn btn-lg btn-submit' do
-            %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
-            = t('devise.links.sign_up')
+      .form-actions
+        = f.button :button, class: 'btn btn-submit col-xs-12' do
+          %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+          = t('registration_wizard.links.next_step')

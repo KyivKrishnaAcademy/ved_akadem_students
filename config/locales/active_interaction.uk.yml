@@ -1,0 +1,27 @@
+uk:
+  active_interaction:
+    types:
+      date: 'дата'
+    attributes:
+      active/people_registration/sign_up_interaction:
+        birthday: 'День народження'
+        email: 'Електронна пошта'
+        password_confirmation: 'Підтвердження паролю'
+        password: 'Пароль'
+    errors:
+      messages:
+        invalid_type: '%{type} має не валідний формат або не заповнено'
+      models:
+        active/people_registration/sign_up_interaction:
+          attributes:
+            birthday:
+              over_16_years_old: 'вибачте, Вам повинно виконатися 16 повних років'
+            email:
+              blank: 'повинна бути заповнена'
+              invalid: 'повинна відповідати формату «pryklad@example.com»'
+              taken: 'зайнята. Можливо Ви вже зареєстровані, спробуйте <a class="alert-link" href="/password/new">відновити пароль</a>'
+            password_confirmation:
+              confirmation: 'повинно бути таким самим як і пароль'
+            password:
+              too_long: 'занадто довигий (максимум %{count} символів)'
+              too_short: 'занадто короткий (мінімум %{count} символів)'

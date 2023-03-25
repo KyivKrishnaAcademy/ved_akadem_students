@@ -190,7 +190,12 @@ ru:
         title:  'Редактирование профиля'
       new:
         i_agree_html: 'Я прочитал(а) и согласен(на) с <a href="/privacy_agreement" target="_blank">соглашением на обработку персональных данных</a>'
-        title:        'Регистрация'
+  registration_wizard:
+    title: 'Регистрация'
+    links:
+      next_step: 'Дальше'
+    step_1:
+      progress_bar_label: 'Шаг 1'
   static_pages:
     home:
       certificates: 'Сертификаты'

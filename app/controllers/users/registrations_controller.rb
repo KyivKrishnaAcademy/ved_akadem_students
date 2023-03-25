@@ -1,3 +1,6 @@
+# rubocop:disable Metrics/AbcSize
+# since it is modified version of the Devise::RegistrationsController
+
 module Users
   class RegistrationsController < Devise::RegistrationsController
     include CropDirectable
@@ -10,15 +13,27 @@ module Users
       :birthday, { telephones_attributes: %i[id phone _destroy] }
     ].freeze
 
-    def new
-      super do |resource|
-        resource.telephones.build
-      end
-    end
-
     def create
-      super do |resource|
-        NotifyVerificationExpiredJob.perform_later(resource.id) if resource.persisted?
+      self.resource = Active::PeopleRegistration::SignUpInteraction.run(sign_up_params)
+
+      if resource.result&.persisted?
+        self.resource = resource.result
+
+        NotifyVerificationExpiredJob.perform_later(resource.id)
+
+        if resource.active_for_authentication?
+          set_flash_message! :success, :signed_up
+          sign_up(resource_name, resource)
+          respond_with resource, location: after_sign_up_path_for(resource)
+        else
+          set_flash_message! :success, :"signed_up_but_#{resource.inactive_message}"
+          expire_data_after_sign_in!
+          respond_with resource, location: after_inactive_sign_up_path_for(resource)
+        end
+      else
+        clean_up_passwords resource
+        set_minimum_password_length
+        respond_with resource
       end
     end
 
@@ -87,3 +102,5 @@ module Users
     end
   end
 end
+
+# rubocop:enable Metrics/AbcSize

@@ -1,0 +1,27 @@
+ru:
+  active_interaction:
+    types:
+      date: 'дата'
+    attributes:
+      active/people_registration/sign_up_interaction:
+        birthday: 'День рождения'
+        email: 'Электронная почта'
+        password_confirmation: 'Подтверждение пароля'
+        password: 'Пароль'
+    errors:
+      messages:
+        invalid_type: '%{type} имеет не валидный формат или не заполнен'
+      models:
+        active/people_registration/sign_up_interaction:
+          attributes:
+            birthday:
+              over_16_years_old: 'извините, Вам должно исполниться 16 полных лет'
+            email:
+              blank: 'должна быть заполнена'
+              invalid: 'должна иметь формат «primer@example.com»'
+              taken: 'занята. Возможно Вы уже зарегистрированы, попробуйте <a class="alert-link" href="/password/new">восстановить пароль</a>'
+            password_confirmation:
+              confirmation: 'должно быть таким же как и пароль'
+            password:
+              too_long: 'слишком длинный (максимум %{count} символов)'
+              too_short: 'слишком короткий (минимум %{count} символов)'

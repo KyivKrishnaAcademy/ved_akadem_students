@@ -35,7 +35,7 @@ ru:
       reset_password_instructions:
         subject: "Инструкции по восстановлению пароля"
       unlock_instructions:
-        subject: "Инструкции по разблокировке учётной записи"        
+        subject: "Инструкции по разблокировке учётной записи"
     omniauth_callbacks:
       failure: "Вы не можете войти в систему с учётной записью из %{kind}, так как \"%{reason}\"."
       success: "Вход в систему выполнен с учётной записью из %{kind}."
