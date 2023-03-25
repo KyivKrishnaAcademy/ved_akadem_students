@@ -1,6 +1,6 @@
 module Active
   module PeopleRegistration
-    class SignUpInteraction < ActiveInteraction::Base
+    class SignUpStepInteraction < ActiveInteraction::Base
       string :email
       date :birthday
       string :password

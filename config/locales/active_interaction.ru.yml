@@ -3,7 +3,7 @@ ru:
     types:
       date: 'дата'
     attributes:
-      active/people_registration/sign_up_interaction:
+      active/people_registration/sign_up_step_interaction:
         birthday: 'День рождения'
         email: 'Электронная почта'
         password_confirmation: 'Подтверждение пароля'
@@ -12,7 +12,7 @@ ru:
       messages:
         invalid_type: '%{type} имеет не валидный формат или не заполнен'
       models:
-        active/people_registration/sign_up_interaction:
+        active/people_registration/sign_up_step_interaction:
           attributes:
             birthday:
               over_16_years_old: 'извините, Вам должно исполниться 16 полных лет'

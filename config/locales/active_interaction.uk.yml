@@ -3,7 +3,7 @@ uk:
     types:
       date: 'дата'
     attributes:
-      active/people_registration/sign_up_interaction:
+      active/people_registration/sign_up_step_interaction:
         birthday: 'День народження'
         email: 'Електронна пошта'
         password_confirmation: 'Підтвердження паролю'
@@ -12,7 +12,7 @@ uk:
       messages:
         invalid_type: '%{type} має не валідний формат або не заповнено'
       models:
-        active/people_registration/sign_up_interaction:
+        active/people_registration/sign_up_step_interaction:
           attributes:
             birthday:
               over_16_years_old: 'вибачте, Вам повинно виконатися 16 повних років'

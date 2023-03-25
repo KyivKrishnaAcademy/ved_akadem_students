@@ -13,8 +13,16 @@ module Users
       :birthday, { telephones_attributes: %i[id phone _destroy] }
     ].freeze
 
+    def new
+      build_resource({})
+
+      respond_with(resource) do |format|
+        format.html { render template: 'registration_wizard/sign_up_step' }
+      end
+    end
+
     def create
-      self.resource = Active::PeopleRegistration::SignUpInteraction.run(sign_up_params)
+      self.resource = Active::PeopleRegistration::SignUpStepInteraction.run(sign_up_params)
 
       if resource.result&.persisted?
         self.resource = resource.result
@@ -33,7 +41,10 @@ module Users
       else
         clean_up_passwords resource
         set_minimum_password_length
-        respond_with resource
+
+        respond_with(resource) do |format|
+          format.html { render template: 'registration_wizard/sign_up_step' }
+        end
       end
     end
 
