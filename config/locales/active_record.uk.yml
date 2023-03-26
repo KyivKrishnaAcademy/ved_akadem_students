@@ -48,7 +48,7 @@ uk:
       person:
         birthday:               'День народження'
         current_password:       'Поточний пароль'
-        diploma_name:           "І'мя для диплому"
+        spiritual_name:         "Духовне і'мя"
         email:                  'Електронна пошта'
         gender:                 'Стать'
         middle_name:            'По батькові'

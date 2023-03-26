@@ -15,7 +15,7 @@ describe ApplicationHelper do
     Given(:person) { create :person }
 
     describe 'full with diploma name should be "sp_name (name m_name surname)"' do
-      Given { person.update(diploma_name: 'Ololo') }
+      Given { person.update(spiritual_name: 'Ololo') }
 
       Then do
         expect(complex_name(person))
@@ -23,20 +23,20 @@ describe ApplicationHelper do
       end
     end
 
-    describe "title with diploma name should be 'diploma_name'" do
-      Given { person.update(diploma_name: 'Ololo') }
+    describe "title with diploma name should be 'spiritual_name'" do
+      Given { person.update(spiritual_name: 'Ololo') }
 
       Then { expect(complex_name(person, short: true)).to match(/\AOlolo\z/) }
     end
 
     describe "full without diploma name should be 'name m_name surname'" do
-      Given { person.update(diploma_name: '') }
+      Given { person.update(spiritual_name: '') }
 
       Then { expect(complex_name(person)).to match(/\A#{person.surname} #{person.name} #{person.middle_name}\z/) }
     end
 
     describe "title without diploma name should be 'name surname'" do
-      Given { person.diploma_name = '' }
+      Given { person.spiritual_name = '' }
 
       Then { expect(complex_name(person, short: true)).to match(/\A#{person.surname} #{person.name}\z/) }
     end

@@ -50,7 +50,7 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :middle_name, :name, :surname, :diploma_name, length: { maximum: 50 }
+  validates :middle_name, :name, :surname, :spiritual_name, length: { maximum: 50 }
 
   validate :check_photo_dimensions
 
@@ -67,9 +67,9 @@ class Person < ApplicationRecord
       order(
         <<-SQL.squish
           CASE
-            WHEN (diploma_name IS NULL OR diploma_name = '')
+            WHEN (spiritual_name IS NULL OR spiritual_name = '')
             THEN (surname || name || middle_name)
-            ELSE diploma_name
+            ELSE spiritual_name
           END
         SQL
       )
@@ -166,13 +166,13 @@ class Person < ApplicationRecord
   end
 
   def short_name
-    return diploma_name if diploma_name.present?
+    return spiritual_name if spiritual_name.present?
 
     "#{surname} #{name}"
   end
 
   def respectful_name
-    return diploma_name if diploma_name.present?
+    return spiritual_name if spiritual_name.present?
     return name if middle_name.blank?
 
     "#{name} #{middle_name}"
@@ -195,11 +195,11 @@ class Person < ApplicationRecord
   def set_complex_name
     civil_name = "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
 
-    self.complex_name = if diploma_name.present?
+    self.complex_name = if spiritual_name.present?
       if surname.present? && name.present?
-        "#{diploma_name} (#{civil_name})"
+        "#{spiritual_name} (#{civil_name})"
       else
-        diploma_name
+        spiritual_name
       end
     else
       civil_name

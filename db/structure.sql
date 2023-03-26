@@ -409,11 +409,12 @@ CREATE TABLE public.people (
     tokens jsonb DEFAULT '{}'::jsonb NOT NULL,
     locale character varying(2) DEFAULT 'uk'::character varying,
     fake_email boolean DEFAULT false,
-    diploma_name character varying,
+    spiritual_name character varying,
     favorite_lectors character varying,
     notify_schedules boolean DEFAULT true,
     spam_complain boolean DEFAULT false,
-    completed_registration_step character varying DEFAULT ''::character varying
+    completed_registration_step character varying DEFAULT ''::character varying,
+    diksha_guru character varying
 );
 
 
@@ -2014,6 +2015,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230226201309'),
 ('20230305211926'),
 ('20230306054610'),
-('20230326110520');
+('20230326110520'),
+('20230326184552');
 
 

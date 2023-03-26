@@ -23,10 +23,10 @@ class CertificateEntryMustache < Mustache
   end
 
   def name
-    @person.diploma_name.presence || "#{@person.surname} #{@person.name}"
+    @person.spiritual_name.presence || "#{@person.surname} #{@person.name}"
   end
 
-  def diploma_name_present?
-    @person.diploma_name.present?
+  def spiritual_name_present?
+    @person.spiritual_name.present?
   end
 end

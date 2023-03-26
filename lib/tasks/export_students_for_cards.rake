@@ -7,7 +7,7 @@ namespace :academic do
     HEADER           = %w[ФИО_для_билета ФИО_для_QR Номер Группа Телефон Email Фото].freeze
 
     def name_for_card(student)
-      return student.diploma_name if student.diploma_name.present?
+      return student.spiritual_name if student.spiritual_name.present?
 
       middle_name = student.middle_name.present? ? ' ' << student.middle_name : ''
 

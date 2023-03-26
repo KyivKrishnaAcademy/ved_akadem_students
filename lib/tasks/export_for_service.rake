@@ -6,7 +6,7 @@ namespace :academic do
     HEADER           = %w[ФИО группы телефоны работа образование]
 
     def name_for_card(person)
-      return person.diploma_name if person.diploma_name.present?
+      return person.spiritual_name if person.spiritual_name.present?
 
       "#{person.surname.mb_chars.upcase} #{person.name}#{person.middle_name.present? ? ' ' << person.middle_name : ''}"
     end

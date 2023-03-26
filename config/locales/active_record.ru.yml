@@ -48,7 +48,7 @@ ru:
       person:
         birthday:               'День рождения'
         current_password:       'Текущий пароль'
-        diploma_name:           'Имя для диплома'
+        spiritual_name:         'Духовное имя'
         email:                  'Электронная почта'
         gender:                 'Пол'
         middle_name:            'Отчество'
