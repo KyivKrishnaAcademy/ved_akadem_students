@@ -194,7 +194,7 @@ uk:
     title: 'Реєстрація'
     links:
       next_step: 'Далі'
-    step_1:
+    sign_up_step:
       progress_bar_label: 'Крок 1'
   static_pages:
     home:

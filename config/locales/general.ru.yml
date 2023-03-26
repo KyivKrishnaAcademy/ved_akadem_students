@@ -194,7 +194,7 @@ ru:
     title: 'Регистрация'
     links:
       next_step: 'Дальше'
-    step_1:
+    sign_up_step:
       progress_bar_label: 'Шаг 1'
   static_pages:
     home:

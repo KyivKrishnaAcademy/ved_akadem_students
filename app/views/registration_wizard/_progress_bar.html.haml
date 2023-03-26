@@ -1,0 +1,11 @@
+.progress
+  - current_step_index = Person::RegistrationStep.index(current_step)
+  - style_width = "width: #{(100.0 / Person::RegistrationStep::COUNT).round(2)}%"
+  - Person::RegistrationStep::STEPS.each do |step|
+    - step_index = Person::RegistrationStep.index(step)
+    - if step_index < current_step_index
+      .progress-bar.progress-bar-success{ role: 'progressbar', aria: { valuenow: '1', valuemin: '0', valuemax: '1' }, style: style_width }
+        = t("registration_wizard.#{step}_step.progress_bar_label")
+    - elsif step_index == current_step_index
+      .progress-bar.progress-bar-warning{ role: 'progressbar', aria: { valuenow: '1', valuemin: '0', valuemax: '1' }, style: style_width }
+        = t("registration_wizard.#{step}_step.progress_bar_label")
