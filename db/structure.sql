@@ -412,7 +412,8 @@ CREATE TABLE public.people (
     diploma_name character varying,
     favorite_lectors character varying,
     notify_schedules boolean DEFAULT true,
-    spam_complain boolean DEFAULT false
+    spam_complain boolean DEFAULT false,
+    completed_registration_step character varying DEFAULT ''::character varying
 );
 
 
@@ -2012,6 +2013,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230226200547'),
 ('20230226201309'),
 ('20230305211926'),
-('20230306054610');
+('20230306054610'),
+('20230326110520');
 
 
