@@ -22,6 +22,8 @@ module Active
       def execute
         person = Person.new(inputs)
 
+        person.completed_registration_step = Person::RegistrationStep.next(person.completed_registration_step)
+
         errors.merge!(person.errors) unless person.save
 
         person

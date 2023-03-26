@@ -196,6 +196,8 @@ ru:
       next_step: 'Дальше'
     sign_up_step:
       progress_bar_label: 'Шаг 1'
+    agreement_step:
+      progress_bar_label: 'Шаг 2'
   static_pages:
     home:
       certificates: 'Сертификаты'
