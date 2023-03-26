@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   def ensure_registration_complete
     return unless current_person
     return if Person::RegistrationStep.last?(current_person.completed_registration_step)
-    return if self.class < Devise::RegistrationsController
+    return if self.class < DeviseController
 
     redirect_to(edit_person_registration_path(current_person))
   end

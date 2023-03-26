@@ -5,13 +5,6 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     include CropDirectable
 
-    before_action :sanitize_sign_up, only: :create
-
-    PERMITTED_PARAMS = [
-      :name, :surname, :middle_name, :gender, :photo, :photo_cache, :diploma_name,
-      :birthday, { telephones_attributes: %i[id phone _destroy] }
-    ].freeze
-
     def new
       build_resource({})
 
@@ -21,7 +14,7 @@ module Users
     end
 
     def create
-      self.resource = Active::PeopleRegistration::SignUpStepInteraction.run(sign_up_params)
+      self.resource = Active::PeopleRegistration::SignUpStepInteraction.run(params[:person])
 
       if resource.result&.persisted?
         self.resource = resource.result
@@ -93,10 +86,6 @@ module Users
 
     def after_update_path_for(resource)
       direct_to_crop(super(resource), resource)
-    end
-
-    def sanitize_sign_up
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:privacy_agreement].concat(PERMITTED_PARAMS))
     end
   end
 end
