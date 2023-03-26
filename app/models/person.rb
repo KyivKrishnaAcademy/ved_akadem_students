@@ -46,7 +46,7 @@ class Person < ApplicationRecord
            dependent: :nullify,
            inverse_of: 'curator'
 
-  before_save :set_password, :set_complex_name, :set_uid
+  before_save :set_complex_name, :set_uid
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
@@ -190,14 +190,6 @@ class Person < ApplicationRecord
     result[:photo] = :photo if send(:photo).blank?
 
     result
-  end
-
-  def set_password
-    return unless encrypted_password.blank? && password.blank? && password_confirmation.blank?
-
-    pswd                       = SecureRandom.hex(6)
-    self.password              = pswd
-    self.password_confirmation = pswd
   end
 
   def set_complex_name
