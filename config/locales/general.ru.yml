@@ -187,9 +187,7 @@ ru:
         no_telephone: 'Такой номер телефона не зарегистрирован.'
     registrations:
       edit:
-        title:  'Редактирование профиля'
-      new:
-        i_agree_html: 'Я прочитал(а) и согласен(на) с <a href="/privacy_agreement" target="_blank">соглашением на обработку персональных данных</a>'
+        title: 'Редактирование профиля'
   registration_wizard:
     title: 'Регистрация'
     links:
@@ -198,6 +196,7 @@ ru:
       progress_bar_label: 'Шаг 1'
     agreement_step:
       progress_bar_label: 'Шаг 2'
+      i_agree: 'Я прочитал(а) и согласен(на)'
   static_pages:
     home:
       certificates: 'Сертификаты'
@@ -210,6 +209,8 @@ ru:
       study_applications: 'Заявления на обучение'
       title: 'Домашняя'
       edit_subscriptions: Редактировать подписки
+    privacy_agreement:
+      title: 'Згода на збір та обробку персональних даних'
   people:
     show:
       not_adult:            '(еще нет 16!)'

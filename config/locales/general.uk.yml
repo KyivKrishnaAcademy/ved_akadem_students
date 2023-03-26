@@ -187,9 +187,7 @@ uk:
         no_telephone: 'Такий номер телефону не зареєстрований.'
     registrations:
       edit:
-        title:  'Редагування профілю'
-      new:
-        i_agree_html: 'Я прочитав(ла) і згоден(на) зі <a href="/privacy_agreement" target="_blank">згодою на обробку персональних даних</a>'
+        title: 'Редагування профілю'
   registration_wizard:
     title: 'Реєстрація'
     links:
@@ -198,6 +196,7 @@ uk:
       progress_bar_label: 'Крок 1'
     agreement_step:
       progress_bar_label: 'Крок 2'
+      i_agree: 'Я прочитав(ла) і згоден(на)'
   static_pages:
     home:
       certificates: 'Сертифікати'
@@ -210,6 +209,8 @@ uk:
       study_applications: 'Заяви на навчання'
       title: 'Домашня'
       edit_subscriptions: 'Редагувати підписки'
+    privacy_agreement:
+      title: 'Згода на збір та обробку персональних даних'
   people:
     show:
       not_adult:            '(ще нема 16!)'

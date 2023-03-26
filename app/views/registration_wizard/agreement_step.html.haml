@@ -8,3 +8,29 @@
 .row.vert-offset-top-1
   .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
     = render 'registration_wizard/progress_bar', current_step: Person::RegistrationStep.next(current_person.completed_registration_step)
+
+.row
+  .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.stop_double_submit
+    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false }, html: { method: :put }) do |f|
+      = render 'shared/error_messages', object: f.object
+
+      .panel.panel-primary
+        .panel-heading
+          %h3.panel-title.text-center
+            = t('static_pages.privacy_agreement.title')
+
+        .panel-body
+          = render 'static_pages/privacy_agreement_body'
+
+      .form-inputs.text-center
+        = f.input :privacy_agreement,
+                  as: :boolean,
+                  checked_value: 'yes',
+                  unchecked_value: 'no',
+                  wrapper: :inline_checkbox,
+                  label: t('registration_wizard.agreement_step.i_agree')
+
+      .form-actions
+        = f.button :button, class: 'btn btn-submit col-xs-8 col-xs-offset-2' do
+          %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+          = t('registration_wizard.links.next_step')

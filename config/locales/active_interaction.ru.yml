@@ -8,6 +8,8 @@ ru:
         email: 'Электронная почта'
         password_confirmation: 'Подтверждение пароля'
         password: 'Пароль'
+      active/people_registration/agreement_step_interaction:
+        privacy_agreement: 'Соглашение на обработку персональных данных'
     errors:
       messages:
         invalid_type: '%{type} имеет не валидный формат или не заполнен'
@@ -25,3 +27,7 @@ ru:
             password:
               too_long: 'слишком длинный (максимум %{count} символов)'
               too_short: 'слишком короткий (минимум %{count} символов)'
+        active/people_registration/agreement_step_interaction:
+          attributes:
+            privacy_agreement:
+              accepted: 'должно быть принято'

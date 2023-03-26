@@ -51,7 +51,6 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
   validates :middle_name, :name, :surname, :diploma_name, length: { maximum: 50 }
-  validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
 
   validate :check_photo_dimensions
 

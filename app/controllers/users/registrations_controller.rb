@@ -6,7 +6,6 @@ module Users
     include CropDirectable
 
     before_action :sanitize_sign_up, only: :create
-    before_action :sanitize_account_update, only: :update
 
     PERMITTED_PARAMS = [
       :name, :surname, :middle_name, :gender, :photo, :photo_cache, :diploma_name,
@@ -48,38 +47,37 @@ module Users
     end
 
     def edit
-      next_step = Person::RegistrationStep.next(resource_get.completed_registration_step)
-
-      render(next_step ? { template: "registration_wizard/#{next_step}_step" } : :edit)
+      render_edit_view
     end
 
     def update
-      self.resource = resource_get
-      prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+      person = resource_get
+      current_step = Person::RegistrationStep.next(person.completed_registration_step)
+      self.resource = Active::PeopleRegistration::AgreementStepInteraction.run(params[:person].merge(person: person))
 
-      resource_updated = update_resource(resource, account_update_params)
+      if resource.result&.persisted?
+        self.resource = resource.result
 
-      if resource_updated
         NotifyVerificationExpiredJob.perform_later(resource.id)
 
-        if is_flashing_format?
-          flash_key = if update_needs_confirmation?(resource, prev_unconfirmed_email)
-            :update_needs_confirmation
-          else
-            :updated
-          end
-
-          set_flash_message :notice, flash_key
-        end
         bypass_sign_in resource, scope: resource_name
         respond_with resource, location: after_update_path_for(resource)
       else
         clean_up_passwords resource
-        respond_with resource
+
+        respond_with(resource) do |format|
+          format.html { render_edit_view }
+        end
       end
     end
 
     private
+
+    def render_edit_view
+      current_step = Person::RegistrationStep.next(resource_get.completed_registration_step)
+
+      render(current_step ? { template: "registration_wizard/#{current_step}_step" } : :edit)
+    end
 
     def resource_get
       resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
@@ -99,22 +97,6 @@ module Users
 
     def sanitize_sign_up
       devise_parameter_sanitizer.permit(:sign_up, keys: [:privacy_agreement].concat(PERMITTED_PARAMS))
-    end
-
-    def sanitize_account_update
-      if password_provided?
-        devise_parameter_sanitizer.permit(:account_update, keys: PERMITTED_PARAMS)
-      else
-        params[:person].delete(:password)
-        params[:person].delete(:password_confirmation)
-        params[:person][:skip_password_validation] = true
-
-        devise_parameter_sanitizer.permit(:account_update, keys: [:skip_password_validation].concat(PERMITTED_PARAMS))
-      end
-    end
-
-    def password_provided?
-      params[:person][:password].present? || params[:person][:password_confirmation].present?
     end
   end
 end
