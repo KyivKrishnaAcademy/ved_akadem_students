@@ -5,6 +5,12 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     include CropDirectable
 
+    STEP_INTERACTIONS = {
+      'sign_up' => Active::PeopleRegistration::SignUpStepInteraction,
+      'agreement' => Active::PeopleRegistration::AgreementStepInteraction,
+      'identification' => Active::PeopleRegistration::IdentificationStepInteraction
+    }
+
     def new
       build_resource({})
 
@@ -14,7 +20,7 @@ module Users
     end
 
     def create
-      self.resource = Active::PeopleRegistration::SignUpStepInteraction.run(params[:person])
+      self.resource = STEP_INTERACTIONS['sign_up'].run(params[:person])
 
       if resource.result&.persisted?
         self.resource = resource.result
@@ -46,7 +52,7 @@ module Users
     def update
       person = resource_get
       current_step = Person::RegistrationStep.next(person.completed_registration_step)
-      self.resource = Active::PeopleRegistration::AgreementStepInteraction.run(params[:person].merge(person: person))
+      self.resource = STEP_INTERACTIONS[current_step].run(params[:person].merge(person: person))
 
       if resource.result&.persisted?
         self.resource = resource.result

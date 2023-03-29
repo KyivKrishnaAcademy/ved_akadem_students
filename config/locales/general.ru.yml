@@ -197,6 +197,8 @@ ru:
     agreement_step:
       progress_bar_label: 'Шаг 2'
       i_agree: 'Я прочитал(а) и согласен(на)'
+    identification_step:
+      progress_bar_label: 'Шаг 3'
   static_pages:
     home:
       certificates: 'Сертификаты'

@@ -197,6 +197,8 @@ uk:
     agreement_step:
       progress_bar_label: 'Крок 2'
       i_agree: 'Я прочитав(ла) і згоден(на)'
+    identification_step:
+      progress_bar_label: 'Крок 3'
   static_pages:
     home:
       certificates: 'Сертифікати'

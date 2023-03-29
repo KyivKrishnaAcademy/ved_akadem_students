@@ -10,6 +10,20 @@ uk:
         password: 'Пароль'
       active/people_registration/agreement_step_interaction:
         privacy_agreement: 'Згода на обробку персональних даних'
+      active/people_registration/identification_step_interaction:
+        birthday: 'День народження'
+        current_password: 'Поточний пароль'
+        diksha_guru: "Ім'я духовного вчителя"
+        email: 'Електронна пошта'
+        gender: 'Стать'
+        middle_name: 'По батькові'
+        name: "Ім'я"
+        password_confirmation: 'Підтвердження'
+        password: 'Пароль'
+        photo: 'Фотографія'
+        privacy_agreement: 'Згода на обробку персональних даних'
+        spiritual_name: "Духовне і'мя"
+        surname: 'Прізвище'
     errors:
       messages:
         invalid_type: '%{type} має не валідний формат або не заповнено'
@@ -31,3 +45,18 @@ uk:
           attributes:
             privacy_agreement:
               accepted: 'повинна бути прийнята'
+        active/people_registration/identification_step_interaction:
+          attributes:
+            diksha_guru:
+              blank: "повинно бути вказано, якщо є духовне ім'я"
+              too_long: 'занадто довге (максимум %{count} символів)'
+            gender:
+              inclusion: 'повинна бути обрана'
+            spiritual_name:
+              too_long: 'занадто довге (максимум %{count} символів)'
+            name:
+              too_long: 'занадто довге (максимум %{count} символів)'
+            middle_name:
+              too_long: 'занадто довге (максимум %{count} символів)'
+            surname:
+              too_long: 'занадто довге (максимум %{count} символів)'

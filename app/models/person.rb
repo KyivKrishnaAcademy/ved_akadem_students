@@ -50,8 +50,6 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :middle_name, :name, :surname, :spiritual_name, length: { maximum: 50 }
-
   validate :check_photo_dimensions
 
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }

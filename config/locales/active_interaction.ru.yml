@@ -10,6 +10,20 @@ ru:
         password: 'Пароль'
       active/people_registration/agreement_step_interaction:
         privacy_agreement: 'Соглашение на обработку персональных данных'
+      active/people_registration/identification_step_interaction:
+        birthday: 'День рождения'
+        current_password: 'Текущий пароль'
+        diksha_guru: 'Имя духовного учителя'
+        email: 'Электронная почта'
+        gender: 'Пол'
+        middle_name: 'Отчество'
+        name: 'Имя'
+        password_confirmation: 'Подтверждение'
+        password: 'Пароль'
+        photo: 'Фотография'
+        privacy_agreement: 'Соглашение на обработку персональных данных'
+        spiritual_name: 'Духовное имя'
+        surname: 'Фамилия'
     errors:
       messages:
         invalid_type: '%{type} имеет не валидный формат или не заполнен'
@@ -31,3 +45,9 @@ ru:
           attributes:
             privacy_agreement:
               accepted: 'должно быть принято'
+        active/people_registration/identification_step_interaction:
+          attributes:
+            diksha_guru:
+              blank: 'должно быть указано, если есть духовное имя'
+            gender:
+              inclusion: 'должен быть выбран'
