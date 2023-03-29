@@ -3,6 +3,7 @@ module Ui
     respond_to :json
 
     skip_before_action :set_locale
+    skip_before_action :ensure_registration_complete
 
     private
 
