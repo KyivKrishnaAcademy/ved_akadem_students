@@ -13,7 +13,7 @@
             = person_photo(current_person, :standart, class: 'img-thumbnail img-version-standart')
 
           .col-xs-12.col-sm-9
-            = link_to t('links.edit_profile'), edit_person_registration_path(current_person)
+            = link_to t('links.change_password'), edit_person_registration_path(current_person)
 
           .col-xs-12.col-sm-9.vert-offset-top-1
             = link_to t('.edit_subscriptions'), edit_subscriptions_path

@@ -1,5 +1,5 @@
 module Active
-  module PeopleRegistration
+  module RegistrationWizard
     class AgreementStepInteraction < ActiveInteraction::Base
       object :person
       string :privacy_agreement

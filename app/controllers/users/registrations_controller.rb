@@ -5,22 +5,18 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     include CropDirectable
 
-    STEP_INTERACTIONS = {
-      'sign_up' => Active::PeopleRegistration::SignUpStepInteraction,
-      'agreement' => Active::PeopleRegistration::AgreementStepInteraction,
-      'identification' => Active::PeopleRegistration::IdentificationStepInteraction
-    }
-
     def new
       build_resource({})
 
+      @form_resource = resource
+
       respond_with(resource) do |format|
-        format.html { render template: 'registration_wizard/sign_up_step' }
+        format.html { render template: 'registration_wizards/sign_up_step' }
       end
     end
 
     def create
-      self.resource = STEP_INTERACTIONS['sign_up'].run(params[:person])
+      self.resource = Active::RegistrationWizard::SignUpStepInteraction.run(params[:person])
 
       if resource.result&.persisted?
         self.resource = resource.result
@@ -36,62 +32,44 @@ module Users
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
       else
+        @form_resource = resource
         clean_up_passwords resource
         set_minimum_password_length
 
         respond_with(resource) do |format|
-          format.html { render template: 'registration_wizard/sign_up_step' }
+          format.html { render template: 'registration_wizards/sign_up_step' }
         end
       end
     end
 
-    def edit
-      render_edit_view
-    end
-
     def update
-      person = resource_get
-      current_step = Person::RegistrationStep.next(person.completed_registration_step)
-      self.resource = STEP_INTERACTIONS[current_step].run(params[:person].merge(person: person))
+      interaction = Active::PersonEdit::ChangePasswordInteraction.run(
+        params[:person].merge(person: resource_get)
+      )
 
-      if resource.result&.persisted?
-        self.resource = resource.result
+      if interaction.errors.none?
+        self.resource = interaction.result
 
         NotifyVerificationExpiredJob.perform_later(resource.id)
+
+        if is_flashing_format?
+          set_flash_message :notice, :password_updated
+        end
 
         bypass_sign_in resource, scope: resource_name
         respond_with resource, location: after_update_path_for(resource)
       else
-        clean_up_passwords resource
+        self.resource = interaction
 
-        respond_with(resource) do |format|
-          format.html { render_edit_view }
-        end
+        clean_up_passwords resource
+        respond_with resource
       end
     end
 
     private
 
-    def render_edit_view
-      current_step = Person::RegistrationStep.next(resource_get.completed_registration_step)
-
-      render(current_step ? { template: "registration_wizard/#{current_step}_step" } : :edit)
-    end
-
     def resource_get
       resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
-    end
-
-    def after_sign_up_path_for(resource)
-      direct_to_crop(super(resource), resource)
-    end
-
-    def after_inactive_sign_up_path_for(resource)
-      direct_to_crop(super(resource), resource)
-    end
-
-    def after_update_path_for(resource)
-      direct_to_crop(super(resource), resource)
     end
   end
 end

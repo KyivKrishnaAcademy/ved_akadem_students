@@ -7,11 +7,11 @@
 
 .row.vert-offset-top-1
   .col-xs-12.col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3
-    = render 'registration_wizard/progress_bar', current_step: 'sign_up'
+    = render 'registration_wizards/progress_bar', current_step: 'sign_up'
 
 .row
   .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.vert-offset-top-1.stop_double_submit
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false } ) do |f|
+    = simple_form_for(@form_resource, url: registration_path(resource_name), defaults: { required: false } ) do |f|
       = render 'shared/error_messages', object: f.object
 
       .form-inputs

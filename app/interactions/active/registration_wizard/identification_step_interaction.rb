@@ -1,5 +1,5 @@
 module Active
-  module PeopleRegistration
+  module RegistrationWizard
     class IdentificationStepInteraction < ActiveInteraction::Base
       object :person
 

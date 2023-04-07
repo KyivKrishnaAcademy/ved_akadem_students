@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     resources :notes, only: %i[new create edit update destroy]
   end
 
+  resource :registration_wizard, only: %i[edit update]
   resource :subscriptions, only: %i[edit update]
 
   resources :courses do

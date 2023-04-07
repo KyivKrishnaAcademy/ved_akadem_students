@@ -45,6 +45,7 @@ ru:
     apply_to_program: 'Подать заявление'
     back: 'Назад'
     crop_photo: 'Обрезать фотографию'
+    change_password: 'Сменить пароль'
     delete: 'Удалить'
     edit_profile: 'Редактировать профиль'
     edit: 'Редактировать'
@@ -187,7 +188,7 @@ ru:
         no_telephone: 'Такой номер телефона не зарегистрирован.'
     registrations:
       edit:
-        title: 'Редактирование профиля'
+        title: 'Смена пароля'
   registration_wizard:
     title: 'Регистрация'
     links:

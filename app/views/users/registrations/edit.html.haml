@@ -1,56 +1,21 @@
 - provide(:title, t('.title'))
 
-%h2
-  = t('.title')
+.row
+  .col-xs-12
+    %h1.text-center
+      = t('.title')
 
 .row.vert-offset-top-2
-  .col-xs-12.stop_double_submit
-    = simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false }, html: { method: :put }) do |f|
+  .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.vert-offset-top-1.stop_double_submit
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), defaults: { required: false }, html: { method: :put }) do |f|
       = render 'shared/error_messages', object: f.object
 
-      .row.form-inputs
-        .col-xs-12
-          .row
-            .col-xs-12.col-sm-6
-              .row
-                .col-xs-12
-                  = person_photo(f.object, :standart, class: 'img-thumbnail img-version-standart')
-                - if f.object.photo.present?
-                  .col-xs-12
-                    = link_to t('links.crop_photo'), crop_image_path(f.object.id), class: 'btn btn-default'
-              .row
-                .col-sm-12
-                  = f.input :photo, wrapper: :vertical_file_input, as: :file
-                  = f.input :photo_cache, as: :hidden
-            .col-xs-12.col-sm-6
-              = f.input :email, autofocus: true
-              - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-                %p
-                  Currently waiting confirmation for: #{resource.unconfirmed_email}
-              = f.input :spiritual_name
-              = f.input :name
-              = f.input :middle_name
-              = f.input :surname
-        .col-xs-12
-          .row
-            .col-xs-12.col-sm-6
-              = f.input :birthday, as: :string, input_html: { type: 'date', value: date_value(f.object.birthday) }
-              = render 'shared/nested_telephones', f: f
-            .col-xs-12.col-sm-6
-              = f.input :gender, collection: [[:male, true], [:female, false]],
-                                 label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
-              = f.input :password, autocomplete: 'off'
-              = f.input :password_confirmation
-              = f.input :current_password
+      .form-inputs
+        = f.input :current_password
+        = f.input :password, autocomplete: 'off'
+        = f.input :password_confirmation
 
-      .row.form-actions
-        .col-xs-12.text-center
-          = f.button :button, class: 'btn btn-lg btn-submit' do
-            %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
-            = t('links.update')
-
-.row.vert-offset-top-1
-  .col-xs-12
-    .pull-right
-      = link_to t('links.delete'), registration_path(resource_name), class: 'btn btn-danger',
-                                        data: { confirm: t('devise.links.confirmations.delete') }, method: :delete
+      .form-actions
+        = f.button :button, class: 'btn btn-submit col-xs-12' do
+          %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+          = t('links.update')

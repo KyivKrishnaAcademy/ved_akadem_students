@@ -1,5 +1,5 @@
 module Active
-  module PeopleRegistration
+  module RegistrationWizard
     class SignUpStepInteraction < ActiveInteraction::Base
       string :email
       date :birthday

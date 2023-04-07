@@ -50,6 +50,6 @@ class ApplicationController < ActionController::Base
     return if Person::RegistrationStep.last?(current_person.completed_registration_step)
     return if self.class < DeviseController
 
-    redirect_to(edit_person_registration_path(current_person))
+    redirect_to edit_registration_wizard_path
   end
 end

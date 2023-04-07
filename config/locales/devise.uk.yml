@@ -41,6 +41,8 @@ uk:
         inactive: 'не активний'
         unconfirmed: 'не підтверджено'
         locked: 'заблоковано'
+      person:
+        password_updated: 'Пароль успішно оновлено'
     unlocks:
       send_instructions: 'На Ваш email надіслано інструкції з розблокування.'
       unlocked: 'Ваш обліковий запис було успішно розблоковано.'

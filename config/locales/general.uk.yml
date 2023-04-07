@@ -45,6 +45,7 @@ uk:
     apply_to_program: 'Подати заяву'
     back: 'Назад'
     crop_photo: 'Обрізати фотографію'
+    change_password: 'Змінити пароль'
     delete: 'Видалити'
     edit_profile: 'Редагувати профіль'
     edit: 'Редагувати'
@@ -187,7 +188,7 @@ uk:
         no_telephone: 'Такий номер телефону не зареєстрований.'
     registrations:
       edit:
-        title: 'Редагування профілю'
+        title: 'Зміна паролю'
   registration_wizard:
     title: 'Реєстрація'
     links:
