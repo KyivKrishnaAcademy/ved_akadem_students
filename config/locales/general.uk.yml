@@ -200,6 +200,8 @@ uk:
       i_agree: 'Я прочитав(ла) і згоден(на)'
     identification_step:
       progress_bar_label: 'Крок 3'
+    telephones_step:
+      progress_bar_label: 'Крок 4'
   static_pages:
     home:
       certificates: 'Сертифікати'

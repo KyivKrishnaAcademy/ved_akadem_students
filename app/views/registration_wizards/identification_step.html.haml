@@ -11,7 +11,7 @@
 
 .row
   .col-xs-12.col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4.vert-offset-top-1.stop_double_submit
-    = simple_form_for(@form_resource, url: registration_wizard_path, defaults: { required: false }, html: { method: :put }) do |f|
+    = simple_form_for(@form_resource, url: registration_wizard_path, as: :registration_wizard, defaults: { required: false }, html: { method: :put }) do |f|
       = render 'shared/error_messages', object: f.object
 
       .form-inputs
@@ -26,7 +26,7 @@
         - gender_value = f.object.gender
         = f.input :gender,
                   collection: [male_option, female_option],
-                  selected: gender_value.nil? ? nil : (gender_value ? male_option : female_option),
+                  selected: gender_value.nil? ? nil : (gender_value == 'male' ? male_option : female_option),
                   include_blank: '',
                   label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
 

@@ -1,35 +1,38 @@
 class RegistrationWizardsController < ApplicationController
   skip_before_action :ensure_registration_complete
 
-  before_action :set_current_step
-
   STEPS = {
-    'sign_up' => {
-      interaction: Active::RegistrationWizard::SignUpStepInteraction
-    },
     'agreement' => {
-      interaction: Active::RegistrationWizard::AgreementStepInteraction
+      template: 'registration_wizards/agreement_step',
+      form: RegistrationWizard::AgreementForm
     },
     'identification' => {
-      interaction: Active::RegistrationWizard::IdentificationStepInteraction
+      template: 'registration_wizards/identification_step',
+      form: RegistrationWizard::IdentificationForm
+    },
+    'telephones' => {
+      template: 'registration_wizards/telephones_step',
+      form: RegistrationWizard::TelephonesForm
     }
   }
 
   def edit
-    @form_resource = current_person
+    @form_resource = step_config[:form].new(person: current_person)
 
     render_edit_view
   end
 
   def update
-    interaction = STEPS[@current_step][:interaction].run(params_for_interaction)
+    form = step_config[:form].new(person: current_person)
 
-    if interaction.result&.persisted?
+    form.assign_attributes(form_params)
+
+    if form.save
       NotifyVerificationExpiredJob.perform_later(current_person.id)
 
       redirect_to after_registration_path
     else
-      @form_resource = interaction
+      @form_resource = form
 
       render_edit_view
     end
@@ -37,25 +40,26 @@ class RegistrationWizardsController < ApplicationController
 
   private
 
-  def params_for_interaction
-    params[:person].merge(
-      person: current_person,
-      telephones_attributes: params[:person][:telephones_attributes]&.values
-    )
+  def form_params
+    params.require(:registration_wizard).permit!
   end
 
   def render_edit_view
-    if @current_step
-      STEPS[@current_step][:before_render]&.call(current_person)
+    if step_config
+      step_config[:before_render]&.call(current_person)
 
-      render template: "registration_wizards/#{@current_step}_step"
+      render step_config[:template]
     else
       redirect_to after_registration_path
     end
   end
 
-  def set_current_step
-    @current_step = Person::RegistrationStep.next(current_person.completed_registration_step)
+  def current_step
+    @current_step ||= Person::RegistrationStep.next(current_person.completed_registration_step)
+  end
+
+  def step_config
+    @step_config ||= STEPS[current_step]
   end
 
   def after_registration_path

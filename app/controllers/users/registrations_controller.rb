@@ -6,9 +6,7 @@ module Users
     include CropDirectable
 
     def new
-      build_resource({})
-
-      @form_resource = resource
+      @form_resource = RegistrationWizard::SignUpForm.new
 
       respond_with(resource) do |format|
         format.html { render template: 'registration_wizards/sign_up_step' }
@@ -16,10 +14,12 @@ module Users
     end
 
     def create
-      self.resource = Active::RegistrationWizard::SignUpStepInteraction.run(params[:person])
+      form = RegistrationWizard::SignUpForm.new
 
-      if resource.result&.persisted?
-        self.resource = resource.result
+      form.assign_attributes(params.require(:registration_wizard).permit!)
+
+      if form.save
+        self.resource = form.person
 
         NotifyVerificationExpiredJob.perform_later(resource.id)
 
@@ -32,9 +32,7 @@ module Users
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
       else
-        @form_resource = resource
-        clean_up_passwords resource
-        set_minimum_password_length
+        @form_resource = form
 
         respond_with(resource) do |format|
           format.html { render template: 'registration_wizards/sign_up_step' }
