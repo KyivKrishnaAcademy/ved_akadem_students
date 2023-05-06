@@ -14,11 +14,14 @@ class RegistrationWizardsController < ApplicationController
     },
     'telephones' => {
       template: 'registration_wizards/telephones_step',
-      form: RegistrationWizard::TelephonesForm
+      form: RegistrationWizard::TelephonesForm,
+      before_render_on_edit: lambda { |form| form.telephones.build }
     }
   }
 
   def edit
+    step_config[:before_render_on_edit]&.call(@form_resource)
+
     render_edit_view
   end
 
@@ -46,8 +49,6 @@ class RegistrationWizardsController < ApplicationController
 
   def render_edit_view
     if step_config
-      step_config[:before_render]&.call(current_person)
-
       render step_config[:template]
     else
       redirect_to after_registration_path

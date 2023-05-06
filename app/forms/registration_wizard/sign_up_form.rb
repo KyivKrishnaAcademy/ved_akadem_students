@@ -37,20 +37,11 @@ module RegistrationWizard
 
       @is_persisted = person.save
 
-      add_model_errors
+      add_model_errors(person)
       is_persisted
     end
 
     private
-
-    def add_model_errors
-      # TODO: replace with "errors.merge!(person.errors)" once upgraded to Rails 5.2.3
-      person.errors.details.each do |attribute, attribute_details|
-        attribute_details.each do |detail|
-          errors.add(attribute, detail[:error])
-        end
-      end
-    end
 
     def validate_age
       return if birthday.blank? || birthday.to_date < 16.years.ago.to_date

@@ -1,22 +1,23 @@
 #= require initTelInput
+#= require cocoon
 
 toggleAddLink = (telephonesFieldsCount) ->
-  $('a.add_nested_fields').toggle telephonesFieldsCount < 4
+  $('#nested-telephones-add a.add_fields').toggle telephonesFieldsCount < 4
 
 toggleRemoveLink = (telephonesFieldsCount) ->
-  $('a.remove_nested_fields').toggle telephonesFieldsCount != 1
+  $('#nested-telephones a.remove_fields').toggle telephonesFieldsCount != 1
 
 $ ->
-  telephonesFieldsCount = $('#nested-telephones #phone').length
+  telephonesFieldsCount = $('#nested-telephones .nested-fields').length
 
   if telephonesFieldsCount
-    $(document).on 'nested:fieldAdded', ->
+    $('#nested-telephones').on 'cocoon:after-insert', ->
       telephonesFieldsCount += 1
       toggleAddLink(telephonesFieldsCount)
       toggleRemoveLink(telephonesFieldsCount)
       window.initTelInput()
 
-    $(document).on 'nested:fieldRemoved', ->
+    $('#nested-telephones').on 'cocoon:after-remove', ->
       telephonesFieldsCount -= 1
       toggleAddLink(telephonesFieldsCount)
       toggleRemoveLink(telephonesFieldsCount)

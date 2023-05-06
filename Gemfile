@@ -16,7 +16,7 @@ gem 'global_phone'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
 
-gem 'nested_form'
+gem 'cocoon'
 gem 'simple_form'
 
 gem 'carrierwave', '0.10.0'
