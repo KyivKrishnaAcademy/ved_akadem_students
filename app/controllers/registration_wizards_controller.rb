@@ -1,6 +1,8 @@
 class RegistrationWizardsController < ApplicationController
   skip_before_action :ensure_registration_complete
 
+  before_action :set_form_resource, only: %i[edit update]
+
   STEPS = {
     'agreement' => {
       template: 'registration_wizards/agreement_step',
@@ -17,28 +19,26 @@ class RegistrationWizardsController < ApplicationController
   }
 
   def edit
-    @form_resource = step_config[:form].new(person: current_person)
-
     render_edit_view
   end
 
   def update
-    form = step_config[:form].new(person: current_person)
+    @form_resource.assign_attributes(form_params)
 
-    form.assign_attributes(form_params)
-
-    if form.save
+    if @form_resource.save
       NotifyVerificationExpiredJob.perform_later(current_person.id)
 
       redirect_to after_registration_path
     else
-      @form_resource = form
-
       render_edit_view
     end
   end
 
   private
+
+  def set_form_resource
+    @form_resource = step_config[:form].new(person: current_person)
+  end
 
   def form_params
     params.require(:registration_wizard).permit!
