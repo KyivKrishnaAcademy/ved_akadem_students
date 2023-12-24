@@ -9,7 +9,11 @@ describe 'Edit academic group:' do
     expect(find('body')).to(
       have_selector(
         '.alert-success',
-        text: I18n.t('flash.academic_groups.update.success', resource_name: model_name_locale)
+        text: I18n.t(
+          'flash.academic_groups.update.success_html',
+          resource_name: model_name_locale,
+          link_or_name: academic_group.reload.title
+        )
       )
     )
   end

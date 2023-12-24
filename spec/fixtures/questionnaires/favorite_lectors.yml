@@ -1,0 +1,14 @@
+:questionnaire:
+  :title_uk: "Улюблені лектори"
+  :title_ru: "Любимые лекторы"
+  :description_uk: ""
+  :description_ru: ""
+  :kind: "initial_questions"
+:questions:
+  :favorite_lectors:
+    :position: 1
+    :format: "freeform"
+    :data:
+      :text:
+        :uk: "Вкажіть будь ласка імена лекторів, яких Вам подобається слухати найбільше"
+        :ru: "Укажите пожалуйста имена лекторов, которых Вам нравится слушать больше всего"

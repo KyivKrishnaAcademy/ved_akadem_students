@@ -33,15 +33,12 @@ describe 'Add person:' do
 
     fill_in 'phone',                  with: pf.telephones.first.phone
     fill_in 'person_name',            with: pf.name
-    fill_in 'person_work',            with: pf.work
     fill_in 'person_email',           with: pf.email
     fill_in 'person_surname',         with: pf.surname
-    fill_in 'person_education',       with: pf.education
     fill_in 'person[birthday]',       with: (p[:birthday] || '30.05.1984')
     fill_in 'person_middle_name',     with: pf.middle_name
 
     select  (p[:gender] || 'Чоловіча').to_s, from: 'person_gender'
-    select  (p[:marital_status] || 'одружений/заміжня').to_s, from: 'person_marital_status'
 
     pf
   end

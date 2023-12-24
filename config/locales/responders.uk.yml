@@ -20,7 +20,7 @@ uk:
       create:
         success_html: "%{resource_name} %{link_or_name} була успішно створена."
       update:
-        success: "%{resource_name} була успішно оновлена."
+        success_html: "%{resource_name} %{link_or_name} була успішно оновлена."
       destroy:
         success: "%{resource_name} була успішно видалена."
         alert: "%{resource_name} не була видалена"

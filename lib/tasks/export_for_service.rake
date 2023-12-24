@@ -22,9 +22,7 @@ namespace :academic do
         sheet.add_row([
                         name_for_card(person),
                         person.student_profile.try(:academic_groups).try(:map, &:title).try(:join, ', '),
-                        person.telephones.map(&:phone).join(', '),
-                        person.work,
-                        person.education
+                        person.telephones.map(&:phone).join(', ')
                       ])
 
         print PROGRESS_ELEMENT

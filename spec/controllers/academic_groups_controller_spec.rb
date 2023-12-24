@@ -133,7 +133,7 @@ describe AcademicGroupsController do
         Given(:people) { [person] }
         Given(:student_profile) { double(StudentProfile) }
 
-        Given { allow(group).to receive(:active_students).and_return(people) }
+        Given { allow_any_instance_of(AcademicGroupPolicy).to receive(:student_of_the_group?).and_return(true) }
         Given { allow(people).to receive(:includes).and_return(people) }
         Given { allow(person).to receive_message_chain(:photo, :versions).and_return(nil) }
         Given { allow(person).to receive_message_chain(:student_profile, :id).and_return(1) }

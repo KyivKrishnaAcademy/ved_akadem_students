@@ -1,0 +1,21 @@
+:questionnaire:
+  :title_uk: "Освіта та професія"
+  :title_ru: "Образование и профессия"
+  :description_uk: ""
+  :description_ru: ""
+  :kind: "initial_questions"
+:questions:
+  :education:
+    :position: 1
+    :format: "freeform"
+    :data:
+      :text:
+        :uk: "Яка Ваша спеціальність за освітою?"
+        :ru: "Какова Ваша специальность по образованию?"
+  :occupation:
+    :position: 2
+    :format: "freeform"
+    :data:
+      :text:
+        :uk: "Яка Ваша професія за родом діяльності?"
+        :ru: "Какова Ваша профессия по роду деятельности?"

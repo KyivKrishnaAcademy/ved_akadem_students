@@ -8,13 +8,22 @@ Developed specially for [Kyiv Spiritual Academy of Krishna Consciousness in Ukra
 
 ## Run development environment
 
-* Run `docker-compose up`
+* Run `docker compose up`
 * Wait for images are downloaded, containers are created and launched, all software is installed inside the containers and all services are started
 * Type `http://localhost:3000` in your browser (default credentials are ```admin@example.com/password```)
 * Ude VSCode to [develop inside the container](https://code.visualstudio.com/docs/remote/containers)
     * attach to `students_crm_v1-app-1` container
     * open `/home/app/students_crm` folder
 
+## Restore production backup locally
+
+* Run `docker volume rm students_crm_v1_postgres-data`
+* Run `docker compose up postgres -d`
+* Run `docker compose cp [PATH TO BACKUP] postgres:/backup`
+* Run `docker compose exec postgres pg_restore -d va_db -O -j 20 -c /backup/db -U postgres`
+* Run `docker compose down`
+* Run `rm -rf uploads`
+* Run `tar -xzf [PATH TO BACKUP]/uploads.tar.gz -C .`
 
 ## Contribution guide
 
@@ -39,7 +48,7 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 ## Deploy
 
 0. `bin/build_image_prod.sh`
-1. `docker-compose exec app bash`
+1. `docker compose exec app bash`
 2. `eval "$(ssh-agent -s)"`
 3. `ssh-keygen -t rsa -b 4096 -C "deployer@docker.local"`
 4. `ssh-add ~/.ssh/id_rsa`

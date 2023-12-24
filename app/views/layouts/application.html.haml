@@ -41,7 +41,7 @@
         .row
           .col-xs-12
             - flash.each do |name, msg|
-              .alert.alert-dismissible{ class: "alert-#{name}" }
+              .alert.alert-dismissible.vert-offset-top-1{ class: "alert-#{name}" }
                 = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
                   %span{ aria: { hidden: true } }
                     &times;

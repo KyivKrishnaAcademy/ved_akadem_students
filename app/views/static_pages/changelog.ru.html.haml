@@ -1,5 +1,27 @@
 .row
   .col-xs-12.col-sm-8.col-sm-offset-2
+    %h4.text-center.text-uppercase.text-warning
+      Перевод на русский осущесвляется при помощи Google Translate
+
+  .col-xs-12.col-sm-8.col-sm-offset-2
+    %h4 2023.12.24
+    %ul.changelog
+      %li.addition
+        = link_to_commit('6e84be6a37a379ee715583d47214d8d5a7369342')
+        Ответы на вопросы об образовании, работе, семейном положении, друзьях в Академии и любимых лекторов перенесены в опросники
+      %li.deletion
+        = link_to_commit('14d5ff27cc0293401a940e3b3b0017f535bdb057')
+        Вопросы об образовании, работе, семейном положении, друзьях в Академии и любимых лекторов убраны из формы регистрации и с информации о профайле
+      %li.modification
+        = link_to_commit('1f696965cc222d04709d9a1db65a88194b54f0b1')
+        Улучшена стилизация ссылок в нотификационных сообщениях
+      %li.modification
+        = link_to_commit('436509b06d46fe57805b48d6358deea0e18fabcf')
+        Упрощен запрос в базу данных при проверке прав на просмотр группы
+      %li.modification
+        = link_to_commit('f6b1ae278a33f0ea07b9dff66b7eef80979ef3fe')
+        К нотификационным сообщениям добавлено отступление для лучшей презентации
+
     %h4 2023.03.18
     %ul.changelog
       %li.modification

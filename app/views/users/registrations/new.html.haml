@@ -22,19 +22,13 @@
               = f.input :name
               = f.input :middle_name
               = f.input :surname
-              = f.input :education
-              = f.input :marital_status, collection: Person::MARITAL_STATUSES,
-                                 label_method: lambda { |element| t("simple_form.options.person.marital_status.#{element.first}") }
               = render 'shared/nested_telephones', f: f
             .col-xs-12.col-sm-6
               = f.input :diploma_name
-              = f.input :favorite_lectors
               = f.input :gender, collection: [[:male, true], [:female, false]],
                                  label_method: lambda { |element| t("simple_form.options.person.gender.#{element.first}") }
               = f.input :password
               = f.input :password_confirmation
-              = f.input :work
-              = f.input :friends_to_be_with
 
       .row.form-actions
         .col-xs-12.text-center

@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :person do
-    education                   { generate(:char_sequence) * 20 }
     gender                      { true }
     middle_name                 { "Y#{generate(:char_sequence)}" }
     name                        { "V#{generate(:char_sequence)}" }
@@ -11,8 +10,6 @@ FactoryGirl.define do
     sequence(:email)            { |n| "mail#{n}@ukr.net" }
     surname                     { "N#{generate(:char_sequence)}" }
     telephones                  { [build(:telephone)] }
-    work                        { generate(:char_sequence) * 20 }
-    marital_status              { 'single' }
   end
 
   trait :admin do

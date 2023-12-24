@@ -184,7 +184,8 @@ class AcademicGroupsController < HtmlRespondableController
     view_context.link_to_if(
       policy(@academic_group).show?,
       title,
-      academic_group_path(@academic_group)
+      academic_group_path(@academic_group),
+      class: 'alert-link'
     ) do
       title
     end

@@ -1,9 +1,6 @@
 class Person < ApplicationRecord
   include Ilikable
 
-  # TODO: use enums here since we run rails 4.1
-  MARITAL_STATUSES = %i[single in_relationship married divorced widowed].freeze
-
   class SymbolWrapper
     def self.load(string)
       string.try(:to_sym)
@@ -60,7 +57,7 @@ class Person < ApplicationRecord
   validates :password, length: { in: 6..128, unless: :skip_password_validation }, on: :create
   validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
   validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
-  validates :telephones, :birthday, :marital_status, presence: true
+  validates :telephones, :birthday, presence: true
 
   validate :check_photo_dimensions
   validate :validate_age
