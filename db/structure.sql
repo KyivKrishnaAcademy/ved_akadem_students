@@ -399,10 +399,6 @@ CREATE TABLE public.people (
     encrypted_password character varying(255),
     reset_password_token character varying(255),
     reset_password_sent_at timestamp without time zone,
-    education text,
-    work text,
-    marital_status character varying(255),
-    friends_to_be_with character varying(255),
     complex_name character varying(255),
     provider character varying DEFAULT 'email'::character varying NOT NULL,
     uid character varying DEFAULT ''::character varying NOT NULL,
@@ -410,7 +406,6 @@ CREATE TABLE public.people (
     locale character varying(2) DEFAULT 'uk'::character varying,
     fake_email boolean DEFAULT false,
     diploma_name character varying,
-    favorite_lectors character varying,
     notify_schedules boolean DEFAULT true,
     spam_complain boolean DEFAULT false
 );
@@ -2067,6 +2062,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230226201309'),
 ('20230305211926'),
 ('20230306054610'),
-('20231225134459');
+('20231225134459'),
+('20231225144737');
 
 
