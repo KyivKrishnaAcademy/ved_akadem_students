@@ -40,6 +40,9 @@
         - if current_person.can_act?('certificate_template_font:index')
           %li
             = link_to t('defaults.links.certificate_template_fonts_list'), certificate_template_fonts_path, class: active_class(certificate_template_fonts_path)
+        - if current_person.can_act?('signature:index')
+          %li
+            = link_to t('defaults.links.signatures_list'), signatures_path, class: active_class(signatures_path)
         - if current_person.can_act?('certificate_imports_controller:new')
           %li
             = link_to t('defaults.links.import_certificates'), new_certificate_import_path, class: active_class(new_certificate_import_path)

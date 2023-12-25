@@ -954,6 +954,38 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: signatures; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.signatures (
+    id integer NOT NULL,
+    name character varying,
+    file character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: signatures_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.signatures_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: signatures_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.signatures_id_seq OWNED BY public.signatures.id;
+
+
+--
 -- Name: student_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -1327,6 +1359,13 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.signatures ALTER COLUMN id SET DEFAULT nextval('public.signatures_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.student_profiles ALTER COLUMN id SET DEFAULT nextval('public.student_profiles_id_seq'::regclass);
 
 
@@ -1573,6 +1612,14 @@ ALTER TABLE ONLY public.roles
 
 
 --
+-- Name: signatures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.signatures
+    ADD CONSTRAINT signatures_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: student_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1780,6 +1827,13 @@ CREATE UNIQUE INDEX index_people_on_uid_and_provider ON public.people USING btre
 --
 
 CREATE UNIQUE INDEX index_programs_questionnaires_on_p_and_q ON public.programs_questionnaires USING btree (program_id, questionnaire_id);
+
+
+--
+-- Name: index_signatures_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_signatures_on_name ON public.signatures USING btree (name);
 
 
 --
@@ -2012,6 +2066,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230226200547'),
 ('20230226201309'),
 ('20230305211926'),
-('20230306054610');
+('20230306054610'),
+('20231225134459');
 
 

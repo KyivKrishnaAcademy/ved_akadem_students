@@ -67,6 +67,9 @@ ru:
         position: 'Позиция сортировки'
         manager: 'Администратор курса'
         questionnaires: 'Опросники'
+      signature:
+        name: 'Имя'
+        file: 'Файл'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:
@@ -79,6 +82,7 @@ ru:
       course: 'Предмет'
       examination: 'Зачетная работа'
       program: 'Учебный курс'
+      signature: 'Подпись'
     errors:
       models:
         answer:

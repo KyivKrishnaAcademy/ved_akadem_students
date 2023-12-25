@@ -67,6 +67,9 @@ uk:
         position: 'Позиція для сортування'
         manager: 'Адміністратор курсу'
         questionnaires: 'Опитувальники'
+      signature:
+        name: "Ім'я"
+        file: 'Файл'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:
@@ -79,6 +82,7 @@ uk:
       course: 'Предмет'
       examination: 'Залікова робота'
       program: 'Учбовий курс'
+      signature: 'Підпис'
     errors:
       models:
         academic_group:

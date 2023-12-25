@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :certificate_imports, only: %i[new create]
   resources :certificate_templates, only: %i[new create edit update index destroy]
   resources :certificate_template_fonts, only: %i[new create edit update index destroy]
+  resources :signatures, only: %i[new create edit update index destroy]
 
   resources :people do
     get '/journal', action: :journal

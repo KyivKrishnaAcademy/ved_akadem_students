@@ -1,0 +1,30 @@
+- provide(:title, t('.title'))
+
+.row
+  .col-xs-12
+    %h1.text-center=t('.title')
+
+  .col-xs-12.col-sm-6.col-sm-offset-3.vert-offset-top-1.text-right
+    = link_to_new current_person.can_act?('signature:new'), new_signature_path
+
+  .col-xs-12.col-sm-6.col-sm-offset-3
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th=t('.template_title')
+
+            - if @signatures.any? { |c| policy(c).tap { |p| break p.edit? || p.destroy? } }
+              %th.text-right=t('.actions')
+
+        %tbody
+          - @signatures.each do |signature|
+            %tr
+              %td
+                = signature.name
+
+              - if policy(signature).tap { |p| break p.edit? || p.destroy? }
+                %td.col-xs-2.col-sm-4.col-md-3.text-right
+                  = link_to_edit policy(signature).edit?,
+                    edit_signature_path(signature)
+                  = link_to_destroy policy(signature).destroy?, signature

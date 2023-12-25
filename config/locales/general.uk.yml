@@ -36,6 +36,7 @@ uk:
       programs:      'Учбові курси'
       questionnaires_list: 'Список опитувальників'
       questionnaires: 'Опитувальники'
+      signatures_list: 'Підписи'
       statistics_yearly_active_students: 'Активні студенти по рокам'
       statistics_yearly_certificates: 'Сертифікати по рокам'
       statistics: 'Статистика'
@@ -191,6 +192,17 @@ uk:
       new:
         i_agree_html: 'Я прочитав(ла) і згоден(на) зі <a href="/privacy_agreement" target="_blank">згодою на обробку персональних даних</a>'
         title:        'Реєстрація'
+  signatures:
+    edit:
+      submit: 'Оновити підпис'
+      title: 'Редагування підпису'
+    index:
+      actions: 'Дії'
+      template_title: 'Назва підпису'
+      title: 'Підписи сертифікатів'
+    new:
+      submit: 'Створити підпис'
+      title: 'Створення підпису сертифікату'
   static_pages:
     home:
       certificates: 'Сертифікати'
