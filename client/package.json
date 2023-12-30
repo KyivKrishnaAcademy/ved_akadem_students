@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.16",
-    "axios": "^0.21.2",
+    "axios": "^1.6.0",
     "babel": "^6.5.1",
     "babel-cli": "^6.5.1",
     "babel-core": "^6.5.1",
