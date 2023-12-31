@@ -34,6 +34,14 @@ ru:
       certificate_template_font:
         name: 'Имя'
         file: 'Файл'
+      certificate_template_images:
+        angle: 'Угол'
+        scale: 'Масштаб'
+        signature: 'Подпись'
+      certificate_template_image:
+        angle: 'Угол'
+        scale: 'Масштаб'
+        signature: 'Подпись'
       course:
         title: 'Название'
         description: 'Описание'

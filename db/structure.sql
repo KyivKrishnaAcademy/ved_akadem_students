@@ -264,6 +264,42 @@ ALTER SEQUENCE public.certificate_template_fonts_id_seq OWNED BY public.certific
 
 
 --
+-- Name: certificate_template_images; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.certificate_template_images (
+    id integer NOT NULL,
+    certificate_template_id integer,
+    signature_id integer,
+    scale double precision DEFAULT 1.0,
+    x integer DEFAULT 0,
+    y integer DEFAULT 0,
+    angle double precision DEFAULT 0.0,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: certificate_template_images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.certificate_template_images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: certificate_template_images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.certificate_template_images_id_seq OWNED BY public.certificate_template_images.id;
+
+
+--
 -- Name: certificate_templates; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1228,6 +1264,13 @@ ALTER TABLE ONLY public.certificate_template_fonts ALTER COLUMN id SET DEFAULT n
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY public.certificate_template_images ALTER COLUMN id SET DEFAULT nextval('public.certificate_template_images_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY public.certificate_templates ALTER COLUMN id SET DEFAULT nextval('public.certificate_templates_id_seq'::regclass);
 
 
@@ -1460,6 +1503,14 @@ ALTER TABLE ONLY public.certificate_template_entries
 
 ALTER TABLE ONLY public.certificate_template_fonts
     ADD CONSTRAINT certificate_template_fonts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: certificate_template_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.certificate_template_images
+    ADD CONSTRAINT certificate_template_images_pkey PRIMARY KEY (id);
 
 
 --
@@ -1734,6 +1785,20 @@ CREATE UNIQUE INDEX index_certificate_template_fonts_on_name ON public.certifica
 
 
 --
+-- Name: index_certificate_template_images_on_certificate_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_certificate_template_images_on_certificate_template_id ON public.certificate_template_images USING btree (certificate_template_id);
+
+
+--
+-- Name: index_certificate_template_images_on_signature_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_certificate_template_images_on_signature_id ON public.certificate_template_images USING btree (signature_id);
+
+
+--
 -- Name: index_certificate_templates_on_institution_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1867,6 +1932,14 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 
 
 --
+-- Name: fk_rails_0cd77a9a00; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.certificate_template_images
+    ADD CONSTRAINT fk_rails_0cd77a9a00 FOREIGN KEY (certificate_template_id) REFERENCES public.certificate_templates(id);
+
+
+--
 -- Name: fk_rails_301a89d734; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1912,6 +1985,14 @@ ALTER TABLE ONLY public.certificates
 
 ALTER TABLE ONLY public.examination_results
     ADD CONSTRAINT fk_rails_786b08cf9b FOREIGN KEY (student_profile_id) REFERENCES public.student_profiles(id);
+
+
+--
+-- Name: fk_rails_a476c2c1a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.certificate_template_images
+    ADD CONSTRAINT fk_rails_a476c2c1a6 FOREIGN KEY (signature_id) REFERENCES public.signatures(id);
 
 
 --
@@ -2063,6 +2144,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230305211926'),
 ('20230306054610'),
 ('20231225134459'),
-('20231225144737');
+('20231225144737'),
+('20231231091716');
 
 

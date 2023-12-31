@@ -34,6 +34,14 @@ uk:
       certificate_template_font:
         name: "Ім'я"
         file: 'Файл'
+      certificate_template_images:
+        angle: 'Кут'
+        scale: 'Масштаб'
+        signature: 'Підпис'
+      certificate_template_image:
+        angle: 'Кут'
+        scale: 'Масштаб'
+        signature: 'Підпис'
       course:
         title: 'Назва'
         description: 'Опис'

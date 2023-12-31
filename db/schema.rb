@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20231225144737) do
+ActiveRecord::Schema.define(version: 20231231091716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,19 @@ ActiveRecord::Schema.define(version: 20231225144737) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_certificate_template_fonts_on_name", unique: true, using: :btree
+  end
+
+  create_table "certificate_template_images", force: :cascade do |t|
+    t.integer  "certificate_template_id"
+    t.integer  "signature_id"
+    t.float    "scale",                   default: 1.0
+    t.integer  "x",                       default: 0
+    t.integer  "y",                       default: 0
+    t.float    "angle",                   default: 0.0
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.index ["certificate_template_id"], name: "index_certificate_template_images_on_certificate_template_id", using: :btree
+    t.index ["signature_id"], name: "index_certificate_template_images_on_signature_id", using: :btree
   end
 
   create_table "certificate_templates", force: :cascade do |t|
@@ -337,6 +350,8 @@ ActiveRecord::Schema.define(version: 20231225144737) do
 
   add_foreign_key "certificate_template_entries", "certificate_template_fonts"
   add_foreign_key "certificate_template_entries", "certificate_templates"
+  add_foreign_key "certificate_template_images", "certificate_templates"
+  add_foreign_key "certificate_template_images", "signatures"
   add_foreign_key "certificates", "academic_groups"
   add_foreign_key "certificates", "certificate_templates"
   add_foreign_key "certificates", "student_profiles"

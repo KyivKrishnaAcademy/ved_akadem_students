@@ -80,6 +80,15 @@ class CertificateTemplatesController < HtmlRespondableController
           x
           y
           _destroy
+        ],
+        certificate_template_images_attributes: %i[
+          id
+          angle
+          scale
+          signature_id
+          x
+          y
+          _destroy
         ]
       )
   end
