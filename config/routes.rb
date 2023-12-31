@@ -33,9 +33,12 @@ Rails.application.routes.draw do
   resources :study_applications, only: %i[create destroy]
   resources :answers, only: %i[update edit]
   resources :certificate_imports, only: %i[new create]
-  resources :certificate_templates, only: %i[new create edit update index destroy]
   resources :certificate_template_fonts, only: %i[new create edit update index destroy]
   resources :signatures, only: %i[new create edit update index destroy]
+
+  resources :certificate_templates, only: %i[new create edit update index destroy] do
+    resource :copy_certificate_templates, only: %i[create], as: :copy
+  end
 
   resources :people do
     get '/journal', action: :journal

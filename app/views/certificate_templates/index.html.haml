@@ -31,6 +31,8 @@
 
               - if policy(certificate_template).tap { |p| break p.edit? || p.destroy? }
                 %td.col-xs-2.col-sm-4.col-md-3.text-right
+                  = link_to_copy current_person.can_act?('certificate_template:new'),
+                    certificate_template_copy_path(certificate_template)
                   = link_to_edit policy(certificate_template).edit?,
                     edit_certificate_template_path(certificate_template)
                   = link_to_destroy policy(certificate_template).destroy?, certificate_template

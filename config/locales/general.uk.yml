@@ -45,6 +45,7 @@ uk:
   links:
     apply_to_program: 'Подати заяву'
     back: 'Назад'
+    copy: 'Копівати'
     crop_photo: 'Обрізати фотографію'
     delete: 'Видалити'
     edit_profile: 'Редагувати профіль'

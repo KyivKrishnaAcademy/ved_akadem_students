@@ -45,6 +45,7 @@ ru:
   links:
     apply_to_program: 'Подать заявление'
     back: 'Назад'
+    copy: 'Копировать'
     crop_photo: 'Обрезать фотографию'
     delete: 'Удалить'
     edit_profile: 'Редактировать профиль'
