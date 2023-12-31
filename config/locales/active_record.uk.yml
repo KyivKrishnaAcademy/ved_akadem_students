@@ -1,4 +1,46 @@
 uk:
+  activemodel:
+    attributes:
+      registration_wizard/sign_up_form:
+        birthday: 'День народження'
+        email: 'Електронна пошта'
+        password_confirmation: 'Підтвердження паролю'
+        password: 'Пароль'
+      registration_wizard/agreement_form:
+        privacy_agreement: 'Згода на обробку персональних даних'
+      registration_wizard/identification_form:
+        diksha_guru: "Ім'я духовного вчителя"
+        gender: 'Стать'
+        middle_name: 'По батькові'
+        name: "Ім'я"
+        spiritual_name: "Духовне і'мя"
+        surname: 'Прізвище'
+    errors:
+      models:
+        registration_wizard/sign_up_form:
+          attributes:
+            birthday:
+              over_16_years_old: 'стався нещодавно. Вибачте, Вам повинно виконатися 16 повних років'
+            email:
+              blank: 'повинна бути заповнена'
+              invalid: 'повинна відповідати формату «pryklad@example.com»'
+              taken: 'зайнята. Можливо Ви вже зареєстровані, спробуйте <a class="alert-link" href="/password/new">відновити пароль</a>'
+            password:
+              too_long: 'занадто довигий (максимум %{count} символів)'
+              too_short: 'занадто короткий (мінімум %{count} символів)'
+            password_confirmation:
+              confirmation: 'повинно бути таким самим як і пароль'
+        registration_wizard/agreement_form:
+          attributes:
+            privacy_agreement:
+              accepted: 'повинна бути прийнята'
+        registration_wizard/identification_form:
+          too_long: 'занадто довге (максимум %{count} символів)'
+          attributes:
+            diksha_guru:
+              blank: "має бути заповнене, якщо вказане духовне ім'я"
+            gender:
+              inclusion: 'повинна бути обрана'
   activerecord:
     attributes:
       academic_group:
@@ -48,7 +90,7 @@ uk:
       person:
         birthday:               'День народження'
         current_password:       'Поточний пароль'
-        diploma_name:           "І'мя для диплому"
+        spiritual_name:         "Духовне і'мя"
         email:                  'Електронна пошта'
         gender:                 'Стать'
         middle_name:            'По батькові'

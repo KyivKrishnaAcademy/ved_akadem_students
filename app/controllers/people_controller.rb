@@ -8,30 +8,9 @@ class PeopleController < ApplicationController
   before_action :set_person, only: %i[show edit update destroy show_photo journal]
 
   after_action :verify_authorized
-  after_action :verify_policy_scoped, except: %i[new create]
   after_action :refresh_class_schedules_mv, only: :update
 
   layout 'person_tabs', only: %i[show journal]
-
-  def new
-    @person = Person.new
-
-    authorize @person
-
-    @person.telephones.build
-  end
-
-  def create
-    @person = Person.new(PersonParams.filter(params).merge(skip_password_validation: true))
-
-    authorize @person
-
-    if @person.save
-      redirect_to direct_to_crop(new_person_path, @person), flash: create_successed(@person)
-    else
-      render action: :new
-    end
-  end
 
   def show
     preset_applications_variables(@person)
@@ -118,17 +97,13 @@ class PeopleController < ApplicationController
     def self.filter(params)
       params.require(:person).permit(
         :birthday, :email, :gender,
-        :middle_name, :name, :photo, :photo_cache, :diploma_name,
+        :middle_name, :name, :photo, :photo_cache, :spiritual_name,
         :surname, telephones_attributes: %i[id phone _destroy]
       )
     end
   end
 
   private
-
-  def create_successed(person)
-    { success: "#{view_context.link_to(person.complex_name, person_path(person))} added." }
-  end
 
   def people_list
     policy_scope(Person).by_complex_name

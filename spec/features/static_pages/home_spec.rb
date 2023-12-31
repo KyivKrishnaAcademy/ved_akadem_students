@@ -16,7 +16,7 @@ describe :home do
 
     And do
       expect(find('.person-brief'))
-        .to have_link(I18n.t('links.edit_profile'), href: edit_person_registration_path(person))
+        .to have_link(I18n.t('links.change_password'), href: edit_person_registration_path(person))
     end
   end
 

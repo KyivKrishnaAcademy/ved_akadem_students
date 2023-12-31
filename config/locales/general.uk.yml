@@ -45,6 +45,7 @@ uk:
     apply_to_program: 'Подати заяву'
     back: 'Назад'
     crop_photo: 'Обрізати фотографію'
+    change_password: 'Змінити пароль'
     delete: 'Видалити'
     edit_profile: 'Редагувати профіль'
     edit: 'Редагувати'
@@ -187,10 +188,20 @@ uk:
         no_telephone: 'Такий номер телефону не зареєстрований.'
     registrations:
       edit:
-        title:  'Редагування профілю'
-      new:
-        i_agree_html: 'Я прочитав(ла) і згоден(на) зі <a href="/privacy_agreement" target="_blank">згодою на обробку персональних даних</a>'
-        title:        'Реєстрація'
+        title: 'Зміна паролю'
+  registration_wizard:
+    title: 'Реєстрація'
+    links:
+      next_step: 'Далі'
+    sign_up_step:
+      progress_bar_label: 'Крок 1'
+    agreement_step:
+      progress_bar_label: 'Крок 2'
+      i_agree: 'Я прочитав(ла) і згоден(на)'
+    identification_step:
+      progress_bar_label: 'Крок 3'
+    telephones_step:
+      progress_bar_label: 'Крок 4'
   static_pages:
     home:
       certificates: 'Сертифікати'
@@ -203,6 +214,8 @@ uk:
       study_applications: 'Заяви на навчання'
       title: 'Домашня'
       edit_subscriptions: 'Редагувати підписки'
+    privacy_agreement:
+      title: 'Згода на збір та обробку персональних даних'
   people:
     show:
       not_adult:            '(ще нема 16!)'

@@ -46,21 +46,11 @@ class Person < ApplicationRecord
            dependent: :nullify,
            inverse_of: 'curator'
 
-  before_save :set_password, :set_complex_name, :set_uid
+  before_save :set_complex_name, :set_uid
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
-  validates :gender, inclusion: { in: [true, false] }
-  validates :middle_name, :name, :surname, :diploma_name, length: { maximum: 50 }
-  validates :name, :surname, presence: true
-  validates :password, confirmation: true
-  validates :password, length: { in: 6..128, unless: :skip_password_validation }, on: :create
-  validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
-  validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
-  validates :telephones, :birthday, presence: true
-
   validate :check_photo_dimensions
-  validate :validate_age
 
   scope :with_application, ->(id) { joins(:study_application).where(study_applications: { program_id: id }) }
 
@@ -75,9 +65,9 @@ class Person < ApplicationRecord
       order(
         <<-SQL.squish
           CASE
-            WHEN (diploma_name IS NULL OR diploma_name = '')
+            WHEN (spiritual_name IS NULL OR spiritual_name = '')
             THEN (surname || name || middle_name)
-            ELSE diploma_name
+            ELSE spiritual_name
           END
         SQL
       )
@@ -174,13 +164,13 @@ class Person < ApplicationRecord
   end
 
   def short_name
-    return diploma_name if diploma_name.present?
+    return spiritual_name if spiritual_name.present?
 
     "#{surname} #{name}"
   end
 
   def respectful_name
-    return diploma_name if diploma_name.present?
+    return spiritual_name if spiritual_name.present?
     return name if middle_name.blank?
 
     "#{name} #{middle_name}"
@@ -200,22 +190,14 @@ class Person < ApplicationRecord
     result
   end
 
-  def set_password
-    return unless encrypted_password.blank? && password.blank? && password_confirmation.blank?
-
-    pswd                       = SecureRandom.hex(6)
-    self.password              = pswd
-    self.password_confirmation = pswd
-  end
-
   def set_complex_name
     civil_name = "#{surname} #{name}#{middle_name.present? ? ' ' << middle_name : ''}"
 
-    self.complex_name = if diploma_name.present?
+    self.complex_name = if spiritual_name.present?
       if surname.present? && name.present?
-        "#{diploma_name} (#{civil_name})"
+        "#{spiritual_name} (#{civil_name})"
       else
-        diploma_name
+        spiritual_name
       end
     else
       civil_name
@@ -227,12 +209,6 @@ class Person < ApplicationRecord
     dimensions_invalid = photo_upload_width < 150 || photo_upload_height < 200 if dimensions_present
 
     errors.add(:photo, :size) if dimensions_invalid
-  end
-
-  def validate_age
-    return if birthday.blank? || birthday < 16.years.ago.to_date
-
-    errors.add(:birthday, :over_16_years_old)
   end
 
   def set_uid

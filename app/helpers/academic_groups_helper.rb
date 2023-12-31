@@ -35,6 +35,6 @@ module AcademicGroupsHelper
   end
 
   def date_value(date)
-    date.present? ? l(date, format: :date_picker) : ''
+    date.present? ? l(date.to_date, format: :date_picker) : ''
   end
 end

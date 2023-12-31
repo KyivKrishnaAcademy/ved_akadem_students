@@ -19,8 +19,6 @@
 // about supported directives.
 //
 
-//= require jquery_nested_form
-
 // bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
 //= require bootstrap-sprockets
 

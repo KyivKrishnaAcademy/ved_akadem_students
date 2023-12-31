@@ -1,4 +1,50 @@
 ru:
+  activemodel:
+    attributes:
+      registration_wizard/sign_up_form:
+        birthday: 'День рождения'
+        email: 'Электронная почта'
+        password_confirmation: 'Подтверждение пароля'
+        password: 'Пароль'
+
+      registration_wizard/agreement_form:
+        privacy_agreement: 'Соглашение на обработку персональных данных'
+      registration_wizard/identification_form:
+        diksha_guru: 'Имя духовного учителя'
+        gender: 'Пол'
+        middle_name: 'Отчество'
+        name: 'Имя'
+        photo: 'Фотография'
+        spiritual_name: 'Духовное имя'
+        surname: 'Фамилия'
+    errors:
+      models:
+        registration_wizard/sign_up_form:
+          attributes:
+            birthday:
+              over_16_years_old: 'случился недавно. Извините, Вам должно исполниться 16 полных лет'
+            email:
+              blank: 'должна быть заполнена'
+              invalid: 'должна иметь формат «primer@example.com»'
+              taken: 'занята. Возможно Вы уже зарегистрированы, попробуйте <a class="alert-link" href="/password/new">восстановить пароль</a>'
+            password:
+              too_long: 'слишком длинный (максимум %{count} символов)'
+              too_short: 'слишком короткий (минимум %{count} символов)'
+            password_confirmation:
+              confirmation: 'должно быть таким же как и пароль'
+        registration_wizard/agreement_form:
+          attributes:
+            privacy_agreement:
+              accepted: 'должно быть принято'
+        registration_wizard/identification_form:
+          too_long: 'слишком длинное (максимум %{count} символов)'
+          attributes:
+            diksha_guru:
+              blank: 'должно быть заполнено, если указано духовное имя'
+            surname:
+              too_long: 'слишком длинная (максимум %{count} символов)'
+            gender:
+              inclusion: 'должен быть выбран'
   activerecord:
     attributes:
       academic_group:
@@ -48,7 +94,7 @@ ru:
       person:
         birthday:               'День рождения'
         current_password:       'Текущий пароль'
-        diploma_name:           'Имя для диплома'
+        spiritual_name:         'Духовное имя'
         email:                  'Электронная почта'
         gender:                 'Пол'
         middle_name:            'Отчество'

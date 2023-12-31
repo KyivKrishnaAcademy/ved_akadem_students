@@ -16,7 +16,7 @@ gem 'global_phone'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
 
-gem 'nested_form'
+gem 'cocoon'
 gem 'simple_form'
 
 gem 'carrierwave', '0.10.0'
@@ -42,6 +42,8 @@ gem 'react_on_rails', '~> 3.0'
 gem 'sentry-raven'
 
 gem 'uglifier'
+
+gem 'active_interaction'
 
 group :assets_builder, :development, :test do
   gem 'autoprefixer-rails'

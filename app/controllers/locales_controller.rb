@@ -1,5 +1,6 @@
 class LocalesController < ApplicationController
   skip_before_action :authenticate_person!
+  skip_before_action :ensure_registration_complete
 
   def toggle
     locale = I18n.locale == :ru ? :uk : :ru

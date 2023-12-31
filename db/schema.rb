@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20230306054610) do
+ActiveRecord::Schema.define(version: 20230326184552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,32 +184,34 @@ ActiveRecord::Schema.define(version: 20230306054610) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string   "name",                   limit: 255
+    t.string   "name",                        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "middle_name",            limit: 255
-    t.string   "surname",                limit: 255
-    t.string   "email",                  limit: 255
+    t.string   "middle_name",                 limit: 255
+    t.string   "surname",                     limit: 255
+    t.string   "email",                       limit: 255
     t.boolean  "gender"
     t.date     "birthday"
-    t.string   "photo",                  limit: 255
-    t.string   "encrypted_password",     limit: 255
-    t.string   "reset_password_token",   limit: 255
+    t.string   "photo",                       limit: 255
+    t.string   "encrypted_password",          limit: 255
+    t.string   "reset_password_token",        limit: 255
     t.datetime "reset_password_sent_at"
     t.text     "education"
     t.text     "work"
-    t.string   "marital_status",         limit: 255
-    t.string   "friends_to_be_with",     limit: 255
-    t.string   "complex_name",           limit: 255
-    t.string   "provider",                           default: "email", null: false
-    t.string   "uid",                                default: "",      null: false
-    t.jsonb    "tokens",                             default: {},      null: false
-    t.string   "locale",                 limit: 2,   default: "uk"
-    t.boolean  "fake_email",                         default: false
-    t.string   "diploma_name"
+    t.string   "marital_status",              limit: 255
+    t.string   "friends_to_be_with",          limit: 255
+    t.string   "complex_name",                limit: 255
+    t.string   "provider",                                default: "email", null: false
+    t.string   "uid",                                     default: "",      null: false
+    t.jsonb    "tokens",                                  default: {},      null: false
+    t.string   "locale",                      limit: 2,   default: "uk"
+    t.boolean  "fake_email",                              default: false
+    t.string   "spiritual_name"
     t.string   "favorite_lectors"
-    t.boolean  "notify_schedules",                   default: true
-    t.boolean  "spam_complain",                      default: false
+    t.boolean  "notify_schedules",                        default: true
+    t.boolean  "spam_complain",                           default: false
+    t.string   "completed_registration_step",             default: ""
+    t.string   "diksha_guru"
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
     t.index ["uid", "provider"], name: "index_people_on_uid_and_provider", unique: true, using: :btree

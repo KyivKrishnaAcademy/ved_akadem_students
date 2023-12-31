@@ -27,9 +27,9 @@
   },
   "homepage": "https://github.com/KyivKrishnaAcademy/ved_akadem_students",
   "dependencies": {
+    "@nathanvda/cocoon": "^1.2.14",
     "cookies-js": "1.2.3",
-    "intl-tel-input": "8.5.2",
-    "jquery-bigtext": "git+https://github.com/mpugach/jquery-bigtext.git",
+    "intl-tel-input": "17.0.21",
     "raven-js": "3.9.1",
     "select2": "^4.0.13",
     "select2-bootstrap-theme": "0.1.0-beta.10"

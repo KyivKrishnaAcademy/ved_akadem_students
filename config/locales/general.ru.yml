@@ -45,6 +45,7 @@ ru:
     apply_to_program: 'Подать заявление'
     back: 'Назад'
     crop_photo: 'Обрезать фотографию'
+    change_password: 'Сменить пароль'
     delete: 'Удалить'
     edit_profile: 'Редактировать профиль'
     edit: 'Редактировать'
@@ -187,10 +188,20 @@ ru:
         no_telephone: 'Такой номер телефона не зарегистрирован.'
     registrations:
       edit:
-        title:  'Редактирование профиля'
-      new:
-        i_agree_html: 'Я прочитал(а) и согласен(на) с <a href="/privacy_agreement" target="_blank">соглашением на обработку персональных данных</a>'
-        title:        'Регистрация'
+        title: 'Смена пароля'
+  registration_wizard:
+    title: 'Регистрация'
+    links:
+      next_step: 'Дальше'
+    sign_up_step:
+      progress_bar_label: 'Шаг 1'
+    agreement_step:
+      progress_bar_label: 'Шаг 2'
+      i_agree: 'Я прочитал(а) и согласен(на)'
+    identification_step:
+      progress_bar_label: 'Шаг 3'
+    telephones_step:
+      progress_bar_label: 'Шаг 4'
   static_pages:
     home:
       certificates: 'Сертификаты'
@@ -203,6 +214,8 @@ ru:
       study_applications: 'Заявления на обучение'
       title: 'Домашняя'
       edit_subscriptions: Редактировать подписки
+    privacy_agreement:
+      title: 'Згода на збір та обробку персональних даних'
   people:
     show:
       not_adult:            '(еще нет 16!)'
