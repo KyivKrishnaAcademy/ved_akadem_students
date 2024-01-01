@@ -13,7 +13,7 @@ module HelperMethods
       class_schedule_activities + certificate_template_activities + journal_activities + examination_activities +
       attendance_activities + examination_results + note_activities + statistics_activities +
       questionnaire_activities + certificate_template_font_activities + certificate_activities +
-      certificate_import_activities + program_activities
+      certificate_import_activities + program_activities + signature_activities
     ).sort
   end
 
@@ -100,6 +100,10 @@ module HelperMethods
 
   def program_activities
     ProgramsController.action_methods.map { |action| 'program:' << action }
+  end
+
+  def signature_activities
+    SignaturesController.action_methods.map { |action| 'signature:' << action }
   end
 
   def journal_activities

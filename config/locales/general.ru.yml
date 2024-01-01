@@ -36,6 +36,7 @@ ru:
       programs:      'Учебные курсы'
       questionnaires_list: 'Список опросников'
       questionnaires: 'Опросники'
+      signatures_list: 'Подписи'
       statistics_yearly_active_students: 'Активные студенты по годам'
       statistics_yearly_certificates: 'Сертификаты по годам'
       statistics: 'Статистика'
@@ -44,6 +45,7 @@ ru:
   links:
     apply_to_program: 'Подать заявление'
     back: 'Назад'
+    copy: 'Копировать'
     crop_photo: 'Обрезать фотографию'
     delete: 'Удалить'
     edit_profile: 'Редактировать профиль'
@@ -191,6 +193,17 @@ ru:
       new:
         i_agree_html: 'Я прочитал(а) и согласен(на) с <a href="/privacy_agreement" target="_blank">соглашением на обработку персональных данных</a>'
         title:        'Регистрация'
+  signatures:
+    edit:
+      submit: 'Обновить подпись'
+      title: 'Редактирование подписи'
+    index:
+      actions: 'Действия'
+      template_title: 'Название подписи'
+      title: 'Подписи сертификатов'
+    new:
+      submit: 'Создать подпись'
+      title: 'Создание подписи сертификата'
   static_pages:
     home:
       certificates: 'Сертификаты'

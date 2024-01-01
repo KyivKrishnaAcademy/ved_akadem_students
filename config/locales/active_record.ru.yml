@@ -34,6 +34,14 @@ ru:
       certificate_template_font:
         name: 'Имя'
         file: 'Файл'
+      certificate_template_images:
+        angle: 'Угол'
+        scale: 'Масштаб'
+        signature: 'Подпись'
+      certificate_template_image:
+        angle: 'Угол'
+        scale: 'Масштаб'
+        signature: 'Подпись'
       course:
         title: 'Название'
         description: 'Описание'
@@ -67,6 +75,9 @@ ru:
         position: 'Позиция сортировки'
         manager: 'Администратор курса'
         questionnaires: 'Опросники'
+      signature:
+        name: 'Имя'
+        file: 'Файл'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:
@@ -79,6 +90,7 @@ ru:
       course: 'Предмет'
       examination: 'Зачетная работа'
       program: 'Учебный курс'
+      signature: 'Подпись'
     errors:
       models:
         answer:

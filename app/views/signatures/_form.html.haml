@@ -1,0 +1,9 @@
+= simple_form_for @signature do |f|
+  = render 'shared/error_messages', object: f.object
+
+  = f.input :name
+  = f.input :file, wrapper: :vertical_file_input, as: :file
+
+  = f.button :button, class: 'btn btn-submit col-xs-12' do
+    %span.glyphicon.glyphicon-refresh.spinner{ aria: { hidden: true } }
+    = submit_label

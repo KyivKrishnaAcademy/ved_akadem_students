@@ -39,7 +39,7 @@ class CertificateTemplateFontsController < HtmlRespondableController
 
     respond_with(
       @certificate_template_font,
-      location: -> { edit_certificate_template_path(@certificate_template_font) }
+      location: -> { edit_certificate_template_font_path(@certificate_template_font) }
     )
   end
 

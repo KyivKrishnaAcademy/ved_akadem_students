@@ -50,11 +50,16 @@ class PdfExportsController < ApplicationController
   end
 
   def prepare_certificate_data(certificate, certificate_template)
-    mustache = CertificateEntryMustache.new(certificate)
     @template_path = certificate_template.file.file.path
+    @blocks = [*text_blocks(certificate, certificate_template), *image_blocks(certificate_template)]
+  end
 
-    @blocks = certificate_template.certificate_template_entries.map do |entry|
+  def text_blocks(certificate, certificate_template)
+    mustache = CertificateEntryMustache.new(certificate)
+
+    certificate_template.certificate_template_entries.includes(:certificate_template_font).map do |entry|
       {
+        type: :text_block,
         text: mustache.render(entry.template),
         font: entry.certificate_template_font.file.file.path,
         text_box_options: {
@@ -63,6 +68,19 @@ class PdfExportsController < ApplicationController
           at: [entry.x, entry.y],
           align: entry.align.to_sym
         }
+      }
+    end
+  end
+
+  def image_blocks(certificate_template)
+    certificate_template.certificate_template_images.includes(:signature).map do |image|
+      {
+        type: :image_block,
+        file_path: image.signature.file.file.path,
+        at: [image.x, image.y],
+        scale: image.scale,
+        angle: image.angle,
+        rotation_origin: [image.x, image.y]
       }
     end
   end

@@ -1,0 +1,2 @@
+class SignaturePolicy < BasePolicy
+end

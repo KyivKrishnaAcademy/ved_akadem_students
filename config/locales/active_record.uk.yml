@@ -34,6 +34,14 @@ uk:
       certificate_template_font:
         name: "Ім'я"
         file: 'Файл'
+      certificate_template_images:
+        angle: 'Кут'
+        scale: 'Масштаб'
+        signature: 'Підпис'
+      certificate_template_image:
+        angle: 'Кут'
+        scale: 'Масштаб'
+        signature: 'Підпис'
       course:
         title: 'Назва'
         description: 'Опис'
@@ -67,6 +75,9 @@ uk:
         position: 'Позиція для сортування'
         manager: 'Адміністратор курсу'
         questionnaires: 'Опитувальники'
+      signature:
+        name: "Ім'я"
+        file: 'Файл'
       telephones:
         phone:    'Телефонний номер'
       questions/answers:
@@ -79,6 +90,7 @@ uk:
       course: 'Предмет'
       examination: 'Залікова робота'
       program: 'Учбовий курс'
+      signature: 'Підпис'
     errors:
       models:
         academic_group:

@@ -13,6 +13,10 @@ module LinkTos
     end
   end
 
+  def link_to_copy(condition, path)
+    link_to_action(condition, path, 'success', t('links.copy'), 'duplicate', method: :post)
+  end
+
   def link_to_new(condition, path)
     link_to_action(condition, path, 'success', t('links.new'), 'file')
   end
