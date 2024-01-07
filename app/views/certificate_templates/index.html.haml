@@ -27,7 +27,8 @@
               %td
                 = certificate_template.title
               %td.text-center
-                = certificate_template.certificates_count
+                = link_to_if !certificate_template.certificates_count.zero?, certificate_template.certificates_count, certificate_template_certificates_path(certificate_template) do
+                  = certificate_template.certificates_count
 
               - if policy(certificate_template).tap { |p| break p.edit? || p.destroy? }
                 %td.col-xs-2.col-sm-4.col-md-3.text-right

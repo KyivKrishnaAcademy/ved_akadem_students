@@ -76,6 +76,14 @@ ru:
   answers:
     edit:
       update: 'Отправить ответ'
+  certificates:
+    index:
+      academic_group: 'Группа'
+      final_score: 'Средний бал'
+      issued_date: 'Дата выдачи'
+      person: 'Студент'
+      serial_id: 'Серийный номер'
+      title: 'Сертификаты "%{certificate_template_title}"'
   certificate_imports:
     new:
       submit: 'Импортировать'

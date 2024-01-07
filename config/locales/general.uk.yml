@@ -76,6 +76,14 @@ uk:
   answers:
     edit:
       update: 'Надіслати відповідь'
+  certificates:
+    index:
+      academic_group: 'Група'
+      final_score: 'Середній бал'
+      issued_date: 'Дата видачі'
+      person: 'Студент'
+      serial_id: 'Серійний номер'
+      title: 'Сертифікати "%{certificate_template_title}"'
   certificate_imports:
     new:
       submit: 'Імпортувати'

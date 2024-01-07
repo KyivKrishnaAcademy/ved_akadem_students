@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 
   resources :certificate_templates, only: %i[new create edit update index destroy] do
     resource :copy_certificate_templates, only: %i[create], as: :copy
+    resources :certificates, only: %i[index]
   end
 
   resources :people do
