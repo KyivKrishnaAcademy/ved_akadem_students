@@ -371,10 +371,11 @@ ru:
       button_tooltip_clear: 'Очистить'
       button_tooltip_remove: 'Убрать'
     certificates_table:
-      serial: 'Серийный номер'
-      template: 'Шаблон'
-      issued_date: 'Дата видачи'
+      final_score: 'Средний бал'
+      issued_date: 'Дата выдачи'
       no_certificates_yet: 'Пока что нет сертификатов'
+      serial_id: 'Серийный номер'
+      template: 'Шаблон'
     nested_certificate_template_entries:
       template_entries_title: Элементы шаблона
     person_brief:

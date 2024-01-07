@@ -371,10 +371,11 @@ uk:
       button_tooltip_clear: 'Очистити'
       button_tooltip_remove: 'Прибрати'
     certificates_table:
-      serial: 'Серійний номер'
-      template: 'Шаблон'
+      final_score: 'Середній бал'
       issued_date: 'Дата видачі'
       no_certificates_yet: 'Покищо немає сертифікатів'
+      serial_id: 'Серійний номер'
+      template: 'Шаблон'
     nested_certificate_template_entries:
       template_entries_title: Елементи шаблону
     person_brief:

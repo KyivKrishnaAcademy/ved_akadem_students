@@ -3,9 +3,10 @@
     %thead
       %tr
         %th.text-top #
-        %th.text-top=t('.serial')
+        %th.text-top=t('.serial_id')
         %th.text-top=t('.template')
         %th.text-top=t('.issued_date')
+        %th.text-top=t('.final_score')
     %tbody
       - if certificates.any?
         - certificates.each_with_index do |certificate, index|
@@ -13,14 +14,14 @@
             %td
               = index.next
             %td.nowrap
-              - if certificate.certificate_template.file.present? && policy(certificate).show?
-                = link_to certificate.serial_id, certificate_pdf_path(certificate.serial_id)
-              - else
+              = link_to_if certificate.certificate_template.file.present? && policy(certificate).show?, certificate.serial_id, certificate_pdf_path(certificate.serial_id) do
                 = certificate.serial_id
             %td
               = certificate.certificate_template.title
             %td.nowrap
               = l certificate.issued_date, format: :date
+            %td.text-center
+              = certificate.final_score
       - else
         %tr
           %td.central-row{colspan: 4}
