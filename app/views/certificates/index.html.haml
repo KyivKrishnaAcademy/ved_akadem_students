@@ -1,0 +1,38 @@
+- provide(:title, t('.title', certificate_template_title: @certificate_template.title))
+
+.row
+  .col-xs-12
+    %h1.text-center=t('.title', certificate_template_title: @certificate_template.title)
+
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    = link_to_back(policy(CertificateTemplate).index?, certificate_templates_path)
+
+  .col-xs-12.col-sm-8.col-sm-offset-2.vert-offset-top-1
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th.text-top=t('.person')
+            %th.text-top=t('.serial_id')
+            %th.text-top=t('.academic_group')
+            %th.text-top=t('.issued_date')
+            %th.text-top.text-center=t('.final_score')
+
+        %tbody
+          - @certificates.each do |certificate|
+            %tr
+              %td
+                = link_to_show_person_or_name(certificate.student_profile.person)
+              %td.nowrap
+                = certificate.serial_id
+              %td.nowrap
+                - if certificate.academic_group.present?
+                  = link_to_if policy(certificate.academic_group).show?, certificate.academic_group.title, academic_group_path(certificate.academic_group) do
+                    = certificate.academic_group.title
+              %td.nowrap
+                = l certificate.issued_date, format: :date
+              %td.text-center
+                = certificate.final_score
+
+  .col-xs-12.text-center
+    = paginate @certificates
