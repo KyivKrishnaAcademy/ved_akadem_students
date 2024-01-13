@@ -215,10 +215,12 @@ ru:
   static_pages:
     home:
       certificates: 'Сертификаты'
-      current_curated_academic_groups: 'Вы являетесь куратором в группах:'
+      currently_administrated_academic_groups: 'Вы являетесь координатором в группах:'
+      currently_curated_academic_groups: 'Вы являетесь куратором в группах:'
       ex_student_of_academic_groups: 'Вы были студентом групп:'
       message_for_group: 'Объявление для группы:'
-      previous_curated_academic_groups: 'Вы были куратором в группах:'
+      previously_administrated_academic_groups: 'Вы были координатором в группах:'
+      previously_curated_academic_groups: 'Вы были куратором в группах:'
       schedules_title: 'Ваше персональное расписание'
       student_of_academic_groups: 'Вы студент групп:'
       study_applications: 'Заявления на обучение'

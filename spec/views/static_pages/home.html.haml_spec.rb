@@ -19,8 +19,8 @@ describe 'static_pages/home' do
     assign(:person_academic_groups, [
       [user.last_academic_groups, '.student_of_academic_groups'],
       [user.previous_academic_groups, '.ex_student_of_academic_groups'],
-      [user.current_curated_academic_groups, '.current_curated_academic_groups'],
-      [user.previous_curated_academic_groups, '.previous_curated_academic_groups']
+      [user.currently_curated_academic_groups, '.currently_curated_academic_groups'],
+      [user.previously_curated_academic_groups, '.previously_curated_academic_groups']
     ])
   end
 

@@ -215,10 +215,12 @@ uk:
   static_pages:
     home:
       certificates: 'Сертифікати'
-      current_curated_academic_groups: 'Ви є куратором у групах:'
+      currently_administrated_academic_groups: 'Ви є координатором у групах:'
+      currently_curated_academic_groups: 'Ви є куратором у групах:'
       ex_student_of_academic_groups: 'Ви були студентом груп:'
       message_for_group: "Об'ява для групи:"
-      previous_curated_academic_groups: 'Ви були куратором у групах:'
+      previously_administrated_academic_groups: 'Ви були координатором у групах:'
+      previously_curated_academic_groups: 'Ви були куратором у групах:'
       schedules_title: 'Ваш персональний розклад'
       student_of_academic_groups: 'Ви студент груп:'
       study_applications: 'Заяви на навчання'
