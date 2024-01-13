@@ -172,6 +172,14 @@ class Person < ApplicationRecord
     AcademicGroup.where(administrator_id: id).inactive_by_establ_date
   end
 
+  def currently_praeposted_academic_groups
+    AcademicGroup.where(praepostor_id: id).active_by_establ_date
+  end
+
+  def previously_praeposted_academic_groups
+    AcademicGroup.where(praepostor_id: id).inactive_by_establ_date
+  end
+
   def pending_docs
     @pending_docs ||= count_pending_docs
   end

@@ -217,10 +217,12 @@ uk:
       certificates: 'Сертифікати'
       currently_administrated_academic_groups: 'Ви є координатором у групах:'
       currently_curated_academic_groups: 'Ви є куратором у групах:'
+      currently_praeposted_academic_groups: 'Ви є старостою у групах:'
       ex_student_of_academic_groups: 'Ви були студентом груп:'
       message_for_group: "Об'ява для групи:"
       previously_administrated_academic_groups: 'Ви були координатором у групах:'
       previously_curated_academic_groups: 'Ви були куратором у групах:'
+      previously_praeposted_academic_groups: 'Ви були старостою у групах:'
       schedules_title: 'Ваш персональний розклад'
       student_of_academic_groups: 'Ви студент груп:'
       study_applications: 'Заяви на навчання'
