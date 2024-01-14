@@ -25,6 +25,8 @@ class AcademicGroup < ApplicationRecord
   has_paper_trail
 
   scope :active, -> { where(graduated_at: nil).order(:title) }
+  scope :active_by_establ_date, -> { where(graduated_at: nil).order(:establ_date) }
+  scope :inactive_by_establ_date, -> { where.not(graduated_at: nil).order(:establ_date) }
   scope :by_active_title, -> { order(graduated_at: :desc, title: :asc) }
 
   def active_students

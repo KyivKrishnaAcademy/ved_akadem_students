@@ -156,17 +156,28 @@ class Person < ApplicationRecord
       .order('group_participations.join_date ASC')
   end
 
-  def current_curated_academic_groups
-    AcademicGroup
-      .where(curator_id: id, graduated_at: nil)
-      .order(:created_at)
+  def currently_curated_academic_groups
+    AcademicGroup.where(curator_id: id).active_by_establ_date
   end
 
-  def previous_curated_academic_groups
-    AcademicGroup
-      .where(curator_id: id)
-      .where.not(graduated_at: nil)
-      .order(:created_at)
+  def previously_curated_academic_groups
+    AcademicGroup.where(curator_id: id).inactive_by_establ_date
+  end
+
+  def currently_administrated_academic_groups
+    AcademicGroup.where(administrator_id: id).active_by_establ_date
+  end
+
+  def previously_administrated_academic_groups
+    AcademicGroup.where(administrator_id: id).inactive_by_establ_date
+  end
+
+  def currently_praeposted_academic_groups
+    AcademicGroup.where(praepostor_id: id).active_by_establ_date
+  end
+
+  def previously_praeposted_academic_groups
+    AcademicGroup.where(praepostor_id: id).inactive_by_establ_date
   end
 
   def pending_docs
