@@ -78,6 +78,7 @@
                           %th{ align: 'center', valign: 'middle' }= t('.course')
                           %th{ align: 'center', valign: 'middle' }= t('.teacher')
                           %th{ align: 'center', valign: 'middle' }= t('.class_subject')
+                          %th{ align: 'center', valign: 'middle' }= t('.academic_groups')
 
                         %tr
                           %td{ align: 'center', valign: 'middle' }
@@ -96,6 +97,11 @@
 
                           %td{ align: 'center', valign: 'middle' }
                             = schedule.subject
+
+                          %td{ align: 'center', valign: 'middle' }
+                            - schedule.academic_groups.each do |g|
+                              = g.title
+                              %br
               %tr
                 %td{ align: 'center', valign: 'top' }
                   = link_to t('.check_your_schedule'),
@@ -103,6 +109,26 @@
                                       utm_source: 'next_day_schedule',
                                       utm_campaign: 'schedules_notification',
                                       utm_content: 'call_to_action')
+
+              %tr
+                %td{ align: 'left', valign: 'bottom' }
+                  = t('.questions_to_administrators')
+
+                  %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'administrators' }
+                    - @administrators.each do |administrator, academic_groups|
+                      %tr
+                        %td{ align: 'left', valign: 'top' }
+                          = complex_name(administrator, short: true)
+
+                        %td{ align: 'left', valign: 'top' }
+                          - administrator.telephones.each do |telephone|
+                            = telephone.phone
+                            %br
+
+                        %td{ align: 'left', valign: 'top' }
+                          - academic_groups.each do |g|
+                            = g.title
+                            %br
 
         %tr
           %td{ align: 'center', valign: 'top' }
@@ -132,9 +158,3 @@
               %tr
                 %td{ align: 'center', valign: 'top' }
                   = t 'mail.footer.kdask'
-                  %br
-                  +38 (067) 245-87-00
-                  %br
-                  +38 (063) 321-00-33
-                  %br
-                  +38 (044) 331-19-64

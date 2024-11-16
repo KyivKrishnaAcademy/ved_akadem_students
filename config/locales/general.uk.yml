@@ -228,6 +228,7 @@ uk:
       study_applications: 'Заяви на навчання'
       title: 'Домашня'
       edit_subscriptions: 'Редагувати підписки'
+      registration_id: 'Реєстраційний номер:'
   people:
     show:
       not_adult:            '(ще нема 16!)'

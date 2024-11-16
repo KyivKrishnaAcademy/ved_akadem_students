@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   postgres:
     image: mpugach/postgres_ua:9.5

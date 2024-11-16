@@ -10,7 +10,13 @@
               = current_person.complex_name
         .row
           .col-xs-12.col-sm-5.col-md-4.col-lg-3
-            = person_photo(current_person, :standart, class: 'img-thumbnail img-version-standart')
+            .row
+              .col-xs-12
+                = person_photo(current_person, :standart, class: 'img-thumbnail img-version-standart')
+            .row.vert-offset-top-1.vert-offset-bottom-1
+              .col-xs-12.text-muted
+                = t('.registration_id')
+                = current_person.id
 
           .col-xs-12.col-sm-7.col-md-8.col-lg-9
             .row

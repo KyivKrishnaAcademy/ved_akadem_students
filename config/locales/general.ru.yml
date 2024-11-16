@@ -228,6 +228,7 @@ ru:
       study_applications: 'Заявления на обучение'
       title: 'Домашняя'
       edit_subscriptions: Редактировать подписки
+      registration_id: 'Регистрационный номер:'
   people:
     show:
       not_adult:            '(еще нет 16!)'
