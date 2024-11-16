@@ -20,6 +20,7 @@ ru:
       class_subject: 'Тема'
       classroom: 'Аудитория'
       course: 'Предмет'
+      questions_to_administrators: 'Все вопросы можно задать администраторам групп:'
       student_header: 'Вы учитесь на таких занятиях'
       subject: 'Ваше расписание на завтра'
       teacher_header: 'Вы преподаете такие занятия'

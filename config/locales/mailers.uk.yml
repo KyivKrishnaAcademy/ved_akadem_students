@@ -20,6 +20,7 @@ uk:
       class_subject: 'Тема'
       classroom: 'Аудиторія'
       course: 'Предмет'
+      questions_to_administrators: 'Всі питання можна задати адміністраторам груп:'
       student_header: 'Ви навчаєтесь на таких заняттях'
       subject: 'Ваш розклад на завтра'
       teacher_header: 'Ви викладеєте такі заняття'

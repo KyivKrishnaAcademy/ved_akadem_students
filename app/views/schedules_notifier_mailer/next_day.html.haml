@@ -104,6 +104,26 @@
                                       utm_campaign: 'schedules_notification',
                                       utm_content: 'call_to_action')
 
+              %tr
+                %td{ align: 'left', valign: 'bottom' }
+                  = t('.questions_to_administrators')
+
+                  %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'administrators' }
+                    - @administrators.each do |administrator, academic_groups|
+                      %tr
+                        %td{ align: 'left', valign: 'top' }
+                          = complex_name(administrator, short: true)
+
+                        %td{ align: 'left', valign: 'top' }
+                          - administrator.telephones.each do |telephone|
+                            = telephone.phone
+                            %br
+
+                        %td{ align: 'left', valign: 'top' }
+                          - academic_groups.each do |g|
+                            = g.title
+                            %br
+
         %tr
           %td{ align: 'center', valign: 'top' }
             %table{ border: 0, cellpadding: 10, cellspacing: 0, width: '100%', id: 'emailFooter' }
