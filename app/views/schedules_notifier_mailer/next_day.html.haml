@@ -78,6 +78,7 @@
                           %th{ align: 'center', valign: 'middle' }= t('.course')
                           %th{ align: 'center', valign: 'middle' }= t('.teacher')
                           %th{ align: 'center', valign: 'middle' }= t('.class_subject')
+                          %th{ align: 'center', valign: 'middle' }= t('.academic_groups')
 
                         %tr
                           %td{ align: 'center', valign: 'middle' }
@@ -96,6 +97,11 @@
 
                           %td{ align: 'center', valign: 'middle' }
                             = schedule.subject
+
+                          %td{ align: 'center', valign: 'middle' }
+                            - schedule.academic_groups.each do |g|
+                              = g.title
+                              %br
               %tr
                 %td{ align: 'center', valign: 'top' }
                   = link_to t('.check_your_schedule'),
