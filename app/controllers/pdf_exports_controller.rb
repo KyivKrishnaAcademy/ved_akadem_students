@@ -73,8 +73,6 @@ class PdfExportsController < ApplicationController
     end
   end
 
-  private
-
   def format_color(color)
     color.start_with?('#') ? color.slice(1, color.length - 1) : color
   end
@@ -92,4 +90,3 @@ class PdfExportsController < ApplicationController
     end
   end
 end
-

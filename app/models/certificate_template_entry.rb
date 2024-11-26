@@ -4,7 +4,7 @@ class CertificateTemplateEntry < ApplicationRecord
 
   enum align: %i[center left right justify].freeze
 
-  HEX_COLOR_REGEX = /\A#(?:[0-9a-fA-F]{3}){1,2}\z/
+  HEX_COLOR_REGEX = /\A#(?:[0-9a-fA-F]{3}){1,2}\z/.freeze
 
   validates :align,
             :certificate_template_font,
