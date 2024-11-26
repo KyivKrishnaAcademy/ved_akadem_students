@@ -4,6 +4,8 @@ class CertificateTemplateEntry < ApplicationRecord
 
   enum align: %i[center left right justify].freeze
 
+  HEX_COLOR_REGEX = /\A#(?:[0-9a-fA-F]{3}){1,2}\z/
+
   validates :align,
             :certificate_template_font,
             :character_spacing,
@@ -12,6 +14,10 @@ class CertificateTemplateEntry < ApplicationRecord
             :x,
             :y,
             presence: true
+
+  validates :color,
+            presence: true,
+            format: { with: HEX_COLOR_REGEX }
 
   has_paper_trail
 end
