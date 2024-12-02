@@ -17,8 +17,6 @@ services:
     ports:
       - 6379:6379
     command: redis-server --appendonly yes
-    depends_on:
-      - postgres
 
   app:
     build:
@@ -43,24 +41,6 @@ services:
       RAILS_ENV: development
     entrypoint: /home/app/students_crm/bin/start_dev.sh
 
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4:6.12
-    depends_on:
-      - postgres
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-      PGADMIN_CONFIG_SERVER_MODE: "False"
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    ports:
-      - 80:80
-    restart: unless-stopped
-    env_file:
-      - path: .env
-        required: true
-
 volumes:
   assets-javascript-generated:
   bundle:
@@ -68,4 +48,3 @@ volumes:
   node-modules:
   postgres-data:
   redis-data:
-  pgadmin-data:

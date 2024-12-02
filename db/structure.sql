@@ -209,7 +209,7 @@ CREATE TABLE public.certificate_template_entries (
     align integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    color character varying
+    color character varying DEFAULT '#000000'::character varying NOT NULL
 );
 
 
@@ -2147,7 +2147,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231225134459'),
 ('20231225144737'),
 ('20231231091716'),
-('20241125123456'),
 ('20241126112155');
 
 
