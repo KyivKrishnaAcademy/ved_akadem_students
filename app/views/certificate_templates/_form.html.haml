@@ -6,7 +6,6 @@
     = f.input :file, wrapper: :vertical_file_input, as: :file
     = f.association :institution, include_blank: false
     = f.input :program_type, collection: CertificateTemplate.program_types.keys, include_blank: false
-    
 
     - if f.object.file.present?
       .embed-responsive.embed-responsive-4by3
