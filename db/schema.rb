@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20231231091716) do
+ActiveRecord::Schema.define(version: 20241126112155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,8 +70,9 @@ ActiveRecord::Schema.define(version: 20231231091716) do
     t.integer  "y",                            default: 0
     t.integer  "font_size",                    default: 16
     t.integer  "align",                        default: 0
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "color",                        default: "#000000", null: false
     t.index ["certificate_template_font_id"], name: "index_certificate_template_entries_on_font_id", using: :btree
     t.index ["certificate_template_id"], name: "index_certificate_template_entries_on_template_id", using: :btree
   end

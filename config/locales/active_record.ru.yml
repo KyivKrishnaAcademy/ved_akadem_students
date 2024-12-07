@@ -20,6 +20,7 @@ ru:
       certificate_template_entries:
         align: 'Выравнивание элемента шаблона'
         certificate_template_font: 'Шрифт элемента шаблона'
+        color: 'Цвет элемента шаблона'
         character_spacing: 'Межсимвольный интервал элемента шаблона'
         font_size: 'Размер шрифта элемента шаблона'
         template: 'Текст элемента шаблона'
@@ -28,6 +29,7 @@ ru:
       certificate_template_entry:
         align: 'Выравнивание'
         certificate_template_font: 'Шрифт'
+        color: 'Цвет'
         character_spacing: 'Межсимвольный интервал'
         font_size: 'Размер шрифта'
         template: 'Текст элемента'

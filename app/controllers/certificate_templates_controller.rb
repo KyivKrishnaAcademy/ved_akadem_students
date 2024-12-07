@@ -74,6 +74,7 @@ class CertificateTemplatesController < HtmlRespondableController
           id
           align
           certificate_template_font_id
+          color
           character_spacing
           font_size
           template

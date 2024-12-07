@@ -65,11 +65,16 @@ class PdfExportsController < ApplicationController
         text_box_options: {
           character_spacing: entry.character_spacing,
           size: entry.font_size,
+          color: format_color(entry.color),
           at: [entry.x, entry.y],
           align: entry.align.to_sym
         }
       }
     end
+  end
+
+  def format_color(color)
+    color.start_with?('#') ? color.slice(1, color.length - 1) : color
   end
 
   def image_blocks(certificate_template)

@@ -20,6 +20,7 @@ uk:
       certificate_template_entries:
         align: 'Вирівнювання елементу шаблону'
         certificate_template_font: 'Шрифт елементу шаблону'
+        color: 'Колір елементу шаблону'
         character_spacing: 'Міжсимвольний інтервал елементу шаблону'
         font_size: 'Розмір шрифту елементу шаблону'
         template: 'Текст елементу шаблону'
@@ -28,6 +29,7 @@ uk:
       certificate_template_entry:
         align: 'Вирівнювання'
         certificate_template_font: 'Шрифт'
+        color: 'Колір'
         character_spacing: 'Міжсимвольний інтервал'
         font_size: 'Розмір шрифту'
         template: 'Текст елементу'
