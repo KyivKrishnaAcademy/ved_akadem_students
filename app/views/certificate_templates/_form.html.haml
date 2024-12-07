@@ -1,6 +1,6 @@
 = simple_nested_form_for @certificate_template do |f|
   = render 'shared/error_messages', object: f.object
-  
+
   .form-inputs
     = f.input :title
     = f.input :file, wrapper: :vertical_file_input, as: :file
