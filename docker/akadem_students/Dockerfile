@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ruby:2.4.9-slim-buster as base
+FROM ruby:2.4.9-slim-buster AS base
 
 LABEL maintainer="Maksym Pugach <pugach.m@gmail.com>"
 
@@ -43,7 +43,7 @@ ENV LANG=uk_UA.utf8
 WORKDIR $PROJECT_HOME
 # ______________________________________________________________________________________________________________________
 
-FROM base as base_with_node
+FROM base AS base_with_node
 
 ARG NODE_LTS_VERSION=10
 ARG NPM_VERSION=6.13.0
@@ -64,7 +64,7 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # ______________________________________________________________________________________________________________________
 
-FROM base_with_node as development
+FROM base_with_node AS development
 
 RUN apt-get update \
  && apt-get install -y \
@@ -76,7 +76,7 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # ______________________________________________________________________________________________________________________
 
-FROM base_with_node as production_builder
+FROM base_with_node AS production_builder
 
 ARG GIT_BRANCH=master
 ARG GIT_REPO=https://github.com/KyivKrishnaAcademy/ved_akadem_students.git
