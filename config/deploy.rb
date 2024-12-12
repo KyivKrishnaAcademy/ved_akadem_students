@@ -60,22 +60,22 @@ namespace :docker do
     end
   end
 
-  desc 'docker-compose up'
+  desc 'docker compose up'
   task :compose_up, %i[options] do |_t, args|
     args.with_defaults(options: '')
 
     on roles(:all) do
       within release_path do
-        sudo "docker-compose -p #{fetch(:project)} -f #{fetch(:compose_yml)} up -d #{args[:options]}"
+        sudo "docker compose -p #{fetch(:project)} -f #{fetch(:compose_yml)} up -d #{args[:options]}"
       end
     end
   end
 
-  desc 'docker-compose logs -f'
+  desc 'docker compose logs -f'
   task :logs do
     on roles(:all) do
       within current_path do
-        sudo "docker-compose -p #{fetch(:project)} -f #{fetch(:compose_yml)} logs -f"
+        sudo "docker compose -p #{fetch(:project)} -f #{fetch(:compose_yml)} logs -f"
       end
     end
   end
