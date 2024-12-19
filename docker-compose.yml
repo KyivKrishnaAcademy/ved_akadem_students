@@ -23,6 +23,7 @@ services:
       context: "."
       dockerfile: docker/akadem_students/Dockerfile
       target: development
+    platform: ${PLATFORM}
     ports:
       - 3000:3000
     volumes:
