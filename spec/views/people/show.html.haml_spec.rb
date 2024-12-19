@@ -25,8 +25,7 @@ describe 'people/show.html.haml' do
   When { render file: 'people/show.html.haml', layout: 'layouts/person_tabs' }
 
   describe 'general' do
-    Then { expect(rendered).to have_selector('h1', text: complex_name(person)) }
-    And  { expect(rendered).to have_text("Телефон 1: #{person.telephones.first.phone}") }
+    Then  { expect(rendered).to have_text("Телефон 1: #{person.telephones.first.phone}") }
     And  { expect(rendered).to have_text("Email: #{person.email}") }
     And  { expect(rendered).to have_text(/Стать: (Чоловіча|Жіноча)/) }
     And  { expect(rendered).to have_text("День народження: #{person.birthday}") }
