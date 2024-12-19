@@ -143,7 +143,7 @@ describe 'people/show.html.haml' do
     Given { assign(:academic_groups, [group]) }
 
     context 'no role' do
-      Then { expect(rendered).not_to have_selector('button.dropdown-toggle', text: 'Add to group') }
+      Then { expect(rendered).not_to have_selector('button.dropdown-toggle', text: 'Додати до групи') }
     end
 
     context 'with roles' do
@@ -153,7 +153,7 @@ describe 'people/show.html.haml' do
         Given(:activities) { ['person:move_to_group'] }
 
         Then do
-          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Add to group')
+          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Додати до групи')
         end
 
         And { expect(menu).to have_link(group.title, href: '#') }
