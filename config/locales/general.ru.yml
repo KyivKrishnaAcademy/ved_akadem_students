@@ -84,6 +84,11 @@ ru:
       person: 'Студент'
       serial_id: 'Серийный номер'
       title: 'Сертификаты "%{certificate_template_title}"'
+      actions: 'Действия'
+      delete: 'Удалить'
+      are_you_sure: 'Вы уверены, что хотите удалить этот сертификат?'
+    destroy:
+      success: 'Сертификат успешно удален.'
   certificate_imports:
     new:
       submit: 'Импортировать'
@@ -237,6 +242,24 @@ ru:
       no_special_notes:     'пока что заметок нет'
       completed_questionnaires: 'Заполненные опросники'
       study_applications: 'Заявления на обучение'
+      add_to_group: 'Добавить в группу'
+      registration_time: 'Дата регистрации'
+      current_groups: 'Текущие группы'
+      previous_academic_groups: 'Предыдущие группы'
+      certificates: 'Сертификаты'
+      add_to_group: 'Добавить в группу'
+      gender: 'Пол'
+      male: 'Мужчина'
+      female: 'Женщина'
+      birthday: 'День рождения'
+      telephone: 'Телефон'
+      group: 'Группа'
+      join_date: 'Дата вступления'
+      leave_date: 'Дата завершения'
+      actions: 'Действия'
+      reason: 'Причина'
+      leave: 'Покинуть'
+      destroy: 'Уничтожить'
     index:
       search_placeholder: 'Кого Вы ищете?'
   programs:
@@ -389,6 +412,9 @@ ru:
       no_certificates_yet: 'Пока что нет сертификатов'
       serial_id: 'Серийный номер'
       template: 'Шаблон'
+      actions: 'Действия'
+      delete: 'Удалить'
+      confirm_delete: 'Вы уверены, что хотите удалить этот сертификат?'
     nested_certificate_template_entries:
       template_entries_title: Элементы шаблона
     person_brief:

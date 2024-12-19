@@ -41,11 +41,11 @@ uk:
       statistics_yearly_certificates: 'Сертифікати по рокам'
       statistics: 'Статистика'
   locale_label: Українська (UKR)
-  application_title: Студенти Київської Духовної Академії Свідомості Кришни
+  application_title: Студенти Київської Духовної Академії Свідомості Крішни
   links:
     apply_to_program: 'Подати заяву'
     back: 'Назад'
-    copy: 'Копівати'
+    copy: 'Копіювати'
     crop_photo: 'Обрізати фотографію'
     delete: 'Видалити'
     edit_profile: 'Редагувати профіль'
@@ -64,7 +64,7 @@ uk:
     apply_to_programs:        'У Вас є можливість поступити на такі курси:'
     confirm_withdraw:         'Ви впевнені, що хочете відкликати заяву на навчання?'
     you_applied:              'Ви подали заяву на курс'
-    application_requirements: 'Щоб продовжити начання, НЕОБХІДНО виконати наступні умови:'
+    application_requirements: 'Щоб продовжити навчання, НЕОБХІДНО виконати наступні умови:'
     fill_questionnaire:       'Заповнити'
     attach_photo:             'Додати фотографію'
     in_profile:               'до профілю'
@@ -84,6 +84,11 @@ uk:
       person: 'Студент'
       serial_id: 'Серійний номер'
       title: 'Сертифікати "%{certificate_template_title}"'
+      actions: 'Дії'
+      delete: 'Видалити'
+      are_you_sure: "Ви впевнені, що хочете видалити цей сертифікат?"
+    destroy:
+      success: "Сертифікат успішно видалено."
   certificate_imports:
     new:
       submit: 'Імпортувати'
@@ -193,7 +198,7 @@ uk:
         enter_phone:  'Введіть телефон'
         get_email:    'Нагадати пошту'
       create:
-        title:        'Адреси електронної пошти закреплені за цим номером телефону:'
+        title:        'Адреси електронної пошти закріплені за цим номером телефону:'
         no_telephone: 'Такий номер телефону не зареєстрований.'
     registrations:
       edit:
@@ -237,6 +242,23 @@ uk:
       no_special_notes:     'поки що нотаток немає'
       completed_questionnaires: 'Заповнені опитувальники'
       study_applications: 'Заяви на навчання'
+      registration_time: 'Дата реєстрації'
+      current_groups: 'Поточні групи'
+      previous_academic_groups: 'Попередні групи'
+      certificates: 'Сертифікати'
+      add_to_group: 'Додати до групи'
+      gender: 'Стать'
+      male: 'Чоловік'
+      female: 'Жінка'
+      birthday: 'День народження'
+      telephone: 'Телефон'
+      group: 'Група'
+      join_date: 'Дата вступу'
+      leave_date: 'Дата завершення'
+      actions: 'Дії'
+      reason: 'Причина'
+      leave: 'Покинути'
+      destroy: 'Знищити'
     index:
       search_placeholder: 'Кого Ви шукаєте?'
   programs:
@@ -389,6 +411,9 @@ uk:
       no_certificates_yet: 'Покищо немає сертифікатів'
       serial_id: 'Серійний номер'
       template: 'Шаблон'
+      actions: 'Дії'
+      delete: 'Видалити'
+      confirm_delete: 'Ви впевнені, що хочете видалити цей сертифікат?'
     nested_certificate_template_entries:
       template_entries_title: Елементи шаблону
     person_brief:
