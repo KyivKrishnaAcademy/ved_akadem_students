@@ -486,6 +486,7 @@ GEM
 
 PLATFORMS
   -darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   autoprefixer-rails
