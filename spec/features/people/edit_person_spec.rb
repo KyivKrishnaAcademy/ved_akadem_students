@@ -8,9 +8,9 @@ describe 'Edit person:' do
 
   context 'When values are valid:' do
     [
-      { field: 'phone',                     value: '+380 50 111 2233',  test_field: "#{I18n.t('.telephone')} 1: +380501112233" },
-      { field: 'phone',                     value: '50 111 2233',       test_field: "#{I18n.t('.telephone')} 1: +380501112233" },
-      { field: 'phone',                     value: '+7 495 739-22-22',  test_field: "#{I18n.t('.telephone')} 1: +74957392222" },
+      { field: 'phone',                     value: '+380 50 111 2233',  test_field: "#{I18n.t('people.show.telephone')} 1: +380501112233" },
+      { field: 'phone',                     value: '50 111 2233',       test_field: "#{I18n.t('people.show.telephone')} 1: +380501112233" },
+      { field: 'phone',                     value: '+7 495 739-22-22',  test_field: "#{I18n.t('people.show.telephone')} 1: +74957392222" },
       { field: 'person[name]',              value: 'Алексей',           test_field: 'Алексей' },
       { field: 'person[email]',             value: 'alex@PAMHO.net',    test_field: 'Email: alex@pamho.net' },
       { field: 'person[surname]',           value: 'Евгеньев',          test_field: 'Евгеньев' },
@@ -24,15 +24,15 @@ describe 'Edit person:' do
       When { click_button 'Зберегти Person' }
 
       describe 'brithdate is shown' do
-        Then { expect(find('body')).to have_content("#{I18n.t('.birthday')}: 1985-05-27") }
+        Then { expect(find('body')).to have_content("#{I18n.t('people.show.birthday')}: 1985-05-27") }
       end
 
       it_behaves_like :alert_success_updated, 'Person'
     end
 
     describe 'Gender' do
-      it_behaves_like :valid_select, 'Person', 'person[gender]', I18n.t('.male'),  "#{I18n.t('.gender')}: #{I18n.t('.male')}"
-      it_behaves_like :valid_select, 'Person', 'person[gender]', I18n.t('.female'), "#{I18n.t('.gender')}: #{I18n.t('.female')}"
+      it_behaves_like :valid_select, 'Person', 'person[gender]', I18n.t('people.show.male'),  "#{I18n.t('.gender')}: #{I18n.t('people.show.male')}"
+      it_behaves_like :valid_select, 'Person', 'person[gender]', I18n.t('people.show.female'), "#{I18n.t('.gender')}: #{I18n.t('people.show.female')}"
     end
   end
 

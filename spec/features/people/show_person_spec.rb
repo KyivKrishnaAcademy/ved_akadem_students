@@ -19,7 +19,7 @@ describe 'Show person:' do
     Given { person.student_profile.academic_groups << academic_group_1 }
 
     describe 'initial' do
-      Then { expect(find('table', text: "#{I18n.t('.group')} #{I18n.t('.join_date')} #{I18n.t('.actions')}")).to have_css('tr', text: academic_group_1.title) }
+      Then { expect(find('table', text: "#{I18n.t('people.show.group')} #{I18n.t('people.show.join_date')} #{I18n.t('people.show.actions')}")).to have_css('tr', text: academic_group_1.title) }
 
       And do
         expect(find('#change-academic-group'))
@@ -36,7 +36,7 @@ describe 'Show person:' do
       When { click_button I18n.t('.add_to_group') }
       When { find('#move-to-group', text: academic_group_2.title).click }
 
-      Then { expect(find('table', text: "#{I18n.t('.group')} #{I18n.t('.join_date')} #{I18n.t('.actions')}")).to have_css('tr', text: academic_group_2.title) }
+      Then { expect(find('table', text: "#{I18n.t('people.show.group')} #{I18n.t('people.show.join_date')} #{I18n.t('people.show.actions')}")).to have_css('tr', text: academic_group_2.title) }
 
       And do
         expect(find('#change-academic-group'))
