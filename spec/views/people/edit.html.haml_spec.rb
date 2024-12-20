@@ -24,13 +24,13 @@ describe 'people/edit.html.erb' do
 
   describe 'default values' do
     context 'gender is Male' do
-      Then  { is_expected.to have_css('#person_gender option[selected="selected"]', text: 'Чоловіча') }
+      Then  { is_expected.to have_css('#person_gender option[selected="selected"]', text: I18n.t('people.show.male')) }
     end
 
     context 'gender is Female' do
       Given { @admin.update_attribute(:gender, false) }
 
-      Then  { is_expected.to have_css('#person_gender option[selected="selected"]', text: 'Жіноча') }
+      Then  { is_expected.to have_css('#person_gender option[selected="selected"]', text: I18n.t('people.show.female')) }
     end
 
     context 'admin' do

@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 ruby:2.4.9-slim-buster as base
+FROM ruby:2.4.9-slim-buster as base
 
 LABEL maintainer="Maksym Pugach <pugach.m@gmail.com>"
 
