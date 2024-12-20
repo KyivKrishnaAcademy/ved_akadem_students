@@ -31,8 +31,8 @@ describe 'Edit person:' do
     end
 
     describe 'Gender' do
-      it_behaves_like :valid_select, 'Person', 'person[gender]', I18n.t('people.show.male'),  "#{I18n.t('.gender')}: #{I18n.t('people.show.male')}"
-      it_behaves_like :valid_select, 'Person', 'person[gender]', I18n.t('people.show.female'), "#{I18n.t('.gender')}: #{I18n.t('people.show.female')}"
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Чоловіча',  "#{I18n.t('people.show.gender')}: #{I18n.t('people.show.male')}"
+      it_behaves_like :valid_select, 'Person', 'person[gender]', 'Жіноча', "#{I18n.t('people.show.gender')}: #{I18n.t('people.show.female')}"
     end
   end
 

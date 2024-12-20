@@ -33,7 +33,7 @@ describe 'Show person:' do
     end
 
     describe 'do change', :js do
-      When { click_button I18n.t('.add_to_group') }
+      When { click_button I18n.t('people.show.add_to_group') }
       When { find('#move-to-group', text: academic_group_2.title).click }
 
       Then { expect(find('table', text: "#{I18n.t('people.show.group')} #{I18n.t('people.show.join_date')} #{I18n.t('people.show.actions')}")).to have_css('tr', text: academic_group_2.title) }
