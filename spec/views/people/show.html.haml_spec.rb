@@ -25,10 +25,11 @@ describe 'people/show.html.haml' do
   When { render file: 'people/show.html.haml', layout: 'layouts/person_tabs' }
 
   describe 'general' do
-    Then  { expect(rendered).to have_text("Телефон 1: #{person.telephones.first.phone}") }
+    Then { expect(rendered).to have_selector('h1', text: complex_name(person)) }
+    And  { expect(rendered).to have_text("#{I18n.t('.telephone')} 1: #{person.telephones.first.phone}") }
     And  { expect(rendered).to have_text("Email: #{person.email}") }
-    And  { expect(rendered).to have_text(/Стать: (Чоловіча|Жіноча)/) }
-    And  { expect(rendered).to have_text("День народження: #{person.birthday}") }
+    And  { expect(rendered).to have_text(/#{I18n.t('.gender')}: (#{I18n.t('.male')}|#{I18n.t('.female')})/) }
+    And  { expect(rendered).to have_text("#{I18n.t('.birthday')}: #{person.birthday}") }
   end
 
   describe 'study application' do
@@ -142,7 +143,7 @@ describe 'people/show.html.haml' do
     Given { assign(:academic_groups, [group]) }
 
     context 'no role' do
-      Then { expect(rendered).not_to have_selector('button.dropdown-toggle', text: 'Додати до групи') }
+      Then { expect(rendered).not_to have_selector('button.dropdown-toggle', text: I18n.t('.add_to_group')) }
     end
 
     context 'with roles' do
@@ -152,7 +153,7 @@ describe 'people/show.html.haml' do
         Given(:activities) { ['person:move_to_group'] }
 
         Then do
-          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: 'Додати до групи')
+          expect(rendered).to have_selector('#change-academic-group button.dropdown-toggle', text: I18n.t('.add_to_group'))
         end
 
         And { expect(menu).to have_link(group.title, href: '#') }
