@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :certificate do
     academic_group
     certificate_template

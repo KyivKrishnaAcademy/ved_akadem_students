@@ -4,7 +4,8 @@ describe RefreshClassSchedulesMvJob do
   include ActiveJob::TestHelper
 
   describe 'perform' do
-    Given(:check_flag) { Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) } }
+    # Преобразуем значение в логическое
+    Given(:check_flag) { Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) }.positive? }
 
     Given { Sidekiq.redis { |c| c.set(:class_schedule_with_people_mv_refresh, 1) } }
 

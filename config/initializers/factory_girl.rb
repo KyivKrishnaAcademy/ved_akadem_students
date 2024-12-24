@@ -1,5 +1,5 @@
-if defined? FactoryGirl
+if defined? FactoryBot
   require Rails.root.join 'spec/support/helper_methods.rb'
 
-  FactoryGirl::SyntaxRunner.include HelperMethods
+  FactoryBot::SyntaxRunner.include HelperMethods
 end

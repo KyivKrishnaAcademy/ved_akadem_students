@@ -20,11 +20,10 @@
 //
 
 //= require jquery_nested_form
-
+//= require jquery-ui/widgets/autocomplete
 // bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
 //= require bootstrap-sprockets
 
-//= require jquery-ui/autocomplete
 //= require select_2_initializers
 //= require moment
 //= require moment/ru

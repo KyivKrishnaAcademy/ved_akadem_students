@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :certificate_template_entry do
     template "MyString"
     certificate_template nil

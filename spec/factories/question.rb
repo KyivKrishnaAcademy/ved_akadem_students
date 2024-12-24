@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :question do
     format  { %w(freeform single_select).sample }
     data    { { text: { uk: FFaker::Lorem.sentence, ru: FFaker::Lorem.sentence } } }

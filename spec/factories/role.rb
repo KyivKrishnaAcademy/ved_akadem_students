@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :role do
     activities { ['some:show'] }
     name       { generate(:char_sequence) * 10 }

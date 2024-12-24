@@ -23,12 +23,12 @@ module VedicAcademyStudents
 
     config.generators do |g|
       g.test_framework(
-        :rspec, fixtures: true, view_specs: true, helper_specs: true, controller_specs: true, routing_specs: false
+        :rspec, fixtures: true, view_specs: false, helper_specs: false, controller_specs: true, routing_specs: false
       )
-      g.factory_girl(true)
+      g.factory_bot true
     end
 
-    config.autoload_paths += %w[helpers interactions].map { |type| Rails.root.join('app', type, 'concerns') }
+    config.eager_load_paths += %w[helpers interactions].map { |type| Rails.root.join('app', type, 'concerns') }
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
     config.responders.flash_keys = %i[success alert]

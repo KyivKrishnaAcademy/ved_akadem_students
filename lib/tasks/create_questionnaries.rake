@@ -26,7 +26,7 @@ namespace :academic do
                                                                           key_anwers: q[:key_answers].map(&:to_s) })
                                               end)
 
-    initial_questionnaire = FactoryGirl.create :questionnaire, :initial
+    initial_questionnaire = FactoryBot.create :questionnaire, :initial
 
     puts 'Adding questionnaires to Study applications...'
 

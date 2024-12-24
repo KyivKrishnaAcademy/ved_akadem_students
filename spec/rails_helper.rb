@@ -16,9 +16,10 @@ elsif not_blank?(ENV['COVERAGE'])
 end
 
 require 'spec_helper'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rspec/rails'
 require 'rack_session_access/capybara'
+require 'devise' # Devise connection added
 
 ActiveRecord::Migration.maintain_test_schema!
 
@@ -30,12 +31,17 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.infer_spec_type_from_file_location!
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include HelperMethods
 
+  # Connecting Devise
+  config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
+  # Recaptcha customization
   Recaptcha.configure do |cfg|
-    cfg.public_key  = '11111'
-    cfg.private_key = '22222'
+    cfg.site_key  = '11111'
+    cfg.secret_key = '22222'
   end
 
   config.mock_with :rspec do |mocks|

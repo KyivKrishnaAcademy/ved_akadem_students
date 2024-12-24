@@ -21,4 +21,6 @@ else
   threads 0, 4
 end
 
+events = ::Puma::Events.new($stdout, $stderr)
+
 plugin :tmp_restart

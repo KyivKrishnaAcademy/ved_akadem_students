@@ -8,7 +8,7 @@ namespace :academic do
     task include_or_join_distinct: :environment do
       require 'benchmark'
 
-      include FactoryGirl::Syntax::Methods
+      include FactoryBot::Syntax::Methods
 
       iterations = 1_000
 
