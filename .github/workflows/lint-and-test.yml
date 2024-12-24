@@ -28,13 +28,14 @@ jobs:
           node-version: '10.17.0'
 
       - name: Cache Node packages
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
             client/node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}-${{ hashFiles('client/package-lock.json') }}
           restore-keys: |
+            ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}-${{ hashFiles('client/package-lock.json') }}
             ${{ runner.os }}-node-modules-
 
       - name: Install JS dependencies
