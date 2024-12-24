@@ -55,7 +55,6 @@ group :assets_builder, :development, :test do
 end
 
 group :production, :development do
-  gem 'newrelic_rpm'
   gem 'puma'
 end
 
