@@ -51,6 +51,19 @@ namespace :docker do
     end
   end
 
+  desc 'Start container'
+  task :start_container, %i[container] do |_t, args|
+    on roles(:all) do
+      within release_path do
+        execute <<-SHELL
+          if ! sudo docker ps | grep #{args[:container]}
+            then sudo docker start #{args[:container]}
+          fi
+        SHELL
+      end
+    end
+  end
+
   desc 'Execute on builder'
   task :builder_exec, %i[cmd] do |_t, args|
     on roles(:all) do
@@ -97,7 +110,8 @@ namespace :docker do
       invoke! :'docker:builder_exec', "mkdir -p #{release_backup_path}"
       invoke! :'docker:builder_exec', db_backup_cmd
       invoke! :'docker:builder_exec', images_backup_cmd
-      invoke! :'docker:compose_up'
+      invoke! :'docker:start_container', 'sidekiq'
+      invoke! :'docker:start_container', 'nginx'
 
       sudo "docker cp #{fetch(:builder_name)}:#{release_backup_path} #{fetch(:backups_path)}"
     end
