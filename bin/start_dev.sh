@@ -29,6 +29,8 @@ else
   bundle exec rails db:seed
 fi
 
+. ./bin/setup_phantomjs.sh
+
 pidfile=${PROJECT_HOME}/tmp/pids/server.pid
 
 [ -e "$pidfile" ] && rm "$pidfile"

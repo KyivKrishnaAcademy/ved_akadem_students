@@ -8,7 +8,7 @@
     "npm": "3.3.12"
   },
   "scripts": {
-    "test": "bundle exec rspec && (cd client && npm run lint)",
+    "test": "RAILS_ENV=test OPENSSL_CONF=none bundle exec rspec && (cd client && npm run lint)",
     "express-server": "echo 'visit http://localhost:4000' && cd client && npm start"
   },
   "repository": {
