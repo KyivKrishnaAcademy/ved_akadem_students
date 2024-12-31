@@ -66,6 +66,10 @@ RUN apt-get update \
 
 FROM base_with_node AS development
 
+ENV PHANTOMJS_VERSION=2.1.1
+ENV PHANTOMJS_DIR=$PROJECT_HOME/phantomjs
+ENV PATH=$PHANTOMJS_DIR/phantomjs-$PHANTOMJS_VERSION-linux-x86_64/bin:$PATH
+
 RUN apt-get update \
  && apt-get install -y \
     build-essential \
