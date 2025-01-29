@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'academic_groups/new' do
+describe 'academic_groups/new', type: :feature do
   before do
     login_as_admin
     visit new_academic_group_path

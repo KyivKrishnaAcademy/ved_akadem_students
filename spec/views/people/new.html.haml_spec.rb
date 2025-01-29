@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'people/new.html.erb' do
+describe 'people/new.html.erb', type: :feature do
   subject { page }
 
   Given { login_as_admin }

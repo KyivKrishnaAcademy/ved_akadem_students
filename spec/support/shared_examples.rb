@@ -172,10 +172,17 @@ end
 shared_examples :integration_delete_model do |model|
   Given(:m_name_underscore) { model.name.underscore }
 
-  When { visit method(('' << m_name_underscore << '_path').to_sym).call(create(m_name_underscore.to_sym)) }
+  When do
+    record = create(m_name_underscore.to_sym)
+    visit method(('' << m_name_underscore << '_path').to_sym).call(record)
+  end
 
   describe 'flash' do
-    When { click_link I18n.t('links.delete') }
+    When do
+      accept_alert do
+        click_link I18n.t('links.delete')
+      end
+    end
 
     Then do
       expect(page).to have_selector('.alert-success', text: "#{m_name_underscore.humanize.titleize} record deleted!")
@@ -183,7 +190,14 @@ shared_examples :integration_delete_model do |model|
   end
 
   describe 'model count' do
-    Then { expect { click_link I18n.t('links.delete') }.to change { model.count }.by(-1) }
+    Then do
+      expect { 
+        accept_alert do
+          click_link I18n.t('links.delete')
+        end
+        expect(page).to have_no_content(model.last) # Waiting for the record to disappear
+      }.to change { model.count }.by(-1)
+    end
   end
 end
 
@@ -258,8 +272,14 @@ shared_examples :study_applications do |admin|
     end
 
     describe 'withdraw', :js do
-      When { find('.program .btn-danger').click }
+      When do
 
+        find('.program .btn-danger').click
+    
+
+        page.accept_alert('Ви впевнені, що хочете відкликати заяву на навчання?')
+      end
+    
       Then { expect(find('#study_application')).to have_apply_button }
       And  { expect(find('#study_application')).to have_content('Школа Бхакти') }
       And  { expect(find('#study_application')).to have_content('Бхакти Шастры') }

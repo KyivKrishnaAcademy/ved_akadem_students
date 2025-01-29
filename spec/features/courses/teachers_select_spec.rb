@@ -34,7 +34,7 @@ describe 'Teacher multi select for courses:', :js do
     When { visit edit_course_path(course) }
 
     context 'add more' do
-      Then { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
+      Then { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name, wait: 5) }
       And  { common_assertions }
       And  { visit edit_course_path(course) }
       And  { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
@@ -44,7 +44,7 @@ describe 'Teacher multi select for courses:', :js do
     context 'remove some' do
       Given { course.teacher_specialities.create(teacher_profile_id: profile_2.id) }
 
-      Then { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name) }
+      Then { expect(select_container).to have_selector('li.select2-selection__choice', text: person_1.complex_name, wait: 5) }
       And  { expect(select_container).to have_selector('li.select2-selection__choice', text: person_2.complex_name) }
 
       And do

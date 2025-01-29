@@ -4,8 +4,8 @@ describe 'Show person:' do
   Given(:person) { create :person }
   Given(:user) { create(:person, :admin) }
 
-  When  { login_as(user) }
-  When  { visit person_path(person) }
+  When { login_as(user) }
+  When { visit person_path(person) }
 
   describe 'study application' do
     it_behaves_like :study_applications, true
@@ -34,7 +34,13 @@ describe 'Show person:' do
 
     describe 'do change', :js do
       When { click_button 'Add to group' }
-      When { find('#move-to-group', text: academic_group_2.title).click }
+
+      When do
+        # Обрабатываем подтверждение всплывающего окна
+        page.accept_alert do
+          find('#move-to-group', text: academic_group_2.title).click
+        end
+      end
 
       Then { expect(find('table', text: 'Group Join date Actions')).to have_css('tr', text: academic_group_2.title) }
 

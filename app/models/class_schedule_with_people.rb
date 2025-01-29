@@ -29,11 +29,17 @@ class ClassScheduleWithPeople < ClassSchedule
     end
 
     def refresh_later
-      return if Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) }
+      Sidekiq.redis do |conn|
+        # Проверяем существование ключа
+        unless conn.exists?(:class_schedule_with_people_mv_refresh)
+          # Устанавливаем ключ
+          conn.set(:class_schedule_with_people_mv_refresh, 1)
+          conn.expire(:class_schedule_with_people_mv_refresh, 300) # Устанавливаем TTL на ключ 5 минут
 
-      Sidekiq.redis { |c| c.set(:class_schedule_with_people_mv_refresh, 1) }
-
-      RefreshClassSchedulesMvJob.set(wait: 5.minutes).perform_later
+          # Запускаем задачу
+          RefreshClassSchedulesMvJob.set(wait: 5.minutes).perform_later
+        end
+      end
     end
 
     def teacher_schedule(person_id)

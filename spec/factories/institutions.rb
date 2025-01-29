@@ -1,5 +1,5 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :institution do
-    name "MyString"
+    name {"MyString"}
   end
 end

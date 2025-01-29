@@ -12,9 +12,11 @@ class DirectGroupCoursesRelation < ActiveRecord::Migration[5.0]
     SQL
 
     values = ActiveRecord::Base.connection.execute(sql).map { |r| "(#{r.values.join(', ')})" }.join(", ")
-    insert_sql = "INSERT INTO academic_groups_courses (academic_group_id, course_id) VALUES #{values};"
 
-    ActiveRecord::Base.connection.execute(insert_sql)
+    unless values.empty?
+      insert_sql = "INSERT INTO academic_groups_courses (academic_group_id, course_id) VALUES #{values};"
+      ActiveRecord::Base.connection.execute(insert_sql)
+    end
 
     drop_join_table :academic_groups, :programs
     drop_join_table :courses, :programs

@@ -1,6 +1,8 @@
 uk:
   not_authorized: 'Не вистачає прав, щоб виконати цю дію.'
   cannot_destroy_template_with_issued_certificates: 'Не можна видалити шаблон, який має видані сертифікати'
+  pundit:
+     default: 'У вас немає прав для виконання цієї дії.'
   recaptcha:
     errors:
       incorrect-captcha-sol:  'Перевірка невдала.'
@@ -84,6 +86,13 @@ uk:
       person: 'Студент'
       serial_id: 'Серійний номер'
       title: 'Сертифікати "%{certificate_template_title}"'
+      actions: 'Дії'
+      delete: 'Видалити'
+      are_you_sure: "Ви впевнені, що хочете видалити цей сертифікат?"
+    destroy:
+      success: "Сертифікат успішно видалено."
+      failure: "Помилка видалення сертифіката."
+      not_found: "Сертифікат не знайдено."
   certificate_imports:
     new:
       submit: 'Імпортувати'
@@ -389,6 +398,9 @@ uk:
       no_certificates_yet: 'Покищо немає сертифікатів'
       serial_id: 'Серійний номер'
       template: 'Шаблон'
+      actions: 'Дії'
+      delete: 'Видалити'
+      confirm_delete: 'Ви впевнені, що хочете видалити цей сертифікат?'
     nested_certificate_template_entries:
       template_entries_title: Елементи шаблону
     person_brief:

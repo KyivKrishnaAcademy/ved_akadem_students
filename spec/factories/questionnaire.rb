@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   psycho_test     = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/psyho_test_2.yml'))
   psycho_options  = {
     ru: psycho_test[:answers][:ru].to_a.map(&:reverse),

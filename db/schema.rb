@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20241126112155) do
+ActiveRecord::Schema.define(version: 20201214174233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20241126112155) do
   end
 
   create_table "academic_groups", force: :cascade do |t|
-    t.string   "title",             limit: 255
+    t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "group_description", limit: 255
+    t.string   "group_description"
     t.date     "establ_date"
     t.text     "message_ru"
     t.text     "message_uk"
@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(version: 20241126112155) do
     t.datetime "graduated_at"
   end
 
-  create_table "academic_groups_courses", id: false, force: :cascade do |t|
+  create_table "academic_groups_programs", id: false, force: :cascade do |t|
     t.integer "academic_group_id", null: false
-    t.integer "course_id",         null: false
-    t.index ["academic_group_id", "course_id"], name: "index_academic_groups_courses_on_group_id_and_course_id", using: :btree
-    t.index ["course_id", "academic_group_id"], name: "index_academic_groups_courses_on_course_id_and_group_id", using: :btree
+    t.integer "program_id",        null: false
+    t.index ["academic_group_id", "program_id"], name: "index_academic_groups_programs_on_group_id_and_program_id", using: :btree
+    t.index ["program_id", "academic_group_id"], name: "index_academic_groups_programs_on_program_id_and_group_id", using: :btree
   end
 
   create_table "answers", force: :cascade do |t|
@@ -61,52 +61,10 @@ ActiveRecord::Schema.define(version: 20241126112155) do
     t.index ["class_schedule_id", "student_profile_id"], name: "index_attendances_on_class_schedule_id_and_student_profile_id", unique: true, using: :btree
   end
 
-  create_table "certificate_template_entries", force: :cascade do |t|
-    t.string   "template"
-    t.integer  "certificate_template_id"
-    t.integer  "certificate_template_font_id"
-    t.float    "character_spacing",            default: 0.5
-    t.integer  "x",                            default: 0
-    t.integer  "y",                            default: 0
-    t.integer  "font_size",                    default: 16
-    t.integer  "align",                        default: 0
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.string   "color",                        default: "#000000", null: false
-    t.index ["certificate_template_font_id"], name: "index_certificate_template_entries_on_font_id", using: :btree
-    t.index ["certificate_template_id"], name: "index_certificate_template_entries_on_template_id", using: :btree
-  end
-
-  create_table "certificate_template_fonts", force: :cascade do |t|
-    t.string   "name"
-    t.string   "file"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_certificate_template_fonts_on_name", unique: true, using: :btree
-  end
-
-  create_table "certificate_template_images", force: :cascade do |t|
-    t.integer  "certificate_template_id"
-    t.integer  "signature_id"
-    t.float    "scale",                   default: 1.0
-    t.integer  "x",                       default: 0
-    t.integer  "y",                       default: 0
-    t.float    "angle",                   default: 0.0
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.index ["certificate_template_id"], name: "index_certificate_template_images_on_certificate_template_id", using: :btree
-    t.index ["signature_id"], name: "index_certificate_template_images_on_signature_id", using: :btree
-  end
-
   create_table "certificate_templates", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "file"
-    t.integer  "institution_id"
-    t.integer  "program_type",       default: 0
-    t.integer  "certificates_count", default: 0
-    t.index ["institution_id"], name: "index_certificate_templates_on_institution_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "certificates", force: :cascade do |t|
@@ -136,20 +94,25 @@ ActiveRecord::Schema.define(version: 20241126112155) do
   create_table "classrooms", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "location",    limit: 255
-    t.string   "description", limit: 255
-    t.integer  "roominess",               default: 0
+    t.string   "location"
+    t.string   "description"
+    t.integer  "roominess",   default: 0
     t.string   "title"
   end
 
   create_table "courses", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title",                     limit: 255
-    t.string   "description",               limit: 255
+    t.string   "title"
+    t.string   "description"
     t.string   "variant"
-    t.integer  "examination_results_count",             default: 0
-    t.integer  "class_schedules_count",                 default: 0
+  end
+
+  create_table "courses_programs", id: false, force: :cascade do |t|
+    t.integer "course_id",  null: false
+    t.integer "program_id", null: false
+    t.index ["course_id", "program_id"], name: "index_courses_programs_on_course_id_and_program_id", using: :btree
+    t.index ["program_id", "course_id"], name: "index_courses_programs_on_program_id_and_course_id", using: :btree
   end
 
   create_table "examination_results", force: :cascade do |t|
@@ -163,15 +126,14 @@ ActiveRecord::Schema.define(version: 20241126112155) do
   end
 
   create_table "examinations", force: :cascade do |t|
-    t.string   "title",                     default: ""
-    t.text     "description",               default: ""
-    t.integer  "passing_score",             default: 1
-    t.integer  "min_result",                default: 0
-    t.integer  "max_result",                default: 1
+    t.string   "title",         default: ""
+    t.text     "description",   default: ""
+    t.integer  "passing_score", default: 1
+    t.integer  "min_result",    default: 0
+    t.integer  "max_result",    default: 1
     t.integer  "course_id"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "examination_results_count", default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["course_id"], name: "index_examinations_on_course_id", using: :btree
   end
 
@@ -180,12 +142,6 @@ ActiveRecord::Schema.define(version: 20241126112155) do
     t.integer  "academic_group_id"
     t.datetime "join_date"
     t.datetime "leave_date"
-  end
-
-  create_table "institutions", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "notes", force: :cascade do |t|
@@ -198,27 +154,33 @@ ActiveRecord::Schema.define(version: 20241126112155) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string   "name",                   limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "middle_name",            limit: 255
-    t.string   "surname",                limit: 255
-    t.string   "email",                  limit: 255
+    t.string   "middle_name"
+    t.string   "surname"
+    t.string   "email"
     t.boolean  "gender"
     t.date     "birthday"
-    t.string   "photo",                  limit: 255
-    t.string   "encrypted_password",     limit: 255
-    t.string   "reset_password_token",   limit: 255
+    t.string   "photo"
+    t.string   "encrypted_password"
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
-    t.string   "complex_name",           limit: 255
-    t.string   "provider",                           default: "email", null: false
-    t.string   "uid",                                default: "",      null: false
-    t.jsonb    "tokens",                             default: {},      null: false
-    t.string   "locale",                 limit: 2,   default: "uk"
-    t.boolean  "fake_email",                         default: false
+    t.text     "education"
+    t.text     "work"
+    t.string   "marital_status"
+    t.string   "friends_to_be_with"
+    t.string   "complex_name"
+    t.string   "provider",                         default: "email", null: false
+    t.string   "uid",                              default: "",      null: false
+    t.jsonb    "tokens",                           default: "{}",    null: false
+    t.string   "locale",                 limit: 2, default: "uk"
+    t.boolean  "fake_email",                       default: false
+    t.boolean  "verified",                         default: false
     t.string   "diploma_name"
-    t.boolean  "notify_schedules",                   default: true
-    t.boolean  "spam_complain",                      default: false
+    t.string   "favorite_lectors"
+    t.boolean  "notify_schedules",                 default: true
+    t.boolean  "spam_complain",                    default: false
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
     t.index ["uid", "provider"], name: "index_people_on_uid_and_provider", unique: true, using: :btree
@@ -232,21 +194,20 @@ ActiveRecord::Schema.define(version: 20241126112155) do
   create_table "programs", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title_uk",                 limit: 255
-    t.string   "title_ru",                 limit: 255
+    t.string   "title_uk"
+    t.string   "title_ru"
     t.text     "description_uk"
     t.text     "description_ru"
-    t.boolean  "visible",                              default: false
+    t.text     "courses_uk"
+    t.text     "courses_ru"
+    t.boolean  "visible",        default: false
     t.integer  "manager_id"
     t.integer  "position"
-    t.integer  "study_applications_count",             default: 0
-    t.integer  "questionnaires_count",                 default: 0
   end
 
-  create_table "programs_questionnaires", force: :cascade do |t|
+  create_table "programs_questionnaires", id: false, force: :cascade do |t|
     t.integer "questionnaire_id"
     t.integer "program_id"
-    t.index ["program_id", "questionnaire_id"], name: "index_programs_questionnaires_on_p_and_q", unique: true, using: :btree
   end
 
   create_table "questionnaire_completenesses", force: :cascade do |t|
@@ -260,18 +221,18 @@ ActiveRecord::Schema.define(version: 20241126112155) do
 
   create_table "questionnaires", force: :cascade do |t|
     t.text     "description_uk"
-    t.string   "title_uk",       limit: 255
+    t.string   "title_uk"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title_ru",       limit: 255
+    t.string   "title_ru"
     t.text     "description_ru"
-    t.string   "kind",           limit: 255
+    t.string   "kind"
     t.text     "rule"
   end
 
   create_table "questions", force: :cascade do |t|
     t.integer  "questionnaire_id"
-    t.string   "format",           limit: 255
+    t.string   "format"
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -279,18 +240,10 @@ ActiveRecord::Schema.define(version: 20241126112155) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "activities", limit: 255, default: [], array: true
+    t.string   "activities",            default: [], array: true
     t.string   "name",       limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "signatures", force: :cascade do |t|
-    t.string   "name"
-    t.string   "file"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_signatures_on_name", unique: true, using: :btree
   end
 
   create_table "student_profiles", force: :cascade do |t|
@@ -310,7 +263,7 @@ ActiveRecord::Schema.define(version: 20241126112155) do
   create_table "teacher_profiles", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description", limit: 255
+    t.string   "description"
     t.integer  "person_id"
   end
 
@@ -323,7 +276,7 @@ ActiveRecord::Schema.define(version: 20241126112155) do
 
   create_table "telephones", force: :cascade do |t|
     t.integer  "person_id"
-    t.string   "phone",      limit: 255
+    t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -349,10 +302,6 @@ ActiveRecord::Schema.define(version: 20241126112155) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
-  add_foreign_key "certificate_template_entries", "certificate_template_fonts"
-  add_foreign_key "certificate_template_entries", "certificate_templates"
-  add_foreign_key "certificate_template_images", "certificate_templates"
-  add_foreign_key "certificate_template_images", "signatures"
   add_foreign_key "certificates", "academic_groups"
   add_foreign_key "certificates", "certificate_templates"
   add_foreign_key "certificates", "student_profiles"

@@ -570,6 +570,16 @@ ALTER SEQUENCE public.courses_id_seq OWNED BY public.courses.id;
 
 
 --
+-- Name: courses_programs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.courses_programs (
+    course_id integer NOT NULL,
+    program_id integer NOT NULL
+);
+
+
+--
 -- Name: examination_results; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1835,6 +1845,20 @@ CREATE INDEX index_certificates_on_student_profile_id ON public.certificates USI
 
 
 --
+-- Name: index_courses_programs_on_course_id_and_program_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_courses_programs_on_course_id_and_program_id ON public.courses_programs USING btree (course_id, program_id);
+
+
+--
+-- Name: index_courses_programs_on_program_id_and_course_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_courses_programs_on_program_id_and_course_id ON public.courses_programs USING btree (program_id, course_id);
+
+
+--
 -- Name: index_examination_results_on_examination_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2147,6 +2171,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231225134459'),
 ('20231225144737'),
 ('20231231091716'),
-('20241126112155');
+('20241126112155'),
+('20250117085641');
 
 

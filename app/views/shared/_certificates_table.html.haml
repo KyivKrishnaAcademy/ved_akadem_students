@@ -7,6 +7,7 @@
         %th.text-top=t('.template')
         %th.text-top=t('.issued_date')
         %th.text-top=t('.final_score')
+        %th.text-top=t('.actions')
     %tbody
       - if certificates.any?
         - certificates.each_with_index do |certificate, index|
@@ -22,6 +23,9 @@
               = l certificate.issued_date, format: :date
             %td.text-center
               = certificate.final_score
+            %td.text-center
+              - if policy(certificate).destroy?
+                = link_to t('.delete'), certificate_template_certificate_path(certificate.certificate_template, certificate), method: :delete, data: { confirm: t('.confirm_delete') }, class: 'btn btn-danger btn-sm'
       - else
         %tr
           %td.central-row{colspan: 4}

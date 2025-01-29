@@ -50,6 +50,13 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
+  before_validation :ensure_tokens_is_hash
+
+  def ensure_tokens_is_hash
+    self.tokens = {} if tokens.blank? # To avoid nil
+    self.tokens = JSON.parse(tokens) if tokens.is_a?(String)
+  end
+
   validates :gender, inclusion: { in: [true, false] }
   validates :middle_name, :name, :surname, :diploma_name, length: { maximum: 50 }
   validates :name, :surname, presence: true

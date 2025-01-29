@@ -25,6 +25,7 @@ recaptcha.rb
 /coverage
 /uploads
 /phantomjs
+/phantomjs-2.1.1-macosx
 
 bower_components/
 # React on Rails

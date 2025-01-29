@@ -39,6 +39,7 @@ services:
     environment:
       REDIS_URL: redis
       RAILS_ENV: development
+      DB_HOST: postgres
     entrypoint: /home/app/students_crm/bin/start_dev.sh
 
 volumes:

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'people/edit.html.erb' do
+describe 'people/edit.html.erb', type: :feature do
   subject { page }
 
   Given do

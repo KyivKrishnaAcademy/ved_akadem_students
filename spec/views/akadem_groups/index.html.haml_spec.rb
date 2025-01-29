@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'academic_groups/index' do
+describe 'academic_groups/index', type: :feature do
   Given(:models_count) { 20 }
   Given(:title) { I18n.t('academic_groups.index.title') }
   Given(:h1) { I18n.t('academic_groups.index.title') }

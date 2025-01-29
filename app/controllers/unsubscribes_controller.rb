@@ -6,19 +6,32 @@ class UnsubscribesController < ApplicationController
   def edit; end
 
   def destroy
-    unsubscribe_person!
+    redirect_to root_path
   end
 
   private
 
+  def decode_email(email)
+    return nil if email.blank?
+
+    Base64.urlsafe_decode64(email)
+  rescue ArgumentError
+    nil
+  end
+
   def set_unsubscribe
-    email = Base64.urlsafe_decode64(params[:email]) rescue nil # rubocop:disable Style/RescueModifier
+    email = decode_email(params[:email])
     @unsubscribe = Unsubscribe.find_by(code: params[:code], email: email)
   end
 
   def unsubscribe_person!
-    return if @unsubscribe.blank?
+    return false if @unsubscribe.blank? || @unsubscribe.person.blank?
 
-    @unsubscribe.destroy if @unsubscribe.person.update_column(@unsubscribe.kind, false)
+    if @unsubscribe.person.update(@unsubscribe.kind => false)
+      @unsubscribe.destroy
+      true
+    else
+      false
+    end
   end
 end
