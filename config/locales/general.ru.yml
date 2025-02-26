@@ -84,6 +84,13 @@ ru:
       person: 'Студент'
       serial_id: 'Серийный номер'
       title: 'Сертификаты "%{certificate_template_title}"'
+      actions: 'Действия'
+      delete: 'Удалить'
+      are_you_sure: 'Вы уверены, что хотите удалить этот сертификат?'
+    destroy:
+      success: 'Сертификат успешно удален.'
+      failure: 'Ошибка удаления сертификата.'
+      not_found: 'Сертификат не найден.'
   certificate_imports:
     new:
       submit: 'Импортировать'
@@ -389,6 +396,9 @@ ru:
       no_certificates_yet: 'Пока что нет сертификатов'
       serial_id: 'Серийный номер'
       template: 'Шаблон'
+      actions: 'Действия'
+      delete: 'Удалить'
+      confirm_delete: 'Вы уверены, что хотите удалить этот сертификат?'
     nested_certificate_template_entries:
       template_entries_title: Элементы шаблона
     person_brief:
