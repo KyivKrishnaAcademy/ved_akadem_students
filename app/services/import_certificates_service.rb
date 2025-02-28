@@ -91,7 +91,6 @@ class ImportCertificatesService
   end
 
   private_class_method def self.load_group(data)
-    # Group is optional
     group_id = data[:group_id]
 
     data[:group] = AcademicGroup.where(id: group_id).or(AcademicGroup.where(title: group_id)).first
@@ -118,8 +117,8 @@ class ImportCertificatesService
 
     data[:final_score] = nil
 
-    if data[:template]&.program_type == 'bhakti_sastri'
-      data[:final_score_error] = 'Final Score is required for Bhakti Sastri certificates'
+    if data[:template]&.is_final_score_required
+      data[:final_score_error] = 'Final Score is required for this certificate template'
     end
 
     data
