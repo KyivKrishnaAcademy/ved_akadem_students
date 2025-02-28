@@ -16,6 +16,8 @@ uk:
         file: 'PDF шаблон'
         institution: 'Учбовий заклад що видає'
         program_type: 'Тип програми'
+        is_final_score_required: 'Середній бал обовʼязковий'
+
         title: 'Назва'
       certificate_template_entries:
         align: 'Вирівнювання елементу шаблону'

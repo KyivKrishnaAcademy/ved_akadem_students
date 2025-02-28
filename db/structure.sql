@@ -312,7 +312,8 @@ CREATE TABLE public.certificate_templates (
     file character varying,
     institution_id integer,
     program_type integer DEFAULT 0,
-    certificates_count integer DEFAULT 0
+    certificates_count integer DEFAULT 0,
+    is_final_score_required boolean
 );
 
 
@@ -2147,6 +2148,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231225134459'),
 ('20231225144737'),
 ('20231231091716'),
-('20241126112155');
+('20241126112155'),
+('20250228124304');
 
 
