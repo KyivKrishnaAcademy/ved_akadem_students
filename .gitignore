@@ -26,6 +26,7 @@ recaptcha.rb
 /uploads
 /phantomjs
 
+
 bower_components/
 # React on Rails
 npm-debug.log
@@ -37,3 +38,5 @@ node_modules
 client/app/bundles/HelloWorld
 
 .env
+
+/config/master.key

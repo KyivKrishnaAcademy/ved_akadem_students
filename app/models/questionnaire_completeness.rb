@@ -1,5 +1,5 @@
 class QuestionnaireCompleteness < ApplicationRecord
-  serialize :result, Hash
+  serialize :result, coder: Hash
 
   belongs_to :person
   belongs_to :questionnaire

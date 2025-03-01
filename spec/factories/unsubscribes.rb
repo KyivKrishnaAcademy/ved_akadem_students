@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :unsubscribe do
-    email "MyString"
-    code "MyString"
-    person nil
+    email {"MyString"}
+    code {"MyString"}
+    person {nil}
   end
 end

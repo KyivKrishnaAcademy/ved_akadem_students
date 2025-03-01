@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :person do
     gender                      { true }
     middle_name                 { "Y#{generate(:char_sequence)}" }
@@ -16,7 +16,7 @@ FactoryGirl.define do
     email           { 'admin@example.com' }
     middle_name     { 'Adminovich' }
     name            { 'Admin' }
-    roles           { [FactoryGirl.create(:role, :super_admin)] }
+    roles           { [FactoryBot.create(:role, :super_admin)] }
     surname         { 'Adminov' }
     telephones      { [build(:telephone, phone: '+380 50 111 2233')] }
   end
@@ -26,10 +26,10 @@ FactoryGirl.define do
   end
 
   trait :student do
-    student_profile { FactoryGirl.create(:student_profile) }
+    student_profile { FactoryBot.create(:student_profile) }
   end
 
   trait :teacher do
-    teacher_profile { FactoryGirl.create(:teacher_profile) }
+    teacher_profile { FactoryBot.create(:teacher_profile) }
   end
 end

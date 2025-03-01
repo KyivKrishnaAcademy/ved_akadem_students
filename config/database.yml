@@ -1,5 +1,5 @@
 common: &common
-  host: postgres
+  host: <%= ENV.fetch("DB_HOST", "localhost") %>
   pool: 20
   adapter: postgresql
   database: va_db

@@ -11,13 +11,14 @@ class Person < ApplicationRecord
     end
   end
 
-  serialize :locale, SymbolWrapper
+  serialize :locale, coder: SymbolWrapper
 
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width, :crop_x, :crop_y, :crop_w,
                 :crop_h, :privacy_agreement
 
-  devise :database_authenticatable, :registerable, :recoverable
-  include DeviseTokenAuth::Concerns::User
+  devise :database_authenticatable, :registerable, :recoverable,
+  :validatable, :jwt_authenticatable, jwt_revocation_strategy: JwtDenyList
+
 
   has_one :student_profile, dependent: :destroy
   has_one :teacher_profile, dependent: :destroy

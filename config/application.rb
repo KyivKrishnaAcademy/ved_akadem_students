@@ -22,17 +22,26 @@ module VedicAcademyStudents
     config.i18n.enforce_available_locales = true
 
     config.generators do |g|
-      g.test_framework(
-        :rspec, fixtures: true, view_specs: true, helper_specs: true, controller_specs: true, routing_specs: false
-      )
-      g.factory_girl(true)
+      g.test_framework :rspec,
+                       fixtures: true,
+                       view_specs: false,
+                       helper_specs: false,
+                       controller_specs: true,
+                       routing_specs: false
+      g.factory_bot false
     end
-
+    
     config.autoload_paths += %w[helpers interactions].map { |type| Rails.root.join('app', type, 'concerns') }
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
     config.responders.flash_keys = %i[success alert]
 
-    ActiveSupport.halt_callback_chains_on_return_false = false
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: [:get, :post, :patch, :put, :delete, :options]
+      end
+    end
+
   end
 end

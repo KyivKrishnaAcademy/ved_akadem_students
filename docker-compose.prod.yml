@@ -48,6 +48,7 @@ services:
       RAILS_ENV: production
       REDIS_URL: redis
       RAILS_LOG_TO_STDOUT: 1
+      DB_HOST: postgres
 
   sidekiq:
     image: mpugach/akadem_students_prod:latest

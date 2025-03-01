@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception, unless: :api?
 
   before_action :set_paper_trail_whodunnit, :set_raven_context
-  before_action :set_locale, :authenticate_person!, unless: :devise_token_auth?
+  before_action :set_locale
+  before_action :authenticate_person!, if: :api?
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -33,11 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   def api?
-    devise_token_auth? || self.class < Api::V1::BaseController
-  end
-
-  def devise_token_auth?
-    self.class < DeviseTokenAuth::ApplicationController
+    self.class < Api::V1::BaseController
   end
 
   def set_raven_context

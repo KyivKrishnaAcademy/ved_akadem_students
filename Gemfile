@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.7'
+gem 'rails', '~> 7.1'
 
 gem 'redis-session-store'
 
@@ -11,7 +11,8 @@ gem 'responders'
 gem 'kaminari'
 
 gem 'devise'
-gem 'devise_token_auth', git: 'https://github.com/mpugach/devise_token_auth.git', branch: 'use_standart_AR_uniqueness_message'
+gem 'jwt'
+
 gem 'global_phone'
 gem 'pundit'
 gem 'recaptcha', require: 'recaptcha/rails'
@@ -22,7 +23,7 @@ gem 'simple_form'
 gem 'carrierwave', '0.10.0'
 gem 'mini_magick'
 
-gem 'axlsx'
+gem 'caxlsx'
 gem 'prawn-rails'
 gem 'prawn-templates'
 gem 'mustache'
@@ -68,7 +69,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'pry'
   gem 'pry-nav'
@@ -93,3 +94,5 @@ group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
 end
+
+gem "devise-jwt"

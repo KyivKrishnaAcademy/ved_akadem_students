@@ -1,7 +1,7 @@
 module Api
   module V1
     class BaseController < ApplicationController
-      include DeviseTokenAuth::Concerns::SetUserByToken
+      before_action :authenticate_person!
 
       protect_from_forgery with: :null_session
 
@@ -9,7 +9,9 @@ module Api
 
       skip_before_action :set_locale
 
-      alias current_person current_api_v1_person
+      def current_person
+        current_user
+      end
     end
   end
 end

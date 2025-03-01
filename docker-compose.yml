@@ -1,6 +1,7 @@
 services:
   postgres:
     image: mpugach/postgres_ua:9.5
+    platform: linux/amd64
     ports:
       - 5432:5432
     volumes:
@@ -12,6 +13,7 @@ services:
 
   redis:
     image: redis:3.2.12-alpine
+    platform: linux/amd64
     volumes:
       - redis-data:/data
     ports:
@@ -19,6 +21,7 @@ services:
     command: redis-server --appendonly yes
 
   app:
+    platform: linux/amd64
     build:
       context: "."
       dockerfile: docker/akadem_students/Dockerfile
@@ -39,6 +42,7 @@ services:
     environment:
       REDIS_URL: redis
       RAILS_ENV: development
+      DB_HOST: postgres
     entrypoint: /home/app/students_crm/bin/start_dev.sh
 
 volumes:
