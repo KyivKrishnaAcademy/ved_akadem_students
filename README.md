@@ -12,12 +12,12 @@ Developed specially for [Kyiv Spiritual Academy of Krishna Consciousness in Ukra
 * Wait for images are downloaded, containers are created and launched, all software is installed inside the containers and all services are started
 * Type `http://localhost:3000` in your browser (default credentials are ```admin@example.com/password```)
 * Ude VSCode to [develop inside the container](https://code.visualstudio.com/docs/remote/containers)
-    * attach to `students_crm_v1-app-1` container
-    * open `/home/app/students_crm` folder
+  * attach to `ved_akadem_students-app-1` container
+  * open `/home/app/students_crm` folder
 
 ## Restore production backup locally
 
-* Run `docker volume rm students_crm_v1_postgres-data`
+* Run `docker volume rm ved_akadem_students_postgres-data`
 * Run `docker compose up postgres -d`
 * Run `docker compose cp [PATH TO BACKUP] postgres:/backup`
 * Run `docker compose exec postgres pg_restore -d va_db -O -j 20 -c /backup/db -U postgres`
@@ -37,13 +37,12 @@ You should have 2 remote repositories: **origin** (your fork) and **upstream** (
 6. Check issue tracker for assigned tickets
 7. ```git checkout -b my_important_feature_or_bugfix```
 8. Work on your feature
-9. Setup PhantomJS ```source bin/setup_phantomjs.sh```
-10. Run tests ```npm run test```
-11. ```git add .```
-12. ```git commit -m '[issue_number_here] My commit detailed message'```
-13. ```git push origin my-important-feature```
-14. Send Pull Request at GitHub
-15. Goto 4
+9. Run tests ```docker compose exec app npm run test```
+10. ```git add .```
+11. ```git commit -m '[issue_number_here] My commit detailed message'```
+12. ```git push origin my-important-feature```
+13. Send Pull Request at GitHub
+14. Goto 4
 
 ## Deploy
 
