@@ -7,12 +7,18 @@
     = f.association :institution, include_blank: false
     = f.input :program_type, collection: CertificateTemplate.program_types.keys, include_blank: false
 
-    - if f.object.file.present?
-      .embed-responsive.embed-responsive-4by3
-        %iframe.embed-responsive-item{src: certificate_template_preview_pdf_path(f.object)}
-          = t(".file_present")
-    - else
-      = t(".file_not_present")
+    .form-group
+      .check_box
+        = f.label :is_final_score_required
+        = f.check_box :is_final_score_required, as: :boolean
+
+    .text-center.mt-3
+      - if f.object.file.present?
+        .embed-responsive.embed-responsive-4by3
+          %iframe.embed-responsive-item{src: certificate_template_preview_pdf_path(f.object)}
+            = t(".file_present")
+      - else
+        = t(".file_not_present")
 
     = render 'nested_certificate_template_entries', f: f
     = render 'nested_certificate_template_images', f: f
