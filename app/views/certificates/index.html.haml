@@ -17,6 +17,7 @@
             %th.text-top=t('.academic_group')
             %th.text-top=t('.issued_date')
             %th.text-top.text-center=t('.final_score')
+            %th.text-top.text-center=t('.actions')
 
         %tbody
           - @certificates.each do |certificate|
@@ -33,6 +34,9 @@
                 = l certificate.issued_date, format: :date
               %td.text-center
                 = certificate.final_score
+              %td.text-center
+                - if policy(certificate).destroy?
+                  = link_to t('.delete'), certificate_template_certificate_path(@certificate_template, certificate), method: :delete, data: { confirm: t('.are_you_sure') }, class: 'btn btn-danger btn-sm'
 
   .col-xs-12.text-center
     = paginate @certificates
