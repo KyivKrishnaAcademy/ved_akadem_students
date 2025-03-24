@@ -106,6 +106,7 @@ GEM
     connection_pool (2.2.0)
     crass (1.0.6)
     database_cleaner (1.5.3)
+    date (2.0.3)
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -250,6 +251,7 @@ GEM
       pry (>= 0.9.10, < 0.11.0)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    psych (3.3.4)
     public_suffix (4.0.7)
     puma (5.6.8)
       nio4r (~> 2.0)
@@ -461,12 +463,14 @@ DEPENDENCIES
   codeclimate-test-reporter
   coffee-rails
   database_cleaner
+  date (< 3.0)
   devise
   devise_token_auth!
   factory_girl_rails
   fast_blank
   ffaker
   font-awesome-sass
+  foreman (< 0.87)
   fuubar
   global_phone
   haml
@@ -488,6 +492,7 @@ DEPENDENCIES
   pry
   pry-nav
   pry-rails
+  psych (< 4.0)
   puma
   pundit
   rack_session_access
