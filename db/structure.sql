@@ -313,7 +313,7 @@ CREATE TABLE public.certificate_templates (
     institution_id integer,
     program_type integer DEFAULT 0,
     certificates_count integer DEFAULT 0,
-    is_final_score_required boolean
+    is_final_score_required boolean DEFAULT false
 );
 
 
