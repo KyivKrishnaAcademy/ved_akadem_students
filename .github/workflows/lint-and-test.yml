@@ -4,7 +4,7 @@ on: [pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     services:
       redis:
         image: redis:3.2.12-alpine
@@ -18,14 +18,24 @@ jobs:
           POSTGRES_DB: va_db_tst
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+    env:
+      PHANTOMJS_VERSION: 2.1.1
+      PHANTOMJS_DIR: ${{ github.workspace }}/phantomjs
     steps:
       - name: Get repo
         uses: actions/checkout@v2
 
       - name: Set up Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '10.17.0'
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: |
+            3.13.3
+            pypy2.7
 
       - name: Cache Node packages
         uses: actions/cache@v4
@@ -49,6 +59,9 @@ jobs:
         working-directory: client
         run: npm run jscs
 
+      - name: Install imagemagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick libmagickwand-dev
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -64,14 +77,25 @@ jobs:
       # - name: Run haml-lint
       #   run: bundle exec haml-lint app/views
 
+      - name: Install PhantomJS
+        env:
+          OPENSSL_CONF: none
+          PHANTOM_JS_ARCHIVE_NAME: phantomjs-${{ env.PHANTOMJS_VERSION }}-linux-x86_64.tar.bz2
+        run: |
+          mkdir -p ${{ env.PHANTOMJS_DIR }}
+          wget https://github.com/Medium/phantomjs/releases/download/v${{ env.PHANTOMJS_VERSION }}/${{ env.PHANTOM_JS_ARCHIVE_NAME }} -O ${{ env.PHANTOMJS_DIR }}/${{ env.PHANTOM_JS_ARCHIVE_NAME }}
+          tar -xvf ${{ env.PHANTOMJS_DIR }}/${{ env.PHANTOM_JS_ARCHIVE_NAME }} -C ${{ env.PHANTOMJS_DIR }}
+
       - name: Run rspec
         env:
           RAILS_ENV: test
+          PHANTOMJS_BIN: ${{ env.PHANTOMJS_DIR }}/phantomjs-${{ env.PHANTOMJS_VERSION }}-linux-x86_64/bin
         run: |
+          export PATH="${{ env.PHANTOMJS_BIN }}:${PATH}"
           cp config/database.yml.github config/database.yml
           bundle exec rake db:structure:load
           cd client
           npm run build:client
           npm run build:server
           cd ..
-          bundle exec rspec
+          OPENSSL_CONF=none bundle exec rspec
