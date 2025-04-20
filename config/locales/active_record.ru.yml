@@ -17,6 +17,7 @@ ru:
         institution: 'Учебное заведение которое выдает'
         program_type: 'Тип программы'
         title: 'Название'
+        is_final_score_required: 'Средний балл обязателен'
       certificate_template_entries:
         align: 'Выравнивание элемента шаблона'
         certificate_template_font: 'Шрифт элемента шаблона'
