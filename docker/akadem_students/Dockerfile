@@ -3,17 +3,14 @@ FROM ruby:2.4.9-slim-buster AS base
 LABEL maintainer="Maksym Pugach <pugach.m@gmail.com>"
 
 ENV APP_USER=app
-ENV BUNDLER_VERSION=1.17.3
 ENV APP_HOME=/home/${APP_USER}
 ENV PROJECT_HOME=${APP_HOME}/students_crm
 
 RUN echo "install: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
 RUN echo "update: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
-RUN gem update --system 3.2.3
-RUN apt-get update && apt-get install -y libyaml-dev
-RUN gem uninstall bundler -a -x || true \
- && gem install bundler -v 1.17.3
-RUN bundle _1.17.3_ config git.allow_insecure true
+RUN gem update --system 3.3.26
+RUN gem install bundler:1.17.3
+RUN bundle config git.allow_insecure true
 RUN mkdir -p $PROJECT_HOME
 
 RUN apt-get update \
@@ -96,13 +93,13 @@ RUN apt-get install -y \
     git \
     libmagickwand-dev
 RUN git clone -b ${GIT_BRANCH} ${GIT_REPO} .
-RUN bundle _1.17.3_ install -j5 --retry 10 --frozen --no-cache --without development test
+RUN bundle install -j5 --retry 10 --frozen --no-cache --without development test
 RUN npm install
 RUN cd client && npm install && cd ..
 
 COPY .env .env
 
-RUN export $(cat .env | grep -v "# NOTE:" | xargs) && bundle _1.17.3_ exec rake assets:precompile
+RUN export $(cat .env | grep -v "# NOTE:" | xargs) && bundle exec rake assets:precompile
 
 RUN rm -rf .git app/assets/javascript* app/assets/stylesheets node_modules client .env
 
@@ -118,7 +115,7 @@ RUN apt-get update \
  && apt-get install -y \
     build-essential \
     git \
- && bundle _1.17.3_ install -j5 --retry 10 --frozen --no-cache --without assets_builder development test \
+ && bundle install -j5 --retry 10 --frozen --no-cache --without assets_builder development test \
  && apt-get remove --purge -y \
     build-essential \
     git \

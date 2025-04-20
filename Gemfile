@@ -43,10 +43,6 @@ gem 'sentry-raven'
 
 gem 'uglifier'
 
-gem 'date', '< 3.0'
-gem 'psych', '< 4.0'
-gem 'foreman', '< 0.87' 
-
 group :assets_builder, :development, :test do
   gem 'autoprefixer-rails'
   gem 'bootstrap-sass'

@@ -21,7 +21,6 @@ services:
     command: redis-server --appendonly yes
 
   app:
-    platform: linux/amd64
     build:
       context: "."
       dockerfile: docker/akadem_students/Dockerfile
