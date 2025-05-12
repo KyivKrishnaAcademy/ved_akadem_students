@@ -1,5 +1,6 @@
 class CertificateTemplate < ApplicationRecord
   validates :title, presence: true
+  attribute :is_final_score_required, :boolean, default: false
 
   has_many :certificate_template_entries, dependent: :destroy
   has_many :certificate_template_images, dependent: :destroy

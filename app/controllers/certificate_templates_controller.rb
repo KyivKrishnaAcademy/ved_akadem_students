@@ -70,6 +70,7 @@ class CertificateTemplatesController < HtmlRespondableController
         :file,
         :institution_id,
         :program_type,
+        :is_final_score_required,
         certificate_template_entries_attributes: %i[
           id
           align
