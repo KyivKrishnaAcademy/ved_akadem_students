@@ -36,7 +36,7 @@
                 = certificate.final_score
               %td.text-center
                 - if policy(certificate).destroy?
-                  = link_to t('.delete'), certificate_template_certificate_path(@certificate_template, certificate), method: :delete, data: { confirm: t('.are_you_sure') }, class: 'btn btn-danger btn-sm'
+                  = link_to_destroy policy(certificate).destroy?, certificate_template_certificate_path(@certificate_template, certificate)
 
   .col-xs-12.text-center
     = paginate @certificates
