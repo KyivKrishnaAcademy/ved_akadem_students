@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Ui::GroupPraepostorsLoadingInteraction do
   describe '#as_json' do

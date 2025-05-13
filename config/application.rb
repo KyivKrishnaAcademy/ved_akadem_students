@@ -1,5 +1,4 @@
 require_relative 'boot'
-
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -8,6 +7,8 @@ Bundler.require(*Rails.groups)
 
 module VedicAcademyStudents
   class Application < Rails::Application
+    config.autoload_paths = config.autoload_paths.dup
+    config.eager_load_paths = config.eager_load_paths.dup
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -29,10 +30,30 @@ module VedicAcademyStudents
     end
 
     config.autoload_paths += %w[helpers interactions].map { |type| Rails.root.join('app', type, 'concerns') }
+    config.eager_load_paths += [Rails.root.join('app/serializers')]
+    config.assets.paths << Rails.root.join('node_modules')
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
     config.responders.flash_keys = %i[success alert]
 
-    ActiveSupport.halt_callback_chains_on_return_false = false
+    # ActiveSupport.halt_callback_chains_on_return_false = false
+
+    require 'yaml'
+
+    Sidekiq.configure_server do |config|
+      config.on(:startup) do
+        sidekiq_config_path = File.expand_path('../config/sidekiq.yml', __dir__)
+        sidekiq_config = YAML.safe_load(File.read(sidekiq_config_path), aliases: true, permitted_classes: [Symbol])
+
+        schedule = sidekiq_config.dig('scheduler', 'schedule') || sidekiq_config.dig(:scheduler, :schedule)
+
+        if schedule
+          Sidekiq.schedule = schedule
+          Sidekiq::Scheduler.reload_schedule!
+        else
+          Rails.logger.error 'Sidekiq Scheduler: schedule не найден в sidekiq.yml'
+        end
+      end
+    end
   end
 end

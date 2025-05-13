@@ -41,12 +41,13 @@ module Webhooks
       digest = OpenSSL::Digest.new('SHA256')
       data = "#{signature['timestamp']}#{signature['token']}"
 
-      signature['signature'] == OpenSSL::HMAC.hexdigest(digest, Rails.application.secrets.mailgun_signing_key, data)
+      signature['signature'] == OpenSSL::HMAC.hexdigest(digest, EVN["MAILGUN_SIGNING_KEY"], data)
     end
 
     def set_known_statuses
       return self.status = 401 unless signature_valid?
-      return self.status = 406 unless event == params[:action]
+
+      self.status = 406 unless event == params[:action]
     end
   end
 end

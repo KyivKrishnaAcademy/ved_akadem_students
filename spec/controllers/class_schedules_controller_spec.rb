@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe ClassSchedulesController do
   Given(:params) { { class_schedule: build_stubbed(:class_schedule).attributes.merge(additional_attributes) } }

@@ -1,44 +1,38 @@
 module Api
   class PeopleLoadingInteraction < BaseInteraction
-    def init
-      @people_ids = params[:people_ids].map(&:to_i) if params[:people_ids].present?
-      @people = if params[:people_ids].present?
-        queried_payload.select { |p| @people_ids.include?(p[:id]) }
-      else
-        base_payload
-      end
+    PersonStruct = Struct.new(
+      :id, :name, :middle_name, :surname, :email, :birthday, :groups, :telephones,
+      keyword_init: true
+    )
 
-      @people.map! { |p| OpenStruct.new(p) }
+    def initialize(params)
+      super
+      @people_ids = params[:people_ids]&.map(&:to_i)
+      @people = filter_people
     end
 
     def as_json(_opts = {})
       {
         people: @people.map { |p| Api::PersonSerializer.as_json(p) },
-        deleted: (@people_ids || []) - @people.map(&:id) # TODO: ids
+        deleted: (@people_ids || []) - @people.map(&:id)
       }
     end
 
     private
 
+    def filter_people
+      people_data = params[:people_ids].present? ? queried_payload : base_payload
+      people_data.select! { |p| @people_ids.include?(p[:id]) } if @people_ids
+      people_data.map { |p| PersonStruct.new(p) }
+    end
+
     def base_payload
-      [
-        person1,
-        person2,
-        person3
-      ]
+      [person1, person2, person3]
     end
 
     def person1
-      {
-        id: 1,
-        name: 'Андрій',
-        middle_name: nil,
-        surname: 'Пума',
-        email: nil,
-        birthday: Date.parse('1975/10/11'),
-        groups: %w[Викладачі Адміністратори],
-        telephones: ['+380 50 111 22 33']
-      }
+      { id: 1, name: 'Андрій', middle_name: nil, surname: 'Пума', email: nil, birthday: Date.parse('1975/10/11'),
+        groups: %w[Викладачі Адміністратори], telephones: ['+380 50 111 22 33'] }
     end
 
     def person2
@@ -49,22 +43,21 @@ module Api
         surname: 'Васин',
         email: 'test1@example.com',
         birthday: Date.parse('1985/10/11'),
-        groups: %w[Студенти ШБ15-1 УЧ15-2],
-        telephones: ['+380 50 111 22 34', '+380501112235']
+        groups: %w[
+          Студенти
+          ШБ15-1
+          УЧ15-2
+        ],
+        telephones: [
+          '+380 50 111 22 34',
+          '+380501112235'
+        ]
       }
     end
 
     def person3
-      {
-        id: 3,
-        name: 'Михайло',
-        middle_name: 'Михайлович',
-        surname: 'Михайлов',
-        email: 'test2@example.com',
-        birthday: Date.parse('1965/10/11'),
-        groups: %w[Студенти ШБ15-1 Старости],
-        telephones: ['+380 50 111 22 36']
-      }
+      { id: 3, name: 'Михайло', middle_name: 'Михайлович', surname: 'Михайлов', email: 'test2@example.com',
+        birthday: Date.parse('1965/10/11'), groups: %w[Студенти ШБ15-1 Старости], telephones: ['+380 50 111 22 36'] }
     end
 
     def queried_payload
@@ -86,8 +79,7 @@ module Api
           surname: 'Васютин',
           email: 'test12@example.com',
           birthday: Date.parse('1985/10/12'),
-          groups: %W[\u0421\u0442\u0443\u0434\u0435\u043D\u0442\u0438 \u0428\u041115-1
-                     \u0421\u0442\u0430\u0440\u043E\u0441\u0442\u0438],
+          groups: %w[Студенти ШБ15-1 Старости],
           telephones: ['+380 50 111 22 34', '+380 50 111 22 38']
         }
       ]

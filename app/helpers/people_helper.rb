@@ -19,7 +19,7 @@ module PeopleHelper
     questions_by_questionnaire_id = indexed_questions_by_questionnaire_id(questions)
     answers_by_question_id = indexed_answers_by_question_id(questions, person)
 
-    questionnaires.map do |questionnaire|
+    questionnaires.to_h do |questionnaire|
       questionnaire_hash = {
         uk: { title: questionnaire.title_uk, description: questionnaire.description_uk },
         ru: { title: questionnaire.title_ru, description: questionnaire.description_ru }
@@ -34,7 +34,7 @@ module PeopleHelper
       end
 
       [questionnaire_hash, questions_hashes]
-    end.to_h
+    end
   end
 
   private

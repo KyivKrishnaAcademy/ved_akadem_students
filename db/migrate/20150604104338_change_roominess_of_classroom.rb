@@ -1,4 +1,4 @@
-class ChangeRoominessOfClassroom < ActiveRecord::Migration
+class ChangeRoominessOfClassroom < ActiveRecord::Migration[5.0]
   def up
     change_column :classrooms, :roominess, :integer, default: 0
   end

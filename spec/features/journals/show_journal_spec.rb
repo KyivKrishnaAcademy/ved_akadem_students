@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Show journal:' do
   Given(:user) { create(:person, :admin) }

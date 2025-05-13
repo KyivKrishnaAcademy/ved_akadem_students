@@ -69,7 +69,7 @@ module LinkTos
     link_params.deep_merge!(params)
 
     link_to path, link_params do
-      tag :span, class: "glyphicon glyphicon-#{icon}", aria: { hidden: true }
+      tag.span(class: "glyphicon glyphicon-#{icon}", aria: { hidden: true })
     end
   end
 end

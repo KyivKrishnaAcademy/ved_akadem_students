@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe AcademicGroupsHelper do
   Given(:group) { create :academic_group }

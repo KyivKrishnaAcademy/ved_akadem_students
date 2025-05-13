@@ -3,7 +3,7 @@ class Certificate < ApplicationRecord
   belongs_to :certificate_template, counter_cache: true
   belongs_to :student_profile
 
-  validates :serial_id, :issued_date, :certificate_template, :student_profile, presence: true
+  validates :serial_id, :issued_date, presence: true
 
   has_paper_trail
 end

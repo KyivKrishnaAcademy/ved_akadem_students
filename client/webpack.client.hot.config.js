@@ -15,7 +15,7 @@ config.entry.vendor.push(
 
   // See: https://github.com/shakacode/bootstrap-sass-loader
   // We're using the bootstrap-sass loader.
-  'bootstrap-sass!./bootstrap-sass.config.js'
+  // 'bootstrap-sass!./bootstrap-sass.config.js'
 
 );
 

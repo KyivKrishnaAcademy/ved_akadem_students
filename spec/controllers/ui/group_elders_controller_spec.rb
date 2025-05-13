@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Ui::GroupEldersController do
   PERMITTED_ACTIVITIES = %w(academic_group:edit academic_group:new).freeze

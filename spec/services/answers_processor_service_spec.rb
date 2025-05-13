@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe AnswersProcessorService do
   Given(:person) { create :person }
   Given(:questionnaire) { create :questionnaire, :psycho_test }
@@ -10,11 +8,9 @@ describe AnswersProcessorService do
     Given!(:completeness) { QuestionnaireCompleteness.create(person: person, questionnaire: questionnaire) }
 
     Given do
-      questionnaire
-        .questions
-        .each do |question|
-          Answer.create(person: person, question: question, data: '1')
-        end
+      questionnaire.questions.each do |question|
+        Answer.create(person: person, question: question, data: 1)
+      end
     end
 
     When  { subject.process! }
@@ -23,12 +19,12 @@ describe AnswersProcessorService do
     Then  { expect(completeness.completed?).to be(true) }
 
     And do
-      expect(
-        completeness
-          .result
-          .values
-          .map { |key| [key[:max], key[:color], key[:current], key[:percentage]] }
-      ).to eq(
+      actual = (1..10).map do |k|
+        r = completeness.result[k.to_s] || completeness.result[k] || {}
+        [r['max'], r['color'], r['current'], r['percentage']]
+      end
+
+      expect(actual).to eq(
         [
           [22, 'info',    11, 50],
           [8,  'danger',  8,  100],

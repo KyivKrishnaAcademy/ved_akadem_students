@@ -1,4 +1,5 @@
 class GroupParticipationsController < ApplicationController
+  before_action :authenticate_person!
   before_action :set_resource, only: [:destroy]
 
   after_action :verify_authorized

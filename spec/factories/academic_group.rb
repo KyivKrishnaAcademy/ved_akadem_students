@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :academic_group do
     sequence(:title, 1) do |n|
       nn = n % 1000

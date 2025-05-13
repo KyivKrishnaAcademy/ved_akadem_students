@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Update program:', :js do
   Given!(:program) { create(:program) }
@@ -20,7 +20,7 @@ describe 'Update program:', :js do
     describe 'direct navigation' do
       When { visit edit_path }
 
-      Then { expect(find('.alert-dismissible')).to have_content(I18n.t('not_authorized')) }
+      Then { expect(page).to have_selector('.alert-dismissible', text: I18n.t('not_authorized')) }
       And  { expect(current_path).not_to eq(edit_path) }
     end
   end

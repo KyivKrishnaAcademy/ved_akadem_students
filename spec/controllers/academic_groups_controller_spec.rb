@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe AcademicGroupsController do
   Given(:mod_params) do
@@ -39,7 +39,7 @@ describe AcademicGroupsController do
     context 'not signed in' do
       When { action }
 
-      Then { expect(response).to redirect_to(new_person_session_path) }
+      Then { expect(response).to redirect_to(root_path) }
       And  { is_expected.to set_flash[:alert].to(I18n.t('devise.failure.unauthenticated')) }
     end
   end

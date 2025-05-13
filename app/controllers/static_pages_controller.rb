@@ -32,4 +32,7 @@ class StaticPagesController < ApplicationController
   end
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/PerceivedComplexity
+
+  def changelog
+  end
 end

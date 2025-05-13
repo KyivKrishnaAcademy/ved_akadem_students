@@ -25,12 +25,12 @@ class AnswersProcessorService
 
     result = compute_psycho_result(@questionnaire, answers) if @questionnaire.kind == 'psycho_test'
 
-    questionnaire_completeness.update_column(:result, result)
+    questionnaire_completeness.update_column(:result, result.deep_stringify_keys)
   end
 
   def compute_psycho_result(questionnaire, answers)
     result = psycho_base_result(questionnaire, answers)
-
+    
     ai_max        = average_result(result, (1..3), :max)
     ai_current    = average_result(result, (1..3), :current)
     result[9]     = index_result(questionnaire, :ai, ai_max, ai_current)
@@ -47,12 +47,14 @@ class AnswersProcessorService
 
     result = {}
 
-    questionnaire.rule[:keys].each do |key, value|
-      max         = answers_by_keys[key] * value[:multiplier]
-      current     = answers_to_consider[key] * value[:multiplier]
-      percentage  = current * 100 / max
+    (questionnaire.rule[:keys] || questionnaire.rule['keys']).to_h.each do |key, value|
+      key_str     = key.to_s
+      multiplier  = (value[:multiplier] || value['multiplier'] || 1).to_i
+      max         = (answers_by_keys[key_str.to_i] || 0) * multiplier
+      current     = (answers_to_consider[key_str.to_i] || 0) * multiplier
+      percentage  = max.zero? ? 0 : current * 100 / max
 
-      result[key] = { ru: value[:ru], uk: value[:uk], max: max, color: progressbar_color_class(percentage),
+      result[key.to_i] = { ru: value[:ru], uk: value[:uk], max: max, color: progressbar_color_class(percentage),
                       current: current, percentage: percentage }
     end
 
@@ -72,18 +74,22 @@ class AnswersProcessorService
   end
 
   def average_result(result, indexes, param)
-    indexes.inject(0) { |a, e| a + result[e][param] } / indexes.size
+    indexes.inject(0) { |a, e| a + (result[e] ? result[e][param] : 0) } / indexes.size
   end
 
   def index_result(questionnaire, index_type, max, current)
-    percentage = current * 100 / max
+    percentage = max.zero? ? 0 : current * 100 / max
 
-    { ru: questionnaire.rule[:indexes][index_type][:ru],
-      uk: questionnaire.rule[:indexes][index_type][:uk],
+    indexes = questionnaire.rule[:indexes] || questionnaire.rule['indexes'] || {}
+    index_data = indexes[index_type] || indexes[index_type.to_s] || {}
+    {
+      ru: index_data[:ru] || index_data['ru'],
+      uk: index_data[:uk] || index_data['uk'],
       max: max,
       color: progressbar_color_class(percentage),
       current: current,
-      percentage: percentage }
+      percentage: percentage
+    }
   end
 
   def progressbar_color_class(percentage)

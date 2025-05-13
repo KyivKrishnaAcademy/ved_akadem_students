@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Delete person:', :js do
   Given { login_as_admin }

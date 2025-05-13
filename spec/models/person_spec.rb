@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Person do
   describe 'association' do
@@ -197,7 +197,7 @@ describe Person do
 
           Given { person.questionnaire_completenesses.create(questionnaire_id: psycho_test.id, result: { a: :b }) }
 
-          Then  { expect(person.psycho_test_result).to eq(a: :b) }
+          Then  { expect(person.psycho_test_result).to eq("a"=>"b") }
         end
       end
     end

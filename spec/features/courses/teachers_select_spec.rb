@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Teacher multi select for courses:', :js do
   Given(:person_1) { create :person }

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe CertificateTemplatesController do
   describe 'not signed in' do

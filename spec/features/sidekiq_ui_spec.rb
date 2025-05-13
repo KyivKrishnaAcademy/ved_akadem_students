@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Sidekiq UI' do
   Given(:ui_path) { '/sidekiq' }

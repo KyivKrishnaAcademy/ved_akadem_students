@@ -1,4 +1,4 @@
-redis_options = { url: REDIS_URL, namespace: Rails.env }
+redis_options = { url: REDIS_URL }
 
 Sidekiq.configure_server do |config|
   config.redis = redis_options

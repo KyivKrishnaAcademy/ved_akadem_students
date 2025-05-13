@@ -1,4 +1,4 @@
-class DeviseTokenAuthChangePeople < ActiveRecord::Migration
+class DeviseTokenAuthChangePeople < ActiveRecord::Migration[5.0]
   def up
     add_column :people, :provider, :string, null: false, default: 'email'
     add_column :people, :uid, :string, null: false, default: ''

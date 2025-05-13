@@ -36,7 +36,7 @@ class YearlyActiveStudentsStatisticsService
     finish = @academic_years.last[:finish]
 
     AcademicGroup
-      .where('establ_date <= ?', finish)
+      .where(establ_date: ..finish)
       .where('graduated_at IS NULL OR (graduated_at BETWEEN ? and ?)', start, finish)
       .order("date_part('year', establ_date), title")
   end
@@ -48,7 +48,7 @@ class YearlyActiveStudentsStatisticsService
     relation = relation.where(academic_group: group) if group
 
     relation
-      .where('join_date <= ?', finish)
+      .where(join_date: ..finish)
       .where('leave_date IS NULL OR (leave_date BETWEEN ? and ?)', start, finish)
       .count('DISTINCT student_profile_id')
   end

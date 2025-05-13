@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe :home do
   Given(:person) { create(:person) }
@@ -16,7 +16,7 @@ describe :home do
 
     And do
       expect(find('.person-brief'))
-        .to have_link(I18n.t('links.edit_profile'), href: edit_person_registration_path(person))
+        .to have_link(I18n.t('links.edit_profile'), href: edit_person_path(person))
     end
   end
 

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Signing' do
   describe 'Sign in' do
@@ -84,7 +84,7 @@ describe 'Signing' do
     context 'with photo' do
       Given { @person = create :person, :with_photo }
       When  { login_as(@person) }
-      When  { visit edit_person_registration_path(@person) }
+      When  { visit edit_person_path(@person) }
 
       Then  { expect(find('.form-inputs img')['src']).to have_content("/people/show_photo/standart/#{@person.id}") }
       And   { expect(find('.form-inputs')).to have_link(I18n.t('links.crop_photo'), href: crop_image_path(@person.id)) }
@@ -93,7 +93,7 @@ describe 'Signing' do
     context 'without photo' do
       Given { @person = create :person }
       When  { login_as(@person) }
-      When  { visit edit_person_registration_path(@person) }
+      When  { visit edit_person_path(@person) }
 
       describe 'photo should be placeholded' do
         Then  { expect(find('.form-inputs img')['src']).to have_content(@person.photo.thumb.path) }
@@ -124,7 +124,7 @@ describe 'Signing' do
         end
 
         describe 'should be updated' do
-          When { visit edit_person_registration_path(@person) }
+          When { visit edit_person_path(@person) }
 
           Then { expect(find('.form-inputs img')['src']).to have_content("/people/show_photo/standart/#{@person.id}") }
           And  { expect(find('#person_email')['value']).to have_content('test@example.com') }
@@ -153,7 +153,7 @@ describe 'Signing' do
         describe 'should allow new password' do
           When do
             logout(:person)
-            visit new_person_session_path
+            visit root_path
             fill_in 'person_email', with: @person.email
             fill_in 'person_password', with: 'another_password'
             click_button I18n.t('devise.links.sign_in')

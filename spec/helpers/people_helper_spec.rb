@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe PeopleHelper do
   describe 'not_adult_warning' do

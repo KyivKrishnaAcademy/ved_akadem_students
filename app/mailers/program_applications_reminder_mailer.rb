@@ -1,5 +1,5 @@
 class ProgramApplicationsReminderMailer < ApplicationMailer
-  add_template_helper(ApplicationHelper)
+  # add_template_helper(ApplicationHelper)
 
   def manager_remind(manager_id:)
     @manager = Person.find(manager_id)

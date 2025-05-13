@@ -1,4 +1,6 @@
 class StatisticsController < ApplicationController
+  before_action :authenticate_person!
+
   after_action :verify_authorized
   after_action :verify_policy_scoped, only: %i[index]
 
@@ -7,7 +9,7 @@ class StatisticsController < ApplicationController
 
     authorize @academic_group, :statistics?
 
-    schedules = @academic_group.class_schedules.where('start_time < ?', Time.zone.now).order(:start_time)
+    schedules = @academic_group.class_schedules.where(start_time: ...Time.zone.now).order(:start_time)
     schedule_dates = schedules.pluck(:start_time).map(&:to_date)
 
     @labels = schedule_dates.map { |d| d.strftime('%y.%m.%d') }
@@ -46,7 +48,7 @@ class StatisticsController < ApplicationController
 
     GroupParticipation
       .where(academic_group_id: academic_group_id)
-      .where('join_date < ?', end_of_day)
+      .where(join_date: ...end_of_day)
       .where('leave_date is NULL OR leave_date > ?', end_of_day)
       .count
   end

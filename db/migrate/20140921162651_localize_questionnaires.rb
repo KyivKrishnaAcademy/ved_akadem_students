@@ -1,4 +1,4 @@
-class LocalizeQuestionnaires < ActiveRecord::Migration
+class LocalizeQuestionnaires < ActiveRecord::Migration[5.0]
   def change
     rename_column :questionnaires, :title,       :title_uk
     rename_column :questionnaires, :description, :description_uk

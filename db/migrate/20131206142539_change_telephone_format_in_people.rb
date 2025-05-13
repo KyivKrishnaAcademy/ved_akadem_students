@@ -1,4 +1,4 @@
-class ChangeTelephoneFormatInPeople < ActiveRecord::Migration
+class ChangeTelephoneFormatInPeople < ActiveRecord::Migration[5.0]
   def self.up
    change_column :people, :telephone, :bigint
   end

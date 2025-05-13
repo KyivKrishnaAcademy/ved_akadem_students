@@ -1,7 +1,9 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe :changelog do
   subject { page }
+
+  before { I18n.locale = :uk }
 
   When { visit changelog_path }
 

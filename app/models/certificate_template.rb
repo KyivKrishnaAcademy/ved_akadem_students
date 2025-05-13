@@ -12,9 +12,9 @@ class CertificateTemplate < ApplicationRecord
   accepts_nested_attributes_for :certificate_template_entries, allow_destroy: true
   accepts_nested_attributes_for :certificate_template_images, allow_destroy: true
 
-  validates :institution, :program_type, presence: true
+  validates :program_type, presence: true
 
-  mount_uploader :file, PDFUploader
+  mount_uploader :file, PdfUploader
 
   has_paper_trail
 end

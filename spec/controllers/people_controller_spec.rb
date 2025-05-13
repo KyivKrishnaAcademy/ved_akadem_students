@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe PeopleController do
   Given(:params) { { person: { some_param: true } } }

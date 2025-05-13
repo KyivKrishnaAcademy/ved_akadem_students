@@ -20,6 +20,7 @@ class ProgramsController < HtmlRespondableController
   end
 
   def edit
+    authorize @program
     respond_with(@program)
   end
 
@@ -46,7 +47,7 @@ class ProgramsController < HtmlRespondableController
         fallback_location: programs_path,
         flash: {
           danger: t(
-            'programs.destroy.process_study_applications_first',
+            '.process_study_applications_first',
             study_applications_count: @program.study_applications_count
           )
         }

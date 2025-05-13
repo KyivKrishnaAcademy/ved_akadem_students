@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Ui::GroupClassSchedulesLoadingInteraction do
   Given(:user) { create :person }

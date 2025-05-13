@@ -1,4 +1,4 @@
-class CreateQuestionnaireCompletenesses < ActiveRecord::Migration
+class CreateQuestionnaireCompletenesses < ActiveRecord::Migration[5.0]
   def change
     create_table :questionnaire_completenesses do |t|
       t.integer :questionnaire_id

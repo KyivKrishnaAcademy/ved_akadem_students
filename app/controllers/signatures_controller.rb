@@ -1,4 +1,5 @@
 class SignaturesController < HtmlRespondableController
+  before_action :authenticate_person!
   before_action :set_signature, only: %i[edit update destroy]
 
   after_action :verify_authorized

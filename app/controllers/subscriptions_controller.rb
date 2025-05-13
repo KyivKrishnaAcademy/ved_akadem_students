@@ -16,7 +16,7 @@ class SubscriptionsController < HtmlRespondableController
       @person,
       location: root_path,
       notice: t('.notice'),
-      alert: t('.alert_html', edit_path: edit_person_registration_path(@person))
+      alert: t('.alert_html', edit_path: edit_person_path(@person))
     )
   end
 

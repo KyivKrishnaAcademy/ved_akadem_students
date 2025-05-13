@@ -1,6 +1,8 @@
 class PdfExportsController < ApplicationController
   respond_to :pdf
 
+  before_action :authenticate_person!
+
   skip_before_action :set_locale
 
   before_action :set_academic_group, only: %i[group_list attendance_template]

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Ui::ClassroomsController do
   it_behaves_like :ui_controller_index,

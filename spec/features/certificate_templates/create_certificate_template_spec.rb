@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Create Certificate Template' do
   Given(:subject) { page }

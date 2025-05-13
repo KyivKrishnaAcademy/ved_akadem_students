@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'courses/index' do
   Given(:page) { Capybara::Node::Simple.new(response.body) }

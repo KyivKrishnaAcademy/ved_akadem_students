@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe PdfExportsController do
   %i(group_list attendance_template).each do |described_action|

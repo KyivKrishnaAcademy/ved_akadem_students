@@ -1,4 +1,4 @@
-class CreateClassSchedulesWithPeopleMaterializedView < ActiveRecord::Migration
+class CreateClassSchedulesWithPeopleMaterializedView < ActiveRecord::Migration[5.0]
   def up
     down
 

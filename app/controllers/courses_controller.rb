@@ -13,7 +13,8 @@ class CoursesController < HtmlRespondableController
   end
 
   def show
-    @examinations = Examination.where(course_id: params[:id]).order(:title)
+    set_resource
+    @examinations = @course.examinations.order(:title)
     @academic_groups = @course.academic_groups.order(:title)
     @class_schedules_count = @course.class_schedules_count
 
@@ -53,20 +54,20 @@ class CoursesController < HtmlRespondableController
 
     if @course.class_schedules_count.positive?
       errors << t(
-        'courses.destroy.remove_class_schedules_first',
+        '.remove_class_schedules_first',
         class_schedules_count: @course.class_schedules_count
       )
     end
 
     if @course.examination_results_count.positive?
       errors << t(
-        'courses.destroy.remove_examination_results_first',
+        '.remove_examination_results_first',
         examination_results_count: @course.examination_results_count
       )
     end
 
     if errors.any?
-      joined_errors = "#{t('courses.destroy.unable_to_destroy')} #{errors.join(', ')}"
+      joined_errors = "#{t('.unable_to_destroy')} #{errors.join(', ')}"
 
       redirect_back(
         fallback_location: courses_path,

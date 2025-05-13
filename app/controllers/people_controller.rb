@@ -5,6 +5,7 @@ class PeopleController < ApplicationController
   include ClassSchedulesRefreshable
   include CertificatesListable
 
+  before_action :authenticate_person!, only: %i[show edit update destroy show_photo journal]
   before_action :set_person, only: %i[show edit update destroy show_photo journal]
 
   after_action :verify_authorized
@@ -13,23 +14,19 @@ class PeopleController < ApplicationController
 
   layout 'person_tabs', only: %i[show journal]
 
-  def new
-    @person = Person.new
+  def index
+    authorize Person
 
-    authorize @person
+    @search_query = params.dig(:search, :query)
 
-    @person.telephones.build
-  end
-
-  def create
-    @person = Person.new(PersonParams.filter(params).merge(skip_password_validation: true))
-
-    authorize @person
-
-    if @person.save
-      redirect_to direct_to_crop(new_person_path, @person), flash: create_successed(@person)
+    @people = if params[:with_application].present?
+      people_with_application
+    elsif params[:without_application].present?
+      people_without_application
+    elsif @search_query.present?
+      people_list.search(@search_query).page(params[:page])
     else
-      render action: :new
+      people_list.page(params[:page])
     end
   end
 
@@ -52,6 +49,28 @@ class PeopleController < ApplicationController
     end
   end
 
+  def new
+    @person = Person.new
+
+    authorize @person
+
+    @person.telephones.build
+  end
+
+  def edit; end
+
+  def create
+    @person = Person.new(PersonParams.filter(params).merge(skip_password_validation: true))
+
+    authorize @person
+
+    if @person.save
+      redirect_to direct_to_crop(new_person_path, @person), flash: create_successed(@person)
+    else
+      render action: :new
+    end
+  end
+
   def journal
     @versions = GetPersonVersionsService.call(@person).page(params[:page])
 
@@ -61,42 +80,26 @@ class PeopleController < ApplicationController
         .index_by { |p| p.id.to_s }
   end
 
-  def edit; end
-
-  def index
-    authorize Person
-
-    @search_query = params.dig(:search, :query)
-
-    @people = if params[:with_application].present?
-      people_with_application
-    elsif params[:without_application].present?
-      people_without_application
-    elsif @search_query.present?
-      people_list.search(@search_query).page(params[:page])
-    else
-      people_list.page(params[:page])
-    end
-  end
-
-  def destroy
-    if @person.destroy.destroyed?
-      redirect_to people_path, flash: { success: 'Person record deleted!' }
-    else
-      redirect_back fallback_location: root_path, flash: { danger: 'Person deletion failed!' }
-    end
-
-    # TODO: DRY the controller with responders
-  end
-
   def update
     if @person.update(PersonParams.filter(params).merge(skip_password_validation: true))
-      flash[:success] = 'Person was successfully updated.'
+      flash[:success] = I18n.t('people.update_success')
 
       redirect_to direct_to_crop(person_path(@person), @person)
     else
       render action: :edit
     end
+  end
+
+  def destroy
+    if @person.destroy
+      flash[:success] = I18n.t('people.delete_success')
+      redirect_to people_path
+    else
+      flash[:danger] = I18n.t('people.delete_failure')
+      redirect_back fallback_location: root_path
+    end
+
+    # TODO: DRY the controller with responders
   end
 
   def show_photo
@@ -129,9 +132,9 @@ class PeopleController < ApplicationController
   def create_successed(person)
     { success: "#{view_context.link_to(person.complex_name, person_path(person))} added." }
   end
-
+# TODO for security
   def people_list
-    policy_scope(Person).by_complex_name
+    policy_scope(Person).order(Arel.sql("CASE WHEN (diploma_name IS NULL OR diploma_name = '') THEN (surname || name || middle_name) ELSE diploma_name END"))
   end
 
   def people_with_application

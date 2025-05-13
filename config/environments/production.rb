@@ -64,10 +64,10 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'students.veda-kiev.org.ua', port: 80 }
   config.action_mailer.smtp_settings = {
-    port: Rails.application.secrets.mailer_port,
-    address: Rails.application.secrets.mailer_address,
-    password: Rails.application.secrets.mailer_password,
-    user_name: Rails.application.secrets.mailer_user_name,
+    port: ENV['MAILER_PORT'],
+    address: ENV['MAILER_ADDRESS'],
+    password: ENV['MAILER_PASSWORD'],
+    user_name: ENV['MAILER_USERNAME'],
     authentication: :plain,
     enable_starttls_auto: false
   }
@@ -80,7 +80,7 @@ Rails.application.configure do
   config.active_support.deprecation = :notify
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'

@@ -1,4 +1,4 @@
-class ChangePsyhoTestFormatTypeAndPopulateOptions < ActiveRecord::Migration
+class ChangePsyhoTestFormatTypeAndPopulateOptions < ActiveRecord::Migration[5.0]
   def up
     Question.where(format: 'boolean').each do |q|
       q.format          = 'single_select'

@@ -3,6 +3,8 @@ class StudyApplicationsController < ApplicationController
 
   respond_to :js
 
+  before_action :authenticate_person!
+
   after_action :verify_authorized
 
   def create

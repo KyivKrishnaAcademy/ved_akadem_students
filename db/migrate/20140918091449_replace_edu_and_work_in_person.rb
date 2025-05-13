@@ -1,4 +1,4 @@
-class ReplaceEduAndWorkInPerson < ActiveRecord::Migration
+class ReplaceEduAndWorkInPerson < ActiveRecord::Migration[5.0]
   def change
     add_column    :people, :education   , :text
     add_column    :people, :work        , :text

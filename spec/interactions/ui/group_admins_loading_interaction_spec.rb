@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Ui::GroupAdminsLoadingInteraction do
   Given(:interaction) { described_class.new(params: { q: 'vasy' }) }

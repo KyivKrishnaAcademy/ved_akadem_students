@@ -1,6 +1,7 @@
 services:
   postgres:
     image: mpugach/postgres_ua:9.5
+    platform: linux/amd64
     ports:
       - 5432:5432
     volumes:
@@ -11,7 +12,8 @@ services:
       POSTGRES_PASSWORD: postgres
 
   redis:
-    image: redis:3.2.12-alpine
+    image: redis:6.2-alpine
+    platform: linux/amd64
     volumes:
       - redis-data:/data
     ports:
@@ -19,6 +21,7 @@ services:
     command: redis-server --appendonly yes
 
   app:
+    platform: linux/amd64
     build:
       context: "."
       dockerfile: docker/akadem_students/Dockerfile

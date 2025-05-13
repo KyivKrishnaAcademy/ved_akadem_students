@@ -1,7 +1,14 @@
 # This is the configuration used to check the rubocop source code.
 # Check out: https://github.com/bbatsov/rubocop
 
-require: rubocop-rails
+require:
+  - rubocop-capybara
+  - rubocop-rspec_rails
+
+plugins:
+  - rubocop-rspec
+  - rubocop-rails
+  - rubocop-factory_bot
 
 AllCops:
   NewCops: enable
@@ -74,3 +81,6 @@ Naming/FileName:
   Exclude:
     - Capfile
     - Gemfile
+
+RSpec:
+  Enabled: true

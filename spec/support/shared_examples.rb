@@ -499,7 +499,7 @@ shared_examples_for :class_schedules_loadable do
   Given(:schedule_can_edit) { false }
   Given(:schedule_can_delete) { false }
 
-  Given(:path_helper) { Rails.application.routes.url_helpers }
+  Given(:path_helper) { ::Rails.application.routes.url_helpers }
 
   Given(:expected_full_payload) do
     {

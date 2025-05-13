@@ -14,6 +14,7 @@ module ApplicationHelper
   end
 
   def full_title(page_title)
+    page_title = page_title.to_s
     if page_title.empty?
       t(:application_title)
     else

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Webhooks::MailgunController do
   Given(:person) { create :person }

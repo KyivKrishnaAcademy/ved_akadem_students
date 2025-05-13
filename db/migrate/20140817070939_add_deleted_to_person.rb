@@ -1,4 +1,4 @@
-class AddDeletedToPerson < ActiveRecord::Migration
+class AddDeletedToPerson < ActiveRecord::Migration[5.0]
   def up
     add_column :people, :deleted, :boolean, default: false
   end

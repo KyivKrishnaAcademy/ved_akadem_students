@@ -1,0 +1,4 @@
+ru:
+  mailers:
+    verification_expirations:
+      subject: "Верификация студента"

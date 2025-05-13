@@ -1,0 +1,9 @@
+$grid-gutter-width: 30px !default;
+
+.classSchedule {
+  .loading-wrapper {
+    top: unset;
+    left: unset;
+    width: calc(100% - #{$grid-gutter-width})
+  }
+}

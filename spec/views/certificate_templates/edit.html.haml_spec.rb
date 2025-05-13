@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 require_relative './shared/certificate_templates_context'
 
 describe 'certificate_templates/edit' do

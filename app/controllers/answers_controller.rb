@@ -3,6 +3,7 @@ class AnswersController < ApplicationController
 
   before_action :set_questionnaire
 
+  before_action :authenticate_person!
   after_action :verify_authorized, :verify_policy_scoped
 
   def edit
@@ -48,9 +49,9 @@ class AnswersController < ApplicationController
                                          .to_a
                                          .index_by(&:question_id)
 
-    @answers_by_question_id = @questions.map do |q|
+    @answers_by_question_id = @questions.to_h do |q|
       [q.id, persisted_answers_by_question_id[q.id] || Answer.new(question: q, person: current_person)]
-    end.to_h
+    end
   end
 
   def questionnaire_params
@@ -58,7 +59,7 @@ class AnswersController < ApplicationController
       questions_attributes: [:id, { answers_attributes: %i[id person_id data] }]
     )
 
-    result[:questions_attributes].each do |_k, v|
+    result[:questions_attributes].each_value do |v|
       v[:answers_attributes]['0'][:person_id] = current_person.id
     end
 

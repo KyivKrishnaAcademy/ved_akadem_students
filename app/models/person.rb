@@ -1,6 +1,9 @@
 class Person < ApplicationRecord
   include Ilikable
 
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
   class SymbolWrapper
     def self.load(string)
       string.try(:to_sym)
@@ -11,14 +14,20 @@ class Person < ApplicationRecord
     end
   end
 
-  serialize :locale, SymbolWrapper
+  attribute :locale, :string
+  before_save :process_locale
+
+  def process_locale
+    self.locale = SymbolWrapper.dump(locale) if locale.present?
+  end
 
   attr_accessor :skip_password_validation, :photo_upload_height, :photo_upload_width, :crop_x, :crop_y, :crop_w,
                 :crop_h, :privacy_agreement
 
-  devise :database_authenticatable, :registerable, :recoverable
-  include DeviseTokenAuth::Concerns::User
-
+  def password_required?
+    !skip_password_validation && super
+  end
+              
   has_one :student_profile, dependent: :destroy
   has_one :teacher_profile, dependent: :destroy
   has_one :study_application, dependent: :destroy
@@ -50,13 +59,14 @@ class Person < ApplicationRecord
 
   accepts_nested_attributes_for :telephones, allow_destroy: true
 
+  validates :email, presence: true, uniqueness: true
   validates :gender, inclusion: { in: [true, false] }
   validates :middle_name, :name, :surname, :diploma_name, length: { maximum: 50 }
   validates :name, :surname, presence: true
   validates :password, confirmation: true
-  validates :password, length: { in: 6..128, unless: :skip_password_validation }, on: :create
+  validates :password, length: { in: 6..128 }, unless: :skip_password_validation, on: :create
   validates :password, length: { in: 6..128 }, allow_blank: true, on: :update
-  validates :privacy_agreement, acceptance: { accept: 'yes', unless: :skip_password_validation }, on: :create
+  validates :privacy_agreement, acceptance: { accept: 'yes' }, unless: :skip_password_validation, on: :create
   validates :telephones, :birthday, presence: true
 
   validate :check_photo_dimensions
@@ -73,7 +83,7 @@ class Person < ApplicationRecord
   class << self
     def by_complex_name
       order(
-        <<-SQL.squish
+        Arel.sql(<<-SQL.squish)
           CASE
             WHEN (diploma_name IS NULL OR diploma_name = '')
             THEN (surname || name || middle_name)

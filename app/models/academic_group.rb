@@ -14,13 +14,13 @@ class AcademicGroup < ApplicationRecord
   belongs_to :curator, class_name: 'Person', inverse_of: 'curated_groups'
 
   has_and_belongs_to_many :courses
+  has_and_belongs_to_many :programs
 
   has_many :examinations, through: :courses
 
   before_save { |p| p.title = title.mb_chars.upcase.to_s.strip if title.present? }
 
   validates :title, presence: true, uniqueness: true
-  validates :administrator, presence: true
 
   has_paper_trail
 
@@ -32,19 +32,19 @@ class AcademicGroup < ApplicationRecord
   def active_students
     leave_date = if active?
       {
-        query: 'group_participations.leave_date IS ?',
-        value: nil
+        query: 'group_participations.leave_date IS NULL',
+        value: {}
       }
     else
       {
-        query: 'group_participations.leave_date >= ? OR group_participations.leave_date IS NULL',
-        value: graduated_at
+        query: '(group_participations.leave_date >= ? OR group_participations.leave_date IS NULL)',
+        value: { date: graduated_at }
       }
     end
 
     Person.joins(student_profile: [group_participations: [:academic_group]])
       .where(academic_groups: { id: id })
-      .where(leave_date[:query], leave_date[:value])
+      .where(leave_date[:query], *leave_date[:value].values)
       .order(:complex_name)
       .distinct
   end

@@ -24,7 +24,7 @@
                 %li
                   = link_to group.title, group, class: active_class(academic_group_path(group))
 
-    = generate_menu_group(:person, :people, :'fa-users', skip_list: true) do
+    = generate_menu_group(:person, :people, :'fa-users', skip_list: true, skip_new: true) do
       - capture_haml do
         - if current_person.can_act?('person:index')
           %li

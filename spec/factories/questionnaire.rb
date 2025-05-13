@@ -1,5 +1,24 @@
-FactoryGirl.define do
-  psycho_test     = YAML.load_file(Rails.root.join('spec/fixtures/questionnaires/psyho_test_2.yml'))
+def deep_symbolize(obj)
+  case obj
+  when Hash
+    obj.each_with_object({}) do |(k, v), memo|
+      memo[k.respond_to?(:to_sym) ? k.to_sym : k] = deep_symbolize(v)
+    end
+  when Array
+    obj.map { |e| deep_symbolize(e) }
+  else
+    obj
+  end
+end
+
+FactoryBot.define do
+  psycho_test     = deep_symbolize(
+    YAML.safe_load(
+      File.read(Rails.root.join('spec/fixtures/questionnaires/psyho_test_2.yml')),
+      permitted_classes: [Symbol],
+      aliases: true
+    )
+  )
   psycho_options  = {
     ru: psycho_test[:answers][:ru].to_a.map(&:reverse),
     uk: psycho_test[:answers][:uk].to_a.map(&:reverse)
@@ -14,7 +33,7 @@ FactoryGirl.define do
 
     trait :psycho_test do
       kind      { 'psycho_test' }
-      rule      { { keys: psycho_test[:keys], indexes: psycho_test[:indexes] } }
+      rule      { { 'keys' => psycho_test.dig(:keys), 'indexes' => psycho_test.dig(:indexes) } }
 
       questions do
         psycho_test[:questions].first(11).map do |q|

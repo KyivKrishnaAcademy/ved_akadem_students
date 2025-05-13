@@ -1,7 +1,7 @@
 class BaseImageUploader < BaseUploader
   include CarrierWave::MiniMagick
 
-  def extension_white_list
+  def extension_allowlist
     %w[jpg jpeg gif png]
   end
 
@@ -52,6 +52,6 @@ class BaseImageUploader < BaseUploader
   def get_image_size(file)
     path = file.is_a?(String) ? Rails.root.join('tmp/uploads/cache', file) : file.path
 
-    `identify -format "%wx %h" #{path}`.split(/x/).map(&:to_i)
+    `identify -format "%wx %h" #{path}`.split('x').map(&:to_i)
   end
 end

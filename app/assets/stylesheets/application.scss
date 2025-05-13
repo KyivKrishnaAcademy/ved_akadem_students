@@ -1,0 +1,46 @@
+//  * This is a manifest file that'll be compiled into application.css, which will include all the files
+//  * listed below.
+//  *
+//  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+//  * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+//  *
+//  * You're free to add application-wide styles to this file and they'll appear at the top of the
+//  * compiled file, but it's generally better to create a new file per style scope.
+//  *
+//  */
+
+// DO NOT REQUIRE TREE! It will interfere with load order!
+
+// Account for differences between Rails and Webpack Sass code.
+$rails: true;
+
+// Bootstrap 3+ via npm/yarn (using node_modules path)
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+// Customizations - must be imported after Bootstrap base
+@import 'pre-bootstrap';
+@import 'bootstrap-custom';
+
+// Font Awesome
+@import 'font-awesome';
+
+// Project-specific styles
+@import 'mixins';
+@import 'navbars';
+@import 'buttons';
+@import 'custom';
+@import 'vendor-overrides';
+@import 'button_spinner';
+@import 'cert_template_markup';
+@import 'events-table';
+@import 'class-schedules';
+@import 'scrollable-table';
+@import 'text-align';
+@import 'advanced-search-component';
+@import 'link-to-person-with-photo';
+@import 'inline-info';
+@import 'disabled-button-with-popover';
+
+// Override bootstrap with local customizations
+@import 'post-bootstrap';

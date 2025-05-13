@@ -1,5 +1,5 @@
-class TTFUploader < BaseUploader
-  def extension_white_list
+class TtfUploader < BaseUploader
+  def extension_allowlist
     %w[ttf]
   end
 

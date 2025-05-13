@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe ClassSchedulesHelper do
   describe '#class_schedule_title' do

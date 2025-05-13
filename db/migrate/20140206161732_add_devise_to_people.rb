@@ -1,4 +1,4 @@
-class AddDeviseToPeople < ActiveRecord::Migration
+class AddDeviseToPeople < ActiveRecord::Migration[5.0]
   def self.up
     change_table(:people) do |t|
       t.string :username

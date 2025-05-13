@@ -68,9 +68,11 @@ class PersonPolicy < BasePolicy
     person
       .student_profile
       .academic_groups
-      .where('group_participations.leave_date IS NULL OR
-              (academic_groups.graduated_at IS NULL AND group_participations.leave_date IS NULL) OR
-              group_participations.leave_date >= academic_groups.graduated_at')
+      .where(Arel.sql(
+        '(group_participations.leave_date IS NULL OR
+          (academic_groups.graduated_at IS NULL AND group_participations.leave_date IS NULL) OR
+          group_participations.leave_date >= academic_groups.graduated_at)'
+      ))
       .ids
   end
 end

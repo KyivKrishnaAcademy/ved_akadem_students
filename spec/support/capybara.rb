@@ -9,7 +9,8 @@ Capybara.register_driver :poltergeist do |app|
     app,
     debug: false,
     js_errors: false,
-    window_size: [1300, 1000]
+    window_size: [1300, 1000],
+    phantomjs: 'xvfb-phantomjs'
   )
 end
 

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Add academic group:', :js do
   Given(:filled_right) { fill_academic_group_data }

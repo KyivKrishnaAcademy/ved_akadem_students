@@ -1,4 +1,4 @@
-class AddPersonIdToTeacherProfiles < ActiveRecord::Migration
+class AddPersonIdToTeacherProfiles < ActiveRecord::Migration[5.0]
   def up
     add_column :teacher_profiles, :person_id, :integer
   end

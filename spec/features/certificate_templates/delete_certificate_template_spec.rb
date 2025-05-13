@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Delete Certificate Template' do
   Given(:subject) { find('tbody') }

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe GroupTransactionsMailer do
   Given(:student) { create :person }

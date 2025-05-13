@@ -1,4 +1,4 @@
-class RemoveColumnsFromStudentProfiles < ActiveRecord::Migration
+class RemoveColumnsFromStudentProfiles < ActiveRecord::Migration[5.0]
   def change
     remove_column :student_profiles, :questionarie, :boolean
     remove_column :student_profiles, :passport_copy, :boolean

@@ -1,4 +1,4 @@
-class RemoveUploadersFromModelYAMLDumpService
+class RemoveUploadersFromModelYamlDumpService
   ALIAS_REGEXP = /^\s*\w+:\s&(?<alias>\d+)\s(?<value>.+)/.freeze
   ALIAS_VALUE_REGEXP = /\*(\d+)$/.freeze
   UPLOADER_REGEXP = %r{!ruby/object:\w+Uploader}.freeze
@@ -45,15 +45,18 @@ class RemoveUploadersFromModelYAMLDumpService
     end
   end
 
+  Accumulator = Struct.new(:aliases, :attribute_name, :attribute_name_regex, :attribute_padding_size,
+                           :is_value_awaiting, :result, keyword_init: true)
+
   private_class_method def self.init_new_acc
-    OpenStruct.new({
-                     aliases: {},
-                     attribute_name: nil,
-                     attribute_name_regex: nil,
-                     attribute_padding_size: 0,
-                     is_value_awaiting: true,
-                     result: ''
-                   })
+    Accumulator.new(
+      aliases: {},
+      attribute_name: nil,
+      attribute_name_regex: nil,
+      attribute_padding_size: 0,
+      is_value_awaiting: true,
+      result: ''
+    )
   end
 
   private_class_method def self.padding_size(string)
@@ -77,7 +80,7 @@ class RemoveUploadersFromModelYAMLDumpService
 
   private_class_method def self.on_uploader_found(substring, acc, current_padding_size)
     acc.attribute_name = substring.split(':').first.lstrip
-    acc.attribute_name_regex = Regexp.new(/^\s+#{Regexp.quote(acc.attribute_name)}: [\w\-]+\.\w{3,4}$/)
+    acc.attribute_name_regex = /^\s+#{Regexp.quote(acc.attribute_name)}: [\w\-]+\.\w{3,4}$/
     acc.attribute_padding_size = current_padding_size
   end
 end

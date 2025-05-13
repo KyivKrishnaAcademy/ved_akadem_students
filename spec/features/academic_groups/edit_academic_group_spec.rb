@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Edit academic group:' do
   Given(:academic_group) { create :academic_group }
@@ -112,7 +112,7 @@ describe 'Edit academic group:' do
         When { fill_in h[:field], with: h[:value] }
         When { click_save }
 
-        Then { expect(find('body')).to have_content(h[:test_field]) }
+        Then { expect(find('body')).to have_text(h[:test_field]) }
         And  { expect_to_flash_success }
       end
     end

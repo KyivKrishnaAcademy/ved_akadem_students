@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe BaseInteraction do
   Given(:interaction) { BaseInteraction.new(user: :user, params: :params, request: :request) }

@@ -4,6 +4,7 @@
 // CRITICAL that generated/vendor-bundle must be BEFORE bootstrap-sprockets and turbolinks
 // since it is exposing jQuery and jQuery-ujs
 
+//= require rails-ujs
 //= require generated/vendor-bundle
 
 // This is a manifest file that'll be compiled into application.js, which will include all the files
@@ -21,10 +22,11 @@
 
 //= require jquery_nested_form
 
-// bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
 //= require bootstrap-sprockets
 
-//= require jquery-ui/autocomplete
+
+
+//= require jquery-ui/widgets/autocomplete
 //= require select_2_initializers
 //= require moment
 //= require moment/ru
@@ -33,3 +35,4 @@
 //= require stop_double_submit
 //= require change_academic_group
 //= require sidebar
+//= require sentry

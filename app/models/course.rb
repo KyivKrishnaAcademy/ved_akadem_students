@@ -6,6 +6,7 @@ class Course < ApplicationRecord
   has_many :teacher_profiles, through: :teacher_specialities
   has_many :examinations, dependent: :destroy
   has_many :examination_results, through: :examinations
+  has_and_belongs_to_many :programs
 
   has_and_belongs_to_many :academic_groups
 

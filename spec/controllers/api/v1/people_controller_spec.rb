@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Api::V1::PeopleController do
   describe '#index' do

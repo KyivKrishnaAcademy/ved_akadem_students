@@ -1,3 +1,7 @@
 en:
   locale_label: English (ENG)
   application_title: Kyiv Spriritual Academy for Krishna Consciousness Students
+  people:
+    update_success: "Person was successfully updated."
+    delete_success: "Person record deleted!"
+    delete_failure: "Person deletion failed!"

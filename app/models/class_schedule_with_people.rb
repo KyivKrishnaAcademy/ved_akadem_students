@@ -26,6 +26,9 @@ class ClassScheduleWithPeople < ClassSchedule
 
     def refresh
       connection.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY #{table_name}")
+    rescue ActiveRecord::StatementInvalid => e
+      raise unless e.message.include?("cannot refresh materialized view concurrently")
+      connection.execute("REFRESH MATERIALIZED VIEW #{table_name}")
     end
 
     def refresh_later

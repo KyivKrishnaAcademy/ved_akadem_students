@@ -1,4 +1,4 @@
-class CreateClassSchedules < ActiveRecord::Migration
+class CreateClassSchedules < ActiveRecord::Migration[5.0]
   def change
     create_table :class_schedules do |t|
 

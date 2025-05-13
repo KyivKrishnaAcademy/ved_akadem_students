@@ -1,4 +1,6 @@
 class CopyCertificateTemplatesController < HtmlRespondableController
+  before_action :authenticate_person!
+
   def create
     orig_template = CertificateTemplate.find(params[:certificate_template_id])
     new_template = CertificateTemplate.new(orig_template.attributes.slice('title', 'institution_id', 'program_type'))

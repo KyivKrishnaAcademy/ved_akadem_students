@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'csv'
 
 class ImportCertificatesService
@@ -9,22 +10,18 @@ class ImportCertificatesService
   FINAL_SCORE = 5
 
   def self.call(payload)
-    result = []
-
-    ::CSV.new(payload, converters: :all, skip_blanks: true).each do |row|
-      result << process_pipes(row, [
-                                method(:process_row),
-                                method(:load_person),
-                                method(:load_template),
-                                method(:load_issued_date),
-                                method(:load_group),
-                                method(:load_serial),
-                                method(:check_final_score),
-                                method(:persist_certificate)
-                              ])
+    ::CSV.new(payload, converters: :all, skip_blanks: true).map do |row|
+      process_pipes(row, [
+                      method(:process_row),
+                      method(:load_person),
+                      method(:load_template),
+                      method(:load_issued_date),
+                      method(:load_group),
+                      method(:load_serial),
+                      method(:check_final_score),
+                      method(:persist_certificate)
+                    ])
     end
-
-    result
   end
 
   private_class_method def self.process_row(row)

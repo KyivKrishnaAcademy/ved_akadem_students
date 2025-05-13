@@ -9,21 +9,14 @@
 
     = csrf_meta_tags
 
-    - if Rails.env.production?
-      = javascript_include_tag 'sentry-raven', type: 'text/javascript', async: true
-
-      %script{ src: 'https://www.googletagmanager.com/gtag/js?id=UA-108797911-1', async: true, type: 'text/javascript' }
-
-      :javascript
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-108797911-1');
-
     %title
       = full_title(yield(:title))
 
     = stylesheet_link_tag 'application', media: 'all'
+    
+    :javascript
+      window.SENTRY_DSN = "#{ENV['SENTRY_DSN']}";
+    = csrf_meta_tags
     = javascript_include_tag 'application', type: 'text/javascript'
 
     - if content_for?(:js_and_css)
@@ -41,7 +34,7 @@
         .row
           .col-xs-12
             - flash.each do |name, msg|
-              .alert.alert-dismissible.vert-offset-top-1{ class: "alert-#{name}" }
+              .alert{ class: "alert-dismissible alert-#{name} vert-offset-top-1" }
                 = button_tag type: 'button', class: 'close', data: { dismiss: 'alert' } do
                   %span{ aria: { hidden: true } }
                     &times;

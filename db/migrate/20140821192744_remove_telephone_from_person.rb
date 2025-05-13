@@ -1,4 +1,4 @@
-class RemoveTelephoneFromPerson < ActiveRecord::Migration
+class RemoveTelephoneFromPerson < ActiveRecord::Migration[5.0]
   def up
     remove_column :people, :telephone
   end

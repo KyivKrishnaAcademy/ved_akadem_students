@@ -4,23 +4,24 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 
-  devise_for(
-    :people,
-    path: '',
-    controllers: { registrations: 'users/registrations' },
-    path_names: { sign_up: 'register' }
-  )
-
-  authenticate :person, ->(p) { p.can_act?('sidekiq:admin') } do
-    mount Sidekiq::Web => '/sidekiq'
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV['SIDEKIQ_USERNAME'] && password == ENV['SIDEKIQ_PASSWORD']
   end
 
-  namespace :api, defaults: { format: 'json' } do
-    namespace :v1 do
-      mount_devise_token_auth_for 'Person', at: 'auth', skip: %i[passwords registrations]
+  mount Sidekiq::Web => '/sidekiq'
 
-      resources :people, only: :index
-    end
+  devise_for :people, controllers: {
+    sessions: 'people/sessions',
+    registrations: 'people/registrations'
+  }
+
+  devise_scope :person do
+    get    'auth/login',  to: 'people/sessions#new',     as: :new_person_session
+    post   'auth/login',  to: 'people/sessions#create',  as: :person_session
+    delete 'auth/logout', to: 'people/sessions#destroy', as: :destroy_person_session
+    post   'people',          to: 'people/registrations#create',  as: :create_person_registration
+    patch  'people/:id',      to: 'people/registrations#update',  as: :update_person_registration
+    delete 'people',          to: 'people/registrations#destroy', as: :destroy_person_registration
   end
 
   resources :academic_groups do
@@ -41,11 +42,10 @@ Rails.application.routes.draw do
     resources :certificates, only: %i[index]
   end
 
-  resources :people do
-    get '/journal', action: :journal
-
-    resources :notes, only: %i[new create edit update destroy]
-  end
+resources :people, only: %i[index show new edit create update destroy] do
+  get '/journal', action: :journal
+  resources :notes, only: %i[new create edit update destroy]
+end
 
   resource :subscriptions, only: %i[edit update]
 

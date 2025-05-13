@@ -4,8 +4,6 @@ class GroupParticipation < ApplicationRecord
 
   before_save :set_join_date
 
-  validates :academic_group, :student_profile, presence: true
-
   has_paper_trail
 
   def leave!

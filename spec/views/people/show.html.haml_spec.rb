@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'people/show.html.haml' do
   Given(:study_application_policy) { StudyApplicationPolicy.new(user, new_study_application) }

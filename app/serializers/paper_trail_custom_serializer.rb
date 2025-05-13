@@ -8,7 +8,7 @@ module PaperTrailCustomSerializer
   end
 
   def dump(object)
-    ::RemoveUploadersFromModelYAMLDumpService.call(::PaperTrail::Serializers::YAML.dump(object))
+    ::RemoveUploadersFromModelYamlDumpService.call(::PaperTrail::Serializers::YAML.dump(object))
   end
 
   def where_object_condition(arel_field, field, value)

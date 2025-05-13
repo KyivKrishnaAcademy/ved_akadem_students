@@ -1,4 +1,4 @@
-class ChangeDateTypesOfGroupParticipations < ActiveRecord::Migration
+class ChangeDateTypesOfGroupParticipations < ActiveRecord::Migration[5.0]
   def up
     change_column :group_participations, :join_date, :datetime
     change_column :group_participations, :leave_date, :datetime

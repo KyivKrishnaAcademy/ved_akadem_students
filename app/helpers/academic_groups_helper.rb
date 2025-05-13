@@ -17,9 +17,9 @@ module AcademicGroupsHelper
       forth
       present
       unknown
-    ].map do |key|
-      [key, I18n.t("group_attendance.attendance_submitter.#{key}")]
-    end.to_h
+    ].index_with do |key|
+      I18n.t("group_attendance.attendance_submitter.#{key}")
+    end
   end
 
   def examination_reults_localization
@@ -29,9 +29,9 @@ module AcademicGroupsHelper
       save
       delete
       passing
-    ].map do |key|
-      [key, I18n.t("group_performance.editor.#{key}")]
-    end.to_h
+    ].index_with do |key|
+      I18n.t("group_performance.editor.#{key}")
+    end
   end
 
   def date_value(date)

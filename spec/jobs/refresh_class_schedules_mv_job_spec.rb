@@ -1,10 +1,10 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe RefreshClassSchedulesMvJob do
   include ActiveJob::TestHelper
 
   describe 'perform' do
-    Given(:check_flag) { Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) } }
+    Given(:check_flag) { Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) != 0 } }
 
     Given { Sidekiq.redis { |c| c.set(:class_schedule_with_people_mv_refresh, 1) } }
 

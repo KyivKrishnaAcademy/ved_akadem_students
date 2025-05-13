@@ -5,37 +5,36 @@ def not_blank?(obj)
   !obj.nil? && !obj.empty?
 end
 
-if not_blank?(ENV['CODECLIMATE_REPO_TOKEN'])
-  require 'codeclimate-test-reporter'
+require 'simplecov'
+SimpleCov.start 'rails' unless SimpleCov.running
 
-  CodeClimate::TestReporter.start
-elsif not_blank?(ENV['COVERAGE'])
-  require 'simplecov'
-
-  SimpleCov.start 'rails'
-end
-
+require 'rails'
 require 'spec_helper'
-require File.expand_path('../../config/environment', __FILE__)
+require_relative '../config/environment'
 require 'rspec/rails'
-require 'rack_session_access/capybara'
+require 'rack_session_access/capybara'  
 
-ActiveRecord::Migration.maintain_test_schema!
+Rails.application.reload_routes!
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 puts "\nDB configuration: #{Rails.configuration.database_configuration[Rails.env].pretty_inspect}"
 
 RSpec.configure do |config|
+  config.before(:suite) do
+    Rails.application.load_tasks
+    Rake::Task['db:migrate'].invoke
+  end
+  
   config.filter_rails_from_backtrace!
   config.infer_spec_type_from_file_location!
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include HelperMethods
 
   Recaptcha.configure do |cfg|
-    cfg.public_key  = '11111'
-    cfg.private_key = '22222'
+    cfg.site_key  = ENV['RECAPTCHA_SITE_KEY']
+    cfg.secret_key = ENV['RECAPTCHA_SECRET_KEY']
   end
 
   config.mock_with :rspec do |mocks|

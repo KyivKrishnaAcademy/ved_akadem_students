@@ -1,23 +1,28 @@
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
 
   protect_from_forgery with: :exception, unless: :api?
 
   before_action :set_paper_trail_whodunnit, :set_raven_context
-  before_action :set_locale, :authenticate_person!, unless: :devise_token_auth?
+  before_action :set_locale, :authenticate_person!
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  helper_method :current_person # Making the method available in views and controllers
+
   private
+
+  def current_person
+    @current_person ||= warden.authenticate(scope: :person)
+  end
 
   def set_locale
     I18n.locale = current_person.present? ? current_person.locale : session[:locale] || :uk
   end
 
   def user_not_authorized
-    flash[:danger] = t('not_authorized')
-
-    redirect_to((request.referer || root_path), status: :see_other)
+    flash[:alert] = t('not_authorized')
+    redirect_to(request.referer || root_path)
   end
 
   def pundit_user
@@ -33,15 +38,11 @@ class ApplicationController < ActionController::Base
   end
 
   def api?
-    devise_token_auth? || self.class < Api::V1::BaseController
-  end
-
-  def devise_token_auth?
-    self.class < DeviseTokenAuth::ApplicationController
+    self.class < Api::V1::BaseController
   end
 
   def set_raven_context
-    Raven.user_context(id: user_for_paper_trail)
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
+    Sentry.set_user(id: user_for_paper_trail)
+    Sentry.set_extras(params: params.to_unsafe_h, url: request.url)
   end
 end

@@ -1,4 +1,4 @@
-class LocalizePrograms < ActiveRecord::Migration
+class LocalizePrograms < ActiveRecord::Migration[5.0]
   def change
     add_column    :programs, :title_uk      , :string
     add_column    :programs, :title_ru      , :string

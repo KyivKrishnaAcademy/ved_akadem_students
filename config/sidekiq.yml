@@ -6,13 +6,16 @@ default: &default
     - default
     - low
     - mailers
-  :schedule:
-    SchedulesNotifierJob:
-      cron: '0 30 12 * * * Europe/Kiev'
-      queue: low
-    ProgramApplicationsReminderJob:
-      cron: '0 30 12 * * 2 Europe/Kiev'
-      queue: low
+  :scheduler:
+    :schedule:
+      SchedulesNotifierJob:
+        cron: '0 30 12 * * * Europe/Kiev'
+        queue: low
+      ProgramApplicationsReminderJob:
+        cron: '0 30 12 * * 2 Europe/Kiev'
+        queue: low
+  :redis:
+    url: redis://redis:6379/0
 
 development:
   <<: *default

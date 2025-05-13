@@ -24,7 +24,7 @@ class BaseUploader < CarrierWave::Uploader::Base
                                                   [version_name, 'default.png'].compact.join('_'))
   end
 
-  def extension_white_list
+  def extension_allowlist
     raise 'Override me'
   end
 

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 require 'lib/carrierwave/test/matchers'
 
 describe PhotoUploader do

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Show ClassSchedule on AcademicGroup page', :js do
   Given(:group) { create :academic_group }

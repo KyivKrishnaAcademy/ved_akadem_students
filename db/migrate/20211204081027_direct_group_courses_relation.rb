@@ -11,16 +11,21 @@ class DirectGroupCoursesRelation < ActiveRecord::Migration[5.0]
       INNER JOIN courses_programs ON courses_programs.program_id=academic_groups_programs.program_id;
     SQL
 
-    values = ActiveRecord::Base.connection.execute(sql).map { |r| "(#{r.values.join(', ')})" }.join(", ")
-    insert_sql = "INSERT INTO academic_groups_courses (academic_group_id, course_id) VALUES #{values};"
+    result = ActiveRecord::Base.connection.execute(sql)
 
-    ActiveRecord::Base.connection.execute(insert_sql)
+    if result.any?
+      values = result.map { |r| "(#{r.values.join(', ')})" }.join(", ")
+      insert_sql = "INSERT INTO academic_groups_courses (academic_group_id, course_id) VALUES #{values};"
+      ActiveRecord::Base.connection.execute(insert_sql)
+    end
 
     drop_join_table :academic_groups, :programs
     drop_join_table :courses, :programs
   end
 
   def down
+    create_join_table :academic_groups, :programs
+    create_join_table :courses, :programs
     drop_join_table :academic_groups, :courses
   end
 end

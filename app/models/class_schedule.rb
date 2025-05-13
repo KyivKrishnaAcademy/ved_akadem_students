@@ -10,7 +10,9 @@ class ClassSchedule < ApplicationRecord
 
   has_many :attendances, dependent: :destroy
 
-  validates :course, :classroom, :start_time, :finish_time, presence: true
+  validates :start_time, :finish_time, presence: true
+  validates :classroom, presence: true
+  validates :course, presence: true
 
   has_paper_trail
 

@@ -1,4 +1,4 @@
-class AddColumnsToStudentProfiles < ActiveRecord::Migration
+class AddColumnsToStudentProfiles < ActiveRecord::Migration[5.0]
   def change
     add_column :student_profiles, :questionarie, :boolean
     add_column :student_profiles, :passport_copy, :boolean

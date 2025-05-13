@@ -12,7 +12,7 @@
                 %li{ class: group.active_for_person?(@person) ? 'disabled' : '' }
                   = link_to group.title, '#', data: { group: group.id, confirmation: "Are you sure you want to add the person to group #{group.title}?" }, id: 'move-to-group'
       - if policy(@person).edit?
-        = link_to t('links.edit'), edit_person_path(@person), class: 'btn btn-xs btn-primary'
+        = link_to t('links.edit'), url_for(controller: 'people', action: 'edit', id: @person), class: 'btn btn-xs btn-primary'
       - if policy(@person).destroy?
         = link_to t('links.delete'), person_path(@person), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger'
 

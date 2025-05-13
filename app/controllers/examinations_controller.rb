@@ -1,4 +1,5 @@
 class ExaminationsController < HtmlRespondableController
+  before_action :authenticate_person!
   before_action :set_examination, only: %i[edit update destroy]
 
   after_action :verify_authorized
@@ -37,7 +38,7 @@ class ExaminationsController < HtmlRespondableController
         fallback_location: location,
         flash: {
           danger: t(
-            'examinations.destroy.remove_examination_results_first',
+            '.remove_examination_results_first',
             examination_results_count: @examination.examination_results_count
           )
         }

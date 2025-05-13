@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe ClassScheduleWithPeople do
   When { init_schedules_mv }

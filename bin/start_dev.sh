@@ -1,32 +1,27 @@
 #!/usr/bin/env bash
-
+export PATH="/usr/local/bundle/bin:$PATH"
 env | sort
 
-bundle install -j5 --retry 10 --without production
-bundle clean --force
-
-npm install
-npm prune
-
 cd client
-npm install
-npm prune
+echo "Skipping npm install in client/ (handled during image build)"
 cd ..
 
 echo "Waiting for DB to get up"
 
 while true; do
   nc -z postgres 5432 && echo "DB is up." && break
+  sleep 2
 done
 
-bundle exec rails db:create
+bin/rails db:create
 
-if bundle exec rails db:migrate:status; then
-  bundle exec rails db:migrate
-  bundle exec rails db:schema:dump
+if bin/rails db:version; then
+  bin/rails db:migrate
+  bin/rails db:seed
+  bin/rails db:schema:dump
 else
-  bundle exec rails db:structure:load
-  bundle exec rails db:seed
+  bin/rails db:structure:load
+  bin/rails db:seed
 fi
 
 pidfile=${PROJECT_HOME}/tmp/pids/server.pid

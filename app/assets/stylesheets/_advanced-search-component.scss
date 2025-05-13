@@ -1,0 +1,33 @@
+.AdvancedSearch {
+  .ComparableSearch,
+  .GeneralSearch,
+  .TextSearch {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+
+    .input-group {
+      flex-grow: 1;
+    }
+  }
+
+  .ComparableSearch {
+    .input-group-btn-in-the-middle {
+      button {
+        border-radius: 0;
+      }
+    }
+
+    .form-control {
+      border-left: 0;
+    }
+  }
+
+  .SubmitGroup > .btn-group {
+    display: flex;
+
+    .submit {
+      flex-grow: 1;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe LocalesController do
   Given { request.env['HTTP_REFERER'] = 'where_i_came_from' }
@@ -13,11 +13,11 @@ describe LocalesController do
   end
 
   describe 'toggles locale' do
-    Then { expect(user.reload.locale).to eq(:uk) }
+    Then { expect(user.reload.locale.to_sym).to eq(:uk) }
 
     describe 'toggles locale again' do
       When { get :toggle }
-      Then { expect(user.reload.locale).to eq(:ru) }
+      Then { expect(user.reload.locale.to_sym).to eq(:ru) }
     end
   end
 

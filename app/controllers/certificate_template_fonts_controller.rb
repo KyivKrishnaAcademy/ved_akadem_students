@@ -1,4 +1,5 @@
 class CertificateTemplateFontsController < HtmlRespondableController
+  before_action :authenticate_person!
   before_action :set_certificate_template_font, only: %i[edit update destroy]
 
   after_action :verify_authorized

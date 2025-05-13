@@ -2,6 +2,7 @@ class AcademicGroupsController < HtmlRespondableController
   include AdvancedSearchable
   include ClassSchedulesRefreshable
 
+  before_action :authenticate_person!
   before_action :set_resource, only: %i[show edit update destroy graduate]
 
   after_action :verify_authorized
@@ -157,12 +158,12 @@ class AcademicGroupsController < HtmlRespondableController
     current_groups =
       base
         .where(academic_groups: { graduated_at: nil })
-        .where(leave_date: nil)
+        .where('group_participations.leave_date IS NULL')
 
     finished_groups =
       base
         .where.not(academic_groups: { graduated_at: nil })
-        .where('leave_date >= academic_groups.graduated_at')
+        .where('leave_date >= academic_groups.graduated_at OR leave_date IS NULL')
 
     current_groups
       .or(finished_groups)

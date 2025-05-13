@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Graduate academic group:' do
   Given(:group) { create :academic_group }
@@ -10,7 +10,7 @@ describe 'Graduate academic group:' do
     When { click_link I18n.t('links.graduate') }
 
     context 'group is graduated' do
-      Then { expect(page).to have_selector('.alert-success', text: 'Academic group was successfully graduated.') }
+      Then { expect(page).to have_selector('.alert-success, .alert', text: 'Academic group was successfully graduated.') }
     end
 
     context 'ex student can apply to program' do

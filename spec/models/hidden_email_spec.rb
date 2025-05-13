@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe HiddenEmail do
   describe 'collect_hidden_emails' do

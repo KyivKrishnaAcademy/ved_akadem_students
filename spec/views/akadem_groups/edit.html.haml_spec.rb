@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'academic_groups/edit' do
   let(:date) { '2013-09-28'.to_date }

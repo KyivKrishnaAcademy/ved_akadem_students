@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'Add program:', :js do
   Given(:user) { create(:person)}

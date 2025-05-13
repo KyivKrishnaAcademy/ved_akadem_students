@@ -6,6 +6,8 @@ Rails.application.config.assets.version = '1.1'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w[
+  application.css
+
   crops.js
   Jcrop.min.css
   Jcrop.min.js
@@ -34,17 +36,18 @@ Rails.application.config.assets.precompile += %w[
   select2/dist/css/select2.min.css
   select2-bootstrap-theme/dist/select2-bootstrap.min.css
 
-  range-slider
+  range-slider.css
+  bootstrap-3-vert-offset-shim.css
 
-  sentry-raven.js
 ]
 
 # Add client/assets/ folders to asset pipeline's search path.
 # If you do not want to move existing images and fonts from your Rails app
 # you could also consider creating symlinks there that point to the original
 # rails directories. In that case, you would not add these paths here.
+Rails.application.config.assets.paths = Rails.application.config.assets.paths.dup
 Rails.application.config.assets.paths << Rails.root.join('client/assets/stylesheets')
 Rails.application.config.assets.paths << Rails.root.join('client/assets/images')
 Rails.application.config.assets.paths << Rails.root.join('client/assets/fonts')
-
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
+Rails.application.config.assets.precompile -= %w[sentry-raven.js]

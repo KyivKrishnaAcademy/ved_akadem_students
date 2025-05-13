@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe ClassSchedule do
   describe 'associations' do
@@ -13,6 +13,15 @@ describe ClassSchedule do
   Given(:group) { create :academic_group }
 
   describe 'validations' do
+    subject do
+      build(
+        :class_schedule,
+        start_time: Time.zone.now,
+        finish_time: 1.hour.from_now,
+        course: build(:course),
+        classroom: build(:classroom)
+      )
+    end
     describe 'generic' do
       Then { is_expected.to validate_presence_of(:course) }
       Then { is_expected.to validate_presence_of(:classroom) }

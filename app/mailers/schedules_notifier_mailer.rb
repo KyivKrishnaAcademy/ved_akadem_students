@@ -1,5 +1,5 @@
 class SchedulesNotifierMailer < ApplicationMailer
-  add_template_helper(ApplicationHelper)
+  # add_template_helper(ApplicationHelper)
 
   def next_day(person_id)
     schedules =

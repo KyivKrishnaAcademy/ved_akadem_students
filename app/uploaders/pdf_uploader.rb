@@ -1,5 +1,5 @@
-class PDFUploader < BaseUploader
-  def extension_white_list
+class PdfUploader < BaseUploader
+  def extension_allowlist
     %w[pdf]
   end
 

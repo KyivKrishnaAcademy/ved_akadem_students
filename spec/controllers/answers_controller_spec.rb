@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe AnswersController do
   Given(:person) { create :person, :admin, questionnaires: [questionnaire] }

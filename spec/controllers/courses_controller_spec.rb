@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe CoursesController do
   Given(:params) { { course: build_stubbed(:course).attributes } }

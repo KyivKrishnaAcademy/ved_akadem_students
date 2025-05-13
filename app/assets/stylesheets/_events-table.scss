@@ -1,0 +1,9 @@
+.create-event {
+  @extend .success !optional;
+}
+.update-event {
+  @extend .warning !optional;
+}
+.destroy-event {
+  @extend .danger !optional;
+}

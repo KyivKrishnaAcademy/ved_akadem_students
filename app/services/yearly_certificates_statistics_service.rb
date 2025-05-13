@@ -22,12 +22,12 @@ class YearlyCertificatesStatisticsService
   end
 
   def calculate_certificate_counts_by_years
-    @certificate_counts_by_years = @academic_years.each_with_object({}) do |year, acc|
-      acc[year] = Certificate
-                    .where('issued_date > :start AND issued_date <= :finish', { start: year[:start],
-                                                                                finish: year[:finish] })
-                    .group(:certificate_template_id)
-                    .count
+    @certificate_counts_by_years = @academic_years.index_with do |year|
+      Certificate
+        .where('issued_date > :start AND issued_date <= :finish', { start: year[:start],
+                                                                    finish: year[:finish] })
+        .group(:certificate_template_id)
+        .count
     end
   end
 
@@ -42,8 +42,8 @@ class YearlyCertificatesStatisticsService
   end
 
   def gather_institution_data(institution_id)
-    CertificateTemplate.program_types.keys.each_with_object({}) do |program_type, acc|
-      acc[program_type] = gather_years_data(institution_id, program_type)
+    CertificateTemplate.program_types.keys.index_with do |program_type|
+      gather_years_data(institution_id, program_type)
     end
   end
 

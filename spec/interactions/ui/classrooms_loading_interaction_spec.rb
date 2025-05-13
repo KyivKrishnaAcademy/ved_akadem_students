@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe Ui::ClassroomsLoadingInteraction do
   Given(:interaction) { described_class.new(params: { q: 'ардв' }) }

@@ -1,4 +1,6 @@
 class CropsController < ApplicationController
+  before_action :authenticate_person!
+
   after_action :verify_authorized
   before_action :set_person
 

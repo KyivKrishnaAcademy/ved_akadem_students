@@ -7,7 +7,7 @@ namespace :academic do
     puts "\nFixing #{affected_versions.count} versions\n"
 
     affected_versions.each do |version|
-      version.object = ::RemoveUploadersFromModelYAMLDumpService.call(version.object)
+      version.object = ::RemoveUploadersFromModelYamlDumpService.call(version.object)
 
       version.save
 

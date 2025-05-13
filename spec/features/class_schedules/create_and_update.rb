@@ -1,4 +1,4 @@
-require 'rails_helper'
+# require 'rails_helper'
 
 describe 'ClassSchedule create and update:', :js do
   Given(:person) { create :person }

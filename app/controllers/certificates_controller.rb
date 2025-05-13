@@ -1,4 +1,6 @@
 class CertificatesController < HtmlRespondableController
+  before_action :authenticate_person!
+
   after_action :verify_authorized
 
   def index

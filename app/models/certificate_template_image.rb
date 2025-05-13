@@ -4,7 +4,6 @@ class CertificateTemplateImage < ApplicationRecord
 
   validates :angle,
             :scale,
-            :signature,
             :x,
             :y,
             presence: true

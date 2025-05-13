@@ -1,4 +1,4 @@
-class ChangePhotoToStringInPeople < ActiveRecord::Migration
+class ChangePhotoToStringInPeople < ActiveRecord::Migration[5.0]
   def up
     change_table :people do |t|
       t.change :photo, :string
