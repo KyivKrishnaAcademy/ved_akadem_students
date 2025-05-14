@@ -87,7 +87,7 @@ module HelperMethods
   end
 
   def certificate_activities
-    ['certificate:show']
+    %w(certificate:show certificate:destroy)
   end
 
   def certificate_template_activities
