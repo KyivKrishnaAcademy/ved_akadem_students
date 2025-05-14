@@ -4,13 +4,32 @@
       Перевод на русский осущесвляется при помощи Google Translate
 
   .col-xs-12.col-sm-8.col-sm-offset-2
+    %h4 2025.05.14
+    %ul.changelog
+      %li.addition
+        = link_to_commit('2002543f3d8972826c8239119225e0ef4362940f')
+        = link_to_commit('dadeb5c67aa0195a597a399e5ad330b4de828b49')
+        Интерфейс для удаления сертификатов
+      %li.addition
+        = link_to_commit('d19238f918a8bcb43f19946761ea7885267c2347')
+        Интерфейс конфигурирования валидации среднего балла сертификата
+      %li.addition
+        = link_to_commit('7e7254b89a04af2931f880f31c3f37b7f61b04fb')
+        Улучшение локального разработочного окружения
+      %li.modification
+        = link_to_commit('4a801ec03657b5cecc1c0bc88a8a6f624f3fc950')
+        Обновлен и исправлен экзекьютор CI
+
     %h4 2024.12.25
     %ul.changelog
       %li.modification
-        = link_to_commit('a40248285e9c99fd266c13e8b09af64742c33880')
+        = link_to_commit('06cb7f41b6adc9381413842871fadd06418f6206')
+        Обновлены версии библиотек
+      %li.modification
+        = link_to_commit('140054731c82e431c5237bf03701f151452c4377')
         Исправлены скрипты развертки сервера
       %li.deletion
-        = link_to_commit('cb5c868e8c19c422833293d39ade73ccd444391b')
+        = link_to_commit('46e896ed29c9ac300be8ade4ea3c46a7851fcdb2')
         Удаленно устаревшие конфигурации
 
     %h4 2024.12.07
