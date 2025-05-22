@@ -6,7 +6,6 @@ import GroupPerformance from '../containers/group-performance';
 
 export default (props) => {
   const store = createStore(props);
-console.log(props);
 
   const reactComponent = (
     <Provider store={store}>
