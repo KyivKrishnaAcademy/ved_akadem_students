@@ -24,7 +24,7 @@ describe 'Edit person:' do
       When { click_button 'Зберегти Person' }
 
       describe 'brithdate is shown' do
-        Then { expect(find('body')).to have_content('Birthday: 1985-05-27') }
+        Then { expect(find('body').text.squish).to include('Birthday: 1985-05-27') }
       end
 
       it_behaves_like :alert_success_updated, 'Person'

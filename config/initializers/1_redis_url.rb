@@ -1,1 +1,1 @@
-REDIS_URL = "redis://#{ENV.fetch('REDIS_URL', 'localhost')}:6379/1".freeze
+REDIS_URL = ENV.fetch('REDIS_URL') { 'redis://localhost:6379/1' }.freeze

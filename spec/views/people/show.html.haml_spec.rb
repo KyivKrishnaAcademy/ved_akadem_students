@@ -26,10 +26,10 @@ describe 'people/show.html.haml' do
 
   describe 'general' do
     Then { expect(rendered).to have_selector('h1', text: complex_name(person)) }
-    And  { expect(rendered).to have_text("Telephone 1: #{person.telephones.first.phone}") }
-    And  { expect(rendered).to have_text("Email: #{person.email}") }
-    And  { expect(rendered).to have_text(/Gender: (Male|Female)/) }
-    And  { expect(rendered).to have_text("Birthday: #{person.birthday}") }
+    And  { expect(rendered.gsub(/\s+/, '')).to have_text("Telephone1:#{person.telephones.first.phone}") }
+    And  { expect(rendered.gsub(/\s+/, '')).to have_text("Email:#{person.email}") }
+    And  { expect(rendered.gsub(/\s+/, '')).to have_text(/Gender:(Male|Female)/) }
+    And  { expect(rendered.gsub(/\s+/, '')).to have_text("Birthday:#{person.birthday}") }
   end
 
   describe 'study application' do

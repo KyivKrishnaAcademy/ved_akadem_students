@@ -1,4 +1,5 @@
 class ClassScheduleWithPeople < ClassSchedule
+  REDIS_LOCK_KEY = 'class_schedule_with_people_mv_refresh'.freeze
   self.table_name = 'class_schedules_with_people'
 
   belongs_to :teacher, class_name: 'Person'
@@ -29,11 +30,14 @@ class ClassScheduleWithPeople < ClassSchedule
     end
 
     def refresh_later
-      return if Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) }
-
-      Sidekiq.redis { |c| c.set(:class_schedule_with_people_mv_refresh, 1) }
-
-      RefreshClassSchedulesMvJob.set(wait: 5.minutes).perform_later
+      Sidekiq.redis do |conn|
+        # Redis.exists returns an integer (1 or 0), which is truthy in Ruby,
+        # so convert to integer and check explicitly
+        unless conn.exists(REDIS_LOCK_KEY).to_i.positive?
+          conn.set(REDIS_LOCK_KEY, 1)
+          RefreshClassSchedulesMvJob.set(wait: 5.minutes).perform_later
+        end
+      end
     end
 
     def teacher_schedule(person_id)

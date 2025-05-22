@@ -2,9 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '5.0.7'
 
-gem 'redis-session-store'
+gem 'redis-rails'
 
-gem 'haml'
+gem 'haml', '< 6.0'
 gem 'pg'
 gem 'responders'
 
@@ -20,7 +20,7 @@ gem 'nested_form'
 gem 'simple_form'
 
 gem 'carrierwave', '0.10.0'
-gem 'mini_magick'
+gem 'mini_magick', '< 5.0'
 
 gem 'axlsx'
 gem 'prawn-rails'
@@ -35,6 +35,8 @@ gem 'sidekiq-scheduler'
 
 gem 'paper_trail'
 
+gem 'paper_trail-association_tracking'
+
 gem 'tzinfo-data'
 
 gem 'react_on_rails', '~> 3.0'
@@ -43,26 +45,30 @@ gem 'sentry-raven'
 
 gem 'uglifier'
 
+gem 'loofah', '~>2.19.1'
+
+gem 'tilt', '2.0.10'
+
 group :assets_builder, :development, :test do
   gem 'autoprefixer-rails'
   gem 'bootstrap-sass'
   gem 'coffee-rails'
   gem 'font-awesome-sass'
-  gem 'jquery-ui-rails'
+  gem 'jquery-ui-rails', '< 7.0'
   gem 'momentjs-rails'
   gem 'sass-rails'
   gem 'sprockets-svg'
 end
 
 group :production, :development do
-  gem 'puma'
+  gem 'puma', '~> 5.6.5'
 end
 
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'capistrano', require: false
-  gem 'haml-rails'
+  gem 'haml-rails', '~> 1.0'
   gem 'letter_opener_web', '~> 1.3'
   gem 'meta_request'
 end
@@ -83,7 +89,7 @@ end
 group :test do
   gem 'capybara'
   gem 'codeclimate-test-reporter', require: false
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.8'
   gem 'fuubar'
   gem 'poltergeist'
   gem 'rack_session_access'

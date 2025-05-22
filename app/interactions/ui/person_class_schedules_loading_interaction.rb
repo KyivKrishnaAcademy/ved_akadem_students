@@ -11,5 +11,9 @@ module Ui
         params[:direction]
       )
     end
+
+    def pundit_user
+      user
+    end
   end
 end

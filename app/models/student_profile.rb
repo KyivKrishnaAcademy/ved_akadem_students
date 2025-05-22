@@ -9,11 +9,19 @@ class StudentProfile < ApplicationRecord
 
   has_paper_trail
 
+  after_create :assign_course_view_role
+
   def active?
     group_participations.where(leave_date: nil).limit(1).present?
   end
 
   def move_to_group(academic_group)
     academic_groups << academic_group
+  end
+
+  private
+
+  def assign_course_view_role
+    person.add_role_activity('course:show') if person.respond_to?(:add_role_activity)
   end
 end

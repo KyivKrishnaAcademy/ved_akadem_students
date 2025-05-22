@@ -25,11 +25,14 @@ describe AnswersController do
         }
       end
 
-      Then { expect(AnswersProcessorService).not_to receive(:new) }
-      And  { expect_any_instance_of(AnswersProcessorService).not_to receive(:process!) }
-      And  { patch :update, params: { id: questionnaire.id, questionnaire: attributes } }
-      And  { expect(response).not_to redirect_to(root_path) }
-      And  { expect(response).to render_template(:edit) }
+      before do
+        expect(AnswersProcessorService).not_to receive(:new)
+        expect_any_instance_of(AnswersProcessorService).not_to receive(:process!)
+        patch :update, params: { id: questionnaire.id, questionnaire: attributes }
+      end
+
+      Then  { expect(response).not_to redirect_to(root_path) }
+      Then  { expect(response).to render_template(:edit) }
     end
 
     describe 'right' do

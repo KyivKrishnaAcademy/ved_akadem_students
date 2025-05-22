@@ -112,7 +112,7 @@ describe 'Edit academic group:' do
         When { fill_in h[:field], with: h[:value] }
         When { click_save }
 
-        Then { expect(find('body')).to have_content(h[:test_field]) }
+        Then { expect(find('body').text.squish).to include(h[:test_field]) }
         And  { expect_to_flash_success }
       end
     end
@@ -124,7 +124,7 @@ describe 'Edit academic group:' do
       When { click_save }
 
       Then do
-        expect(find('body')).to have_content("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{date}")
+        expect(find('body').text.squish).to include("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{date}")
       end
 
       And { expect_to_flash_success }

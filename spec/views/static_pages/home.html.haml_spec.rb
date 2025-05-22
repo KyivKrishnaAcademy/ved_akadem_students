@@ -13,7 +13,9 @@ describe 'static_pages/home' do
   Given { assign(:certificates, []) }
   Given { assign(:new_study_application, new_study_application) }
   Given { allow(view).to receive(:current_person).and_return(user) }
-  Given { allow(view).to receive(:policy).with(ClassSchedule).and_return(Pundit.policy(user, ClassSchedule)) }
+  before do 
+    allow(view).to receive(:policy).with(ClassSchedule).and_return(ClassSchedulePolicy.new(user, ClassSchedule))
+  end
 
   When do
     assign(:person_academic_groups, [

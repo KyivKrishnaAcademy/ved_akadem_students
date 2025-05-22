@@ -24,7 +24,7 @@
 // bootstrap-sprockets depends on generated/vendor-bundle for jQuery.
 //= require bootstrap-sprockets
 
-//= require jquery-ui/autocomplete
+//= require jquery-ui/widgets/autocomplete
 //= require select_2_initializers
 //= require moment
 //= require moment/ru

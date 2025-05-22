@@ -37,14 +37,15 @@ describe 'academic_groups/show' do
     Then { expect(rendered).to have_selector('h1', text: ag_name) }
 
     And do
-      expect(rendered)
-        .to have_text("#{I18n.t('activerecord.attributes.academic_group.establ_date')}: #{I18n.l(group.establ_date)}")
+      page = Capybara::Node::Simple.new(rendered)
+      expect(page).to have_text(I18n.t('activerecord.attributes.academic_group.establ_date'))
+      expect(page).to have_text(I18n.l(group.establ_date))
     end
 
     And do
-      expect(rendered).to(
-        have_text("#{I18n.t('activerecord.attributes.academic_group.group_description')}: #{group.group_description}")
-      )
+      page = Capybara::Node::Simple.new(rendered)
+      expect(page).to have_text(I18n.t('activerecord.attributes.academic_group.group_description'))
+      expect(page).to have_text(group.group_description)
     end
 
     And { expect(rendered).not_to have_link(I18n.t('links.edit')) }

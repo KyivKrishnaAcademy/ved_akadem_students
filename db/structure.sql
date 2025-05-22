@@ -3,10 +3,11 @@
 --
 
 -- Dumped from database version 9.5.25
--- Dumped by pg_dump version 9.5.25
+-- Dumped by pg_dump version 16.4 (Debian 16.4-1.pgdg100+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
@@ -16,22 +17,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+-- Name: public; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+-- *not* creating schema, since initdb creates it
 
 
 SET default_tablespace = '';
-
-SET default_with_oids = false;
 
 --
 -- Name: academic_group_schedules; Type: TABLE; Schema: public; Owner: -
@@ -1221,238 +1213,238 @@ ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: academic_group_schedules id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.academic_group_schedules ALTER COLUMN id SET DEFAULT nextval('public.academic_group_schedules_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: academic_groups id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.academic_groups ALTER COLUMN id SET DEFAULT nextval('public.academic_groups_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: answers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.answers ALTER COLUMN id SET DEFAULT nextval('public.answers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: attendances id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.attendances ALTER COLUMN id SET DEFAULT nextval('public.attendances_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: certificate_template_entries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_entries ALTER COLUMN id SET DEFAULT nextval('public.certificate_template_entries_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: certificate_template_fonts id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_fonts ALTER COLUMN id SET DEFAULT nextval('public.certificate_template_fonts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: certificate_template_images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_images ALTER COLUMN id SET DEFAULT nextval('public.certificate_template_images_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: certificate_templates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_templates ALTER COLUMN id SET DEFAULT nextval('public.certificate_templates_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: certificates id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificates ALTER COLUMN id SET DEFAULT nextval('public.certificates_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: class_schedules id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.class_schedules ALTER COLUMN id SET DEFAULT nextval('public.class_schedules_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: classrooms id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.classrooms ALTER COLUMN id SET DEFAULT nextval('public.classrooms_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: courses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.courses ALTER COLUMN id SET DEFAULT nextval('public.courses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: examination_results id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.examination_results ALTER COLUMN id SET DEFAULT nextval('public.examination_results_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: examinations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.examinations ALTER COLUMN id SET DEFAULT nextval('public.examinations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: group_participations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.group_participations ALTER COLUMN id SET DEFAULT nextval('public.group_participations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: institutions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.institutions ALTER COLUMN id SET DEFAULT nextval('public.institutions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: notes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notes ALTER COLUMN id SET DEFAULT nextval('public.notes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: people id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.people ALTER COLUMN id SET DEFAULT nextval('public.people_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: people_roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.people_roles ALTER COLUMN id SET DEFAULT nextval('public.people_roles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: programs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.programs ALTER COLUMN id SET DEFAULT nextval('public.programs_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: programs_questionnaires id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.programs_questionnaires ALTER COLUMN id SET DEFAULT nextval('public.programs_questionnaires_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: questionnaire_completenesses id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.questionnaire_completenesses ALTER COLUMN id SET DEFAULT nextval('public.questionnaire_completenesses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: questionnaires id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.questionnaires ALTER COLUMN id SET DEFAULT nextval('public.questionnaires_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: questions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.questions ALTER COLUMN id SET DEFAULT nextval('public.questions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: signatures id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.signatures ALTER COLUMN id SET DEFAULT nextval('public.signatures_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: student_profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.student_profiles ALTER COLUMN id SET DEFAULT nextval('public.student_profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: study_applications id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.study_applications ALTER COLUMN id SET DEFAULT nextval('public.study_applications_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: teacher_profiles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_profiles ALTER COLUMN id SET DEFAULT nextval('public.teacher_profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: teacher_specialities id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_specialities ALTER COLUMN id SET DEFAULT nextval('public.teacher_specialities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: telephones id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.telephones ALTER COLUMN id SET DEFAULT nextval('public.telephones_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: unsubscribes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.unsubscribes ALTER COLUMN id SET DEFAULT nextval('public.unsubscribes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
 
 
 --
--- Name: academic_group_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: academic_group_schedules academic_group_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.academic_group_schedules
@@ -1460,7 +1452,7 @@ ALTER TABLE ONLY public.academic_group_schedules
 
 
 --
--- Name: academic_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: academic_groups academic_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.academic_groups
@@ -1468,7 +1460,7 @@ ALTER TABLE ONLY public.academic_groups
 
 
 --
--- Name: answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: answers answers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.answers
@@ -1476,7 +1468,7 @@ ALTER TABLE ONLY public.answers
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ar_internal_metadata
@@ -1484,7 +1476,7 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
--- Name: attendances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: attendances attendances_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.attendances
@@ -1492,7 +1484,7 @@ ALTER TABLE ONLY public.attendances
 
 
 --
--- Name: certificate_template_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_template_entries certificate_template_entries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_entries
@@ -1500,7 +1492,7 @@ ALTER TABLE ONLY public.certificate_template_entries
 
 
 --
--- Name: certificate_template_fonts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_template_fonts certificate_template_fonts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_fonts
@@ -1508,7 +1500,7 @@ ALTER TABLE ONLY public.certificate_template_fonts
 
 
 --
--- Name: certificate_template_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_template_images certificate_template_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_images
@@ -1516,7 +1508,7 @@ ALTER TABLE ONLY public.certificate_template_images
 
 
 --
--- Name: certificate_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_templates certificate_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_templates
@@ -1524,7 +1516,7 @@ ALTER TABLE ONLY public.certificate_templates
 
 
 --
--- Name: certificates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: certificates certificates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificates
@@ -1532,7 +1524,7 @@ ALTER TABLE ONLY public.certificates
 
 
 --
--- Name: class_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: class_schedules class_schedules_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.class_schedules
@@ -1540,7 +1532,7 @@ ALTER TABLE ONLY public.class_schedules
 
 
 --
--- Name: classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: classrooms classrooms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.classrooms
@@ -1548,7 +1540,7 @@ ALTER TABLE ONLY public.classrooms
 
 
 --
--- Name: courses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: courses courses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.courses
@@ -1556,7 +1548,7 @@ ALTER TABLE ONLY public.courses
 
 
 --
--- Name: examination_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: examination_results examination_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.examination_results
@@ -1564,7 +1556,7 @@ ALTER TABLE ONLY public.examination_results
 
 
 --
--- Name: examinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: examinations examinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.examinations
@@ -1572,7 +1564,7 @@ ALTER TABLE ONLY public.examinations
 
 
 --
--- Name: group_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: group_participations group_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.group_participations
@@ -1580,7 +1572,7 @@ ALTER TABLE ONLY public.group_participations
 
 
 --
--- Name: institutions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: institutions institutions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.institutions
@@ -1588,7 +1580,7 @@ ALTER TABLE ONLY public.institutions
 
 
 --
--- Name: notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.notes
@@ -1596,7 +1588,7 @@ ALTER TABLE ONLY public.notes
 
 
 --
--- Name: people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: people people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.people
@@ -1604,7 +1596,7 @@ ALTER TABLE ONLY public.people
 
 
 --
--- Name: people_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: people_roles people_roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.people_roles
@@ -1612,7 +1604,7 @@ ALTER TABLE ONLY public.people_roles
 
 
 --
--- Name: programs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: programs programs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.programs
@@ -1620,7 +1612,7 @@ ALTER TABLE ONLY public.programs
 
 
 --
--- Name: programs_questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: programs_questionnaires programs_questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.programs_questionnaires
@@ -1628,7 +1620,7 @@ ALTER TABLE ONLY public.programs_questionnaires
 
 
 --
--- Name: questionnaire_completenesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: questionnaire_completenesses questionnaire_completenesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.questionnaire_completenesses
@@ -1636,7 +1628,7 @@ ALTER TABLE ONLY public.questionnaire_completenesses
 
 
 --
--- Name: questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: questionnaires questionnaires_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.questionnaires
@@ -1644,7 +1636,7 @@ ALTER TABLE ONLY public.questionnaires
 
 
 --
--- Name: questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: questions questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.questions
@@ -1652,7 +1644,7 @@ ALTER TABLE ONLY public.questions
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.roles
@@ -1660,7 +1652,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- Name: signatures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: signatures signatures_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.signatures
@@ -1668,7 +1660,7 @@ ALTER TABLE ONLY public.signatures
 
 
 --
--- Name: student_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: student_profiles student_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.student_profiles
@@ -1676,7 +1668,7 @@ ALTER TABLE ONLY public.student_profiles
 
 
 --
--- Name: study_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: study_applications study_applications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.study_applications
@@ -1684,7 +1676,7 @@ ALTER TABLE ONLY public.study_applications
 
 
 --
--- Name: teacher_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: teacher_profiles teacher_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_profiles
@@ -1692,7 +1684,7 @@ ALTER TABLE ONLY public.teacher_profiles
 
 
 --
--- Name: teacher_specialities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: teacher_specialities teacher_specialities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.teacher_specialities
@@ -1700,7 +1692,7 @@ ALTER TABLE ONLY public.teacher_specialities
 
 
 --
--- Name: telephones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: telephones telephones_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.telephones
@@ -1708,7 +1700,7 @@ ALTER TABLE ONLY public.telephones
 
 
 --
--- Name: unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: unsubscribes unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.unsubscribes
@@ -1716,7 +1708,7 @@ ALTER TABLE ONLY public.unsubscribes
 
 
 --
--- Name: versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.versions
@@ -1934,7 +1926,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON public.schema_migrations USING b
 
 
 --
--- Name: fk_rails_0cd77a9a00; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_template_images fk_rails_0cd77a9a00; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_images
@@ -1942,7 +1934,7 @@ ALTER TABLE ONLY public.certificate_template_images
 
 
 --
--- Name: fk_rails_301a89d734; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: certificates fk_rails_301a89d734; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificates
@@ -1950,7 +1942,7 @@ ALTER TABLE ONLY public.certificates
 
 
 --
--- Name: fk_rails_45ed5e20c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: certificates fk_rails_45ed5e20c4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificates
@@ -1958,7 +1950,7 @@ ALTER TABLE ONLY public.certificates
 
 
 --
--- Name: fk_rails_4c75de44a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: examinations fk_rails_4c75de44a7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.examinations
@@ -1966,7 +1958,7 @@ ALTER TABLE ONLY public.examinations
 
 
 --
--- Name: fk_rails_63838bf553; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: examination_results fk_rails_63838bf553; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.examination_results
@@ -1974,7 +1966,7 @@ ALTER TABLE ONLY public.examination_results
 
 
 --
--- Name: fk_rails_672a123b82; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: certificates fk_rails_672a123b82; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificates
@@ -1982,7 +1974,7 @@ ALTER TABLE ONLY public.certificates
 
 
 --
--- Name: fk_rails_786b08cf9b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: examination_results fk_rails_786b08cf9b; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.examination_results
@@ -1990,7 +1982,7 @@ ALTER TABLE ONLY public.examination_results
 
 
 --
--- Name: fk_rails_a476c2c1a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_template_images fk_rails_a476c2c1a6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_images
@@ -1998,7 +1990,7 @@ ALTER TABLE ONLY public.certificate_template_images
 
 
 --
--- Name: fk_rails_ba00c048b6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_template_entries fk_rails_ba00c048b6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_entries
@@ -2006,7 +1998,7 @@ ALTER TABLE ONLY public.certificate_template_entries
 
 
 --
--- Name: fk_rails_eb310ca5a3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: certificate_template_entries fk_rails_eb310ca5a3; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.certificate_template_entries
@@ -2014,7 +2006,7 @@ ALTER TABLE ONLY public.certificate_template_entries
 
 
 --
--- Name: fk_rails_fb18d345ca; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: unsubscribes fk_rails_fb18d345ca; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.unsubscribes
@@ -2149,6 +2141,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20231225144737'),
 ('20231231091716'),
 ('20241126112155'),
-('20250228124304');
+('20250228124304'),
+('20250521101550');
 
 

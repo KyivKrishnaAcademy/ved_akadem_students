@@ -198,7 +198,7 @@ shared_examples :valid_fill_in do |h, model_human|
       click_button "Зберегти #{model_human}"
     end
 
-    Then { expect(find('body')).to have_content(h[:test_field]) }
+    Then { expect(find('body').text.squish).to include(h[:test_field]) }
 
     it_behaves_like :alert_success_updated, model_human
   end
@@ -214,7 +214,7 @@ shared_examples :valid_select do |model_name, field_name, value, content|
     click_button "Зберегти #{underscore_humanize(model_name)}"
   end
 
-  Then { expect(find('body')).to have_content(content) }
+  Then { expect(find('body').text.squish).to include(content) }
   it_behaves_like :alert_success_updated, underscore_humanize(model_name)
 end
 

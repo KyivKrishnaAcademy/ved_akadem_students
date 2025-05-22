@@ -56,6 +56,9 @@ module ClassSchedulesLoadable
   end
 
   def policy(model)
-    Pundit.policy(user, model)
+    policy = Pundit::PolicyFinder.new(model).policy
+    raise Pundit::NotDefinedError, "unable to find policy for #{model}" unless policy
+
+    policy.new(user, model)
   end
 end
