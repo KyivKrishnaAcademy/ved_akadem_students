@@ -8,26 +8,37 @@ ENV PROJECT_HOME=${APP_HOME}/students_crm
 
 RUN echo "install: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
 RUN echo "update: --no-rdoc --no-ri --no-document --suggestions" >> ~/.gemrc
-RUN gem update --system 3.3.26
-RUN gem install bundler:1.17.3
+RUN gem update --system 3.2.3
+RUN gem install bundler:2.3.26
 RUN bundle config git.allow_insecure true
 RUN mkdir -p $PROJECT_HOME
 
 RUN apt-get update \
  && apt-get install -y \
+    make \
+    gcc \
+    pkg-config \
+    libxml2 \
+    libxslt1.1 \
+    openssl \
+    libssl1.1 \
+    ca-certificates \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    zlib1g-dev \
     curl \
     gnupg \
     imagemagick \
     lsb-release \
     netcat \
     locales \
- && echo "deb https://apt-archive.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" \
-    > /etc/apt/sources.list.d/pgdg.list \
- && curl -L https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+ && curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor > /usr/share/keyrings/postgresql.gpg \
+ && echo "deb [signed-by=/usr/share/keyrings/postgresql.gpg] http://apt-archive.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
  && apt-get update \
  && apt-get install -y \
     libpq-dev \
-    postgresql-client-9.5 \
+    postgresql-client \
  && apt-get remove --purge -y \
     curl \
     gnupg \
@@ -76,6 +87,10 @@ RUN apt-get update \
     git \
     wget \
     libmagickwand-dev \
+    openssl \
+    libssl1.1 \
+    libssl-dev \
+ && sed -i 's/^openssl_conf/#openssl_conf/' /etc/ssl/openssl.cnf \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # ______________________________________________________________________________________________________________________
@@ -93,7 +108,19 @@ RUN apt-get install -y \
     git \
     libmagickwand-dev
 RUN git clone -b ${GIT_BRANCH} ${GIT_REPO} .
-RUN bundle install -j5 --retry 10 --frozen --no-cache --without development test
+RUN apt-get install -y \
+  libxml2 \
+  libxml2-dev \
+  libxslt1-dev \
+  autoconf \
+  automake \
+  libtool \
+  m4
+RUN bundle config set build.nokogiri \
+    --use-system-libraries \
+    --with-xml2-config=/usr/bin/xml2-config \
+    --with-xslt-config=/usr/bin/xslt-config \
+    && bundle install -j5 --retry 10 --frozen --no-cache --without development test
 RUN npm install
 RUN cd client && npm install && cd ..
 
@@ -109,7 +136,7 @@ FROM base_with_node
 
 ENV RAILS_ENV=production
 
-COPY --from=production_builder $PROJECT_HOME $PROJECT_HOME
+COPY --from=production_builder $PROJECT_HOME/ $PROJECT_HOME/
 
 RUN apt-get update \
  && apt-get install -y \

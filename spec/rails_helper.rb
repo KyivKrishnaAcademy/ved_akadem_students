@@ -34,11 +34,15 @@ RSpec.configure do |config|
   config.include HelperMethods
 
   Recaptcha.configure do |cfg|
-    cfg.public_key  = '11111'
-    cfg.private_key = '22222'
+    cfg.site_key  = '11111'
+    cfg.secret_key = '22222'
   end
 
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = false
+  end
+
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/uploads/test"])
   end
 end

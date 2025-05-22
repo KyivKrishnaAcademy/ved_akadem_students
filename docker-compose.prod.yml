@@ -46,7 +46,7 @@ services:
       - postgres
     environment:
       RAILS_ENV: production
-      REDIS_URL: redis
+      REDIS_URL: redis://redis:6379/0
       RAILS_LOG_TO_STDOUT: 1
 
   sidekiq:
@@ -63,7 +63,7 @@ services:
       - postgres
     environment:
       RAILS_ENV: production
-      REDIS_URL: redis
+      REDIS_URL: redis://redis:6379/0
       RAILS_LOG_TO_STDOUT: 1
 
   nginx:

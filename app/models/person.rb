@@ -197,6 +197,10 @@ class Person < ApplicationRecord
     "#{name} #{middle_name}"
   end
 
+  def role_activity?(activity)
+    role_activities.include?(activity)
+  end
+
   private
 
   def count_pending_docs
