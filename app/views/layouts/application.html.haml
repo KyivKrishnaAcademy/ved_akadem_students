@@ -37,6 +37,19 @@
     = render 'layouts/sidebar'
 
     .container-fluid.main-bar
+      - if Rails.application.secrets.farewell
+        .row
+          .col-xs-12.col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
+            .alert.alert-warning.vert-offset-top-1.text-center
+              Студентській портал мігрує на нову платформу, цей сайт
+              %b
+                буде вимкнено у грудні 2025
+              %br
+              Включено режим "тільки для читання" - немає можливості створювати щось нове або редагувати
+              %br
+              Будь ласка переходьте до нового порталу
+              = link_to "courses.krishna.ua", "https://courses.krishna.ua"
+
       - if flash.any?
         .row
           .col-xs-12

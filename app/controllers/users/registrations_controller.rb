@@ -11,18 +11,24 @@ module Users
     ].freeze
 
     def new
+      return if farewell_redirect
+
       super do |resource|
         resource.telephones.build
       end
     end
 
     def create
+      return if farewell_redirect
+
       super do |resource|
         NotifyVerificationExpiredJob.perform_later(resource.id) if resource.persisted?
       end
     end
 
     def update
+      return if farewell_redirect
+
       self.resource = resource_get
       prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
@@ -84,6 +90,15 @@ module Users
 
     def password_provided?
       params[:person][:password].present? || params[:person][:password_confirmation].present?
+    end
+
+    def farewell_redirect
+      return unless Rails.application.secrets.farewell
+
+      redirect_back fallback_location: root_path,
+                    flash: { danger: 'Реєструйтеся на новому порталі будь ласка' }
+
+      true
     end
   end
 end
