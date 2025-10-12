@@ -9,7 +9,7 @@ describe RefreshClassSchedulesMvJob do
     Given { Sidekiq.redis { |c| c.set(:class_schedule_with_people_mv_refresh, 1) } }
 
     describe 'ensure flag exists before perform' do
-      Then { expect(check_flag).to be(true) }
+      Then { expect(check_flag).to eq(1) }
     end
 
     describe 'do perform' do
@@ -20,7 +20,7 @@ describe RefreshClassSchedulesMvJob do
 
         When  { perform_now }
 
-        Then  { expect(check_flag).to be(false) }
+        Then  { expect(check_flag).to eq(0) }
       end
 
       describe 'calls refresh' do

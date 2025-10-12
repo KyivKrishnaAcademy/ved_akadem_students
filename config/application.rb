@@ -28,7 +28,9 @@ module VedicAcademyStudents
       g.factory_girl(true)
     end
 
-    config.autoload_paths += %w[helpers interactions].map { |type| Rails.root.join('app', type, 'concerns') }
+    config.autoload_paths = config.autoload_paths.dup + %w[helpers interactions].map do |type|
+                                                          Rails.root.join('app', type, 'concerns')
+                                                        end
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
     config.responders.flash_keys = %i[success alert]

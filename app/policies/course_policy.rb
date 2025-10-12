@@ -9,4 +9,8 @@ class CoursePolicy < BasePolicy
       ]
     )
   end
+
+  def show?
+    user.role_activity?('course:show')
+  end
 end

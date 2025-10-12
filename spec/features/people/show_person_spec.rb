@@ -36,7 +36,10 @@ describe 'Show person:' do
       When { click_button 'Add to group' }
       When { find('#move-to-group', text: academic_group_2.title).click }
 
-      Then { expect(find('table', text: 'Group Join date Actions')).to have_css('tr', text: academic_group_2.title) }
+      Then do 
+        expect(page).to have_css('table', text: 'Group Join date Actions', normalize_ws: true)
+        expect(find('table', text: 'Group Join date Actions', normalize_ws: true)).to have_css('tr', text: academic_group_2.title)
+      end
 
       And do
         expect(find('#change-academic-group'))

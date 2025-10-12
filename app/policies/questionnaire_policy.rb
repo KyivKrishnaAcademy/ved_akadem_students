@@ -1,7 +1,7 @@
 class QuestionnairePolicy < BasePolicy
   class Scope < Scope
     def resolve
-      if Pundit.policy(user, Questionnaire).update_all?
+      if user.role_activity?('questionnaire:update_all')
         scope.all
       else
         scope.joins(:questionnaire_completenesses).where(questionnaire_completenesses: { person_id: user.id }).distinct

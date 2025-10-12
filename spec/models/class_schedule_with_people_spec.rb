@@ -51,13 +51,18 @@ describe ClassScheduleWithPeople do
 
       describe 'do perform' do
         def lock_status
-          Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) }
+          Sidekiq.redis { |c| c.exists(:class_schedule_with_people_mv_refresh) }.to_i
         end
 
-        Then { expect(lock_status).to be(false) }
-        And  { expect(RefreshClassSchedulesMvJob).to receive_message_chain(:set, :perform_later) }
-        And  { ClassScheduleWithPeople.refresh_later || true }
-        And  { expect(lock_status).to be(true) }
+        Given { Sidekiq.redis { |c| c.del(:class_schedule_with_people_mv_refresh) } }
+
+        Then do
+          expect(lock_status).to eq(0)
+
+          ClassScheduleWithPeople.refresh_later
+
+          expect(lock_status).to eq(1)
+        end
       end
     end
 
